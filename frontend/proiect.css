@@ -1,0 +1,51 @@
+
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  position: relative;
+  overflow-y: hidden;
+  padding-top: 80px;
+}
+
+header, footer {
+  background-color: #E0E090;
+}
+
+footer {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+
+.content {
+    padding: 60px 60px;
+
+}
+
+
+
+.copyright-tag {
+  padding: 10px 0 0 0;
+
+}
+
+.fa.fa-facebook, .fa.fa-linkedin-square, .fa.fa-google-plus, .fa.fa-twitter, .fa.fa-youtube {
+  color:#CAD400;
+  font-size:20px;
+  padding:10px;
+  margin-bottom:0px;
+  float: none;
+  text-align: center;
+
+}
+
+.fa.fa-facebook:hover, .fa.fa-linkedin-square:hover, .fa.fa-google-plus:hover, .fa.fa-twitter:hover, .fa.fa-youtube:hover {
+  color:#004E9E;
+}
+
+
+
+
