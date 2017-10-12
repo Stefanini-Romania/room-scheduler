@@ -9,10 +9,10 @@
     Target Database Engine Type : Standalone SQL Server
 */
 
+USE [RoomPlannerDev]
+GO
 
-
-
-/****** Object:  Table [dbo].[Event]    Script Date: 10/11/2017 11:35:01 AM ******/
+/****** Object:  Table [dbo].[Event]    Script Date: 12-Oct-17 11:41:46 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -31,6 +31,7 @@ CREATE TABLE [dbo].[Event](
 	[HostID] [int] NOT NULL,
 	[AttendeeID] [int] NOT NULL,
 	[EventStatus] [int] NOT NULL,
+	[DateCreated] [datetime] NOT NULL,
  CONSTRAINT [PK_Event] PRIMARY KEY CLUSTERED 
 (
 	[EventID] ASC
