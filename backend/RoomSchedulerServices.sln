@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomSchedulerServices", "RoomSchedulerServices\RoomSchedulerServices.csproj", "{6C2A8963-C250-4F8D-A5DD-01CFF1500F3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomSchedulerServices", "RoomSchedulerServices\RoomSchedulerServices.csproj", "{6C2A8963-C250-4F8D-A5DD-01CFF1500F3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSEntity", "RSEntity\RSEntity.csproj", "{9EC70320-0F65-4D5D-B71B-755BEF0C3DCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6C2A8963-C250-4F8D-A5DD-01CFF1500F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C2A8963-C250-4F8D-A5DD-01CFF1500F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C2A8963-C250-4F8D-A5DD-01CFF1500F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EC70320-0F65-4D5D-B71B-755BEF0C3DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EC70320-0F65-4D5D-B71B-755BEF0C3DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EC70320-0F65-4D5D-B71B-755BEF0C3DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EC70320-0F65-4D5D-B71B-755BEF0C3DCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RSEntity
 
 namespace RoomSchedulerServices.Controllers
 {
@@ -27,6 +28,8 @@ namespace RoomSchedulerServices.Controllers
         [HttpPost]
         public void Post([FromBody]string value)
         {
+
+
         }
 
         // PUT api/values/5
