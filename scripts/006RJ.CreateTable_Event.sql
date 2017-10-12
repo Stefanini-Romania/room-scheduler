@@ -8,10 +8,6 @@
     Target Database Engine Edition : Microsoft SQL Server Enterprise Edition
     Target Database Engine Type : Standalone SQL Server
 */
-
-USE [RoomPlannerDev]
-GO
-
 /****** Object:  Table [dbo].[Event]    Script Date: 12-Oct-17 11:41:46 AM ******/
 SET ANSI_NULLS ON
 GO
