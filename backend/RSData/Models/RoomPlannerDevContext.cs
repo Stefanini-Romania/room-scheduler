@@ -6,6 +6,9 @@ namespace RSData.Models
 {
     public partial class RoomPlannerDevContext : DbContext
     {
+        public RoomPlannerDevContext(DbContextOptions<RoomPlannerDevContext> options)
+    : base(options) {}
+
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<Penalty> Penalty { get; set; }
@@ -15,14 +18,14 @@ namespace RSData.Models
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+       /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(@"Server=BUSWGVMINDEV3\MSSQLSERVER12;Database=RoomPlannerDev;User Id=roomplanner;Password=roomplanner123");
             }
-        }
+        } */
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
