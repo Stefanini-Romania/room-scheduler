@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RSRepository;
 using RSData.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RSService.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
