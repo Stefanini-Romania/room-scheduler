@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace RoomScheduler.Models
+namespace RSData.Models
 {
     public partial class RoomPlannerDevContext : DbContext
     {
