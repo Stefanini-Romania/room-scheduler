@@ -11,9 +11,9 @@ namespace RSService.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        private IRepository<User> _userRepository;
+        private IUserRepository _userRepository;
 
-        public ValuesController(IRepository<User> userRepository)
+        public ValuesController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -28,7 +28,7 @@ namespace RSService.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
-            var results = _userRepository.GetAll();
+            var results = _userRepository.GetUsers();
             if (results == null) return NotFound();
 
             return Ok(results);
