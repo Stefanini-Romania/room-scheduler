@@ -8,7 +8,7 @@
     Target Database Engine Edition : Microsoft SQL Server Enterprise Edition
     Target Database Engine Type : Standalone SQL Server
 */
-/****** Object:  Table [dbo].[UserRole]    Script Date: 11-Oct-17 10:55:47 AM ******/
+/****** Object:  Table [dbo].[UserRole]    Script Date: 16-Oct-17 12:55:51 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -20,10 +20,10 @@ BEGIN
 CREATE TABLE [dbo].[UserRole](
 	[UserID] [int] NOT NULL,
 	[RoleID] [int] NOT NULL,
+	[UserRoleID] [int] IDENTITY(1,1) NOT NULL,
  CONSTRAINT [PK_UserRole] PRIMARY KEY CLUSTERED 
 (
-	[UserID] ASC,
-	[RoleID] ASC
+	[UserRoleID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
