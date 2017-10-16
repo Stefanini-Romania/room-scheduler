@@ -3,14 +3,13 @@ using System.Collections.Generic;
 
 namespace RSData.Models
 {
-    public partial class Event
+    public partial class Event : BaseEntity
     {
         public Event()
         {
             Penalty = new HashSet<Penalty>();
         }
 
-        public int EventId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string EventType { get; set; }

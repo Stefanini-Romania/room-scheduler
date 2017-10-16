@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RSData.Models
 {
-    public partial class Room
+    public partial class Room : BaseEntity
     {
         public Room()
         {
@@ -11,7 +11,7 @@ namespace RSData.Models
             TimeSlot = new HashSet<TimeSlot>();
         }
 
-        public int RoomId { get; set; }
+       // public int RoomId { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
 

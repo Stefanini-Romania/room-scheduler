@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace RSData.Models
 {
-    public partial class TimeSlot
+    public partial class TimeSlot :  BaseEntity
     {
-        public int TimeSlotId { get; set; }
+        //public int TimeSlotId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int Status { get; set; }

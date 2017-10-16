@@ -28,7 +28,7 @@ namespace RSData.Models
         {
             modelBuilder.Entity<Department>(entity =>
             {
-                entity.Property(e => e.DepartmentId).HasColumnName("DepartmentID");
+                entity.Property(e => e.Id).HasColumnName("DepartmentID");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -37,7 +37,7 @@ namespace RSData.Models
 
             modelBuilder.Entity<Event>(entity =>
             {
-                entity.Property(e => e.EventId).HasColumnName("EventID");
+                entity.Property(e => e.Id).HasColumnName("EventID");
 
                 entity.Property(e => e.AttendeeId).HasColumnName("AttendeeID");
 
@@ -80,7 +80,7 @@ namespace RSData.Models
 
             modelBuilder.Entity<Penalty>(entity =>
             {
-                entity.Property(e => e.PenaltyId).HasColumnName("PenaltyID");
+                entity.Property(e => e.Id).HasColumnName("PenaltyID");
 
                 entity.Property(e => e.AttendeeId).HasColumnName("AttendeeID");
 
@@ -103,7 +103,7 @@ namespace RSData.Models
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.Property(e => e.RoleId).HasColumnName("RoleID");
+                entity.Property(e => e.Id).HasColumnName("RoleID");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -112,7 +112,7 @@ namespace RSData.Models
 
             modelBuilder.Entity<Room>(entity =>
             {
-                entity.Property(e => e.RoomId).HasColumnName("RoomID");
+                entity.Property(e => e.Id).HasColumnName("RoomID");
 
                 entity.Property(e => e.Location).HasMaxLength(150);
 
@@ -121,7 +121,7 @@ namespace RSData.Models
 
             modelBuilder.Entity<TimeSlot>(entity =>
             {
-                entity.Property(e => e.TimeSlotId).HasColumnName("TimeSlotID");
+                entity.Property(e => e.Id).HasColumnName("TimeSlotID");
 
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
 
@@ -146,7 +146,7 @@ namespace RSData.Models
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.Id).HasColumnName("UserID");
 
                 entity.Property(e => e.DepartmentId).HasColumnName("DepartmentID");
 
@@ -171,7 +171,8 @@ namespace RSData.Models
 
             modelBuilder.Entity<UserRole>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.RoleId });
+                //entity.HasKey(e => new { e.UserId, e.RoleId });
+                entity.Property(e => e.Id).HasColumnName("UserRoleID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RSData.Models
 {
-    public partial class UserRole
+    public partial class UserRole : BaseEntity
     {
         public int UserId { get; set; }
         public int RoleId { get; set; }
