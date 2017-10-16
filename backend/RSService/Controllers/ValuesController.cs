@@ -3,18 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RSRepository;
+using RSData.Models;
 
 namespace RSService.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private IRepository<User> _userRepository;
+
+        public ValuesController(IRepository<User> userRepository)
         {
-            return new string[] { "value1", "value2" };
+            _userRepository = userRepository;
         }
+
+        // GET api/values
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
+
+        [HttpGet]
+        public IActionResult GetUsers()
+        {
+            var results = _userRepository.GetAll();
+            if (results == null) return NotFound();
+
+            return Ok(results);
+        }
+
+
+
+
+
+
+
+
 
         // GET api/values/5
         [HttpGet("{id}")]
@@ -40,5 +66,9 @@ namespace RSService.Controllers
         public void Delete(int id)
         {
         }
+
+
+
+
     }
 }

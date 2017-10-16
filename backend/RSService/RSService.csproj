@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RSData\RSData.csproj" />
+    <ProjectReference Include="..\RSRepository\RSRepository.csproj" />
   </ItemGroup>
 
 </Project>

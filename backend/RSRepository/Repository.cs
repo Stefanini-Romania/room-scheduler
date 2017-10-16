@@ -8,10 +8,16 @@ using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace RSRepository
 {
-    class Repository<T> : IRepository<T> where T : BaseEntity
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly DbContext context;
+        private RoomPlannerDevContext context;
         private DbSet<T> entities;
+
+        public Repository(RoomPlannerDevContext context)
+        {
+            this.context = context;
+            entities = context.Set<T>();
+        }
 
         public void Delete(T entity)
         {

@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using RSData.Models;
 
-namespace RSData.Models
+namespace RSRepository
 {
     public partial class RoomPlannerDevContext : DbContext
     {

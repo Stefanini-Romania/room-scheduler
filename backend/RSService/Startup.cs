@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using RSData.Models;
+using RSRepository;
 
 namespace RSService
 {
@@ -27,6 +28,8 @@ namespace RSService
         {
             services.AddMvc();
             var connection = @"Server=BUSWGVMINDEV3\MSSQLSERVER12;Database=RoomPlannerDev;User Id=roomplanner;Password=roomplanner123";
+
+            services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection));
   
     }

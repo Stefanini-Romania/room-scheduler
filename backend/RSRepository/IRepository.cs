@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RSRepository
 {
-    interface IRepository<T> where T : BaseEntity
+    public interface IRepository<T> where T : BaseEntity
     {
         IEnumerable<T> GetAll();
         T Get(long id);
