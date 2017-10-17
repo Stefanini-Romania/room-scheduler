@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <title>Login Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+
+    <body id="home">
+        <nav class="navbar navbar-expand-lg bg-inverse navbar-dark top">
+            <div>
+                <img id="img1" src="../assets/img/Logo_Stefanini_Q.png" alt="Stefanini-logo">
+                <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
+                <!-- <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollaspse">
+                    <span class="navbar-toggler-icon"></span>
+                </button> -->
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#explore" class="nav-link">Explore</a>
+                        </li>
+                        <li class="nav-item">
+                                <a href="#sign-out" class="nav-link">Sign out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+       
+
+        <!-- Home Section -->
+        <header id="home-section">
+            <div class="home-inner">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 offset-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>Sign in here</h3>
+                                    <form>
+                                        <div id="user-cont">
+                                            <label><b>Username</b></label>
+                                            <input type="text" placeholder="Enter Username" name="uname" required>
+                                    
+                                            <label><b>Password</b></label>
+                                            <input type="password" placeholder="Enter Password" name="psw" required><br /> <br />
+                                    
+                                            <button type="submit">Login</button>
+                                            <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> --> 
+                                        </div>
+                                    
+                                        <div id="cancel-cont">
+                                            <button id="reset1" type="reset">Cancel</button>
+                                            <span class="psw">Forgot <a href="#">password?</a></span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div id="div-img2" class="col-lg-7">
+                            <img id="img2" class="rounded-circle" src="../assets/img/massage-1.jpg">
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Footer -->
+        <footer id="copyright" class="bg-inverse copyright-divider">
+            
+                    <p>© 2017 Stefanini
+                        <a href="https://stefanini.com/en/">Powered by Stefanini</a>
+                    </p>
+                    <button id="b1" class="btn text-right" data-toggle="modal" data-target="#contactModal">Contact Us</button>
+                      
+            
+        </footer>
+
+        <!-- CONTACT MODAL -->
+        <div class="modal fade text-dark" id=contactModal>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="contactModalTitle">
+                            Contact Us
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">      
+                                <input type="text" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="Message"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-block">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
