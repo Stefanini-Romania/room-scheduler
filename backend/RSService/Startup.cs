@@ -36,8 +36,8 @@ namespace RSService
 
             
 
-            services.AddAuthentication("CookieAuthenticationScheme")
-                    .AddCookie("CookieAuthenticationScheme", options =>
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options =>
                      {
                          options.Events.OnRedirectToLogin = (context) =>
                          {

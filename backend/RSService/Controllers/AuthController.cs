@@ -58,7 +58,7 @@ namespace RSService.Controllers
                 var userIdentity = new ClaimsIdentity(claims, "login");
 
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                await HttpContext.SignInAsync("CookieAuthenticationScheme", principal);
+                await HttpContext.SignInAsync(principal);
 
                 //Just redirect to our index after logging in. 
                 return Ok();
