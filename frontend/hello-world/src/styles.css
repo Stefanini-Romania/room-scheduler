@@ -1,1 +1,161 @@
 /* You can add global styles to this file, and also import other style files */
+body
+{
+    background: white;
+    color: black;
+}
+
+#img1
+{  
+    text-align: left;
+    height: 27px;
+    width: 129px;
+    position: relative;
+    margin: 4px 0px 20px 5px;
+}
+
+#img2
+{
+    height: 300px;
+    width: 600px;
+    padding-left: 50px;
+    
+}
+.navbar-brand
+{
+    padding-left: 1cm;
+    font-size: 25px !important;
+    -webkit-text-stroke-width: thin;
+    color: white;
+}
+
+form 
+{
+    border: 3px solid #f1f1f1;
+    float: right;
+    padding:10px;
+}
+
+div.card
+{
+    background-color: #004e9e;
+    float: right;
+}
+
+#home-section h3
+{
+    color: white;
+}
+
+h3 {
+    text-align: center;
+    padding: 10px;
+}
+
+#user-cont {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+label
+{
+    color: rgb(227, 235, 245);
+}
+
+input[type=text], input[type=password]
+{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    line-height: initial;
+}
+
+button[type=submit]
+{
+    width:100%;
+    height:30%;
+    line-height:initial;
+}
+
+button {
+    background-color: #cad400;
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
+    margin-right: 2cm;
+    border: none;
+    cursor: pointer;
+    width: 100% fixed;
+}
+
+#rem-me {
+    padding-left: 10px;
+    color: white;
+}
+
+#cancel-cont {
+    padding: 10px;
+    background-color:#f1f1f1;
+}
+
+#reset1 {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #aaaaaa;
+}
+
+.container {
+    padding-top: 60px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+}
+
+#copyright p {
+    padding-left: 50px;
+    font-size: 11px;
+    float: left;
+    margin-bottom: 0;
+    color: white;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    font-size: 15px;
+    padding: 10px;
+}
+
+footer p {
+    padding-top: 10px;
+    margin: 4px 0px 20px 5px;
+}
+
+footer a {
+    padding-top: 13px;
+    margin: 4px 0px 20px 5px;
+}
+#b1 {
+    float: right;
+}
+
+
+   
