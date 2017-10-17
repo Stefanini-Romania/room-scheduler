@@ -37,7 +37,7 @@ namespace RSService
             //services.AddIdentity<User, IdentityRole>();
             //        //.AddEntityFrameworkStores<RoomPlannerDevContext>();
 
-            services.AddAuthentication()
+            services.AddAuthentication("CookieAuthenticationScheme")
                     .AddCookie("CookieAuthenticationScheme", options =>
                      {
                          options.Events.OnRedirectToLogin = (context) =>

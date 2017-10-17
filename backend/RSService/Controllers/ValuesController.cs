@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace RSService.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {

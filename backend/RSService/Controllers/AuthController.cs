@@ -11,9 +11,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RSService.Controllers
 {
+    
     public class AuthController : Controller
     {
         private IUserRepository _userRepository;
