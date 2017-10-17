@@ -34,22 +34,23 @@ namespace RSService
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection));
 
-            services.AddIdentity<User, IdentityRole>();
-                    //.AddEntityFrameworkStores<RoomPlannerDevContext>();
+            //services.AddIdentity<User, IdentityRole>();
+            //        //.AddEntityFrameworkStores<RoomPlannerDevContext>();
 
-            services.AddAuthentication("MyCookieAuthenticationScheme")
-                    .AddCookie(options =>
+            services.AddAuthentication()
+                    .AddCookie("CookieAuthenticationScheme", options =>
                      {
                          options.Events.OnRedirectToLogin = (context) =>
                          {
                              context.Response.StatusCode = 401;
                              return Task.CompletedTask;
                          };
+
                          options.Events.OnRedirectToAccessDenied = (context) =>
                          {
                              context.Response.StatusCode = 403;
                              return Task.CompletedTask;
-                         };   
+                         };
                      });
 
         }
