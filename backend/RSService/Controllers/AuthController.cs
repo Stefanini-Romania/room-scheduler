@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RSData.Models;
@@ -7,40 +8,59 @@ using RSService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace RSService.Controllers
 {
     public class AuthController : Controller
     {
-        private RoomPlannerDevContext _context;
-        private SignInManager<User> _signInManager;
+        private IUserRepository _userRepository;
         private ILogger<AuthController> _logger;
 
-        public AuthController(RoomPlannerDevContext context, SignInManager<User> signInManager, ILogger<AuthController> logger)
+        public AuthController(IUserRepository userRepository, ILogger<AuthController> logger)
         {
-            _context = context;
-            _signInManager = signInManager;
+            _userRepository = userRepository;
             _logger = logger;
+        }
+
+        private bool LoginUser(string username, string password)
+        {
+            var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == username);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            if (!user.Password.Equals(password))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         [HttpPost("api/auth/login")]
         //[ValidateModel]
         public async Task<IActionResult> Login([FromBody] CredentialModel model)
         {
-            try
+            if (LoginUser(model.UserName, model.Password))
             {
-                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
-                if (result.Succeeded)
+                var claims = new List<Claim>
                 {
-                    return Ok();
-                }
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError($"Exception thrown while logging in: {ex}");
-            }
+                    new Claim(ClaimTypes.Name, model.UserName)
+                };
 
+                var userIdentity = new ClaimsIdentity(claims, "login");
+
+                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                await HttpContext.SignInAsync("CookieAuthenticationScheme", principal);
+
+                //Just redirect to our index after logging in. 
+                return Ok();
+            }
             return BadRequest("Failed to login");
         }
 
