@@ -34,8 +34,7 @@ namespace RSService
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection));
 
-            //services.AddIdentity<User, IdentityRole>();
-            //        //.AddEntityFrameworkStores<RoomPlannerDevContext>();
+            
 
             services.AddAuthentication("CookieAuthenticationScheme")
                     .AddCookie("CookieAuthenticationScheme", options =>
