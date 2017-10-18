@@ -90,6 +90,9 @@ button {
     cursor: pointer;
     width: 100% fixed;
 }
+#buttonLog {
+    width: 100%;
+}
 
 #rem-me {
     padding-left: 10px;
