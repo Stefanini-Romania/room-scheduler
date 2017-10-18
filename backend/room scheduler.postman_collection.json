@@ -1,0 +1,31 @@
+{
+	"variables": [],
+	"info": {
+		"name": "room scheduler",
+		"_postman_id": "b7326af3-c2e1-6a87-5a19-38b345cf4304",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"request": {
+				"url": "http://localhost:58695/api/auth/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"UserName\":\"Ionescu\",\n\t\"Password\": \"123456\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
