@@ -4,7 +4,7 @@ import { setHours, setMinutes, subDays, addDays } from 'date-fns';
 import { RSCalendarEventColors } from './rs-calendar-event-colors';
 
 @Component({
-  selector: 'mwl-demo-component',
+  selector: 'rs-calendar-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   templateUrl: './rs-calendar.component.html'
