@@ -13,11 +13,10 @@ import { AuthService } from './services/auth.service';
     model: User = <User>{};
     activeUser: User;
   
-    //constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) {}
   
     authenticate() {
-      alert('ok');
-      //this.authService.authenticate(this.model.UserName, this.model.Password);
+      this.authService.authenticate(this.model.UserName, this.model.Password);
     }
   
     selectUser(user) {

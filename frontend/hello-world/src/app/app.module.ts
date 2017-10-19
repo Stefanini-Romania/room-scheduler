@@ -9,17 +9,7 @@ import { AppComponent } from './app.component';
 import { RSNavbar } from './rs-navbar.component';
 import { RSFooter } from './rs-footer.component';
 import {LoginComponent} from './login.component';
-
-
-// import {FlexLayoutModule} from "@angular/flex-layout";
-// import { routing, appRoutingProviders }  from './app.routing';
-// import { AppServices } from './app.services';
-// import {AuthGuard} from "./auth/auth.guard";
-// import {AppComponent} from './app.component';
-// import {AuthComponent} from './auth/auth.component';
-// import {NotFoundComponent} from './404/not-found.component';
-// import { HomeComponent } from './home/home.component';
-
+import { HttpModule } from '@angular/http';
 
 const appRoutes: Routes = [
 
@@ -48,6 +38,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RSCalendarModule,
     FormsModule,
+    HttpModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
