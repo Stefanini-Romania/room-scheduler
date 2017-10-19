@@ -5,9 +5,12 @@ import { CalendarModule } from 'angular-calendar';
 import { DemoUtilsModule } from './calendar-utils.module';
 import { RSCalendarComponent } from './rs-calendar.component';
 import { RouterModule, Routes } from '@angular/router';
+import {LoginComponent} from '../app/login.component';
+
+
 
 const CalendarRoutes : Routes =[
-  {path: 'calendar',  component: RSCalendarComponent}
+  {path: 'calendar', component:  RSCalendarComponent }
 ]
 
 @NgModule({
@@ -19,7 +22,7 @@ const CalendarRoutes : Routes =[
     RouterModule.forRoot(
       CalendarRoutes, {enableTracing: true})
   ],
-  declarations: [RSCalendarComponent],
+  declarations: [RSCalendarComponent, ],
   exports: [RSCalendarComponent],
   //bootstrap: [RSCalendarComponent]
 })
