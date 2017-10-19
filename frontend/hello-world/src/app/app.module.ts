@@ -10,6 +10,7 @@ import { RSNavbar } from './rs-navbar.component';
 import { RSFooter } from './rs-footer.component';
 import {LoginComponent} from './login.component';
 
+
 // import {FlexLayoutModule} from "@angular/flex-layout";
 // import { routing, appRoutingProviders }  from './app.routing';
 // import { AppServices } from './app.services';
@@ -41,7 +42,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent, RSNavbar, RSFooter, LoginComponent
+    AppComponent, RSNavbar, RSFooter, LoginComponent, 
   ],
   imports: [
     BrowserModule,
