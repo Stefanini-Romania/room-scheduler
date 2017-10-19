@@ -12,3 +12,4 @@ export const RSCalendarEventColors: any = {
       secondary: '#FDF1BA'
     }
   };
+ 

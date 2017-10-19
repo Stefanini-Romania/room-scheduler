@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule } from 'angular-calendar';
+import { CalendarModule, CalendarEvent, CalendarEventTitleFormatter } from 'angular-calendar';
+import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
 import { DemoUtilsModule } from './calendar-utils.module';
 import { RSCalendarComponent } from './rs-calendar.component';
 import { RouterModule, Routes } from '@angular/router';
+
 
 const CalendarRoutes : Routes =[
   {path: 'calendar',  component: RSCalendarComponent}
@@ -19,6 +21,11 @@ const CalendarRoutes : Routes =[
     RouterModule.forRoot(
       CalendarRoutes, {enableTracing: true})
   ],
+  providers: [
+    {
+      provide: CalendarEventTitleFormatter,
+      useClass: CustomEventTitleFormatter
+    }],
   declarations: [RSCalendarComponent],
   exports: [RSCalendarComponent],
   //bootstrap: [RSCalendarComponent]
