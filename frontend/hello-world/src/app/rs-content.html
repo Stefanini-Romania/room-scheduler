@@ -1,0 +1,36 @@
+  <!-- Home Section -->
+  <header id="home-section">
+        <div class="home-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 mx-auto">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3>Sign in here</h3>
+                                <form>
+                                    <div id="user-cont">
+                                        <label><b>Username</b></label>
+                                        <input type="text" placeholder="Enter Username" name="uname" required>
+                                
+                                        <label><b>Password</b></label>
+                                        <input type="password" placeholder="Enter Password" name="psw" required><br /> <br />
+                                
+                                        <button (click)="authenticate($event)" id ="buttonLog">Login</button>
+                                        <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> --> 
+                                    </div>
+                                
+                                    <!-- <div id="cancel-cont">
+                                        <button id="reset1" type="reset">Cancel</button>
+                                        <span class="psw">Forgot <a href="#">password?</a></span>
+                                    </div> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div id="div-img2" class="col-lg-7">
+                        <img id="img2" class="rounded-circle" src="../assets/img/massage-1.jpg">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </header>

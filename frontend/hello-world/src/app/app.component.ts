@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  providers: [],
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
+  title = 'World';
+
+  authenticate(event) {
+      alert('click');
+  }
 }
-/*
-class UsersAppComponent { 
-    user = new User();
-}
-*/
