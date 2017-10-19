@@ -7,14 +7,13 @@ import { RSCalendarEventColors } from './rs-calendar-event-colors';
   selector: 'mwl-demo-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  templateUrl: 'rs-calendar.component.html'
+  templateUrl: './rs-calendar.component.html'
 })
 
 export class RSCalendarComponent {
   view: string = 'day';
 
   viewDate: Date = new Date();
-
 
   // CODED EVENTS
   events: CalendarEvent[] = [

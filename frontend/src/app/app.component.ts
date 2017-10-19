@@ -4,13 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   providers: [],
-  styleUrls: ['./app.component.css']
+  styleUrls: []
 })
 
 export class AppComponent {
 }
-/*
-class UsersAppComponent { 
-    user = new User();
-}
-*/
+

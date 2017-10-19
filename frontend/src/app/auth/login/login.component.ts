@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { User } from './models/user';
-import { AuthService } from './services/auth.service';
+import { User } from '../../shared/user.model';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
     selector: 'login-component',
     templateUrl: './login.component.html',
-    styleUrls: ['./app.component.css'],
+    styleUrls: [],
     providers: [AuthService]
   })
 

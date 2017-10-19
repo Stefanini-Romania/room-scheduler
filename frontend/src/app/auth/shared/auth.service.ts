@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-//import {AppServices} from "../../app.services";
-import {Router} from "@angular/router";
-// import 'rxjs/add/operator/toPromise';
-// import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class AuthService {
@@ -22,4 +18,4 @@ export class AuthService {
             return user;
         });*/
     }
-};
+}
