@@ -14,7 +14,7 @@
                                     <label><b>Password</b></label>
                                     <input type="password" placeholder="Enter Password" name="Password" [(ngModel)]="model.Password" #Password="ngModel" required><br /> <br />
                             
-                                    <button (click)="authenticate()">Login</button>
+                                    <button id="loginbtn" (click)="authenticate()">Login</button>
                                     <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> --> 
                                 </div>
                             
@@ -33,3 +33,5 @@
         </div>
     </div>
 </header>
+
+<rs-footer></rs-footer>
