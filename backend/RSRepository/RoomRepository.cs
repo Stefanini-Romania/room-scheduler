@@ -52,7 +52,7 @@ namespace RSRepository
         {
             if (room == null)
             {
-                throw new ArgumentNullException("Add a null room");
+                throw new ArgumentNullException("Cannot delete a null room");
             }
             rooms.Remove(room);
             context.SaveChanges();
