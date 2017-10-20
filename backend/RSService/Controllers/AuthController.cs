@@ -48,10 +48,9 @@ namespace RSService.Controllers
         //[ValidateModel]
         public async Task<IActionResult> Login([FromBody] CredentialModel model)
         {
-            const string badUserNameOrPasswordMessage = "Username or password is incorrect.";
             if (model == null)
             {
-                return BadRequest(badUserNameOrPasswordMessage);
+                return BadRequest();
             }
 
             if (LoginUser(model.UserName, model.Password))
@@ -69,7 +68,7 @@ namespace RSService.Controllers
                 //Just redirect to our index after logging in. 
                 return Ok();
             }
-            return BadRequest(badUserNameOrPasswordMessage);
+            return BadRequest();
         }
 
 
