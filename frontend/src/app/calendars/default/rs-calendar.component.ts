@@ -23,11 +23,6 @@ export class RSCalendarComponent {
       color: RSCalendarEventColors.blue
     },
     {
-      title: 'Event9',
-      start: setHours(setMinutes(new Date(), 0), 11),
-      color: RSCalendarEventColors.blue
-    },
-    {
       title: 'Event5',
       start: setHours(setMinutes(new Date(), 30), 9),
       color: RSCalendarEventColors.yellow
