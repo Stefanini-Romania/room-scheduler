@@ -24,6 +24,15 @@ namespace RSService.Controllers
         {
             _eventRepository.AddEvent(value);
         }
+        
+        [HttpGet]
+        public IActionResult GetEvents()
+        {
+            var results = _eventRepository.GetEvents();
+            if (results == null) return NotFound();
+
+            return Ok(results);
+        }
 
     }
 }
