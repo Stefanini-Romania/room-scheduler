@@ -13,10 +13,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace RSService.Controllers
 {
     
-    public class AuthController : Controller
+    public class AuthController : BaseController
     {
         private IUserRepository _userRepository;
         private ILogger<AuthController> _logger;
@@ -40,7 +41,7 @@ namespace RSService.Controllers
             {
                 return false;
             }
-
+            base.SetCurrentUser(user.Id);
             return true;
         }
 

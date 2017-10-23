@@ -32,6 +32,7 @@ namespace RSService
             var connection = @"Server=BUSWGVMINDEV3\MSSQLSERVER12;Database=RoomPlannerDev;User Id=roomplanner;Password=roomplanner123";
 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IEventRepository, EventRepository>();
             services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection));
 
             

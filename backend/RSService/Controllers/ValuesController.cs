@@ -11,7 +11,7 @@ namespace RSService.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class ValuesController : BaseController
     {
         private IUserRepository _userRepository;
 
