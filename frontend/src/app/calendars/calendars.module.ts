@@ -1,15 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule, CalendarEventTitleFormatter } from 'angular-calendar';
-import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
-import { RSCalendarComponent } from './default/rs-calendar.component';
+import { RSCalendarComponent} from '../calendars/default/rs-calendar.component'
 import { RouterModule, Routes } from '@angular/router';
-import {RSCalendarHeaderComponent} from './default/rs-calendar-header.component';
-import {DateTimePickerComponent} from './shared/date-time-picker.component';
-import {
-    NgbDatepickerModule,
-    NgbTimepickerModule
-} from '@ng-bootstrap/ng-bootstrap';
+import {SchedulerModule} from '../../../node_modules/jqwidgets-framework/demos/angular/app/modules/scheduler.module';
+
 import { FormsModule } from '@angular/forms';
 
 const routes : Routes =[
@@ -21,15 +15,13 @@ const routes : Routes =[
   imports: [
     FormsModule,
     BrowserAnimationsModule,
-    CalendarModule.forRoot(),
-    NgbDatepickerModule.forRoot(),
-    NgbTimepickerModule.forRoot(),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    SchedulerModule
   ],
   providers: [
-    { provide: CalendarEventTitleFormatter, useClass: CustomEventTitleFormatter}
+    
   ],
-  declarations: [RSCalendarComponent, RSCalendarHeaderComponent, DateTimePickerComponent],
+  declarations: [RSCalendarComponent],
   exports: [RSCalendarComponent],
 })
 export class CalendarsModule {}
