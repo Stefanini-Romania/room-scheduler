@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RSCalendarComponent} from '../calendars/default/rs-calendar.component'
 import { RouterModule, Routes } from '@angular/router';
-import {SchedulerModule} from '../../../node_modules/jqwidgets-framework/demos/angular/app/modules/scheduler.module';
 
+import { jqxSchedulerComponent } from '../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import { FormsModule } from '@angular/forms';
 
 const routes : Routes =[
@@ -16,12 +16,12 @@ const routes : Routes =[
     FormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
-    SchedulerModule
+  
   ],
   providers: [
     
   ],
-  declarations: [RSCalendarComponent],
+  declarations: [jqxSchedulerComponent, RSCalendarComponent],
   exports: [RSCalendarComponent],
 })
 export class CalendarsModule {}
