@@ -40,17 +40,7 @@ namespace RSService
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>
                      {
-                         options.Events.OnRedirectToLogin = (context) =>
-                         {
-                             context.Response.StatusCode = 401;
-                             return Task.CompletedTask;
-                         };
-
-                         options.Events.OnRedirectToAccessDenied = (context) =>
-                         {
-                             context.Response.StatusCode = 403;
-                             return Task.CompletedTask;
-                         };
+                         options.LoginPath = "/api/auth/login";
                      });
 
         }
