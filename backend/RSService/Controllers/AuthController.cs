@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace RSService.Controllers
 {
-    [Route("api/[controller]")]
+
     public class AuthController : BaseController
     {
         private IUserRepository _userRepository;

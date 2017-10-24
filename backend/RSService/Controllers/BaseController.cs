@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RSService.Controllers
 {
-    [Route("api/[controller]")]
+    
     public abstract class BaseController : Controller
     {
         private int _currentUser;
