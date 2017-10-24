@@ -16,7 +16,7 @@ import { AuthService } from '../shared/auth.service';
     constructor(private authService: AuthService) {}
   
     authenticate() {
-      this.authService.authenticate(this.model.UserName, this.model.Password);
+      this.authService.login(this.model.UserName, this.model.Password);
     }
   
     selectUser(user) {
