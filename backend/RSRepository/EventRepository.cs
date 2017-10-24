@@ -37,7 +37,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Add a null event");
             }
             events.Add(_event);
-            context.SaveChanges();
         }
 
         public void UpdateEvent(Event _event)
@@ -46,22 +45,14 @@ namespace RSRepository
             {
                 throw new ArgumentNullException("Update a null event");
             }
-            context.SaveChanges();
+
+            context.Entry(_event).State = EntityState.Modified;
         }
 
-        public void DeleteEvent(Event _event)
+        public void DeleteEvent(int eventID)
         {
-            if (_event == null)
-            {
-                throw new ArgumentNullException("Delete null event");
-            }
+            Event _event = events.Find(eventID);
             events.Remove(_event);
-            context.SaveChanges();
-        }
-
-        public void SaveChanges()
-        {
-            context.SaveChanges();
         }
 
         

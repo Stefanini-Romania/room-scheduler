@@ -10,22 +10,25 @@ using System.Threading.Tasks;
 namespace RSService.Controllers
 {
    // [Authorize]
-    [Route("api/event")]
-    public class RoomScheduler : BaseController
+    public class RoomSchedulerController : BaseController
     {
         private IEventRepository _eventRepository;
-        public RoomScheduler(IEventRepository eventRepository)
+        private IDbTransaction _dbTransaction;
+
+        public RoomSchedulerController(IEventRepository eventRepository, IDbTransaction dbTransaction)
         {
             _eventRepository = eventRepository;
+            _dbTransaction = dbTransaction;
         }
     
-        [HttpPost]
+        [HttpPost("api/addevent")]
         public void AddEvent([FromBody]Event value)
         {
             _eventRepository.AddEvent(value);
+            _dbTransaction.Commit();
         }
         
-        [HttpGet]
+        [HttpGet("api/events")]
         public IActionResult GetEvents()
         {
             var results = _eventRepository.GetEvents();
@@ -34,5 +37,11 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
+        [HttpDelete("api/deleteevent/{id}")]
+        public void DeleteEvent(int id)
+        {
+            _eventRepository.DeleteEvent(id);
+            _dbTransaction.Commit();
+        }
     }
 }
