@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[Event](
 	[EndDate] [datetime] NOT NULL,
 	[EventType] [nvarchar](50) NOT NULL,
 	[RoomID] [int] NOT NULL,
-	[Notes] [nvarchar](150) NOT NULL,
+	[Notes] [nvarchar](150),
 	[HostID] [int] NOT NULL,
 	[AttendeeID] [int] NOT NULL,
 	[EventStatus] [int] NOT NULL,
