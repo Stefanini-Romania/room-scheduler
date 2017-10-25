@@ -1,25 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 body
 {
-    background: white;
+    background: rgb(102, 100, 100);
     color: black;
 }
+
 .bg-overlay {   
-    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url('/../../../assets/img/fall-autumn-red-season.jpg');
+    background: linear-gradient(rgba(255, 255, 255, 0.158), rgba(0, 0, 0, 0.075)), url('/../../../assets/img/bgk.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    /* color: #fff; */
-    height: 900px;
+
     padding-top: 50px;
+    /* / Set rules to fill background / */
+    min-height: 100%;
+    min-width: 1024px;
+   
+    /* / Set up proportionate scaling / */
+    width: 100%;
+    height: auto;
+   
+    /* / Set up positioning / */
+    position: fixed;
+    top: 1;
+    left: 0;
+
 }
 
 
 #img1
 {  
     text-align: left;
-    height: 27px;
-    width: 129px;
+    height: 40px;
+    width: 40px;
     position: relative;
     margin: 4px 0px 20px 5px;
 }
@@ -32,17 +45,28 @@ body
     
 }
 
+#footerimg{
+    height:70px;
+    width: 100%;
+    padding: 0;
+    z-index: 0;
+    position: relative; 
+}
 .navbar-brand
 {
-    padding-left: 1cm;
+   
     font-size: 25px !important;
     -webkit-text-stroke-width: thin;
-    color: white;
+    color: #004e9e;
+    padding-top: 0 !important;
+  
+   
 }
 
-form {
-    /* border: 3px solid #f1f1f1; */
-    float: right;
+form 
+{
+    border: 0;
+    float: none;
     padding:10px;
     margin: auto;
 }
@@ -178,7 +202,7 @@ span.psw {
     font-size: 11px;
     float: left;
     margin-bottom: 0;
-    color: white;
+    color: black;
 }
 
 footer {
@@ -188,18 +212,34 @@ footer {
     bottom: 0;
     overflow: hidden;
     font-size: 15px;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 footer p {
     padding-top: 10px;
     margin: 4px 0px 20px 5px;
+    z-index: 1;
+    position: absolute; 
 }
 
 footer a {
     padding-top: 13px;
     margin: 4px 0px 20px 5px;
 }
+
+
+#headerimg{
+    height:70px;
+    width: 100%;
+  
+}
+
+
+
+
+
+
+
 
 
 
