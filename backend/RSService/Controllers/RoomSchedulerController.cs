@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
+using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +23,17 @@ namespace RSService.Controllers
             _dbTransaction = dbTransaction;
         }
     
-        [HttpPost("api/addevent")]
-        public void AddEvent([FromBody]Event value)
+        [HttpPost("/event/create")]
+        public void AddEvent([FromBody]EventViewModel model)
         {
-            _eventRepository.AddEvent(value);
+            var newEvent = Mapper.Map<Event>(model);
+            newEvent.DateCreated = DateTime.UtcNow;
+
+            _eventRepository.AddEvent(newEvent);
             _dbTransaction.Commit();
         }
         
-        [HttpGet("api/events")]
+        [HttpGet("/event/list")]
         public IActionResult GetEvents()
         {
             var results = _eventRepository.GetEvents();
@@ -37,11 +42,55 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
-        [HttpDelete("api/deleteevent/{id}")]
-        public void DeleteEvent(int id)
+        [HttpGet("/event/list")]
+        public IActionResult GetEvents(DateTime startDate, DateTime endDate)
         {
-            _eventRepository.DeleteEvent(id);
-            _dbTransaction.Commit();
+            var results = _eventRepository.GetEvents();
+            if (results == null) return NotFound();
+
+            return Ok(results);
         }
+
+        [HttpGet("/event/list")]
+        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int roomId, int hostId)
+        {
+            var results = _eventRepository.GetEvents();
+            if (results == null) return NotFound();
+
+            return Ok(results);
+        }
+
+        [HttpPut("event/edit")]
+        public IActionResult UpdateEvent(int id, [FromBody] EventViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var _event = _eventRepository.GetEvents().FirstOrDefault(c => c.Id == id);
+                if (_event == null)
+                {
+                    return NotFound();
+                }
+                _event.StartDate = model.StartDate;
+                _event.EndDate = model.EndDate;
+                _event.EventType = model.EventType;
+                _event.RoomId = model.RoomId;
+                _event.Notes = model.Notes;
+                _event.HostId = model.HostId;
+                _event.AttendeeId = model.AttendeeId;
+                _event.EventStatus = model.EventStatus;
+                _event.DateCreated = DateTime.UtcNow;
+                _dbTransaction.Commit();
+
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+
+
     }
 }

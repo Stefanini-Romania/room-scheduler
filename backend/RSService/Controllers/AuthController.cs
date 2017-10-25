@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RSData.Models;
 using RSRepository;
-using RSService.Models;
+using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
