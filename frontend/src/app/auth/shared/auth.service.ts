@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-//import { Http, Headers, Response } from '@angular/http';
+//import { Headers, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -27,12 +27,12 @@ export class AuthService {
     }  
     */
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     login(username: string, password: string) {
         console.log('here');
         this.http.get('http://google.com/api/some-authenticate')
-        .catch((error:any) => Observable.throw(error.message));
+        .catch((error:any) => Observable.throw(error.message)).subscribe();
         return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
         /*.map((response: Response) => {
             // login successful if there's a jwt token in the response

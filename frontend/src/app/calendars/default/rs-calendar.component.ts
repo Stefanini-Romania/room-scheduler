@@ -1,6 +1,4 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { CalendarEvent } from 'angular-calendar';
-import { RSCalendarEventColors } from './rs-calendar-event-colors';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 
 @Component({
@@ -9,11 +7,11 @@ import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framewor
 })
 
 export class RSCalendarComponent {
-  @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
-  
-      ngAfterViewInit(): void {
-          this.scheduler.ensureAppointmentVisible('id1');
-      }
+    @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
+
+    ngAfterViewInit(): void {
+        this.scheduler.ensureAppointmentVisible('id1');
+    }
   
       generateAppointments(): any {
           let appointments = new Array();
