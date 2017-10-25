@@ -12,6 +12,5 @@ namespace RSRepository
         void AddDepartment(Department department);
         void UpdateDepartment(Department department);
         void DeleteDepartment(Department department);
-        void SaveChanges();
     }
 }

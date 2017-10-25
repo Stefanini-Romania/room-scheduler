@@ -10,7 +10,7 @@ namespace RSRepository
         IEnumerable<Event> GetEvents();
         Event GetEventById(int id);
         void AddEvent(Event _event);
-        void UpdateEvent(Event _event);
-        void DeleteEvent(int id);
+        //void UpdateEvent(Event _event);
+        //void DeleteEvent(int id);
     }
 }

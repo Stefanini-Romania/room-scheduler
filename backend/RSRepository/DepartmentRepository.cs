@@ -48,10 +48,6 @@ namespace RSRepository
             return _departments.AsEnumerable();
         }
 
-        public void SaveChanges()
-        {
-            _context.SaveChanges();
-        }
 
         public void UpdateDepartment(Department department)
         {
@@ -59,7 +55,7 @@ namespace RSRepository
             {
                 throw new ArgumentNullException("Update a null department");
             }
-            _context.SaveChanges();
+            _context.Entry(department).State = EntityState.Modified;
         }
     }
 }

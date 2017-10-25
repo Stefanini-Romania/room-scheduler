@@ -42,7 +42,7 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
-        [HttpGet("/event/list")]
+        //[HttpGet("/event/list")]
         public IActionResult GetEvents(DateTime startDate, DateTime endDate)
         {
             var results = _eventRepository.GetEvents();
@@ -51,7 +51,7 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
-        [HttpGet("/event/list")]
+        //[HttpGet("/event/list")]
         public IActionResult GetEvents(DateTime startDate, DateTime endDate, int roomId, int hostId)
         {
             var results = _eventRepository.GetEvents();
@@ -60,25 +60,28 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
-        [HttpPut("event/edit")]
+        [HttpPut("/event/edit/{id}")]
         public IActionResult UpdateEvent(int id, [FromBody] EventViewModel model)
         {
             if (ModelState.IsValid)
             {
+
+                var _model = Mapper.Map<Event>(model);
 
                 var _event = _eventRepository.GetEvents().FirstOrDefault(c => c.Id == id);
                 if (_event == null)
                 {
                     return NotFound();
                 }
-                _event.StartDate = model.StartDate;
-                _event.EndDate = model.EndDate;
-                _event.EventType = model.EventType;
-                _event.RoomId = model.RoomId;
-                _event.Notes = model.Notes;
-                _event.HostId = model.HostId;
-                _event.AttendeeId = model.AttendeeId;
-                _event.EventStatus = model.EventStatus;
+
+                _event.StartDate = _model.StartDate;
+                _event.EndDate = _model.EndDate;
+                _event.EventType = _model.EventType;
+                _event.RoomId = _model.RoomId;
+                _event.Notes = _model.Notes;
+                _event.HostId = _model.HostId;
+                _event.AttendeeId = _model.AttendeeId;
+                _event.EventStatus = _model.EventStatus;
                 _event.DateCreated = DateTime.UtcNow;
                 _dbTransaction.Commit();
 

@@ -13,6 +13,8 @@ using RSData.Models;
 using RSRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using AutoMapper;
+using RSService.ViewModels;
 
 namespace RSService
 {
@@ -58,6 +60,11 @@ namespace RSService
             app.UseAuthentication();
 
             app.UseMvc();
+
+            Mapper.Initialize(Configuration =>
+            {
+                Configuration.CreateMap<EventViewModel, Event>().ReverseMap();
+            });
         }
     }
 }

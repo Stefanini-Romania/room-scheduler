@@ -39,21 +39,22 @@ namespace RSRepository
             events.Add(_event);
         }
 
-        public void UpdateEvent(Event _event)
-        {
-            if (_event == null)
-            {
-                throw new ArgumentNullException("Update a null event");
-            }
 
-            context.Entry(_event).State = EntityState.Modified;
-        }
+        //public void UpdateEvent(Event _event)
+        //{
+        //    if (_event == null)
+        //    {
+        //        throw new ArgumentNullException("Update a null event");
+        //    }
+        //}
 
-        public void DeleteEvent(int eventID)
-        {
-            Event _event = events.Find(eventID);
-            events.Remove(_event);
-        }
+
+
+        //public void DeleteEvent(int eventID)
+        //{
+        //    Event _event = events.Find(eventID);
+        //    events.Remove(_event);
+        //}
 
         
     }
