@@ -4,6 +4,16 @@ body
     background: white;
     color: black;
 }
+.bg-overlay {   
+    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url('/../../../assets/img/fall-autumn-red-season.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    /* color: #fff; */
+    height: 900px;
+    padding-top: 50px;
+}
+
 
 #img1
 {  
@@ -21,6 +31,7 @@ body
     padding-left: 50px;
     
 }
+
 .navbar-brand
 {
     padding-left: 1cm;
@@ -29,21 +40,25 @@ body
     color: white;
 }
 
-form 
-{
-    //border: 3px solid #f1f1f1;
+form {
+    /* border: 3px solid #f1f1f1; */
     float: right;
     padding:10px;
+    margin: auto;
 }
 
-div.card
-{
-    background-color: #004e9e;
-    float: right;
+.card-body{
+    margin: auto;
+    /* margin-bottom: 10px;  */
 }
 
-#home-section h3
-{
+div.card {
+    background-color: #F7F7F7;
+    margin-bottom: 10px;   
+    padding: 2px;
+}
+
+#home-section h3{
     color: white;
 }
 
@@ -53,8 +68,8 @@ h3 {
 }
 
 #user-cont {
-    padding-top: 20px;
-    padding-bottom: 10px;
+    padding-top: 0;
+    padding-bottom: 30px;
 }
 
 label
@@ -77,22 +92,50 @@ input[type=text], input[type=password]
 #loginbtn
 {
     width:100%;
-    height:30%;
+    height:45px;
     line-height:initial;
 }
 
+/* CONTACT US BUTTON */
+#b1 {
+    float: right;
+    border-radius: 0;
+    font-weight: 700;
+    font-size: 14px;
+}
 button {
-    background-color: #cad400;
-    color: black;
-    padding: 14px 20px;
+    background-color: #004e9e;
+    color: #fff;
     margin: 8px 0;
     margin-right: 2cm;
     border: none;
     cursor: pointer;
     width: 100% fixed;
+    padding: 0px;
+    font-weight: 700;
+    font-size: 14px;
 }
-#buttonLog {
+
+/* #buttonLog {
     width: 100%;
+} */
+
+#loginbtn:hover,
+#loginbtn:active,
+#loginbtn:focus,
+#b1:hover,
+#b1:active,
+#b1:focus  {
+
+    background-color:#aaaaaa;}
+
+    
+#imgform{
+display: block;
+margin: 0 auto;
+padding: 10px;
+height: 60px;
+/* vertical-align: middle; */
 }
 
 #rem-me {
@@ -157,10 +200,7 @@ footer a {
     padding-top: 13px;
     margin: 4px 0px 20px 5px;
 }
-#b1 {
-    float: right;
-    border-radius: 0;
-}
+
 
 
    
