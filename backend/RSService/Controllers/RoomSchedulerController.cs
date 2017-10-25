@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
 using RSService.ViewModels;
+using System;
+using System.Linq;
 
 namespace RSService.Controllers
 {
