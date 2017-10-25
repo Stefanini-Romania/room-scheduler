@@ -1,23 +1,26 @@
 <header id="home-section">
+    <div class= "bg-overlay">
     <div class="home-inner">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-5 mx-auto">
+            <div class="row align-items-start">
+                <div class="col-lg-5 mx-auto">                         
                     <div class="card">
-                        <div class="card-body">
-                            <h3>Sign in here</h3>
-                            <form>
+                        <div class="card-body">                    
+                            <form>                               
                                 <div id="user-cont">
-                                    <label><b>Username</b></label>
+                                    <a href="https://stefanini.com/en/">
+                                    <img src="../../../assets/img/Logo_Stefanini_Q.png"  id="imgform" class="img-responsive">
+                                    </a>
+                                    <!-- <label><b>Username</b></label> -->
                                     <input type="text" placeholder="Enter Username" name="UserName" [(ngModel)]="model.UserName" #UserName="ngModel" required>
                             
-                                    <label><b>Password</b></label>
+                                    <!-- <label><b>Password</b></label> -->
                                     <input type="password" placeholder="Enter Password" name="Password" [(ngModel)]="model.Password" #Password="ngModel" required><br /> <br />
                             
-                                    <button type="button" id="loginbtn" (click)='authenticate()'>Login</button>
+                                    <button type="button" id="loginbtn" (click)='authenticate()'>Sign In</button>
                                     <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> --> 
                                 </div>
-                            
+                           
                                 <!-- <div id="cancel-cont">
                                     <button id="reset1" type="reset">Cancel</button>
                                     <span class="psw">Forgot <a href="#">password?</a></span>
@@ -32,6 +35,8 @@
             </div>
         </div>
     </div>
+    </div>
+
 </header>
 
 <rs-footer></rs-footer>

@@ -1,26 +1,24 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
 using RSService.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RSService.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     public class RoomSchedulerController : BaseController
     {
         private IEventRepository _eventRepository;
         private IDbTransaction _dbTransaction;
+        private IRoomRepository _roomRepository;
 
-        public RoomSchedulerController(IEventRepository eventRepository, IDbTransaction dbTransaction)
+        public RoomSchedulerController(IEventRepository eventRepository, IDbTransaction dbTransaction, IRoomRepository roomRepository)
         {
             _eventRepository = eventRepository;
             _dbTransaction = dbTransaction;
+            _roomRepository = roomRepository;
+
         }
     
         [HttpPost("/event/create")]
@@ -89,8 +87,15 @@ namespace RSService.Controllers
                 return BadRequest(ModelState);
             }
         }
+       
+        [HttpGet("api/room/list")]
+        public IActionResult GetRooms()
+        {
+            var results = _roomRepository.GetRooms();
+            if (results == null) return NotFound();
 
-
+            return Ok(results);
+        }
 
     }
 }
