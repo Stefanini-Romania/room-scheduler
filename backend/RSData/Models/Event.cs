@@ -25,4 +25,10 @@ namespace RSData.Models
         public Room Room { get; set; }
         public ICollection<Penalty> Penalty { get; set; }
     }
+
+
+    public enum EventStatusEnum
+    {
+
+    }
 }
