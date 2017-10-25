@@ -65,8 +65,9 @@ namespace RSService.Controllers
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(principal);
 
+                var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == model.UserName);
                 //Just redirect to our index after logging in. 
-                return Ok();
+                return Ok(user);
             }
             return BadRequest();
         }
