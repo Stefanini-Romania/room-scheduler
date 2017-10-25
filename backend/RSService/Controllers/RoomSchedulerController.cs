@@ -90,7 +90,7 @@ namespace RSService.Controllers
             }
         }
        
-        [HttpGet("api/room/list")]
+        [HttpGet("/room/list")]
         public IActionResult GetRooms()
         {
             var results = _roomRepository.GetRooms();
