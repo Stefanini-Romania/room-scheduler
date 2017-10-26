@@ -39,7 +39,14 @@ namespace RSService
             services.AddTransient<IDbOperation, DbOperation>();
             services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection));
 
-            
+            services.AddCors(options => options.AddPolicy("Cors",
+            builder =>
+            {
+                builder.
+                AllowAnyOrigin().
+                AllowAnyMethod().
+                AllowAnyHeader();
+            }));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>
@@ -56,10 +63,11 @@ namespace RSService
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("Cors");
             app.UseAuthentication();
 
             app.UseMvc();
+            
 
             Mapper.Initialize(Configuration =>
             {
