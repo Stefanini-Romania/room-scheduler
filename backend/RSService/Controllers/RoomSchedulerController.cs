@@ -11,15 +11,15 @@ namespace RSService.Controllers
     // [Authorize]
     public class RoomSchedulerController : BaseController
     {
-        private IEventRepository _eventRepository;
-        private IDbTransaction _dbTransaction;
-        private IRoomRepository _roomRepository;
+        private IEventRepository eventRepository;
+        private IDbOperation dbOperation;
+        private IRoomRepository roomRepository;
 
-        public RoomSchedulerController(IEventRepository eventRepository, IDbTransaction dbTransaction, IRoomRepository roomRepository)
+        public RoomSchedulerController(IEventRepository _eventRepository, IDbOperation _dbOperation, IRoomRepository _roomRepository)
         {
-            _eventRepository = eventRepository;
-            _dbTransaction = dbTransaction;
-            _roomRepository = roomRepository;
+            eventRepository = _eventRepository;
+            dbOperation = _dbOperation;
+            roomRepository = _roomRepository;
 
         }
     
@@ -29,33 +29,27 @@ namespace RSService.Controllers
             var newEvent = Mapper.Map<Event>(model);
             newEvent.DateCreated = DateTime.UtcNow;
 
-            _eventRepository.AddEvent(newEvent);
-            _dbTransaction.Commit();
+            eventRepository.AddEvent(newEvent);
+            dbOperation.Commit();
         }
         
-        [HttpGet("/event/list")]
+        [HttpGet("/event/listall")]
         public IActionResult GetEvents()
         {
-            var results = _eventRepository.GetEvents();
+            var results = eventRepository.GetEvents();
             if (results == null) return NotFound();
 
             return Ok(results);
         }
 
-        //[HttpGet("/event/list")]
-        public IActionResult GetEvents(DateTime startDate, DateTime endDate)
+        [HttpGet("/event/list")]
+        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int hostId)
         {
-            var results = _eventRepository.GetEvents();
-            if (results == null) return NotFound();
-
-            return Ok(results);
-        }
-
-        //[HttpGet("/event/list")]
-        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int roomId, int hostId)
-        {
-            var results = _eventRepository.GetEvents();
-            if (results == null) return NotFound();
+            var results = eventRepository.GetEvents()
+                              //.Where(e => e.StartDate >= startDate)        
+                              //.Where(e => e.StartDate <= endDate);
+                            .Where(e => e.StartDate >= DateTime.Parse("2019-01-01 09:00"))
+                            .Where(e => e.StartDate <= DateTime.Parse("2019-12-31 18:00"));
 
             return Ok(results);
         }
@@ -68,7 +62,7 @@ namespace RSService.Controllers
 
                 var _model = Mapper.Map<Event>(model);
 
-                var _event = _eventRepository.GetEvents().FirstOrDefault(c => c.Id == id);
+                var _event = eventRepository.GetEvents().FirstOrDefault(c => c.Id == id);
                 if (_event == null)
                 {
                     return NotFound();
@@ -83,7 +77,7 @@ namespace RSService.Controllers
                 _event.AttendeeId = _model.AttendeeId;
                 _event.EventStatus = _model.EventStatus;
                 _event.DateCreated = DateTime.UtcNow;
-                _dbTransaction.Commit();
+                dbOperation.Commit();
 
                 return NoContent();
             }
@@ -96,7 +90,7 @@ namespace RSService.Controllers
         [HttpGet("/room/list")]
         public IActionResult GetRooms()
         {
-            var results = _roomRepository.GetRooms();
+            var results = roomRepository.GetRooms();
             if (results == null) return NotFound();
 
             return Ok(results);

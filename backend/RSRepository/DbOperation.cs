@@ -4,12 +4,12 @@ using System.Text;
 
 namespace RSRepository
 {
-    public class DbTransaction : IDbTransaction
+    public class DbOperation : IDbOperation
     {
         private RoomPlannerDevContext context;
        //private IEventRepository eventRepository;
 
-        public DbTransaction(RoomPlannerDevContext context)
+        public DbOperation(RoomPlannerDevContext context)
         {
             this.context = context;
         }
@@ -19,9 +19,5 @@ namespace RSRepository
             context.SaveChanges();
         }
 
-        public void Roolback()
-        {
-            context.Database.RollbackTransaction();
-        }
     }
 }

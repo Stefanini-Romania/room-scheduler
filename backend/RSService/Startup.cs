@@ -36,7 +36,7 @@ namespace RSService
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IEventRepository, EventRepository>();
             services.AddTransient<IRoomRepository, RoomRepository>();
-            services.AddTransient<IDbTransaction, DbTransaction>();
+            services.AddTransient<IDbOperation, DbOperation>();
             services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection));
 
             

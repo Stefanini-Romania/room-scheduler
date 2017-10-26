@@ -4,9 +4,8 @@ using System.Text;
 
 namespace RSRepository
 {
-    public interface IDbTransaction
+    public interface IDbOperation
     {
         void Commit();
-        void Roolback();
     }
 }
