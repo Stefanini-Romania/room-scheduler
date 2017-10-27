@@ -14,12 +14,14 @@ namespace RSService.Controllers
         private IEventRepository eventRepository;
         private IDbOperation dbOperation;
         private IRoomRepository roomRepository;
+        private IAvailabiltyRepository availabilityRepository;
 
-        public RoomSchedulerController(IEventRepository _eventRepository, IDbOperation _dbOperation, IRoomRepository _roomRepository)
+        public RoomSchedulerController(IEventRepository _eventRepository, IDbOperation _dbOperation, IRoomRepository _roomRepository, IAvailabiltyRepository _availabilityRepository)
         {
             eventRepository = _eventRepository;
             dbOperation = _dbOperation;
             roomRepository = _roomRepository;
+            availabilityRepository = _availabilityRepository;
 
         }
     
@@ -42,14 +44,23 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
+        //[HttpGet("/availability/list/{id}")]
+        //public IActionResult GetAvailability(int id)
+        //{
+        //    var results = availabilityRepository.GetAvailabilityById(id);
+        //    if (results == null) return NotFound();
+
+        //    return Ok(results);
+        //}
+
         [HttpGet("/event/list")]
         public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int hostId)
         {
             var results = eventRepository.GetEvents()
                               //.Where(e => e.StartDate >= startDate)        
                               //.Where(e => e.StartDate <= endDate);
-                            .Where(e => e.StartDate >= DateTime.Parse("2019-01-01 09:00"))
-                            .Where(e => e.StartDate <= DateTime.Parse("2019-12-31 18:00"));
+                            .Where(e => e.StartDate >= DateTime.Parse("2016-01-01 09:00"))
+                            .Where(e => e.StartDate <= DateTime.Parse("2017-12-31 18:00"));
 
             return Ok(results);
         }
