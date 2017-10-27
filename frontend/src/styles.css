@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-body
+html, body
 {
-    background: rgb(102, 100, 100);
+    background: rgb(255, 255, 255);
     color: black;
+    height: 100%;
+ 
 }
 
 .navbar{
@@ -18,7 +20,7 @@ body
     padding-top: 50px;
     /* / Set rules to fill background / */
     min-height: 100%;
-    min-width: 100%;
+    width: 100%;
    
     /* / Set up positioning / */
     position: fixed;
@@ -28,7 +30,7 @@ body
 }
 
 
-#img1
+#logo-header
 {  
     text-align: left;
     height: 40px;
@@ -69,22 +71,22 @@ form
     float: none;
     padding:10px;
     margin: auto;
+
 }
 
 .card-body{
-    margin: auto;
-    /* margin-bottom: 10px;  */
-}
-
-div.card {
     background-color: #F7F7F7;
-    margin-bottom: 10px;   
+    margin:auto;
     padding: 2px;
+    border: 1px solid rgb(223, 220, 220);
+    width: 50%
+
+ 
 }
 
-#home-section h3{
+/* #home-section h3{
     color: white;
-}
+} */
 
 h3 {
     text-align: center;
@@ -134,7 +136,7 @@ button {
     margin-right: 2cm;
     border: none;
     cursor: pointer;
-    width: 100% fixed;
+    width: 100%;
     padding: 0px;
     font-weight: 700;
     font-size: 14px;
@@ -179,7 +181,9 @@ height: 60px;
 }
 
 .container {
-    padding-top: 60px;
+    /* margin-top: 60px; */
+    position: relative;
+   
 }
 
 span.psw {
@@ -233,6 +237,13 @@ footer a {
     width: 100%;
   
 }
+ #login{
+    padding-top:80px;
+    position: relative;
+}
+
+
+
 
 
 
