@@ -14,10 +14,12 @@ namespace RSService.Controllers
     public class ValuesController : BaseController
     {
         private IUserRepository _userRepository;
+        private IAvailabiltyRepository _availabiltyRepository;
 
-        public ValuesController(IUserRepository userRepository)
+        public ValuesController(IUserRepository userRepository, IAvailabiltyRepository availabiltyRepository)
         {
             _userRepository = userRepository;
+            _availabiltyRepository = availabiltyRepository;
         }
 
         // GET api/values
@@ -42,9 +44,9 @@ namespace RSService.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            return Ok(_availabiltyRepository.GetAvailabilityById(id));
         }
 
         // POST api/values

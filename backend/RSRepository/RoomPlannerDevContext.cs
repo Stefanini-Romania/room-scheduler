@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using RSData.Models;
+using RoomScheduler.Models;
 
 namespace RSRepository
 {
@@ -30,6 +31,29 @@ namespace RSRepository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Availability>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("AvailabilityId");
+                entity.Property(e => e.EndHour).HasColumnType("datetime");
+                entity.Property(e => e.StartHour).HasColumnType("datetime");
+                entity.Property(e => e.DayOfWeek).HasColumnName("DayOfWeek");
+                entity.Property(e => e.AvailabilityType).HasColumnName("AvailabilityType");
+                entity.Property(e => e.RoomId).HasColumnName("RoomId");
+                entity.Property(e => e.HostId).HasColumnName("HostId");
+
+                entity.HasOne(d => d.Host)
+                    .WithMany(p => p.Availability)
+                    .HasForeignKey(d => d.HostId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Availability_Host");
+
+                entity.HasOne(d => d.Room)
+                    .WithMany(p => p.Availability)
+                    .HasForeignKey(d => d.RoomId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Availability_Room");
+            });
+
             modelBuilder.Entity<Department>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("DepartmentID");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RoomScheduler.Models;
 
 namespace RSData.Models
 {
@@ -26,5 +27,6 @@ namespace RSData.Models
         public ICollection<Penalty> Penalty { get; set; }
         public ICollection<TimeSlot> TimeSlot { get; set; }
         public ICollection<UserRole> UserRole { get; set; }
+        public IEnumerable<Availability> Availability { get; set; }
     }
 }
