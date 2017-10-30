@@ -9,6 +9,8 @@ namespace RSRepository
     public interface IAvailabiltyRepository
     {
         Availability GetAvailabilityById(int id);
-        
+        IEnumerable<Availability> GetAvailabilities();
+
     }
+   
 }

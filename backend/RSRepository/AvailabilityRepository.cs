@@ -22,5 +22,11 @@ namespace RSRepository
         {
             return availabilities.SingleOrDefault(s => s.Id == id);
         }
+
+        public IEnumerable<Availability> GetAvailabilities()
+        {
+            return availabilities.AsEnumerable();
+        }
+
     }
 }

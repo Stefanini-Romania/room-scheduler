@@ -44,17 +44,17 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
-        //[HttpGet("/availability/list/{id}")]
-        //public IActionResult GetAvailability(int id)
+        //[HttpGet("/availability/list")]
+        //public IActionResult GetAvailabilities()
         //{
-        //    var results = availabilityRepository.GetAvailabilityById(id);
+        //    var results = availabilityRepository.GetAvailabilities();
         //    if (results == null) return NotFound();
 
         //    return Ok(results);
         //}
 
         [HttpGet("/event/list")]
-        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int hostId)
+        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
             var results = eventRepository.GetEvents()
                               //.Where(e => e.StartDate >= startDate)        
