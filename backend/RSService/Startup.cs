@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using AutoMapper;
 using RSService.ViewModels;
+using RSService.BusinessLogic;
 
 namespace RSService
 {
@@ -37,6 +38,7 @@ namespace RSService
             services.AddTransient<IEventRepository, EventRepository>();
             services.AddTransient<IRoomRepository, RoomRepository>();
             services.AddTransient<IAvailabiltyRepository, AvailabilityRepository>();
+            services.AddTransient<IRSManager, RSManager>();
             services.AddTransient<IDbOperation, DbOperation>();
             services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection));
 

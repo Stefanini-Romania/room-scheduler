@@ -9,7 +9,7 @@ using RoomScheduler.Models;
 
 namespace RSService.BusinessLogic
 {
-    public class RSManager
+    public class RSManager : IRSManager
     {
         private IAvailabiltyRepository availabilityRepository;
 
@@ -18,75 +18,44 @@ namespace RSService.BusinessLogic
             availabilityRepository = _availabiltyRepository;
         }
 
-        public List<DayOfWeek> GetDaysOfWeek(DateTime start, DateTime end)
-        {
-            //maxim 7, dar pot fi mai putine
-        }
 
-        public int GetNumOfDays(DateTime start, DateTime end)
-        {
-            TimeSpan ts = (end - start);
-            return  ts.Days;
-
-        }
-
-
-        public IEnumerable<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] hostId, int[] roomId, int availabilityType)
+        public IEnumerable<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] hostId, int[] roomId)
         {
             List<Event> availabilityEvents = new List<Event>();
 
-            List<DayOfWeek> daysOfWeek = GetDaysOfWeek();
-
-            var results = availabilityRepository.GetAvailabilities();
-                              //.Where(e => e.DayOfWeek >= (int)startDate.DayOfWeek)
-        
-                              //.Where(e => hostId.Contains(e.HostId))
-                              //.Where(e => roomId.Contains(e.RoomId))
-                              //.Where(e => e.AvailabilityType == availabilityType);
-
-
-
-
-            TimeSpan ss = new TimeSpan()
-              
-                
-            
-            
-            foreach (Availability availability in results)
-            {
-                var newEvent = new Event()
-                {
-                    StartDate = new DateTime(startDate.Year, startDate.Month, startDate.Day, availability.StartHour.Hour, availability.StartHour.Minute, availability.StartHour.Second),
-                    EndDate = new DateTime(startDate.Year, startDate.Month, startDate.Day, availability.EndHour.Hour, availability.EndHour.Minute, availability.EndHour.Second),
-                    EventType = "availability",
-                    RoomId = availability.RoomId,
-                    HostId = availability.HostId,
-                    EventStatus = availability.AvailabilityType
-                };
-
-                availabilityEvents.Add(newEvent);
-            }
-
-            int noDays = GetNumOfDays(startDate, endDate);
-
+            var allAvailabilities = availabilityRepository.GetAvailabilities();
 
             DateTime currentDay = startDate.Date;
-     
-            while(endDate.Date >= currentDay)
+ 
+            while (endDate.Date >= currentDay)
             {
-                //foreach room
-                //foreach host
-                //eventstart = currentDay + StartHour 
-                //event end = cuurentDay + EndHour
+                foreach (int room in roomId)
+                {
+                    foreach (int host in hostId)
+                    {
+                        var availabilities = allAvailabilities.Where(e => e.HostId == host)
+                                                              .Where(e => e.RoomId == room)
+                                                              .Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek);
+                        foreach (Availability entry in availabilities)
+                        {
+                            Event newEvent = new Event()
+                            {
+                                StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
+                                EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
+                                EventType = "availability",
+                                RoomId = room,
+                                HostId = host,
+                                EventStatus = (int)AvailabilityEnum.NotAvailable,
+                            };
+                            availabilityEvents.Add(newEvent);
+                        }
 
-
-
-                currentDay.AddDays(1);
+                    }
+                }
+                currentDay = currentDay.AddDays(1);
             }
 
-
-
-
+            return availabilityEvents;
 
         }
     }

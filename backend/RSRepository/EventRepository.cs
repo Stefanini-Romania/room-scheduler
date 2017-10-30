@@ -21,8 +21,7 @@ namespace RSRepository
 
         public IEnumerable<Event> GetEvents()
         {
-            return events.AsEnumerable();
-          
+            return events.ToList();          
         }
 
         public Event GetEventById(int id)

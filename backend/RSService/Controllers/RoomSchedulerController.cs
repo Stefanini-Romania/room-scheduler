@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
+using RSService.BusinessLogic;
 using RSService.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RSService.Controllers
@@ -15,14 +17,14 @@ namespace RSService.Controllers
         private IDbOperation dbOperation;
         private IRoomRepository roomRepository;
         private IAvailabiltyRepository availabilityRepository;
-
-        public RoomSchedulerController(IEventRepository _eventRepository, IDbOperation _dbOperation, IRoomRepository _roomRepository, IAvailabiltyRepository _availabilityRepository)
+        private IRSManager rsManager;
+        public RoomSchedulerController(IEventRepository _eventRepository, IDbOperation _dbOperation, IRoomRepository _roomRepository, IAvailabiltyRepository _availabilityRepository, IRSManager _rsManager)
         {
             eventRepository = _eventRepository;
             dbOperation = _dbOperation;
             roomRepository = _roomRepository;
             availabilityRepository = _availabilityRepository;
-
+            rsManager = _rsManager;
         }
     
         [HttpPost("/event/create")]
@@ -56,11 +58,15 @@ namespace RSService.Controllers
         [HttpGet("/event/list")]
         public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
-            var results = eventRepository.GetEvents()
+             var results = eventRepository.GetEvents()
                               //.Where(e => e.StartDate >= startDate)        
                               //.Where(e => e.StartDate <= endDate);
-                            .Where(e => e.StartDate >= DateTime.Parse("2016-01-01 09:00"))
-                            .Where(e => e.StartDate <= DateTime.Parse("2017-12-31 18:00"));
+                            .Where(e => e.StartDate >= DateTime.Parse("2016-02-01 09:00"))
+                            .Where(e => e.StartDate <= DateTime.Parse("2018-02-15 18:00"));
+
+            var availabilityEvents = rsManager.CreateAvailabilityEvents(DateTime.Parse("2017-02-01 09:00"), DateTime.Parse("2017-02-06 18:00"), new int[]{ 1}, new int[] { 1 });
+
+            results = results.Concat(availabilityEvents);
 
             return Ok(results);
         }
