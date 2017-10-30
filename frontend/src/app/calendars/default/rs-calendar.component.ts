@@ -13,7 +13,8 @@ export class RSCalendarComponent {
         this.scheduler.ensureAppointmentVisible('id1');
     }
   
-      generateAppointments(): any {
+    // @TODO eventsService.getLust();
+    generateAppointments(): any {
           let appointments = new Array();
           let appointment1 = {
               id: "id1",
@@ -120,7 +121,7 @@ export class RSCalendarComponent {
       [
           { type: 'dayView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 } },
           { type: 'weekView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 } },
-          { type: 'monthView', showWeekends: false }
+        //   { type: 'monthView', showWeekends: false }
       ];  
   }
 
