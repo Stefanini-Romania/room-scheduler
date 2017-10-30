@@ -16,8 +16,7 @@ const routes: Routes = [
     redirectTo: '/login',
     pathMatch: 'full'
   },
-  //{ path: '**', component: PageNotFoundComponent }
-];
+]; 
 
 @NgModule({
     imports: [
@@ -31,10 +30,10 @@ const routes: Routes = [
         RouterModule.forRoot(routes),
     ],
   
-    providers: [AuthService],
-    declarations: [AppComponent],
+    providers: [ AuthService ],
+    declarations: [ AppComponent ],
     exports: [],
-    bootstrap: [AppComponent]
+    bootstrap: [ AppComponent ]
 })
 
 export class AppModule { }

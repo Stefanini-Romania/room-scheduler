@@ -4,7 +4,6 @@ import { RSCalendarComponent } from './default/rs-calendar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { jqxSchedulerComponent } from '../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import { Roomselector } from './default/roomSelector.component';
-
 import { FormsModule } from '@angular/forms';
 
 const routes : Routes =[
@@ -24,4 +23,5 @@ const routes : Routes =[
   declarations: [jqxSchedulerComponent, RSCalendarComponent, Roomselector],
   exports: [RSCalendarComponent],
 })
+
 export class CalendarsModule {}
