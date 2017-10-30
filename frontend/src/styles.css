@@ -141,6 +141,18 @@ button {
     font-weight: 700;
     font-size: 14px;
 }
+#roomsButton {
+    background-color: #004e9e;
+    color: #fff;
+    margin: 8px 0;
+    margin-right: 2cm;
+    border: none;
+    cursor: pointer;
+    width: 90px;
+    padding-right: 10px;
+    font-weight: 700;
+    font-size: 14px;
+}
 
 /* #buttonLog {
     width: 100%;

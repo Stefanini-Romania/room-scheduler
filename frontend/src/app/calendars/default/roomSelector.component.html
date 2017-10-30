@@ -1,0 +1,8 @@
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="roomsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        ROOMS
+    </button>
+    <div class="dropdown-menu" aria-labelledby="roomsButton">
+        <a href="{{ room.url }}" class="btn" *ngFor="let room of rooms" class="dropdown-item">{{ room.name }}</a>
+    </div>
+</div>

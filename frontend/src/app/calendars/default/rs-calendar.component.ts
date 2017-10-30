@@ -118,8 +118,9 @@ export class RSCalendarComponent {
   
       views: any[] =
       [
-          'dayView',
-          'weekView',
-          // 'monthView'
+          { type: 'dayView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 } },
+          { type: 'weekView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 } },
+          { type: 'monthView', showWeekends: false }
       ];  
   }
+
