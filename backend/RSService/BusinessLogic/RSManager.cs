@@ -12,10 +12,12 @@ namespace RSService.BusinessLogic
     public class RSManager : IRSManager
     {
         private IAvailabiltyRepository availabilityRepository;
+        private IEventRepository eventRepository;
 
-        public RSManager(IAvailabiltyRepository _availabiltyRepository)
+        public RSManager(IAvailabiltyRepository _availabiltyRepository, IEventRepository _eventRepository)
         {
             availabilityRepository = _availabiltyRepository;
+            eventRepository = _eventRepository;
         }
 
 
@@ -59,6 +61,34 @@ namespace RSService.BusinessLogic
 
         }
 
+        public int GetTimeSpan(DateTime start, DateTime end)
+        {
+                return (end - start).Minutes; 
+        }
+
+        public int GetAvailableTime(int userId, DateTime startDate)
+        {
+            var result = eventRepository.GetEvents()
+                            .Where(e => e.AttendeeId == userId)
+                            .Where(e => e.StartDate == startDate);
+            if (result.Count() >= 2)
+            {
+                return 0;
+            }
+            else if (result.Count() == 1)
+            {
+                if (GetTimeSpan(result.First().StartDate, result.First().EndDate) == 30)
+                {
+                    return 30;
+                }
+                else
+                {
+                    return 0; 
+                }
+            }
+            return 60 ;
+        }
+
         public bool checkAvailability()
         {
 
@@ -66,6 +96,7 @@ namespace RSService.BusinessLogic
 
             return true;
         }
+
 
 
 
