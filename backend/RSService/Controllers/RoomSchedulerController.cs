@@ -27,6 +27,7 @@ namespace RSService.Controllers
             rsManager = _rsManager;
         }
     
+        //[ValidateModel]
         [HttpPost("/event/create")]
         public void AddEvent([FromBody]EventViewModel model)
         {
@@ -64,6 +65,7 @@ namespace RSService.Controllers
                             .Where(e => e.StartDate >= DateTime.Parse("2016-02-01 09:00"))
                             .Where(e => e.StartDate <= DateTime.Parse("2018-02-15 18:00"));
 
+            //var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
             var availabilityEvents = rsManager.CreateAvailabilityEvents(DateTime.Parse("2017-02-01 09:00"), DateTime.Parse("2017-02-06 18:00"), new int[]{ 1}, new int[] { 1 });
 
             results = results.Concat(availabilityEvents);

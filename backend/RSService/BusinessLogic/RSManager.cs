@@ -58,5 +58,17 @@ namespace RSService.BusinessLogic
             return availabilityEvents;
 
         }
+
+        public bool checkAvailability()
+        {
+
+
+
+            return true;
+        }
+
+
+
+
     }
 }
