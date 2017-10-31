@@ -14,13 +14,13 @@ export class AuthService {
     
     constructor(private http: HttpClient) {}
 
-    public login(username: string, password: string) {
+    authenticate(username: string, password: string) {
         const url = 'http://172.25.4.165:88/api/auth/login';
         const body = JSON.stringify({ username: username, password: password });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body, { headers: headers })
-        .catch((error:any) => Observable.throw(error.message))
         
+        .catch((error:any) => Observable.throw(error.message))
         .map((response: Response) => {
             
             let user = response.json;
@@ -29,8 +29,5 @@ export class AuthService {
             }
             return user; 
         })
-        .subscribe((data) => {
-                console.log(data); 
-        });
     }
 }
