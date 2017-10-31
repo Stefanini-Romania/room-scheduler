@@ -10,6 +10,8 @@
                                     <a href="https://stefanini.com/en/">
                                     <img src="../../../assets/img/Logo_Stefanini_Q.png"  id="imgform" class="img-fluid">
                                     </a>
+                                    
+                                    <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage }}</ngb-alert>
                                     <!-- <label><b>Username</b></label> -->
                                     <input type="text" placeholder="Enter Username" name="UserName" [(ngModel)]="model.UserName" #UserName="ngModel" required>
                             

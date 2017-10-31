@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
   })
 
   export class LoginComponent {
+    private errorMessage: string = '';
 
     model: User = <User> {};
     activeUser: User;
@@ -23,18 +24,11 @@ import { Observable } from 'rxjs/Observable';
       this.authService.authenticate(this.model.UserName, this.model.Password)
         .subscribe(
           data => {
-              console.log("OK");
               this.router.navigate(['/calendar']);
               
           },
           error => {
-              console.log("NOT OK");
-              alert("Incorrect username or password!");
+              this.errorMessage = "Incorrect username or password";
           })
     }
-  
-    /*selectUser(user) {
-      this.activeUser = user;
-      console.log(this.activeUser);
-    } */
   }

@@ -4,11 +4,12 @@ import { NgModule } from '@angular/core';
 import { RSHeader } from './rs-header/rs-header.component';
 import { RSFooter } from './rs-footer/rs-footer.component';
 import { HttpModule } from '@angular/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [ CommonModule, FormsModule, HttpModule ],
+  imports: [ CommonModule, FormsModule, HttpModule, NgbModule.forRoot() ],
   providers: [],
   declarations: [RSHeader, RSFooter],
-  exports: [ RSHeader, RSFooter ],
+  exports: [ CommonModule, FormsModule, NgbModule, RSHeader, RSFooter ],
 })
 export class CoreModule {}
