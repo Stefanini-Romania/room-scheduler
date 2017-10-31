@@ -1,16 +1,19 @@
-﻿using System;
+﻿using FluentValidation.Attributes;
+using RSService.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace RSService.ViewModels
 {
+    [Validator(typeof(CreateEventValidator))]
     public class EventViewModel
     {
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public string EventType { get; set; }
 

@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using AutoMapper;
 using RSService.ViewModels;
 using RSService.BusinessLogic;
+using RSService.Filters;
+using FluentValidation.AspNetCore;
 
 namespace RSService
 {
@@ -31,7 +33,11 @@ namespace RSService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(opt =>
+            {
+                opt.Filters.Add(typeof(ValidatorActionFilter));
+            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+
             var connection = @"Server=BUSWGVMINDEV3\MSSQLSERVER12;Database=RoomPlannerDev;User Id=roomplanner;Password=roomplanner123";
 
             services.AddTransient<IUserRepository, UserRepository>();
