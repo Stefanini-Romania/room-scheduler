@@ -7,8 +7,10 @@ import { CoreModule } from './core/core.module';
 import { FormsModule } from '@angular/forms';
 import { CalendarsModule } from './calendars/calendars.module';
 import { SharedModule } from './shared/shared.module';
-import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/shared/auth.service';
+import { AuthModule } from './auth/auth.module';
+import { RoomModule } from './shared/room.module';
+import { RoomService } from './rooms/room.service';
 
 const routes: Routes = [
   // default route
@@ -25,13 +27,14 @@ const routes: Routes = [
         FormsModule,
         CoreModule,
         SharedModule,
-        AuthModule,
         CalendarsModule,
         RouterModule.forRoot(routes),
+        RoomModule,
+        AuthModule
     ],
   
-    providers: [ AuthService ],
-    declarations: [ AppComponent ],
+    providers: [ RoomService, AuthService ],
+    declarations: [AppComponent],
     exports: [],
     bootstrap: [ AppComponent ]
 })

@@ -1,5 +1,6 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
+import { RoomSelector } from './../../rooms/roomSelector.component';
 
 @Component({
   selector: 'rs-calendar-component',
@@ -120,8 +121,8 @@ export class RSCalendarComponent {
       views: any[] =
       [
           { type: 'dayView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 } },
-          { type: 'weekView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 } },
-        //   { type: 'monthView', showWeekends: false }
+          { type: 'weekView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 } }
+         // { type: 'monthView', showWeekends: false }
       ];  
   }
 

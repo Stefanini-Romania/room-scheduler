@@ -3,7 +3,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RSCalendarComponent } from './default/rs-calendar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { jqxSchedulerComponent } from '../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
-import { Roomselector } from './default/roomSelector.component';
+import { RoomSelector } from './../rooms/roomSelector.component';
+import { RoomModule } from './../shared/room.module';
+
 import { FormsModule } from '@angular/forms';
 
 const routes : Routes =[
@@ -15,12 +17,13 @@ const routes : Routes =[
     FormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
+    RoomModule
   
   ],
   providers: [
 
   ],
-  declarations: [jqxSchedulerComponent, RSCalendarComponent, Roomselector],
+  declarations: [jqxSchedulerComponent, RSCalendarComponent, RoomSelector],
   exports: [RSCalendarComponent],
 })
 
