@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
   })
 
   export class LoginComponent {
-    private errorMessage: string = '';
+    public errorMessage: string = '';
 
     model: User = <User> {};
     activeUser: User;
