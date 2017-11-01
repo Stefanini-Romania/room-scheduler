@@ -1,6 +1,6 @@
 export class Event{
-    StartDate: Date;
-    EndDate: Date;
-    RoomId: number;
-    HostId?: number;
+    startDate: Date;
+    endDate: Date;
+    roomId: number;
+    hostId?: number;
 }

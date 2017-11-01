@@ -1,3 +1,4 @@
+import { RoomService } from './room.service';
 import { Component } from '@angular/core';
 import { Room } from './room.model';
 
@@ -6,12 +7,16 @@ import { Room } from './room.model';
     templateUrl: 'roomSelector.component.html'
 })
 export class RoomSelector {
-    public rooms: [Room] = [
+    rooms: Room[];
 
-        {RoomId: 1, Name: 'ROOM 1', Location: 'http://google.ro?1'},
-        {RoomId: 2, Name: 'ROOM 2', Location: 'http://google.ro?2'},
-        {RoomId: 3, Name: 'ROOM 3', Location: 'http://google.ro?3'}
-        
-    ];
+    constructor(private roomService: RoomService) {}
 
+    ngAfterViewInit(): void {
+        this.rooms = [];
+        this.roomService.roomList().subscribe((rooms: any) => {
+            for (let room of rooms) {
+                this.rooms.push(<Room>room);
+            };
+        });
+    }
 }

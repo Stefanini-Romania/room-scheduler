@@ -31,7 +31,7 @@ export class RSCalendarComponent {
     };
 
     dataAdapter: any = new jqx.dataAdapter(this.source);
-    date: any = new jqx.date(2017, 11, 1);
+    date: Date;
 
     appointmentDataFields: any =
     {
@@ -58,15 +58,28 @@ export class RSCalendarComponent {
       //   { type: 'monthView', showWeekends: false }
     ];  
 
-    constructor(private _eventService: EventService) {
-        console.log(this.events);
+    constructor(private _eventService: EventService) {}
+
+    today() {
+        this.date = new Date();
+    }
+    
+    calendarUpdate() {
+        // @TODO currentCalendarDate - get crrent calendar date
+        // @TODO roomId - get the roomId from the room-selector
+        // @TODO this.renderCalendar(currentCalendarDate, roomId);
     }
 
     ngAfterViewInit(): void {
         this.scheduler.ensureAppointmentVisible('id1');
 
+        this.renderCalendar(new Date());
+    }
+
+
+    private renderCalendar(startDate: Date,  RoomId: number = null) {
         this.events = [];
-        const events = this._eventService.listEvents(null, null , null).subscribe((events: Event[]) => {
+        const events = this._eventService.listEvents(startDate, new Date(startDate.getDate() + 5) , RoomId).subscribe((events: Event[]) => {
             for (let event of events) {
                 this.events.push({
                     id: event['id'],
@@ -79,13 +92,10 @@ export class RSCalendarComponent {
                 });
             };
 
-        
-            this.source.localData = this.events;
+            this.source.localData = events;
             this.dataAdapter = new jqx.dataAdapter(this.source);
-        });
+        });    
     }
-
-    
 
 }
 

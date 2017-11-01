@@ -9,7 +9,7 @@ import { CalendarsModule } from './calendars/calendars.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthService } from './auth/shared/auth.service';
 import { AuthModule } from './auth/auth.module';
-import { RoomModule } from './shared/room.module';
+import { RoomModule } from './rooms/room.module';
 import { RoomService } from './rooms/room.service';
 
 const routes: Routes = [
