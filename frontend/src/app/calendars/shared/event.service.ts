@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
@@ -13,23 +14,10 @@ export class EventService{
 
     constructor(private http: HttpClient) {}
     
-    public listEvents(startDate: Date, endDate: Date, roomId: number, hostId?: number){
-        const url = 'http://172.25.4.165:88/api/event/list';
+    public listEvents(startDate: Date, endDate: Date, roomId: number, hostId?: number) {
+        const url = 'http://fctestweb1:88/event/list';
         const body = JSON.stringify({ startDate: startDate, endDate: endDate, roomId: roomId, hostId: hostId });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post(url, body, { headers: headers })
-        .catch((error:any) => Observable.throw(error.message))
-
-        .map((response: Response) => {
-            
-            let event = response.json;
-            // if (user) {
-            //     localStorage.setItem('currentUser', JSON.stringify(user));
-            // }
-            // return user; 
-        })
-        .subscribe((data) => {
-                console.log(data); 
-        });
+        return this.http.get(url, { headers: headers });
     }
 }

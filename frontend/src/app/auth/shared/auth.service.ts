@@ -1,3 +1,4 @@
+// import { first } from 'rxjs/operator/first';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
@@ -20,14 +21,15 @@ export class AuthService {
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body, { headers: headers })
         
-        .catch((error:any) => Observable.throw(error.message))
-        .map((response: Response) => {
+                        .catch((error:any) => Observable.throw(error.message))
+                        .map((response: Response) => {
             
-            let user = response.json;
-            if (user) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
-            }
-            return user; 
+                                if (response) {
+                    
+                                    sessionStorage.setItem('currentUser', JSON.stringify(response));
+                                }
+                                return response; 
+
         })
     }
 }
