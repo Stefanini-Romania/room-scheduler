@@ -1,5 +1,6 @@
 <div class="container" style="padding-top: 80px">
-  <room-selector></room-selector>
+  <button (click)="today()">Today</button>
+  <room-selector onSelect="calendarUpdate()"></room-selector>
   <jqxScheduler #schedulerReference
     [date]="date" [width]="1000" [height]="700" [source]="dataAdapter" [showLegend]="true" [view]="'weekView'"
     [appointmentDataFields]="appointmentDataFields" [resources]="resources" [views]="views">
