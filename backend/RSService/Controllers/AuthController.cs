@@ -45,12 +45,11 @@ namespace RSService.Controllers
         }
 
         [HttpPost("api/auth/login")]
-        //[ValidateModel]
         public async Task<IActionResult> Login([FromBody] CredentialModel model)
         {
             if (model == null)
             {
-                return BadRequest();
+                return BadRequest(new BadRequestObjectResult("FailedAuthentication"));
             }
 
             if (LoginUser(model.UserName, model.Password))
@@ -69,7 +68,7 @@ namespace RSService.Controllers
                 //Just redirect to our index after logging in. 
                 return Ok(user);
             }
-            return BadRequest();
+            return BadRequest(new BadRequestObjectResult("FailedAuthentication"));
         }
 
 

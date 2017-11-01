@@ -18,9 +18,9 @@ namespace RSService.Filters
             rsManager = _rsManager;
 
             RuleFor(m => m.StartDate)
-                .NotEmpty().WithMessage("Start Date is required")
-                .GreaterThanOrEqualTo(DateTime.UtcNow)
-                .Must(CanBook).WithMessage("You can't book more events for this day");
+                .NotEmpty().WithMessage("Start Date is required")    //.WithErrorCode("EmptyStartDate")
+                .GreaterThanOrEqualTo(DateTime.UtcNow);
+            //.Must(CanBook).WithMessage("You can't book more events for this day");
 
             RuleFor(m => m.EndDate)
                 .NotEmpty().WithMessage("End Date is required")

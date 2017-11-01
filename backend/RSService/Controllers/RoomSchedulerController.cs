@@ -60,13 +60,13 @@ namespace RSService.Controllers
         public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
              var results = eventRepository.GetEvents()
-                              //.Where(e => e.StartDate >= startDate)        
-                              //.Where(e => e.StartDate <= endDate);
-                            .Where(e => e.StartDate >= DateTime.Parse("2016-02-01 09:00"))
-                            .Where(e => e.StartDate <= DateTime.Parse("2018-02-15 18:00"));
+                              .Where(e => e.StartDate >= startDate)        
+                              .Where(e => e.StartDate <= endDate);
+                            //.Where(e => e.StartDate >= DateTime.Parse("2016-02-01 09:00"))
+                            //.Where(e => e.StartDate <= DateTime.Parse("2018-02-15 18:00"));
 
             //var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
-            var availabilityEvents = rsManager.CreateAvailabilityEvents(DateTime.Parse("2017-02-01 09:00"), DateTime.Parse("2017-02-06 18:00"), new int[]{ 1}, new int[] { 1 });
+            var availabilityEvents = rsManager.CreateAvailabilityEvents(DateTime.Parse("2017-11-01 09:00"), DateTime.Parse("2017-11-30 18:00"), new int[]{ 1}, new int[] { 1 });
 
             results = results.Concat(availabilityEvents);
 
