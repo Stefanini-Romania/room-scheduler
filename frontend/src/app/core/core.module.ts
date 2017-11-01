@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { RSHeader } from './rs-header/rs-header.component';
 import { RSFooter } from './rs-footer/rs-footer.component';
 import { HttpModule } from '@angular/http';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [ CommonModule, FormsModule, HttpModule, NgbModule.forRoot() ],
