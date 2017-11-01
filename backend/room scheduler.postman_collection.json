@@ -21,9 +21,55 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"UserName\":\"Ionescu\",\n\t\"Password\": \"123456\"\n}"
+					"raw": "{\n\t\"UserName\":\"xIonescu\",\n\t\"Password\": \"123456\"\n}"
 				},
 				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://fctestweb1:88/event/list",
+			"request": {
+				"url": {
+					"raw": "http://fctestweb1:88/event/list?startDate=2017-11-01T09:00:00&endDate=2017-11-30T18:00:00",
+					"protocol": "http",
+					"host": [
+						"fctestweb1"
+					],
+					"port": "88",
+					"path": [
+						"event",
+						"list"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2017-11-01T09:00:00",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "endDate",
+							"value": "2017-11-30T18:00:00",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"UserName\":\"Ionescu\",\n\t\"Password\": \"123456\"\n}"
+				},
+				"description": "Get Events Service"
 			},
 			"response": []
 		}
