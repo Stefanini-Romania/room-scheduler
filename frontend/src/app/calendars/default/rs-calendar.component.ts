@@ -61,8 +61,19 @@ export class RSCalendarComponent {
     constructor(private _eventService: EventService) {}
 
     today() {
+        
         this.date = new Date();
     }
+
+    goBack() {
+        this.date = this.scheduler.date().addDays(-1);
+    }
+
+    test () {
+        console.log(this.scheduler.date().toDate());
+        
+    }
+
     
     calendarUpdate() {
         // @TODO currentCalendarDate - get crrent calendar date

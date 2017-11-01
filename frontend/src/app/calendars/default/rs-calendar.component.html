@@ -1,6 +1,20 @@
 <div class="container" style="padding-top: 80px">
-  <button (click)="today()">Today</button>
-  <room-selector onSelect="calendarUpdate()"></room-selector>
+  <div class="row">
+    <div class="col-sm-1">
+        <room-selector onSelect="calendarUpdate()"></room-selector>
+    </div>
+
+    <div class="col-sm-1">
+        <button ngbButtonLabel ngbButton class="btn-primary" id="roomsButton" (click)="today()">TODAY</button>
+    </div>
+
+    <div class="col-sm-2">
+      <button ngbButtonLabel ngbButton class="btn-primary" id="prevButton" (click)="goBack()"><strong>&lt;</strong></button>
+      <button ngbButtonLabel ngbButton class="btn-primary" id="nextButton" ><strong>&gt;</strong></button>
+    </div>
+
+  </div>
+
   <jqxScheduler #schedulerReference
     [date]="date" [width]="1000" [height]="700" [source]="dataAdapter" [showLegend]="true" [view]="'weekView'"
     [appointmentDataFields]="appointmentDataFields" [resources]="resources" [views]="views">

@@ -150,6 +150,18 @@ button {
     font-weight: 700;
     font-size: 14px;
 }
+#prevButton, #nextButton{
+    background-color: #004e9e;
+    color: #fff;
+    margin-right: 2cm;
+    border: none;
+    cursor: pointer;
+    margin: 8px 0;
+    font-size: 14px;
+    display: inline;
+    width:35px;
+}
+
 
 /* #buttonLog {
     width: 100%;
