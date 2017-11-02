@@ -21,7 +21,7 @@ namespace RSService.BusinessLogic
         }
 
 
-        public IEnumerable<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] hostId, int[] roomId)
+        public IEnumerable<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
             List<Event> availabilityEvents = new List<Event>();
 
@@ -35,9 +35,10 @@ namespace RSService.BusinessLogic
                 {
                     foreach (int host in hostId)
                     {
-                        var availabilities = allAvailabilities.Where(e => e.HostId == host)
+                        var availabilities = allAvailabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek)
                                                               .Where(e => e.RoomId == room)
-                                                              .Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek);
+                                                              .Where(e => e.HostId == host);
+                                                             
                         foreach (Availability entry in availabilities)
                         {
                             Event newEvent = new Event()
@@ -48,6 +49,7 @@ namespace RSService.BusinessLogic
                                 RoomId = room,
                                 HostId = host,
                                 EventStatus = (int)AvailabilityEnum.NotAvailable,
+                                DateCreated = DateTime.UtcNow,
                             };
                             availabilityEvents.Add(newEvent);
                         }
