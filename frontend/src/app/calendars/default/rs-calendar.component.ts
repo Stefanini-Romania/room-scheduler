@@ -12,7 +12,8 @@ import {EventService} from '../shared/event.service'
 export class RSCalendarComponent {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
     private events: any;
-    public startDate;
+    public startDate: Date;
+    public roomId:number;
 
     source: any =
     {
@@ -88,9 +89,9 @@ export class RSCalendarComponent {
     }
 
 
-    private renderCalendar(startDate: Date,  RoomId: number = null) {
+    private renderCalendar(startDate: Date,  roomId: number = null) {
         this.events = [];
-        const events = this._eventService.listEvents(startDate, new Date(startDate.getDate() + 5) , RoomId).subscribe((events: Event[]) => {
+        const events = this._eventService.listEvents(startDate, new Date(startDate.getDate() + 10) , roomId).subscribe((events: Event[]) => {
             for (let event of events) {
                 this.events.push({
                     id: event['id'],
@@ -102,10 +103,14 @@ export class RSCalendarComponent {
                    end: new Date(event['endDate']),
                 });
             };
-
-            this.source.localData = events;
-            this.dataAdapter = new jqx.dataAdapter(this.source);
+            this.refreshdata();
+      
         });    
+    }
+
+    refreshdata(){
+        this.source.localData = this.events;
+        this.dataAdapter = new jqx.dataAdapter(this.source);
     }
 
 }

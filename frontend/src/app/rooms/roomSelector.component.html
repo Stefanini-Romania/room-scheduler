@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col">
       <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-primary" id="roomsButton" ngbDropdownToggle>ROOMS</button>
+        <button class="btn btn-primary calendarButton"ngbDropdownToggle>ROOMS</button>
         <div ngbDropdownMenu aria-labelledby="roomsButton">
             <a href="{{ room.Location }}" class="btn" *ngFor="let room of rooms" class="dropdown-item">{{ room.name }}</a>
         </div>

@@ -1,19 +1,23 @@
 <div class="container" style="padding-top: 80px">
-  <div class="row">
-    <div class="col-sm-1">
+  <!-- <div class="row"> -->
+    <!-- <div class="col-sm-1"> -->
+
+      <div class="buttonsDiv">
         <room-selector onSelect="calendarUpdate()"></room-selector>
-    </div>
+    <!-- </div> -->
 
-    <div class="col-sm-1">
-        <button ngbButtonLabel ngbButton class="btn-primary" id="roomsButton" (click)="today()">TODAY</button>
-    </div>
+    <!-- <div class="col-sm-1"> -->
+        <button ngbButtonLabel ngbButton class="btn-primary calendarButton" (click)="today()">TODAY</button>
+    <!-- </div> -->
 
-    <div class="col-sm-2">
-      <button ngbButtonLabel ngbButton class="btn-primary" id="prevButton" (click)="goBack()"><strong>&lt;</strong></button>
-      <button ngbButtonLabel ngbButton class="btn-primary" id="nextButton" ><strong>&gt;</strong></button>
-    </div>
+    <!-- <div class="col-sm-2"> -->
+      <button ngbButtonLabel ngbButton class="calendarButton btn-primary " (click)="goBack()"><strong>&lt;</strong></button>
+      <button ngbButtonLabel ngbButton class="btn-primary calendarButton"><strong>&gt;</strong></button>
 
-  </div>
+    </div>
+    <!-- </div> -->
+
+  <!-- </div> -->
 
   <jqxScheduler #schedulerReference
     [date]="date" [width]="1000" [height]="700" [source]="dataAdapter" [showLegend]="true" [view]="'weekView'"
