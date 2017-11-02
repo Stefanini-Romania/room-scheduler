@@ -25,39 +25,62 @@ namespace RSService.BusinessLogic
         {
             List<Event> availabilityEvents = new List<Event>();
 
-            var allAvailabilities = availabilityRepository.GetAvailabilities();
+            var availabilities = availabilityRepository.GetAvailabilities(roomId, hostId);
 
             DateTime currentDay = startDate.Date;
- 
+
             while (endDate.Date >= currentDay)
             {
-                foreach (int room in roomId)
-                {
-                    foreach (int host in hostId)
-                    {
-                        var availabilities = allAvailabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek)
-                                                              .Where(e => e.RoomId == room)
-                                                              .Where(e => e.HostId == host);
-                                                             
-                        foreach (Availability entry in availabilities)
-                        {
-                            Event newEvent = new Event()
-                            {
-                                StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
-                                EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
-                                EventType = 1,
-                                RoomId = room,
-                                HostId = host,
-                                EventStatus = (int)AvailabilityEnum.NotAvailable,
-                                DateCreated = DateTime.UtcNow,
-                            };
-                            availabilityEvents.Add(newEvent);
-                        }
+                availabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek);
 
-                    }
+                foreach (Availability entry in availabilities)
+                {
+                    Event newEvent = new Event()
+                    {
+                        StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
+                        EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
+                        EventType = 1,
+                        RoomId = entry.RoomId,
+                        HostId = entry.HostId,
+                        EventStatus = (int)AvailabilityEnum.NotAvailable,
+                        DateCreated = DateTime.UtcNow,
+                    };
+                    availabilityEvents.Add(newEvent);
                 }
+
                 currentDay = currentDay.AddDays(1);
             }
+
+
+            //while (endDate.Date >= currentDay)
+            //{
+            //    foreach (int room in roomId)
+            //    {
+            //        foreach (int host in hostId)
+            //        {
+            //            //var availabilities = allAvailabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek)
+            //            //                                      .Where(e => e.RoomId == room)
+            //            //                                      .Where(e => e.HostId == host);
+
+            //            foreach (Availability entry in availabilities)
+            //            {
+            //                Event newEvent = new Event()
+            //                {
+            //                    StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
+            //                    EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
+            //                    EventType = 1,
+            //                    RoomId = room,
+            //                    HostId = host,
+            //                    EventStatus = (int)AvailabilityEnum.NotAvailable,
+            //                    DateCreated = DateTime.UtcNow,
+            //                };
+            //                availabilityEvents.Add(newEvent);
+            //            }
+
+            //        }
+            //    }
+            //    currentDay = currentDay.AddDays(1);
+            //}
 
             return availabilityEvents;
 

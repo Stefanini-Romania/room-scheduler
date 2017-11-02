@@ -7,6 +7,7 @@ namespace RSRepository
 {
     public interface IEventRepository
     {
+        IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId);
         IEnumerable<Event> GetEvents();
         Event GetEventById(int id);
         void AddEvent(Event _event);

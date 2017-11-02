@@ -10,7 +10,7 @@ namespace RSRepository
     {
         Availability GetAvailabilityById(int id);
         IEnumerable<Availability> GetAvailabilities();
-
+        IEnumerable<Availability> GetAvailabilities(int[] roomId, int[] hostId);
     }
    
 }
