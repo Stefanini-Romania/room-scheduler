@@ -8,7 +8,8 @@
     Target Database Engine Edition : Microsoft SQL Server Enterprise Edition
     Target Database Engine Type : Standalone SQL Server
 */
-/****** Object:  Table [dbo].[User]    Script Date: 10-Oct-17 7:23:36 PM ******/
+
+/****** Object:  Table [dbo].[User]    Script Date: 02-Nov-17 12:55:34 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -22,7 +23,7 @@ CREATE TABLE [dbo].[User](
 	[Email] [nvarchar](150) NOT NULL,
 	[Name] [nvarchar](150) NOT NULL,
 	[Password] [nvarchar](150) NOT NULL,
-	[DepartmentID] [int] NOT NULL,
+	[DepartmentID] [int] NULL,
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
 	[UserID] ASC
