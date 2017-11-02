@@ -8,26 +8,6 @@
 	},
 	"item": [
 		{
-			"name": "auth",
-			"request": {
-				"url": "http://localhost:58695/api/auth/login",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"UserName\":\"xIonescu\",\n\t\"Password\": \"123456\"\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
 			"name": "http://fctestweb1:88/event/list",
 			"request": {
 				"url": {
@@ -100,6 +80,26 @@
 					"raw": "{\n\t\"UserName\":\"Ionescu\",\n\t\"Password\": \"123456\"\n}"
 				},
 				"description": "Get Events With Parameters"
+			},
+			"response": []
+		},
+		{
+			"name": "auth",
+			"request": {
+				"url": "http://fctestweb1:88/api/auth/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"UserName\":\"Ionescu\",\n\t\"Password\": \"123456\"\n}"
+				},
+				"description": ""
 			},
 			"response": []
 		}
