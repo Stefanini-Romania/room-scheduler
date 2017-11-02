@@ -15,4 +15,11 @@ namespace RSData.Models
         public User Host { get; set; }
         public Room Room { get; set; }
     }
+
+    public enum TimeSlotEnum
+    {
+        available,
+        booked,
+        blocked
+    }
 }
