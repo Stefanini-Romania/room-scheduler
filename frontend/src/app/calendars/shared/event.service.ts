@@ -15,7 +15,8 @@ export class EventService{
     constructor(private http: HttpClient) {}
     
     public listEvents(startDate: Date, endDate: Date, roomId: number, hostId?: number) {
-        const url = 'http://fctestweb1:88/event/list';
+        let url = 'http://fctestweb1:88/event/list';
+
         const body = JSON.stringify({ startDate: startDate, endDate: endDate, roomId: roomId, hostId: hostId });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.get(url, { headers: headers });

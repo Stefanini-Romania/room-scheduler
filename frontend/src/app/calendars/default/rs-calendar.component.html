@@ -1,26 +1,17 @@
 <div class="container" style="padding-top: 80px">
-  <!-- <div class="row"> -->
-    <!-- <div class="col-sm-1"> -->
-
       <div class="buttonsDiv">
         <room-selector onSelect="calendarUpdate()"></room-selector>
-    <!-- </div> -->
+        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="today()">TODAY</button>
+        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goBack()"><strong>&lt;</strong></button>
+        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goForward()"><strong>&gt;</strong></button>
 
-    <!-- <div class="col-sm-1"> -->
-        <button ngbButtonLabel ngbButton class="btn-primary calendarButton" (click)="today()">TODAY</button>
-    <!-- </div> -->
-
-    <!-- <div class="col-sm-2"> -->
-      <button ngbButtonLabel ngbButton class="calendarButton btn-primary " (click)="goBack()"><strong>&lt;</strong></button>
-      <button ngbButtonLabel ngbButton class="btn-primary calendarButton"><strong>&gt;</strong></button>
-
-    </div>
-    <!-- </div> -->
-
-  <!-- </div> -->
+        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('dayView')">DAY</button>
+        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('weekView')">WEEK</button>
+     </div>
+ 
 
   <jqxScheduler #schedulerReference
-    [date]="date" [width]="1000" [height]="700" [source]="dataAdapter" [showLegend]="true" [view]="'weekView'"
-    [appointmentDataFields]="appointmentDataFields" [resources]="resources" [views]="views">
+    [date]="date" [width]="1000" [height]="700" [source]="dataAdapter" [showLegend]="true" [view]="view"
+    [resources]="resources" [views]="views" [showToolbar]="false">
   </jqxScheduler> 
 </div>

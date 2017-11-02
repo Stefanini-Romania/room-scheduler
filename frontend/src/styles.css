@@ -7,6 +7,7 @@ html, body
  
 }
 
+
 .navbar{
     z-index: 1;
 }
@@ -138,14 +139,14 @@ button {
     font-weight: 700;
     font-size: 14px;
 }
-.calendarButton {
+.RScalendarButton {
     background-color: #004e9e !important;
     margin: 8px 0;
-    margin-right: 2cm;
     border: none !important;
     cursor: pointer;
     font-weight: 700;
     font-size: 14px;
+    margin-right:5px;
 
     
 }

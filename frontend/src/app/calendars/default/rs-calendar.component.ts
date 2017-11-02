@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import { RoomSelector } from './../../rooms/roomSelector.component';
@@ -52,12 +53,17 @@ export class RSCalendarComponent {
         source: new jqx.dataAdapter(this.source)
     };
 
+    view = 'weekView';
+
     views: any[] =
     [
+        
         { type: 'dayView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 } },
-        { type: 'weekView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 } },
+        { type: 'weekView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 }},
       //   { type: 'monthView', showWeekends: false }
     ];  
+
+  
 
     constructor(private _eventService: EventService) {}
 
@@ -66,12 +72,25 @@ export class RSCalendarComponent {
         this.date = new Date();
     }
 
+    setView(view: string) {
+        this.view = view;
+        this.scheduler.view(view);
+    }
+
     goBack() {
-        this.date = this.scheduler.date().addDays(-1);
+        console.log(this.scheduler.view());
+        const days = this.scheduler.view() == 'weekView' ? 7 : 1;
+        this.date = this.scheduler.date().addDays(-days);
+    }
+
+    goForward() {
+        console.log(this.scheduler.view());
+        const days = this.scheduler.view() == 'weekView' ? 7 : 1;
+        this.date = this.scheduler.date().addDays(days);
     }
 
     test () {
-        console.log(this.scheduler.date().toDate());
+        console.log(this.scheduler.view());
         
     }
 
@@ -89,7 +108,7 @@ export class RSCalendarComponent {
     }
 
 
-    private renderCalendar(startDate: Date,  roomId: number = null) {
+    private renderCalendar(startDate: Date, roomId: number = null) {
         this.events = [];
         const events = this._eventService.listEvents(startDate, new Date(startDate.getDate() + 10) , roomId).subscribe((events: Event[]) => {
             for (let event of events) {
@@ -112,6 +131,7 @@ export class RSCalendarComponent {
         this.source.localData = this.events;
         this.dataAdapter = new jqx.dataAdapter(this.source);
     }
+
 
 }
 
