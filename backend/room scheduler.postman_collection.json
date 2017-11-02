@@ -31,7 +31,7 @@
 			"name": "http://fctestweb1:88/event/list",
 			"request": {
 				"url": {
-					"raw": "http://fctestweb1:88/event/list?startDate=2017-11-01T09:00:00&endDate=2017-11-30T18:00:00",
+					"raw": "http://fctestweb1:88/event/list?startDate=2017-11-01T09:00:00&endDate=2017-11-30T18:00:00&roomId[0]=1&roomId[1]=2&roomId[2]=3&hostId[0]=4&hostId[1]=3",
 					"protocol": "http",
 					"host": [
 						"fctestweb1"
@@ -53,6 +53,36 @@
 							"value": "2017-11-30T18:00:00",
 							"equals": true,
 							"description": ""
+						},
+						{
+							"key": "roomId[0]",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "roomId[1]",
+							"value": "2",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "roomId[2]",
+							"value": "3",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "hostId[0]",
+							"value": "4",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "hostId[1]",
+							"value": "3",
+							"equals": true,
+							"description": ""
 						}
 					],
 					"variable": []
@@ -69,7 +99,7 @@
 					"mode": "raw",
 					"raw": "{\n\t\"UserName\":\"Ionescu\",\n\t\"Password\": \"123456\"\n}"
 				},
-				"description": "Get Events Service"
+				"description": "Get Events With Parameters"
 			},
 			"response": []
 		}
