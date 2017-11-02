@@ -12,7 +12,7 @@ namespace RSData.Models
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public string EventType { get; set; }
+        public int EventType { get; set; }
         public int RoomId { get; set; }
         public string Notes { get; set; }
         public int HostId { get; set; }
@@ -29,6 +29,14 @@ namespace RSData.Models
 
     public enum EventStatusEnum
     {
+        present,
+        absent,
+        cancelled
+    }
 
+    public enum EventTypeEnum
+    {
+        massage,
+        availability
     }
 }

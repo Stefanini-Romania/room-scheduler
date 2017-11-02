@@ -44,7 +44,7 @@ namespace RSService.BusinessLogic
                             {
                                 StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
                                 EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
-                                EventType = "availability",
+                                EventType = 1,
                                 RoomId = room,
                                 HostId = host,
                                 EventStatus = (int)AvailabilityEnum.NotAvailable,
