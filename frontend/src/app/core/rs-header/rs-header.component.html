@@ -1,22 +1,19 @@
 <div id="header" class="fixed-top">
+    <!-- <div id="welcome-message" *ngIf="this.currentUser && isLoggedIn()">Welcome, {{this.currentUser.name}}!</div> -->
+    <!-- <div *ngIf="!(isLoggedIn())">
+        <a href="/login">Login Button TODO !!!!</a>
+    </div> -->
+    <span id="welcome-message" *ngIf="isLoggedIn()">Welcome,<b> {{this.currentUser.name}}</b>!</span>
     <img id="headerimg" src="../../../assets/img/rsheader1.png" alt="">
     <nav class="navbar navbar-expand-lg top">
         <div>
             <img id="logo-header" src="../../../assets/img/header-logo.png" alt="Stefanini-logo">
             <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
-            <!-- <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollaspse">
-                <span class="navbar-toggler-icon"></span>
-            </button> -->
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <!-- <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="#explore" class="nav-link">Explore</a>
-                    </li>
-                    <li class="nav-item">
-                            <a href="#sign-out" class="nav-link">Sign out</a>
-                    </li>
-                </ul> -->
-            </div>
+        </div>
+        <div id="logout" *ngIf="isLoggedIn()">
+            <button id="sign-out" (click)="logout()">
+                <span class="fa fa-sign-out" aria-hidden="true"></span> Sign out
+            </button>
         </div>
     </nav>
 </div>

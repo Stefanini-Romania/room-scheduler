@@ -5,6 +5,7 @@ import { RSHeader } from './rs-header/rs-header.component';
 import { RSFooter } from './rs-footer/rs-footer.component';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from '../auth/login/login.component';
 
 @NgModule({
   imports: [ CommonModule, FormsModule, HttpModule, NgbModule.forRoot() ],
