@@ -102,6 +102,57 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "http://fctestweb1:88/event/create",
+			"request": {
+				"url": "http://fctestweb1:88/event/create",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"startDate\": \"2017-11-29T15:00:00\",\n        \"endDate\": \"2017-11-29T16:00:00\",\n        \"eventType\": \"1\",\n        \"roomId\": 1,\n        \"notes\": null,\n        \"hostId\": 2,\n        \"attendeeId\": 1,\n        \"eventStatus\": 4\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://fctestweb1:88/room/list",
+			"request": {
+				"url": "http://fctestweb1:88/room/list",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://fctestweb1:88/event/edit/1014",
+			"request": {
+				"url": "http://fctestweb1:88/event/edit/1014",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDate\": \"2017-11-29T09:00:00\",\n    \"endDate\": \"2017-11-29T10:00:00\",\n    \"eventType\": 0,\n    \"roomId\": 1,\n    \"notes\": null,\n    \"hostId\": 4,\n    \"attendeeId\": 1,\n    \"eventStatus\": 4\n}"
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
