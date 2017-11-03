@@ -11,14 +11,12 @@ namespace RSService.Validation
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Field { get; }
-        public string Message { get; }
-       // public string ErrorCode { get; set; }
+        public string ErrorCode { get; }
 
-        public ValidationError(string field, string message)
+        public ValidationError(string field, string errorCode)
         {
             Field = field != string.Empty ? field : null;
-            Message = message;
-            //ErrorCode = errorCode;
+            ErrorCode = errorCode;
         }
     }
 }

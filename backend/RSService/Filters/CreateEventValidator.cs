@@ -18,16 +18,16 @@ namespace RSService.Filters
             rsManager = _rsManager;
 
             RuleFor(m => m.StartDate)
-                .NotEmpty().WithMessage("Start Date is required")    //.WithErrorCode("EmptyStartDate")
+                .NotEmpty().WithMessage(x => Validation.EventMessages.EmptyStartDate)
                 .GreaterThanOrEqualTo(DateTime.UtcNow)
-                .LessThan(m => m.EndDate.Value).WithMessage("Start Date must be less than End Date").When(m => m.EndDate.HasValue);
+                .LessThan(m => m.EndDate.Value).WithMessage(x => Validation.EventMessages.GreaterThan).When(m => m.EndDate.HasValue);
             //.Must(CanBook).WithMessage("You can't book more events for this day");
 
             RuleFor(m => m.EndDate)
-                .NotEmpty().WithMessage("End Date is required")
-                .GreaterThan(m => m.StartDate.Value).WithMessage("End Date must be greater than Start Date").When(m => m.StartDate.HasValue)
-                .GreaterThanOrEqualTo(m => m.StartDate.Value.AddMinutes(30)).WithMessage("An event must be booked for at least 30 minutes").When(m => m.StartDate.HasValue)
-                .LessThanOrEqualTo(m => m.StartDate.Value.AddHours(1)).WithMessage("An event can be booked for maximum 1 hour").When(m => m.StartDate.HasValue);
+                .NotEmpty().WithMessage(x => Validation.EventMessages.EmptyEndDate)
+                .GreaterThan(m => m.StartDate.Value).WithMessage(x => Validation.EventMessages.LessThan).When(m => m.StartDate.HasValue)
+                .GreaterThanOrEqualTo(m => m.StartDate.Value.AddMinutes(30)).WithMessage(x => Validation.EventMessages.TimeSpanLess).When(m => m.StartDate.HasValue)
+                .LessThanOrEqualTo(m => m.StartDate.Value.AddHours(1)).WithMessage(x => Validation.EventMessages.TimeSpanGreater).When(m => m.StartDate.HasValue);
                
         }
 
