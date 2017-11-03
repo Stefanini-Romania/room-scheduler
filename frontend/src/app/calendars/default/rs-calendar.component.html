@@ -1,6 +1,6 @@
 <div class="container" style="padding-top: 80px">
       <div class="buttonsDiv">
-        <room-selector onSelect="calendarUpdate()"></room-selector>
+        <room-selector (roomChange)="calendarUpdate($event)"></room-selector>
         <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="today()">TODAY</button>
         <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goBack()"><strong>&lt;</strong></button>
         <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goForward()"><strong>&gt;</strong></button>

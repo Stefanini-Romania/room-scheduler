@@ -2,7 +2,7 @@ import { EventEmitter } from 'events';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import { RoomSelector } from './../../rooms/roomSelector.component';
-
+import {Room} from './../../rooms/room.model';
 import {EventService} from '../shared/event.service'
 @Component({
   selector: 'rs-calendar-component',
@@ -14,7 +14,7 @@ export class RSCalendarComponent {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
     private events: any;
     public startDate: Date;
-    public roomId:number;
+    public roomId: number;
 
     source: any =
     {
@@ -95,7 +95,8 @@ export class RSCalendarComponent {
     }
 
     
-    calendarUpdate() {
+    calendarUpdate(selectedRoom: Room) {
+       console.log('HERE', selectedRoom);
         // @TODO currentCalendarDate - get crrent calendar date
         // @TODO roomId - get the roomId from the room-selector
         // @TODO this.renderCalendar(currentCalendarDate, roomId);
