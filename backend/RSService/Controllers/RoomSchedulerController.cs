@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
 using RSService.BusinessLogic;
+using RSService.Validation;
 using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Linq;
 namespace RSService.Controllers
 {
     // [Authorize]
+  
     public class RoomSchedulerController : BaseController
     {
         private IEventRepository eventRepository;
@@ -27,15 +29,20 @@ namespace RSService.Controllers
             rsManager = _rsManager;
         }
     
-        //[ValidateModel]
+        
         [HttpPost("/event/create")]
-        public void AddEvent([FromBody]EventViewModel model)
+        public IActionResult AddEvent([FromBody]EventViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return (new ValidationFailedResult(ModelState));
+            }
             var newEvent = Mapper.Map<Event>(model);
             newEvent.DateCreated = DateTime.UtcNow;
 
             eventRepository.AddEvent(newEvent);
             dbOperation.Commit();
+            return Ok();
         }
         
         [HttpGet("/event/listall")]

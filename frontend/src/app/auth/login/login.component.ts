@@ -13,13 +13,18 @@ import { Observable } from 'rxjs/Observable';
   })
 
   export class LoginComponent {
+
     public errorMessage: string = '';
 
     model: User = <User> {};
-    activeUser: User;
+    currentUser: User;
   
     constructor(private authService: AuthService, private router: Router,) {}
     
+    ngAfterViewInit(): void {
+      if(this.authService.isLoggedIn()) this.router.navigate(['/calendar']);
+    }
+
     login() {
       this.authService.authenticate(this.model.UserName, this.model.Password)
         .subscribe(
@@ -30,5 +35,9 @@ import { Observable } from 'rxjs/Observable';
           error => {
               this.errorMessage = "Incorrect username or password";
           })
+    }
+
+    welcome() {
+      this.currentUser = this.authService.getLoggedUser();
     }
   }

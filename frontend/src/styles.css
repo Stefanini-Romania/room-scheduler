@@ -55,6 +55,7 @@ html, body
     z-index: 0;
     position: relative; 
 }
+
 .navbar-brand
 {
    
@@ -62,8 +63,6 @@ html, body
     -webkit-text-stroke-width: thin;
     color: #004e9e;
     padding-top: 0 !important;
-  
-   
 }
 
 form 
@@ -81,10 +80,6 @@ form
     border: 1px solid rgb(223, 220, 220);
     width: 60%;
 }
-
-/* #home-section h3{
-    color: white;
-} */
 
 h3 {
     text-align: center;
@@ -127,6 +122,7 @@ input[type=text], input[type=password]
     font-weight: 700;
     font-size: 14px;
 }
+
 button {
     background-color: #004e9e;
     color: #fff;
@@ -148,18 +144,12 @@ button {
     font-weight: 700;
     font-size: 14px;
     margin-right:5px;
-    
-    
 }
+    
 .buttonsDiv{
     display:inline-flex; 
     cursor: pointer;
 }
-
-
-/* #buttonLog {
-    width: 100%;
-} */
 
 #loginbtn:hover,
 #loginbtn:active,
@@ -248,11 +238,31 @@ footer a {
 #headerimg{
     height:70px;
     width: 100%;
-  
+    position: relative;
 }
+  
+#sign-out {
+    position: relative;
+    padding: 10px;
+    
+}
+
+#logout {
+    position: absolute;
+    margin-inline-start: 1712px;
+    width: 147px;
+} 
+
  #login{
     padding-top:80px;
     position: relative;
+}
+
+#welcome-message {
+    padding-top: 40px;
+    margin-inline-start: 1730px;
+    z-index: 1;
+    position: absolute; 
 }
 
 

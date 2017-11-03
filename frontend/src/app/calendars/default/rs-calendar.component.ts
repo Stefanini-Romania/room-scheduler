@@ -3,7 +3,9 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import { RoomSelector } from './../../rooms/roomSelector.component';
 import {Room} from './../../rooms/room.model';
-import {EventService} from '../shared/event.service'
+
+import {EventService} from '../shared/event.service';
+
 @Component({
   selector: 'rs-calendar-component',
   templateUrl: './rs-calendar.component.html',
