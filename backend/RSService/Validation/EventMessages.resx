@@ -129,6 +129,12 @@
   <data name="LessThan" xml:space="preserve">
     <value>Event.EndDate.LessThanStartDate</value>
   </data>
+  <data name="StartDateFuture" xml:space="preserve">
+    <value>Event.StartDate.GreaterThanTwoMonths</value>
+  </data>
+  <data name="StartDatePast" xml:space="preserve">
+    <value>Event.StartDate.IsInThePast</value>
+  </data>
   <data name="TimeSpanGreater" xml:space="preserve">
     <value>Event.EndDate.TimeSpanGreater</value>
   </data>

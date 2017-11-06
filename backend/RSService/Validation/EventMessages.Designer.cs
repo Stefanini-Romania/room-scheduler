@@ -97,6 +97,24 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.GreaterThanTwoMonths.
+        /// </summary>
+        internal static string StartDateFuture {
+            get {
+                return ResourceManager.GetString("StartDateFuture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.IsInThePast.
+        /// </summary>
+        internal static string StartDatePast {
+            get {
+                return ResourceManager.GetString("StartDatePast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.TimeSpanGreater.
         /// </summary>
         internal static string TimeSpanGreater {
