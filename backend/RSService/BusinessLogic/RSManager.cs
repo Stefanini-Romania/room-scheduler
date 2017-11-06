@@ -51,51 +51,21 @@ namespace RSService.BusinessLogic
                 currentDay = currentDay.AddDays(1);
             }
 
-
-            //while (endDate.Date >= currentDay)
-            //{
-            //    foreach (int room in roomId)
-            //    {
-            //        foreach (int host in hostId)
-            //        {
-            //            //var availabilities = allAvailabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek)
-            //            //                                      .Where(e => e.RoomId == room)
-            //            //                                      .Where(e => e.HostId == host);
-
-            //            foreach (Availability entry in availabilities)
-            //            {
-            //                Event newEvent = new Event()
-            //                {
-            //                    StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
-            //                    EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
-            //                    EventType = 1,
-            //                    RoomId = room,
-            //                    HostId = host,
-            //                    EventStatus = (int)AvailabilityEnum.NotAvailable,
-            //                    DateCreated = DateTime.UtcNow,
-            //                };
-            //                availabilityEvents.Add(newEvent);
-            //            }
-
-            //        }
-            //    }
-            //    currentDay = currentDay.AddDays(1);
-            //}
-
             return availabilityEvents;
 
         }
 
+
         public int GetTimeSpan(DateTime start, DateTime end)
         {
-                return (end - start).Minutes; 
+                return (int)(end - start).TotalMinutes; 
         }
 
         public int GetAvailableTime(int userId, DateTime startDate)
         {
             var result = eventRepository.GetEvents()
                             .Where(e => e.AttendeeId == userId)
-                            .Where(e => e.StartDate == startDate);
+                            .Where(e => e.StartDate.Date == startDate.Date);
             if (result.Count() >= 2)
             {
                 return 0;
@@ -111,13 +81,11 @@ namespace RSService.BusinessLogic
                     return 0; 
                 }
             }
-            return 60 ;
+            else return 60 ;
         }
 
         public bool checkAvailability()
         {
-
-
 
             return true;
         }

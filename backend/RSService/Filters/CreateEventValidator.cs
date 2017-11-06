@@ -15,15 +15,14 @@ namespace RSService.Filters
         public CreateEventValidator(IRSManager _rsManager)
         {
             
-
             rsManager = _rsManager;
 
             RuleFor(m => m.StartDate)
                 .NotEmpty().WithMessage(x => Validation.EventMessages.EmptyStartDate)
                 .GreaterThanOrEqualTo(DateTime.UtcNow).WithMessage(x => Validation.EventMessages.StartDatePast).When(m => m.EndDate.HasValue)
                 .LessThan(DateTime.UtcNow.AddMonths(1)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue)
-                .LessThan(m => m.EndDate.Value).WithMessage(x => Validation.EventMessages.GreaterThan).When(m => m.EndDate.HasValue);
-            //.Must(CanBook).WithMessage("You can't book more events for this day");
+                .LessThan(m => m.EndDate.Value).WithMessage(x => Validation.EventMessages.GreaterThan).When(m => m.EndDate.HasValue)
+                .Must(CanBook).WithMessage(x => Validation.EventMessages.Limit);
 
             RuleFor(m => m.EndDate)
                 .NotEmpty().WithMessage(x => Validation.EventMessages.EmptyEndDate)
@@ -35,7 +34,11 @@ namespace RSService.Filters
 
         private bool CanBook(EventViewModel ev, DateTime? d)
         {
-            return rsManager.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate) <= rsManager.GetAvailableTime(ev.AttendeeId, (DateTime)ev.StartDate);
+            int eventTimeSpan = rsManager.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
+
+            int availableTimeSpan = rsManager.GetAvailableTime(ev.AttendeeId, (DateTime)ev.StartDate);
+
+            return eventTimeSpan <= availableTimeSpan;
         }
     }
 }

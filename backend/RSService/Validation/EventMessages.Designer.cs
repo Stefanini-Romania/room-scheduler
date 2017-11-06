@@ -97,6 +97,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.LimitPerDay.
+        /// </summary>
+        internal static string Limit {
+            get {
+                return ResourceManager.GetString("Limit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.StartDate.GreaterThanTwoMonths.
         /// </summary>
         internal static string StartDateFuture {

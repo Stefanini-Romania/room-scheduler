@@ -129,6 +129,9 @@
   <data name="LessThan" xml:space="preserve">
     <value>Event.EndDate.LessThanStartDate</value>
   </data>
+  <data name="Limit" xml:space="preserve">
+    <value>Event.StartDate.LimitPerDay</value>
+  </data>
   <data name="StartDateFuture" xml:space="preserve">
     <value>Event.StartDate.GreaterThanTwoMonths</value>
   </data>

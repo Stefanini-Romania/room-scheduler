@@ -31,6 +31,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AuthMessages.resx</DependentUpon>
     </Compile>
+    <Compile Update="Validation\EventMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EventMessages.resx</DependentUpon>
+    </Compile>
     <Compile Update="Validation\GeneralMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -45,7 +50,7 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Validation\EventMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EventMessages - Copy.Designer.cs</LastGenOutput>
+      <LastGenOutput>EventMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Validation\GeneralMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
