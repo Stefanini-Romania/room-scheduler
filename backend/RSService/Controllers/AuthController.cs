@@ -52,11 +52,11 @@ namespace RSService.Controllers
                 return BadRequest(new BadRequestObjectResult("FailedAuthentication"));
             }
 
-            if (LoginUser(model.UserName, model.Password))
+            if (LoginUser(model.Name, model.Password))
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, model.UserName)
+                    new Claim(ClaimTypes.Name, model.Name)
                 };
 
                 var userIdentity = new ClaimsIdentity(claims, "login");
@@ -64,7 +64,7 @@ namespace RSService.Controllers
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(principal);
 
-                var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == model.UserName);
+                var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == model.Name);
                 //Just redirect to our index after logging in. 
                 return Ok(user);
             }
