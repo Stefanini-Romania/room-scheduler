@@ -21,7 +21,7 @@ namespace RSService.Filters
             RuleFor(m => m.StartDate)
                 .NotEmpty().WithMessage(x => Validation.EventMessages.EmptyStartDate)
                 .GreaterThanOrEqualTo(DateTime.UtcNow).WithMessage(x => Validation.EventMessages.StartDatePast).When(m => m.EndDate.HasValue)
-                .LessThan(DateTime.UtcNow.AddMonths(2)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue)
+                .LessThan(DateTime.UtcNow.AddMonths(1)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue)
                 .LessThan(m => m.EndDate.Value).WithMessage(x => Validation.EventMessages.GreaterThan).When(m => m.EndDate.HasValue);
             //.Must(CanBook).WithMessage("You can't book more events for this day");
 
