@@ -13,33 +13,13 @@ namespace RSService.Validation
 
         public List<ValidationError> Errors { get; set; }
 
-        public ValidationResultModel(ModelStateDictionary modelState)
+        public ValidationResultModel(string message, ModelStateDictionary modelState)
         {
-            Message = "Could not detect error";
-            //modelState.GetType();
+            Message = message;
             Errors = modelState.Keys
                     .SelectMany(key => modelState[key].Errors.Select(x => new ValidationError(key, x.ErrorMessage)))
                     .ToList();
-            if (Errors.Count() != 0)
-            {
-
-                var errMsg = Errors.First().ErrorCode.ToString();
-                if (errMsg.Contains("EventEdit"))
-                {
-                    Message = GeneralMessages.EventEdit;
-                }
-                else if (errMsg.Contains("Event"))
-                {
-                    Message = GeneralMessages.Event;
-                }
-                else if (errMsg.Contains("Auth"))
-                {
-                    Message = GeneralMessages.Authentication;
-                }
-            }
-
         }
-
 
     }
 }

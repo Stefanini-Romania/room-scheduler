@@ -35,7 +35,7 @@ namespace RSService.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return (new ValidationFailedResult(ModelState));
+                return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
             }
             var newEvent = Mapper.Map<Event>(model);
             newEvent.DateCreated = DateTime.UtcNow;
