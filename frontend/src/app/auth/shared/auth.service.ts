@@ -1,4 +1,3 @@
-// import { first } from 'rxjs/operator/first';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
@@ -31,5 +30,22 @@ export class AuthService {
                                 return response; 
 
         })
+    }
+
+    logout() {
+        sessionStorage.removeItem('currentUser');
+    }
+
+    getLoggedUser(): User {
+        const sessionData = sessionStorage.getItem('currentUser');
+        let u: User = null;
+        if (sessionData && sessionData !== {}) {
+            u = Object.assign(new User, JSON.parse(sessionData));
+        }
+        return u;
+    }
+
+    isLoggedIn (): boolean {
+        return this.getLoggedUser() instanceof User;
     }
 }
