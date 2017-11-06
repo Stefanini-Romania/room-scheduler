@@ -14,23 +14,24 @@ export class EventService{
 
     constructor(private http: HttpClient) {}
     
-    public listEvents(startDate: Date, endDate: Date, roomId: number, hostId?: number) {
+    public listEvents(startDate: Date, endDate: Date, roomId?: number, hostId?: number) {
         const url = 'http://fctestweb1:88/event/list';
-        let Params = new HttpParams();
-        Params = Params.append('startDate', startDate.toUTCString());
-        Params = Params.append('endDate', endDate.toUTCString());
-        if (roomId>0){
-            Params = Params.append('roomId', roomId.toString());    
+        let params =  new HttpParams();
+        params=params.append("startDate", startDate.toUTCString());
+        if(endDate){
+        params=params.append("endDate", endDate.toUTCString());
+        }
+        if(roomId>0){
+            params=params.append("roomId", roomId.toString());
+        }
+        if(hostId>0){
+            params=params.append("hostId", hostId.toString());
         }
         
-        if (hostId>0){
-            Params = Params.append('hostId?', hostId.toString());
-        }
+        const body = JSON.stringify(params);
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.get(url, { params: params });
 
-
-        const body = JSON.stringify(Params);
-
-        return this.http.get(url, { params: Params });
-       
     }
+
 }

@@ -1,3 +1,5 @@
+
+import { NumberFormatStyle } from '@angular/common/src/pipes/intl';
 import { EventEmitter } from 'events';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
@@ -14,9 +16,10 @@ import {EventService} from '../shared/event.service';
 
 export class RSCalendarComponent {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
-    private events: any;
+    events: Event[];
     public startDate: Date;
-    public roomId: number;
+    public roomId:number;
+    public hostId: number;
 
     source: any =
     {
@@ -35,7 +38,6 @@ export class RSCalendarComponent {
     };
 
     dataAdapter: any = new jqx.dataAdapter(this.source);
-    date: Date;
 
     appointmentDataFields: any =
     {
@@ -67,11 +69,11 @@ export class RSCalendarComponent {
 
   
 
-    constructor(private _eventService: EventService) {}
+    constructor(private eventService: EventService) {}
 
     today() {
-        
-        this.date = new Date();
+        this.startDate = new Date();
+        this.renderCalendar(this.startDate, this.roomId);
     }
 
     setView(view: string) {
@@ -80,52 +82,40 @@ export class RSCalendarComponent {
     }
 
     goBack() {
-        console.log(this.scheduler.view());
         const days = this.scheduler.view() == 'weekView' ? 7 : 1;
-        this.date = this.scheduler.date().addDays(-days);
+        this.startDate = new Date(this.scheduler.date().addDays(-days));
+        this.renderCalendar(this.startDate, this.roomId);
     }
 
     goForward() {
-        console.log(this.scheduler.view());
         const days = this.scheduler.view() == 'weekView' ? 7 : 1;
-        this.date = this.scheduler.date().addDays(days);
+        this.startDate = new Date(this.scheduler.date().addDays(days));
+        this.renderCalendar(this.startDate, this.roomId);
     }
 
-    test () {
-        console.log(this.scheduler.view());
-        
-    }
-
-    
-    calendarUpdate(selectedRoom: Room) {
-       console.log('HERE', selectedRoom);
-        // @TODO currentCalendarDate - get crrent calendar date
-        // @TODO roomId - get the roomId from the room-selector
-        // @TODO this.renderCalendar(currentCalendarDate, roomId);
+   calendarUpdate(selectedRoom: Room) {
+        this.roomId = selectedRoom.RoomId;
+        this.renderCalendar(this.startDate, this.roomId);
     }
 
     ngAfterViewInit(): void {
         this.scheduler.ensureAppointmentVisible('id1');
 
-        this.renderCalendar(new Date());
+        this.startDate = new Date();
+        this.renderCalendar(this.startDate, this.roomId);
     }
 
 
-    private renderCalendar(startDate: Date, roomId: number = null) {
+    private renderCalendar(startDate: Date, roomId: number) {
         this.events = [];
-        const events = this._eventService.listEvents(startDate, new Date(startDate.getDate() + 10) , roomId).subscribe((events: Event[]) => {
+        let endDate = new Date();
+        endDate.setDate(startDate.getDate() + 7);
+        const events = this.eventService.listEvents(startDate , endDate, roomId, this.hostId).subscribe((events: Event[]) => {
             for (let event of events) {
-                this.events.push({
-                    id: event['id'],
-                    // description: "Some descript",
-                    location: "",
-                    subject: "Masaj",
-                    calendar: "Room " + event['id'],
-                   start: new Date(event['startDate']),
-                   end: new Date(event['endDate']),
-                });
+                this.events.push(<Event>event);
             };
             this.refreshdata();
+            console.log(this.events);
       
         });    
     }
