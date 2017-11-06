@@ -15,10 +15,29 @@ namespace RSService.Validation
 
         public ValidationResultModel(ModelStateDictionary modelState)
         {
-            Message = "Could not create event";
+            Message = "Could not detect error";
+            //modelState.GetType();
             Errors = modelState.Keys
                     .SelectMany(key => modelState[key].Errors.Select(x => new ValidationError(key, x.ErrorMessage)))
-                    .ToList(); 
+                    .ToList();
+            if (Errors.Count() != 0)
+            {
+
+                var errMsg = Errors.First().ErrorCode.ToString();
+                if (errMsg.Contains("EventEdit"))
+                {
+                    Message = GeneralMessages.EventEdit;
+                }
+                else if (errMsg.Contains("Event"))
+                {
+                    Message = GeneralMessages.Event;
+                }
+                else if (errMsg.Contains("Auth"))
+                {
+                    Message = GeneralMessages.Authentication;
+                }
+            }
+
         }
 
 
