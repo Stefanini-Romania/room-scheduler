@@ -31,11 +31,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AuthMessages.resx</DependentUpon>
     </Compile>
-    <Compile Update="Validation\EventEditMessages.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>EventEditMessages.resx</DependentUpon>
-    </Compile>
     <Compile Update="Validation\GeneralMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -47,10 +42,6 @@
     <EmbeddedResource Update="Validation\AuthMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AuthMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Validation\EventEditMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EventEditMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Validation\EventMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
