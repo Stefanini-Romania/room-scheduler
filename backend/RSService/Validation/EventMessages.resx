@@ -150,4 +150,16 @@
   <data name="StartDatePast" xml:space="preserve">
     <value>Event.StartDate.IsInThePast</value>
   </data>
+<<<<<<< HEAD
+=======
+  <data name="StartDateSpecific" xml:space="preserve">
+    <value>Event.StartDate.IncorrectMinutesFormat</value>
+  </data>
+  <data name="TimeSpanGreater" xml:space="preserve">
+    <value>Event.EndDate.TimeSpanGreater</value>
+  </data>
+  <data name="TimeSpanLess" xml:space="preserve">
+    <value>Event.EndDate.TimeSpanLess</value>
+  </data>
+>>>>>>> d5439edb11b3b01bbfd2fd0156de6e1f8edd0c0e
 </root>

@@ -19,7 +19,9 @@ namespace RSService.Filters
 
             // ---------------------------StartDate---------------------------
 
-            RuleFor(m => m.StartDate).NotNull().WithMessage(x => Validation.EventMessages.EmptyStartDate);
+
+            RuleFor(m => m.StartDate).NotNull().WithMessage(x => Validation.EventMessages.EmptyStartDate)
+            .Must(GoodTime).WithMessage(x => Validation.EventMessages.StartDateSpecific);
 
             When(m => m.StartDate.HasValue, () => {
                 RuleFor(m => m.StartDate).Must(CanBook).WithMessage(x => Validation.EventMessages.Limit).When(m => m.EndDate.HasValue);
@@ -71,6 +73,15 @@ namespace RSService.Filters
                 return false;
             }
             return true;
+        }
+        
+        private bool GoodTime(EventViewModel ev, DateTime? d)
+        {
+            if (d.HasValue) {
+                return (d.GetValueOrDefault().Minute == 0 && d.GetValueOrDefault().Second == 0) 
+                    || (d.GetValueOrDefault().Minute == 30 && d.GetValueOrDefault().Second == 0);
+            }
+            return false;
         }
      
 
