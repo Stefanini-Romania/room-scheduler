@@ -9,13 +9,13 @@ import { Router, RouterModule } from '@angular/router';
 })
 
 export class RSHeader{
-    currentUser: User;
+    currentUser: User = undefined;
     constructor(private authService: AuthService, private router: Router) {
-        this.currentUser = authService.getLoggedUser();
     }
 
     isLoggedIn(): boolean {
-        return this.authService.isLoggedIn();
+        this.currentUser = this.authService.getLoggedUser();
+        return this.currentUser && this.authService.isLoggedIn();
     }
 
     logout() {

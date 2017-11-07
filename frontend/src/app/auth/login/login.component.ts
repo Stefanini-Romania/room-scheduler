@@ -26,7 +26,7 @@ import { Observable } from 'rxjs/Observable';
     }
 
     login() {
-      this.authService.authenticate(this.model.UserName, this.model.Password)
+      this.authService.authenticate(this.model.name, this.model.password)
         .subscribe(
           data => {
               this.router.navigate(['/calendar']);
@@ -38,6 +38,7 @@ import { Observable } from 'rxjs/Observable';
     }
 
     welcome() {
+      if(this.currentUser && this.currentUser.name !=null )
       this.currentUser = this.authService.getLoggedUser();
     }
   }

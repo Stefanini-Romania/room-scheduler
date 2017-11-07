@@ -28,22 +28,6 @@ namespace RSService.Controllers
             _logger = logger;
         }
 
-        private bool LoginUser(string username, string password)
-        {
-            var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == username);
-
-            if (user == null)
-            {
-                return false;
-            }
-
-            if (!user.Password.Equals(password))
-            {
-                return false;
-            }
-            return true;
-        }
-
         [HttpPost("api/auth/login")]
         //[AuthenticationValidator]  --attribute
         public async Task<IActionResult> Login([FromBody] CredentialModel model)
@@ -53,23 +37,26 @@ namespace RSService.Controllers
                 return (new ValidationFailedResult(GeneralMessages.Authentication, ModelState));
             }
 
-            if (LoginUser(model.Name, model.Password))
+            if (_userRepository.FindUserByCredential(model.Name, model.Password) == null )
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, model.Name)
-                };
-
-                var userIdentity = new ClaimsIdentity(claims, "login");
-
-                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                await HttpContext.SignInAsync(principal);
-
-                var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == model.Name);
-                //Just redirect to our index after logging in. 
-                return Ok(user);
+                return (new ValidationFailedResult(GeneralMessages.Authentication, ModelState));
             }
-            return (new ValidationFailedResult(GeneralMessages.Authentication, ModelState));
+            
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, model.Name)
+            };
+
+            var userIdentity = new ClaimsIdentity(claims, "login");
+
+            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+            await HttpContext.SignInAsync(principal);
+
+            var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == model.Name);
+            //Just redirect to our index after logging in. 
+            return Ok(user);
+            
+            
         }
 
 

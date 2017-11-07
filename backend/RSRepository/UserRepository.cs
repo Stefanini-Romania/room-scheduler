@@ -29,6 +29,11 @@ namespace RSRepository
             return users.AsEnumerable();
         }
 
+        public User FindUserByCredential(string username, string password)
+        {
+            return users.SingleOrDefault(c => c.Name == username && c.Password == password);
+        }
+
         public User GetUserById(long id)
         {
             return users.SingleOrDefault(s => s.Id == id);
@@ -62,5 +67,7 @@ namespace RSRepository
             users.Remove(user);
             context.SaveChanges();
         }
+
+        
     }
 }
