@@ -135,6 +135,9 @@
   <data name="GreaterThan" xml:space="preserve">
     <value>Event.StartDate.GreaterThanEndDate</value>
   </data>
+  <data name="InvalidTimeSpan" xml:space="preserve">
+    <value>Event.EndDate.TimeSpan</value>
+  </data>
   <data name="LessThan" xml:space="preserve">
     <value>Event.EndDate.LessThanStartDate</value>
   </data>
@@ -146,11 +149,5 @@
   </data>
   <data name="StartDatePast" xml:space="preserve">
     <value>Event.StartDate.IsInThePast</value>
-  </data>
-  <data name="TimeSpanGreater" xml:space="preserve">
-    <value>Event.EndDate.TimeSpanGreater</value>
-  </data>
-  <data name="TimeSpanLess" xml:space="preserve">
-    <value>Event.EndDate.TimeSpanLess</value>
   </data>
 </root>

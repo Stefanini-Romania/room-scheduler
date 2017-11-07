@@ -115,6 +115,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.EndDate.TimeSpan.
+        /// </summary>
+        internal static string InvalidTimeSpan {
+            get {
+                return ResourceManager.GetString("InvalidTimeSpan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.LessThanStartDate.
         /// </summary>
         internal static string LessThan {
@@ -147,24 +156,6 @@ namespace RSService.Validation {
         internal static string StartDatePast {
             get {
                 return ResourceManager.GetString("StartDatePast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.EndDate.TimeSpanGreater.
-        /// </summary>
-        internal static string TimeSpanGreater {
-            get {
-                return ResourceManager.GetString("TimeSpanGreater", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.EndDate.TimeSpanLess.
-        /// </summary>
-        internal static string TimeSpanLess {
-            get {
-                return ResourceManager.GetString("TimeSpanLess", resourceCulture);
             }
         }
     }
