@@ -147,6 +147,9 @@
   <data name="StartDatePast" xml:space="preserve">
     <value>Event.StartDate.IsInThePast</value>
   </data>
+  <data name="StartDateSpecific" xml:space="preserve">
+    <value>Event.StartDate.IncorrectMinutesFormat</value>
+  </data>
   <data name="TimeSpanGreater" xml:space="preserve">
     <value>Event.EndDate.TimeSpanGreater</value>
   </data>

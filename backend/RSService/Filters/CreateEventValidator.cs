@@ -24,7 +24,9 @@ namespace RSService.Filters
                 .LessThan(DateTime.UtcNow.AddMonths(1)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue)
                 .LessThan(m => m.EndDate.Value).WithMessage(x => Validation.EventMessages.GreaterThan).When(m => m.EndDate.HasValue)
                 .LessThan(m => DateTime.UtcNow.AddMinutes(15)).WithMessage(x => Validation.EventMessages.CancellationTimeSpanLess).When(m => m.EventStatus == (int)EventStatusEnum.cancelled)
-                .Must(CanBook).WithMessage(x => Validation.EventMessages.Limit);
+                .Must(CanBook).WithMessage(x => Validation.EventMessages.Limit)
+                .Must(GoodTime).WithMessage(x => Validation.EventMessages.StartDateSpecific);
+                
 
             RuleFor(m => m.EndDate)
                 .NotEmpty().WithMessage(x => Validation.EventMessages.EmptyEndDate)
@@ -51,6 +53,14 @@ namespace RSService.Filters
             return rsManager.CanCancel((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId, attendee);
         }
 
+        private bool GoodTime(EventViewModel ev, DateTime? d)
+        {
+            if (d.HasValue) {
+                return (d.GetValueOrDefault().Minute == 0 && d.GetValueOrDefault().Second == 0) 
+                    || (d.GetValueOrDefault().Minute == 30 && d.GetValueOrDefault().Second == 0);
+            }
+            return false;
+        }
      
 
     }
