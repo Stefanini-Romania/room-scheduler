@@ -39,7 +39,7 @@ export class AuthService {
     getLoggedUser(): User {
         const sessionData = sessionStorage.getItem('currentUser');
         let u: User = null;
-        if (sessionData && sessionData !== {}) {
+        if (sessionData && sessionData != null) {
             u = Object.assign(new User, JSON.parse(sessionData));
         }
         return u;

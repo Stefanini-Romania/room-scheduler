@@ -38,6 +38,7 @@ import { Observable } from 'rxjs/Observable';
     }
 
     welcome() {
+      if(this.currentUser && this.currentUser.name !=null )
       this.currentUser = this.authService.getLoggedUser();
     }
   }
