@@ -1,5 +1,5 @@
 export class Room {
-    public RoomId: number;
+    public id: number;
     public Name: string;
     public Location: string;
 }

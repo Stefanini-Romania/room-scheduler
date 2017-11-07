@@ -7,11 +7,12 @@
 
         <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('dayView')">DAY</button>
         <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('weekView')">WEEK</button>
+        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="newEvent()">Create</button>
      </div>
  
 
   <jqxScheduler #schedulerReference
     [date]="startDate" [width]="1000" [height]="700" [source]="dataAdapter" [showLegend]="true" [view]="view"
-    [resources]="resources" [views]="views" [showToolbar]="false">
+    [resources]="resources" [views]="views" [showToolbar]="false" [contextMenuOpen]="contextMenuOpen">
   </jqxScheduler> 
 </div>
