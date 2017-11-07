@@ -158,8 +158,6 @@ namespace RSService.Validation {
                 return ResourceManager.GetString("StartDatePast", resourceCulture);
             }
         }
-<<<<<<< HEAD
-=======
         
         /// <summary>
         ///   Looks up a localized string similar to Event.StartDate.IncorrectMinutesFormat.
@@ -187,6 +185,5 @@ namespace RSService.Validation {
                 return ResourceManager.GetString("TimeSpanLess", resourceCulture);
             }
         }
->>>>>>> d5439edb11b3b01bbfd2fd0156de6e1f8edd0c0e
     }
 }
