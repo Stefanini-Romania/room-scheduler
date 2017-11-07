@@ -20,7 +20,7 @@ namespace RSService.Filters
             // ---------------------------StartDate---------------------------
 
 
-            RuleFor(m => m.StartDate).NotNull().WithMessage(x => Validation.EventMessages.EmptyStartDate)
+            RuleFor(m => m.StartDate).NotNull().WithMessage(x => Validation.EventMessages.EmptyStartDate);
             //.Must(GoodTime).WithMessage(x => Validation.EventMessages.StartDateSpecific);
 
             When(m => m.StartDate.HasValue, () => {
