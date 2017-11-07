@@ -104,7 +104,7 @@ namespace RSService.Controllers
             }
             else
             {
-                return BadRequest(ModelState);
+                return (new ValidationFailedResult(GeneralMessages.EventEdit, ModelState));
             }
         }
        

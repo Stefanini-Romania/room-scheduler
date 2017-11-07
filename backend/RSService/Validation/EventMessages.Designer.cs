@@ -61,6 +61,33 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.AttendeeId.CancelSomeoneElseBooking.
+        /// </summary>
+        internal static string CancellationOwnBooking {
+            get {
+                return ResourceManager.GetString("CancellationOwnBooking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.LessThan15Minutes.
+        /// </summary>
+        internal static string CancellationTimeSpanLess {
+            get {
+                return ResourceManager.GetString("CancellationTimeSpanLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.AttendeeId.Empty.
+        /// </summary>
+        internal static string EmptyAttendee {
+            get {
+                return ResourceManager.GetString("EmptyAttendee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.Empty.
         /// </summary>
         internal static string EmptyEndDate {

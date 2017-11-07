@@ -114,11 +114,15 @@ namespace RSService.BusinessLogic
             return 60 ;
         }
 
+        public bool CanCancel(DateTime startDate, DateTime endDate, int roomId, int attendee)
+        {
+           var aux = eventRepository.GetEvents().Where(e => e.StartDate == startDate).Where(e => e.EndDate == endDate)
+                                    .Where(e => e.RoomId == roomId).Where(e => e.AttendeeId == attendee);
+           return aux.Count() != 0;
+        }
+
         public bool checkAvailability()
         {
-
-
-
             return true;
         }
 
