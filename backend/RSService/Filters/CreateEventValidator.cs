@@ -19,7 +19,6 @@ namespace RSService.Filters
 
             // ---------------------------StartDate---------------------------
 
-
             RuleFor(m => m.StartDate).NotNull().WithMessage(x => Validation.EventMessages.EmptyStartDate);
 
             When(m => m.StartDate.HasValue, () => {
@@ -29,11 +28,13 @@ namespace RSService.Filters
 
                 RuleFor(m => m.StartDate).LessThan(DateTime.UtcNow.AddMonths(1)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue);
 
-                RuleFor(m => m.StartDate).LessThan(m => DateTime.UtcNow.AddMinutes(15)).WithMessage(x => Validation.EventMessages.CancellationTimeSpanLess).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
+                RuleFor(m => m.StartDate).GreaterThanOrEqualTo(m => DateTime.UtcNow.AddMinutes(15)).WithMessage(x => Validation.EventMessages.CancellationTimeSpanLess).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
 
                 RuleFor(m => m.StartDate).Must(GoodTime).WithMessage(x => Validation.EventMessages.StartDateSpecific);
 
                 RuleFor(x => x.StartDate).Must(AvailabilityTimeS).WithMessage(x => Validation.EventMessages.StartDateAvailabilityRoom);
+
+                RuleFor(x => x.StartDate).Must(IsAvailable).WithMessage(x => Validation.EventMessages.NotAvailable);
 
                 
             });
@@ -110,14 +111,21 @@ namespace RSService.Filters
             return false;
         }
 
+        private bool IsAvailable(EventViewModel ev, DateTime? d)
+        {
+            return rsManager.CheckAvailability((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
+        }
+
         private bool IsNotPenalized(EventViewModel ev, DateTime? date)
         {
             if (date.HasValue) {
-                //var penalties = rsManager.GetAttendeePenalies(ev.AttendeeId).Where(p => date <= p;
+                //var penalties = rsManager.GetAttendeePenalties(ev.AttendeeId).Where(p => date <= p;
 
             }
             return false;
         }
+
+       
 
     }
 }

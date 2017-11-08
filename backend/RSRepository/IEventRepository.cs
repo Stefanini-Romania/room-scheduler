@@ -7,10 +7,16 @@ namespace RSRepository
 {
     public interface IEventRepository
     {
-        IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId);
         IEnumerable<Event> GetEvents();
+
+        IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId);
+
+        IEnumerable<Event> GetEventsByRoom(DateTime startDate, DateTime endDate, int roomId);
+
         Event GetEventById(int id);
+
         void AddEvent(Event _event);
+
         //void UpdateEvent(Event _event);
         //void DeleteEvent(int id);
     }

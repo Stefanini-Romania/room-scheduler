@@ -93,15 +93,45 @@ namespace RSService.BusinessLogic
             return aux.Count() != 0;
         }
 
+        public bool CheckAvailability(DateTime startDate, DateTime endDate, int roomId)
+        {
+            var events = eventRepository.GetEventsByRoom(startDate.AddMinutes(-30), startDate.AddMinutes(30), roomId);
+
+            foreach (Event ev in events)
+            {
+                if (startDate == ev.StartDate || endDate == ev.EndDate)
+                {
+                    return false;
+                }
+
+                if (startDate > ev.StartDate)
+                {
+                    if (startDate < ev.EndDate)
+                    {
+                        return false;
+                    }
+                }
+
+                if (startDate < ev.StartDate)
+                {
+                    if (endDate > ev.StartDate)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+
+
+
+
+
         public bool IsPenalizedAttendee(int attendeeId)
         {
 
             return false;
-        }
-
-        public bool checkAvailability()
-        {
-            return true;
         }
 
         /*
@@ -123,8 +153,7 @@ namespace RSService.BusinessLogic
             }
         }
 
-       
-        public List<Penalty> GetAttendeePenalies(int attendeeId)
+        public List<Penalty> GetAttendeePenalties(int attendeeId)
         {
             return penaltyRepository.GetPenalties().Where(p => p.AttendeeId == attendeeId).ToList();
         }

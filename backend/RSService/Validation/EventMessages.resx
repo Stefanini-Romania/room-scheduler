@@ -138,6 +138,9 @@
   <data name="Limit" xml:space="preserve">
     <value>Event.StartDate.LimitPerDay</value>
   </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Event.StartDate.NotAvailable</value>
+  </data>
   <data name="StartDateAvailabilityRoom" xml:space="preserve">
     <value>Event.StartDate.NotInAvailabilityOfRoom</value>
   </data>

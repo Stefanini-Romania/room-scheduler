@@ -18,6 +18,10 @@ namespace RSRepository
             events = context.Set<Event>();
         }
 
+        public IEnumerable<Event> GetEvents()
+        {
+            return events.ToList();
+        }
 
         public IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
@@ -28,9 +32,12 @@ namespace RSRepository
                          .ToList();
         }
 
-        public IEnumerable<Event> GetEvents()
+        public IEnumerable<Event> GetEventsByRoom(DateTime startDate, DateTime endDate, int roomId)
         {
-            return events.ToList();          
+            return events.Where(e => e.StartDate >= startDate)
+                         .Where(e => e.StartDate <= endDate)
+                         .Where(e => e.RoomId == roomId)
+                         .ToList();
         }
 
         public Event GetEventById(int id)

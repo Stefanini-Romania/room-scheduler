@@ -124,6 +124,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.NotAvailable.
+        /// </summary>
+        internal static string NotAvailable {
+            get {
+                return ResourceManager.GetString("NotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.StartDate.NotInAvailabilityOfRoom.
         /// </summary>
         internal static string StartDateAvailabilityRoom {
