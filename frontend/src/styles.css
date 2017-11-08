@@ -265,6 +265,10 @@ footer a {
     position: absolute; 
 }
 
+#modal-header{
+    color: #fff;
+    background-color: #004e9e;
+}
 
 
 

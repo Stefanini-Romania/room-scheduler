@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { Event } from '../../shared/event.model';
 import {EventService} from '../shared/event.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -25,20 +26,11 @@ export class RSCalendarComponent {
     model: Event = <Event> {};
     closeResult: string;
     public errorMessage: string = '';
-   
     public startDate: Date;
+    public selectedStartDate: Date;
+    public selectedEndDate: Date;
     public roomId: number;
     public hostId: number;
-
-    // AppointmentAdd(event: any): void 
-    // {
-    //     // Do Something
-    // }
-
-    // AppointmentDoubleClick(event: any): void 
-    // {
-    //     // Do Something
-    // }    
 
     source: any =
     {
@@ -93,6 +85,14 @@ export class RSCalendarComponent {
     today() {
         this.startDate = new Date();
         this.renderCalendar(this.startDate, this.roomId);
+    }
+
+    showEditDialog()
+    {
+        let date = this.scheduler.getSelection();
+        this.selectedStartDate = new Date(date.from.toDate());
+        this.selectedEndDate = new Date(date.to.toDate());
+
     }
 
     setView(view: string) {
@@ -158,10 +158,8 @@ export class RSCalendarComponent {
     }
 
     newEvent(){
-        this.startDate =  new Date();
-        let endDate = new Date();
-        endDate.setMinutes(endDate.getMinutes()+30);
-        this.eventService.createEvents(this.model.startDate = this.startDate, this.model.endDate = endDate, this.model.eventType = 0, this.model.roomId = 1, this.model.hostId = 3, this.model.attendeeId = 1, this.model.eventStatus = 4).subscribe(
+        console.log(this.model);
+        this.eventService.createEvents(this.model.startDate = this.selectedStartDate, this.model.endDate = this.selectedEndDate, this.model.eventType = 0, this.model.roomId = 1, this.model.hostId = 3, this.model.attendeeId = 1, this.model.eventStatus = 4, this.model.notes).subscribe(
             data =>{
                 this.refreshdata();
             },
