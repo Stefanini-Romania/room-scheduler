@@ -2,7 +2,6 @@ import {EventEmitter} from 'events';
 import {Component, ViewChild} from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import {EventService} from '../shared/event.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
 import {Event} from '../../shared/models/event.model';
@@ -19,7 +18,6 @@ export class RSCalendarComponent {
 
     events: Event[];
     model: Event = <Event> {};
-    closeResult: string;
     public errorMessage: string = '';
     public startDate: Date;
     public selectedStartDate: Date;
@@ -59,7 +57,7 @@ export class RSCalendarComponent {
     ];
 
 
-    constructor(private eventService: EventService, private modalService: NgbModal) {
+    constructor(private eventService: EventService) {
     }
 
     showEditDialog() {
@@ -110,7 +108,7 @@ export class RSCalendarComponent {
         this.events = [];
         let endDate = new Date();
         endDate.setDate(startDate.getDate() + 7);
-        const events = this.eventService.listEvents(startDate, endDate, roomId, this.hostId).subscribe((events: Event[]) => {
+        this.eventService.listEvents(startDate, endDate, roomId, this.hostId).subscribe((events: Event[]) => {
             for (let event of events) {
                 this.events.push(<Event>event);
             }
@@ -121,7 +119,7 @@ export class RSCalendarComponent {
     createEvent() {
         console.log(this.model);
         this.eventService.createEvent(this.model.startDate = this.selectedStartDate, this.model.endDate = this.selectedEndDate, this.model.eventType = 0, this.model.roomId = 1, this.model.hostId = 3, this.model.attendeeId = 1, this.model.eventStatus = 4, this.model.notes).subscribe(
-            data => {
+            () => {
                 this.refreshCalendar();
             },
             error => {

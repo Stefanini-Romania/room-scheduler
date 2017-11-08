@@ -26,7 +26,7 @@ export class LoginComponent {
     login() {
         this.authService.authenticate(this.model.name, this.model.password)
             .subscribe(
-                data => {
+                () => {
                     this.router.navigate(['/calendar']);
 
                 },
