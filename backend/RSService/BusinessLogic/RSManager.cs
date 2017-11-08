@@ -12,12 +12,14 @@ namespace RSService.BusinessLogic
     public class RSManager : IRSManager
     {
         private IAvailabiltyRepository availabilityRepository;
+        private IPenaltyRepository penaltyRepository;
         private IEventRepository eventRepository;
 
-        public RSManager(IAvailabiltyRepository _availabiltyRepository, IEventRepository _eventRepository)
+        public RSManager(IAvailabiltyRepository _availabiltyRepository, IEventRepository _eventRepository, IPenaltyRepository _penaltyRepository)
         {
             availabilityRepository = _availabiltyRepository;
             eventRepository = _eventRepository;
+            penaltyRepository = _penaltyRepository;
         }
 
 
@@ -58,7 +60,7 @@ namespace RSService.BusinessLogic
 
         public double GetTimeSpan(DateTime start, DateTime end)
         {
-                return (end - start).TotalMinutes; 
+            return (end - start).TotalMinutes;
         }
 
         public int GetAvailableTime(int userId, DateTime startDate)
@@ -78,26 +80,54 @@ namespace RSService.BusinessLogic
                 }
                 else
                 {
-                    return 0; 
+                    return 0;
                 }
             }
-            else return 60 ;
+            else return 60;
         }
 
         public bool CanCancel(DateTime startDate, DateTime endDate, int roomId, int attendee)
         {
-           var aux = eventRepository.GetEvents().Where(e => e.StartDate == startDate).Where(e => e.EndDate == endDate)
-                                    .Where(e => e.RoomId == roomId).Where(e => e.AttendeeId == attendee);
-           return aux.Count() != 0;
+            var aux = eventRepository.GetEvents().Where(e => e.StartDate == startDate).Where(e => e.EndDate == endDate)
+                                     .Where(e => e.RoomId == roomId).Where(e => e.AttendeeId == attendee);
+            return aux.Count() != 0;
         }
+
+        public bool IsPenalizedAttendee(int attendeeId)
+        {
+
+            return false;
+        }
+
         public bool checkAvailability()
         {
             return true;
         }
 
+        /*
+         Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
+             */
+        public void CheckPenalty(DateTime startDate, int eventId, int attendeeId)
+        {
+            var eventsCount = eventRepository.GetEvents().Where(ev => ev.AttendeeId == attendeeId)
+                                        .Where(ev => ev.StartDate.Month == DateTime.Now.Month) // TO DO: current month or last 30 days ?
+                                        .Where(ev => ev.EventStatus == (int)EventStatusEnum.absent).Count();
+            if (eventsCount == 3)
+            {
+                penaltyRepository.AddPenalty(new Penalty()
+                {
+                    AttendeeId = attendeeId,
+                    EventId = eventId,
+                    Date = startDate
+                });
+            }
+        }
 
-
-
+       
+        public List<Penalty> GetAttendeePenalies(int attendeeId)
+        {
+            return penaltyRepository.GetPenalties().Where(p => p.AttendeeId == attendeeId).ToList();
+        }
 
     }
 }
