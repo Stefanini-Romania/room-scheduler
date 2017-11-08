@@ -79,15 +79,6 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Event.AttendeeId.Empty.
-        /// </summary>
-        internal static string EmptyAttendee {
-            get {
-                return ResourceManager.GetString("EmptyAttendee", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.Empty.
         /// </summary>
         internal static string EmptyEndDate {
@@ -106,29 +97,11 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Event.StartDate.GreaterThanEndDate.
-        /// </summary>
-        internal static string GreaterThan {
-            get {
-                return ResourceManager.GetString("GreaterThan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.TimeSpan.
         /// </summary>
         internal static string InvalidTimeSpan {
             get {
                 return ResourceManager.GetString("InvalidTimeSpan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.EndDate.LessThanStartDate.
-        /// </summary>
-        internal static string LessThan {
-            get {
-                return ResourceManager.GetString("LessThan", resourceCulture);
             }
         }
         
@@ -165,24 +138,6 @@ namespace RSService.Validation {
         internal static string StartDateSpecific {
             get {
                 return ResourceManager.GetString("StartDateSpecific", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.EndDate.TimeSpanGreater.
-        /// </summary>
-        internal static string TimeSpanGreater {
-            get {
-                return ResourceManager.GetString("TimeSpanGreater", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.EndDate.TimeSpanLess.
-        /// </summary>
-        internal static string TimeSpanLess {
-            get {
-                return ResourceManager.GetString("TimeSpanLess", resourceCulture);
             }
         }
     }

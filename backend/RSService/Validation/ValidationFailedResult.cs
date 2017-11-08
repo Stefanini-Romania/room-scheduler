@@ -13,7 +13,7 @@ namespace RSService.Validation
         public ValidationFailedResult(string message, ModelStateDictionary modelState)
         : base(new ValidationResultModel(message, modelState))
         {
-            StatusCode = StatusCodes.Status422UnprocessableEntity;
+            StatusCode = StatusCodes.Status400BadRequest;
         }
     }
 }
