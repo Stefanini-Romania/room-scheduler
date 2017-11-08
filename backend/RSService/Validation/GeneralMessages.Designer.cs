@@ -22,14 +22,14 @@ namespace RSService.Validation {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class EventMessages {
+    internal class GeneralMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EventMessages() {
+        internal GeneralMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace RSService.Validation {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RSService.Validation.EventMessages", typeof(EventMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RSService.Validation.GeneralMessages", typeof(GeneralMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,29 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Event.AttendeeId.CancelSomeoneElseBooking.
+        ///   Looks up a localized string similar to Error.Event.Authentication.
         /// </summary>
-        internal static string CancellationOwnBooking {
+        internal static string Authentication {
             get {
-                return ResourceManager.GetString("CancellationOwnBooking", resourceCulture);
+                return ResourceManager.GetString("Authentication", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Event.StartDate.LessThan15Minutes.
+        ///   Looks up a localized string similar to Error.Event.Creation.
         /// </summary>
-        internal static string CancellationTimeSpanLess {
+        internal static string Event {
             get {
-                return ResourceManager.GetString("CancellationTimeSpanLess", resourceCulture);
+                return ResourceManager.GetString("Event", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Event.EndDate.Empty.
+        ///   Looks up a localized string similar to Error.Event.Edit.
         /// </summary>
-        internal static string EmptyEndDate {
+        internal static string EventEdit {
             get {
-                return ResourceManager.GetString("EmptyEndDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.StartDate.Empty.
-        /// </summary>
-        internal static string EmptyStartDate {
-            get {
-                return ResourceManager.GetString("EmptyStartDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.EndDate.TimeSpan.
-        /// </summary>
-        internal static string InvalidTimeSpan {
-            get {
-                return ResourceManager.GetString("InvalidTimeSpan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.StartDate.LimitPerDay.
-        /// </summary>
-        internal static string Limit {
-            get {
-                return ResourceManager.GetString("Limit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.StartDate.GreaterThanTwoMonths.
-        /// </summary>
-        internal static string StartDateFuture {
-            get {
-                return ResourceManager.GetString("StartDateFuture", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.StartDate.IsInThePast.
-        /// </summary>
-        internal static string StartDatePast {
-            get {
-                return ResourceManager.GetString("StartDatePast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Event.StartDate.IncorrectMinutesFormat.
-        /// </summary>
-        internal static string StartDateSpecific {
-            get {
-                return ResourceManager.GetString("StartDateSpecific", resourceCulture);
+                return ResourceManager.GetString("EventEdit", resourceCulture);
             }
         }
     }

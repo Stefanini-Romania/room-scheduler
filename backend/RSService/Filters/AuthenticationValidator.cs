@@ -13,7 +13,7 @@ namespace RSService.Filters
 
         public AuthenticationValidator()
         {
-            RuleFor(m => m.UserName).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyUsername);
+            RuleFor(m => m.Name).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyUsername);
 
             RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyPassword);
         }

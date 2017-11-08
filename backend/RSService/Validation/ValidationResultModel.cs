@@ -13,14 +13,13 @@ namespace RSService.Validation
 
         public List<ValidationError> Errors { get; set; }
 
-        public ValidationResultModel(ModelStateDictionary modelState)
+        public ValidationResultModel(string message, ModelStateDictionary modelState)
         {
-            Message = "Could not create event";
+            Message = message;
             Errors = modelState.Keys
                     .SelectMany(key => modelState[key].Errors.Select(x => new ValidationError(key, x.ErrorMessage)))
-                    .ToList(); 
+                    .ToList();
         }
-
 
     }
 }

@@ -56,9 +56,9 @@ namespace RSService.BusinessLogic
         }
 
 
-        public double GetTimeSpan(DateTime start, DateTime end)
+        public int GetTimeSpan(DateTime start, DateTime end)
         {
-                return (end - start).TotalMinutes; 
+                return (int)(end - start).TotalMinutes; 
         }
 
         public int GetAvailableTime(int userId, DateTime startDate)

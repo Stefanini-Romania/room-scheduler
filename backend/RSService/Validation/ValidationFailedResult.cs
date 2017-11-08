@@ -10,10 +10,10 @@ namespace RSService.Validation
 {
     public class ValidationFailedResult : ObjectResult
     {
-        public ValidationFailedResult(ModelStateDictionary modelState)
-        : base(new ValidationResultModel(modelState))
+        public ValidationFailedResult(string message, ModelStateDictionary modelState)
+        : base(new ValidationResultModel(message, modelState))
         {
-            StatusCode = StatusCodes.Status422UnprocessableEntity;
+            StatusCode = StatusCodes.Status400BadRequest;
         }
     }
 }

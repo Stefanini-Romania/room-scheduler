@@ -117,31 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CancellationOwnBooking" xml:space="preserve">
-    <value>Event.AttendeeId.CancelSomeoneElseBooking</value>
+  <data name="Authentication" xml:space="preserve">
+    <value>Error.Event.Authentication</value>
   </data>
-  <data name="CancellationTimeSpanLess" xml:space="preserve">
-    <value>Event.StartDate.LessThan15Minutes</value>
+  <data name="Event" xml:space="preserve">
+    <value>Error.Event.Creation</value>
   </data>
-  <data name="EmptyEndDate" xml:space="preserve">
-    <value>Event.EndDate.Empty</value>
-  </data>
-  <data name="EmptyStartDate" xml:space="preserve">
-    <value>Event.StartDate.Empty</value>
-  </data>
-  <data name="InvalidTimeSpan" xml:space="preserve">
-    <value>Event.EndDate.TimeSpan</value>
-  </data>
-  <data name="Limit" xml:space="preserve">
-    <value>Event.StartDate.LimitPerDay</value>
-  </data>
-  <data name="StartDateFuture" xml:space="preserve">
-    <value>Event.StartDate.GreaterThanTwoMonths</value>
-  </data>
-  <data name="StartDatePast" xml:space="preserve">
-    <value>Event.StartDate.IsInThePast</value>
-  </data>
-  <data name="StartDateSpecific" xml:space="preserve">
-    <value>Event.StartDate.IncorrectMinutesFormat</value>
+  <data name="EventEdit" xml:space="preserve">
+    <value>Error.Event.Edit</value>
   </data>
 </root>

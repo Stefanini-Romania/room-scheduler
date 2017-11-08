@@ -31,12 +31,13 @@ namespace RSService.Controllers
     
         
         [HttpPost("/event/create")]
-        public IActionResult AddEvent([FromBody]EventViewModel model)
+        public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return (new ValidationFailedResult(ModelState));
+                return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
             }
+
             var newEvent = Mapper.Map<Event>(model);
             newEvent.DateCreated = DateTime.UtcNow;
 
@@ -104,7 +105,7 @@ namespace RSService.Controllers
             }
             else
             {
-                return BadRequest(ModelState);
+                return (new ValidationFailedResult(GeneralMessages.EventEdit, ModelState));
             }
         }
        

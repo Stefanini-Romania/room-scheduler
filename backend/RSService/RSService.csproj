@@ -36,6 +36,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>EventMessages.resx</DependentUpon>
     </Compile>
+    <Compile Update="Validation\GeneralMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GeneralMessages.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +51,10 @@
     <EmbeddedResource Update="Validation\EventMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EventMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Validation\GeneralMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GeneralMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

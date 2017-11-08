@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using RSService.Validation;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +6,16 @@ using System.Threading.Tasks;
 
 namespace RSService.Filters
 {
-    public class ValidatorActionFilter :IActionFilter
+    public class ValidatorActionFilter : IActionFilter
     {
-        public void OnActionExecuted(ActionExecutedContext context)
+        public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-          //  throw new NotImplementedException();
+           
         }
 
-        //public void OnActionExecuting(ActionExecutingContext filterContext)
-        //{
-        //    if (!filterContext.ModelState.IsValid)
-        //    {
-        //        filterContext.Result = new BadRequestObjectResult(filterContext.ModelState);
-        //    }
-        //}
-
-        public void OnActionExecuting(ActionExecutingContext context)
+        public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (!context.ModelState.IsValid)
-            {
-                context.Result = new ValidationFailedResult(context.ModelState);
-            }
+
         }
     }
 }
