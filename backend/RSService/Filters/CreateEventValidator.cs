@@ -32,6 +32,8 @@ namespace RSService.Filters
                 RuleFor(m => m.StartDate).LessThan(m => DateTime.UtcNow.AddMinutes(15)).WithMessage(x => Validation.EventMessages.CancellationTimeSpanLess).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
 
                 RuleFor(m => m.StartDate).Must(GoodTime).WithMessage(x => Validation.EventMessages.StartDateSpecific);
+
+                RuleFor(m => m.StartDate)
             });
 
             // ---------------------------EndDate---------------------------
@@ -81,7 +83,15 @@ namespace RSService.Filters
             }
             return false;
         }
-     
+
+        private bool IsNotPenalized(EventViewModel ev, DateTime? date)
+        {
+            if (date.HasValue) {
+                //var penalties = rsManager.GetAttendeePenalies(ev.AttendeeId).Where(p => date <= p;
+
+            }
+            return false;
+        }
 
     }
 }

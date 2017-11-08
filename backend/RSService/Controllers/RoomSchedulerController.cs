@@ -81,7 +81,6 @@ namespace RSService.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var _model = Mapper.Map<Event>(model);
 
                 var _event = eventRepository.GetEvents().FirstOrDefault(c => c.Id == id);
@@ -100,7 +99,9 @@ namespace RSService.Controllers
                 _event.EventStatus = _model.EventStatus;
                 _event.DateCreated = DateTime.UtcNow;
                 dbOperation.Commit();
-
+                
+                if (_event.EventStatus == (int) EventStatusEnum.absent)
+                    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId); 
                 return NoContent();
             }
             else

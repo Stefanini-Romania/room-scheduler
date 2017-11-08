@@ -12,5 +12,7 @@ namespace RSService.BusinessLogic
         double GetTimeSpan(DateTime start, DateTime end);
         int GetAvailableTime(int attendeeId, DateTime startDate);
         bool CanCancel(DateTime startDate, DateTime endDate, int roomId, int attendee);
+        void CheckPenalty(DateTime startDate, int eventId, int attendeeId);
+        List<Penalty> GetAttendeePenalies(int attendeeId)
     }
 }
