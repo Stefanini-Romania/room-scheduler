@@ -21,7 +21,6 @@ namespace RSService.Filters
 
 
             RuleFor(m => m.StartDate).NotNull().WithMessage(x => Validation.EventMessages.EmptyStartDate);
-            //.Must(GoodTime).WithMessage(x => Validation.EventMessages.StartDateSpecific);
 
             When(m => m.StartDate.HasValue, () => {
                 RuleFor(m => m.StartDate).Must(CanBook).WithMessage(x => Validation.EventMessages.Limit).When(m => m.EndDate.HasValue);
@@ -31,6 +30,8 @@ namespace RSService.Filters
                 RuleFor(m => m.StartDate).LessThan(DateTime.UtcNow.AddMonths(1)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue);
 
                 RuleFor(m => m.StartDate).LessThan(m => DateTime.UtcNow.AddMinutes(15)).WithMessage(x => Validation.EventMessages.CancellationTimeSpanLess).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
+
+                RuleFor(m => m.StartDate).Must(GoodTime).WithMessage(x => Validation.EventMessages.StartDateSpecific);
             });
 
             // ---------------------------EndDate---------------------------
@@ -42,9 +43,6 @@ namespace RSService.Filters
             });
 
             // ---------------------------AttendeeId---------------------------
-
-            RuleFor(m => m.AttendeeId)
-                .NotNull().WithMessage(x => Validation.EventMessages.EmptyAttendee);
             RuleFor(m => m.AttendeeId)
                 .Must(CanCancel).WithMessage(x => Validation.EventMessages.CancellationOwnBooking).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
         }
