@@ -123,23 +123,14 @@
   <data name="CancellationTimeSpanLess" xml:space="preserve">
     <value>Event.StartDate.LessThan15Minutes</value>
   </data>
-  <data name="EmptyAttendee" xml:space="preserve">
-    <value>Event.AttendeeId.Empty</value>
-  </data>
   <data name="EmptyEndDate" xml:space="preserve">
     <value>Event.EndDate.Empty</value>
   </data>
   <data name="EmptyStartDate" xml:space="preserve">
     <value>Event.StartDate.Empty</value>
   </data>
-  <data name="GreaterThan" xml:space="preserve">
-    <value>Event.StartDate.GreaterThanEndDate</value>
-  </data>
   <data name="InvalidTimeSpan" xml:space="preserve">
     <value>Event.EndDate.TimeSpan</value>
-  </data>
-  <data name="LessThan" xml:space="preserve">
-    <value>Event.EndDate.LessThanStartDate</value>
   </data>
   <data name="Limit" xml:space="preserve">
     <value>Event.StartDate.LimitPerDay</value>
@@ -153,11 +144,4 @@
   <data name="StartDateSpecific" xml:space="preserve">
     <value>Event.StartDate.IncorrectMinutesFormat</value>
   </data>
-  <data name="TimeSpanGreater" xml:space="preserve">
-    <value>Event.EndDate.TimeSpanGreater</value>
-  </data>
-  <data name="TimeSpanLess" xml:space="preserve">
-    <value>Event.EndDate.TimeSpanLess</value>
-  </data>
->>>>>>> d5439edb11b3b01bbfd2fd0156de6e1f8edd0c0e
 </root>

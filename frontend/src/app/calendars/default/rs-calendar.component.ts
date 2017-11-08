@@ -7,6 +7,8 @@ import { RoomSelector } from './../../rooms/roomSelector.component';
 import {Room} from './../../rooms/room.model';
 
 import {EventService} from '../shared/event.service';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'rs-calendar-component',
@@ -17,6 +19,10 @@ import {EventService} from '../shared/event.service';
 export class RSCalendarComponent {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
     events: Event[];
+    model: Event = <Event> {};
+    closeResult: string;
+    public errorMessage: string = '';
+   
     public startDate: Date;
     public roomId:number;
     public hostId: number;
@@ -69,7 +75,7 @@ export class RSCalendarComponent {
 
   
 
-    constructor(private eventService: EventService) {}
+    constructor(private eventService: EventService, private modalService: NgbModal) {}
 
     today() {
         this.startDate = new Date();
@@ -92,6 +98,24 @@ export class RSCalendarComponent {
         this.startDate = new Date(this.scheduler.date().addDays(days));
         this.renderCalendar(this.startDate, this.roomId);
     }
+
+    open(content) {
+        this.modalService.open(content).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+      }
+
+      private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+          return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+          return 'by clicking on a backdrop';
+        } else {
+          return  `with: ${reason}`;
+        }
+      }
 
    calendarUpdate(selectedRoom: Room) {
         this.roomId = selectedRoom.RoomId;

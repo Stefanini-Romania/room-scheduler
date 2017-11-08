@@ -7,6 +7,7 @@ import { RoomSelector } from './../rooms/roomSelector.component';
 import { RoomModule } from './../rooms/room.module';
 import { FormsModule } from '@angular/forms';
 
+
 const routes : Routes =[
   {path: 'calendar', component:  RSCalendarComponent }
 ];
