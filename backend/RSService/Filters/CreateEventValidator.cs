@@ -96,7 +96,7 @@ namespace RSService.Filters
         {
             if(d.HasValue)
             {
-                return (d.GetValueOrDefault().Hour >= 09 && d.GetValueOrDefault().Hour <= 17);
+                return ((d.GetValueOrDefault().Hour >= 09 && d.GetValueOrDefault().Hour < 13) ||( d.GetValueOrDefault().Hour >= 14 && d.GetValueOrDefault().Hour <= 17));
                     
             }
             return false;
