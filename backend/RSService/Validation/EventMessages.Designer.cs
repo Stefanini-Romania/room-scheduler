@@ -97,6 +97,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.EndDate.NotInAvailabilityOfRoom.
+        /// </summary>
+        internal static string EndDateAvailabilityRoom {
+            get {
+                return ResourceManager.GetString("EndDateAvailabilityRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.TimeSpan.
         /// </summary>
         internal static string InvalidTimeSpan {
@@ -111,6 +120,15 @@ namespace RSService.Validation {
         internal static string Limit {
             get {
                 return ResourceManager.GetString("Limit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.NotInAvailabilityOfRoom.
+        /// </summary>
+        internal static string StartDateAvailabilityRoom {
+            get {
+                return ResourceManager.GetString("StartDateAvailabilityRoom", resourceCulture);
             }
         }
         

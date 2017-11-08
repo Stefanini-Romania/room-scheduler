@@ -33,7 +33,9 @@ namespace RSService.Filters
 
                 RuleFor(m => m.StartDate).Must(GoodTime).WithMessage(x => Validation.EventMessages.StartDateSpecific);
 
-                RuleFor(m => m.StartDate)
+                RuleFor(x => x.StartDate).Must(AvailabilityTimeS).WithMessage(x => Validation.EventMessages.StartDateAvailabilityRoom);
+
+                
             });
 
             // ---------------------------EndDate---------------------------
@@ -41,7 +43,10 @@ namespace RSService.Filters
             RuleFor(m => m.EndDate).NotNull().WithMessage(x => Validation.EventMessages.EmptyEndDate);
 
             When(m => m.EndDate.HasValue, () => {
+
                 RuleFor(m => m.EndDate).Must(TimeSpanOfEvent).WithMessage(x => Validation.EventMessages.InvalidTimeSpan).When(m => m.StartDate.HasValue);
+
+                RuleFor(m => m.EndDate).Must(AvailabilityTimeE).WithMessage(x => Validation.EventMessages.EndDateAvailabilityRoom);
             });
 
             // ---------------------------AttendeeId---------------------------
@@ -80,6 +85,27 @@ namespace RSService.Filters
             if (d.HasValue) {
                 return (d.GetValueOrDefault().Minute == 0 && d.GetValueOrDefault().Second == 0) 
                     || (d.GetValueOrDefault().Minute == 30 && d.GetValueOrDefault().Second == 0);
+            }
+            return false;
+        }
+
+        private bool AvailabilityTimeS(EventViewModel ev, DateTime?d)
+        {
+            if(d.HasValue)
+            {
+                return (d.GetValueOrDefault().Hour >= 09 && d.GetValueOrDefault().Hour <= 17);
+                    
+            }
+            return false;
+        }
+
+        private bool AvailabilityTimeE(EventViewModel ev, DateTime? d)
+        {
+            if (d.HasValue)
+            {
+                
+                return (d.GetValueOrDefault().Hour <= 18 && d.GetValueOrDefault().Minute <30)
+                     || (d.GetValueOrDefault().Hour<=17 && d.GetValueOrDefault().Minute <=30);
             }
             return false;
         }
