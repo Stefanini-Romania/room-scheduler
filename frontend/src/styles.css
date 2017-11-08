@@ -93,7 +93,7 @@ h3 {
 
 label
 {
-    color: rgb(227, 235, 245);
+    color: rgb(0, 0, 0);
     padding-top: 10px;
 }
 
@@ -130,7 +130,6 @@ button {
     margin-right: 2cm;
     border: none;
     cursor: pointer;
-    width: 100%;
     padding: 0px;
     font-weight: 700;
     font-size: 14px;

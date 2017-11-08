@@ -7,11 +7,56 @@
 
         <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('dayView')">DAY</button>
         <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('weekView')">WEEK</button>
+        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="newEvent()">Create</button>
+  
      </div>
  
 
   <jqxScheduler #schedulerReference
     [date]="startDate" [width]="1000" [height]="700" [source]="dataAdapter" [showLegend]="true" [view]="view"
-    [resources]="resources" [views]="views" [showToolbar]="false">
+    [resources]="resources" [views]="views" [showToolbar]="false" [editDialog]="false" (click)="open(content)">
   </jqxScheduler> 
 </div>
+
+<!-- MODAL FORM -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h6 class="modal-title">Create new appointment</h6>
+    </div>
+
+    <div class="modal-body"> 
+          <form>
+                <div class="form-group">
+                    <div class="input-group">
+                      <label ><b>Start Date 	&nbsp;</b></label>
+                      <input class="form-control form-control-sm" placeholder="yyyy-mm-dd"
+                             name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                      <button class="input-group-addon" (click)="d.toggle()" type="button">
+                       <i class="fa fa-calendar" aria-hidden="true"></i> 
+                      </button>
+                </div> <br/>
+
+                  <div class="input-group">
+                        <label><b>End Date 	&nbsp;</b></label>
+                        <input class="form-control form-control-sm" placeholder="yyyy-mm-dd"
+                               name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                        <button class="input-group-addon" (click)="d.toggle()" type="button">
+                         <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </button>
+                  </div>
+                        <label><b>Notes</b></label>
+                        <input type="text" name="notes" >
+                     
+                  </div>
+           </form>
+             
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>
+
+
+
