@@ -1,35 +1,37 @@
-<!-- @TODO -->
 <div>
-        <title>Login Page</title>
+    <title>Login Page</title>
 </div>
-        <div class="row h-100" id ="login">
-            <div class="col-sm-6 col-md-9 col-lg-8 col-xl-5 mx-auto">
-                    <div class="card-body">                    
-                        <form>                              
-                            <div id="user-cont">
-                                <a href="https://stefanini.com/en/">
-                                <img src="../../../assets/img/Logo_Stefanini_Q.png"  id="imgform" class="img-fluid">
-                                </a>
-                                
-                                <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage }}</ngb-alert>
-                                <!-- <label><b>Username</b></label> -->
-                                <input type="text" placeholder="Enter Username" name="UserName" [(ngModel)]="model.name" #UserName="ngModel" required>
-                        
-                                <!-- <label><b>Password</b></label> -->
-                                <input type="password" placeholder="Enter Password" name="Password" [(ngModel)]="model.password" #Password="ngModel" required><br /> <br />
-                        
-                                <button type="submit" id="loginbtn" (click)='login()' (click)='welcome()'>Sign In</button>
-                                <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> --> 
-                            </div>
-                        
-                            <!-- <div id="cancel-cont">
-                                <button id="reset1" type="reset">Cancel</button>
-                                <span class="psw">Forgot <a href="#">password?</a></span>
-                            </div> -->
-                        </form>
+    <div class="row h-100" id ="login">
+        <div class="col-sm-6 col-md-9 col-lg-8 col-xl-5 mx-auto">
+            <div class="card-body">
+                <form>
+                    <div id="user-cont">
+                        <a href="https://stefanini.com/en/">
+                        <img src="../../../assets/img/Logo_Stefanini_Q.png"  id="imgform" class="img-fluid">
+                        </a>
+
+                        <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage }}</ngb-alert>
+                        <!-- <label><b>Username</b></label> -->
+                        <input type="text" placeholder="Enter Username" name="UserName" [(ngModel)]="model.name" #UserName="ngModel" required>
+
+                        <!-- <label><b>Password</b></label> -->
+                        <input type="password" placeholder="Enter Password" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
+                        <br />
+                        <button type="submit" class="btn btn-primary btn-block btn-lg" (click)="login()">
+                            Sign In
+                            <i class="fa fa-lock"></i>
+                        </button>
+                        <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->
                     </div>
-                </div>
+
+                    <!-- <div id="cancel-cont">
+                        <button id="reset1" type="reset">Cancel</button>
+                        <span class="psw">Forgot <a href="#">password?</a></span>
+                    </div> -->
+                </form>
+            </div>
         </div>
+    </div>
 
 
 <rs-footer></rs-footer>

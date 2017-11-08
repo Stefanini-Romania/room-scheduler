@@ -7,7 +7,6 @@ html, body
  
 }
 
-
 .navbar{
     z-index: 1;
 }
@@ -109,13 +108,6 @@ input[type=text], input[type=password]
     line-height: initial;
 }
 
-#loginbtn
-{
-    width:100%;
-    height:45px;
-    line-height:initial;
-}
-
 /* CONTACT US BUTTON */
 #b1 {
     float: right;
@@ -130,34 +122,39 @@ button {
     margin: 8px 0;
     margin-right: 2cm;
     border: none;
-    cursor: pointer;
     padding: 0px;
     font-weight: 700;
     font-size: 14px;
     
 }
-.RScalendarButton {
-    background-color: #004e9e !important;
+
+body .btn, button {
+    cursor: pointer;
+}
+
+body .btn-primary {
+    background-color: #004e9e;
     margin: 8px 0;
     border: none !important;
-    cursor: pointer;
     font-weight: 700;
     font-size: 14px;
-    margin-right:5px;
 }
-    
-.buttonsDiv{
-    display:inline-flex; 
-    cursor: pointer;
+
+/*
+#loginbtn
+{
+    width:100%;
+    height:45px;
+    line-height:initial;
 }
 
 #loginbtn:hover,
 #loginbtn:active,
-#loginbtn:focus,
+#loginbtn:focus,*/
 #b1:hover,
 #b1:active,
 #b1:focus  {
-    background-color:#aaaaaa;
+    background-color: #007bff;
 }
    
 #imgform{

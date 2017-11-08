@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
-@Component ({
+@Component({
     selector: 'rs-footer',
-    templateUrl: 'rs-footer.html'
-    
+    templateUrl: './rs-footer.html'
+
 })
 
-
-export class RSFooter{
-
+export class RSFooter {
 }

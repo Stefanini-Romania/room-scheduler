@@ -1,61 +1,79 @@
 <div class="container" style="padding-top: 80px">
-  <div class="buttonsDiv">
-    <room-selector (roomChange)="calendarUpdate($event)"></room-selector>
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="today()">TODAY</button>
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goBack()"><strong>&lt;</strong></button>
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goForward()"><strong>&gt;</strong></button>
+    <div class="row buttonsDiv">
+        <room-selector (roomChange)="calendarUpdate($event)"></room-selector>
 
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('dayView')">DAY</button>
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('weekView')">WEEK</button>
-    <!-- <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="newEvent()">Create</button> -->
-  </div>
- 
+        <div class="btn-group" ngbRadioGroup>
+            <label ngbButtonLabel class="btn-primary"(click)="goBack()">
+                <input ngbButton type="radio"><i class="fa fa-arrow-left"></i>
+            </label>
+            <label ngbButtonLabel class="btn-primary" (click)="goToToday()">
+                <input ngbButton type="radio">TODAY
+            </label>
+            <label ngbButtonLabel class="btn-primary" (click)="goForward()">
+                <input ngbButton type="radio"><i class="fa fa-arrow-right"></i>
+            </label>
+        </div>
+        &nbsp;
+        <div class="btn-group" ngbRadioGroup>
+            <label ngbButtonLabel class="btn-primary" (click)="setView('dayView')">
+                <input ngbButton type="radio">DAY
+            </label>
+            <label ngbButtonLabel class="btn-primary" (click)="setView('weekView')">
+                <input ngbButton type="radio">WEEK
+            </label>
+        </div>
 
-  <jqxScheduler #schedulerReference
-    [date]="startDate" 
-    [width]="1000" 
-    [height]="700" 
-    [source]="dataAdapter" 
-    [showLegend]="true" 
-    [view]="view"
-    [resources]="resources" 
-    [views]="views" 
-    [showToolbar]="false" 
-    [editDialog]="false" 
-    (click)="open(content)" (click)="showEditDialog()">
-  </jqxScheduler> 
-  
+        <!-- <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="createEvent()">Create</button> -->
+    </div>
+
+    <div class="row">
+        <jqxScheduler #schedulerReference
+                      [date]="startDate"
+                      [width]="1000"
+                      [height]="700"
+                      [source]="dataAdapter"
+                      [showLegend]="true"
+                      [view]="view"
+                      [resources]="resources"
+                      [views]="views"
+                      [showToolbar]="false"
+                      [editDialog]="false"
+                      (click)="showEditDialog()">
+        </jqxScheduler>
+    </div>
 </div>
- 
+
 
 <!-- MODAL FORM -->
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header" id="modal-header">
-      <h6 class="modal-title">Create new appointment</h6>
+        <h6 class="modal-title">Create new appointment</h6>
     </div>
 
-    <div class="modal-body"> 
-          <form>
-                <div class="form-group">
-                    <div class="input-group">
-                      <label><b>From: &nbsp;</b></label>  
-                      <label>{{ selectedStartDate | date: 'fullDate'}}&nbsp;{{ selectedStartDate | date: 'shortTime'}}</label> 
-                    </div> <br/>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <label><b>From: &nbsp;</b></label>
+                    <label>{{ selectedStartDate | date: 'fullDate'}}&nbsp;{{ selectedStartDate | date:
+                        'shortTime'}}</label>
+                </div>
+                <div class="input-group">
+                    <label><b>To: &nbsp;</b></label>
+                    <label>{{ selectedEndDate | date: 'fullDate'}}&nbsp;{{ selectedEndDate | date: 'shortTime'}}</label>
+                </div>
 
-                    <div class="input-group">
-                      <label><b>To: &nbsp;</b></label>  
-                      <label>{{ selectedEndDate | date: 'fullDate'}}&nbsp;{{ selectedEndDate | date: 'shortTime'}}</label> 
-                   </div>
+                <div class="input-group">
+                    <label><b>Notes:</b></label>
+                    <label><textarea name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea></label>
+                </div>
+            </div>
+        </form>
 
-                      <label><b>Notes:</b></label>
-                      <input type="text" name="notes" [(ngModel)]="model.notes" #notes="ngModel" >
-                  </div>
-           </form>
-             
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary RScalendarButton" (click)="newEvent()">Create event</button>
+        <button type="button" class="btn btn-primary RScalendarButton" (click)="createEvent()">Create event</button>
         <button type="button" class="btn btn-primary RScalendarButton" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>

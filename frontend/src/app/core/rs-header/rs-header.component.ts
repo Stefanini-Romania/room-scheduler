@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
-import { User } from '../../shared/user.model';
-import { AuthService } from '../../auth/shared/auth.service';
-import { Router, RouterModule } from '@angular/router';
+import {Component} from '@angular/core';
+import {User} from '../../shared/models/user.model';
+import {AuthService} from '../../auth/shared/auth.service';
+import {Router} from '@angular/router';
 
-@Component ({
+@Component({
     selector: 'rs-header',
     templateUrl: './rs-header.component.html'
 })
 
-export class RSHeader{
+export class RSHeader {
     currentUser: User = undefined;
+
     constructor(private authService: AuthService, private router: Router) {
     }
 
