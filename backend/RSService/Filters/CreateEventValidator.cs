@@ -48,6 +48,8 @@ namespace RSService.Filters
                 RuleFor(m => m.EndDate).Must(TimeSpanOfEvent).WithMessage(x => Validation.EventMessages.InvalidTimeSpan).When(m => m.StartDate.HasValue);
 
                 RuleFor(m => m.EndDate).Must(AvailabilityTimeE).WithMessage(x => Validation.EventMessages.EndDateAvailabilityRoom);
+
+                RuleFor(m => m.EndDate).Must(GoodTime).WithMessage(x => Validation.EventMessages.EndDateSpecific);
             });
 
             // ---------------------------AttendeeId---------------------------
@@ -104,9 +106,9 @@ namespace RSService.Filters
         {
             if (d.HasValue)
             {
-                
-                return (d.GetValueOrDefault().Hour <= 18 && d.GetValueOrDefault().Minute <30)
-                     || (d.GetValueOrDefault().Hour<=17 && d.GetValueOrDefault().Minute <=30);
+
+                return (d.GetValueOrDefault().Hour <= 18 && d.GetValueOrDefault().Minute < 30)
+                     || (d.GetValueOrDefault().Hour <= 17 && d.GetValueOrDefault().Minute <= 30);
             }
             return false;
         }

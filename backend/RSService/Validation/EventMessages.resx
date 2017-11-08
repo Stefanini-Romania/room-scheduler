@@ -132,6 +132,9 @@
   <data name="EndDateAvailabilityRoom" xml:space="preserve">
     <value>Event.EndDate.NotInAvailabilityOfRoom</value>
   </data>
+  <data name="EndDateSpecific" xml:space="preserve">
+    <value>Event.EndDate.IncorrectMinutesFormat</value>
+  </data>
   <data name="InvalidTimeSpan" xml:space="preserve">
     <value>Event.EndDate.TimeSpan</value>
   </data>

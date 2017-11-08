@@ -106,6 +106,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.EndDate.IncorrectMinutesFormat.
+        /// </summary>
+        internal static string EndDateSpecific {
+            get {
+                return ResourceManager.GetString("EndDateSpecific", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.TimeSpan.
         /// </summary>
         internal static string InvalidTimeSpan {
