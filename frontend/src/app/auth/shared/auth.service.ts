@@ -20,7 +20,7 @@ export class AuthService {
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body, { headers: headers })
         
-                        .catch((error:any) => Observable.throw(error.message))
+                        .catch((error:any) => Observable.throw(error))
                         .map((response: Response) => {
             
                                 if (response) {

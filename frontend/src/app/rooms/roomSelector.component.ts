@@ -29,7 +29,7 @@ export class RoomSelector {
     @Output()
     roomChange = new  EventEmitter;
     
-    onSelectAValue(room) {
+    onSelectRoom(room) {
       this.roomChange.emit(room);
     }
 }

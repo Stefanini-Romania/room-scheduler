@@ -37,7 +37,8 @@ html, body
     height: 40px;
     width: 40px;
     position: relative;
-    margin: 4px 0px 20px 5px;
+    margin: 4px -5px 20px 5px;
+
 }
 
 #img2

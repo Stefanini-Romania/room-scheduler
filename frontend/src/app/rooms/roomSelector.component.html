@@ -3,7 +3,7 @@
       <div ngbDropdown class="d-inline-block" style="margin-right: 5px">
         <button class="btn btn-primary RScalendarButton" ngbDropdownToggle>ROOMS</button>
         <div ngbDropdownMenu aria-labelledby="roomsButton">
-            <span class="btn" *ngFor="let room of rooms" class="dropdown-item" (click)="onSelectAValue(room)">{{ room.name }}</span>
+            <span class="btn" *ngFor="let room of rooms" class="dropdown-item" (click)="onSelectRoom(room)">{{ room.name }}</span>
         </div>
       </div>
     </div>

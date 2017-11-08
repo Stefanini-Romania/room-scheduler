@@ -4,6 +4,7 @@ import { User } from '../../shared/user.model';
 import { AuthService } from '../shared/auth.service';
 import { AuthModule } from '../auth.module';
 import { Observable } from 'rxjs/Observable';
+import { translations } from '../i18n/en';
 
 @Component ({
     selector: 'login-component',
@@ -32,13 +33,13 @@ import { Observable } from 'rxjs/Observable';
               this.router.navigate(['/calendar']);
               
           },
-          error => {
-              this.errorMessage = "Incorrect username or password";
+          error => {         
+              this.errorMessage = translations[error.error.message];
+              // console.log(error);
           })
     }
 
     welcome() {
-      if(this.currentUser && this.currentUser.name !=null )
       this.currentUser = this.authService.getLoggedUser();
     }
   }

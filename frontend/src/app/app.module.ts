@@ -11,6 +11,8 @@ import { AuthService } from './auth/shared/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { RoomModule } from './rooms/room.module';
 import { RoomService } from './rooms/room.service';
+// import { ButtonModule } from './../../node_modules/jqwidgets-framework/demos/angular/app/modules/button.module';
+// import { SchedulerModule } from './../../node_modules/jqwidgets-framework/demos/angular/app/modules/scheduler.module';
 
 const routes: Routes = [
   // default route
@@ -30,7 +32,8 @@ const routes: Routes = [
         CalendarsModule,
         RouterModule.forRoot(routes),
         RoomModule,
-        AuthModule
+        AuthModule, 
+       
     ],
   
     providers: [ RoomService, AuthService ],

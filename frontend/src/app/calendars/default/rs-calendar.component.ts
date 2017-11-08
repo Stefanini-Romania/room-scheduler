@@ -2,7 +2,7 @@
 import { NumberFormatStyle } from '@angular/common/src/pipes/intl';
 import { EventEmitter } from 'events';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
+import { jqxSchedulerComponent } from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import { RoomSelector } from './../../rooms/roomSelector.component';
 import {Room} from './../../rooms/room.model';
 import { Observable } from 'rxjs/Observable';
@@ -19,14 +19,26 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 export class RSCalendarComponent {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
+    
+    
     events: Event[];
     model: Event = <Event> {};
     closeResult: string;
     public errorMessage: string = '';
    
     public startDate: Date;
-    public roomId:number;
+    public roomId: number;
     public hostId: number;
+
+    // AppointmentAdd(event: any): void 
+    // {
+    //     // Do Something
+    // }
+
+    // AppointmentDoubleClick(event: any): void 
+    // {
+    //     // Do Something
+    // }    
 
     source: any =
     {
@@ -45,6 +57,8 @@ export class RSCalendarComponent {
     };
 
     dataAdapter: any = new jqx.dataAdapter(this.source);
+
+    printButton: any = null;
 
     appointmentDataFields: any =
     {
@@ -69,9 +83,8 @@ export class RSCalendarComponent {
     views: any[] =
     [
         
-        { type: 'dayView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 } },
+        { type: 'dayView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 }},
         { type: 'weekView', showWeekends: false, timeRuler: { scaleStartHour: 9, scaleEndHour: 18 }},
-      //   { type: 'monthView', showWeekends: false }
     ];  
 
 

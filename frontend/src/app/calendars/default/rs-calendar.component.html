@@ -1,22 +1,32 @@
 <div class="container" style="padding-top: 80px">
-      <div class="buttonsDiv">
-        <room-selector (roomChange)="calendarUpdate($event)"></room-selector>
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="today()">TODAY</button>
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goBack()"><strong>&lt;</strong></button>
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goForward()"><strong>&gt;</strong></button>
+  <div class="buttonsDiv">
+    <room-selector (roomChange)="calendarUpdate($event)"></room-selector>
+    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="today()">TODAY</button>
+    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goBack()"><strong>&lt;</strong></button>
+    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goForward()"><strong>&gt;</strong></button>
 
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('dayView')">DAY</button>
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('weekView')">WEEK</button>
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="newEvent()">Create</button>
-  
-     </div>
+    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('dayView')">DAY</button>
+    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('weekView')">WEEK</button>
+    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="newEvent()">Create</button>
+  </div>
  
 
   <jqxScheduler #schedulerReference
-    [date]="startDate" [width]="1000" [height]="700" [source]="dataAdapter" [showLegend]="true" [view]="view"
-    [resources]="resources" [views]="views" [showToolbar]="false" [editDialog]="false" (click)="open(content)">
+    [date]="startDate" 
+    [width]="1000" 
+    [height]="700" 
+    [source]="dataAdapter" 
+    [showLegend]="true" 
+    [view]="view"
+    [resources]="resources" 
+    [views]="views" 
+    [showToolbar]="false" 
+    [editDialog]="false" 
+    (click)="open(content)">
   </jqxScheduler> 
+  
 </div>
+ 
 
 <!-- MODAL FORM -->
 <ng-template #content let-c="close" let-d="dismiss">
