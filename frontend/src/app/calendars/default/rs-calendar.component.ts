@@ -78,38 +78,38 @@ export class RSCalendarComponent {
 
     goToToday() {
         this.startDate = new Date();
-        this.renderCalendar(this.startDate, this.roomId);
+        this.renderCalendar();
     }
 
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(-days));
-        this.renderCalendar(this.startDate, this.roomId);
+        this.renderCalendar();
     }
 
     goForward() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(days));
-        this.renderCalendar(this.startDate, this.roomId);
+        this.renderCalendar();
     }
 
     calendarUpdate(selectedRoom: Room) {
         this.roomId = selectedRoom.id;
-        this.renderCalendar(this.startDate, this.roomId);
+        this.renderCalendar();
     }
 
     ngAfterViewInit(): void {
         this.scheduler.ensureAppointmentVisible('id1');
 
         this.startDate = new Date();
-        this.renderCalendar(this.startDate, this.roomId);
+        this.renderCalendar();
     }
 
-    private renderCalendar(startDate: Date, roomId: number) {
+    private renderCalendar() {
         this.events = [];
         let endDate = new Date();
-        endDate.setDate(startDate.getDate() + 7);
-        this.eventService.listEvents(startDate, endDate, roomId, this.hostId).subscribe((events: Event[]) => {
+        endDate.setDate(this.startDate.getDate() + 7);
+        this.eventService.listEvents(this.startDate, endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
             for (let event of events) {
                 this.events.push(<Event>event);
             }
