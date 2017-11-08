@@ -34,4 +34,17 @@ export class EventService{
 
     }
 
+    public createEvents(startDate: Date, endDate: Date, eventType: number, roomId: number, hostId: number, attendeeId: number, eventStatus: number, notes?: string){
+        const url = 'http://fctestweb1:88/event/create';
+        const body = JSON.stringify({ startDate: startDate, endDate: endDate, eventType: eventType, roomId: roomId, hostId:hostId, attendeeId: attendeeId, eventStatus: eventStatus, notes:notes});
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.post(url, body, { headers: headers })
+        
+                        .catch((error:any) => Observable.throw(error.message))
+                        .map((response: Response) => {
+            
+                                return response; 
+                        })
+        
+        }
 }

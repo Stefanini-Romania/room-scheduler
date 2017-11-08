@@ -5,7 +5,8 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import { RoomSelector } from './../../rooms/roomSelector.component';
 import {Room} from './../../rooms/room.model';
-
+import { Observable } from 'rxjs/Observable';
+import { Event } from '../../shared/event.model';
 import {EventService} from '../shared/event.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
@@ -73,7 +74,6 @@ export class RSCalendarComponent {
       //   { type: 'monthView', showWeekends: false }
     ];  
 
-  
 
     constructor(private eventService: EventService, private modalService: NgbModal) {}
 
@@ -118,7 +118,7 @@ export class RSCalendarComponent {
       }
 
    calendarUpdate(selectedRoom: Room) {
-        this.roomId = selectedRoom.RoomId;
+        this.roomId = selectedRoom.id;
         this.renderCalendar(this.startDate, this.roomId);
     }
 
@@ -139,9 +139,22 @@ export class RSCalendarComponent {
                 this.events.push(<Event>event);
             };
             this.refreshdata();
-            console.log(this.events);
+            // console.log(this.events);
       
         });    
+    }
+
+    newEvent(){
+        this.startDate =  new Date();
+        let endDate = new Date();
+        endDate.setMinutes(endDate.getMinutes()+30);
+        this.eventService.createEvents(this.model.startDate = this.startDate, this.model.endDate = endDate, this.model.eventType = 0, this.model.roomId = 1, this.model.hostId = 3, this.model.attendeeId = 1, this.model.eventStatus = 4).subscribe(
+            data =>{
+                this.refreshdata();
+            },
+            error => {
+                this.errorMessage = "Unable to create event";
+            })
     }
 
     refreshdata(){
