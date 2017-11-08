@@ -68,11 +68,12 @@ export class RSCalendarComponent {
     }
 
     isView(view: string): boolean {
-        return view == this.scheduler.view();
+        return view == this.view;
     }
+
     setView(view: string) {
         this.view = view;
-        this.scheduler.view(view);
+        this.scheduler.view(this.view);
     }
 
     goToToday() {

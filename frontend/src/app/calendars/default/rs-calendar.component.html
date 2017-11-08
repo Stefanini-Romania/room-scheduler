@@ -14,12 +14,12 @@
             </label>
         </div>
         &nbsp;
-        <div class="btn-group" ngbRadioGroup>
+        <div class="btn-group" ngbRadioGroup [ngModel]="view">
             <label ngbButtonLabel class="btn-primary" (click)="setView('dayView')">
-                <input ngbButton type="radio">DAY
+                <input ngbButton type="radio" value="dayView">DAY
             </label>
             <label ngbButtonLabel class="btn-primary" (click)="setView('weekView')">
-                <input ngbButton type="radio">WEEK
+                <input ngbButton type="radio" value="weekView">WEEK
             </label>
         </div>
 
