@@ -1,4 +1,7 @@
 {
+  "button.close": "Close",
+  "button.save": "Save",
+
   "login.button": "Sign In",
   "login.username": "Enter Username",
   "login.password": "Enter Password",
@@ -7,14 +10,19 @@
   "calendar.day": "DAY",
   "calendar.week": "WEEK",
   "calendar.rooms": "ROOMS",
-  "calendar.notes": "NOTES",
+  "calendar.notes": "Notes",
+  "calendar.startDate": "From",
+  "calendar.endDate": "To",
+  "calendar.event.create": "Create new appointment",
+  "calendar.event.edit": "Edit appointment",
+
+  "Auth.Password.Empty": "Please enter your password",
+  "Auth.Username.Empty": "Please enter your username",
 
   "Error.Event.Authentication": "Invalid username or password",
   "Error.Event.Creation": "Unable to create event",
   "Error.Event.Edit": "Unable to edit event",
-  "Auth.Password.Empty": "Please enter your password",
-  "Auth.Username.Empty": "Please enter your username",
-  
+
   "Event.AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
   "Event.StartDate.LessThan15Minutes": "You must book at least 15 minutes before your appointment",
   "Event.EndDate.Empty": "Please insert an end date",

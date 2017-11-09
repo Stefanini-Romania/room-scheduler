@@ -52,32 +52,30 @@
 <!-- MODAL FORM -->
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header" id="modal-header">
-        <h6 class="modal-title">Create new appointment</h6>
+        <h6 class="modal-title">{{ saveEventTitle | translate }}</h6>
     </div>
 
     <div class="modal-body">
         <form>
             <!-- generic error message -->
-
-        
             <ngb-alert type="danger" *ngIf="createErrorMessages['generic']" [dismissible]="false">{{ createErrorMessages['generic'] | translate }}</ngb-alert>
 
             <div class="form-group">
                 <div class="input-group">
-                    <label><b>From: &nbsp;</b></label>
+                    <label><b>{{ 'calendar.startDate' | translate }}:&nbsp;</b></label>
                     <label>{{ selectedStartDate | date: 'fullDate'}}&nbsp;{{ selectedStartDate | date:
                         'shortTime'}}</label>
 
                         <!-- <ngb-alert type="danger" *ngIf="createErrorMessages['StartDate']" [dismissible]="true">{{ "createErrorMessages['StartDate']" | translate }}</ngb-alert> -->
                 </div>
                 <div class="input-group">
-                    <label><b>To: &nbsp;</b></label>
+                    <label><b>{{ 'calendar.endDate' | translate }}: &nbsp;</b></label>
                     <label>{{ selectedEndDate | date: 'fullDate'}}&nbsp;{{ selectedEndDate | date: 'shortTime'}}</label>
                     <!-- <ngb-alert type="danger" *ngIf="createErrorMessages['EndDate']" [dismissible]="true">{{ "createErrorMessages['EndDate']" | translate }}</ngb-alert> -->
                 </div>
 
                 <div class="input-group">
-                    <label><b>Notes:</b></label>
+                    <label><b>{{ 'calendar.notes' | translate }}:</b></label>
                     <label><textarea name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea></label>
                 </div>
             </div>
@@ -86,8 +84,8 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary RScalendarButton" (click)="createEvent()">Create event</button>
-        <button type="button" class="btn btn-primary RScalendarButton" (click)="c('Close click')">Close</button>
+        <button type="button" class="btn btn-primary RScalendarButton" (click)="saveEvent()">{{ 'button.save' | translate }}</button>
+        <button type="button" class="btn btn-primary RScalendarButton" (click)="c('Close click')">{{ 'button.close' | translate }}</button>
     </div>
 </ng-template>
 

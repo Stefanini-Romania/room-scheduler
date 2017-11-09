@@ -27,7 +27,10 @@ export class RSCalendarComponent {
     public roomId: number;
     public hostId: number;
     public eventId: number;
+    public saveEventTitle: string;
+
     public view = 'weekView';
+
     closeResult: string;
     
     source: any = {
@@ -111,7 +114,9 @@ export class RSCalendarComponent {
     }
 
     showEditDialog(content) {
-        
+        this.saveEventTitle = 'calendar.event.create';
+        //this.saveEventTitle = 'calendar.event.edit';
+
         this.createErrorMessages = [];
         let date = this.scheduler.getSelection();
         this.selectedStartDate = new Date(date.from.toDate());
@@ -186,7 +191,7 @@ export class RSCalendarComponent {
         });
     }
 
-    createEvent() {
+    saveEvent() {
         this.eventService.createEvent(this.model.startDate = this.selectedStartDate, this.model.endDate = this.selectedEndDate,this.model.eventType = 0, this.model.roomId = 1, this.model.hostId = 3, this.model.attendeeId = 1, this.model.eventStatus = 4, this.model.notes).subscribe(
             () => {
                 this.renderCalendar();
