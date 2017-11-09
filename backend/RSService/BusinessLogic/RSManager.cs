@@ -159,34 +159,23 @@ namespace RSService.BusinessLogic
         }
 
 
-
-
-
-
-        //public bool IsPenalizedAttendee(int attendeeId)
-        //{
-
-        //    return false;
-        //}
-
-        
         //Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
-            
-        //public void CheckPenalty(DateTime startDate, int eventId, int attendeeId)
-        //{
-        //    var eventsCount = eventRepository.GetEvents().Where(ev => ev.AttendeeId == attendeeId)
-        //                                .Where(ev => ev.StartDate.Month == DateTime.Now.Month) // TO DO: current month or last 30 days ?
-        //                                .Where(ev => ev.EventStatus == (int)EventStatusEnum.absent).Count();
-        //    if (eventsCount == 3)
-        //    {
-        //        penaltyRepository.AddPenalty(new Penalty()
-        //        {
-        //            AttendeeId = attendeeId,
-        //            EventId = eventId,
-        //            Date = startDate
-        //        });
-        //    }
-        //}
+
+        public void CheckPenalty(DateTime startDate, int eventId, int attendeeId)
+        {
+            var eventsCount = eventRepository.GetEvents().Where(ev => ev.AttendeeId == attendeeId)
+                                        .Where(ev => ev.StartDate > startDate.AddDays(-30))      // Last 30 days
+                                        .Where(ev => ev.EventStatus == (int)EventStatusEnum.absent).Count();
+            if (eventsCount == 3)
+            {
+                penaltyRepository.AddPenalty(new Penalty()
+                {
+                    AttendeeId = attendeeId,
+                    EventId = eventId,
+                    Date = startDate
+                });
+            }
+        }
 
         public bool HasPenalty(int attendeeId, DateTime newDate)
         {
