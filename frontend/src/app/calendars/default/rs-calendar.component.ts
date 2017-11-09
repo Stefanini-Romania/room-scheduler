@@ -25,6 +25,7 @@ export class RSCalendarComponent {
     public selectedEndDate: Date;
     public roomId: number;
     public hostId: number;
+    public eventId: number;
 
     source: any =
         {
@@ -145,6 +146,19 @@ export class RSCalendarComponent {
                 this.createErrorMessage = error.error.message;
             })
     }
+
+    editEvent() {
+        console.log(this.model);
+        this.eventService.editEvent(this.model.startDate = this.selectedStartDate, this.model.endDate = this.selectedEndDate, this.model.id = 1, this.model.eventType = 0, this.model.roomId = 1, this.model.hostId = 3, this.model.attendeeId = 1, this.model.eventStatus = 4, this.model.notes).subscribe(
+            () => {
+                this.refreshCalendar();
+            },
+            error => {
+                this.createErrorMessage = "Unable to create event";
+            })
+    }
+
+
 
     refreshCalendar() {
         this.source.localData = this.events;

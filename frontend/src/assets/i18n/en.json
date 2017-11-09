@@ -9,5 +9,23 @@
   "calendar.rooms": "ROOMS",
 
   "Error.Event.Authentication": "Invalid username or password",
-  "Error.Event.Creation": "Unable to create event"
+  "Error.Event.Creation": "Unable to create event",
+  "Error.Event.Edit": "Unable to edit event",
+  "Auth.Password.Empty": "Please enter your password",
+  "Auth.Username.Empty": "Please enter your username",
+  
+  "Event.AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
+  "Event.StartDate.LessThan15Minutes": "You must book at least 15 minutes before your appointment",
+  "Event.EndDate.Empty": "Please insert an end date",
+  "Event.StartDate.Empty": "Please insert a start date",
+  "Event.EndDate.NotInAvailabilityOfRoom": "The room is not available (end date)",
+  "Event.EndDate.IncorrectMinutesFormat": "Minutes format incorrect (end date)",
+  "Event.EndDate.TimeSpan": "Time span incorrect",
+  "Event.StartDate.LimitPerDay": "You have exceeded your daily limit",
+  "Event.StartDate.NotAvailable": "the time selected is not available",
+  "Event.StartDate.PenalizedUser": "Warning! Sanctioned user",
+  "Event.StartDate.NotInAvailabilityOfRoom": "The room is not available (start date)",
+  "Event.StartDate.GreaterThanTwoMonths": "The selected date is greater than 2 months",
+  "Event.StartDate.IsInThePast": "The selected date has passed",
+  "Event.StartDate.IncorrectMinutesFormat": "Minutes format incorrect (start date)"
 }
