@@ -1,5 +1,3 @@
-import { forEach } from '@angular/router/src/utils/collection';
-import {EventEmitter} from 'events';
 import {Component, ViewChild} from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
@@ -7,6 +5,7 @@ import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
 import {Event} from '../../shared/models/event.model';
+
 //cb360a413af57cb163691a7fee3409e860cfe85a
 
 @Component({
@@ -31,24 +30,7 @@ export class RSCalendarComponent {
     public view = 'weekView';
     closeResult: string;
     
-    generateAppointments(): any {
-        let appointments = new Array();
-        let appointment1 = {
-            id: "id1",
-            description: "George brings projector for presentations.",
-            location: "",
-            subject: "Quarterly Project Review Meeting",
-            calendar: "Room 1",
-            start: new Date(2017, 10, 23, 9, 0, 0),
-            end: new Date(2017, 10, 23, 16, 0, 0)
-        };
-        appointments.push(appointment1);
-
-        return appointments;
-    };
-
-    source: any =
-    {
+    source: any = {
         dataType: "array",
         dataFields: [
             { name: 'id', type: 'string' },
@@ -60,11 +42,10 @@ export class RSCalendarComponent {
             { name: 'end', type: 'date' }
         ],
         id: 'id',
-        localData: this.generateAppointments()
+        localData: []
     };
 
-    appointmentDataFields: any =
-    {
+    eventDataFields: any = {
         from: "start",
         to: "end",
         id: "id",
@@ -76,11 +57,10 @@ export class RSCalendarComponent {
 
     dataAdapter: any = new jqx.dataAdapter(this.source);
 
-    resources: any =
-    {
+    resources: any = {
         colorScheme: "scheme05",
         dataField: "calendar",
-        source: new jqx.dataAdapter(this.source)
+        source: null
     };
 
     views: any[] = [
@@ -91,19 +71,41 @@ export class RSCalendarComponent {
     constructor(private eventService: EventService, private modalService: NgbModal) {    
     }
 
+    /*
     refreshCalendar() {
         let events = [];
         for (let event of this.events) {
-            this.events.push(<any>{
+            const e: any = Object.assign({}, event);
+            e.subject = "Quarterly Project Review Meeting";
+            e.calendar = "Room " + event.roomId;
+            events.push(e);
+        }
+        this.source.localData = events;
+        this.dataAdapter = new jqx.dataAdapter(this.source);
+    }
+    transformEventToAppointment(event: Event) {
+        let appointment: any = Object.assign({}, event);
+        appointment.subject = "Quarterly Project Review Meeting";
+        appointment.calendar = "Room " + event.roomId;
+        appointment.startDate = new Date(event.startDate);
+        appointment.endDate = new Date(event.endDate);
+
+        return appointment;
+    }
+     */
+    refreshCalendar() {
+        let events = [];
+        for (let event of this.events) {
+            events.push(<any>{
                 id: event.id,
-                description: "George brings projector for presentations.",
+                description: event.notes,
                 location: "",
-                subject: "Quarterly Project Review Meeting",
+                subject: "Massage",
                 calendar: "Room " + event.roomId,
                 start: new Date(event.startDate),
                 end: new Date(event.endDate)
             });
-        }        
+        }
         this.source.localData = events;
         this.dataAdapter = new jqx.dataAdapter(this.source);
     }
@@ -212,8 +214,8 @@ export class RSCalendarComponent {
                 this.refreshCalendar();
             },
             error => {
-              
-                this.createErrorMessages = error.error.message;;
+
+                this.createErrorMessages = error.error.message;
             })
     }
 
