@@ -184,6 +184,10 @@ export class RSCalendarComponent {
     }
 
     showEditDialog(content) {
+        let date = this.scheduler.getSelection();
+        this.selectedStartDate = new Date(date.from.toDate());
+        this.selectedEndDate = new Date(date.to.toDate());
+
         // @TODO detect create or edit
         this.saveEventTitle = 'calendar.event.create';
         this.model = new Event();
@@ -192,16 +196,13 @@ export class RSCalendarComponent {
         this.model.eventType = 0; // @TODO use constants
         this.model.eventStatus = 4; // @TODO use constants
         this.model.roomId = this.roomId;
-        // this.model.hostId = 3; WE SHOULD NOT NEED A HOST
+        this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
         this.model.attendeeId = 1; // @TODO get user id from logged user
 
         //this.saveEventTitle = 'calendar.event.edit';
         //this.model = // @TODO get event from the selected event (use this.events[eventId]) where we have all the events;
 
-        this.createErrorMessages = [];
-        let date = this.scheduler.getSelection();
-        this.selectedStartDate = new Date(date.from.toDate());
-        this.selectedEndDate = new Date(date.to.toDate());
+        this.createErrorMessages = {};
 
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
