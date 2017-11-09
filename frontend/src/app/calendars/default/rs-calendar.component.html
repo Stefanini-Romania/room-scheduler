@@ -1,6 +1,6 @@
-<div class="container" style="padding-top: 80px">
 
-        <ngb-alert type="danger" *ngIf="createErrorMessage" [dismissible]="false">{{ createErrorMessage | translate }}</ngb-alert>
+<div class="container" style="padding-top: 80px">   
+
     <div class="row buttonsDiv">
         <room-selector (roomChange)="calendarUpdate($event)"></room-selector>
         &nbsp;
@@ -28,7 +28,7 @@
 
         <!-- <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="createEvent()">Create</button> -->
     </div>
-    
+
     <div class="row">
         <jqxScheduler #schedulerReference
                       [date]="startDate"
@@ -37,11 +37,11 @@
                       [source]="dataAdapter"
                       [showLegend]="true"
                       [view]="view"
+                      [appointmentDataFields]="appointmentDataFields"
                       [resources]="resources"
                       [views]="views"
-                      [showToolbar]="false"
+                      [showToolbar]="true"
                       [editDialog]="false"
-
                    
                       (click)="showEditDialog(content)">
         </jqxScheduler>
@@ -57,15 +57,23 @@
 
     <div class="modal-body">
         <form>
+            <!-- generic error message -->
+
+        
+            <ngb-alert type="danger" *ngIf="createErrorMessages['generic']" [dismissible]="false">{{ createErrorMessages['generic'] | translate }}</ngb-alert>
+
             <div class="form-group">
                 <div class="input-group">
                     <label><b>From: &nbsp;</b></label>
                     <label>{{ selectedStartDate | date: 'fullDate'}}&nbsp;{{ selectedStartDate | date:
                         'shortTime'}}</label>
+
+                        <!-- <ngb-alert type="danger" *ngIf="createErrorMessages['StartDate']" [dismissible]="true">{{ "createErrorMessages['StartDate']" | translate }}</ngb-alert> -->
                 </div>
                 <div class="input-group">
                     <label><b>To: &nbsp;</b></label>
                     <label>{{ selectedEndDate | date: 'fullDate'}}&nbsp;{{ selectedEndDate | date: 'shortTime'}}</label>
+                    <!-- <ngb-alert type="danger" *ngIf="createErrorMessages['EndDate']" [dismissible]="true">{{ "createErrorMessages['EndDate']" | translate }}</ngb-alert> -->
                 </div>
 
                 <div class="input-group">
