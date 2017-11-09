@@ -8,9 +8,15 @@
         <div class="right-side">
             <span id="welcome-message" *ngIf="isLoggedIn()">Welcome,<b> {{currentUser.name}}</b>!</span>
             <div ngbDropdown class="d-inline-block">
-                <button class="btn btn-primary" id="languageSelector" ngbDropdownToggle>{{ currentLanguage.name }}</button>
+                <button class="btn btn-primary" id="languageSelector" ngbDropdownToggle>
+                    <img width=20 src="{{ currentLanguage.icon }}" alt="{{ currentLanguage.name }}"/>
+                    {{ currentLanguage.name }}
+                </button>
                 <div ngbDropdownMenu aria-labelledby="languageSelector">
-                    <button *ngFor="let language of languages" class="dropdown-item" (click)="changeLanguage(language.code)">{{ language.name }}</button>
+                    <button *ngFor="let language of languages" class="dropdown-item" (click)="changeLanguage(language.code)">
+                        <img width=20 src="{{ language.icon }}" alt="{{ language.name }}"/>
+                        {{ language.name }}
+                    </button>
                 </div>
             </div>
             <div id="logout" *ngIf="isLoggedIn()">

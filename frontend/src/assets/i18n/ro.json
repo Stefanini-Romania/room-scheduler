@@ -1,0 +1,7 @@
+{
+  "login.button": "Authentificare",
+  "login.username": "Introduceti utilizatorul",
+  "login.password": "Introduceti parola",
+
+  "Error.Event.Authentication": "Utilizator sau parola invalide"
+}

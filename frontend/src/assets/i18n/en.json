@@ -1,0 +1,7 @@
+{
+  "login.button": "Sign In",
+  "login.username": "Enter Username",
+  "login.password": "Enter Password",
+
+  "Error.Event.Authentication": "Invalid username or password"
+}

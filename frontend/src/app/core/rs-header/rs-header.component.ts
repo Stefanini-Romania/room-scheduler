@@ -12,9 +12,10 @@ import {TranslateService} from '@ngx-translate/core';
 export class RSHeader {
     currentUser: User = undefined;
 
+    // @TODO download icons from https://www.iconfinder.com/iconsets/flags_gosquared
     languages = [
-        {'name': 'English', 'code': 'en'},
-        {'name': 'Română', 'code': 'ro'}
+        {'name': 'English', 'code': 'en', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/United-Kingdom_flat.png' },
+        {'name': 'Română', 'code': 'ro', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/Romania_flat.png'}
     ];
 
     constructor(private authService: AuthService, private translate: TranslateService, private router: Router) {
@@ -25,7 +26,6 @@ export class RSHeader {
     }
 
     changeLanguage(lang) {
-        console.log(lang);
         this.translate.use(lang);
         this.translate.getTranslation(lang);
     }
