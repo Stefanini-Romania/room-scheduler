@@ -208,14 +208,23 @@ span.psw {
     color: black;
 }
 
-footer {
+header, footer {
     position: fixed;
     width: 100%;
-    left: 0;
+}
+
+header {
+    height: 80px;
+    top: 0;
+    background: url("./assets/img/rsheader1.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+footer {
     bottom: 0;
     overflow: hidden;
     font-size: 15px;
-    /* padding: 10px; */
 }
 
 footer p {
@@ -248,11 +257,6 @@ footer a {
     margin-inline-start: 1712px;
     width: 147px;
 } 
-
- #login{
-    padding-top:80px;
-    position: relative;
-}
 
 #welcome-message {
     padding-top: 40px;

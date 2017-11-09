@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../shared/auth.service';
-import {translations} from '../i18n/en';
 
 @Component({
     selector: 'login-component',
@@ -31,7 +30,7 @@ export class LoginComponent {
 
                 },
                 error => {
-                    this.errorMessage = translations[error.error.message];
+                    this.errorMessage = error.error.message;
                 });
     }
 }

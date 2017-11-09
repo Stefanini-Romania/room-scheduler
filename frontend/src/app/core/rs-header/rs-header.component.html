@@ -1,19 +1,23 @@
-<div id="header" class="fixed-top">
-    <!-- <div id="welcome-message" *ngIf="this.currentUser && isLoggedIn()">Welcome, {{this.currentUser.name}}!</div> -->
-    <!-- <div *ngIf="!(isLoggedIn())">
-        <a href="/login">Login Button TODO !!!!</a>
-    </div> -->
-    <span id="welcome-message" *ngIf="isLoggedIn()">Welcome,<b> {{currentUser.name}}</b>!</span>
-    <img id="headerimg" src="../../../assets/img/rsheader1.png" alt="">
-    <nav class="navbar navbar-expand-lg top">
+<header>
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
         <div>
             <img id="logo-header" src="../../../assets/img/header-logo2.png" alt="Stefanini-logo">
-            <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
+            <span class="navbar-brand">Room Scheduler</span>
         </div>
-        <div id="logout" *ngIf="isLoggedIn()">
-            <button id="sign-out" class="btn btn-primary RScalendarButton" (click)="logout()">
-                <span class="fa fa-sign-out" aria-hidden="true"></span> Sign out
-            </button>
+
+        <div class="right-side">
+            <span id="welcome-message" *ngIf="isLoggedIn()">Welcome,<b> {{currentUser.name}}</b>!</span>
+            <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-primary" id="languageSelector" ngbDropdownToggle>{{ currentLanguage.name }}</button>
+                <div ngbDropdownMenu aria-labelledby="languageSelector">
+                    <button *ngFor="let language of languages" class="dropdown-item" (click)="changeLanguage(language.code)">{{ language.name }}</button>
+                </div>
+            </div>
+            <div id="logout" *ngIf="isLoggedIn()">
+                <button id="sign-out" class="btn btn-primary RScalendarButton" (click)="logout()">
+                    <span class="fa fa-sign-out" aria-hidden="true"></span>Sign out
+                </button>
+            </div>
         </div>
     </nav>
-</div>
+</header>

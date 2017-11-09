@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent} from './login/login.component';
 import { CoreModule } from '../core/core.module';
+import { SharedModule } from '../shared/shared.module';
 import { AuthService } from './shared/auth.service';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
       CoreModule,
+      SharedModule,
       RouterModule.forRoot(routes),
   ],
   providers: [AuthService],
