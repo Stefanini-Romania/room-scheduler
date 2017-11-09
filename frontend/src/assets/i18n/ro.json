@@ -7,6 +7,7 @@
   "calendar.day": "ZI",
   "calendar.week": "SĂPTĂMÂNĂ",
   "calendar.rooms": "CAMERE",
+  "calendar.notes": "OBSERVATII",
 
   "Error.Event.Authentication": "Utilizator sau parolă invalide",
   "Error.Event.Creation": "Evenimentul nu a putut fi creat",

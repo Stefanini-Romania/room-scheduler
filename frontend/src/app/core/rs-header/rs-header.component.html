@@ -1,12 +1,13 @@
 <header>
+    <span id="welcome-message" *ngIf="isLoggedIn()">Welcome,<b> {{currentUser.name}}</b>!</span>
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-        <div>
-            <img id="logo-header" src="../../../assets/img/header-logo2.png" alt="Stefanini-logo">
-            <span class="navbar-brand">Room Scheduler</span>
+        <div id="header-div1">
+            <img id="imgform" src="../../../assets/img/Logo_Stefanini_Q.png" alt="Stefanini-logo">
+            
         </div>
-
+        
         <div class="right-side">
-            <span id="welcome-message" *ngIf="isLoggedIn()">Welcome,<b> {{currentUser.name}}</b>!</span>
+            
             <div ngbDropdown class="d-inline-block">
                 <button class="btn btn-primary" id="languageSelector" ngbDropdownToggle>
                     <img width=20 src="{{ currentLanguage.icon }}" alt="{{ currentLanguage.name }}"/>

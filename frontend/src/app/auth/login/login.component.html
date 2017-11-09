@@ -4,7 +4,8 @@
             <form>
                 <div id="user-cont">
                     <a href="https://stefanini.com/en/">
-                    <img src="../../../assets/img/Logo_Stefanini_Q.png"  id="imgform" class="img-fluid">
+                    <img src="../../../assets/img/header-logo2.png"  id="logo-header" class="img-fluid">
+                    <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
                     </a>
 
                     <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert>
@@ -14,7 +15,7 @@
                     <!-- <label><b>Password</b></label> -->
                     <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
                     <br />
-                    <button type="submit" class="btn btn-primary btn-block btn-lg" (click)="login()">
+                    <button id="loginbtn" type="submit" class="btn btn-primary" (click)="login()">
                         {{ 'login.button' | translate }}
                         <i class="fa fa-lock"></i>
                     </button>
