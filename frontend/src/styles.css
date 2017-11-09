@@ -23,7 +23,7 @@ html, body
     width: 100%;
    
     position: fixed;
-    top: 1;
+    top: 1px;
     left: 0;
 
 }
@@ -147,15 +147,6 @@ body .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disab
 #b1:focus  {
     background-color: #007bff;
 }
-   
-#imgform{
-display: relative;
-margin-top: 5px;
-margin-bottom: 30px;
-padding: 0px;
-height: 30px;
-margin-left: 30px;
-}
 
 #rem-me {
     padding-left: 10px;
@@ -207,14 +198,9 @@ header, footer {
     width: 100%;
 }
 
-header {
-    height: 80px;
-    top: 0;
-    background: url("./assets/img/rsheader1.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+header nav {
+    padding: 10px;
 }
-
 footer {
     bottom: 0;
     overflow: hidden;
@@ -249,21 +235,18 @@ footer a {
 #sign-out {
     position: relative;
     padding: 10px;
-    
+
 }
 
 #logout {
     position: relative;
     margin-inline-start: 1712px;
     width: 147px;
-} 
+}
 
 #welcome-message {
-    padding-top: 50px;
-    margin-inline-start: 1730px;
-    z-index: 1;
-    position: absolute; 
-
+    position: absolute;
+    top: 35px;
 }
 
 #modal-header{
@@ -271,12 +254,8 @@ footer a {
     background-color: #004e9e;
 }
 
-#header-div1 {
-    margin-top: 80px;
-}
-
 #nav-text1 {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 

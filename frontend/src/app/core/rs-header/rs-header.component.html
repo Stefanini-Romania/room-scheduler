@@ -1,15 +1,18 @@
-<header>
-    <span id="welcome-message" *ngIf="isLoggedIn()">Welcome,<b> {{currentUser.name}}</b>!</span>
-    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-        <div id="header-div1">
-            <img id="imgform" src="../../../assets/img/Logo_Stefanini_Q.png" alt="Stefanini-logo">
-            
+<header class="fixed-top">
+    <div class="py-2 px-4 w-100 text-right" id="welcome-message" *ngIf="isLoggedIn()">Welcome,<b> {{currentUser.name}}</b>!</div>
+    <div class="row">
+        <img class="w-100" src="./assets/img/rsheader1.png" alt="">
+    </div>
+    <div class="row py-2 px-4">
+        <div class="col">
+            <a class="navbar-brand" href="/">
+                <img class="d-inline-block align-top" height="30" src="../../../assets/img/Logo_Stefanini_Q.png" alt="Stefanini-logo">
+            </a>
         </div>
-        
-        <div class="right-side">
-            
-            <div ngbDropdown class="d-inline-block">
-                <button class="btn btn-primary" id="languageSelector" ngbDropdownToggle>
+
+        <div class="coll pull-right">
+            <div class="d-inline-block" ngbDropdown>
+                <button class="btn btn-primary" ngbDropdownToggle>
                     <img width=20 src="{{ currentLanguage.icon }}" alt="{{ currentLanguage.name }}"/>
                     {{ currentLanguage.name }}
                 </button>
@@ -20,11 +23,11 @@
                     </button>
                 </div>
             </div>
-            <div id="logout" *ngIf="isLoggedIn()">
-                <button id="sign-out" class="btn btn-primary " (click)="logout()">
+            <div class="d-inline-block" *ngIf="isLoggedIn()">
+                <button class="btn btn-primary" (click)="logout()">
                     <span class="fa fa-sign-out" aria-hidden="true">Sign out</span>
                 </button>
             </div>
         </div>
-    </nav>
+    </div>
 </header>
