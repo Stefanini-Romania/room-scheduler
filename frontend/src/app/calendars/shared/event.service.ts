@@ -3,6 +3,7 @@ import {Response} from '@angular/http';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
+import {Event} from "../../shared/models/event.model";
 
 @Injectable()
 export class EventService {
@@ -29,17 +30,17 @@ export class EventService {
 
     }
 
-    public createEvent(startDate: Date, endDate: Date, eventType: number, roomId: number, hostId: number, attendeeId: number, eventStatus: number, notes?: string) {
+    private createEvent(event: Event) {
         const url = 'http://fctestweb1:88/event/create';
         const body = JSON.stringify({
-            startDate: startDate,
-            endDate: endDate,
-            eventType: eventType,
-            roomId: roomId,
-            hostId: hostId,
-            attendeeId: attendeeId,
-            eventStatus: eventStatus,
-            notes: notes
+            startDate: event.startDate,
+            endDate: event.endDate,
+            eventType: event.eventType,
+            roomId: event.roomId,
+            hostId: event.hostId,
+            attendeeId: event.attendeeId,
+            eventStatus: event.eventStatus,
+            notes: event.notes
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body, {headers: headers})
@@ -51,19 +52,20 @@ export class EventService {
 
     }
 
-    public editEvent(startDate: Date, endDate: Date, eventId: number, eventType: number, roomId: number, hostId: number, attendeeId: number, eventStatus: number, notes?: string) {
+    private editEvent(event: Event) {
         const url = 'http://fctestweb1:88/event/create';
         const body = JSON.stringify({
-            startDate: startDate,
-            endDate: endDate,
-            eventId: eventId,
-            eventType: eventType,
-            roomId: roomId,
-            hostId: hostId,
-            attendeeId: attendeeId,
-            eventStatus: eventStatus,
-            notes: notes
+            startDate: event.startDate,
+            endDate: event.endDate,
+            eventId: event.id,
+            eventType: event.eventType,
+            roomId: event.roomId,
+            hostId: event.hostId,
+            attendeeId: event.attendeeId,
+            eventStatus: event.eventStatus,
+            notes: event.notes
         });
+
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body, {headers: headers})
             .catch((error: any) => Observable.throw(error.message))
@@ -71,6 +73,9 @@ export class EventService {
 
                 return response;
             });
+    }
 
+    public save(event: Event) {
+        return event.id ? this.editEvent(event) : this.createEvent(event);
     }
 }
