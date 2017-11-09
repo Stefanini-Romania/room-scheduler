@@ -149,9 +149,17 @@ export class RSCalendarComponent {
         this.renderCalendar();
     }
 
-    calendarUpdate(selectedRoom: Room) {
+    onRoomChanged(selectedRoom: Room) {
         this.roomId = selectedRoom.id;
         this.renderCalendar();
+    }
+
+    onRoomsLoaded(rooms: Room[]) {
+        // select 1st room when rooms are loaded
+        if (rooms.length) {
+            this.roomId = rooms[0].id;
+            this.renderCalendar();
+        }
     }
 
     ngAfterViewInit(): void {

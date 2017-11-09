@@ -1,6 +1,7 @@
-import {EventEmitter} from '@angular/core';
+import {EventEmitter,Component, Input, Output} from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
+
 import {RoomService} from '../shared/room.service';
-import {Component, Input, Output} from '@angular/core';
 import {Room} from '../../shared/models/room.model';
 
 @Component({
@@ -8,10 +9,21 @@ import {Room} from '../../shared/models/room.model';
     templateUrl: './room-selector.component.html'
 })
 export class RoomSelector {
+    selectedRoomName: string ;
+
     @Input()
     rooms: Room[];
 
-    constructor(private roomService: RoomService) {
+    @Output()
+    roomsLoaded = new EventEmitter;
+
+    @Output()
+    roomChange = new EventEmitter;
+
+    constructor(private roomService: RoomService, translate: TranslateService) {
+        translate.get('calendar.rooms').subscribe((translation: string) => {
+            this.selectedRoomName = translation;
+        });
     }
 
     ngAfterViewInit(): void {
@@ -20,14 +32,13 @@ export class RoomSelector {
             for (let room of rooms) {
                 this.rooms.push(<Room>room);
             }
+
+            this.roomsLoaded.emit(this.rooms);
         });
     }
 
-
-    @Output()
-    roomChange = new EventEmitter;
-
-    onSelectRoom(room) {
+    onSelectRoom(room: Room) {
+        this.selectedRoomName = room.name;
         this.roomChange.emit(room);
     }
 }
