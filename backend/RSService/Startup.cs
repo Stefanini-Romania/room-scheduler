@@ -31,7 +31,7 @@ namespace RSService
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+            public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(opt =>
             {
@@ -77,12 +77,42 @@ namespace RSService
             app.UseAuthentication();
 
             app.UseMvc();
-            
+
+
+
+           /* var trackPackageRouteHandler = new Microsoft.AspNetCore.Routing.RouteHandler(context =>
+            {
+                return Task.CompletedTask;
+            });
+
+           /* var builder = new Microsoft.AspNetCore.Routing.RouteBuilder(app, trackPackageRouteHandler);
+            builder.MapRoute(
+                name: "default",
+                template: "{controller=Home}/{action=Index}/{id:int}");
+
+            builder.MapRoute("EventListByHosts", "event/list/{hostId}", new
+            {
+                controller = "RoomScheduler", action = nameof(Controllers.RoomSchedulerController.GetEventsByHosts),
+            });
+
+            builder.MapRoute("EventList", "event/list/{hostId?}", new
+            {
+                controller = "RoomScheduler",
+                action = nameof(Controllers.RoomSchedulerController.GetEvents),
+            });
+
+            app.UseRouter(builder.Build());*/
 
             Mapper.Initialize(Configuration =>
             {
                 Configuration.CreateMap<EventViewModel, Event>().ReverseMap();
             });
+
+            Mapper.Initialize(Configuration =>
+            {
+                Configuration.CreateMap<EditViewModel, Event>().ReverseMap();
+            });
+
         }
     }
 }

@@ -64,9 +64,12 @@ namespace RSService.Controllers
         //    return Ok(results);
         //}
 
-        [HttpGet("/event/listh")]
-        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
+        [HttpGet("/event/list")]
+        public IActionResult GetEventsByHosts(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
+            if (!hostId.Any())
+                return GetEvents(startDate, endDate, roomId);
+
             var results = eventRepository.GetEvents(startDate, endDate, roomId, hostId);
 
             var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
@@ -76,7 +79,6 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
-        [HttpGet("/event/list")]
         public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
         {
             var results = eventRepository.GetEvents(startDate, endDate, roomId);
@@ -89,7 +91,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/event/edit/{id}")]
-        public IActionResult UpdateEvent(int id, [FromBody] EventViewModel model)
+        public IActionResult UpdateEvent(int id, [FromBody] EditViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -111,10 +113,10 @@ namespace RSService.Controllers
                 _event.EventStatus = _model.EventStatus;
                 _event.DateCreated = DateTime.UtcNow;
                 dbOperation.Commit();
-                
-                //if (_event.EventStatus == (int) EventStatusEnum.absent)
-                //    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId); 
-                return NoContent();
+
+                if (_event.EventStatus == (int)EventStatusEnum.absent)
+                    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId);
+                return Ok();
             }
             else
             {
