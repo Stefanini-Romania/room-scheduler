@@ -1,4 +1,6 @@
 <div class="container" style="padding-top: 80px">
+
+        <ngb-alert type="danger" *ngIf="createErrorMessage" [dismissible]="false">{{ createErrorMessage | translate }}</ngb-alert>
     <div class="row buttonsDiv">
         <room-selector (roomChange)="calendarUpdate($event)"></room-selector>
         &nbsp;
@@ -8,7 +10,7 @@
                 <input ngbButton type="radio"><i class="fa fa-arrow-left"></i>
             </label>
             <label ngbButtonLabel class="btn-primary" (click)="goToToday()">
-                <input ngbButton type="radio">TODAY
+                <input ngbButton type="radio">{{ 'calendar.today' |translate }}
             </label>
             <label ngbButtonLabel class="btn-primary" (click)="goForward()">
                 <input ngbButton type="radio"><i class="fa fa-arrow-right"></i>
@@ -16,17 +18,17 @@
         </div>
         &nbsp;
         <div class="btn-group" ngbRadioGroup [ngModel]="view">
-            <label ngbButtonLabel class="btn-primary" (click)="setView('dayView')">
-                <input ngbButton type="radio" value="dayView">DAY
+            <label ngbButtonLabel class="btn btn-primary" (click)="setView('dayView')">
+                <input ngbButton type="radio" value="dayView">{{'calendar.day' |translate}}
             </label>
             <label ngbButtonLabel class="btn-primary" (click)="setView('weekView')">
-                <input ngbButton type="radio" value="weekView">WEEK
+                <input ngbButton type="radio" value="weekView">{{'calendar.week' |translate}}
             </label>
         </div>
 
         <!-- <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="createEvent()">Create</button> -->
     </div>
-
+    
     <div class="row">
         <jqxScheduler #schedulerReference
                       [date]="startDate"
@@ -39,7 +41,9 @@
                       [views]="views"
                       [showToolbar]="false"
                       [editDialog]="false"
-                      (click)="showEditDialog()">
+
+                   
+                      (click)="showEditDialog(content)">
         </jqxScheduler>
     </div>
 </div>

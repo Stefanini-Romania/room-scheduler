@@ -1,6 +1,7 @@
 import {EventEmitter} from 'events';
 import {Component, ViewChild} from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
@@ -18,7 +19,7 @@ export class RSCalendarComponent {
 
     events: Event[];
     model: Event = <Event> {};
-    public errorMessage: string = '';
+    public createErrorMessage: string = '';
     public startDate: Date;
     public selectedStartDate: Date;
     public selectedEndDate: Date;
@@ -43,6 +44,7 @@ export class RSCalendarComponent {
 
     dataAdapter: any = new jqx.dataAdapter(this.source);
 
+    closeResult: string;
     resources: any = {
         colorScheme: "scheme05",
         dataField: "calendar",
@@ -57,14 +59,30 @@ export class RSCalendarComponent {
     ];
 
 
-    constructor(private eventService: EventService) {
+    constructor(private eventService: EventService, private modalService: NgbModal) {
     }
 
-    showEditDialog() {
+    showEditDialog(content) {
+        
         let date = this.scheduler.getSelection();
         this.selectedStartDate = new Date(date.from.toDate());
         this.selectedEndDate = new Date(date.to.toDate());
 
+        this.modalService.open(content).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+    }
+
+    private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return  `with: ${reason}`;
+        }
     }
 
     isView(view: string): boolean {
@@ -121,10 +139,10 @@ export class RSCalendarComponent {
         console.log(this.model);
         this.eventService.createEvent(this.model.startDate = this.selectedStartDate, this.model.endDate = this.selectedEndDate, this.model.eventType = 0, this.model.roomId = 1, this.model.hostId = 3, this.model.attendeeId = 1, this.model.eventStatus = 4, this.model.notes).subscribe(
             () => {
-                this.refreshCalendar();
+                this.renderCalendar();
             },
             error => {
-                this.errorMessage = "Unable to create event";
+                this.createErrorMessage = error.error.message;
             })
     }
 

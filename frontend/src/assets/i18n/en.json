@@ -3,5 +3,11 @@
   "login.username": "Enter Username",
   "login.password": "Enter Password",
 
-  "Error.Event.Authentication": "Invalid username or password"
+  "calendar.today": "TODAY",
+  "calendar.day": "DAY",
+  "calendar.week": "WEEK",
+  "calendar.rooms": "ROOMS",
+
+  "Error.Event.Authentication": "Invalid username or password",
+  "Error.Event.Creation": "Unable to create event"
 }

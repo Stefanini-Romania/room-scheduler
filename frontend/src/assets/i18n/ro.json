@@ -3,5 +3,11 @@
   "login.username": "Introduceti utilizatorul",
   "login.password": "Introduceti parola",
 
-  "Error.Event.Authentication": "Utilizator sau parola invalide"
+  "calendar.today": "ASTAZI",
+  "calendar.day": "ZI",
+  "calendar.week": "SAPTAMANA",
+  "calendar.rooms": "CAMERE",
+
+  "Error.Event.Authentication": "Utilizator sau parola invalide",
+  "Error.Event.Creation": "Evenimentul nu a putut fi creat"
 }
