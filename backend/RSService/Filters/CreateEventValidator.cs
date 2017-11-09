@@ -36,6 +36,8 @@ namespace RSService.Filters
 
                 RuleFor(x => x.StartDate).Must(IsAvailable).WithMessage(x => Validation.EventMessages.NotAvailable);
 
+                RuleFor(x => x.StartDate).Must(IsNotPenalized).WithMessage(x => Validation.EventMessages.Penalized);
+
                 
             });
 
@@ -122,11 +124,11 @@ namespace RSService.Filters
 
         private bool IsNotPenalized(EventViewModel ev, DateTime? date)
         {
-            if (date.HasValue) {
-                //var penalties = rsManager.GetAttendeePenalties(ev.AttendeeId).Where(p => date <= p;
-
+            if (rsManager.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate))
+            {
+                return false;
             }
-            return false;
+            return true;
         }
 
        

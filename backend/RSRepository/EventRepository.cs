@@ -32,6 +32,14 @@ namespace RSRepository
                          .ToList();
         }
 
+        public IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
+        {
+            return events.Where(e => e.StartDate >= startDate)
+                         .Where(e => e.StartDate <= endDate)
+                         .Where(e => roomId.Contains(e.RoomId))
+                         .ToList();
+        }
+
         public IEnumerable<Event> GetEventsByRoom(DateTime startDate, DateTime endDate, int roomId)
         {
             return events.Where(e => e.StartDate >= startDate)

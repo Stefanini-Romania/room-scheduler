@@ -57,6 +57,41 @@ namespace RSService.BusinessLogic
 
         }
 
+        public IEnumerable<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId)
+        {
+            List<Event> availabilityEvents = new List<Event>();
+
+            var availabilities = availabilityRepository.GetAvailabilities(roomId);
+
+            DateTime currentDay = startDate.Date;
+
+            while (endDate.Date >= currentDay)
+            {
+                availabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek);
+
+                foreach (Availability entry in availabilities)
+                {
+                    Event newEvent = new Event()
+                    {
+                        StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
+                        EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
+                        EventType = 1,
+                        RoomId = entry.RoomId,
+                        HostId = entry.HostId,
+                        EventStatus = (int)AvailabilityEnum.NotAvailable,
+                        DateCreated = DateTime.UtcNow,
+                    };
+                    availabilityEvents.Add(newEvent);
+                }
+
+                currentDay = currentDay.AddDays(1);
+            }
+
+            return availabilityEvents;
+
+        }
+
+//-------------------------------------------- METHODS FOR VALIDATION ----------------------------------------------------------------------
 
         public double GetTimeSpan(DateTime start, DateTime end)
         {
@@ -128,34 +163,42 @@ namespace RSService.BusinessLogic
 
 
 
-        public bool IsPenalizedAttendee(int attendeeId)
+        //public bool IsPenalizedAttendee(int attendeeId)
+        //{
+
+        //    return false;
+        //}
+
+        
+        //Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
+            
+        //public void CheckPenalty(DateTime startDate, int eventId, int attendeeId)
+        //{
+        //    var eventsCount = eventRepository.GetEvents().Where(ev => ev.AttendeeId == attendeeId)
+        //                                .Where(ev => ev.StartDate.Month == DateTime.Now.Month) // TO DO: current month or last 30 days ?
+        //                                .Where(ev => ev.EventStatus == (int)EventStatusEnum.absent).Count();
+        //    if (eventsCount == 3)
+        //    {
+        //        penaltyRepository.AddPenalty(new Penalty()
+        //        {
+        //            AttendeeId = attendeeId,
+        //            EventId = eventId,
+        //            Date = startDate
+        //        });
+        //    }
+        //}
+
+        public bool HasPenalty(int attendeeId, DateTime newDate)
         {
+            Penalty penalty = penaltyRepository.GetPenaltiesByUser(attendeeId)
+                                    .SingleOrDefault(p => p.Date.AddDays(15) >= newDate);
+
+            if (penalty != null)
+            {
+                return true;
+            }
 
             return false;
-        }
-
-        /*
-         Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
-             */
-        public void CheckPenalty(DateTime startDate, int eventId, int attendeeId)
-        {
-            var eventsCount = eventRepository.GetEvents().Where(ev => ev.AttendeeId == attendeeId)
-                                        .Where(ev => ev.StartDate.Month == DateTime.Now.Month) // TO DO: current month or last 30 days ?
-                                        .Where(ev => ev.EventStatus == (int)EventStatusEnum.absent).Count();
-            if (eventsCount == 3)
-            {
-                penaltyRepository.AddPenalty(new Penalty()
-                {
-                    AttendeeId = attendeeId,
-                    EventId = eventId,
-                    Date = startDate
-                });
-            }
-        }
-
-        public List<Penalty> GetAttendeePenalties(int attendeeId)
-        {
-            return penaltyRepository.GetPenalties().Where(p => p.AttendeeId == attendeeId).ToList();
         }
 
     }

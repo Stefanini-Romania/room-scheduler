@@ -1,70 +1,85 @@
 <div class="container" style="padding-top: 80px">
-  <div class="buttonsDiv">
-    <room-selector (roomChange)="calendarUpdate($event)"></room-selector>
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="today()">TODAY</button>
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goBack()"><strong>&lt;</strong></button>
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goForward()"><strong>&gt;</strong></button>
 
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('dayView')">DAY</button>
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('weekView')">WEEK</button>
-    <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="newEvent()">Create</button>
-  </div>
- 
+        <ngb-alert type="danger" *ngIf="createErrorMessage" [dismissible]="false">{{ createErrorMessage | translate }}</ngb-alert>
+    <div class="row buttonsDiv">
+        <room-selector (roomChange)="calendarUpdate($event)"></room-selector>
+        &nbsp;
 
-  <jqxScheduler #schedulerReference
-    [date]="startDate" 
-    [width]="1000" 
-    [height]="700" 
-    [source]="dataAdapter" 
-    [showLegend]="true" 
-    [view]="view"
-    [resources]="resources" 
-    [views]="views" 
-    [showToolbar]="false" 
-    [editDialog]="false" 
-    (click)="open(content)">
-  </jqxScheduler> 
-  
+        <div class="btn-group" ngbRadioGroup>
+            <label ngbButtonLabel class="btn-primary"(click)="goBack()">
+                <input ngbButton type="radio"><i class="fa fa-arrow-left"></i>
+            </label>
+            <label ngbButtonLabel class="btn-primary" (click)="goToToday()">
+                <input ngbButton type="radio">{{ 'calendar.today' |translate }}
+            </label>
+            <label ngbButtonLabel class="btn-primary" (click)="goForward()">
+                <input ngbButton type="radio"><i class="fa fa-arrow-right"></i>
+            </label>
+        </div>
+        &nbsp;
+        <div class="btn-group" ngbRadioGroup [ngModel]="view">
+            <label ngbButtonLabel class="btn btn-primary" (click)="setView('dayView')">
+                <input ngbButton type="radio" value="dayView">{{'calendar.day' |translate}}
+            </label>
+            <label ngbButtonLabel class="btn-primary" (click)="setView('weekView')">
+                <input ngbButton type="radio" value="weekView">{{'calendar.week' |translate}}
+            </label>
+        </div>
+
+        <!-- <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="createEvent()">Create</button> -->
+    </div>
+    
+    <div class="row">
+        <jqxScheduler #schedulerReference
+                      [date]="startDate"
+                      [width]="1000"
+                      [height]="700"
+                      [source]="dataAdapter"
+                      [showLegend]="true"
+                      [view]="view"
+                      [resources]="resources"
+                      [views]="views"
+                      [showToolbar]="false"
+                      [editDialog]="false"
+
+                   
+                      (click)="showEditDialog(content)">
+        </jqxScheduler>
+    </div>
 </div>
- 
+
 
 <!-- MODAL FORM -->
 <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h6 class="modal-title">Create new appointment</h6>
+    <div class="modal-header" id="modal-header">
+        <h6 class="modal-title">Create new appointment</h6>
     </div>
 
-    <div class="modal-body"> 
-          <form>
-                <div class="form-group">
-                    <div class="input-group">
-                      <label ><b>Start Date 	&nbsp;</b></label>
-                      <input class="form-control form-control-sm" placeholder="yyyy-mm-dd"
-                             name="dp" [(ngModel)]="model.startDate" ngbDatepicker #startDate="ngModel" #d="ngbDatepicker" >
-                      <button class="input-group-addon" (click)="d.toggle()" type="button">
-                       <i class="fa fa-calendar" aria-hidden="true"></i> 
-                      </button>
-                </div> <br/>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <label><b>From: &nbsp;</b></label>
+                    <label>{{ selectedStartDate | date: 'fullDate'}}&nbsp;{{ selectedStartDate | date:
+                        'shortTime'}}</label>
+                </div>
+                <div class="input-group">
+                    <label><b>To: &nbsp;</b></label>
+                    <label>{{ selectedEndDate | date: 'fullDate'}}&nbsp;{{ selectedEndDate | date: 'shortTime'}}</label>
+                </div>
 
-                  <div class="input-group">
-                        <label><b>End Date 	&nbsp;</b></label>
-                        <input class="form-control form-control-sm" placeholder="yyyy-mm-dd"
-                               name="dp" [(ngModel)]="model.endDate" ngbDatepicker #endDate="ngModel" #d="ngbDatepicker">
-                        <button class="input-group-addon" (click)="d.toggle()" type="button">
-                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                        </button>
-                  </div>
-                        <label><b>Notes</b></label>
-                        <input type="text" name="notes" >
-                     
-                  </div>
-           </form>
-             
+                <div class="input-group">
+                    <label><b>Notes:</b></label>
+                    <label><textarea name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea></label>
+                </div>
+            </div>
+        </form>
+
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark">Save</button>
-        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+        <button type="button" class="btn btn-primary RScalendarButton" (click)="createEvent()">Create event</button>
+        <button type="button" class="btn btn-primary RScalendarButton" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
 

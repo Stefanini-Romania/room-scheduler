@@ -144,6 +144,9 @@
   <data name="NotAvailable" xml:space="preserve">
     <value>Event.StartDate.NotAvailable</value>
   </data>
+  <data name="Penalized" xml:space="preserve">
+    <value>Event.StartDate.PenalizedUser</value>
+  </data>
   <data name="StartDateAvailabilityRoom" xml:space="preserve">
     <value>Event.StartDate.NotInAvailabilityOfRoom</value>
   </data>

@@ -35,7 +35,12 @@ namespace RSRepository
                                  .AsEnumerable();
         }
 
-        
+        public IEnumerable<Availability> GetAvailabilities(int[] roomId)
+        {
+            return availabilities.Where(e => roomId.Contains(e.RoomId))
+                                 .AsEnumerable();
+        }
+
 
     }
 }

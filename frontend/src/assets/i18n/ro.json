@@ -1,0 +1,31 @@
+{
+  "login.button": "Autentificare",
+  "login.username": "Introduceți utilizatorul",
+  "login.password": "Introduceți parola",
+
+  "calendar.today": "ASTĂZI",
+  "calendar.day": "ZI",
+  "calendar.week": "SĂPTĂMÂNĂ",
+  "calendar.rooms": "CAMERE",
+
+  "Error.Event.Authentication": "Utilizator sau parolă invalide",
+  "Error.Event.Creation": "Evenimentul nu a putut fi creat",
+  "Error.Event.Edit": "Evenimentul nu a putut fi modificat",
+  "Auth.Password.Empty": "Introduceți parola",
+  "Auth.Username.Empty": "Introduceți numele de utilizator",
+  
+  "Event.AttendeeId.CancelSomeoneElseBooking": "Nu se poate anula rezervarea altui utilizator",
+  "Event.StartDate.LessThan15Minutes": "Se poate rezerva doar cu 15 minute înainte",
+  "Event.EndDate.Empty": "Ora de încheiere necompletată",
+  "Event.StartDate.Empty": "Ora de început necompletată",
+  "Event.EndDate.NotInAvailabilityOfRoom": "Camera este indisponibilă (ora de sfârșit)",
+  "Event.EndDate.IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de sfârșit)",
+  "Event.EndDate.TimeSpan": "Durata timpului greșită",
+  "Event.StartDate.LimitPerDay": "Ați depășit limita pe o zi",
+  "Event.StartDate.NotAvailable": "Timpul de început indisponibil",
+  "Event.StartDate.PenalizedUser": "Utilizator penalizat",
+  "Event.StartDate.NotInAvailabilityOfRoom": "Camera este indisponibilă (ora de început)",
+  "Event.StartDate.GreaterThanTwoMonths": "Data selectată este mai mare de 2 luni (ora de început)",
+  "Event.StartDate.IsInThePast": "Data selectată este trecută (ora de început)",
+  "Event.StartDate.IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de început)"
+}
