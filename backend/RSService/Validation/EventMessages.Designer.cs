@@ -142,6 +142,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.PenalizedUser.
+        /// </summary>
+        internal static string Penalized {
+            get {
+                return ResourceManager.GetString("Penalized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.StartDate.NotInAvailabilityOfRoom.
         /// </summary>
         internal static string StartDateAvailabilityRoom {

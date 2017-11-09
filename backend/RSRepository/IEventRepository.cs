@@ -11,6 +11,8 @@ namespace RSRepository
 
         IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId);
 
+        IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId);
+
         IEnumerable<Event> GetEventsByRoom(DateTime startDate, DateTime endDate, int roomId);
 
         Event GetEventById(int id);

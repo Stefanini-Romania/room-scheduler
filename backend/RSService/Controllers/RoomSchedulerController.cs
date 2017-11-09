@@ -64,12 +64,24 @@ namespace RSService.Controllers
         //    return Ok(results);
         //}
 
-        [HttpGet("/event/list")]
+        [HttpGet("/event/listh")]
         public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
             var results = eventRepository.GetEvents(startDate, endDate, roomId, hostId);
 
             var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
+
+            results = results.Concat(availabilityEvents);
+
+            return Ok(results);
+        }
+
+        [HttpGet("/event/list")]
+        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
+        {
+            var results = eventRepository.GetEvents(startDate, endDate, roomId);
+
+            var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId);
 
             results = results.Concat(availabilityEvents);
 
@@ -100,8 +112,8 @@ namespace RSService.Controllers
                 _event.DateCreated = DateTime.UtcNow;
                 dbOperation.Commit();
                 
-                if (_event.EventStatus == (int) EventStatusEnum.absent)
-                    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId); 
+                //if (_event.EventStatus == (int) EventStatusEnum.absent)
+                //    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId); 
                 return NoContent();
             }
             else
