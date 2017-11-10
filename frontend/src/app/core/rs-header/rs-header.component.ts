@@ -21,6 +21,7 @@ export class RSHeader {
     }
 
     get isLoggedIn(): boolean {
+        //this.currentUser = new User();this.currentUser.name="asd";if (1)return true;
         this.currentUser = this.authService.getLoggedUser();
         return this.currentUser && this.authService.isLoggedIn();
     }

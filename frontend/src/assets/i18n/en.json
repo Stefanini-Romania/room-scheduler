@@ -1,8 +1,11 @@
 {
+  "welcome": "Welcome",
+
   "button.close": "Close",
   "button.save": "Save",
 
   "login.button": "Sign In",
+  "logout.button": "Sign out",
   "login.username": "Enter Username",
   "login.password": "Enter Password",
 

@@ -11,7 +11,7 @@ import {SharedModule} from '../shared/shared.module';
 import {LanguageSelector} from './language-selector/language-selector';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, HttpModule, NgbModule, SharedModule],
+    imports: [CommonModule, FormsModule, HttpModule, NgbModule, TranslateModule, SharedModule],
     providers: [],
     declarations: [RSHeader, RSFooter, LanguageSelector],
     exports: [CommonModule, FormsModule, TranslateModule, NgbModule, RSHeader, RSFooter],

@@ -1,8 +1,11 @@
 {
+  "welcome": "Salut",
+
   "button.close": "Închide",
   "button.save": "Salvează",
 
   "login.button": "Autentificare",
+  "logout.button": "Delogare",
   "login.username": "Introduceți utilizatorul",
   "login.password": "Introduceți parola",
 
