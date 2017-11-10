@@ -13,12 +13,11 @@ export interface ILanguage {
 })
 
 export class LanguageSelector {
+    // @TODO validate if languages are empty or not
     @Input()
     languages: ILanguage[];
 
-    constructor(private translate: TranslateService) {
-        console.log(this.languages);
-    }
+    constructor(private translate: TranslateService) {}
 
     get currentLanguage() {
         return this.languages.find(l => l.code === this.translate.currentLang);
