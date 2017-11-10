@@ -1,5 +1,5 @@
 <header class="fixed-top">
-    <div class="py-2 px-4 w-100 text-right" id="welcome-message" *ngIf="isLoggedIn()">Welcome,<b> {{currentUser.name}}</b>!</div>
+    <div class="py-2 px-4 w-100 text-right" id="welcome-message" *ngIf="isLoggedIn">Welcome,<b> {{currentUser.name}}</b>!</div>
     <div class="row">
         <img class="w-100" height="75" src="./assets/img/rsheader1.png" alt="">
     </div>
@@ -11,19 +11,8 @@
         </div>
 
         <div class="coll pull-right">
-            <div class="d-inline-block" ngbDropdown>
-                <button class="btn btn-primary" ngbDropdownToggle>
-                    <img width=20 src="{{ currentLanguage.icon }}" alt="{{ currentLanguage.name }}"/>
-                    {{ currentLanguage.name }}
-                </button>
-                <div ngbDropdownMenu aria-labelledby="languageSelector">
-                    <button *ngFor="let language of languages" class="dropdown-item" (click)="changeLanguage(language.code)">
-                        <img width=20 src="{{ language.icon }}" alt="{{ language.name }}"/>
-                        {{ language.name }}
-                    </button>
-                </div>
-            </div>
-            <div class="d-inline-block" *ngIf="isLoggedIn()">
+            <language-selector class="d-inline-block" [languages]="languages"></language-selector>
+            <div class="d-inline-block" *ngIf="isLoggedIn">
                 <button class="btn btn-primary" (click)="logout()">
                     <span class="fa fa-sign-out" aria-hidden="true">Sign out</span>
                 </button>
