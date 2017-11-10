@@ -1,5 +1,6 @@
-import {EventEmitter,Component, Input, Output} from '@angular/core';
-import {TranslateService} from "@ngx-translate/core";
+import {EventEmitter,Component, Input, Output, AfterViewInit, OnDestroy} from '@angular/core';
+import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
+import { Subscription } from 'rxjs/Subscription';
 
 import {RoomService} from '../shared/room.service';
 import {Room} from '../../shared/models/room.model';
@@ -8,8 +9,9 @@ import {Room} from '../../shared/models/room.model';
     selector: 'room-selector',
     templateUrl: './room-selector.component.html'
 })
-export class RoomSelector {
+export class RoomSelector implements AfterViewInit, OnDestroy {
     selectedRoomName: string ;
+    subscription: Subscription;
 
     @Input()
     rooms: Room[];
@@ -21,8 +23,8 @@ export class RoomSelector {
     roomChange = new EventEmitter;
 
     constructor(private roomService: RoomService, translate: TranslateService) {
-        translate.get('calendar.rooms').subscribe((translation: string) => {
-            this.selectedRoomName = translation;
+        this.subscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.selectedRoomName = translate.instant('calendar.rooms');
         });
     }
 
@@ -35,6 +37,11 @@ export class RoomSelector {
 
             this.roomsLoaded.emit(this.rooms);
         });
+    }
+
+    ngOnDestroy() {
+        // unsubscribe to ensure no memory leaks
+        this.subscription.unsubscribe();
     }
 
     onSelectRoom(room: Room) {
