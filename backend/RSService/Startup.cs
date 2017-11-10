@@ -106,13 +106,9 @@ namespace RSService
             Mapper.Initialize(Configuration =>
             {
                 Configuration.CreateMap<EventViewModel, Event>().ReverseMap();
-            });
-
-            Mapper.Initialize(Configuration =>
-            {
                 Configuration.CreateMap<EditViewModel, Event>().ReverseMap();
-            });
 
+            });
         }
     }
 }
