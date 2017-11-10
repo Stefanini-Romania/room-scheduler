@@ -28,8 +28,10 @@ export class RSCalendarComponent {
     public hostId: number;
     public eventId: number;
     public saveEventTitle: string;
-
+    public calendarsDateFrom: Date;
+    public calendarsDateTo: Date;
     public view = 'weekView';
+ 
 
     closeResult: string;
 
@@ -112,6 +114,7 @@ export class RSCalendarComponent {
         this.source.localData = events;
         this.dataAdapter = new jqx.dataAdapter(this.source);
     }
+    
 
     private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
@@ -137,6 +140,13 @@ export class RSCalendarComponent {
         this.renderCalendar();
     }
 
+    showCalendarsDate(){
+        const days = this.isView('weekView') ? 4 : 1;
+        this.calendarsDateFrom= new Date(this.scheduler.date().addDays(-days).toString());
+        this.calendarsDateTo = new Date(this.scheduler.date().toString());
+        this.renderCalendar();
+    }
+
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
@@ -147,6 +157,7 @@ export class RSCalendarComponent {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(days).toString());
         this.renderCalendar();
+     
     }
 
     onRoomChanged(selectedRoom: Room) {
