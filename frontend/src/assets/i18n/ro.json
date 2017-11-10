@@ -1,5 +1,11 @@
 {
+  "welcome": "Salut",
+
+  "button.close": "Închide",
+  "button.save": "Salvează",
+
   "login.button": "Autentificare",
+  "logout.button": "Delogare",
   "login.username": "Introduceți utilizatorul",
   "login.password": "Introduceți parola",
 
@@ -7,13 +13,19 @@
   "calendar.day": "ZI",
   "calendar.week": "SĂPTĂMÂNĂ",
   "calendar.rooms": "CAMERE",
+  "calendar.notes": "Observații",
+  "calendar.startDate": "De la",
+  "calendar.endDate": "Până la",
+  "calendar.event.create": "Adăugare eveniment",
+  "calendar.event.edit": "Editare eveniment",
+
+  "Auth.Password.Empty": "Introduceți parola",
+  "Auth.Username.Empty": "Introduceți numele de utilizator",
 
   "Error.Event.Authentication": "Utilizator sau parolă invalide",
   "Error.Event.Creation": "Evenimentul nu a putut fi creat",
   "Error.Event.Edit": "Evenimentul nu a putut fi modificat",
-  "Auth.Password.Empty": "Introduceți parola",
-  "Auth.Username.Empty": "Introduceți numele de utilizator",
-  
+
   "Event.AttendeeId.CancelSomeoneElseBooking": "Nu se poate anula rezervarea altui utilizator",
   "Event.StartDate.LessThan15Minutes": "Se poate rezerva doar cu 15 minute înainte",
   "Event.EndDate.Empty": "Ora de încheiere necompletată",
