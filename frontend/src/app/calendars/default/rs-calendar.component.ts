@@ -139,17 +139,18 @@ export class RSCalendarComponent {
 
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
-        this.startDate = new Date(this.scheduler.date().addDays(-days));
+        this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
         this.renderCalendar();
     }
 
     goForward() {
         const days = this.isView('weekView') ? 7 : 1;
-        this.startDate = new Date(this.scheduler.date().addDays(days));
+        this.startDate = new Date(this.scheduler.date().addDays(days).toString());
         this.renderCalendar();
     }
 
     onRoomChanged(selectedRoom: Room) {
+        this.startDate = new Date(this.scheduler.date().toString());
         this.roomId = selectedRoom.id;
         this.renderCalendar();
     }
@@ -185,9 +186,8 @@ export class RSCalendarComponent {
 
     showEditDialog(content) {
         let date = this.scheduler.getSelection();
-        this.selectedStartDate = new Date(date.from.toDate());
-        this.selectedEndDate = new Date(date.to.toDate());
-
+        this.selectedStartDate = new Date(date.from.toString());
+        this.selectedEndDate = new Date(date.to.toString());
         // @TODO detect create or edit
         this.saveEventTitle = 'calendar.event.create';
         this.model = new Event();
