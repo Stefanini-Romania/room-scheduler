@@ -108,6 +108,8 @@ namespace RSService.Filters
         {
             if (d.HasValue)
             {
+                if (d.GetValueOrDefault().Hour == 13 && d.GetValueOrDefault().Minute == 30)
+                    return false;
 
                 return (d.GetValueOrDefault().Hour <= 18 && d.GetValueOrDefault().Minute < 30)
                      || (d.GetValueOrDefault().Hour <= 17 && d.GetValueOrDefault().Minute <= 30);
