@@ -184,6 +184,8 @@ namespace RSService.BusinessLogic
 
             if (penalty != null)
             {
+                // Edit attendee's events for next 15 days for this room (Cancelled)
+
                 return true;
             }
 

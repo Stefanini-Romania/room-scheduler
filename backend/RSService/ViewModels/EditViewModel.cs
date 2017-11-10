@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace RSService.ViewModels
 {
-    [Validator(typeof(EditEventValidator))]
     public class EditViewModel
     {
-        public DateTime? StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateTime? EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public int EventType { get; set; }
 

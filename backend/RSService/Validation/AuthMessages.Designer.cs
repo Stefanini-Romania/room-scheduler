@@ -77,23 +77,5 @@ namespace RSService.Validation {
                 return ResourceManager.GetString("EmptyUsername", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Auth.Password.Invalid.
-        /// </summary>
-        internal static string InvalidPassword {
-            get {
-                return ResourceManager.GetString("InvalidPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Auth.Username.Invalid.
-        /// </summary>
-        internal static string InvalidUsername {
-            get {
-                return ResourceManager.GetString("InvalidUsername", resourceCulture);
-            }
-        }
     }
 }
