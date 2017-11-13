@@ -6,7 +6,7 @@ import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
 import {Event} from '../../shared/models/event.model';
 
-//cb360a413af57cb163691a7fee3409e860cfe85a
+
 
 @Component({
     selector: 'rs-calendar-component',
@@ -76,28 +76,7 @@ export class RSCalendarComponent {
     constructor(private eventService: EventService, private modalService: NgbModal) {
     }
 
-    /*
-    refreshCalendar() {
-        let events = [];
-        for (let event of this.events) {
-            const e: any = Object.assign({}, event);
-            e.subject = "Quarterly Project Review Meeting";
-            e.calendar = "Room " + event.roomId;
-            events.push(e);
-        }
-        this.source.localData = events;
-        this.dataAdapter = new jqx.dataAdapter(this.source);
-    }
-    transformEventToAppointment(event: Event) {
-        let appointment: any = Object.assign({}, event);
-        appointment.subject = "Quarterly Project Review Meeting";
-        appointment.calendar = "Room " + event.roomId;
-        appointment.startDate = new Date(event.startDate);
-        appointment.endDate = new Date(event.endDate);
 
-        return appointment;
-    }
-     */
     refreshCalendar() {
         let events = [];
         for (let event of this.events) {
@@ -177,17 +156,20 @@ export class RSCalendarComponent {
     }
 
     ngAfterViewInit(): void {
-        this.scheduler.ensureAppointmentVisible('id1');
-
+        this.scheduler.ensureAppointmentVisible('id');
+        // this.scheduler.hideAppointmentsByResource('id');
         this.startDate = new Date();
         this.renderCalendar();
+
     }
 
     private renderCalendar() {
         this.events = [];
+        const days = this.isView('weekView') ? 7 : 1;
         let endDate = new Date();
-        endDate.setDate(this.startDate.getDate() + 7);
-        this.eventService.listEvents(this.startDate, endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
+        endDate.setTime(this.startDate.getTime() + days* 86400000).toString();
+
+        this.eventService.listEvents(this.startDate, endDate,this.roomId, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
                 this.events.push(<Event>event);
