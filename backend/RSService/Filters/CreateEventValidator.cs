@@ -34,10 +34,7 @@ namespace RSService.Filters
 
                 RuleFor(x => x.StartDate).Must(AvailabilityTimeS).WithMessage(x => Validation.EventMessages.StartDateAvailabilityRoom);
 
-                RuleFor(x => x.StartDate).Must(IsAvailable).WithMessage(x => Validation.EventMessages.NotAvailable);
-
-                RuleFor(x => x.StartDate).Must(IsNotPenalized).WithMessage(x => Validation.EventMessages.Penalized);
-
+                RuleFor(x => x.StartDate).Must(IsAvailable).WithMessage(x => Validation.EventMessages.NotAvailable); 
                 RuleFor(x => x.StartDate).Must(DayOfWeek).WithMessage(x => Validation.EventMessages.DayOfWeekWeekend);
 
 
@@ -60,6 +57,10 @@ namespace RSService.Filters
             // ---------------------------AttendeeId---------------------------
             RuleFor(m => m.AttendeeId)
                 .Must(CanCancel).WithMessage(x => Validation.EventMessages.CancellationOwnBooking).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
+
+            // ---------------------------RoomId---------------------------
+            RuleFor(m => m.RoomId)
+                .Must(IsNotPenalized).WithMessage(x => Validation.EventMessages.Penalized);
         }
 
 
@@ -125,9 +126,9 @@ namespace RSService.Filters
             return rsManager.CheckAvailability((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
         }
 
-        private bool IsNotPenalized(EventViewModel ev, DateTime? date)
+        private bool IsNotPenalized(EventViewModel ev, int roomId)
         {
-            if (rsManager.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate))
+            if (rsManager.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate, roomId))
             {
                 return false;
             }

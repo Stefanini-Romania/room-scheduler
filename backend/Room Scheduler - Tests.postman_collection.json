@@ -1,0 +1,983 @@
+{
+	"info": {
+		"name": "Room Scheduler - Tests",
+		"_postman_id": "0ed90b79-108b-6510-783c-30a4788e72d8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"description": "",
+			"item": [
+				{
+					"name": "Login - Failed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var schema = {",
+									"  \"definitions\": {}, ",
+									"  \"$schema\": \"http://json-schema.org/draft-06/schema#\", ",
+									"  \"type\": \"object\", ",
+									"  \"$id\": \"http://example.com/example.json\", ",
+									"  \"additionalProperties\": false, ",
+									"  \"required\": [",
+									"    \"value\", ",
+									"    \"formatters\", ",
+									"    \"contentTypes\", ",
+									"    \"declaredType\", ",
+									"    \"statusCode\"",
+									"  ], ",
+									"  \"properties\": {",
+									"    \"value\": {",
+									"      \"type\": \"string\", ",
+									"      \"$id\": \"/properties/value\"",
+									"    }, ",
+									"    \"formatters\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/formatters\", ",
+									"      \"items\": {",
+									"        \"title\": \"Empty Object\", ",
+									"        \"description\": \"This accepts anything, as long as it's valid JSON.\"",
+									"      }",
+									"    }, ",
+									"    \"contentTypes\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/contentTypes\", ",
+									"      \"items\": {",
+									"        \"title\": \"Empty Object\", ",
+									"        \"description\": \"This accepts anything, as long as it's valid JSON.\"",
+									"      }",
+									"    }, ",
+									"    \"declaredType\": {",
+									"      \"type\": \"null\", ",
+									"      \"$id\": \"/properties/declaredType\"",
+									"    }, ",
+									"    \"statusCode\": {",
+									"      \"type\": \"integer\", ",
+									"      \"$id\": \"/properties/statusCode\"",
+									"    }",
+									"  }",
+									"}",
+									"",
+									"// tests[\"Schema validation\"] = tv4.validate(jsonData, schema);",
+									"var valid_schema = tv4.validateResult(jsonData, schema).valid;",
+									"if (valid_schema){ ",
+									"    tests[\"JSON Response has valid schema\"] = true",
+									"    }",
+									"else {",
+									"tests[\"JSON Response has invalid schema in path: \" + tv4.validateResult(jsonData, schema).error.schemaPath + \".  Error = \" + tv4.validateResult(jsonData, schema).error.message] = false;",
+									"    }",
+									"",
+									"pm.test(\"Status code is 400\", function () {pm.response.to.have.status(400);});",
+									"",
+									"",
+									"pm.test(\"Response has value field\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"value\");",
+									"});",
+									"",
+									"pm.test(\"Value is FailedAuthentication\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.value).to.eql(\"FailedAuthentication\");",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable(\"RSServerPort\", \"http://fctestweb1:88\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\":\"Ionescu\",\n  \"Password\": \"Invalid\"\n}"
+						},
+						"url": {
+							"raw": "{{RSServerPort}}/api/auth/login",
+							"host": [
+								"{{RSServerPort}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Successful",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var schema = {",
+									"  \"definitions\": {}, ",
+									"  \"$schema\": \"http://json-schema.org/draft-06/schema#\", ",
+									"  \"type\": \"object\", ",
+									"  \"$id\": \"http://example.com/example.json\", ",
+									"  \"additionalProperties\": false, ",
+									"  \"required\": [",
+									"    \"email\", ",
+									"    \"name\", ",
+									"    \"password\", ",
+									"    \"departmentId\", ",
+									"    \"department\", ",
+									"    \"eventAttendee\", ",
+									"    \"eventHost\", ",
+									"    \"penalty\", ",
+									"    \"timeSlot\", ",
+									"    \"userRole\", ",
+									"    \"availability\", ",
+									"    \"id\"",
+									"  ], ",
+									"  \"properties\": {",
+									"    \"email\": {",
+									"      \"type\": \"string\", ",
+									"      \"$id\": \"/properties/email\"",
+									"    }, ",
+									"    \"name\": {",
+									"      \"type\": \"string\", ",
+									"      \"$id\": \"/properties/name\"",
+									"    }, ",
+									"    \"password\": {",
+									"      \"type\": \"string\", ",
+									"      \"$id\": \"/properties/password\"",
+									"    }, ",
+									"    \"departmentId\": {",
+									"      \"type\": \"integer\", ",
+									"      \"$id\": \"/properties/departmentId\"",
+									"    }, ",
+									"    \"department\": {",
+									"      \"type\": \"null\", ",
+									"      \"$id\": \"/properties/department\"",
+									"    }, ",
+									"    \"eventAttendee\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/eventAttendee\", ",
+									"      \"items\": {",
+									"        \"title\": \"Empty Object\", ",
+									"        \"description\": \"This accepts anything, as long as it's valid JSON.\"",
+									"      }",
+									"    }, ",
+									"    \"eventHost\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/eventHost\", ",
+									"      \"items\": {",
+									"        \"title\": \"Empty Object\", ",
+									"        \"description\": \"This accepts anything, as long as it's valid JSON.\"",
+									"      }",
+									"    }, ",
+									"    \"penalty\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/penalty\", ",
+									"      \"items\": {",
+									"        \"title\": \"Empty Object\", ",
+									"        \"description\": \"This accepts anything, as long as it's valid JSON.\"",
+									"      }",
+									"    }, ",
+									"    \"timeSlot\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/timeSlot\", ",
+									"      \"items\": {",
+									"        \"title\": \"Empty Object\", ",
+									"        \"description\": \"This accepts anything, as long as it's valid JSON.\"",
+									"      }",
+									"    }, ",
+									"    \"userRole\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/userRole\", ",
+									"      \"items\": {",
+									"        \"title\": \"Empty Object\", ",
+									"        \"description\": \"This accepts anything, as long as it's valid JSON.\"",
+									"      }",
+									"    }, ",
+									"    \"availability\": {",
+									"      \"type\": \"null\", ",
+									"      \"$id\": \"/properties/availability\"",
+									"    }, ",
+									"    \"id\": {",
+									"      \"type\": \"integer\", ",
+									"      \"$id\": \"/properties/id\"",
+									"    }",
+									"  }",
+									"}",
+									"",
+									"// tests[\"Schema validation\"] = tv4.validate(jsonData, schema);",
+									"var valid_schema = tv4.validateResult(jsonData, schema).valid;",
+									"if (valid_schema){ ",
+									"    tests[\"JSON Response has valid schema\"] = true",
+									"    }",
+									"else {",
+									"tests[\"JSON Response has invalid schema in path: \" + tv4.validateResult(jsonData, schema).error.schemaPath + \".  Error = \" + tv4.validateResult(jsonData, schema).error.message] = false;",
+									"    }",
+									"",
+									"pm.test(\"Status code is 200\", function () {pm.response.to.have.status(200);});",
+									"",
+									"",
+									"pm.test(\"Response has departmentId\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"departmentId\");",
+									"});",
+									"",
+									"pm.test(\"DepartmentID is 1\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.departmentId).to.eql(1);",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable(\"RSServerPort\", \"http://fctestweb1:88\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\":\"Ionescu\",\n  \"Password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{RSServerPort}}/api/auth/login",
+							"host": [
+								"{{RSServerPort}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event list",
+			"description": "",
+			"item": [
+				{
+					"name": "Event list - Correct dates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var schema = {",
+									"  \"definitions\": {}, ",
+									"  \"$schema\": \"http://json-schema.org/draft-06/schema#\", ",
+									"  \"type\": \"array\", ",
+									"  \"$id\": \"http://example.com/example.json\", ",
+									"  \"items\": {",
+									"    \"type\": \"object\", ",
+									"    \"$id\": \"/items\", ",
+									"    \"additionalProperties\": false, ",
+									"    \"required\": [",
+									"      \"startDate\", ",
+									"      \"endDate\", ",
+									"      \"eventType\", ",
+									"      \"roomId\", ",
+									"      \"notes\", ",
+									"      \"hostId\", ",
+									"      \"attendeeId\", ",
+									"      \"eventStatus\", ",
+									"      \"dateCreated\", ",
+									"      \"attendee\", ",
+									"      \"host\", ",
+									"      \"room\", ",
+									"      \"penalty\", ",
+									"      \"id\"",
+									"    ], ",
+									"    \"properties\": {",
+									"      \"startDate\": {",
+									"        \"type\": \"string\", ",
+									"        \"$id\": \"/items/properties/startDate\"",
+									"      }, ",
+									"      \"endDate\": {",
+									"        \"type\": \"string\", ",
+									"        \"$id\": \"/items/properties/endDate\"",
+									"      }, ",
+									"      \"eventType\": {",
+									"        \"type\": \"integer\", ",
+									"        \"$id\": \"/items/properties/eventType\"",
+									"      }, ",
+									"      \"roomId\": {",
+									"        \"type\": \"integer\", ",
+									"        \"$id\": \"/items/properties/roomId\"",
+									"      }, ",
+									"      \"notes\": {",
+									"        \"type\": [",
+									"            \"string\", ",
+									"            \"null\"",
+									"          ],",
+									"        \"$id\": \"/items/properties/notes\"",
+									"      }, ",
+									"      \"hostId\": {",
+									"        \"type\": \"integer\", ",
+									"        \"$id\": \"/items/properties/hostId\"",
+									"      }, ",
+									"      \"attendeeId\": {",
+									"        \"type\": \"integer\", ",
+									"        \"$id\": \"/items/properties/attendeeId\"",
+									"      }, ",
+									"      \"eventStatus\": {",
+									"        \"type\": \"integer\", ",
+									"        \"$id\": \"/items/properties/eventStatus\"",
+									"      }, ",
+									"      \"dateCreated\": {",
+									"        \"type\": \"string\", ",
+									"        \"$id\": \"/items/properties/dateCreated\"",
+									"      }, ",
+									"      \"attendee\": {",
+									"        \"type\": \"null\", ",
+									"        \"$id\": \"/items/properties/attendee\"",
+									"      }, ",
+									"      \"host\": {",
+									"        \"type\": \"null\", ",
+									"        \"$id\": \"/items/properties/host\"",
+									"      }, ",
+									"      \"room\": {",
+									"        \"type\": \"null\", ",
+									"        \"$id\": \"/items/properties/room\"",
+									"      }, ",
+									"      \"penalty\": {",
+									"        \"type\": \"array\", ",
+									"        \"$id\": \"/items/properties/penalty\", ",
+									"        \"items\": {",
+									"          \"title\": \"Empty Object\", ",
+									"          \"description\": \"This accepts anything, as long as it's valid JSON.\"",
+									"        }",
+									"      }, ",
+									"      \"id\": {",
+									"        \"type\": \"integer\", ",
+									"        \"$id\": \"/items/properties/id\"",
+									"      }",
+									"    }",
+									"  }",
+									"}",
+									"",
+									"// tests[\"Schema validation\"] = tv4.validate(jsonData, schema);",
+									"var valid_schema = tv4.validateResult(jsonData, schema).valid;",
+									"if (valid_schema){ ",
+									"    tests[\"JSON Response has valid schema\"] = true",
+									"    }",
+									"else {",
+									"tests[\"JSON Response has invalid schema in path: \" + tv4.validateResult(jsonData, schema).error.schemaPath + \".  Error = \" + tv4.validateResult(jsonData, schema).error.message] = false;",
+									"    }",
+									"",
+									"pm.test(\"Status code is 200\", function () {pm.response.to.have.status(200);});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.environment.set(\"startDate\", \"2017-11-01T09:00:00\");",
+									"pm.environment.set(\"endDate\", \"2017-11-30T09:00:00\");",
+									"pm.environment.set(\"host0\", \"4\");",
+									"pm.environment.set(\"host1\", \"3\");",
+									"pm.environment.set(\"room0\", \"1\");",
+									"pm.environment.set(\"room1\", \"2\");",
+									"pm.environment.set(\"room2\", \"3\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\":\"Ionescu\",\n  \"Password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{RSServerPort}}/event/list?startDate={{startDate}}&endDate={{endDate}}&roomId[0]={{room0}}&roomId[1]={{room1}}&roomId[2]={{room2}}&hostId[0]={{host0}}&hostId[1]={{host1}}",
+							"host": [
+								"{{RSServerPort}}"
+							],
+							"path": [
+								"event",
+								"list"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "{{startDate}}",
+									"equals": true
+								},
+								{
+									"key": "endDate",
+									"value": "{{endDate}}",
+									"equals": true
+								},
+								{
+									"key": "roomId[0]",
+									"value": "{{room0}}",
+									"equals": true
+								},
+								{
+									"key": "roomId[1]",
+									"value": "{{room1}}",
+									"equals": true
+								},
+								{
+									"key": "roomId[2]",
+									"value": "{{room2}}",
+									"equals": true
+								},
+								{
+									"key": "hostId[0]",
+									"value": "{{host0}}",
+									"equals": true
+								},
+								{
+									"key": "hostId[1]",
+									"value": "{{host1}}",
+									"equals": true
+								}
+							]
+						},
+						"description": "Get Events Service"
+					},
+					"response": []
+				},
+				{
+					"name": "Event list - Incorrect dates - startDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var schema = {",
+									"  \"definitions\": {}, ",
+									"  \"$schema\": \"http://json-schema.org/draft-06/schema#\", ",
+									"  \"type\": \"object\", ",
+									"  \"$id\": \"http://example.com/example.json\", ",
+									"  \"additionalProperties\": false, ",
+									"  \"required\": [",
+									"    \"startDate\"",
+									"  ], ",
+									"  \"properties\": {",
+									"    \"startDate\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/startDate\", ",
+									"      \"items\": {",
+									"        \"type\": \"string\", ",
+									"        \"$id\": \"/properties/startDate/items\"",
+									"      }",
+									"    }",
+									"  }",
+									"}",
+									"",
+									"// tests[\"Schema validation\"] = tv4.validate(jsonData, schema);",
+									"var valid_schema = tv4.validateResult(jsonData, schema).valid;",
+									"if (valid_schema){ ",
+									"    tests[\"JSON Response has valid schema\"] = true",
+									"    }",
+									"else {",
+									"tests[\"JSON Response has invalid schema in path: \" + tv4.validateResult(jsonData, schema).error.schemaPath + \".  Error = \" + tv4.validateResult(jsonData, schema).error.message] = false;",
+									"    }",
+									"",
+									"pm.test(\"Status code is 400\", function () {pm.response.to.have.status(400);});",
+									"",
+									"pm.test(\"Message <Value not valid is displayed>\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"is not valid\");",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.environment.set(\"startDate\", \"x\");",
+									"pm.environment.set(\"endDate\", \"2017-11-10T18:00:00\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\":\"Ionescu\",\n  \"Password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{RSServerPort}}/event/list?startDate={{startDate}}&endDate={{endDate}}",
+							"host": [
+								"{{RSServerPort}}"
+							],
+							"path": [
+								"event",
+								"list"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "{{startDate}}",
+									"equals": true
+								},
+								{
+									"key": "endDate",
+									"value": "{{endDate}}",
+									"equals": true
+								}
+							]
+						},
+						"description": "Get Events Service"
+					},
+					"response": []
+				},
+				{
+					"name": "Event list - Incorrect dates - startDate after endDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var schema = {",
+									"  \"definitions\": {}, ",
+									"  \"$schema\": \"http://json-schema.org/draft-06/schema#\", ",
+									"  \"type\": \"object\", ",
+									"  \"$id\": \"http://example.com/example.json\", ",
+									"  \"additionalProperties\": false, ",
+									"  \"required\": [",
+									"    \"startDate\"",
+									"  ], ",
+									"  \"properties\": {",
+									"    \"startDate\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/startDate\", ",
+									"      \"items\": {",
+									"        \"type\": \"string\", ",
+									"        \"$id\": \"/properties/startDate/items\"",
+									"      }",
+									"    }",
+									"  }",
+									"}",
+									"",
+									"// tests[\"Schema validation\"] = tv4.validate(jsonData, schema);",
+									"var valid_schema = tv4.validateResult(jsonData, schema).valid;",
+									"if (valid_schema){ ",
+									"    tests[\"JSON Response has valid schema\"] = true",
+									"    }",
+									"else {",
+									"tests[\"JSON Response has invalid schema in path: \" + tv4.validateResult(jsonData, schema).error.schemaPath + \".  Error = \" + tv4.validateResult(jsonData, schema).error.message] = false;",
+									"    }",
+									"",
+									"pm.test(\"Status code is 400\", function () {pm.response.to.have.status(400);});",
+									"",
+									"pm.test(\"Message <Value not valid is displayed>\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"is not valid\");",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.environment.set(\"startDate\", \"2017-11-30T18:00:00\");",
+									"pm.environment.set(\"endDate\", \"2017-10-01T18:00:00\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\":\"Ionescu\",\n  \"Password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{RSServerPort}}/event/list?startDate={{startDate}}&endDate={{endDate}}",
+							"host": [
+								"{{RSServerPort}}"
+							],
+							"path": [
+								"event",
+								"list"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "{{startDate}}",
+									"equals": true
+								},
+								{
+									"key": "endDate",
+									"value": "{{endDate}}",
+									"equals": true
+								}
+							]
+						},
+						"description": "Get Events Service"
+					},
+					"response": []
+				},
+				{
+					"name": "Event list - Incorrect dates - endDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var schema = {",
+									"  \"definitions\": {}, ",
+									"  \"$schema\": \"http://json-schema.org/draft-06/schema#\", ",
+									"  \"type\": \"object\", ",
+									"  \"$id\": \"http://example.com/example.json\", ",
+									"  \"additionalProperties\": false, ",
+									"  \"required\": [",
+									"    \"startDate\"",
+									"  ], ",
+									"  \"properties\": {",
+									"    \"startDate\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/startDate\", ",
+									"      \"items\": {",
+									"        \"type\": \"string\", ",
+									"        \"$id\": \"/properties/startDate/items\"",
+									"      }",
+									"    }",
+									"  }",
+									"}",
+									"",
+									"// tests[\"Schema validation\"] = tv4.validate(jsonData, schema);",
+									"var valid_schema = tv4.validateResult(jsonData, schema).valid;",
+									"if (valid_schema){ ",
+									"    tests[\"JSON Response has valid schema\"] = true",
+									"    }",
+									"else {",
+									"tests[\"JSON Response has invalid schema in path: \" + tv4.validateResult(jsonData, schema).error.schemaPath + \".  Error = \" + tv4.validateResult(jsonData, schema).error.message] = false;",
+									"    }",
+									"",
+									"pm.test(\"Status code is 400\", function () {pm.response.to.have.status(400);});",
+									"",
+									"pm.test(\"Message <Value not valid is displayed>\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"is not valid\");",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.environment.set(\"startDate\", \"x\");",
+									"pm.environment.set(\"endDate\", \"2017-10-10T18:00:00\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\":\"Ionescu\",\n  \"Password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{RSServerPort}}/event/list?startDate={{startDate}}&endDate={{endDate}}",
+							"host": [
+								"{{RSServerPort}}"
+							],
+							"path": [
+								"event",
+								"list"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "{{startDate}}",
+									"equals": true
+								},
+								{
+									"key": "endDate",
+									"value": "{{endDate}}",
+									"equals": true
+								}
+							]
+						},
+						"description": "Get Events Service"
+					},
+					"response": []
+				},
+				{
+					"name": "Event list - Incorrect dates - empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var schema = {",
+									"  \"definitions\": {}, ",
+									"  \"$schema\": \"http://json-schema.org/draft-06/schema#\", ",
+									"  \"type\": \"object\", ",
+									"  \"$id\": \"http://example.com/example.json\", ",
+									"  \"additionalProperties\": false, ",
+									"  \"required\": [",
+									"    \"endDate\", ",
+									"    \"startDate\"",
+									"  ], ",
+									"  \"properties\": {",
+									"    \"endDate\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/endDate\", ",
+									"      \"items\": {",
+									"        \"type\": \"string\", ",
+									"        \"$id\": \"/properties/endDate/items\"",
+									"      }",
+									"    }, ",
+									"    \"startDate\": {",
+									"      \"type\": \"array\", ",
+									"      \"$id\": \"/properties/startDate\", ",
+									"      \"items\": {",
+									"        \"type\": \"string\", ",
+									"        \"$id\": \"/properties/startDate/items\"",
+									"      }",
+									"    }",
+									"  }",
+									"}",
+									"",
+									"// tests[\"Schema validation\"] = tv4.validate(jsonData, schema);",
+									"var valid_schema = tv4.validateResult(jsonData, schema).valid;",
+									"if (valid_schema){ ",
+									"    tests[\"JSON Response has valid schema\"] = true",
+									"    }",
+									"else {",
+									"tests[\"JSON Response has invalid schema in path: \" + tv4.validateResult(jsonData, schema).error.schemaPath + \".  Error = \" + tv4.validateResult(jsonData, schema).error.message] = false;",
+									"    }",
+									"",
+									"pm.test(\"Status code is 400\", function () {pm.response.to.have.status(400);});",
+									"",
+									"pm.test(\"Message <Value not valid is displayed>\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"is not valid\");",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.environment.set(\"startDate\", \"\");",
+									"pm.environment.set(\"endDate\", \"\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\":\"Ionescu\",\n  \"Password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{RSServerPort}}/event/list?startDate={{startDate}}&endDate={{endDate}}",
+							"host": [
+								"{{RSServerPort}}"
+							],
+							"path": [
+								"event",
+								"list"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "{{startDate}}",
+									"equals": true
+								},
+								{
+									"key": "endDate",
+									"value": "{{endDate}}",
+									"equals": true
+								}
+							]
+						},
+						"description": "Get Events Service"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room list",
+			"description": "",
+			"item": [
+				{
+					"name": "Room list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{RSServerPort}}/room/list",
+							"host": [
+								"{{RSServerPort}}"
+							],
+							"path": [
+								"room",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event create",
+			"description": "",
+			"item": [
+				{
+					"name": "Event create - correct",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"startDate\": \"2017-11-29T15:00:00\",\n        \"endDate\": \"2017-11-29T16:00:00\",\n        \"eventType\": \"1\",\n        \"roomId\": 2,\n        \"notes\": null,\n        \"hostId\": 2,\n        \"attendeeId\": 1,\n        \"eventStatus\": 4\n}"
+						},
+						"url": {
+							"raw": "{{RSServerPort}}/event/create",
+							"host": [
+								"{{RSServerPort}}"
+							],
+							"path": [
+								"event",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event edit",
+			"description": "",
+			"item": [
+				{
+					"name": "Event edit - correct",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startDate\": \"2017-11-29T09:00:00\",\n    \"endDate\": \"2017-11-29T10:00:00\",\n    \"eventType\": 0,\n    \"roomId\": 1,\n    \"notes\": null,\n    \"hostId\": 4,\n    \"attendeeId\": 1,\n    \"eventStatus\": 4\n}"
+						},
+						"url": {
+							"raw": "http://fctestweb1:88/event/edit/1014",
+							"protocol": "http",
+							"host": [
+								"fctestweb1"
+							],
+							"port": "88",
+							"path": [
+								"event",
+								"edit",
+								"1014"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bulk",
+			"description": "",
+			"item": []
+		}
+	]
+}
