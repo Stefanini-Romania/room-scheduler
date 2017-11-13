@@ -115,7 +115,7 @@ namespace RSService.Controllers
                 dbOperation.Commit();
 
                 if (_event.EventStatus == (int)EventStatusEnum.absent)
-                    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId);
+                    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
                 return Ok();
             }
             else
