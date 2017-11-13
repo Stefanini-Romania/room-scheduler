@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
@@ -29,21 +30,22 @@ namespace RSService.Controllers
             rsManager = _rsManager;
         }
     
-        
+       
         [HttpPost("/event/create")]
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+            
             if (!ModelState.IsValid)
             {
                 return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
-            }
+            }                    
+                var newEvent = Mapper.Map<Event>(model);
+                newEvent.DateCreated = DateTime.UtcNow;
 
-            var newEvent = Mapper.Map<Event>(model);
-            newEvent.DateCreated = DateTime.UtcNow;
-
-            eventRepository.AddEvent(newEvent);
-            dbOperation.Commit();
-            return Ok();
+                eventRepository.AddEvent(newEvent);
+                dbOperation.Commit();
+                return Ok();                    
         }
         
         [HttpGet("/event/listall")]

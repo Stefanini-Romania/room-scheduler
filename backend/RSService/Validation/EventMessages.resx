@@ -123,6 +123,9 @@
   <data name="CancellationTimeSpanLess" xml:space="preserve">
     <value>Event.StartDate.LessThan15Minutes</value>
   </data>
+  <data name="DayOfWeekWeekend" xml:space="preserve">
+    <value>Event.StartDate.StartDateIsInWeekend</value>
+  </data>
   <data name="EmptyEndDate" xml:space="preserve">
     <value>Event.EndDate.Empty</value>
   </data>
