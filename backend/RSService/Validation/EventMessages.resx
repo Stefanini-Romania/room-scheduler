@@ -123,17 +123,35 @@
   <data name="CancellationTimeSpanLess" xml:space="preserve">
     <value>Event.StartDate.LessThan15Minutes</value>
   </data>
+  <data name="DayOfWeekWeekend" xml:space="preserve">
+    <value>Event.StartDate.StartDateIsInWeekend</value>
+  </data>
   <data name="EmptyEndDate" xml:space="preserve">
     <value>Event.EndDate.Empty</value>
   </data>
   <data name="EmptyStartDate" xml:space="preserve">
     <value>Event.StartDate.Empty</value>
   </data>
+  <data name="EndDateAvailabilityRoom" xml:space="preserve">
+    <value>Event.EndDate.NotInAvailabilityOfRoom</value>
+  </data>
+  <data name="EndDateSpecific" xml:space="preserve">
+    <value>Event.EndDate.IncorrectMinutesFormat</value>
+  </data>
   <data name="InvalidTimeSpan" xml:space="preserve">
     <value>Event.EndDate.TimeSpan</value>
   </data>
   <data name="Limit" xml:space="preserve">
     <value>Event.StartDate.LimitPerDay</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Event.StartDate.NotAvailable</value>
+  </data>
+  <data name="Penalized" xml:space="preserve">
+    <value>Event.StartDate.PenalizedUser</value>
+  </data>
+  <data name="StartDateAvailabilityRoom" xml:space="preserve">
+    <value>Event.StartDate.NotInAvailabilityOfRoom</value>
   </data>
   <data name="StartDateFuture" xml:space="preserve">
     <value>Event.StartDate.GreaterThanTwoMonths</value>

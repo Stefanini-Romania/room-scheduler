@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
@@ -29,21 +30,22 @@ namespace RSService.Controllers
             rsManager = _rsManager;
         }
     
-        
+       
         [HttpPost("/event/create")]
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+            
             if (!ModelState.IsValid)
             {
                 return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
-            }
+            }                    
+                var newEvent = Mapper.Map<Event>(model);
+                newEvent.DateCreated = DateTime.UtcNow;
 
-            var newEvent = Mapper.Map<Event>(model);
-            newEvent.DateCreated = DateTime.UtcNow;
-
-            eventRepository.AddEvent(newEvent);
-            dbOperation.Commit();
-            return Ok();
+                eventRepository.AddEvent(newEvent);
+                dbOperation.Commit();
+                return Ok();                    
         }
         
         [HttpGet("/event/listall")]
@@ -65,8 +67,11 @@ namespace RSService.Controllers
         //}
 
         [HttpGet("/event/list")]
-        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
+        public IActionResult GetEventsByHosts(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
+            if (!hostId.Any())
+                return GetEvents(startDate, endDate, roomId);
+
             var results = eventRepository.GetEvents(startDate, endDate, roomId, hostId);
 
             var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
@@ -76,12 +81,22 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
+        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
+        {
+            var results = eventRepository.GetEvents(startDate, endDate, roomId);
+
+            var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId);
+
+            results = results.Concat(availabilityEvents);
+
+            return Ok(results);
+        }
+
         [HttpPut("/event/edit/{id}")]
-        public IActionResult UpdateEvent(int id, [FromBody] EventViewModel model)
+        public IActionResult UpdateEvent(int id, [FromBody] EditViewModel model)
         {
             if (ModelState.IsValid)
             {
-
                 var _model = Mapper.Map<Event>(model);
 
                 var _event = eventRepository.GetEvents().FirstOrDefault(c => c.Id == id);
@@ -101,7 +116,9 @@ namespace RSService.Controllers
                 _event.DateCreated = DateTime.UtcNow;
                 dbOperation.Commit();
 
-                return NoContent();
+                if (_event.EventStatus == (int)EventStatusEnum.absent)
+                    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId);
+                return Ok();
             }
             else
             {

@@ -1,35 +1,33 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { User } from '../../shared/user.model';
-import {Jsonp, URLSearchParams } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Response} from '@angular/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {User} from '../../shared/models/user.model';
 import 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operator/map';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
-    
+
     users: User[];
-    
-    constructor(private http: HttpClient) {}
+
+    constructor(private http: HttpClient) {
+    }
 
     authenticate(name: string, password: string) {
         const url = 'http://172.25.4.165:88/api/auth/login';
-        const body = JSON.stringify({ name: name, password: password });
+        const body = JSON.stringify({name: name, password: password});
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post(url, body, { headers: headers })
-        
-                        .catch((error:any) => Observable.throw(error.message))
-                        .map((response: Response) => {
-            
-                                if (response) {
-                    
-                                    sessionStorage.setItem('currentUser', JSON.stringify(response));
-                                }
-                                return response; 
+        return this.http.post(url, body, {headers: headers})
+            .catch((error: any) => Observable.throw(error))
+            .map((response: Response) => {
 
-        })
+                if (response) {
+
+                    sessionStorage.setItem('currentUser', JSON.stringify(response));
+                }
+
+                return response;
+            })
     }
 
     logout() {
@@ -45,7 +43,7 @@ export class AuthService {
         return u;
     }
 
-    isLoggedIn (): boolean {
+    isLoggedIn(): boolean {
         return this.getLoggedUser() instanceof User;
     }
 }

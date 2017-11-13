@@ -1,17 +1,100 @@
-<div class="container" style="padding-top: 80px">
-      <div class="buttonsDiv">
-        <room-selector (roomChange)="calendarUpdate($event)"></room-selector>
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="today()">TODAY</button>
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goBack()"><strong>&lt;</strong></button>
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="goForward()"><strong>&gt;</strong></button>
 
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('dayView')">DAY</button>
-        <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="setView('weekView')">WEEK</button>
-     </div>
- 
+<div class="container" style="padding-top: 80px">   
 
-  <jqxScheduler #schedulerReference
-    [date]="startDate" [width]="1000" [height]="700" [source]="dataAdapter" [showLegend]="true" [view]="view"
-    [resources]="resources" [views]="views" [showToolbar]="false">
-  </jqxScheduler> 
+    <div class="row buttonsDiv">
+        <room-selector (roomsLoaded)="onRoomsLoaded($event)" (roomChange)="onRoomChanged($event)"></room-selector>
+        &nbsp;
+        <div class="btn-group" ngbRadioGroup>
+            <label ngbButtonLabel class="btn-primary"(click)="goBack()">
+                <input ngbButton type="radio"><i class="fa fa-arrow-left"></i>
+            </label>
+            <label ngbButtonLabel class="btn-primary" (click)="goToToday()">
+                <input ngbButton type="radio">{{ 'calendar.today' |translate }}
+            </label>
+            <label ngbButtonLabel class="btn-primary" (click)="goForward()">
+                <input ngbButton type="radio"><i class="fa fa-arrow-right"></i>
+            </label>
+        </div>
+        &nbsp;
+        <div class="btn-group" ngbRadioGroup [ngModel]="view">
+            <label ngbButtonLabel class="btn btn-primary" (click)="setView('dayView')">
+                <input ngbButton type="radio" value="dayView">{{'calendar.day' |translate}}
+            </label>
+            <label ngbButtonLabel class="btn-primary" (click)="setView('weekView')">
+                <input ngbButton type="radio" value="weekView">{{'calendar.week' |translate}}
+            </label>
+            
+        </div>
+        <label ><b>	&nbsp;{{ calendarsDateFrom | date: 'fullDate' }} &nbsp; {{ calendarsDateTo | date: 'fullDate'}}</b></label>
+        <!-- <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="createEvent()">Create</button> -->
+    </div>
+
+    <div class="row">
+        <jqxScheduler #schedulerReference
+                      [date]="startDate"
+                      [width]="1000"
+                      [height]="700"
+                      [source]="dataAdapter"
+                      [showLegend]="true"
+                      [view]="view"
+                      [appointmentDataFields]="eventDataFields"
+                      [resources]="resources"
+                      [views]="views"
+                      [showToolbar]="false"
+                      [editDialog]="false"
+                      (onDateChange)="showCalendarsDate()"
+                      (onCellClick)="showEditDialog(content)">
+        </jqxScheduler>
+    </div>
 </div>
+
+
+<!-- MODAL FORM -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header" id="modal-header">
+        <h6 class="modal-title">{{ saveEventTitle | translate }}</h6>
+    </div>
+
+    <div class="modal-body">
+        <form>
+            <!-- generic error message -->
+            <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['generic']" [dismissible]="false">
+                <div *ngFor="let errorMessage of createErrorMessages['generic']">{{ errorMessage | translate }}</div>
+            </ngb-alert>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div>
+                        <label><b>{{ 'calendar.startDate' | translate }}:&nbsp;</b></label>
+                        <label>{{ selectedStartDate | date: 'fullDate'}}&nbsp;{{ selectedStartDate | date: 'shortTime'}}</label>
+                    </div>
+                </div>
+                <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['StartDate']" [dismissible]="false">
+                    <div *ngFor="let errorMessage of createErrorMessages['StartDate']">{{ errorMessage | translate }}</div>
+                </ngb-alert>
+
+                <div class="input-group">
+                    <div>
+                        <label><b>{{ 'calendar.endDate' | translate }}: &nbsp;</b></label>
+                        <label>{{ selectedEndDate | date: 'fullDate'}}&nbsp;{{ selectedEndDate | date: 'shortTime'}}</label>
+                    </div>
+                </div>
+                <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['EndDate']" [dismissible]="false">
+                    <div *ngFor="let errorMessage of createErrorMessages['EndDate']">{{ errorMessage | translate }}</div>
+                </ngb-alert>
+
+                <div class="input-group">
+                    <label><b>{{ 'calendar.notes' | translate }}:</b></label>
+                    <label><textarea name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea></label>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary RScalendarButton" (click)="saveEvent()">{{ 'button.save' | translate }}</button>
+        <button type="button" class="btn btn-primary RScalendarButton" (click)="c('Close click')">{{ 'button.close' | translate }}</button>
+    </div>
+</ng-template>
+

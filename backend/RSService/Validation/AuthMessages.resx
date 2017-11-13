@@ -123,10 +123,4 @@
   <data name="EmptyUsername" xml:space="preserve">
     <value>Auth.Username.Empty</value>
   </data>
-  <data name="InvalidPassword" xml:space="preserve">
-    <value>Auth.Password.Invalid</value>
-  </data>
-  <data name="InvalidUsername" xml:space="preserve">
-    <value>Auth.Username.Invalid</value>
-  </data>
 </root>

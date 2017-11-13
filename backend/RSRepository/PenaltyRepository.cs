@@ -19,6 +19,11 @@ namespace RSRepository
 
         }
 
+        public IEnumerable<Penalty> GetPenaltiesByUser(int attendeeId)
+        {
+            return penalties.Where(p => p.AttendeeId == attendeeId).AsEnumerable();
+        }
+
         public IEnumerable<Penalty> GetPenalties()
         {
             return penalties.AsEnumerable();

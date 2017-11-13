@@ -79,6 +79,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.StartDateIsInWeekend.
+        /// </summary>
+        internal static string DayOfWeekWeekend {
+            get {
+                return ResourceManager.GetString("DayOfWeekWeekend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.Empty.
         /// </summary>
         internal static string EmptyEndDate {
@@ -97,6 +106,24 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.EndDate.NotInAvailabilityOfRoom.
+        /// </summary>
+        internal static string EndDateAvailabilityRoom {
+            get {
+                return ResourceManager.GetString("EndDateAvailabilityRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.EndDate.IncorrectMinutesFormat.
+        /// </summary>
+        internal static string EndDateSpecific {
+            get {
+                return ResourceManager.GetString("EndDateSpecific", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.TimeSpan.
         /// </summary>
         internal static string InvalidTimeSpan {
@@ -111,6 +138,33 @@ namespace RSService.Validation {
         internal static string Limit {
             get {
                 return ResourceManager.GetString("Limit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.NotAvailable.
+        /// </summary>
+        internal static string NotAvailable {
+            get {
+                return ResourceManager.GetString("NotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.PenalizedUser.
+        /// </summary>
+        internal static string Penalized {
+            get {
+                return ResourceManager.GetString("Penalized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.NotInAvailabilityOfRoom.
+        /// </summary>
+        internal static string StartDateAvailabilityRoom {
+            get {
+                return ResourceManager.GetString("StartDateAvailabilityRoom", resourceCulture);
             }
         }
         
