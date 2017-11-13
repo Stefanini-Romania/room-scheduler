@@ -79,6 +79,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.StartDate.StartDateIsInWeekend.
+        /// </summary>
+        internal static string DayOfWeekWeekend {
+            get {
+                return ResourceManager.GetString("DayOfWeekWeekend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.Empty.
         /// </summary>
         internal static string EmptyEndDate {

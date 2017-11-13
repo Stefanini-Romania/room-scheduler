@@ -26,7 +26,7 @@ namespace RSService.Filters
 
                 RuleFor(m => m.StartDate).GreaterThanOrEqualTo(DateTime.UtcNow).WithMessage(x => Validation.EventMessages.StartDatePast).When(m => m.EndDate.HasValue);
 
-                RuleFor(m => m.StartDate).LessThan(DateTime.UtcNow.AddMonths(1)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue);
+                RuleFor(m => m.StartDate).LessThan(DateTime.Now.AddMonths(1)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue);
 
                 RuleFor(m => m.StartDate).GreaterThanOrEqualTo(m => DateTime.UtcNow.AddMinutes(15)).WithMessage(x => Validation.EventMessages.CancellationTimeSpanLess).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
 
@@ -35,6 +35,10 @@ namespace RSService.Filters
                 RuleFor(x => x.StartDate).Must(AvailabilityTimeS).WithMessage(x => Validation.EventMessages.StartDateAvailabilityRoom);
 
                 RuleFor(x => x.StartDate).Must(IsAvailable).WithMessage(x => Validation.EventMessages.NotAvailable); 
+                RuleFor(x => x.StartDate).Must(DayOfWeek).WithMessage(x => Validation.EventMessages.DayOfWeekWeekend);
+
+
+
             });
 
             // ---------------------------EndDate---------------------------
@@ -130,8 +134,14 @@ namespace RSService.Filters
             }
             return true;
         }
+        private bool DayOfWeek(EventViewModel ev, DateTime? date)
+        {
+            if ((int)ev.StartDate.Value.DayOfWeek >= 1 && (int)ev.StartDate.Value.DayOfWeek <= 5)
+                return true;
 
-       
+            return false;
+        }
+        
 
     }
 }
