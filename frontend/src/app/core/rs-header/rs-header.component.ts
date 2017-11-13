@@ -30,4 +30,8 @@ export class RSHeader {
         this.authService.logout();
         this.router.navigate(['/login']);
     }
+
+    sendtologin() {
+        this.router.navigate(['/login']);
+    }
 }
