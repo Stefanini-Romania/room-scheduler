@@ -146,7 +146,7 @@ export class RSCalendarComponent {
         this.calendarsDateFrom= new Date(this.scheduler.date().toString());
        
         this.calendarsDateTo = new Date(this.scheduler.date().addDays(days).toString());
-        this.renderCalendar();
+    
     }
 
     goBack() {
