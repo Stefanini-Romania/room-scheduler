@@ -142,8 +142,10 @@ export class RSCalendarComponent {
 
     showCalendarsDate(){
         const days = this.isView('weekView') ? 4 : 1;
-        this.calendarsDateFrom= new Date(this.scheduler.date().addDays(-days).toString());
-        this.calendarsDateTo = new Date(this.scheduler.date().toString());
+       
+        this.calendarsDateFrom= new Date(this.scheduler.date().toString());
+       
+        this.calendarsDateTo = new Date(this.scheduler.date().addDays(days).toString());
         this.renderCalendar();
     }
 

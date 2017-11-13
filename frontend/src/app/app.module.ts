@@ -32,13 +32,13 @@ const routes: Routes = [
     // default route
     {
         path: '',
-        redirectTo: '/login',
+        redirectTo: '/calendar',
         pathMatch: 'full'
     },
 
     // Not Found
     {
-        path: '**', redirectTo: '/'
+        path: '**', redirectTo: 'Page not found'
     },
 ];
 
