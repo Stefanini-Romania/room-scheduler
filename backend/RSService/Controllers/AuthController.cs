@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using RSService.Validation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace RSService.Controllers
 {
@@ -55,11 +56,18 @@ namespace RSService.Controllers
             var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == model.Name);
             //Just redirect to our index after logging in. 
             return Ok(user);
-            
-            
         }
 
-
+        [HttpGet("api/auth/logout")]
+        public async Task<IActionResult> Logout()
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return Ok();
+            }
+            return BadRequest();
+        }
 
 
 

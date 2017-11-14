@@ -15,5 +15,11 @@ namespace RSService.Validation
         {
             StatusCode = StatusCodes.Status400BadRequest;
         }
+
+        public ValidationFailedResult(string message, string fieldError)
+        : base(new ValidationResultModel(message, fieldError))
+        {
+            StatusCode = StatusCodes.Status400BadRequest;
+        }
     }
 }

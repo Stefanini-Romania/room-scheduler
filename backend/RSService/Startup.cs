@@ -62,6 +62,7 @@ namespace RSService
                     .AddCookie(options =>
                      {
                          options.LoginPath = "/api/auth/login";
+                         options.LogoutPath = "/api/auth/logout";
                      });
 
         }

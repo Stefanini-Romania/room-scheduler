@@ -35,7 +35,12 @@ namespace RSService.Controllers
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
             bool isAuthenticated = User.Identity.IsAuthenticated;
-            
+
+            if (!isAuthenticated)
+            {
+                return (new ValidationFailedResult(GeneralMessages.Event, EventMessages.UnauthenticatedUser));
+            }
+
             if (!ModelState.IsValid)
             {
                 return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
@@ -95,7 +100,13 @@ namespace RSService.Controllers
         [HttpPut("/event/edit/{id}")]
         public IActionResult UpdateEvent(int id, [FromBody] EditViewModel model)
         {
-            if (ModelState.IsValid)
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+
+            if (!isAuthenticated)
+            {
+                return (new ValidationFailedResult(GeneralMessages.EventEdit, EventMessages.UnauthenticatedUser));
+            }
+            if (ModelState.IsValid && isAuthenticated)
             {
                 var _model = Mapper.Map<Event>(model);
 
