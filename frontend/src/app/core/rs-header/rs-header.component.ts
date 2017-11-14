@@ -11,7 +11,6 @@ import {Router} from '@angular/router';
 export class RSHeader {
     currentUser: User = undefined;
 
-    // @TODO download icons from https://www.iconfinder.com/iconsets/flags_gosquared
     languages = [
         {'name': 'English', 'code': 'en', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/United-Kingdom_flat.png' },
         {'name': 'Română', 'code': 'ro', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/Romania_flat.png'}
@@ -21,7 +20,6 @@ export class RSHeader {
     }
 
     get isLoggedIn(): boolean {
-        //this.currentUser = new User();this.currentUser.name="asd";if (1)return true;
         this.currentUser = this.authService.getLoggedUser();
         return this.currentUser && this.authService.isLoggedIn();
     }
