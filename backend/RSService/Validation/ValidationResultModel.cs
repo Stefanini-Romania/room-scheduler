@@ -21,5 +21,12 @@ namespace RSService.Validation
                     .ToList();
         }
 
+        public ValidationResultModel(string message, string fieldError)
+        {
+            Errors = new List<ValidationError>();
+            Message = message;
+            Errors.Add(new ValidationError(message, fieldError));
+        }
+
     }
 }
