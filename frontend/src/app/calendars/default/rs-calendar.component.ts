@@ -5,10 +5,10 @@ import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
 import { Event } from '../../shared/models/event.model';
+import {AuthService} from '../../auth/shared/auth.service';
+import { Pipe, PipeTransform } from '@angular/core';
 import { EventTypeEnum } from '../../shared/models/event.model';
 import { EventStatusEnum } from '../../shared/models/event.model';
-
-
 
 @Component({
     selector: 'rs-calendar-component',
@@ -34,7 +34,6 @@ export class RSCalendarComponent {
     public calendarsDateTo: Date;
     public view = 'weekView';
  
-
     closeResult: string;
 
     source: any = {
@@ -75,7 +74,7 @@ export class RSCalendarComponent {
         {type: 'weekView', showWeekends: false, timeRuler: {scaleStartHour: 9, scaleEndHour: 18}},
     ];
 
-    constructor(private eventService: EventService, private modalService: NgbModal) {
+    constructor(private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
     }
 
     ngAfterViewInit(): void {
@@ -132,7 +131,7 @@ export class RSCalendarComponent {
     showCalendarsDate(){
         const days = this.isView('weekView') ? 4 : 1;
        
-        this.calendarsDateFrom= new Date(this.scheduler.date().toString());
+        this.calendarsDateFrom= new Date(this.scheduler.date().addDays(days).toString());
        
         this.calendarsDateTo = new Date(this.scheduler.date().addDays(days).toString());
     
@@ -182,11 +181,12 @@ export class RSCalendarComponent {
     }
 
     showEditDialog(content) {
-        let date = this.scheduler.getSelection();
-        this.selectedStartDate = new Date(date.from.toString());
-        this.selectedEndDate = new Date(date.to.toString());
+        if(this.authService.isLoggedIn()){
+            let date = this.scheduler.getSelection();
+            this.selectedStartDate = new Date(date.from.toString());
+            this.selectedEndDate = new Date(date.to.toString());
 
-        // @TODO detect create or edit
+            // @TODO detect create or edit
         let selectedEvent = this.events.find(e => e.startDate == this.selectedStartDate && e.endDate == this.selectedEndDate && e.roomId == this.roomId);
 
         console.log(content);
@@ -203,17 +203,18 @@ export class RSCalendarComponent {
             this.model.eventStatus = EventStatusEnum.waiting;
             this.model.roomId = this.roomId;
             this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-            this.model.attendeeId = 1; // @TODO get user id from logged user
+            this.model.attendeeId = this.authService.getLoggedUser().id; // @TODO get user id from logged user
         }
 
 
-        this.createErrorMessages = {};
+            this.createErrorMessages = {};
 
-        this.modalService.open(content).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
+            this.modalService.open(content).result.then((result) => {
+                this.closeResult = `Closed with: ${result}`;
+            }, (reason) => {
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            });
+        }
     }
 
     saveEvent() {
@@ -245,4 +246,31 @@ export class RSCalendarComponent {
                 this.renderCalendar();
             });
     }
+
+    sendToLogin() {
+        this.authService.notLoggedIn();
+    }
 }
+
+// export class UtcDatePipe implements PipeTransform {
+    
+//       transform(value: string): any {
+    
+//         if (!value) {
+//           return '';
+//         }
+    
+//         const dateValue = new Date(value);
+    
+//         const dateWithNoTimezone = new Date(
+//           dateValue.getUTCFullYear(),
+//           dateValue.getUTCMonth(),
+//           dateValue.getUTCDate(),
+//           dateValue.getUTCHours(),
+//           dateValue.getUTCMinutes(),
+//           dateValue.getUTCSeconds()
+//         );
+    
+//         return dateWithNoTimezone;
+//       }
+// }
