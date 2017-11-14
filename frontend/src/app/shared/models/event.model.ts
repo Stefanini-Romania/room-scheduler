@@ -9,3 +9,15 @@ export class Event{
     eventStatus: number;
     notes?: string;
 }
+
+export enum EventStatusEnum {
+    present = 0,
+    absent,
+    cancelled,
+    waiting
+}
+
+export enum EventTypeEnum {
+    massage = 0,
+    availability
+}

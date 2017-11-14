@@ -4,7 +4,9 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
-import {Event} from '../../shared/models/event.model';
+import { Event } from '../../shared/models/event.model';
+import { EventTypeEnum } from '../../shared/models/event.model';
+import { EventStatusEnum } from '../../shared/models/event.model';
 
 //cb360a413af57cb163691a7fee3409e860cfe85a
 
@@ -75,6 +77,14 @@ export class RSCalendarComponent {
 
     constructor(private eventService: EventService, private modalService: NgbModal) {
     }
+
+    ngAfterViewInit(): void {
+        this.scheduler.ensureAppointmentVisible('id1');
+
+        this.startDate = new Date();
+        this.renderCalendar();
+    }
+
 
     /*
     refreshCalendar() {
@@ -176,17 +186,10 @@ export class RSCalendarComponent {
         }
     }
 
-    ngAfterViewInit(): void {
-        this.scheduler.ensureAppointmentVisible('id1');
-
-        this.startDate = new Date();
-        this.renderCalendar();
-    }
-
     private renderCalendar() {
         this.events = [];
         let endDate = new Date();
-        endDate.setDate(this.startDate.getDate() + 7);
+        endDate.setDate(this.startDate.getDate() + 7); // @TODO fix
         this.eventService.listEvents(this.startDate, endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
@@ -197,23 +200,40 @@ export class RSCalendarComponent {
         });
     }
 
+    checkEvent(startDate: Date, endDate: Date) {
+
+        if (this.events.find(e => e.startDate == startDate && e.endDate == endDate && e.roomId == this.roomId)) {
+
+            return ;
+        }
+        return false;
+    }
+
     showEditDialog(content) {
         let date = this.scheduler.getSelection();
         this.selectedStartDate = new Date(date.from.toString());
         this.selectedEndDate = new Date(date.to.toString());
-        // @TODO detect create or edit
-        this.saveEventTitle = 'calendar.event.create';
-        this.model = new Event();
-        this.model.startDate = this.selectedStartDate;
-        this.model.endDate = this.selectedEndDate;
-        this.model.eventType = 0; // @TODO use constants
-        this.model.eventStatus = 4; // @TODO use constants
-        this.model.roomId = this.roomId;
-        this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-        this.model.attendeeId = 1; // @TODO get user id from logged user
 
-        //this.saveEventTitle = 'calendar.event.edit';
-        //this.model = // @TODO get event from the selected event (use this.events[eventId]) where we have all the events;
+        // @TODO detect create or edit
+        let selectedEvent = this.events.find(e => e.startDate == this.selectedStartDate && e.endDate == this.selectedEndDate && e.roomId == this.roomId);
+
+        console.log(content);
+        if (selectedEvent) {
+            this.saveEventTitle = 'calendar.event.edit';
+            this.model = this.events[selectedEvent.id];        // @TODO get event from the selected event (use this.events[eventId]) where we have all the events;
+
+        } else {
+            this.saveEventTitle = 'calendar.event.create';
+            this.model = new Event();
+            this.model.startDate = this.selectedStartDate;
+            this.model.endDate = this.selectedEndDate;
+            this.model.eventType = EventTypeEnum.massage; 
+            this.model.eventStatus = EventStatusEnum.waiting;
+            this.model.roomId = this.roomId;
+            this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+            this.model.attendeeId = 1; // @TODO get user id from logged user
+        }
+
 
         this.createErrorMessages = {};
 
