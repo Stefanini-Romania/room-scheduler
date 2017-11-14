@@ -25,6 +25,5 @@ export class LanguageSelector {
 
     changeLanguage(lang) {
         this.translate.use(lang);
-        this.translate.getTranslation(lang);
     }
 }

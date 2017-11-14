@@ -4,13 +4,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../../shared/models/user.model';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
     users: User[];
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
     }
 
     authenticate(name: string, password: string) {
@@ -45,5 +46,13 @@ export class AuthService {
 
     isLoggedIn(): boolean {
         return this.getLoggedUser() instanceof User;
+    }
+
+    notLoggedIn() {
+        if(!(this.isLoggedIn())) 
+        {
+            alert("You need to login if you want to make an appointment!");
+            this.router.navigate(['/login']);
+        }
     }
 }

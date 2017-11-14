@@ -40,6 +40,23 @@ namespace RSRepository
                          .ToList();
         }
 
+        public IEnumerable<Event> GetPastEventsByUser(DateTime date, int attendeeId, int roomId)
+        {
+            return events.Where(e => e.StartDate > date.AddDays(-30))       // Last 30 days
+                         .Where(e => e.AttendeeId == attendeeId)
+                         .Where(e => e.RoomId == roomId)
+                         .Where(ev => ev.EventStatus == (int)EventStatusEnum.absent)
+                         .ToList();
+        }
+
+        public IEnumerable<Event> GetFutureEvents(DateTime date, int attendeeId, int roomId)
+        {
+            return events.Where(e => e.StartDate <= date.AddDays(15))
+                         .Where(e => e.StartDate > date)
+                         .Where(e => e.AttendeeId == attendeeId)
+                         .Where(e => e.RoomId == roomId);
+        }
+
         public IEnumerable<Event> GetEventsByRoom(DateTime startDate, DateTime endDate, int roomId)
         {
             return events.Where(e => e.StartDate >= startDate)

@@ -4,9 +4,11 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
-import {Event} from '../../shared/models/event.model';
-
-//cb360a413af57cb163691a7fee3409e860cfe85a
+import { Event } from '../../shared/models/event.model';
+import {AuthService} from '../../auth/shared/auth.service';
+import { Pipe, PipeTransform } from '@angular/core';
+import { EventTypeEnum } from '../../shared/models/event.model';
+import { EventStatusEnum } from '../../shared/models/event.model';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -32,7 +34,6 @@ export class RSCalendarComponent {
     public calendarsDateTo: Date;
     public view = 'weekView';
  
-
     closeResult: string;
 
     source: any = {
@@ -73,31 +74,18 @@ export class RSCalendarComponent {
         {type: 'weekView', showWeekends: false, timeRuler: {scaleStartHour: 9, scaleEndHour: 18}},
     ];
 
-    constructor(private eventService: EventService, private modalService: NgbModal) {
+    constructor(private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
     }
 
-    /*
-    refreshCalendar() {
-        let events = [];
-        for (let event of this.events) {
-            const e: any = Object.assign({}, event);
-            e.subject = "Quarterly Project Review Meeting";
-            e.calendar = "Room " + event.roomId;
-            events.push(e);
-        }
-        this.source.localData = events;
-        this.dataAdapter = new jqx.dataAdapter(this.source);
-    }
-    transformEventToAppointment(event: Event) {
-        let appointment: any = Object.assign({}, event);
-        appointment.subject = "Quarterly Project Review Meeting";
-        appointment.calendar = "Room " + event.roomId;
-        appointment.startDate = new Date(event.startDate);
-        appointment.endDate = new Date(event.endDate);
+    ngAfterViewInit(): void {
+        this.scheduler.ensureAppointmentVisible('id1');
 
-        return appointment;
+        this.startDate = new Date();
+        this.renderCalendar();
     }
-     */
+
+
+
     refreshCalendar() {
         let events = [];
         for (let event of this.events) {
@@ -143,7 +131,7 @@ export class RSCalendarComponent {
     showCalendarsDate(){
         const days = this.isView('weekView') ? 4 : 1;
        
-        this.calendarsDateFrom= new Date(this.scheduler.date().toString());
+        this.calendarsDateFrom= new Date(this.scheduler.date().addDays(days).toString());
        
         this.calendarsDateTo = new Date(this.scheduler.date().addDays(days).toString());
     
@@ -176,18 +164,13 @@ export class RSCalendarComponent {
         }
     }
 
-    ngAfterViewInit(): void {
-        this.scheduler.ensureAppointmentVisible('id1');
-
-        this.startDate = new Date();
-        this.renderCalendar();
-    }
-
     private renderCalendar() {
         this.events = [];
+        const days = this.isView('weekView') ? 7 : 1;
         let endDate = new Date();
-        endDate.setDate(this.startDate.getDate() + 7);
-        this.eventService.listEvents(this.startDate, endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
+        endDate.setTime(this.startDate.getTime() + days* 86400000).toString();
+
+        this.eventService.listEvents(this.startDate, endDate,this.roomId, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
                 this.events.push(<Event>event);
@@ -198,30 +181,40 @@ export class RSCalendarComponent {
     }
 
     showEditDialog(content) {
-        let date = this.scheduler.getSelection();
-        this.selectedStartDate = new Date(date.from.toString());
-        this.selectedEndDate = new Date(date.to.toString());
-        // @TODO detect create or edit
-        this.saveEventTitle = 'calendar.event.create';
-        this.model = new Event();
-        this.model.startDate = this.selectedStartDate;
-        this.model.endDate = this.selectedEndDate;
-        this.model.eventType = 0; // @TODO use constants
-        this.model.eventStatus = 4; // @TODO use constants
-        this.model.roomId = this.roomId;
-        this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-        this.model.attendeeId = 1; // @TODO get user id from logged user
+        if(this.authService.isLoggedIn()){
+            let date = this.scheduler.getSelection();
+            this.selectedStartDate = new Date(date.from.toString());
+            this.selectedEndDate = new Date(date.to.toString());
 
-        //this.saveEventTitle = 'calendar.event.edit';
-        //this.model = // @TODO get event from the selected event (use this.events[eventId]) where we have all the events;
+            // @TODO detect create or edit
+        let selectedEvent = this.events.find(e => e.startDate == this.selectedStartDate && e.endDate == this.selectedEndDate && e.roomId == this.roomId);
 
-        this.createErrorMessages = {};
+        console.log(content);
+        if (selectedEvent) {
+            this.saveEventTitle = 'calendar.event.edit';
+            this.model = this.events[selectedEvent.id];        // @TODO get event from the selected event (use this.events[eventId]) where we have all the events;
 
-        this.modalService.open(content).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
+        } else {
+            this.saveEventTitle = 'calendar.event.create';
+            this.model = new Event();
+            this.model.startDate = this.selectedStartDate;
+            this.model.endDate = this.selectedEndDate;
+            this.model.eventType = EventTypeEnum.massage; 
+            this.model.eventStatus = EventStatusEnum.waiting;
+            this.model.roomId = this.roomId;
+            this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+            this.model.attendeeId = this.authService.getLoggedUser().id; // @TODO get user id from logged user
+        }
+
+
+            this.createErrorMessages = {};
+
+            this.modalService.open(content).result.then((result) => {
+                this.closeResult = `Closed with: ${result}`;
+            }, (reason) => {
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            });
+        }
     }
 
     saveEvent() {
@@ -253,4 +246,31 @@ export class RSCalendarComponent {
                 this.renderCalendar();
             });
     }
+
+    sendToLogin() {
+        this.authService.notLoggedIn();
+    }
 }
+
+// export class UtcDatePipe implements PipeTransform {
+    
+//       transform(value: string): any {
+    
+//         if (!value) {
+//           return '';
+//         }
+    
+//         const dateValue = new Date(value);
+    
+//         const dateWithNoTimezone = new Date(
+//           dateValue.getUTCFullYear(),
+//           dateValue.getUTCMonth(),
+//           dateValue.getUTCDate(),
+//           dateValue.getUTCHours(),
+//           dateValue.getUTCMinutes(),
+//           dateValue.getUTCSeconds()
+//         );
+    
+//         return dateWithNoTimezone;
+//       }
+// }

@@ -18,8 +18,8 @@ namespace RSData.Models
 
     public enum TimeSlotEnum
     {
-        available,
-        booked,
-        blocked
+        available = 0,
+        booked = 1,
+        blocked = 2
     }
 }

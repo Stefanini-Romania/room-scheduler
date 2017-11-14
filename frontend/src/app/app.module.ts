@@ -48,18 +48,19 @@ const routes: Routes = [
         HttpClientModule,
         FormsModule,
         NgbModule.forRoot(),
-        CoreModule,
-        SharedModule,
-        CalendarsModule,
         RouterModule.forRoot(routes),
         TranslateModule.forRoot({
-            missingTranslationHandler: {provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler},
+            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler },
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient]
             }
         }),
+
+        CoreModule,
+        SharedModule,
+        CalendarsModule,
         RoomModule,
         AuthModule,
 
