@@ -8,7 +8,7 @@ import { Event } from '../../shared/models/event.model';
 import { EventTypeEnum } from '../../shared/models/event.model';
 import { EventStatusEnum } from '../../shared/models/event.model';
 
-//cb360a413af57cb163691a7fee3409e860cfe85a
+
 
 @Component({
     selector: 'rs-calendar-component',
@@ -86,28 +86,7 @@ export class RSCalendarComponent {
     }
 
 
-    /*
-    refreshCalendar() {
-        let events = [];
-        for (let event of this.events) {
-            const e: any = Object.assign({}, event);
-            e.subject = "Quarterly Project Review Meeting";
-            e.calendar = "Room " + event.roomId;
-            events.push(e);
-        }
-        this.source.localData = events;
-        this.dataAdapter = new jqx.dataAdapter(this.source);
-    }
-    transformEventToAppointment(event: Event) {
-        let appointment: any = Object.assign({}, event);
-        appointment.subject = "Quarterly Project Review Meeting";
-        appointment.calendar = "Room " + event.roomId;
-        appointment.startDate = new Date(event.startDate);
-        appointment.endDate = new Date(event.endDate);
 
-        return appointment;
-    }
-     */
     refreshCalendar() {
         let events = [];
         for (let event of this.events) {
@@ -188,9 +167,11 @@ export class RSCalendarComponent {
 
     private renderCalendar() {
         this.events = [];
+        const days = this.isView('weekView') ? 7 : 1;
         let endDate = new Date();
-        endDate.setDate(this.startDate.getDate() + 7); // @TODO fix
-        this.eventService.listEvents(this.startDate, endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
+        endDate.setTime(this.startDate.getTime() + days* 86400000).toString();
+
+        this.eventService.listEvents(this.startDate, endDate,this.roomId, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
                 this.events.push(<Event>event);
@@ -198,15 +179,6 @@ export class RSCalendarComponent {
 
             this.refreshCalendar();
         });
-    }
-
-    checkEvent(startDate: Date, endDate: Date) {
-
-        if (this.events.find(e => e.startDate == startDate && e.endDate == endDate && e.roomId == this.roomId)) {
-
-            return ;
-        }
-        return false;
     }
 
     showEditDialog(content) {

@@ -194,5 +194,14 @@ namespace RSService.Validation {
                 return ResourceManager.GetString("StartDateSpecific", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.UserIsNotAuthenticated.
+        /// </summary>
+        internal static string UnauthenticatedUser {
+            get {
+                return ResourceManager.GetString("UnauthenticatedUser", resourceCulture);
+            }
+        }
     }
 }
