@@ -61,6 +61,7 @@ namespace RSService.Controllers
         [HttpGet("api/auth/logout")]
         public async Task<IActionResult> Logout()
         {
+
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

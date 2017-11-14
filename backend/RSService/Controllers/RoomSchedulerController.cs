@@ -20,14 +20,17 @@ namespace RSService.Controllers
         private IDbOperation dbOperation;
         private IRoomRepository roomRepository;
         private IAvailabiltyRepository availabilityRepository;
+        private IUserRepository userRepository;
         private IRSManager rsManager;
-        public RoomSchedulerController(IEventRepository _eventRepository, IDbOperation _dbOperation, IRoomRepository _roomRepository, IAvailabiltyRepository _availabilityRepository, IRSManager _rsManager)
+
+        public RoomSchedulerController(IEventRepository _eventRepository, IDbOperation _dbOperation, IRoomRepository _roomRepository, IAvailabiltyRepository _availabilityRepository, IRSManager _rsManager, IUserRepository _userRepository)
         {
             eventRepository = _eventRepository;
             dbOperation = _dbOperation;
             roomRepository = _roomRepository;
             availabilityRepository = _availabilityRepository;
             rsManager = _rsManager;
+            userRepository = _userRepository;
         }
     
        
@@ -35,18 +38,24 @@ namespace RSService.Controllers
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
             bool isAuthenticated = User.Identity.IsAuthenticated;
+           
 
             if (!isAuthenticated)
             {
                 return (new ValidationFailedResult(GeneralMessages.Event, EventMessages.UnauthenticatedUser));
             }
 
+            // Get current user id
+            var userName = HttpContext.User.Identities.First().Name;
+            int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
+           
             if (!ModelState.IsValid)
             {
                 return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
             }                    
                 var newEvent = Mapper.Map<Event>(model);
                 newEvent.DateCreated = DateTime.UtcNow;
+                newEvent.AttendeeId = currentAttendeeId; //gets attendeeId from current http session
 
                 eventRepository.AddEvent(newEvent);
                 dbOperation.Commit();
@@ -106,7 +115,12 @@ namespace RSService.Controllers
             {
                 return (new ValidationFailedResult(GeneralMessages.EventEdit, EventMessages.UnauthenticatedUser));
             }
-            if (ModelState.IsValid && isAuthenticated)
+
+            // Get current user id
+            var userName = HttpContext.User.Identities.First().Name;
+            int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
+
+            if (ModelState.IsValid)
             {
                 var _model = Mapper.Map<Event>(model);
 
@@ -122,7 +136,7 @@ namespace RSService.Controllers
                 _event.RoomId = _model.RoomId;
                 _event.Notes = _model.Notes;
                 _event.HostId = _model.HostId;
-                _event.AttendeeId = _model.AttendeeId;
+                _event.AttendeeId = currentAttendeeId;
                 _event.EventStatus = _model.EventStatus;
                 _event.DateCreated = DateTime.UtcNow;
                 dbOperation.Commit();
