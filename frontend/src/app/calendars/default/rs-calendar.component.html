@@ -45,7 +45,8 @@
                       
                       (onDateChange)="showCalendarsDate()"
                       (onCellClick)="sendToLogin()"
-                      (onCellClick)="showEditDialog(content)">
+                      (onAppointmentClick)="showEditDialog(content, $event)"
+                      (onCellClick)="showCreateDialog(content)">
         </jqxScheduler>
     </div>
 </div>
@@ -95,6 +96,7 @@
     </div>
 
     <div class="modal-footer">
+        <button type="button" class="btn btn-primary RScalendarButton" (click)="cancelEvent()"  *ngIf="model.id">{{ 'button.cancel' | translate }}</button>
         <button type="button" class="btn btn-primary RScalendarButton" (click)="saveEvent()">{{ 'button.save' | translate }}</button>
         <button type="button" class="btn btn-primary RScalendarButton" (click)="c('Close click')">{{ 'button.close' | translate }}</button>
     </div>

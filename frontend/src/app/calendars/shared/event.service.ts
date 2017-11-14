@@ -53,7 +53,7 @@ export class EventService {
     }
 
     private editEvent(event: Event) {
-        const url = 'http://fctestweb1:88/event/create';
+        const url = 'http://fctestweb1:88/event/edit' + event.id;
         const body = JSON.stringify({
             startDate: event.startDate,
             endDate: event.endDate,
@@ -67,7 +67,7 @@ export class EventService {
         });
 
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post(url, body, {headers: headers})
+        return this.http.put(url, body, {headers: headers})
             .catch((error: any) => Observable.throw(error.message))
             .map((response: Response) => {
 

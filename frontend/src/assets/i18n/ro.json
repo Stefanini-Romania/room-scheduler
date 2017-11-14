@@ -3,6 +3,7 @@
 
   "button.close": "Închide",
   "button.save": "Salvează",
+  "button.cancel": "Anulează rezervarea",
 
   "login.button": "Autentificare",
   "logout.button": "Delogare",
@@ -39,5 +40,6 @@
   "Event.StartDate.NotInAvailabilityOfRoom": "Camera este indisponibilă (ora de început)",
   "Event.StartDate.GreaterThanTwoMonths": "Data selectată este mai mare de 2 luni (ora de început)",
   "Event.StartDate.IsInThePast": "Data selectată este trecută (ora de început)",
-  "Event.StartDate.IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de început)"
+  "Event.StartDate.IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de început)",
+  "Event.UserIsNotAuthenticated": "Nu sunteți autentificat"
 }

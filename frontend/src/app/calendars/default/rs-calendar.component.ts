@@ -180,21 +180,18 @@ export class RSCalendarComponent {
         });
     }
 
-    showEditDialog(content) {
+    // AppointmentChange() {
+    //     if (typeof (event) != 'undefined' && event != null){
+    //         this.showEditDialog(this.events);    
+    //     }
+    // }
+    showCreateDialog(content){
         if(this.authService.isLoggedIn()){
+
             let date = this.scheduler.getSelection();
             this.selectedStartDate = new Date(date.from.toString());
             this.selectedEndDate = new Date(date.to.toString());
 
-            // @TODO detect create or edit
-        let selectedEvent = this.events.find(e => e.startDate == this.selectedStartDate && e.endDate == this.selectedEndDate && e.roomId == this.roomId);
-
-        console.log(content);
-        if (selectedEvent) {
-            this.saveEventTitle = 'calendar.event.edit';
-            this.model = this.events[selectedEvent.id];        // @TODO get event from the selected event (use this.events[eventId]) where we have all the events;
-
-        } else {
             this.saveEventTitle = 'calendar.event.create';
             this.model = new Event();
             this.model.startDate = this.selectedStartDate;
@@ -204,18 +201,44 @@ export class RSCalendarComponent {
             this.model.roomId = this.roomId;
             this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
             this.model.attendeeId = this.authService.getLoggedUser().id; // @TODO get user id from logged user
-        }
-
-
-            this.createErrorMessages = {};
 
             this.modalService.open(content).result.then((result) => {
                 this.closeResult = `Closed with: ${result}`;
             }, (reason) => {
                 this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
             });
+            this.createErrorMessages = {};
+        } else {
+            //@TODO redirect login
         }
     }
+
+    showEditDialog(content, $event) {
+        if(this.authService.isLoggedIn()){
+                this.model = this.events.find(e => e.id == $event.args.appointment.id)
+                this.selectedStartDate = this.model.startDate;
+                this.selectedEndDate = this.model.endDate;
+
+                this.saveEventTitle = 'calendar.event.edit';
+
+                this.modalService.open(content).result.then((result) => {
+                    this.closeResult = `Closed with: ${result}`;
+                }, (reason) => {
+                    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                });
+                this.createErrorMessages = {};
+            
+         
+        } else {
+            //@TODO redirect login
+        }
+    }
+
+    cancelEvent() {
+        this.model.eventStatus = EventStatusEnum.cancelled;
+        this.saveEvent();
+    }
+
 
     saveEvent() {
         // clear any previous errors

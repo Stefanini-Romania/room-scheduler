@@ -3,6 +3,7 @@
 
   "button.close": "Close",
   "button.save": "Save",
+  "button.cancel": "Cancel Appointment",
 
   "login.button": "Sign In",
   "logout.button": "Sign out",
@@ -26,18 +27,19 @@
   "Error.Event.Creation": "Unable to create event",
   "Error.Event.Edit": "Unable to edit event",
 
-  "Event.AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
+  "Evate.NotInAent.AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
   "Event.StartDate.LessThan15Minutes": "You must book at least 15 minutes before your appointment",
   "Event.EndDate.Empty": "Please insert an end date",
   "Event.StartDate.Empty": "Please insert a start date",
-  "Event.EndDate.NotInAvailabilityOfRoom": "The room is not available (end date)",
+  "Event.EndDvailabilityOfRoom": "The room is not available (end date)",
   "Event.EndDate.IncorrectMinutesFormat": "Minutes format incorrect (end date)",
   "Event.EndDate.TimeSpan": "Time span incorrect",
   "Event.StartDate.LimitPerDay": "You have exceeded your daily limit",
-  "Event.StartDate.NotAvailable": "the time selected is not available",
+  "Event.StartDate.NotAvailable": "The time selected is not available",
   "Event.StartDate.PenalizedUser": "Warning! Sanctioned user",
   "Event.StartDate.NotInAvailabilityOfRoom": "The room is not available (start date)",
   "Event.StartDate.GreaterThanTwoMonths": "The selected date is greater than 2 months",
   "Event.StartDate.IsInThePast": "The selected date has passed",
-  "Event.StartDate.IncorrectMinutesFormat": "Minutes format incorrect (start date)"
+  "Event.StartDate.IncorrectMinutesFormat": "Minutes format incorrect (start date)",
+  "Event.UserIsNotAuthenticated": "You are not logged in"
 }
