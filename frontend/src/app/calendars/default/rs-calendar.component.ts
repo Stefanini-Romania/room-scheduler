@@ -146,7 +146,13 @@ export class RSCalendarComponent {
         //     let a: Date;
             
         // }
-        this.calendarsDateFrom= new Date();
+        var today = new Date();
+        var dayOfWeekIndex = today.getDay(); // 0 : Sunday ,1 : Monday,2,3,4,5,6 : Saturday
+        var mondayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1);
+        var sundayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7);
+        console.log(mondayOfWeek);
+        console.log(sundayOfWeek);
+        this.calendarsDateFrom = new Date(this.scheduler.date().addDays(days-6).toString());
        
         this.calendarsDateTo = new Date(this.scheduler.date().addDays(days).toString());
         
