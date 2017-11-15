@@ -45,6 +45,7 @@ export class RoomSelector implements AfterViewInit, OnDestroy {
     }
 
     onSelectRoom(room: Room) {
+        
         this.selectedRoomName = room.name;
         this.roomChange.emit(room);
     }

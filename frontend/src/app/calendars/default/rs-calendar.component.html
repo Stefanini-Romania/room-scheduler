@@ -41,12 +41,15 @@
                       [resources]="resources"
                       [views]="views"
                       [showToolbar]="false"
-                      [editDialog]="false"
-                      
+                      [editDialog]="false"      
+                      (onContextMenuItemClick)="hidden"
+                                   
                       (onDateChange)="showCalendarsDate()"
                       (onCellClick)="sendToLogin()"
                       (onAppointmentClick)="showEditDialog(content, $event)"
-                      (onCellClick)="showCreateDialog(content)">
+                      (onCellClick)="showCreateDialog(content)"
+                      [localization]="localization">    
+                    
         </jqxScheduler>
     </div>
 </div>
@@ -54,7 +57,7 @@
 
 <!-- MODAL FORM -->
 <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header" id="modal-header">
+    <div class="modal-header" >
         <h6 class="modal-title">{{ saveEventTitle | translate }}</h6>
     </div>
 
@@ -87,8 +90,8 @@
                 </ngb-alert>
 
                 <div class="input-group">
-                    <label><b>{{ 'calendar.notes' | translate }}:</b></label>
-                    <label><textarea name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea></label>
+                    <label hidden="true"><b>{{ 'calendar.notes' | translate }}:</b></label>
+                    <label><textarea rows="3"  placeholder="{{ 'calendar.notes' | translate}}" class="textarea" name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea></label>
                 </div>
             </div>
         </form>
