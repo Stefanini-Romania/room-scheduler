@@ -35,24 +35,24 @@ namespace RSService.Controllers
         [HttpPost("/event/create"), Authorize]
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
-            
+
             // Get current user id
-            var userName = HttpContext.User.Identities.First().Name;
-            int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
-           
+            //var userName = HttpContext.User.Identities.First().Name;
+            //int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
+
             if (!ModelState.IsValid)
             {
-                return ValidationError(GeneralMessages.Authentication);
+                return ValidationError(GeneralMessages.Event);
 
                 //return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
             }                    
                 var newEvent = Mapper.Map<Event>(model);
                 newEvent.DateCreated = DateTime.UtcNow;
-                newEvent.AttendeeId = currentAttendeeId; //gets attendeeId from current http session
+                newEvent.AttendeeId = 6;//currentAttendeeId; //gets attendeeId from current http session
 
                 eventRepository.AddEvent(newEvent);
                 dbOperation.Commit();
-                return Ok();                    
+                return Ok(newEvent);                    
         }
         
         [HttpGet("/event/listall")]
@@ -130,11 +130,11 @@ namespace RSService.Controllers
 
                 if (_event.EventStatus == (int)EventStatusEnum.absent)
                     rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
-                return Ok();
+                return Ok(_event);
             }
             else
             {
-                return ValidationError(GeneralMessages.Authentication);
+                return ValidationError(GeneralMessages.Event);
 
                 //return (new ValidationFailedResult(GeneralMessages.EventEdit, ModelState));
             }

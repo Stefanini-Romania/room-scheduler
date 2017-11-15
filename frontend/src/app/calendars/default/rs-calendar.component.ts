@@ -294,8 +294,10 @@ export class RSCalendarComponent {
         this.eventService.save(this.model).subscribe(
             () => {
                 this.renderCalendar();
+                // @TODO display success message
             },
             error => {
+                // @TODO handle generic errors
                 if (error.status == 401) {
                     this.createErrorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
                 } else {
