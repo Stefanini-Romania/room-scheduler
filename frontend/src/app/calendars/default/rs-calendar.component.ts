@@ -152,11 +152,15 @@ export class RSCalendarComponent {
     }
 
     showCalendarsDate(){
+        let start = new Date();
+        let day = start.getDay(); 
+
         const days = this.isView('weekView') ? 4 : 1;
-       
-        this.calendarsDateFrom= new Date(this.scheduler.date().addDays(days).toString());
+     
+        this.calendarsDateFrom = new Date(this.scheduler.date().addDays(days-6).toString());
        
         this.calendarsDateTo = new Date(this.scheduler.date().addDays(days).toString());
+        
     
     }
 
@@ -187,9 +191,34 @@ export class RSCalendarComponent {
         }
     }
 
+    getMonday(){
+        let start = new Date();
+        let day = start.getDay();
+        // let diff = start.getDay() - ( day == 1 ? 6:1); // adjust when day is monday
+       
+        while(day!=1){
+            day = day-1;
+        }
+        start.setDate(day);
+        console.log(start);
+       
+        // return start.getDate(diff).toString();
+       
+
+    }
+
+    getFirstDay(){
+      
+        
+    }
+
     private renderCalendar() {
         this.events = [];
         const days = this.isView('weekView') ? 7 : 1;
+
+        this.getFirstDay();
+       
+        
         let endDate = new Date();
         endDate.setTime(this.startDate.getTime() + days* 86400000).toString();
 

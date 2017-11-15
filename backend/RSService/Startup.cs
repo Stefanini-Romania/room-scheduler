@@ -63,8 +63,13 @@ namespace RSService
                      {
                          options.LoginPath = "/api/auth/login";
                          options.LogoutPath = "/api/auth/logout";
-                     });
 
+                         options.Events.OnRedirectToLogin = context =>
+                         {
+                             context.Response.StatusCode = 401;
+                             return Task.CompletedTask;
+                         };
+                     });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +79,7 @@ namespace RSService
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseCors("Cors");
             app.UseAuthentication();
 

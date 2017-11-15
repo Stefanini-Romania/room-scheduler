@@ -12,8 +12,6 @@ using System.Linq;
 
 namespace RSService.Controllers
 {
-    // [Authorize]
-  
     public class RoomSchedulerController : BaseController
     {
         private IEventRepository eventRepository;
@@ -34,24 +32,19 @@ namespace RSService.Controllers
         }
     
        
-        [HttpPost("/event/create")]
+        [HttpPost("/event/create"), Authorize]
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
-            bool isAuthenticated = User.Identity.IsAuthenticated;
-           
-
-            if (!isAuthenticated)
-            {
-                return (new ValidationFailedResult(GeneralMessages.Event, EventMessages.UnauthenticatedUser));
-            }
-
+            
             // Get current user id
             var userName = HttpContext.User.Identities.First().Name;
             int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
            
             if (!ModelState.IsValid)
             {
-                return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
+                return ValidationError(GeneralMessages.Authentication);
+
+                //return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
             }                    
                 var newEvent = Mapper.Map<Event>(model);
                 newEvent.DateCreated = DateTime.UtcNow;
@@ -106,15 +99,9 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
-        [HttpPut("/event/edit/{id}")]
+        [HttpPut("/event/edit/{id}"), Authorize]
         public IActionResult UpdateEvent(int id, [FromBody] EditViewModel model)
         {
-            bool isAuthenticated = User.Identity.IsAuthenticated;
-
-            if (!isAuthenticated)
-            {
-                return (new ValidationFailedResult(GeneralMessages.EventEdit, EventMessages.UnauthenticatedUser));
-            }
 
             // Get current user id
             var userName = HttpContext.User.Identities.First().Name;
@@ -147,7 +134,9 @@ namespace RSService.Controllers
             }
             else
             {
-                return (new ValidationFailedResult(GeneralMessages.EventEdit, ModelState));
+                return ValidationError(GeneralMessages.Authentication);
+
+                //return (new ValidationFailedResult(GeneralMessages.EventEdit, ModelState));
             }
         }
        
