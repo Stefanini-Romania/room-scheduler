@@ -10,7 +10,7 @@ import {Room} from '../../shared/models/room.model';
     templateUrl: './room-selector.component.html'
 })
 export class RoomSelector implements AfterViewInit, OnDestroy {
-    selectedRoomName: string ;
+    selectedRoomName: string;
     subscription: Subscription;
 
     @Input()
@@ -25,6 +25,7 @@ export class RoomSelector implements AfterViewInit, OnDestroy {
     constructor(private roomService: RoomService, translate: TranslateService) {
         this.subscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
             this.selectedRoomName = translate.instant('calendar.rooms');
+            //console.log(this.selectedRoomName);
         });
     }
 
@@ -34,11 +35,12 @@ export class RoomSelector implements AfterViewInit, OnDestroy {
             for (let room of rooms) {
                 this.rooms.push(<Room>room);
             }
-
+            //console.log(this.selectedRoomName)
+            
             this.roomsLoaded.emit(this.rooms);
+            this.selectedRoomName = rooms[0].name;
         });
     }
-
     ngOnDestroy() {
         // unsubscribe to ensure no memory leaks
         this.subscription.unsubscribe();
