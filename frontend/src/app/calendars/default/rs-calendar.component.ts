@@ -83,8 +83,32 @@ export class RSCalendarComponent {
 
         this.startDate = new Date();
         this.renderCalendar();
+        
     }
 
+    localization = {
+        // separator of parts of a date (e.g. '/' in 11/05/1955)
+        '/': '/',
+        // separator of parts of a time (e.g. ':' in 05:44 PM)
+        ':': ':',
+        // the first day of the week (0 = Sunday, 1 = Monday, etc)
+        firstDay: 0,
+        days: {
+            // full day names
+            names: ['Duminică' , 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
+            // abbreviated day names
+            //namesAbbr: ['Sonn', 'Mon', 'Dien', 'Mitt', 'Donn', 'Fre', 'Sams'],
+            // shortest day names
+            namesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ']
+        },
+        
+        // months: {
+        //     // full month names (13 months for lunar calendards -- 13th month should be '' if not lunar)
+        //     names: ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie', ''],
+        //     // abbreviated month names
+        //     namesAbbr: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', '']
+        // }
+    }
 
 
     refreshCalendar() {
@@ -232,11 +256,6 @@ export class RSCalendarComponent {
         });
     }
 
-    // AppointmentChange() {
-    //     if (typeof (event) != 'undefined' && event != null){
-    //         this.showEditDialog(this.events);    
-    //     }
-    // }
     showCreateDialog(content){
         if(this.authService.isLoggedIn()){
 
@@ -278,11 +297,10 @@ export class RSCalendarComponent {
                 }, (reason) => {
                     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
                 });
-                this.createErrorMessages = {};
-            
+                this.createErrorMessages = {};           
          
         } else {
-            //@TODO redirect login
+            this.authService.notLoggedIn();
         }
     }
 
@@ -302,23 +320,28 @@ export class RSCalendarComponent {
                 this.renderCalendar();
             },
             error => {
-                this.createErrorMessages = {'generic': [error.error.message]};
-
-                // build error message
-                for (let e of error.error.errors) {
-                    let field = 'generic';
-                    if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
-                        field = e.field;
+                if (error.status == 401) {
+                    this.createErrorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
+                } else {
+                    this.createErrorMessages = {'generic': [error.error.message]};
+                    
+                    // build error message
+                    for (let e of error.error.errors) {
+                        let field = 'generic';
+                        if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
+                            field = e.field;
+                        }
+    
+                        if (!this.createErrorMessages[field]) {
+                            this.createErrorMessages[field] = [];
+                        }
+    
+                        this.createErrorMessages[field].push(e.errorCode);
                     }
+    
+                    this.renderCalendar();
 
-                    if (!this.createErrorMessages[field]) {
-                        this.createErrorMessages[field] = [];
-                    }
-
-                    this.createErrorMessages[field].push(e.errorCode);
                 }
-
-                this.renderCalendar();
             });
     }
 

@@ -18,7 +18,7 @@ export class AuthService {
         const url = 'http://172.25.4.165:88/api/auth/login';
         const body = JSON.stringify({name: name, password: password});
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post(url, body, {headers: headers})
+        return this.http.post(url, body, { headers: headers, withCredentials: true})
             .catch((error: any) => Observable.throw(error))
             .map((response: Response) => {
 

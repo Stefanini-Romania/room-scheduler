@@ -55,7 +55,7 @@ namespace RSService.Controllers
             var userIdentity = new ClaimsIdentity(claims, "login");
 
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-            await HttpContext.SignInAsync(principal);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
             var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == model.Name);
             //Just redirect to our index after logging in. 

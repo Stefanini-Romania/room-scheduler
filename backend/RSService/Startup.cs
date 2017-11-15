@@ -55,7 +55,8 @@ namespace RSService
                 builder.
                 AllowAnyOrigin().
                 AllowAnyMethod().
-                AllowAnyHeader();
+                AllowAnyHeader().
+                AllowCredentials();
             }));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

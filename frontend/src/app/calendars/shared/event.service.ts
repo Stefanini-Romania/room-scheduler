@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Response} from '@angular/http';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { Response, RequestOptions} from '@angular/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpClientModule} from '@angular/common/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
-import {Event} from "../../shared/models/event.model";
+import { Event } from "../../shared/models/event.model";
+import { Headers, RequestOptionsArgs } from '@angular/http';
 
 @Injectable()
 export class EventService {
@@ -43,17 +44,17 @@ export class EventService {
             notes: event.notes
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post(url, body, {headers: headers})
-                        .catch((error: any) => Observable.throw(error))
-                        .map((response: Response) => {
 
+        return this.http.post(url, body, { headers: headers })
+            .catch((error: any) => Observable.throw(error))
+            .map((response: Response) => {
                 return response;
             });
 
     }
 
     private editEvent(event: Event) {
-        const url = 'http://fctestweb1:88/event/edit' + event.id;
+        const url = 'http://fctestweb1:88/event/edit/' + event.id;
         const body = JSON.stringify({
             startDate: event.startDate,
             endDate: event.endDate,
@@ -70,7 +71,6 @@ export class EventService {
         return this.http.put(url, body, {headers: headers})
             .catch((error: any) => Observable.throw(error.message))
             .map((response: Response) => {
-
                 return response;
             });
     }
