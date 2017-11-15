@@ -132,9 +132,9 @@ export class RSCalendarComponent {
         let start = new Date();
         let day = start.getDay();
         let diff;
-        while(day!=1){
-        diff = start.getDay() - ( day == 1 ? 6:1); // adjust when day is monday
-        }
+        // while(day!=1){
+        // diff = start.getDay() - ( day == 1 ? 6:1); // adjust when day is monday
+        // }
         // while(day!=1){
         //     day = day-1;
         // }
