@@ -130,28 +130,10 @@ export class RSCalendarComponent {
 
     showCalendarsDate(){
         let start = new Date();
-        let day = start.getDay();
-        let diff;
-        // while(day!=1){
-        // diff = start.getDay() - ( day == 1 ? 6:1); // adjust when day is monday
-        // }
-        // while(day!=1){
-        //     day = day-1;
-        // }
-        start.setDate(diff);
-        console.log(start);
+        let day = start.getDay(); 
 
         const days = this.isView('weekView') ? 4 : 1;
-        // if(new Date().getDay()!=1){
-        //     let a: Date;
-            
-        // }
-        var today = new Date();
-        var dayOfWeekIndex = today.getDay(); // 0 : Sunday ,1 : Monday,2,3,4,5,6 : Saturday
-        var mondayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1);
-        var sundayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7);
-        console.log(mondayOfWeek);
-        console.log(sundayOfWeek);
+     
         this.calendarsDateFrom = new Date(this.scheduler.date().addDays(days-6).toString());
        
         this.calendarsDateTo = new Date(this.scheduler.date().addDays(days).toString());
