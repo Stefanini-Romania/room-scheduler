@@ -40,10 +40,10 @@ namespace RSService.Controllers
             bool isAuthenticated = User.Identity.IsAuthenticated;
            
 
-            if (!isAuthenticated)
-            {
-                return (new ValidationFailedResult(GeneralMessages.Event, EventMessages.UnauthenticatedUser));
-            }
+            //if (!isAuthenticated)
+            //{
+            //    return (new ValidationFailedResult(GeneralMessages.Event, EventMessages.UnauthenticatedUser));
+            //}
 
             // Get current user id
             var userName = HttpContext.User.Identities.First().Name;
@@ -111,10 +111,10 @@ namespace RSService.Controllers
         {
             bool isAuthenticated = User.Identity.IsAuthenticated;
 
-            if (!isAuthenticated)
-            {
-                return (new ValidationFailedResult(GeneralMessages.EventEdit, EventMessages.UnauthenticatedUser));
-            }
+            //if (!isAuthenticated)
+            //{
+            //    return (new ValidationFailedResult(GeneralMessages.EventEdit, EventMessages.UnauthenticatedUser));
+            //}
 
             // Get current user id
             var userName = HttpContext.User.Identities.First().Name;
