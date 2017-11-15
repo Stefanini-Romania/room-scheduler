@@ -12,7 +12,6 @@ using System.Linq;
 
 namespace RSService.Controllers
 {
-    [Authorize]
     public class RoomSchedulerController : BaseController
     {
         private IEventRepository eventRepository;
@@ -33,7 +32,7 @@ namespace RSService.Controllers
         }
     
        
-        [HttpPost("/event/create")]
+        [HttpPost("/event/create"), Authorize]
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
             
@@ -100,7 +99,7 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
-        [HttpPut("/event/edit/{id}")]
+        [HttpPut("/event/edit/{id}"), Authorize]
         public IActionResult UpdateEvent(int id, [FromBody] EditViewModel model)
         {
 
