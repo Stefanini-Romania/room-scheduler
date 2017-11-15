@@ -17,11 +17,12 @@ import { EventStatusEnum } from '../../shared/models/event.model';
 })
 
 export class RSCalendarComponent {
-    @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
+    @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent; 
 
     events: Event[];
     model: Event = <Event> {};
     createErrorMessages: any = {};
+
 
     public startDate: Date;
     public selectedStartDate: Date;
@@ -128,23 +129,48 @@ export class RSCalendarComponent {
         this.renderCalendar();
     }
 
-    showCalendarsDate(){
-        let start = new Date();
-        let day = start.getDay(); 
-
-        const days = this.isView('weekView') ? 4 : 1;
-     
-        this.calendarsDateFrom = new Date(this.scheduler.date().addDays(days-6).toString());
-       
-        this.calendarsDateTo = new Date(this.scheduler.date().addDays(days).toString());
+    showCalendarsDate(){  
+        let a = new Date();
         
-    
+        if (a.getDay() == 1)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().toString());
+            this.calendarsDateTo = new Date(this.scheduler.date().addDays(4).toString());
+        }
+        if (a.getDay() == 2)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-1).toString());
+            this.calendarsDateTo = new Date(this.scheduler.date().addDays(3).toString());
+        }
+        if (a.getDay() == 3)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-2).toString());
+            this.calendarsDateTo = new Date(this.scheduler.date().addDays(2).toString());
+        }
+        if (a.getDay() == 4)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-3).toString());
+            this.calendarsDateTo = new Date(this.scheduler.date().addDays(1).toString());
+        }
+        if (a.getDay() == 5)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-4).toString());
+            this.calendarsDateTo = new Date(this.scheduler.date().toString());
+        }
+        if (a.getDay() == 6)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-5).toString());
+        }
+        if (a.getDay() == 7)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-6).toString());
+        }     
+                     
     }
-
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
-        this.renderCalendar();
+        this.renderCalendar(); 
     }
 
     goForward() {
@@ -193,13 +219,10 @@ export class RSCalendarComponent {
         this.events = [];
         const days = this.isView('weekView') ? 7 : 1;
 
-        this.getFirstDay();
-       
-        
         let endDate = new Date();
-        endDate.setTime(this.startDate.getTime() + days* 86400000).toString();
+        endDate.setTime(this.startDate.getTime() + days * 86400000).toString();
 
-        this.eventService.listEvents(this.startDate, endDate,this.roomId, this.hostId).subscribe((events: Event[]) => {
+        this.eventService.listEvents(this.startDate, endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
                 this.events.push(<Event>event);
