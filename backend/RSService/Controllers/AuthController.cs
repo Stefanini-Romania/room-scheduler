@@ -35,12 +35,16 @@ namespace RSService.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return (new ValidationFailedResult(GeneralMessages.Authentication, ModelState));
+                return ValidationError(GeneralMessages.Authentication);
+
+                //return (new ValidationFailedResult(GeneralMessages.Authentication, ModelState));
             }
 
             if (_userRepository.FindUserByCredential(model.Name, model.Password) == null )
             {
-                return (new ValidationFailedResult(GeneralMessages.Authentication, ModelState));
+                return ValidationError(GeneralMessages.Authentication);
+
+                //return (new ValidationFailedResult(GeneralMessages.Authentication, ModelState));
             }
             
             var claims = new List<Claim>
@@ -58,19 +62,11 @@ namespace RSService.Controllers
             return Ok(user);
         }
 
-        [HttpGet("api/auth/logout")]
+        [HttpGet("api/auth/logout"), Authorize]
         public async Task<IActionResult> Logout()
         {
-
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                return Ok();
-            }
-            return BadRequest();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Ok();
         }
-
-
-
     }
 }
