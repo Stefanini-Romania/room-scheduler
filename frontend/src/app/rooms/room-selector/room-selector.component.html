@@ -1,6 +1,6 @@
 <div ngbDropdown class="d-inline-block">
-    <button class="btn btn-primary"  ng-init="navCollapsed = false" ngbDropdownToggle>{{ selectedRoomName }}</button>
+    <button class="btn btn-primary" ngbDropdownToggle>{{ selectedRoomName }}</button>
     <div ngbDropdownMenu aria-labelledby="roomsButton">
-        <button *ngFor="let room of rooms" class="dropdown-item" (click)="onSelectRoom(room)" >{{ room.name }}</button>
+        <button *ngFor="let room of rooms" class="dropdown-item" (click)="onSelectRoom(room)">{{ room.name }}</button>
     </div>
 </div>

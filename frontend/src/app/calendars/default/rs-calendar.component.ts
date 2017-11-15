@@ -99,7 +99,8 @@ export class RSCalendarComponent {
             //namesAbbr: ['Sonn', 'Mon', 'Dien', 'Mitt', 'Donn', 'Fre', 'Sams'],
             // shortest day names
             namesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ']
-        }
+        },
+        
         // months: {
         //     // full month names (13 months for lunar calendards -- 13th month should be '' if not lunar)
         //     names: ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie', ''],
