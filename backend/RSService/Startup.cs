@@ -64,7 +64,7 @@ namespace RSService
                      {
                          options.LoginPath = "/api/auth/login";
                          options.LogoutPath = "/api/auth/logout";
-
+                         options.Cookie.Domain = "http://fctestweb1:888";
                          options.Events.OnRedirectToLogin = context =>
                          {
                              context.Response.StatusCode = 401;
