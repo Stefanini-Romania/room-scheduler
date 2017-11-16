@@ -28,11 +28,6 @@ export class RSCalendarComponent {
     public xstartDate: Date;
     public xendDate: Date;
 
-
-    public startDateX: Date;
-    public endDateX: Date;
-
-
     public startDate: Date;
     public endDate: Date;
     public selectedStartDate: Date;
@@ -119,7 +114,7 @@ export class RSCalendarComponent {
         //     // abbreviated month names
         //     namesAbbr: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', '']
         // }
-    }
+    };
 
     private modalRef: NgbModalRef;
 
@@ -169,15 +164,15 @@ export class RSCalendarComponent {
         this.renderCalendar();
     }
 
-    private convertToUTCDate(x: Date) {
-        return new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), 0, 0, 0))
-    }
-
     showCalendarsDate($event) {
-        this.xstartDate = this.convertToUTCDate($event.args.from.toDate());
-        this.xendDate = this.convertToUTCDate($event.args.to.toDate());
+        let x: Date;
+
+        x = $event.args.from.toDate();
+        this.xstartDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + 1, 0, 0, 0));
+
+        x = $event.args.to.toDate();
+        this.xendDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() - 3, 23, 59, 59));
         console.log("HERE1", this.xstartDate, this.xendDate);
-        this.endDateX.setDate(this.endDateX.getDate() - 2);
     }
 
 
