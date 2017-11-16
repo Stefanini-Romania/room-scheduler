@@ -98,8 +98,7 @@ export class RSCalendarComponent {
         days: {
             // full day names
             names: ['Duminică' , 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
-            // abbreviated day names
-            //namesAbbr: ['Sonn', 'Mon', 'Dien', 'Mitt', 'Donn', 'Fre', 'Sams'],
+            
             // shortest day names
             namesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ']
         },
