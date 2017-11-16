@@ -1,13 +1,13 @@
-import {Component, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+import {Component, ViewChild} from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
 import { Event } from '../../shared/models/event.model';
 import {AuthService} from '../../auth/shared/auth.service';
+import { Pipe, PipeTransform } from '@angular/core';
 import { EventTypeEnum } from '../../shared/models/event.model';
 import { EventStatusEnum } from '../../shared/models/event.model';
 
@@ -26,12 +26,14 @@ export class RSCalendarComponent {
 
 
     public startDate: Date;
-    public endDate: Date;
+    public selectedStartDate: Date;
+    public selectedEndDate: Date;
     public roomId: number;
     public hostId: number;
-
+    public eventId: number;
     public saveEventTitle: string;
-
+    public calendarsDateFrom: Date;
+    public calendarsDateTo: Date;
     public view = 'weekView';
  
     closeResult: string;
@@ -78,7 +80,11 @@ export class RSCalendarComponent {
     }
 
     ngAfterViewInit(): void {
+        this.scheduler.ensureAppointmentVisible('id1');
+
         this.startDate = new Date();
+        this.renderCalendar();
+        
     }
 
     localization = {
@@ -103,7 +109,7 @@ export class RSCalendarComponent {
         //     // abbreviated month names
         //     namesAbbr: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', '']
         // }
-    };
+    }
 
 
     refreshCalendar() {
@@ -148,11 +154,44 @@ export class RSCalendarComponent {
         this.renderCalendar();
     }
 
-    showCalendarsDate($event) {
-        this.startDate = $event.args.from.toDate();
-        this.endDate = $event.args.to.toDate();
+    showCalendarsDate(){  
+        let a = new Date();
+        
+        if (a.getDay() == 1)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().toString());
+            this.calendarsDateTo = new Date(this.scheduler.date().addDays(4).toString());
+        }
+        if (a.getDay() == 2)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-1).toString());
+            this.calendarsDateTo = new Date(this.scheduler.date().addDays(3).toString());
+        }
+        if (a.getDay() == 3)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-2).toString());
+            this.calendarsDateTo = new Date(this.scheduler.date().addDays(2).toString());
+        }
+        if (a.getDay() == 4)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-3).toString());
+            this.calendarsDateTo = new Date(this.scheduler.date().addDays(1).toString());
+        }
+        if (a.getDay() == 5)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-4).toString());
+            this.calendarsDateTo = new Date(this.scheduler.date().toString());
+        }
+        if (a.getDay() == 6)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-5).toString());
+        }
+        if (a.getDay() == 7)
+        {
+            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-6).toString());
+        }     
+                     
     }
-
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
@@ -167,6 +206,7 @@ export class RSCalendarComponent {
     }
 
     onRoomChanged(selectedRoom: Room) {
+        this.startDate = new Date(this.scheduler.date().toString());
         this.roomId = selectedRoom.id;
         this.renderCalendar();
     }
@@ -179,11 +219,35 @@ export class RSCalendarComponent {
         }
     }
 
+    getMonday(){
+        let start = new Date();
+        let day = start.getDay();
+        // let diff = start.getDay() - ( day == 1 ? 6:1); // adjust when day is monday
+       
+        while(day!=1){
+            day = day-1;
+        }
+        start.setDate(day);
+        console.log(start);
+       
+        // return start.getDate(diff).toString();
+       
+
+    }
+
+    getFirstDay(){
+      
+        
+    }
+
     private renderCalendar() {
         this.events = [];
         const days = this.isView('weekView') ? 7 : 1;
 
-        this.eventService.listEvents(this.startDate, this.endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
+        let endDate = new Date();
+        endDate.setTime(this.startDate.getTime() + days * 86400000).toString();
+
+        this.eventService.listEvents(this.startDate, endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
                 this.events.push(<Event>event);
@@ -197,11 +261,13 @@ export class RSCalendarComponent {
         if(this.authService.isLoggedIn()){
 
             let date = this.scheduler.getSelection();
+            this.selectedStartDate = new Date(date.from.toString());
+            this.selectedEndDate = new Date(date.to.toString());
 
             this.saveEventTitle = 'calendar.event.create';
             this.model = new Event();
-            this.model.startDate = new Date(date.from.toString());
-            this.model.endDate = new Date(date.to.toString());
+            this.model.startDate = this.selectedStartDate;
+            this.model.endDate = this.selectedEndDate;
             this.model.eventType = EventTypeEnum.massage; 
             this.model.eventStatus = EventStatusEnum.waiting;
             this.model.roomId = this.roomId;
@@ -222,6 +288,8 @@ export class RSCalendarComponent {
     showEditDialog(content, $event) {
         if(this.authService.isLoggedIn()){
                 this.model = this.events.find(e => e.id == $event.args.appointment.id)
+                this.selectedStartDate = this.model.startDate;
+                this.selectedEndDate = this.model.endDate;
 
                 this.saveEventTitle = 'calendar.event.edit';
 
