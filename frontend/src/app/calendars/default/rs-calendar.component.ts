@@ -1,5 +1,5 @@
 import {Router} from '@angular/router';
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {EventService} from '../shared/event.service';
@@ -7,10 +7,8 @@ import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
 import {Event} from '../../shared/models/event.model';
 import {AuthService} from '../../auth/shared/auth.service';
-import {Pipe, PipeTransform, Output} from '@angular/core';
 import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
-import {ResourceLoader} from '@angular/compiler';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -18,7 +16,7 @@ import {ResourceLoader} from '@angular/compiler';
     providers: [EventService, RoomSelector]
 })
 
-export class RSCalendarComponent {
+export class RSCalendarComponent implements AfterViewInit {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
     events: Event[];
@@ -34,10 +32,9 @@ export class RSCalendarComponent {
     public selectedEndDate: Date;
     public roomId: number;
     public hostId: number;
-    public eventId: number;
+
     public saveEventTitle: string;
-    public calendarsDateFrom: Date;
-    public calendarsDateTo: Date;
+
     public view = 'weekView';
 
     closeResult: string;
@@ -81,17 +78,6 @@ export class RSCalendarComponent {
         {type: 'weekView', showWeekends: false, timeRuler: {scaleStartHour: 9, scaleEndHour: 18}},
     ];
 
-    constructor(private router: Router, private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
-    }
-
-    ngAfterViewInit(): void {
-        this.scheduler.ensureAppointmentVisible('id1');
-
-        this.startDate = new Date();
-        this.renderCalendar();
-
-    }
-
     localization = {
         // separator of parts of a date (e.g. '/' in 11/05/1955)
         '/': '/',
@@ -115,6 +101,18 @@ export class RSCalendarComponent {
         //     namesAbbr: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', '']
         // }
     };
+
+
+    constructor(private router: Router, private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
+    }
+
+    ngAfterViewInit(): void {
+        this.scheduler.ensureAppointmentVisible('id1');
+
+        this.startDate = new Date();
+        this.renderCalendar();
+
+    }
 
     private modalRef: NgbModalRef;
     private previousValues: any;
