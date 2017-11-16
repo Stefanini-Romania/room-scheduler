@@ -15,6 +15,7 @@ import {AuthService} from './auth/shared/auth.service';
 import {AuthModule} from './auth/auth.module';
 import {RoomModule} from './rooms/room.module';
 import {RoomService} from './rooms/shared/room.service';
+import {PageNotFoundComponent} from "./page-not-found.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -38,7 +39,7 @@ const routes: Routes = [
 
     // Not Found
     {
-        path: '**', redirectTo: 'Page not found'
+        path: '**', component: PageNotFoundComponent
     },
 ];
 
@@ -67,7 +68,7 @@ const routes: Routes = [
     ],
 
     providers: [RoomService, AuthService],
-    declarations: [AppComponent],
+    declarations: [PageNotFoundComponent, AppComponent],
     exports: [],
     bootstrap: [AppComponent]
 })

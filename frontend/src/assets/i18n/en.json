@@ -1,9 +1,19 @@
 {
+  "page": {
+      "not-found": {
+          "intro": "Page cannot be found",
+          "please.authenticate": "Please login",
+          "here": "here"
+      }
+  },
+
   "welcome": "Welcome",
 
-  "button.close": "Close",
-  "button.save": "Save",
-  "button.cancel": "Cancel Appointment",
+  "button": {
+      "close": "Close",
+      "save": "Save",
+      "cancel": "Cancel Appointment"
+  },
 
   "login.button": "Sign In",
   "logout.button": "Sign out",
@@ -20,26 +30,41 @@
   "calendar.event.create": "Create new appointment",
   "calendar.event.edit": "Edit appointment",
 
-  "Auth.Password.Empty": "Please enter your password",
-  "Auth.Username.Empty": "Please enter your username",
+  "Auth": {
+      "Password.Empty": "Please enter your password",
+      "Username.Empty": "Please enter your username"
+  },
 
-  "Error.Event.Authentication": "Invalid username or password",
-  "Error.Event.Creation": "Unable to create event",
-  "Error.Event.Edit": "Unable to edit event",
+  "Error": {
+      "Event.Authentication": "Invalid username or password",
+      "Event.Creation": "Unable to create event",
+      "Event.Edit": "Unable to edit event"
+  },
 
-  "Evate.NotInAent.AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
-  "Event.StartDate.LessThan15Minutes": "You must book at least 15 minutes before your appointment",
-  "Event.EndDate.Empty": "Please insert an end date",
-  "Event.StartDate.Empty": "Please insert a start date",
-  "Event.EndDvailabilityOfRoom": "The room is not available (end date)",
-  "Event.EndDate.IncorrectMinutesFormat": "Minutes format incorrect (end date)",
-  "Event.EndDate.TimeSpan": "Time span incorrect",
-  "Event.StartDate.LimitPerDay": "You have exceeded your daily limit",
-  "Event.StartDate.NotAvailable": "The time selected is not available",
-  "Event.StartDate.PenalizedUser": "Warning! Sanctioned user",
-  "Event.StartDate.NotInAvailabilityOfRoom": "The room is not available (start date)",
-  "Event.StartDate.GreaterThanTwoMonths": "The selected date is greater than 2 months",
-  "Event.StartDate.IsInThePast": "The selected date has passed",
-  "Event.StartDate.IncorrectMinutesFormat": "Minutes format incorrect (start date)",
-  "Event.UserIsNotAuthenticated": "You are not logged in"
+  "Event": {
+      "AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
+
+      "StartDate": {
+          "LessThan15Minutes": "You must book at least 15 minutes before your appointment",
+          "Empty": "Please insert a start date",
+          "LimitPerDay": "You have exceeded your daily limit",
+          "NotAvailable": "The time selected is not available",
+          "PenalizedUser": "Warning! Sanctioned user",
+          "NotInAvailabilityOfRoom": "The room is not available (start date)",
+          "GreaterThanTwoMonths": "The selected date is greater than 2 months",
+          "IsInThePast": "The selected date has passed",
+          "IncorrectMinutesFormat": "Minutes format incorrect (start date)"
+      },
+
+      "EndDate": {
+          "Empty": "Please insert an end date",
+          "NotInAvailabilityOfRoom": "The room is not available (end date)",
+          "IncorrectMinutesFormat": "Minutes format incorrect (end date)",
+          "TimeSpan": "Time span incorrect"
+      },
+
+      "UserIsNotAuthenticated": "You are not logged in"
+  },
+
+  "Monday": "Monday"
 }
