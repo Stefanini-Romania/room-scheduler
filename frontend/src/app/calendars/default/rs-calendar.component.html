@@ -42,12 +42,13 @@
                           [resources]="resources"
                           [views]="views"
                           [showToolbar]="false"
-                          [editDialog]="false"      
-                          (onContextMenuItemClick)="false"
-                                       
+                          [editDialog]="false"
+
+                          (onContextMenuItemClick)="onContextMenuItemClick($event, content)"
+
                           (onDateChange)="showCalendarsDate($event)"
-                          (onAppointmentClick)="showEditDialog(content, $event)"
-                          (onCellClick)="showCreateDialog(content)"
+                          (onAppointmentClick)="false"
+                          (onCellClick)="false"
                           [localization]="localization">    
                         
             </jqxScheduler>

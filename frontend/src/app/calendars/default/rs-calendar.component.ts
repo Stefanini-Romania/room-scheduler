@@ -1,16 +1,16 @@
-import { Router } from '@angular/router';
-import { Component, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {Component, ViewChild} from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
-import { NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
-import { Event } from '../../shared/models/event.model';
+import {Event} from '../../shared/models/event.model';
 import {AuthService} from '../../auth/shared/auth.service';
-import { Pipe, PipeTransform, Output } from '@angular/core';
-import { EventTypeEnum } from '../../shared/models/event.model';
-import { EventStatusEnum } from '../../shared/models/event.model';
-import { ResourceLoader } from '@angular/compiler';
+import {Pipe, PipeTransform, Output} from '@angular/core';
+import {EventTypeEnum} from '../../shared/models/event.model';
+import {EventStatusEnum} from '../../shared/models/event.model';
+import {ResourceLoader} from '@angular/compiler';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -29,10 +29,8 @@ export class RSCalendarComponent {
     public xendDate: Date;
 
 
-
     public startDateX: Date;
     public endDateX: Date;
-
 
 
     public startDate: Date;
@@ -46,7 +44,7 @@ export class RSCalendarComponent {
     public calendarsDateFrom: Date;
     public calendarsDateTo: Date;
     public view = 'weekView';
- 
+
     closeResult: string;
 
     source: any = {
@@ -93,10 +91,10 @@ export class RSCalendarComponent {
 
     ngAfterViewInit(): void {
         this.scheduler.ensureAppointmentVisible('id1');
-      
+
         this.startDate = new Date();
         this.renderCalendar();
-        
+
     }
 
     localization = {
@@ -108,13 +106,13 @@ export class RSCalendarComponent {
         firstDay: 0,
         days: {
             // full day names
-            names: ['Duminică' , 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
+            names: ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
             // abbreviated day names
             //namesAbbr: ['Sonn', 'Mon', 'Dien', 'Mitt', 'Donn', 'Fre', 'Sams'],
             // shortest day names
             namesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ']
         },
-        
+
         // months: {
         //     // full month names (13 months for lunar calendards -- 13th month should be '' if not lunar)
         //     names: ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie', ''],
@@ -145,7 +143,7 @@ export class RSCalendarComponent {
         this.source.localData = events;
         this.dataAdapter = new jqx.dataAdapter(this.source);
     }
-    
+
 
     private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
@@ -179,21 +177,21 @@ export class RSCalendarComponent {
         this.xstartDate = this.convertToUTCDate($event.args.from.toDate());
         this.xendDate = this.convertToUTCDate($event.args.to.toDate());
         console.log("HERE1", this.xstartDate, this.xendDate);
-        this.endDateX.setDate(this.endDateX.getDate()-2);
+        this.endDateX.setDate(this.endDateX.getDate() - 2);
     }
 
-    
+
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
-        this.renderCalendar(); 
+        this.renderCalendar();
     }
 
     goForward() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(days).toString());
         this.renderCalendar();
-     
+
     }
 
     onRoomChanged(selectedRoom: Room) {
@@ -227,10 +225,28 @@ export class RSCalendarComponent {
         });
     }
 
-    showCreateDialog(content){
-        if(this.authService.isLoggedIn()){
+    onContextMenuItemClick($event, content) {
+        switch ($event.args.item.id) {
+            case "createAppointment":
+                this.showCreateDialog($event, content);
+                break;
+
+            case "editAppointment":
+                this.showEditDialog($event, content);
+                break;
+        }
+    }
+
+    showCreateDialog($event, content) {
+        if (this.authService.isLoggedIn()) {
+            this.createErrorMessages = {};
 
             let date = this.scheduler.getSelection();
+            if (!date) {
+                // exit in case the user wants to create an event over an existing event
+                return;
+            }
+
             this.selectedStartDate = new Date(date.from.toString());
             this.selectedEndDate = new Date(date.to.toString());
 
@@ -238,7 +254,7 @@ export class RSCalendarComponent {
             this.model = new Event();
             this.model.startDate = this.selectedStartDate;
             this.model.endDate = this.selectedEndDate;
-            this.model.eventType = EventTypeEnum.massage; 
+            this.model.eventType = EventTypeEnum.massage;
             this.model.eventStatus = EventStatusEnum.waiting;
             this.model.roomId = this.roomId;
             this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
@@ -250,28 +266,27 @@ export class RSCalendarComponent {
             }, (reason) => {
                 this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
             });
-            this.createErrorMessages = {};
         } else {
             this.redirectToLogin();
         }
     }
 
-    showEditDialog(content, $event) {
-        if(this.authService.isLoggedIn()){
-                this.model = this.events.find(e => e.id == $event.args.appointment.id)
-                this.selectedStartDate = this.model.startDate;
-                this.selectedEndDate = this.model.endDate;
+    showEditDialog($event, content) {
+        if (this.authService.isLoggedIn()) {
+            this.model = this.events.find(e => e.id == $event.args.appointment.id)
+            this.selectedStartDate = this.model.startDate;
+            this.selectedEndDate = this.model.endDate;
 
-                this.saveEventTitle = 'calendar.event.edit';
+            this.saveEventTitle = 'calendar.event.edit';
 
-                this.modalRef = this.modalService.open(content);
-                this.modalRef.result.then((result) => {
-                    this.closeResult = `Closed with: ${result}`;
-                }, (reason) => {
-                    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-                });
-                this.createErrorMessages = {};           
-         
+            this.modalRef = this.modalService.open(content);
+            this.modalRef.result.then((result) => {
+                this.closeResult = `Closed with: ${result}`;
+            }, (reason) => {
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            });
+            this.createErrorMessages = {};
+
         } else {
             this.redirectToLogin();
         }
@@ -302,21 +317,21 @@ export class RSCalendarComponent {
                     this.createErrorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
                 } else {
                     this.createErrorMessages = {'generic': [error.error.message]};
-                    
+
                     // build error message
                     for (let e of error.error.errors) {
                         let field = 'generic';
                         if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
                             field = e.field;
                         }
-    
+
                         if (!this.createErrorMessages[field]) {
                             this.createErrorMessages[field] = [];
                         }
-    
+
                         this.createErrorMessages[field].push(e.errorCode);
                     }
-    
+
                     this.renderCalendar();
 
                 }
@@ -335,15 +350,15 @@ export class RSCalendarComponent {
 
 
 // export class UtcDatePipe implements PipeTransform {
-    
+
 //       transform(value: string): any {
-    
+
 //         if (!value) {
 //           return '';
 //         }
-    
+
 //         const dateValue = new Date(value);
-    
+
 //         const dateWithNoTimezone = new Date(
 //           dateValue.getUTCFullYear(),
 //           dateValue.getUTCMonth(),
@@ -352,7 +367,7 @@ export class RSCalendarComponent {
 //           dateValue.getUTCMinutes(),
 //           dateValue.getUTCSeconds()
 //         );
-    
+
 //         return dateWithNoTimezone;
 //       }
 // }
