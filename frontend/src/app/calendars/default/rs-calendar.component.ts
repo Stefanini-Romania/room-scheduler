@@ -26,6 +26,7 @@ export class RSCalendarComponent {
 
 
     public startDate: Date;
+    public endDate: Date;
     public selectedStartDate: Date;
     public selectedEndDate: Date;
     public roomId: number;
@@ -154,43 +155,9 @@ export class RSCalendarComponent {
         this.renderCalendar();
     }
 
-    showCalendarsDate(){  
-        let a = new Date();
-        
-        if (a.getDay() == 1)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().toString());
-            this.calendarsDateTo = new Date(this.scheduler.date().addDays(4).toString());
-        }
-        if (a.getDay() == 2)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-1).toString());
-            this.calendarsDateTo = new Date(this.scheduler.date().addDays(3).toString());
-        }
-        if (a.getDay() == 3)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-2).toString());
-            this.calendarsDateTo = new Date(this.scheduler.date().addDays(2).toString());
-        }
-        if (a.getDay() == 4)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-3).toString());
-            this.calendarsDateTo = new Date(this.scheduler.date().addDays(1).toString());
-        }
-        if (a.getDay() == 5)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-4).toString());
-            this.calendarsDateTo = new Date(this.scheduler.date().toString());
-        }
-        if (a.getDay() == 6)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-5).toString());
-        }
-        if (a.getDay() == 7)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-6).toString());
-        }     
-                     
+    showCalendarsDate($event) {
+        this.startDate = $event.args.from.toDate();
+        this.endDate = $event.args.to.toDate();
     }
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
