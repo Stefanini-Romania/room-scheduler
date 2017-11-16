@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import { Response, RequestOptions} from '@angular/http';
-import {HttpClient, HttpHeaders, HttpParams, HttpClientModule} from '@angular/common/http';
+import { Response } from '@angular/http';
+import { environment } from '../../../environments/environment';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 import { Event } from "../../shared/models/event.model";
-import { Headers, RequestOptionsArgs } from '@angular/http';
 
 @Injectable()
 export class EventService {
@@ -12,7 +12,7 @@ export class EventService {
     constructor(private http: HttpClient) {}
 
     public listEvents(startDate: Date, endDate: Date, roomId?: number, hostId?: number) {
-        const url = 'http://fctestweb1:88/event/list';
+        const url = environment.apiUrl + '/event/list';
         let params = new HttpParams();
         params = params.append("startDate", startDate.toUTCString());
         if (endDate) {
@@ -32,7 +32,7 @@ export class EventService {
     }
 
     private createEvent(event: Event) {
-        const url = 'http://fctestweb1:88/event/create';
+        const url = environment.apiUrl + '/event/create';
         const body = JSON.stringify({
             startDate: event.startDate,
             endDate: event.endDate,
@@ -56,7 +56,7 @@ export class EventService {
     }
 
     private editEvent(event: Event) {
-        const url = 'http://fctestweb1:88/event/edit/' + event.id;
+        const url = environment.apiUrl + '/event/edit/' + event.id;
         const body = JSON.stringify({
             startDate: event.startDate,
             endDate: event.endDate,

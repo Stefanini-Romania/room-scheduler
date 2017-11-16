@@ -1,12 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
 import { Event } from '../../shared/models/event.model';
 import {AuthService} from '../../auth/shared/auth.service';
-import { Pipe, PipeTransform } from '@angular/core';
 import { EventTypeEnum } from '../../shared/models/event.model';
 import { EventStatusEnum } from '../../shared/models/event.model';
 
@@ -79,8 +79,6 @@ export class RSCalendarComponent {
     }
 
     ngAfterViewInit(): void {
-        this.scheduler.ensureAppointmentVisible('id1');
-
         this.startDate = new Date();
         this.renderCalendar();
         
@@ -108,7 +106,7 @@ export class RSCalendarComponent {
         //     // abbreviated month names
         //     namesAbbr: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', '']
         // }
-    }
+    };
 
 
     refreshCalendar() {

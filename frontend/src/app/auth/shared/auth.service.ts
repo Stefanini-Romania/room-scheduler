@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {User} from '../../shared/models/user.model';
-import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
+import { environment } from '../../../environments/environment';
+import 'rxjs/Rx';
+
+import {User} from '../../shared/models/user.model';
+
 
 @Injectable()
 export class AuthService {
@@ -15,7 +18,7 @@ export class AuthService {
     }
 
     authenticate(name: string, password: string) {
-        const url = 'http://fctestweb1:88/api/auth/login';
+        const url = environment.apiUrl + '/api/auth/login';
         const body = JSON.stringify({name: name, password: password});
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body, { headers: headers, withCredentials: true})
@@ -48,9 +51,9 @@ export class AuthService {
         return this.getLoggedUser() instanceof User;
     }
 
+    // @TODO remove from here
     notLoggedIn() {
-        if(!(this.isLoggedIn())) 
-        {
+        if (!(this.isLoggedIn())) {
             alert("You need to login if you want to make an appointment!");
             this.router.navigate(['/login']);
         }
