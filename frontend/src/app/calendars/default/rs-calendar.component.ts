@@ -10,6 +10,7 @@ import {AuthService} from '../../auth/shared/auth.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { EventTypeEnum } from '../../shared/models/event.model';
 import { EventStatusEnum } from '../../shared/models/event.model';
+import { ResourceLoader } from '@angular/compiler';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -23,6 +24,12 @@ export class RSCalendarComponent {
     events: Event[];
     model: Event = <Event> {};
     createErrorMessages: any = {};
+
+
+
+    public startDateX: Date;
+    public endDateX: Date;
+
 
 
     public startDate: Date;
@@ -82,7 +89,7 @@ export class RSCalendarComponent {
 
     ngAfterViewInit(): void {
         this.scheduler.ensureAppointmentVisible('id1');
-
+      
         this.startDate = new Date();
         this.renderCalendar();
         
@@ -98,7 +105,8 @@ export class RSCalendarComponent {
         days: {
             // full day names
             names: ['Duminică' , 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
-            
+            // abbreviated day names
+            //namesAbbr: ['Sonn', 'Mon', 'Dien', 'Mitt', 'Donn', 'Fre', 'Sams'],
             // shortest day names
             namesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ']
         },
@@ -155,9 +163,13 @@ export class RSCalendarComponent {
     }
 
     showCalendarsDate($event) {
-        this.startDate = $event.args.from.toDate();
-        this.endDate = $event.args.to.toDate();
+        this.startDateX = $event.args.from.toDate();
+        this.startDateX.setDate(this.startDateX.getDate()+1);
+        this.endDateX = $event.args.to.toDate();
+        this.endDateX.setDate(this.endDateX.getDate()-2);
     }
+    
+    
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
@@ -185,26 +197,6 @@ export class RSCalendarComponent {
         }
     }
 
-    getMonday(){
-        let start = new Date();
-        let day = start.getDay();
-        // let diff = start.getDay() - ( day == 1 ? 6:1); // adjust when day is monday
-       
-        while(day!=1){
-            day = day-1;
-        }
-        start.setDate(day);
-        console.log(start);
-       
-        // return start.getDate(diff).toString();
-       
-
-    }
-
-    getFirstDay(){
-      
-        
-    }
 
     private renderCalendar() {
         this.events = [];
