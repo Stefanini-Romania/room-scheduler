@@ -14,7 +14,7 @@ export class EventService {
     public listEvents(startDate: Date, endDate: Date, roomId?: number, hostId?: number) {
         const url = environment.apiUrl + '/event/list';
         let params = new HttpParams();
-        console.log("HERE3", startDate, startDate.toJSON(), endDate, endDate.toJSON());
+
         params = params.append("startDate", startDate.toJSON());
         if (endDate) {
             params = params.append("endDate", endDate.toJSON());

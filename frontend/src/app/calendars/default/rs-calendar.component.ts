@@ -117,10 +117,7 @@ export class RSCalendarComponent {
     };
 
     private modalRef: NgbModalRef;
-
-    public refresh() {
-        this.renderCalendar();
-    }
+    private previousValues: any;
 
     refreshCalendar() {
         let events = [];
@@ -165,28 +162,30 @@ export class RSCalendarComponent {
     }
 
     showCalendarsDate($event) {
-        let x: Date;
+        if (!this.previousValues || ($event.args.from.toString() !== this.previousValues.from.toString() && $event.args.to.toString() !== this.previousValues.to.toString())) {
+            this.previousValues = $event.args;
+            
+            let x: Date;
 
-        x = $event.args.from.toDate();
-        this.xstartDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + 1, 0, 0, 0));
+            x = $event.args.from.toDate();
+            this.xstartDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + 1, 0, 0, 0));
 
-        x = $event.args.to.toDate();
-        this.xendDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() - 3, 23, 59, 59));
-        console.log("HERE1", this.xstartDate, this.xendDate);
+            x = $event.args.to.toDate();
+            this.xendDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() - 3, 23, 59, 59));
+
+            this.renderCalendar();
+        }
     }
 
 
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
-        this.renderCalendar();
     }
 
     goForward() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(days).toString());
-        this.renderCalendar();
-
     }
 
     onRoomChanged(selectedRoom: Room) {
@@ -208,7 +207,6 @@ export class RSCalendarComponent {
             return;
         }
 
-        console.log("HERE2", this.xstartDate, this.xendDate);
         this.events = [];
         this.eventService.listEvents(this.xstartDate, this.xendDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
 
@@ -342,27 +340,3 @@ export class RSCalendarComponent {
         }
     }
 }
-
-
-// export class UtcDatePipe implements PipeTransform {
-
-//       transform(value: string): any {
-
-//         if (!value) {
-//           return '';
-//         }
-
-//         const dateValue = new Date(value);
-
-//         const dateWithNoTimezone = new Date(
-//           dateValue.getUTCFullYear(),
-//           dateValue.getUTCMonth(),
-//           dateValue.getUTCDate(),
-//           dateValue.getUTCHours(),
-//           dateValue.getUTCMinutes(),
-//           dateValue.getUTCSeconds()
-//         );
-
-//         return dateWithNoTimezone;
-//       }
-// }
