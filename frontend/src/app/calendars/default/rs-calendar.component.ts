@@ -10,6 +10,7 @@ import {AuthService} from '../../auth/shared/auth.service';
 import { Pipe, PipeTransform, Output } from '@angular/core';
 import { EventTypeEnum } from '../../shared/models/event.model';
 import { EventStatusEnum } from '../../shared/models/event.model';
+import { ResourceLoader } from '@angular/compiler';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -26,6 +27,12 @@ export class RSCalendarComponent {
 
     public xstartDate: Date;
     public xendDate: Date;
+
+
+
+    public startDateX: Date;
+    public endDateX: Date;
+
 
 
     public startDate: Date;
@@ -86,7 +93,7 @@ export class RSCalendarComponent {
 
     ngAfterViewInit(): void {
         this.scheduler.ensureAppointmentVisible('id1');
-
+      
         this.startDate = new Date();
         this.renderCalendar();
         
@@ -102,7 +109,8 @@ export class RSCalendarComponent {
         days: {
             // full day names
             names: ['Duminică' , 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
-            
+            // abbreviated day names
+            //namesAbbr: ['Sonn', 'Mon', 'Dien', 'Mitt', 'Donn', 'Fre', 'Sams'],
             // shortest day names
             namesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ']
         },
@@ -171,8 +179,10 @@ export class RSCalendarComponent {
         this.xstartDate = this.convertToUTCDate($event.args.from.toDate());
         this.xendDate = this.convertToUTCDate($event.args.to.toDate());
         console.log("HERE1", this.xstartDate, this.xendDate);
+        this.endDateX.setDate(this.endDateX.getDate()-2);
     }
 
+    
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
