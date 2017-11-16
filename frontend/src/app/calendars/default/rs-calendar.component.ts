@@ -148,11 +148,11 @@ export class RSCalendarComponent {
         this.renderCalendar();
     }
 
-    showCalendarsDate($event){
-        this.startDate = new Date($event.args.from.toString());
-        this.endDate = new Date($event.args.to.toString());
-                     
+    showCalendarsDate($event) {
+        this.startDate = $event.args.from.toDate();
+        this.endDate = $event.args.to.toDate();
     }
+
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
@@ -177,27 +177,6 @@ export class RSCalendarComponent {
             this.roomId = rooms[0].id;
             this.renderCalendar();
         }
-    }
-
-    getMonday(){
-        let start = new Date();
-        let day = start.getDay();
-        // let diff = start.getDay() - ( day == 1 ? 6:1); // adjust when day is monday
-       
-        while(day!=1){
-            day = day-1;
-        }
-        start.setDate(day);
-        console.log(start);
-       
-        // return start.getDate(diff).toString();
-       
-
-    }
-
-    getFirstDay(){
-      
-        
     }
 
     private renderCalendar() {
