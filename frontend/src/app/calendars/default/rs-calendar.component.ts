@@ -1,13 +1,13 @@
-import {Router} from '@angular/router';
-import {Component, ViewChild} from '@angular/core';
+import { Router } from '@angular/router';
+import { Component, ViewChild} from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
 import { Event } from '../../shared/models/event.model';
 import {AuthService} from '../../auth/shared/auth.service';
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, Output } from '@angular/core';
 import { EventTypeEnum } from '../../shared/models/event.model';
 import { EventStatusEnum } from '../../shared/models/event.model';
 
@@ -18,7 +18,7 @@ import { EventStatusEnum } from '../../shared/models/event.model';
 })
 
 export class RSCalendarComponent {
-    @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent; 
+    @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
     events: Event[];
     model: Event = <Event> {};
@@ -111,6 +111,7 @@ export class RSCalendarComponent {
         // }
     }
 
+    private modalRef: NgbModalRef;
 
     refreshCalendar() {
         let events = [];
@@ -274,7 +275,8 @@ export class RSCalendarComponent {
             this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
             this.model.attendeeId = this.authService.getLoggedUser().id; // @TODO get user id from logged user
 
-            this.modalService.open(content).result.then((result) => {
+            this.modalRef = this.modalService.open(content);
+            this.modalRef.result.then((result) => {
                 this.closeResult = `Closed with: ${result}`;
             }, (reason) => {
                 this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -293,7 +295,8 @@ export class RSCalendarComponent {
 
                 this.saveEventTitle = 'calendar.event.edit';
 
-                this.modalService.open(content).result.then((result) => {
+                this.modalRef = this.modalService.open(content);
+                this.modalRef.result.then((result) => {
                     this.closeResult = `Closed with: ${result}`;
                 }, (reason) => {
                     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -318,10 +321,13 @@ export class RSCalendarComponent {
         // try to save
         this.eventService.save(this.model).subscribe(
             () => {
+                // on save event success
                 this.renderCalendar();
                 // @TODO display success message
+                this.modalRef.close();
             },
             error => {
+                // on save event errors
                 // @TODO handle generic errors
                 if (error.status == 401) {
                     this.createErrorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
@@ -346,7 +352,9 @@ export class RSCalendarComponent {
 
                 }
             });
+
     }
+
 
     redirectToLogin() {
         if (!(this.authService.isLoggedIn())) {
@@ -355,6 +363,7 @@ export class RSCalendarComponent {
         }
     }
 }
+
 
 // export class UtcDatePipe implements PipeTransform {
     
