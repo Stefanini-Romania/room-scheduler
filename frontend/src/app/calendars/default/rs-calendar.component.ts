@@ -24,6 +24,9 @@ export class RSCalendarComponent {
     model: Event = <Event> {};
     createErrorMessages: any = {};
 
+    public xstartDate: Date;
+    public xendDate: Date;
+
 
     public startDate: Date;
     public endDate: Date;
@@ -61,7 +64,8 @@ export class RSCalendarComponent {
         description: "description",
         location: "location",
         subject: "subject",
-        resourceId: "calendar"
+        resourceId: "calendar",
+        timeZone: "UTC"
     };
 
     dataAdapter: any = new jqx.dataAdapter(this.source);
@@ -113,6 +117,10 @@ export class RSCalendarComponent {
 
     private modalRef: NgbModalRef;
 
+    public refresh() {
+        this.renderCalendar();
+    }
+
     refreshCalendar() {
         let events = [];
         for (let event of this.events) {
@@ -120,7 +128,7 @@ export class RSCalendarComponent {
                 id: event.id,
                 description: event.notes,
                 location: "",
-                subject: "Massage",
+                subject: "Massage " + event.eventType,
                 calendar: "Room " + event.roomId,
                 start: new Date(event.startDate),
                 end: new Date(event.endDate)
@@ -155,10 +163,16 @@ export class RSCalendarComponent {
         this.renderCalendar();
     }
 
-    showCalendarsDate($event) {
-        this.startDate = $event.args.from.toDate();
-        this.endDate = $event.args.to.toDate();
+    private convertToUTCDate(x: Date) {
+        return new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), 0, 0, 0))
     }
+
+    showCalendarsDate($event) {
+        this.xstartDate = this.convertToUTCDate($event.args.from.toDate());
+        this.xendDate = this.convertToUTCDate($event.args.to.toDate());
+        console.log("HERE1", this.xstartDate, this.xendDate);
+    }
+
     goBack() {
         const days = this.isView('weekView') ? 7 : 1;
         this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
@@ -186,35 +200,14 @@ export class RSCalendarComponent {
         }
     }
 
-    getMonday(){
-        let start = new Date();
-        let day = start.getDay();
-        // let diff = start.getDay() - ( day == 1 ? 6:1); // adjust when day is monday
-       
-        while(day!=1){
-            day = day-1;
-        }
-        start.setDate(day);
-        console.log(start);
-       
-        // return start.getDate(diff).toString();
-       
-
-    }
-
-    getFirstDay(){
-      
-        
-    }
-
     private renderCalendar() {
+        if (!this.xstartDate || !this.xendDate) {
+            return;
+        }
+
+        console.log("HERE2", this.xstartDate, this.xendDate);
         this.events = [];
-        const days = this.isView('weekView') ? 7 : 1;
-
-        let endDate = new Date();
-        endDate.setTime(this.startDate.getTime() + days * 86400000).toString();
-
-        this.eventService.listEvents(this.startDate, endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
+        this.eventService.listEvents(this.xstartDate, this.xendDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
                 this.events.push(<Event>event);

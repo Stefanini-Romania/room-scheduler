@@ -14,9 +14,10 @@ export class EventService {
     public listEvents(startDate: Date, endDate: Date, roomId?: number, hostId?: number) {
         const url = environment.apiUrl + '/event/list';
         let params = new HttpParams();
-        params = params.append("startDate", startDate.toUTCString());
+        console.log("HERE3", startDate, startDate.toJSON(), endDate, endDate.toJSON());
+        params = params.append("startDate", startDate.toJSON());
         if (endDate) {
-            params = params.append("endDate", endDate.toUTCString());
+            params = params.append("endDate", endDate.toJSON());
         }
         if (roomId > 0) {
             params = params.append("roomId", roomId.toString());
