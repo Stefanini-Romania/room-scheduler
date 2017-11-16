@@ -23,9 +23,9 @@
             <label ngbButtonLabel class="btn-primary" (click)="setView('weekView')">
                 <input ngbButton type="radio" value="weekView">{{'calendar.week' |translate}}
             </label>
-            
+
         </div>
-        <label ><b>	&nbsp;{{ calendarsDateFrom | date: 'fullDate' }} &nbsp; {{ calendarsDateTo | date: 'fullDate'}}</b></label>
+        <label><b>&nbsp;{{ startDate | date: 'fullDate' }} &nbsp; {{ endDate | date: 'fullDate'}}</b></label>
         <!-- <button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="createEvent()">Create</button> -->
     </div>
 
@@ -44,8 +44,7 @@
                       [editDialog]="false"      
                       (onContextMenuItemClick)="hidden"
                                    
-                      (onDateChange)="showCalendarsDate()"
-                      (onCellClick)="sendToLogin()"
+                      (onDateChange)="showCalendarsDate($event)"
                       (onAppointmentClick)="showEditDialog(content, $event)"
                       (onCellClick)="showCreateDialog(content)"
                       [localization]="localization">    
@@ -72,7 +71,7 @@
                 <div class="input-group">
                     <div>
                         <label><b>{{ 'calendar.startDate' | translate }}:&nbsp;</b></label>
-                        <label>{{ selectedStartDate | date: 'fullDate'}}&nbsp;{{ selectedStartDate | date: 'shortTime'}}</label>
+                        <label>{{ model.startDate | date: 'fullDate'}}&nbsp;{{ model.startDate | date: 'shortTime'}}</label>
                     </div>
                 </div>
                 <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['StartDate']" [dismissible]="false">
@@ -82,7 +81,7 @@
                 <div class="input-group">
                     <div>
                         <label><b>{{ 'calendar.endDate' | translate }}: &nbsp;</b></label>
-                        <label>{{ selectedEndDate | date: 'fullDate'}}&nbsp;{{ selectedEndDate | date: 'shortTime'}}</label>
+                        <label>{{ model.endDate | date: 'fullDate'}}&nbsp;{{ model.endDate | date: 'shortTime'}}</label>
                     </div>
                 </div>
                 <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['EndDate']" [dismissible]="false">

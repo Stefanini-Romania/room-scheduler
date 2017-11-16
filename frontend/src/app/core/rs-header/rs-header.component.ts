@@ -29,7 +29,7 @@ export class RSHeader {
         this.router.navigate(['/login']);
     }
 
-    sendtologin() {
+    redirectToLogin() {
         this.router.navigate(['/login']);
     }
 }

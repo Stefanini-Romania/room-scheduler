@@ -1,4 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
@@ -25,14 +26,12 @@ export class RSCalendarComponent {
 
 
     public startDate: Date;
-    public selectedStartDate: Date;
-    public selectedEndDate: Date;
+    public endDate: Date;
     public roomId: number;
     public hostId: number;
-    public eventId: number;
+
     public saveEventTitle: string;
-    public calendarsDateFrom: Date;
-    public calendarsDateTo: Date;
+
     public view = 'weekView';
  
     closeResult: string;
@@ -75,13 +74,11 @@ export class RSCalendarComponent {
         {type: 'weekView', showWeekends: false, timeRuler: {scaleStartHour: 9, scaleEndHour: 18}},
     ];
 
-    constructor(private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
+    constructor(private router: Router, private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
     }
 
     ngAfterViewInit(): void {
         this.startDate = new Date();
-        this.renderCalendar();
-        
     }
 
     localization = {
@@ -151,42 +148,9 @@ export class RSCalendarComponent {
         this.renderCalendar();
     }
 
-    showCalendarsDate(){  
-        let a = new Date();
-        
-        if (a.getDay() == 1)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().toString());
-            this.calendarsDateTo = new Date(this.scheduler.date().addDays(4).toString());
-        }
-        if (a.getDay() == 2)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-1).toString());
-            this.calendarsDateTo = new Date(this.scheduler.date().addDays(3).toString());
-        }
-        if (a.getDay() == 3)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-2).toString());
-            this.calendarsDateTo = new Date(this.scheduler.date().addDays(2).toString());
-        }
-        if (a.getDay() == 4)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-3).toString());
-            this.calendarsDateTo = new Date(this.scheduler.date().addDays(1).toString());
-        }
-        if (a.getDay() == 5)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-4).toString());
-            this.calendarsDateTo = new Date(this.scheduler.date().toString());
-        }
-        if (a.getDay() == 6)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-5).toString());
-        }
-        if (a.getDay() == 7)
-        {
-            this.calendarsDateFrom = new Date(this.scheduler.date().addDays(-6).toString());
-        }     
+    showCalendarsDate($event){
+        this.startDate = new Date($event.args.from.toString());
+        this.endDate = new Date($event.args.to.toString());
                      
     }
     goBack() {
@@ -203,7 +167,6 @@ export class RSCalendarComponent {
     }
 
     onRoomChanged(selectedRoom: Room) {
-        this.startDate = new Date(this.scheduler.date().toString());
         this.roomId = selectedRoom.id;
         this.renderCalendar();
     }
@@ -241,10 +204,7 @@ export class RSCalendarComponent {
         this.events = [];
         const days = this.isView('weekView') ? 7 : 1;
 
-        let endDate = new Date();
-        endDate.setTime(this.startDate.getTime() + days * 86400000).toString();
-
-        this.eventService.listEvents(this.startDate, endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
+        this.eventService.listEvents(this.startDate, this.endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
                 this.events.push(<Event>event);
@@ -258,13 +218,11 @@ export class RSCalendarComponent {
         if(this.authService.isLoggedIn()){
 
             let date = this.scheduler.getSelection();
-            this.selectedStartDate = new Date(date.from.toString());
-            this.selectedEndDate = new Date(date.to.toString());
 
             this.saveEventTitle = 'calendar.event.create';
             this.model = new Event();
-            this.model.startDate = this.selectedStartDate;
-            this.model.endDate = this.selectedEndDate;
+            this.model.startDate = new Date(date.from.toString());
+            this.model.endDate = new Date(date.to.toString());
             this.model.eventType = EventTypeEnum.massage; 
             this.model.eventStatus = EventStatusEnum.waiting;
             this.model.roomId = this.roomId;
@@ -278,15 +236,13 @@ export class RSCalendarComponent {
             });
             this.createErrorMessages = {};
         } else {
-            //@TODO redirect login
+            this.redirectToLogin();
         }
     }
 
     showEditDialog(content, $event) {
         if(this.authService.isLoggedIn()){
                 this.model = this.events.find(e => e.id == $event.args.appointment.id)
-                this.selectedStartDate = this.model.startDate;
-                this.selectedEndDate = this.model.endDate;
 
                 this.saveEventTitle = 'calendar.event.edit';
 
@@ -298,7 +254,7 @@ export class RSCalendarComponent {
                 this.createErrorMessages = {};           
          
         } else {
-            this.authService.notLoggedIn();
+            this.redirectToLogin();
         }
     }
 
@@ -345,8 +301,11 @@ export class RSCalendarComponent {
             });
     }
 
-    sendToLogin() {
-        this.authService.notLoggedIn();
+    redirectToLogin() {
+        if (!(this.authService.isLoggedIn())) {
+            alert("You need to login if you want to make an appointment!");
+            this.router.navigate(['/login']);
+        }
     }
 }
 
