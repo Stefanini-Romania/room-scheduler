@@ -40,6 +40,7 @@
                           [views]="views"
                           [appointmentDataFields]="eventDataFields"
                           [resources]="resources"
+                          [localization]="localization"
                           [showToolbar]="false"
                           [editDialog]="false"
 
@@ -48,9 +49,7 @@
                           (onDateChange)="showCalendarsDate($event)"
                           (onAppointmentClick)="false"
                           (onCellClick)="false"
-                          [localization]="localization">    
-                        
-            </jqxScheduler>
+            ></jqxScheduler>
         </div>
     </div>
     
