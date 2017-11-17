@@ -32,7 +32,8 @@ namespace RSService.Controllers
         }
     
        
-        [HttpPost("/event/create"), Authorize]
+        [HttpPost("/event/create")]   
+        //[Authorize]
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
 
@@ -99,7 +100,8 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
-        [HttpPut("/event/edit/{id}"), Authorize]
+        [HttpPut("/event/edit/{id}")]
+        //[Authorize]
         public IActionResult UpdateEvent(int id, [FromBody] EditViewModel model)
         {
 
