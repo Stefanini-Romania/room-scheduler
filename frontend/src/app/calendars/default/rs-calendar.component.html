@@ -58,48 +58,55 @@
     
     
     <!-- MODAL FORM -->
-    <ng-template #content let-c="close" let-d="dismiss">
+    <ng-template #content let-c="close" let-d="dismiss" size-type="lg">
         <div class="modal-header" >
             <h6 class="modal-title">{{ saveEventTitle | translate }}</h6>
         </div>
     
-            <div class="modal-body">
-        <form>
-            <!-- generic error message -->
-            <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['generic']" [dismissible]="false">
-                <div *ngFor="let errorMessage of createErrorMessages['generic']">{{ errorMessage | translate }}</div>
-            </ngb-alert>
+        <div class="modal-body">
+            <form>      
+               
+                <!-- generic error message -->
+                    <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['generic']" [dismissible]="false">
+                        <div *ngFor="let errorMessage of createErrorMessages['generic']">{{ errorMessage | translate }}</div>
+                    </ngb-alert>
 
-            <div class="form-group">
-                <div class="input-group">
-                    <div>
-                        <label><b>{{ 'calendar.startDate' | translate }}:&nbsp;</b></label>
-                        <label>{{ model.startDate | date: 'fullDate'}}&nbsp;{{ model.startDate | date: 'shortTime'}}</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="container">
+                                <div class="row">
+                                    <label class="col-md-3"><b>{{ 'calendar.startDate' | translate }}:</b></label>
+                                    <label class="col-md-9">{{ model.startDate | date: 'fullDate'}} {{ model.startDate | date: 'shortTime'}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['StartDate']" [dismissible]="false">
+                            <div *ngFor="let errorMessage of createErrorMessages['StartDate']">{{ errorMessage | translate }}</div>
+                        </ngb-alert>
+
+                        <div class="input-group">
+                            <div class="container">
+                                <div class="row">
+                                    <label class="col-md-3"><b>{{ 'calendar.endDate' | translate }}:</b></label>
+                                    <label class="col-md-9">{{ model.endDate | date: 'fullDate'}} {{ model.endDate | date: 'shortTime'}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['EndDate']" [dismissible]="false">
+                            <div *ngFor="let errorMessage of createErrorMessages['EndDate']">{{ errorMessage | translate }}</div>
+                        </ngb-alert>
+                        
+                        <div class="input-group">
+                            <div class="container">
+                                <label hidden="true"><b>{{ 'calendar.notes' | translate }}:</b></label>
+                                <label><textarea rows="3"  placeholder="{{ 'calendar.notes' | translate}}" class="textarea" name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea></label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['StartDate']" [dismissible]="false">
-                    <div *ngFor="let errorMessage of createErrorMessages['StartDate']">{{ errorMessage | translate }}</div>
-                </ngb-alert>
+                
+            </form>
+        </div>
 
-                <div class="input-group">
-                    <div>
-                        <label><b>{{ 'calendar.endDate' | translate }}: &nbsp;</b></label>
-                        <label>{{ model.endDate | date: 'fullDate'}}&nbsp;{{ model.endDate | date: 'shortTime'}}</label>
-                    </div>
-                </div>
-                <ngb-alert type="danger" *ngIf="createErrorMessages && createErrorMessages['EndDate']" [dismissible]="false">
-                    <div *ngFor="let errorMessage of createErrorMessages['EndDate']">{{ errorMessage | translate }}</div>
-                </ngb-alert>
-
-                <div class="input-group">
-                    <label hidden="true"><b>{{ 'calendar.notes' | translate }}:</b></label>
-                    <label><textarea rows="3"  placeholder="{{ 'calendar.notes' | translate}}" class="textarea" name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea></label>
-                </div>
-            </div>
-        </form>
-
-    </div>
-    
         <div class="modal-footer">
             <button type="button" class="btn btn-primary RScalendarButton" (click)="cancelEvent()"  *ngIf="model.id">{{ 'button.cancel' | translate }}</button>
             <button type="button" class="btn btn-primary RScalendarButton" (click)="saveEvent()">{{ 'button.save' | translate }}</button>

@@ -254,7 +254,8 @@ footer a {
     background-color: #004e9e;
 }
 .modal-content .modal-body {
-    align-self: center;     
+    align-self: center;    
+    width: 95%; 
 }
 
 #nav-text1 {
