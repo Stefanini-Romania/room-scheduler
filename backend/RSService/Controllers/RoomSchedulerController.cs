@@ -65,15 +65,6 @@ namespace RSService.Controllers
             return Ok(results);
         }
 
-        //[HttpGet("/availability/list")]
-        //public IActionResult GetAvailabilities()
-        //{
-        //    var results = availabilityRepository.GetAvailabilities();
-        //    if (results == null) return NotFound();
-
-        //    return Ok(results);
-        //}
-
         [HttpGet("/event/list")]
         public IActionResult GetEventsByHosts(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
