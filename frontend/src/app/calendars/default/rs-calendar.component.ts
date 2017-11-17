@@ -192,6 +192,8 @@ export class RSCalendarComponent {
 
     setView(view: string) {
         this.view = view;
+        this.date = new $.jqx.date(this.scheduler.date(), this.scheduler.timeZone());
+
         this.scheduler.view(this.view);
     }
 
@@ -256,7 +258,7 @@ export class RSCalendarComponent {
             this.xendDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? -3 : 0),
                 23, 59, 59
             ));
-            console.log("HERE1", this.xstartDate, this.xendDate);
+
             this.renderCalendar();
         }
     }
@@ -278,8 +280,6 @@ export class RSCalendarComponent {
         if (!this.xstartDate || !this.xendDate) {
             return;
         }
-
-        console.log("HERE2", this.xstartDate, this.xendDate);
 
         this.events = [];
         this.eventService.listEvents(this.xstartDate, this.xendDate, this.roomId, this.hostId).subscribe((events: Event[]) => {

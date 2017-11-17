@@ -15,11 +15,16 @@ export class EventService {
         const url = environment.apiUrl + '/event/list';
         let params = new HttpParams();
 
-        console.log("HERE3", startDate.toJSON(), endDate.toJSON());
-        params = params.append("startDate", startDate.toJSON());
+        let x:Date;
+
+        x = startDate;
+        params = params.append("startDate", new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), 0, 0, 0)).toJSON());
+
         if (endDate) {
-            params = params.append("endDate", endDate.toJSON());
+            x = endDate;
+            params = params.append("endDate", new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), 23, 59, 59)).toJSON());
         }
+
         if (roomId > 0) {
             params = params.append("roomId", roomId.toString());
         }
