@@ -21,15 +21,29 @@
   "login.username": "Introduceți utilizatorul",
   "login.password": "Introduceți parola",
 
-  "calendar.today": "ASTĂZI",
-  "calendar.day": "ZI",
-  "calendar.week": "SĂPTĂMÂNĂ",
-  "calendar.rooms": "CAMERE",
-  "calendar.notes": "Observații",
-  "calendar.startDate": "De la",
-  "calendar.endDate": "Până la",
-  "calendar.event.create": "Adăugare eveniment",
-  "calendar.event.edit": "Editare eveniment",
+  "calendar": {
+      "today": "ASTĂZI",
+      "day": "ZI",
+      "week": "SĂPTĂMÂNĂ",
+      "rooms": "CAMERE",
+      "notes": "Observații",
+      "startDate": "De la",
+      "endDate": "Până la",
+      "event.create": "Adăugare eveniment",
+      "event.edit": "Editare eveniment",
+
+      "days": {
+        "namesAbbr": {
+            "Sun": "Du",
+            "Mon": "Lu",
+            "Tue": "Ma",
+            "Wed": "Mi",
+            "Thu": "Jo",
+            "Fri": "Vi",
+            "Sat": "Sb"
+        }
+      }
+  },
 
   "Auth": {
       "Password.Empty": "Introduceți parola",
@@ -65,7 +79,5 @@
       },
 
       "UserIsNotAuthenticated": "Nu sunteți autentificat"
-  },
-
-  "Monday": "Luni"
+  }
 }

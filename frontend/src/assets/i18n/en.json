@@ -20,15 +20,29 @@
   "login.username": "Enter Username",
   "login.password": "Enter Password",
 
-  "calendar.today": "TODAY",
-  "calendar.day": "DAY",
-  "calendar.week": "WEEK",
-  "calendar.rooms": "ROOMS",
-  "calendar.notes": "Notes",
-  "calendar.startDate": "From",
-  "calendar.endDate": "To",
-  "calendar.event.create": "Create new appointment",
-  "calendar.event.edit": "Edit appointment",
+  "calendar": {
+      "today": "TODAY",
+      "day": "DAY",
+      "week": "WEEK",
+      "rooms": "ROOMS",
+      "notes": "Notes",
+      "startDate": "From",
+      "endDate": "To",
+      "event.create": "Create new appointment",
+      "event.edit": "Edit appointment",
+
+      "days": {
+          "namesAbbr": {
+              "Sun": "Sun",
+              "Mon": "Mon",
+              "Tue": "Tue",
+              "Wed": "Wed",
+              "Thu": "Thu",
+              "Fri": "Fri",
+              "Sat": "Sat"
+          }
+      }
+  },
 
   "Auth": {
       "Password.Empty": "Please enter your password",
@@ -64,7 +78,5 @@
       },
 
       "UserIsNotAuthenticated": "You are not logged in"
-  },
-
-  "Monday": "Monday"
+  }
 }

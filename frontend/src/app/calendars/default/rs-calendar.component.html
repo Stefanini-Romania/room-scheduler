@@ -24,7 +24,10 @@
                 </label>
                 
             </div>
-            <label><b>&nbsp;{{ xstartDate | date: 'fullDate' }} &nbsp; {{ xendDate | date: 'fullDate'}}</b></label>
+            <label *ngIf="xstartDate && xendDate" class="px-2">
+                <b>{{ xstartDate | date: 'fullDate' }}</b>
+                <b *ngIf="view == 'weekView'"> - {{ xendDate | date: 'fullDate'}}</b>
+            </label>
 
             <!--<button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="refresh()">Refresh</button>-->
         </div>
@@ -32,7 +35,7 @@
         <div class="row h-75 mby-5">
             <jqxScheduler #schedulerReference
                           [width]="1000" [height]="'100%'"
-                          [date]="startDate"
+                          [date]="date"
                           [source]="dataAdapter"
                           [showLegend]="true"
                           [view]="view"

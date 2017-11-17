@@ -2,6 +2,9 @@ import {Router} from '@angular/router';
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
+import { Subscription } from 'rxjs/Subscription';
+
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
@@ -21,15 +24,15 @@ declare var $ :any;
 export class RSCalendarComponent {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
-    events: Event[];
+    events: Event[] = [];
     model: Event = <Event> {};
     createErrorMessages: any = {};
+
+    public date: Date = new $.jqx.date();
 
     public xstartDate: Date;
     public xendDate: Date;
 
-    public startDate: Date = new $.jqx.date();
-    public endDate: Date;
     public roomId: number;
     public hostId: number;
 
@@ -78,39 +81,81 @@ export class RSCalendarComponent {
         {type: 'weekView', showWeekends: false, timeRuler: {scaleStartHour: 9, scaleEndHour: 18}},
     ];
 
-    localization = {
-        // separator of parts of a date (e.g. '/' in 11/05/1955)
-        '/': '/',
-
-        // separator of parts of a time (e.g. ':' in 05:44 PM)
-        ':': ':',
-
-        // the first day of the week (0 = Sunday, 1 = Monday, etc)
-        firstDay: 0,
-        days: {
-            // full day names
-            names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            // abbreviated day names
-            namesAbbr: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            // shortest day names
-            namesShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
-        },
-        months: {
-            // full month names (13 months for lunar calendards -- 13th month should be "" if not lunar)
-            names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
-            // abbreviated month names
-            namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""]
-        },
-
-        contextMenuEditAppointmentString: "Edit Appointment",
-        contextMenuCreateAppointmentString: "Create New Appointment",
-    };
-
-    constructor(private router: Router, private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
-    }
+    localization: any = {};
 
     private modalRef: NgbModalRef;
     private previousValues: any;
+    subscription: Subscription;
+
+    constructor(private router: Router, private translate: TranslateService, private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
+    }
+
+    ngAfterViewInit(): void {
+        const t = this.translate;
+        this.subscription = t.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.localization = {
+                // separator of parts of a date (e.g. '/' in 11/05/1955)
+                '/': '/',
+
+                // separator of parts of a time (e.g. ':' in 05:44 PM)
+                ':': ':',
+
+                // the first day of the week (0 = Sunday, 1 = Monday, etc)
+                firstDay: 0,
+                days: {
+                    // full day names
+                    names: [
+                        t.instant("calendar.days.names.Sunday"),
+                        t.instant("calendar.days.names.Monday"),
+                        t.instant("calendar.days.names.Tuesday"),
+                        t.instant("calendar.days.names.Wednesday"),
+                        t.instant("calendar.days.names.Thursday"),
+                        t.instant("calendar.days.names.Friday"),
+                        t.instant("calendar.days.names.Saturday")
+                    ],
+
+                    // abbreviated day names
+                    namesAbbr: [
+                        t.instant("calendar.days.namesAbbr.Sun"),
+                        t.instant("calendar.days.namesAbbr.Mon"),
+                        t.instant("calendar.days.namesAbbr.Tue"),
+                        t.instant("calendar.days.namesAbbr.Wed"),
+                        t.instant("calendar.days.namesAbbr.Thu"),
+                        t.instant("calendar.days.namesAbbr.Fri"),
+                        t.instant("calendar.days.namesAbbr.Sat")
+                    ],
+
+                    // shortest day names
+                    namesShort: [
+                        t.instant("calendar.days.namesShort.Su"),
+                        t.instant("calendar.days.namesShort.Mo"),
+                        t.instant("calendar.days.namesShort.Tu"),
+                        t.instant("calendar.days.namesShort.We"),
+                        t.instant("calendar.days.namesShort.Th"),
+                        t.instant("calendar.days.namesShort.Fr"),
+                        t.instant("calendar.days.namesShort.Sa")
+                    ]
+                },
+
+                months: {
+                    // full month names (13 months for lunar calendards -- 13th month should be "" if not lunar)
+                    names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
+                    // abbreviated month names
+                    namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""]
+                },
+
+                contextMenuEditAppointmentString: t.instant("Edit Appointment"),
+                contextMenuCreateAppointmentString: t.instant("Create New Appointment"),
+            };
+
+            this.scheduler.localization(this.localization);
+        });
+    }
+
+    ngOnDestroy() {
+        // unsubscribe to ensure no memory leaks
+        this.subscription.unsubscribe();
+    }
 
     refreshCalendar() {
         let events = [];
@@ -125,6 +170,7 @@ export class RSCalendarComponent {
                 end: new Date(event.endDate)
             });
         }
+
         this.source.localData = events;
         this.dataAdapter = new jqx.dataAdapter(this.source);
     }
@@ -150,8 +196,49 @@ export class RSCalendarComponent {
     }
 
     goToToday() {
-        this.startDate = new $.jqx.date();
-        this.renderCalendar();
+        this.date = new $.jqx.date();
+    }
+
+    goBack() {
+        this.date = this.addDaysInDirection(this.scheduler.date(), -1);
+    }
+
+    goForward() {
+        this.date = this.addDaysInDirection(this.scheduler.date(), +1);
+    }
+
+    private addDaysInDirection(date, direction: number) {
+        var i = this.views.find(e => e.type == this.view);
+        var c = new $.jqx.date(date, this.scheduler.timeZone());
+
+        let j = function () {
+            while ((c.dayOfWeek() == 0 || c.dayOfWeek() == 6) && false === i.showWeekends) {
+                c = c.addDays(direction * 1);
+            }
+            return c;
+        };
+        switch (this.view) {
+            case"dayView":
+            case"timelineDayView":
+                c = c.addDays(direction * 1);
+                c = j();
+                break;
+
+            case"weekView":
+            case"timelineWeekView":
+                c = c.addDays(direction * 7);
+                break;
+
+            case"agendaView":
+                if (i.days) {
+                    c = c.addDays(i.days);
+                } else {
+                    c = c.addDays(direction * 7);
+                }
+                break;
+        }
+
+        return c;
     }
 
     showCalendarsDate($event) {
@@ -165,28 +252,16 @@ export class RSCalendarComponent {
                 0, 0, 0
             ));
 
-            //x = $event.args.to.toDate();
-            this.xendDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? 4 : -1),
+            x = $event.args.to.toDate();
+            this.xendDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? -3 : 0),
                 23, 59, 59
             ));
-console.log("HERE1", this.xstartDate, this.xendDate);
+            console.log("HERE1", this.xstartDate, this.xendDate);
             this.renderCalendar();
         }
     }
 
-
-    goBack() {
-        const days = this.isView('weekView') ? 7 : 1;
-        this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
-    }
-
-    goForward() {
-        const days = this.isView('weekView') ? 7 : 1;
-        this.startDate = new Date(this.scheduler.date().addDays(days).toString());
-    }
-
     onRoomChanged(selectedRoom: Room) {
-        this.startDate = new Date(this.scheduler.date().toString());
         this.roomId = selectedRoom.id;
         this.renderCalendar();
     }
