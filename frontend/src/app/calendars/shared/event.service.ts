@@ -41,8 +41,8 @@ export class EventService {
     private createEvent(event: Event) {
         const url = environment.apiUrl + '/event/create';
         const body = JSON.stringify({
-            startDate: event.startDate,
-            endDate: event.endDate,
+            startDate: event.startDate.toLocaleString(),
+            endDate: event.endDate.toLocaleString(),
             eventType: event.eventType,
             roomId: event.roomId,
             hostId: event.hostId,
