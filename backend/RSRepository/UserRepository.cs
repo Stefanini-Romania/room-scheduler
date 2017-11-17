@@ -30,8 +30,9 @@ namespace RSRepository
         }
 
         public User FindUserByCredential(string username, string password)
-        {
-            return users.SingleOrDefault(c => c.Name == username && c.Password == password);
+        {     
+            var returnvar = this.GetUsers().SingleOrDefault(c => c.Name == username && c.Password == password);
+            return returnvar;
         }
 
         public User GetUserById(long id)
