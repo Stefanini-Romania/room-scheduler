@@ -77,14 +77,15 @@ export class RSCalendarComponent {
     };
 
     views: any[] = [
-        {type: 'dayView', showWeekends: false, timeRuler: {scaleStartHour: 9, scaleEndHour: 18}},
-        {type: 'weekView', showWeekends: false, timeRuler: {scaleStartHour: 9, scaleEndHour: 18}},
+        {type: 'dayView', showWeekends: false, timeRuler: {formatString: 'HH:mm', scaleStartHour: 9, scaleEndHour: 18}},
+        {type: 'weekView', showWeekends: false, timeRuler: {formatString: 'HH:mm', scaleStartHour: 9, scaleEndHour: 18}},
     ];
 
     localization: any = {};
 
     private modalRef: NgbModalRef;
     private previousValues: any;
+
     subscription: Subscription;
 
     constructor(private router: Router, private translate: TranslateService, private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
@@ -146,8 +147,8 @@ export class RSCalendarComponent {
                     namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""]
                 },
 
-                contextMenuEditAppointmentString: t.instant("Edit Appointment"),
-                contextMenuCreateAppointmentString: t.instant("Create New Appointment"),
+                contextMenuEditAppointmentString: t.instant("calendar.event.edit"),
+                contextMenuCreateAppointmentString: t.instant("calendar.event.create"),
             };
 
             this.scheduler.localization(this.localization);

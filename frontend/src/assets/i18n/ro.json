@@ -7,7 +7,6 @@
       }
   },
 
-
   "welcome": "Salut",
 
   "button" : {
@@ -47,25 +46,42 @@
               "Saturday": "Sâmbătă",
               "Sunday": "Duminică"
           
-        },
-        "namesAbbr": {
-            "Sun": "Du",
-            "Mon": "Lu",
-            "Tue": "Ma",
-            "Wed": "Mi",
-            "Thu": "Jo",
-            "Fri": "Vi",
-            "Sat": "Sb"
-        },
-        "namesShort": {
-            "Su": "Du",
-            "Mo": "Lu",
-            "Tu": "Ma",
-            "We": "Mi",
-            "Th": "Jo",
-            "Fr": "Vi",
-            "Sa": "Sb"
-        }
+          },
+
+          "namesAbbr": {
+              "Sun": "Du",
+              "Mon": "Lu",
+              "Tue": "Ma",
+              "Wed": "Mi",
+              "Thu": "Jo",
+              "Fri": "Vi",
+              "Sat": "Sb"
+          },
+
+          "namesShort": {
+              "Su": "Du",
+              "Mo": "Lu",
+              "Tu": "Ma",
+              "We": "Mi",
+              "Th": "Jo",
+              "Fr": "Vi",
+              "Sa": "Sb"
+          }
+      },
+
+      "months": {
+          "January": "January",
+          "February": "February",
+          "March": "March",
+          "April": "April",
+          "May": "May",
+          "June": "June",
+          "July": "July",
+          "August": "August",
+          "September": "September",
+          "October": "October",
+          "November": "November",
+          "December": "December"
       }
   },
 
