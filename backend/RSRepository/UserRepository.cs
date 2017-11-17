@@ -31,6 +31,8 @@ namespace RSRepository
 
         public User FindUserByCredential(string username, string password)
         {     
+            // !! Nu trebuie sa-i aducem pe toti cu GetUsers. Trebuie cautat direct in DbSet-ul de users  !!
+
             var returnvar = this.GetUsers().SingleOrDefault(c => c.Name == username && c.Password == password);
             return returnvar;
         }
