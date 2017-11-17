@@ -45,12 +45,15 @@
                           [localization]="localization"
                           [showToolbar]="false"
                           [editDialog]="false"
-
+                          [contextMenu]="false"
                           (onContextMenuItemClick)="onContextMenuItemClick($event, content)"
 
                           (onDateChange)="showCalendarsDate($event)"
                           (onAppointmentClick)="false"
                           (onCellDoubleClick)="showCreateDialog($event, content) "
+                          
+                         
+                          [renderAppointment]="renderAppointment"   
             ></jqxScheduler>
         </div>
     </div>

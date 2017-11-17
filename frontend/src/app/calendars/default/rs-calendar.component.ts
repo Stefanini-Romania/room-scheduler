@@ -94,6 +94,7 @@ export class RSCalendarComponent {
     ngAfterViewInit(): void {
         const t = this.translate;
         this.subscription = t.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.refreshCalendar();
             this.localization = {
                 // separator of parts of a date (e.g. '/' in 11/05/1955)
                 '/': '/',
@@ -162,12 +163,21 @@ export class RSCalendarComponent {
 
     refreshCalendar() {
         let events = [];
+        let eventType: string;
         for (let event of this.events) {
+            switch(event.eventType){
+                case EventTypeEnum.availability: 
+                    eventType = this.translate.instant("calendar.eventType.availabilty");
+                    break;
+                case EventTypeEnum.massage: 
+                    eventType = this.translate.instant("calendar.eventType.massage");
+                    break;
+            }
             events.push(<any>{
                 id: event.id,
                 description: event.notes,
                 location: "",
-                subject: "Massage " + event.eventType,
+                subject: eventType,
                 calendar: "Room " + event.roomId,
                 start: new Date(event.startDate),
                 end: new Date(event.endDate)
@@ -285,6 +295,7 @@ export class RSCalendarComponent {
             return;
         }
         
+        
         this.events = [];
         this.eventService.listEvents(this.xstartDate, this.xendDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
 
@@ -401,7 +412,7 @@ export class RSCalendarComponent {
 
                     this.renderCalendar();
 
-                }
+                    }
             });
 
     }
@@ -412,5 +423,19 @@ export class RSCalendarComponent {
             alert("You need to login if you want to make an appointment!");
             this.router.navigate(['/login']);
         }
+    }
+
+    renderAppointment = (data) => {
+        if (!data.appointment) {
+            return;
+        }
+        let event = this.events.find(e => e.id == data.appointment.id);
+        if (event.eventType == EventTypeEnum.availability ) {
+            data.style = '#DC143C'; //rosu
+            
+        } else {
+            data.style = '#004e9e'; //albastru
+        }
+        return data;
     }
 }

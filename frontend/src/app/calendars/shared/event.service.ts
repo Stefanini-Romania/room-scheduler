@@ -31,6 +31,7 @@ export class EventService {
         if (hostId > 0) {
             params = params.append("hostId", hostId.toString());
         }
+        
 
         const body = JSON.stringify(params);
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');

@@ -32,7 +32,16 @@
       "event.create": "Adăugare eveniment",
       "event.edit": "Editare eveniment",
 
+      "eventType": {
+        "availabilty": "Indisponibil",
+        "massage": "Masaj"
+        },
+
       "days": {
+          "names": {
+              "Monday": "Luni"
+          
+        },
         "namesAbbr": {
             "Sun": "Du",
             "Mon": "Lu",
