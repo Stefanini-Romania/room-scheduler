@@ -1,5 +1,5 @@
 import {Router} from '@angular/router';
-import {Component, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
@@ -89,6 +89,7 @@ export class RSCalendarComponent {
 
     constructor(private router: Router, private translate: TranslateService, private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
     }
+    
 
     ngAfterViewInit(): void {
         const t = this.translate;
@@ -149,7 +150,9 @@ export class RSCalendarComponent {
             };
 
             this.scheduler.localization(this.localization);
+           
         });
+        this.goToToday();
     }
 
     ngOnDestroy() {
@@ -274,13 +277,14 @@ export class RSCalendarComponent {
             this.roomId = rooms[0].id;
             this.renderCalendar();
         }
+     
     }
 
     private renderCalendar() {
         if (!this.xstartDate || !this.xendDate) {
             return;
         }
-
+        
         this.events = [];
         this.eventService.listEvents(this.xstartDate, this.xendDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
 
