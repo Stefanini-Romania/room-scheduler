@@ -327,7 +327,7 @@ export class RSCalendarComponent {
             this.model.eventStatus = EventStatusEnum.waiting;
             this.model.roomId = this.roomId;
             this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-            this.model.attendeeId = this.authService.getLoggedUser().id; // @TODO get user id from logged user
+            this.model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
 
             this.modalRef = this.modalService.open(content);
             this.modalRef.result.then((result) => {
