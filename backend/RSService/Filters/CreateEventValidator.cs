@@ -24,7 +24,7 @@ namespace RSService.Filters
             When(m => m.StartDate.HasValue, () => {
                 RuleFor(m => m.StartDate).Must(CanBook).WithMessage(x => Validation.EventMessages.Limit).When(m => m.EndDate.HasValue);
 
-                RuleFor(m => m.StartDate).GreaterThanOrEqualTo(DateTime.UtcNow).WithMessage(x => Validation.EventMessages.StartDatePast).When(m => m.EndDate.HasValue);
+                RuleFor(m => m.StartDate).GreaterThanOrEqualTo(DateTime.UtcNow.AddHours(2)).WithMessage(x => Validation.EventMessages.StartDatePast).When(m => m.EndDate.HasValue);
 
                // RuleFor(m => m.StartDate).LessThan(DateTime.Now.AddMonths(2)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue);
 
@@ -107,8 +107,8 @@ namespace RSService.Filters
         {
             if(d.HasValue)
             {
-                return ((d.GetValueOrDefault().Hour >= 09 && d.GetValueOrDefault().Hour < 13) ||( d.GetValueOrDefault().Hour >= 14 && d.GetValueOrDefault().Hour <= 17));
-                    
+                return ((d.GetValueOrDefault().Hour >= 09 && d.GetValueOrDefault().Hour <= 17));
+                    //&& d.GetValueOrDefault().Hour < 13) ||( d.GetValueOrDefault().Hour >= 14 
             }
             return false;
         }
@@ -117,8 +117,8 @@ namespace RSService.Filters
         {
             if (d.HasValue)
             {
-                if (d.GetValueOrDefault().Hour == 13 && d.GetValueOrDefault().Minute == 30)
-                    return false;
+               // if (d.GetValueOrDefault().Hour == 13 && d.GetValueOrDefault().Minute == 30)
+              //      return false;
 
                 return (d.GetValueOrDefault().Hour <= 18 && d.GetValueOrDefault().Minute < 30)
                      || (d.GetValueOrDefault().Hour <= 17 && d.GetValueOrDefault().Minute <= 30);
@@ -153,6 +153,7 @@ namespace RSService.Filters
                     return true;
             return false;
         }
+
         
 
     }
