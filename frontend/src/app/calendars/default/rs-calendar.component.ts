@@ -10,13 +10,15 @@ import {AuthService} from '../../auth/shared/auth.service';
 import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
 
+declare var $ :any;
+
 @Component({
     selector: 'rs-calendar-component',
     templateUrl: './rs-calendar.component.html',
     providers: [EventService, RoomSelector]
 })
 
-export class RSCalendarComponent implements AfterViewInit {
+export class RSCalendarComponent {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
     events: Event[];
@@ -26,10 +28,8 @@ export class RSCalendarComponent implements AfterViewInit {
     public xstartDate: Date;
     public xendDate: Date;
 
-    public startDate: Date;
+    public startDate: Date = new $.jqx.date();
     public endDate: Date;
-    public selectedStartDate: Date;
-    public selectedEndDate: Date;
     public roomId: number;
     public hostId: number;
 
@@ -81,37 +81,32 @@ export class RSCalendarComponent implements AfterViewInit {
     localization = {
         // separator of parts of a date (e.g. '/' in 11/05/1955)
         '/': '/',
+
         // separator of parts of a time (e.g. ':' in 05:44 PM)
         ':': ':',
+
         // the first day of the week (0 = Sunday, 1 = Monday, etc)
         firstDay: 0,
         days: {
             // full day names
-            names: ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
+            names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
             // abbreviated day names
-            //namesAbbr: ['Sonn', 'Mon', 'Dien', 'Mitt', 'Donn', 'Fre', 'Sams'],
+            namesAbbr: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
             // shortest day names
-            namesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ']
+            namesShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+        },
+        months: {
+            // full month names (13 months for lunar calendards -- 13th month should be "" if not lunar)
+            names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
+            // abbreviated month names
+            namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""]
         },
 
-        // months: {
-        //     // full month names (13 months for lunar calendards -- 13th month should be '' if not lunar)
-        //     names: ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie', ''],
-        //     // abbreviated month names
-        //     namesAbbr: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', '']
-        // }
+        contextMenuEditAppointmentString: "Edit Appointment",
+        contextMenuCreateAppointmentString: "Create New Appointment",
     };
 
-
     constructor(private router: Router, private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
-    }
-
-    ngAfterViewInit(): void {
-        this.scheduler.ensureAppointmentVisible('id1');
-
-        this.startDate = new Date();
-        this.renderCalendar();
-
     }
 
     private modalRef: NgbModalRef;
@@ -155,22 +150,26 @@ export class RSCalendarComponent implements AfterViewInit {
     }
 
     goToToday() {
-        this.startDate = new Date();
+        this.startDate = new $.jqx.date();
         this.renderCalendar();
     }
 
     showCalendarsDate($event) {
-        if (!this.previousValues || ($event.args.from.toString() !== this.previousValues.from.toString() && $event.args.to.toString() !== this.previousValues.to.toString())) {
+        if (!this.previousValues || ($event.args.from.toString() !== this.previousValues.from.toString())) {
             this.previousValues = $event.args;
-            
+
             let x: Date;
 
             x = $event.args.from.toDate();
-            this.xstartDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + 1, 0, 0, 0));
+            this.xstartDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? 1 : 0),
+                0, 0, 0
+            ));
 
-            x = $event.args.to.toDate();
-            this.xendDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() - 3, 23, 59, 59));
-
+            //x = $event.args.to.toDate();
+            this.xendDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? 4 : -1),
+                23, 59, 59
+            ));
+console.log("HERE1", this.xstartDate, this.xendDate);
             this.renderCalendar();
         }
     }
@@ -205,6 +204,8 @@ export class RSCalendarComponent implements AfterViewInit {
             return;
         }
 
+        console.log("HERE2", this.xstartDate, this.xendDate);
+
         this.events = [];
         this.eventService.listEvents(this.xstartDate, this.xendDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
 
@@ -230,6 +231,8 @@ export class RSCalendarComponent implements AfterViewInit {
 
     showCreateDialog($event, content) {
         if (this.authService.isLoggedIn()) {
+            this.saveEventTitle = 'calendar.event.create';
+
             this.createErrorMessages = {};
 
             let date = this.scheduler.getSelection();
@@ -238,13 +241,9 @@ export class RSCalendarComponent implements AfterViewInit {
                 return;
             }
 
-            this.selectedStartDate = new Date(date.from.toString());
-            this.selectedEndDate = new Date(date.to.toString());
-
-            this.saveEventTitle = 'calendar.event.create';
             this.model = new Event();
-            this.model.startDate = this.selectedStartDate;
-            this.model.endDate = this.selectedEndDate;
+            this.model.startDate = new Date(date.from.toString());
+            this.model.endDate = new Date(date.to.toString());
             this.model.eventType = EventTypeEnum.massage;
             this.model.eventStatus = EventStatusEnum.waiting;
             this.model.roomId = this.roomId;
@@ -264,11 +263,11 @@ export class RSCalendarComponent implements AfterViewInit {
 
     showEditDialog($event, content) {
         if (this.authService.isLoggedIn()) {
-            this.model = this.events.find(e => e.id == $event.args.appointment.id)
-            this.selectedStartDate = this.model.startDate;
-            this.selectedEndDate = this.model.endDate;
-
             this.saveEventTitle = 'calendar.event.edit';
+
+            this.createErrorMessages = {};
+
+            this.model = this.events.find(e => e.id == $event.args.appointment.id);
 
             this.modalRef = this.modalService.open(content);
             this.modalRef.result.then((result) => {
@@ -276,8 +275,6 @@ export class RSCalendarComponent implements AfterViewInit {
             }, (reason) => {
                 this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
             });
-            this.createErrorMessages = {};
-
         } else {
             this.redirectToLogin();
         }
