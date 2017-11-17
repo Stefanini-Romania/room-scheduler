@@ -37,6 +37,16 @@
       },
 
       "days": {
+        "names": {
+            "Monday": "Monday",
+            "Tuesday": "Tuesday",
+            "Wednesday": "Wednesday",
+            "Thursday": "Thursday",
+            "Friday": "Friday",
+            "Saturday": "Saturday",
+            "Sunday": "Sunday"
+        
+      },
           "namesAbbr": {
               "Sun": "Sun",
               "Mon": "Mon",
@@ -45,6 +55,15 @@
               "Thu": "Thu",
               "Fri": "Fri",
               "Sat": "Sat"
+          },
+          "namesShort":{
+            "Su": "Su",
+            "Mo": "Mo",
+            "Tu": "Tu",
+            "We": "We",
+            "Th": "Th",
+            "Fr": "Fr",
+            "Sa": "Sa"
           }
       }
   },
@@ -84,4 +103,6 @@
 
       "UserIsNotAuthenticated": "You are not logged in"
   }
+
+
 }

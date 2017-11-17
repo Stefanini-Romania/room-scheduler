@@ -39,7 +39,13 @@
 
       "days": {
           "names": {
-              "Monday": "Luni"
+              "Monday": "Luni",
+              "Tuesday": "Marți",
+              "Wednesday": "Miercuri",
+              "Thursday": "Joi",
+              "Friday": "Vineri",
+              "Saturday": "Sâmbătă",
+              "Sunday": "Duminică"
           
         },
         "namesAbbr": {
@@ -50,6 +56,15 @@
             "Thu": "Jo",
             "Fri": "Vi",
             "Sat": "Sb"
+        },
+        "namesShort": {
+            "Su": "Du",
+            "Mo": "Lu",
+            "Tu": "Ma",
+            "We": "Mi",
+            "Th": "Jo",
+            "Fr": "Vi",
+            "Sa": "Sb"
         }
       }
   },
