@@ -431,7 +431,7 @@ export class RSCalendarComponent {
         }
         let event = this.events.find(e => e.id == data.appointment.id);
         if (event.eventType == EventTypeEnum.availability ) {
-            data.style = '#DC143C'; //rosu
+            data.style = '#E0E0E0'; //rosu
             
         } else {
             data.style = '#004e9e'; //albastru
