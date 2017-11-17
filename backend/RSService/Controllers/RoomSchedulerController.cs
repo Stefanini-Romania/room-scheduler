@@ -49,7 +49,7 @@ namespace RSService.Controllers
             }                    
                 var newEvent = Mapper.Map<Event>(model);
                 newEvent.DateCreated = DateTime.UtcNow;
-                newEvent.AttendeeId = 6;//currentAttendeeId; //gets attendeeId from current http session
+                //newEvent.AttendeeId = 6;//currentAttendeeId; //gets attendeeId from current http session
 
                 eventRepository.AddEvent(newEvent);
                 dbOperation.Commit();
@@ -104,10 +104,11 @@ namespace RSService.Controllers
         //[Authorize]
         public IActionResult UpdateEvent(int id, [FromBody] EditViewModel model)
         {
+            //HttpContext.User.Identity.Name
 
             // Get current user id
-            var userName = HttpContext.User.Identities.First().Name;
-            int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
+            //var userName = HttpContext.User.Identities.First().Name;
+            //int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
 
             if (ModelState.IsValid)
             {
@@ -125,7 +126,7 @@ namespace RSService.Controllers
                 _event.RoomId = _model.RoomId;
                 _event.Notes = _model.Notes;
                 _event.HostId = _model.HostId;
-                _event.AttendeeId = currentAttendeeId;
+                _event.AttendeeId = model.AttendeeId;
                 _event.EventStatus = _model.EventStatus;
                 _event.DateCreated = DateTime.UtcNow;
                 dbOperation.Commit();
