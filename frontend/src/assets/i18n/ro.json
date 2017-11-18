@@ -30,6 +30,7 @@
       "endDate": "Până la",
       "event.create": "Adăugare eveniment",
       "event.edit": "Editare eveniment",
+      "event.saved": "Evenimentul a fost salvat",
 
       "buttons": {
           "cancel.event": "Anulează rezervarea"

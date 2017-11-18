@@ -5,6 +5,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {TranslateModule,TranslateLoader, MissingTranslationHandler, MissingTranslationHandlerParams} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 import {AppComponent} from './app.component';
 import {CoreModule} from './core/core.module';
@@ -51,6 +53,8 @@ const routes: Routes = [
         FormsModule,
         NgbModule.forRoot(),
         RouterModule.forRoot(routes),
+        BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot(), // ToastrModule added
         TranslateModule.forRoot({
             missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler },
             loader: {

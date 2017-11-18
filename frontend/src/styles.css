@@ -262,8 +262,10 @@ footer a {
     margin-top: 0;
 }
 
-
-
+#toast-container .toast.toast-success {
+    background-color: #004e9e;
+    color: #fff;
+}
 
 
 

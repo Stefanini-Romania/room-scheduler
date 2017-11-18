@@ -4,6 +4,7 @@ import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framewor
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
 import { Subscription } from 'rxjs/Subscription';
+import { ToastrService } from 'ngx-toastr';
 
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
@@ -87,8 +88,9 @@ export class RSCalendarComponent {
 
     subscription: Subscription;
 
-    constructor(private router: Router, private translate: TranslateService, private eventService: EventService,
-                private dialogService: DialogService, private modalService: NgbModal, private authService: AuthService) {
+    constructor(private router: Router, private toastr: ToastrService, private translate: TranslateService,
+                private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
+                private authService: AuthService) {
     }
     
 
@@ -301,6 +303,7 @@ export class RSCalendarComponent {
     }
 
     test($event, content) {
+        if(1)return;
         if (!this.selectedRoom) {
             this.dialogService.alert(this.translate.instant("Error.login")).result
                 .then(() => {
@@ -309,7 +312,8 @@ export class RSCalendarComponent {
                 .catch(() => {});
 
         }
-        this.redirectToLogin();if(1)return;
+        this.redirectToLogin();
+        if(1)return;
         let modalRef = this.dialogService.alert("This is a test");
         modalRef.result.then(value => {
             console.log("V=", value);
@@ -389,7 +393,10 @@ export class RSCalendarComponent {
             () => {
                 // on save event success
                 this.renderCalendar();
-                // @TODO display success message
+                this.toastr.success(
+                    this.translate.instant('calendar.event.saved'), '',
+                    {positionClass: 'toast-bottom-right'}
+                );
                 this.modalRef.close();
             },
             error => {

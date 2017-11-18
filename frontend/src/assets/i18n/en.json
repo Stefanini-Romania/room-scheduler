@@ -30,6 +30,7 @@
       "endDate": "To",
       "event.create": "Create new appointment",
       "event.edit": "Edit appointment",
+      "event.saved": "Appointment saved",
 
       "eventType": {
           "availabilty": "Not available",
