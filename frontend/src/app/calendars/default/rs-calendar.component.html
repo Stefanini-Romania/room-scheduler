@@ -29,7 +29,7 @@
                 <b *ngIf="view == 'weekView'"> - {{ xendDate | date: 'fullDate'}}</b>
             </label>
 
-            <!--<button ngbButtonLabel ngbButton class="btn btn-primary RScalendarButton" (click)="refresh()">Refresh</button>-->
+            <!--<button ngbButtonLabel ngbButton class="btn btn-primary" (click)="refresh()">Refresh</button>-->
         </div>
     
         <div class="row h-75 mby-5">
@@ -106,8 +106,8 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary RScalendarButton" (click)="cancelEvent()"  *ngIf="model.id">{{ 'button.cancel' | translate }}</button>
-        <button type="button" class="btn btn-primary RScalendarButton" (click)="saveEvent()">{{ 'button.save' | translate }}</button>
-        <button type="button" class="btn btn-primary RScalendarButton" (click)="c('Close click')">{{ 'button.close' | translate }}</button>
+        <button type="button" class="btn btn-primary" (click)="cancelEvent()"  *ngIf="model.id">{{ 'button.cancel' | translate }}</button>
+        <button type="button" class="btn btn-primary" (click)="saveEvent()">{{ 'button.save' | translate }}</button>
+        <button type="button" class="btn btn-primary" (click)="c('Close click')">{{ 'button.close' | translate }}</button>
     </div>
 </ng-template>
