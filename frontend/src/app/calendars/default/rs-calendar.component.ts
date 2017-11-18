@@ -26,7 +26,7 @@ export class RSCalendarComponent {
 
     events: Event[] = [];
     model: Event = <Event> {};
-    createErrorMessages: any = {};
+    errorMessages: any = {};
 
     public date: Date = new $.jqx.date();
 
@@ -324,7 +324,7 @@ export class RSCalendarComponent {
         if (this.authService.isLoggedIn()) {
             this.saveEventTitle = 'calendar.event.create';
 
-            this.createErrorMessages = {};
+            this.errorMessages = {};
 
             let date = this.scheduler.getSelection();
             if (!date) {
@@ -356,7 +356,7 @@ export class RSCalendarComponent {
         if (this.authService.isLoggedIn()) {
             this.saveEventTitle = 'calendar.event.edit';
 
-            this.createErrorMessages = {};
+            this.errorMessages = {};
 
             this.model = this.events.find(e => e.id == $event.args.appointment.id);
 
@@ -379,7 +379,7 @@ export class RSCalendarComponent {
 
     saveEvent() {
         // clear any previous errors
-        this.createErrorMessages = {};
+        this.errorMessages = {};
 
         // try to save
         this.eventService.save(this.model).subscribe(
@@ -393,9 +393,9 @@ export class RSCalendarComponent {
                 // on save event errors
                 // @TODO handle generic errors
                 if (error.status == 401) {
-                    this.createErrorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
+                    this.errorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
                 } else {
-                    this.createErrorMessages = {'generic': [error.error.message]};
+                    this.errorMessages = {'generic': [error.error.message]};
 
                     // build error message
                     for (let e of error.error.errors) {
@@ -404,11 +404,11 @@ export class RSCalendarComponent {
                             field = e.field;
                         }
 
-                        if (!this.createErrorMessages[field]) {
-                            this.createErrorMessages[field] = [];
+                        if (!this.errorMessages[field]) {
+                            this.errorMessages[field] = [];
                         }
 
-                        this.createErrorMessages[field].push(e.errorCode);
+                        this.errorMessages[field].push(e.errorCode);
                     }
 
                     this.renderCalendar();
