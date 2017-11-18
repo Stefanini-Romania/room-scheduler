@@ -29,7 +29,7 @@
                 <b *ngIf="view == 'weekView'"> - {{ xendDate | date: 'fullDate'}}</b>
             </label>
 
-            <!--<button ngbButtonLabel ngbButton class="btn btn-primary" (click)="refresh()">Refresh</button>-->
+            <!--<button ngbButtonLabel ngbButton class="btn btn-primary" (click)="test($event, content)">Refresh</button>-->
         </div>
     
         <div class="row h-75 mby-5">
@@ -71,34 +71,30 @@
             </ngb-alert>
 
             <div class="form-group">
-                <div class="input-group">
-                    <div class="container">
-                        <div class="row">
-                            <label class="col-md-3"><b>{{ 'calendar.startDate' | translate }}:</b></label>
-                            <label class="col-md-9">{{ model.startDate | date: 'fullDate'}} {{ model.startDate | date: 'shortTime'}}</label>
-                        </div>
+                <div class="row">
+                    <div class="input-group">
+                        <label class="col-md-3"><b>{{ 'calendar.startDate' | translate }}:</b></label>
+                        <label class="col">{{ model.startDate | date: 'fullDate'}} {{ model.startDate | date: 'shortTime'}}</label>
                     </div>
+                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['StartDate']" [dismissible]="false">
+                        <div *ngFor="let errorMessage of errorMessages['StartDate']">{{ errorMessage | translate }}</div>
+                    </ngb-alert>
                 </div>
-                <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['StartDate']" [dismissible]="false">
-                    <div *ngFor="let errorMessage of errorMessages['StartDate']">{{ errorMessage | translate }}</div>
-                </ngb-alert>
-
-                <div class="input-group">
-                    <div class="container">
-                        <div class="row">
-                            <label class="col-md-3"><b>{{ 'calendar.endDate' | translate }}:</b></label>
-                            <label class="col-md-9">{{ model.endDate | date: 'fullDate'}} {{ model.endDate | date: 'shortTime'}}</label>
-                        </div>
+                <div class="row">
+                    <div class="input-group">
+                        <label class="col-md-3"><b>{{ 'calendar.endDate' | translate }}:</b></label>
+                        <label class="col">{{ model.endDate | date: 'fullDate'}} {{ model.endDate | date: 'shortTime'}}</label>
                     </div>
+                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
+                        <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
+                    </ngb-alert>
                 </div>
-                <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
-                    <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
-                </ngb-alert>
-                
-                <div class="input-group">
-                    <div class="container">
-                        <label hidden="true"><b>{{ 'calendar.notes' | translate }}:</b></label>
-                        <label><textarea rows="3"  placeholder="{{ 'calendar.notes' | translate}}" class="textarea" name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea></label>
+                <div class="row">
+                    <div class="input-group">
+                        <div class="col">
+                            <label hidden="true"><b>{{ 'calendar.notes' | translate }}:</b></label>
+                            <textarea placeholder="{{ 'calendar.notes' | translate}}" class="w-100 h-100" name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>

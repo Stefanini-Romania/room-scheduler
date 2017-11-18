@@ -320,6 +320,28 @@ export class RSCalendarComponent {
         }
     }
 
+    test($event, content) {
+        this.saveEventTitle = 'calendar.event.create';
+
+        this.errorMessages = {};
+
+        this.model = new Event();
+        this.model.startDate = new Date();
+        this.model.endDate = new Date();
+        this.model.eventType = EventTypeEnum.massage;
+        this.model.eventStatus = EventStatusEnum.waiting;
+        this.model.roomId = this.roomId;
+        this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+        this.model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
+
+        this.modalRef = this.modalService.open(content);
+        this.modalRef.result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+    }
+
     showCreateDialog($event, content) {
         if (this.authService.isLoggedIn()) {
             this.saveEventTitle = 'calendar.event.create';
@@ -432,7 +454,7 @@ export class RSCalendarComponent {
         }
         let event = this.events.find(e => e.id == data.appointment.id);
         if (event.eventType == EventTypeEnum.availability ) {
-            data.style = '#E0E0E0'; //rosu
+            data.style = '#E0E0E0'; //gri
             
         } else {
             data.style = '#004e9e'; //albastru
