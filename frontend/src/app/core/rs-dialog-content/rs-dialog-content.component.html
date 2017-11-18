@@ -1,0 +1,17 @@
+<div size-type="lg">
+    <div *ngIf="options.title || options.canCancel" class="modal-header" >
+        <h6 *ngIf="options.title" class="modal-title">{{ options.title | translate }}</h6>
+        <button *ngIf="options.canCancel" type="button" class="close" aria-label="Close" (click)="cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        {{ options.message }}
+    </div>
+
+    <div class="modal-footer">
+        <button *ngIf="options.canCancel" type="button" class="btn btn-primary" (click)="cancel()">{{ 'button.cancel' | translate }}</button>
+        <button type="button" class="btn btn-primary" (click)="close('close')">{{ 'button.close' | translate }}</button>
+    </div>
+</div>
