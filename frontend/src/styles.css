@@ -1,70 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 html, body
 {
-    background: rgb(255, 255, 255);
-    color: black;
     height: 100%;
- 
 }
 
-.navbar{
+header nav {
+    padding: 10px;
+}
+
+footer p {
+    padding-top: 10px;
+    margin: 4px 0px 20px 5px;
     z-index: 1;
+    position: absolute;
 }
 
-.bg-overlay {   
+body .btn, button {
+    cursor: pointer;
+}
+
+body .btn-primary {
+    background-color: #004e9e;
+}
+
+body .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    box-shadow: none;
+}
+
+.bg-overlay {
     background: linear-gradient(rgba(255, 255, 255, 0.158), rgba(0, 0, 0, 0.075)), url('/../../../assets/img/grey.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
 
-    padding-top: 80px;
-      
     min-height: 100%;
     width: 100%;
-   
-    position: fixed;
-    top: 1px;
-    left: 0;
-
 }
 
-
-#logo-header
-{  
-    text-align: left;
-    height: 40px;
-    width: 40px;
-    position: relative;
-    margin: -3px 0px 20px 80px;
-
-}
-
-#img2
-{
-    height: 300px;
-    width: 600px;
-    padding-left: 50px;
-    
-}
-
-#footerimg{
-    height:70px;
-    width: 100%;
-    padding: 0;
-    z-index: 0;
-    position: relative; 
-}
-
-.navbar-brand
-{
-   
-    font-size: 25px !important;
-    -webkit-text-stroke-width: thin;
+.navbar-brand {
     color: #004e9e;
-    padding-top: 0 !important;
 }
 
-form 
+form
 {
     border: 0;
     float: none;
@@ -80,19 +57,9 @@ form
     width: 60%;
 }
 
-h3 {
-    text-align: center;
-    padding: 10px;
-}
-
-#user-cont {
-    padding-top: 0;
-    padding-bottom: 30px;
-}
-
 label
 {
-    color: rgb(0, 0, 0);
+    color: #000;
     padding-top: 10px;
 }
 
@@ -107,14 +74,6 @@ input[type=text], input[type=password]
     line-height: initial;
 }
 
-/* CONTACT US BUTTON */
-#b1 {
-    float: right;
-    border-radius: 0;
-    font-weight: 700;
-    font-size: 14px;
-}
-
 button {
     background-color: #004e9e;
     color: #fff;
@@ -124,108 +83,15 @@ button {
     padding-top: 0px;
     font-weight: 700;
     font-size: 14px;
-    
-}
 
-body .btn, button {
-    cursor: pointer;
-}
-
-body .btn-primary {
-    background-color: #004e9e;
-}
-
-body .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
-    box-shadow: none;
 }
 
 #loginbtn:hover,
 #loginbtn:active,
-#loginbtn:focus,
-#b1:hover,
-#b1:active,
-#b1:focus  {
+#loginbtn:focus {
     background-color: #007bff;
 }
 
-#rem-me {
-    padding-left: 10px;
-    color: white;
-}
-
-#cancel-cont {
-    padding: 10px;
-    background-color:#f1f1f1;
-}
-
-#reset1 {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #aaaaaa;
-}
-
-.container {
-    /* margin-top: 60px; */
-    position: relative;
-   
-}
-
-span.psw {
-    float: right;
-    padding-top: 16px;
-}
-
-@media screen and (max-width: 300px) {
-    span.psw {
-        display: block;
-        float: none;
-    }
-    .cancelbtn {
-        width: 100%;
-    }
-}
-
-#copyright p {
-    padding-left: 50px;
-    font-size: 11px;
-    float: left;
-    margin-bottom: 0;
-    color: black;
-}
-
-header, footer {
-    position: fixed;
-    width: 100%;
-}
-
-header nav {
-    padding: 10px;
-}
-footer {
-    bottom: 0;
-    overflow: hidden;
-    font-size: 15px;
-}
-
-footer p {
-    padding-top: 10px;
-    margin: 4px 0px 20px 5px;
-    z-index: 1;
-    position: absolute; 
-}
-
-footer a {
-    padding-top: 13px;
-    margin: 4px 0px 20px 5px;
-}
-
-
-#headerimg{
-    height:70px;
-    width: 100%;
-    position: relative;
-}
-  
 #loginbtn {
     position: relative;
     width: 100%;
@@ -235,13 +101,6 @@ footer a {
 #sign-out {
     position: relative;
     padding: 10px;
-
-}
-
-#logout {
-    position: relative;
-    margin-inline-start: 1712px;
-    width: 147px;
 }
 
 #welcome-message {
@@ -249,23 +108,10 @@ footer a {
     top: 35px;
 }
 
-.modal-header{
+.modal-header {
     color: #fff;
     background-color: #004e9e;
 }
-.modal-content .modal-body {
-    align-self: center;    
-    width: 95%; 
-}
-
-#nav-text1 {
-    margin-top: 0;
-}
-
-.textarea {
-    width: 346px;
-    height: auto;   
-}
 
 
 
@@ -273,9 +119,3 @@ footer a {
 
 
 
-
-
-
-
-
-   

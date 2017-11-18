@@ -26,7 +26,7 @@ export class RSCalendarComponent {
 
     events: Event[] = [];
     model: Event = <Event> {};
-    createErrorMessages: any = {};
+    errorMessages: any = {};
 
     public date: Date = new $.jqx.date();
 
@@ -320,11 +320,31 @@ export class RSCalendarComponent {
         }
     }
 
+    test(content) {
+        // exit in case the user wants to create an event over an existing event
+        this.model = new Event();
+        this.model.startDate = new Date();
+        this.model.endDate = new Date();
+        this.model.eventType = EventTypeEnum.massage;
+        this.model.eventStatus = EventStatusEnum.waiting;
+        this.model.roomId = this.roomId;
+        this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+        this.model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
+
+        this.modalRef = this.modalService.open(content);
+        this.modalRef.result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+        return;
+    }
+
     showCreateDialog($event, content) {
         if (this.authService.isLoggedIn()) {
             this.saveEventTitle = 'calendar.event.create';
 
-            this.createErrorMessages = {};
+            this.errorMessages = {};
 
             let date = this.scheduler.getSelection();
             if (!date) {
@@ -339,7 +359,7 @@ export class RSCalendarComponent {
             this.model.eventStatus = EventStatusEnum.waiting;
             this.model.roomId = this.roomId;
             this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-            this.model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
+            this.model.attendeeId = this.authService.getLoggedUser().id; // @TODO Backend to get the user id from session
 
             this.modalRef = this.modalService.open(content);
             this.modalRef.result.then((result) => {
@@ -356,7 +376,7 @@ export class RSCalendarComponent {
         if (this.authService.isLoggedIn()) {
             this.saveEventTitle = 'calendar.event.edit';
 
-            this.createErrorMessages = {};
+            this.errorMessages = {};
 
             this.model = this.events.find(e => e.id == $event.args.appointment.id);
 
@@ -379,7 +399,7 @@ export class RSCalendarComponent {
 
     saveEvent() {
         // clear any previous errors
-        this.createErrorMessages = {};
+        this.errorMessages = {};
 
         // try to save
         this.eventService.save(this.model).subscribe(
@@ -393,9 +413,9 @@ export class RSCalendarComponent {
                 // on save event errors
                 // @TODO handle generic errors
                 if (error.status == 401) {
-                    this.createErrorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
+                    this.errorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
                 } else {
-                    this.createErrorMessages = {'generic': [error.error.message]};
+                    this.errorMessages = {'generic': [error.error.message]};
 
                     // build error message
                     for (let e of error.error.errors) {
@@ -404,11 +424,11 @@ export class RSCalendarComponent {
                             field = e.field;
                         }
 
-                        if (!this.createErrorMessages[field]) {
-                            this.createErrorMessages[field] = [];
+                        if (!this.errorMessages[field]) {
+                            this.errorMessages[field] = [];
                         }
 
-                        this.createErrorMessages[field].push(e.errorCode);
+                        this.errorMessages[field].push(e.errorCode);
                     }
 
                     this.renderCalendar();
