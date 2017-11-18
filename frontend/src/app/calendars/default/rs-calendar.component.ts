@@ -301,6 +301,14 @@ export class RSCalendarComponent {
     }
 
     test($event, content) {
+        if (!this.selectedRoom) {
+            this.dialogService.alert(this.translate.instant("Error.login")).result
+                .then(() => {
+                    this.router.navigate(['/login']);
+                })
+                .catch(() => {});
+
+        }
         this.redirectToLogin();if(1)return;
         let modalRef = this.dialogService.alert("This is a test");
         modalRef.result.then(value => {
