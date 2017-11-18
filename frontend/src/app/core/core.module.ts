@@ -9,12 +9,15 @@ import {RSHeader} from './rs-header/rs-header.component';
 import {RSFooter} from './rs-footer/rs-footer.component';
 import {SharedModule} from '../shared/shared.module';
 import {LanguageSelector} from './language-selector/language-selector';
+import {DialogService} from '../shared/services/dialog.service';
+import {RSDialogContentComponent} from './rs-dialog-content/rs-dialog-content.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, HttpModule, NgbModule, TranslateModule, SharedModule],
-    providers: [],
-    declarations: [RSHeader, RSFooter, LanguageSelector],
+    providers: [DialogService],
+    declarations: [RSHeader, RSFooter, LanguageSelector, RSDialogContentComponent],
     exports: [CommonModule, FormsModule, TranslateModule, NgbModule, RSHeader, RSFooter],
+    entryComponents: [RSDialogContentComponent]
 })
 export class CoreModule {
 }
