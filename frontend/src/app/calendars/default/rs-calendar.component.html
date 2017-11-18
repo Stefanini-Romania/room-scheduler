@@ -94,7 +94,7 @@
                 <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
                     <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
                 </ngb-alert>
-
+                
                 <div class="input-group">
                     <div class="container">
                         <label hidden="true"><b>{{ 'calendar.notes' | translate }}:</b></label>
@@ -111,3 +111,4 @@
         <button type="button" class="btn btn-primary" (click)="c('Close click')">{{ 'button.close' | translate }}</button>
     </div>
 </ng-template>
+
