@@ -12,7 +12,7 @@
   "button" : {
       "close": "Închide",
       "save": "Salvează",
-      "cancel": "Anulează rezervarea"
+      "cancel": "Anulează"
   },
 
   "login.button": "Autentificare",
@@ -30,6 +30,10 @@
       "endDate": "Până la",
       "event.create": "Adăugare eveniment",
       "event.edit": "Editare eveniment",
+
+      "buttons": {
+          "cancel.event": "Anulează rezervarea"
+      },
 
       "eventType": {
         "availabilty": "Indisponibil",
@@ -70,18 +74,18 @@
       },
 
       "months": {
-          "January": "January",
-          "February": "February",
-          "March": "March",
-          "April": "April",
-          "May": "May",
-          "June": "June",
-          "July": "July",
+          "January": "Ianuarie",
+          "February": "Februarie",
+          "March": "Martie",
+          "April": "Aprilie",
+          "May": "Mai",
+          "June": "Iunie",
+          "July": "Iulie",
           "August": "August",
-          "September": "September",
-          "October": "October",
-          "November": "November",
-          "December": "December"
+          "September": "Septembrie",
+          "October": "Octombrie",
+          "November": "Noiembrie",
+          "December": "Decembrie"
       }
   },
 
@@ -91,6 +95,7 @@
   },
 
   "Error": {
+      "login": "Trebuie să fiți autentificat pentru a putea crea programari !",
       "Event.Authentication": "Utilizator sau parolă invalide",
       "Event.Creation": "Evenimentul nu a putut fi creat",
       "Event.Edit": "Evenimentul nu a putut fi modificat"

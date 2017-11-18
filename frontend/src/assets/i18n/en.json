@@ -12,7 +12,7 @@
   "button": {
       "close": "Close",
       "save": "Save",
-      "cancel": "Cancel Appointment"
+      "cancel": "Cancel"
   },
 
   "login.button": "Sign In",
@@ -34,6 +34,10 @@
       "eventType": {
           "availabilty": "Not available",
           "massage": "Massage"
+      },
+
+      "buttons": {
+        "cancel.event": "Cancel Appointment"
       },
 
       "days": {
@@ -75,6 +79,7 @@
   },
 
   "Error": {
+      "login": "You need to login if you want to make an appointment !",
       "Event.Authentication": "Invalid username or password",
       "Event.Creation": "Unable to create event",
       "Event.Edit": "Unable to edit event"

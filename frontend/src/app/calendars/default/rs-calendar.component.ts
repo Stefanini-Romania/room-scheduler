@@ -1,7 +1,7 @@
 import {Router} from '@angular/router';
-import {Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import {Component, ViewChild } from '@angular/core';
 import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
-import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
 import { Subscription } from 'rxjs/Subscription';
 
@@ -12,8 +12,9 @@ import {Event} from '../../shared/models/event.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
+import {DialogService} from '../../shared/services/dialog.service';
 
-declare var $ :any;
+declare let $ :any;
 
 @Component({
     selector: 'rs-calendar-component',
@@ -30,17 +31,15 @@ export class RSCalendarComponent {
 
     public date: Date = new $.jqx.date();
 
-    public xstartDate: Date;
-    public xendDate: Date;
+    public startDate: Date;
+    public endDate: Date;
 
-    public roomId: number;
+    public selectedRoom: Room;
     public hostId: number;
 
     public saveEventTitle: string;
 
     public view = 'weekView';
-
-    closeResult: string;
 
     source: any = {
         dataType: "array",
@@ -88,7 +87,8 @@ export class RSCalendarComponent {
 
     subscription: Subscription;
 
-    constructor(private router: Router, private translate: TranslateService, private eventService: EventService, private modalService: NgbModal, private authService: AuthService) {
+    constructor(private router: Router, private translate: TranslateService, private eventService: EventService,
+                private dialogService: DialogService, private modalService: NgbModal, private authService: AuthService) {
     }
     
 
@@ -189,17 +189,6 @@ export class RSCalendarComponent {
         this.dataAdapter = new jqx.dataAdapter(this.source);
     }
 
-
-    private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return `with: ${reason}`;
-        }
-    }
-
     isView(view: string): boolean {
         return view == this.view;
     }
@@ -224,8 +213,8 @@ export class RSCalendarComponent {
     }
 
     private addDaysInDirection(date, direction: number) {
-        var i = this.views.find(e => e.type == this.view);
-        var c = new $.jqx.date(date, this.scheduler.timeZone());
+        let i = this.views.find(e => e.type == this.view);
+        let c = new $.jqx.date(date, this.scheduler.timeZone());
 
         let j = function () {
             while ((c.dayOfWeek() == 0 || c.dayOfWeek() == 6) && false === i.showWeekends) {
@@ -264,12 +253,12 @@ export class RSCalendarComponent {
             let x: Date;
 
             x = $event.args.from.toDate();
-            this.xstartDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? 1 : 0),
+            this.startDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? 1 : 0),
                 0, 0, 0
             ));
 
             x = $event.args.to.toDate();
-            this.xendDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? -3 : 0),
+            this.endDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? -3 : 0),
                 23, 59, 59
             ));
 
@@ -278,27 +267,18 @@ export class RSCalendarComponent {
     }
 
     onRoomChanged(selectedRoom: Room) {
-        this.roomId = selectedRoom.id;
+        this.selectedRoom = selectedRoom;
         this.renderCalendar();
     }
 
-    onRoomsLoaded(rooms: Room[]) {
-        // select 1st room when rooms are loaded
-        if (rooms.length) {
-            this.roomId = rooms[0].id;
-            this.renderCalendar();
-        }
-     
-    }
-
     private renderCalendar() {
-        if (!this.xstartDate || !this.xendDate) {
+        if (!this.startDate || !this.endDate || !this.selectedRoom) {
             return;
         }
         
         
         this.events = [];
-        this.eventService.listEvents(this.xstartDate, this.xendDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
+        this.eventService.listEvents(this.startDate, this.endDate, this.selectedRoom.id, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
                 this.events.push(<Event>event);
@@ -321,6 +301,14 @@ export class RSCalendarComponent {
     }
 
     test($event, content) {
+        this.redirectToLogin();if(1)return;
+        let modalRef = this.dialogService.alert("This is a test");
+        modalRef.result.then(value => {
+            console.log("V=", value);
+        }, reason => {
+            console.log("D=", reason);
+        });
+        if (1)return;
         this.saveEventTitle = 'calendar.event.create';
 
         this.errorMessages = {};
@@ -330,16 +318,11 @@ export class RSCalendarComponent {
         this.model.endDate = new Date();
         this.model.eventType = EventTypeEnum.massage;
         this.model.eventStatus = EventStatusEnum.waiting;
-        this.model.roomId = this.roomId;
+        this.model.roomId = 1;
         this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
         this.model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
 
         this.modalRef = this.modalService.open(content);
-        this.modalRef.result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
     }
 
     showCreateDialog($event, content) {
@@ -359,16 +342,11 @@ export class RSCalendarComponent {
             this.model.endDate = new Date(date.to.toString());
             this.model.eventType = EventTypeEnum.massage;
             this.model.eventStatus = EventStatusEnum.waiting;
-            this.model.roomId = this.roomId;
+            this.model.roomId = this.selectedRoom.id;
             this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
             this.model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
 
             this.modalRef = this.modalService.open(content);
-            this.modalRef.result.then((result) => {
-                this.closeResult = `Closed with: ${result}`;
-            }, (reason) => {
-                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            });
         } else {
             this.redirectToLogin();
         }
@@ -383,11 +361,6 @@ export class RSCalendarComponent {
             this.model = this.events.find(e => e.id == $event.args.appointment.id);
 
             this.modalRef = this.modalService.open(content);
-            this.modalRef.result.then((result) => {
-                this.closeResult = `Closed with: ${result}`;
-            }, (reason) => {
-                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            });
         } else {
             this.redirectToLogin();
         }
@@ -443,8 +416,12 @@ export class RSCalendarComponent {
 
     redirectToLogin() {
         if (!(this.authService.isLoggedIn())) {
-            alert("You need to login if you want to make an appointment!");
-            this.router.navigate(['/login']);
+            this.dialogService.alert(this.translate.instant("Error.login")).result
+                .then(() => {
+                    this.router.navigate(['/login']);
+                })
+                .catch(() => {});
+
         }
     }
 

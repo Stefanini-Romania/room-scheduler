@@ -1,7 +1,7 @@
 
 <div class="container h-100" style="padding-top: 80px">
         <div class="row">
-            <room-selector (roomsLoaded)="onRoomsLoaded($event)" (roomChange)="onRoomChanged($event)"></room-selector>
+            <room-selector (roomChange)="onRoomChanged($event)"></room-selector>
             &nbsp;
             <div class="btn-group" ngbRadioGroup>
                 <label ngbButtonLabel class="btn-primary"(click)="goBack()">
@@ -24,12 +24,12 @@
                 </label>
                 
             </div>
-            <label *ngIf="xstartDate && xendDate" class="px-2">
-                <b>{{ xstartDate | date: 'fullDate' }}</b>
-                <b *ngIf="view == 'weekView'"> - {{ xendDate | date: 'fullDate'}}</b>
+            <label *ngIf="startDate && endDate" class="px-2">
+                <b>{{ startDate | date: 'fullDate' }}</b>
+                <b *ngIf="view == 'weekView'"> - {{ endDate | date: 'fullDate'}}</b>
             </label>
 
-            <!--<button ngbButtonLabel ngbButton class="btn btn-primary" (click)="test($event, content)">Refresh</button>-->
+            <button ngbButtonLabel ngbButton class="btn btn-primary" (click)="test($event, content)">Refresh</button>
         </div>
     
         <div class="row h-75 mby-5">
@@ -102,7 +102,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="cancelEvent()"  *ngIf="model.id">{{ 'button.cancel' | translate }}</button>
+        <button type="button" class="btn btn-primary" (click)="cancelEvent()"  *ngIf="model.id">{{ 'calendar.buttons.cancel.event' | translate }}</button>
         <button type="button" class="btn btn-primary" (click)="saveEvent()">{{ 'button.save' | translate }}</button>
         <button type="button" class="btn btn-primary" (click)="c('Close click')">{{ 'button.close' | translate }}</button>
     </div>

@@ -10,17 +10,15 @@ import {Room} from '../../shared/models/room.model';
     templateUrl: './room-selector.component.html'
 })
 export class RoomSelector implements AfterViewInit, OnDestroy {
-    selectedRoomName: string;
-    subscription: Subscription;
-
-    @Input()
-    rooms: Room[];
-
-    @Output()
-    roomsLoaded = new EventEmitter;
-
     @Output()
     roomChange = new EventEmitter;
+
+    private selectedRoomName: string;
+    private subscription: Subscription;
+
+    private selectedRoom: Room;
+
+    private rooms: Room[] = [];
 
     constructor(private roomService: RoomService, translate: TranslateService) {
         this.subscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -30,13 +28,16 @@ export class RoomSelector implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.rooms = [];
+        let x=new Room();x.name="Room " + this.rooms.length + 1;this.rooms.push(x);
+        x=new Room();x.name="Room " + this.rooms.length + 1;this.rooms.push(x);
+        x=new Room();x.name="Room " + this.rooms.length + 1;this.rooms.push(x);
+
         this.roomService.roomList().subscribe((rooms: any) => {
             for (let room of rooms) {
                 this.rooms.push(<Room>room);
             }
 
-            this.roomsLoaded.emit(this.rooms);
-            this.selectedRoomName = rooms[0].name;
+            this.onSelectRoom(rooms[0]);
         });
     }
 
@@ -46,7 +47,7 @@ export class RoomSelector implements AfterViewInit, OnDestroy {
     }
 
     onSelectRoom(room: Room) {
-        this.selectedRoomName = room.name;
+        this.selectedRoom = room;
         this.roomChange.emit(room);
     }
 }
