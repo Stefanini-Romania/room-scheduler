@@ -1,7 +1,7 @@
 <div ngbDropdown class="d-inline-block">
-    <button class="btn btn-primary" ngbDropdownToggle>
+    <label class="btn btn-primary" ngbDropdownToggle>
         {{ selectedRoom ? selectedRoom.name : selectedRoomName }}
-    </button>
+    </label>
     <div ngbDropdownMenu aria-labelledby="roomsButton">
         <button *ngFor="let room of rooms" class="dropdown-item" (click)="onSelectRoom(room)">{{ room.name }}</button>
     </div>
