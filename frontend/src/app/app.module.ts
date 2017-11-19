@@ -27,7 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export class MyMissingTranslationHandler implements MissingTranslationHandler {
     handle(params: MissingTranslationHandlerParams) {
-        console.log('Missing translation ', params);
+        console.log(`Missing translation "${params.key}" for language ${params.translateService.currentLang}`);
         return params.key;
     }
 }

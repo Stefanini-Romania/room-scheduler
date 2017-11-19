@@ -37,9 +37,9 @@
       },
 
       "eventType": {
-        "availabilty": "Indisponibil",
-        "massage": "Masaj"
-        },
+          "availabilty": "Indisponibil",
+          "massage": "Masaj"
+      },
 
       "days": {
           "names": {
@@ -64,13 +64,13 @@
           },
 
           "namesShort": {
-              "Su": "Du",
-              "Mo": "Lu",
+              "Su": "D",
+              "Mo": "L",
               "Tu": "Ma",
               "We": "Mi",
-              "Th": "Jo",
-              "Fr": "Vi",
-              "Sa": "Sb"
+              "Th": "J",
+              "Fr": "V",
+              "Sa": "S"
           }
       },
 

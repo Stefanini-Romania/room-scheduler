@@ -1,6 +1,6 @@
 import {Router} from '@angular/router';
 import {Component, ViewChild } from '@angular/core';
-import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
+import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
 import { Subscription } from 'rxjs/Subscription';
@@ -15,8 +15,6 @@ import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
 import {DialogService} from '../../shared/services/dialog.service';
 
-declare let $ :any;
-
 @Component({
     selector: 'rs-calendar-component',
     templateUrl: './rs-calendar.component.html',
@@ -30,7 +28,7 @@ export class RSCalendarComponent {
     model: Event = <Event> {};
     errorMessages: any = {};
 
-    public date: Date = new $.jqx.date();
+    public date: Date = new jqx.date();
 
     public startDate: Date;
     public endDate: Date;
@@ -92,70 +90,14 @@ export class RSCalendarComponent {
                 private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
                 private authService: AuthService) {
     }
-    
+
+    ngOnInit() {
+        this.subscription =  this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.updateCalendarTranslations();
+        });
+    }
 
     ngAfterViewInit(): void {
-        const t = this.translate;
-        this.subscription = t.onLangChange.subscribe((event: LangChangeEvent) => {
-            this.refreshCalendar();
-            this.localization = {
-                // separator of parts of a date (e.g. '/' in 11/05/1955)
-                '/': '/',
-
-                // separator of parts of a time (e.g. ':' in 05:44 PM)
-                ':': ':',
-
-                // the first day of the week (0 = Sunday, 1 = Monday, etc)
-                firstDay: 0,
-                days: {
-                    // full day names
-                    names: [
-                        t.instant("calendar.days.names.Sunday"),
-                        t.instant("calendar.days.names.Monday"),
-                        t.instant("calendar.days.names.Tuesday"),
-                        t.instant("calendar.days.names.Wednesday"),
-                        t.instant("calendar.days.names.Thursday"),
-                        t.instant("calendar.days.names.Friday"),
-                        t.instant("calendar.days.names.Saturday")
-                    ],
-
-                    // abbreviated day names
-                    namesAbbr: [
-                        t.instant("calendar.days.namesAbbr.Sun"),
-                        t.instant("calendar.days.namesAbbr.Mon"),
-                        t.instant("calendar.days.namesAbbr.Tue"),
-                        t.instant("calendar.days.namesAbbr.Wed"),
-                        t.instant("calendar.days.namesAbbr.Thu"),
-                        t.instant("calendar.days.namesAbbr.Fri"),
-                        t.instant("calendar.days.namesAbbr.Sat")
-                    ],
-
-                    // shortest day names
-                    namesShort: [
-                        t.instant("calendar.days.namesShort.Su"),
-                        t.instant("calendar.days.namesShort.Mo"),
-                        t.instant("calendar.days.namesShort.Tu"),
-                        t.instant("calendar.days.namesShort.We"),
-                        t.instant("calendar.days.namesShort.Th"),
-                        t.instant("calendar.days.namesShort.Fr"),
-                        t.instant("calendar.days.namesShort.Sa")
-                    ]
-                },
-
-                months: {
-                    // full month names (13 months for lunar calendards -- 13th month should be "" if not lunar)
-                    names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
-                    // abbreviated month names
-                    namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""]
-                },
-
-                contextMenuEditAppointmentString: t.instant("calendar.event.edit"),
-                contextMenuCreateAppointmentString: t.instant("calendar.event.create"),
-            };
-
-            this.scheduler.localization(this.localization);
-           
-        });
         this.goToToday();
     }
 
@@ -191,19 +133,78 @@ export class RSCalendarComponent {
         this.dataAdapter = new jqx.dataAdapter(this.source);
     }
 
+    updateCalendarTranslations() {
+        const t = this.translate;
+
+        this.localization = {
+            // separator of parts of a date (e.g. '/' in 11/05/1955)
+            '/': '/',
+
+            // separator of parts of a time (e.g. ':' in 05:44 PM)
+            ':': ':',
+
+            // the first day of the week (0 = Sunday, 1 = Monday, etc)
+            firstDay: 0,
+            days: {
+                // full day names
+                names: [
+                    t.instant("calendar.days.names.Sunday"),
+                    t.instant("calendar.days.names.Monday"),
+                    t.instant("calendar.days.names.Tuesday"),
+                    t.instant("calendar.days.names.Wednesday"),
+                    t.instant("calendar.days.names.Thursday"),
+                    t.instant("calendar.days.names.Friday"),
+                    t.instant("calendar.days.names.Saturday")
+                ],
+
+                // abbreviated day names
+                namesAbbr: [
+                    t.instant("calendar.days.namesAbbr.Sun"),
+                    t.instant("calendar.days.namesAbbr.Mon"),
+                    t.instant("calendar.days.namesAbbr.Tue"),
+                    t.instant("calendar.days.namesAbbr.Wed"),
+                    t.instant("calendar.days.namesAbbr.Thu"),
+                    t.instant("calendar.days.namesAbbr.Fri"),
+                    t.instant("calendar.days.namesAbbr.Sat")
+                ],
+
+                // shortest day names
+                namesShort: [
+                    t.instant("calendar.days.namesShort.Su"),
+                    t.instant("calendar.days.namesShort.Mo"),
+                    t.instant("calendar.days.namesShort.Tu"),
+                    t.instant("calendar.days.namesShort.We"),
+                    t.instant("calendar.days.namesShort.Th"),
+                    t.instant("calendar.days.namesShort.Fr"),
+                    t.instant("calendar.days.namesShort.Sa")
+                ]
+            },
+
+            months: {
+                // full month names (13 months for lunar calendards -- 13th month should be "" if not lunar)
+                names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
+                // abbreviated month names
+                namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""]
+            },
+
+            contextMenuEditAppointmentString: t.instant("calendar.event.edit"),
+            contextMenuCreateAppointmentString: t.instant("calendar.event.create"),
+        };
+    }
+
     isView(view: string): boolean {
         return view == this.view;
     }
 
     setView(view: string) {
         this.view = view;
-        this.date = new $.jqx.date(this.scheduler.date(), this.scheduler.timeZone());
+        this.date = new jqx.date(this.scheduler.date(), this.scheduler.timeZone());
 
         this.scheduler.view(this.view);
     }
 
     goToToday() {
-        this.date = new $.jqx.date();
+        this.date = new jqx.date();
     }
 
     goBack() {
@@ -216,7 +217,7 @@ export class RSCalendarComponent {
 
     private addDaysInDirection(date, direction: number) {
         let i = this.views.find(e => e.type == this.view);
-        let c = new $.jqx.date(date, this.scheduler.timeZone());
+        let c = new jqx.date(date, this.scheduler.timeZone());
 
         let j = function () {
             while ((c.dayOfWeek() == 0 || c.dayOfWeek() == 6) && false === i.showWeekends) {
@@ -303,6 +304,9 @@ export class RSCalendarComponent {
     }
 
     test($event, content) {
+        console.log("BEFORE", this.scheduler.touchDayNameFormat());
+        this.scheduler.touchDayNameFormat('full');
+        console.log("AFTER", this.scheduler.touchDayNameFormat());
         if(1)return;
         if (!this.selectedRoom) {
             this.dialogService.alert(this.translate.instant("Error.login")).result
