@@ -8,6 +8,7 @@ import {jqxSchedulerComponent} from './default/temp-hack/angular_jqxscheduler';
 import {RoomModule} from './../rooms/room.module';
 import {jqxButtonComponent} from './../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxbuttons';
 import {CoreModule} from '../core/core.module';
+import {SharedModule} from '../shared/shared.module';
 
 const routes: Routes = [
     {path: 'calendar', component: RSCalendarComponent}
@@ -16,6 +17,7 @@ const routes: Routes = [
 @NgModule({
     imports: [
         CoreModule,
+        SharedModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(routes),
         RoomModule,

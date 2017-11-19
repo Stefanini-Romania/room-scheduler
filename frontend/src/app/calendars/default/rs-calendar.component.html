@@ -24,9 +24,10 @@
                 </label>
                 
             </div>
-            <label *ngIf="startDate && endDate" class="px-2">
-                <b>{{ startDate | date: 'fullDate' }}</b>
-                <b *ngIf="view == 'weekView'"> - {{ endDate | date: 'fullDate'}}</b>
+            <!--badge-info  px-2 py-2 img-rounded-->
+            <label class="mx-2 btn" *ngIf="startDate && endDate">
+                <b>{{ startDate | localizedDate | titlecase }}</b>
+                <b *ngIf="view == 'weekView'"> - {{ endDate | localizedDate| titlecase }}</b>
             </label>
 
             <!--<button ngbButtonLabel ngbButton class="btn btn-primary" (click)="test($event, content)">Refresh</button>-->
