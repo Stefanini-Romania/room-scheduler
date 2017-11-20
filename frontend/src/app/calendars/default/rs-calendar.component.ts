@@ -1,10 +1,9 @@
+import {Component, ViewChild, OnInit,AfterViewInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
-import {Component, ViewChild } from '@angular/core';
 import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
+import {TranslateService} from "@ngx-translate/core";
 import { Subscription } from 'rxjs/Subscription';
-import { ToastrService } from 'ngx-toastr';
 
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
@@ -14,6 +13,7 @@ import {AuthService} from '../../auth/shared/auth.service';
 import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
 import {DialogService} from '../../shared/services/dialog.service';
+import {EventEditorComponent} from '../event-editor/event-editor.component';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -21,12 +21,11 @@ import {DialogService} from '../../shared/services/dialog.service';
     providers: [EventService, RoomSelector]
 })
 
-export class RSCalendarComponent {
+export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
     events: Event[] = [];
     model: Event = <Event> {};
-    errorMessages: any = {};
 
     public date: Date = new jqx.date();
 
@@ -35,8 +34,6 @@ export class RSCalendarComponent {
 
     public selectedRoom: Room;
     public hostId: number;
-
-    public saveEventTitle: string;
 
     public view = 'weekView';
 
@@ -85,24 +82,22 @@ export class RSCalendarComponent {
 
     localization: any = {};
 
-    private modalRef: NgbModalRef;
     private previousValues: any;
 
     subscription: Subscription;
 
-    constructor(private router: Router, private toastr: ToastrService, private translate: TranslateService,
+    constructor(private router: Router, private translate: TranslateService,
                 private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
                 private authService: AuthService) {
     }
 
     ngOnInit() {
-        this.subscription =  this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.subscription =  this.translate.onLangChange.subscribe(() => {
             this.updateCalendarTranslations();
         });
     }
 
     ngAfterViewInit(): void {
-    
         this.goToToday();
     }
 
@@ -299,43 +294,26 @@ export class RSCalendarComponent {
         });
     }
 
-    onContextMenuItemClick($event, content) {
+    onContextMenuItemClick($event) {
         switch ($event.args.item.id) {
             case "createAppointment":
-                this.showCreateDialog($event, content);
+                this.showCreateDialog($event);
                 break;
 
             case "editAppointment":
-                this.showEditDialog($event, content);
+                this.showEditDialog($event);
                 break;
         }
     }
 
-    /* test($event, content) {
-        console.log("BEFORE", this.scheduler.touchDayNameFormat());
-        this.scheduler.touchDayNameFormat('full');
-        console.log("AFTER", this.scheduler.touchDayNameFormat());
-        if(1)return;
-        if (!this.selectedRoom) {
-            this.dialogService.alert(this.translate.instant("Error.login")).result
-                .then(() => {
-                    this.router.navigate(['/login']);
-                })
-                .catch(() => {});
-
-        }
-        this.redirectToLogin();
-        if(1)return;
-        let modalRef = this.dialogService.alert("This is a test");
+    test($event) {
+        /*let modalRef = this.dialogService.alert("This is a test");
         modalRef.result.then(value => {
             console.log("V=", value);
         }, reason => {
             console.log("D=", reason);
         });
-        if (1)return;
-        this.saveEventTitle = 'calendar.event.create';
-
-        this.errorMessages = {};
+        if (1)return;*/
 
         this.model = new Event();
         this.model.startDate = new Date();
@@ -346,15 +324,20 @@ export class RSCalendarComponent {
         this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
         this.model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
 
-        this.modalRef = this.modalService.open(content);
-    } */
+        this.openEventEditor(this.model);
+    }
 
-    showCreateDialog($event, content) {
+    private openEventEditor(model: Event) {
+        const modalRef:NgbModalRef = this.modalService.open(EventEditorComponent);
+        modalRef.componentInstance.model = model;
+
+        modalRef.result.then(() => {
+            this.renderCalendar();
+        });
+    }
+
+    showCreateDialog($event) {
         if (this.authService.isLoggedIn()) {
-            this.saveEventTitle = 'calendar.event.create';
-
-            this.errorMessages = {};
-
             let date = this.scheduler.getSelection();
             if (!date) {
                 // exit in case the user wants to create an event over an existing event
@@ -370,85 +353,29 @@ export class RSCalendarComponent {
             this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
             this.model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
 
-            this.modalRef = this.modalService.open(content);
+            this.openEventEditor(this.model);
         } else {
             this.redirectToLogin();
         }
     }
 
-    showEditDialog($event, content) {
+    showEditDialog($event) {
         if (this.authService.isLoggedIn()) {
-            this.saveEventTitle = 'calendar.event.edit';
-
-            this.errorMessages = {};
-
             this.model = this.events.find(e => e.id == $event.args.appointment.id);
 
-            this.modalRef = this.modalService.open(content);
+            this.openEventEditor(this.model);
         } else {
             this.redirectToLogin();
         }
     }
-
-    cancelEvent() {
-        this.model.eventStatus = EventStatusEnum.cancelled;
-        this.saveEvent();
-    }
-
-
-    saveEvent() {
-        // clear any previous errors
-        this.errorMessages = {};
-
-        // try to save
-        this.eventService.save(this.model).subscribe(
-            () => {
-                // on save event success
-                this.renderCalendar();
-                this.toastr.success(
-                    this.translate.instant('calendar.event.saved'), '',
-                    {positionClass: 'toast-bottom-right'}
-                );
-                this.modalRef.close();
-            },
-            error => {
-                // on save event errors
-                // @TODO handle generic errors
-                if (error.status == 401) {
-                    this.errorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
-                } else {
-                    this.errorMessages = {'generic': [error.error.message]};
-
-                    // build error message
-                    for (let e of error.error.errors) {
-                        let field = 'generic';
-                        if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
-                            field = e.field;
-                        }
-
-                        if (!this.errorMessages[field]) {
-                            this.errorMessages[field] = [];
-                        }
-
-                        this.errorMessages[field].push(e.errorCode);
-                    }
-
-                    this.renderCalendar();
-
-                    }
-            });
-
-    }
-
 
     redirectToLogin() {
         if (!(this.authService.isLoggedIn())) {
             this.dialogService.alert(this.translate.instant("Error.login")).result
                 .then(() => {
-                    this.router.navigate(['/login']);
+                    return this.router.navigate(['/login']);
                 })
                 .catch(() => {});
-
         }
     }
 

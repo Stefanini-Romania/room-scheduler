@@ -1,21 +1,23 @@
+import {environment} from '../../../environments/environment';
 import {Injectable} from '@angular/core';
-import { Response } from '@angular/http';
-import { environment } from '../../../environments/environment';
+import {Response} from '@angular/http';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
-import { Event } from "../../shared/models/event.model";
+
+import {Event} from "../../shared/models/event.model";
 
 @Injectable()
 export class EventService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     public listEvents(startDate: Date, endDate: Date, roomId?: number, hostId?: number) {
         const url = environment.apiUrl + '/event/list';
         let params = new HttpParams();
 
-        let x:Date;
+        let x: Date;
 
         x = startDate;
         params = params.append("startDate", new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), 0, 0, 0)).toJSON());
@@ -31,7 +33,7 @@ export class EventService {
         if (hostId > 0) {
             params = params.append("hostId", hostId.toString());
         }
-        
+
 
         const body = JSON.stringify(params);
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
@@ -53,7 +55,7 @@ export class EventService {
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
-        return this.http.post(url, body, { headers: headers, withCredentials: true })
+        return this.http.post(url, body, {headers: headers, withCredentials: true})
             .catch((error: any) => {
                 return Observable.throw(error);
             })
