@@ -21,7 +21,7 @@
   "login.password": "Enter Password",
 
   "calendar": {
-      "today": "TODAY",
+      "today": "GO TO TODAY",
       "day": "DAY",
       "week": "WEEK",
       "rooms": "ROOMS",
@@ -105,7 +105,7 @@
           "Empty": "Please insert an end date",
           "NotInAvailabilityOfRoom": "The room is not available (end date)",
           "IncorrectMinutesFormat": "Minutes format incorrect (end date)",
-          "TimeSpan": "Time span incorrect"
+          "TimeSpan": "Timespan incorrect"
       },
 
       "UserIsNotAuthenticated": "You are not logged in"

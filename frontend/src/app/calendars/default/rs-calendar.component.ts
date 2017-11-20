@@ -49,7 +49,9 @@ export class RSCalendarComponent {
             {name: 'subject', type: 'string'},
             {name: 'calendar', type: 'string'},
             {name: 'start', type: 'date'},
-            {name: 'end', type: 'date'}
+            {name: 'end', type: 'date'},
+            {name: 'draggable', type: 'boolean'},
+            {name: 'resizable', type: 'boolean'}
         ],
         id: 'id',
         localData: []
@@ -62,8 +64,10 @@ export class RSCalendarComponent {
         description: "description",
         location: "location",
         subject: "subject",
+        draggable: "draggable",
+        resizable: "resizable",
         resourceId: "calendar",
-        timeZone: "UTC"
+        timeZone: "UTC",
     };
 
     dataAdapter: any = new jqx.dataAdapter(this.source);
@@ -98,6 +102,7 @@ export class RSCalendarComponent {
     }
 
     ngAfterViewInit(): void {
+    
         this.goToToday();
     }
 
@@ -124,6 +129,9 @@ export class RSCalendarComponent {
                 location: "",
                 subject: eventType,
                 calendar: "Room " + event.roomId,
+                draggable: false,
+                resizable: false,
+                
                 start: new Date(event.startDate),
                 end: new Date(event.endDate)
             });
