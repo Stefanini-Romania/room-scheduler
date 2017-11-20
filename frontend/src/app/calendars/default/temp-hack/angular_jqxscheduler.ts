@@ -767,25 +767,25 @@ export class jqxSchedulerComponent implements OnChanges
    @Output() onViewChange = new EventEmitter();
 
    __wireEvents__(): void {
-      this.host.on('appointmentChange', (eventData: any) => { alert(1);this.onAppointmentChange.emit(eventData); });
-      this.host.on('appointmentClick', (eventData: any) => { alert(1);this.onAppointmentClick.emit(eventData); });
-      this.host.on('appointmentDoubleClick', (eventData: any) => { alert(1);this.onAppointmentDoubleClick.emit(eventData); });
-      this.host.on('appointmentDelete', (eventData: any) => { alert(1);this.onAppointmentDelete.emit(eventData); });
-      this.host.on('appointmentAdd', (eventData: any) => { alert(1);this.onAppointmentAdd.emit(eventData); });
+      this.host.on('appointmentChange', (eventData: any) => { this.onAppointmentChange.emit(eventData); });
+      this.host.on('appointmentClick', (eventData: any) => { this.onAppointmentClick.emit(eventData); });
+      this.host.on('appointmentDoubleClick', (eventData: any) => { this.onAppointmentDoubleClick.emit(eventData); });
+      this.host.on('appointmentDelete', (eventData: any) => {this.onAppointmentDelete.emit(eventData); });
+      this.host.on('appointmentAdd', (eventData: any) => {this.onAppointmentAdd.emit(eventData); });
       this.host.on('bindingComplete', (eventData: any) => { this.onBindingComplete.emit(eventData); });
-      this.host.on('cellClick', (eventData: any) => { alert(1);this.onCellClick.emit(eventData); });
-      this.host.on('cellDoubleClick', (eventData: any) => { alert(1);this.onCellDoubleClick.emit(eventData); });
-      this.host.on('contextMenuOpen', (eventData: any) => { alert(1);this.onContextMenuOpen.emit(eventData); });
-      this.host.on('contextMenuClose', (eventData: any) => { alert(1);this.onContextMenuClose.emit(eventData); });
-      this.host.on('contextMenuItemClick', (eventData: any) => { alert(1);this.onContextMenuItemClick.emit(eventData); });
-      this.host.on('contextMenuCreate', (eventData: any) => { alert(1);this.onContextMenuCreate.emit(eventData); });
+      this.host.on('cellClick', (eventData: any) => { this.onCellClick.emit(eventData); });
+      this.host.on('cellDoubleClick', (eventData: any) => { this.onCellDoubleClick.emit(eventData); });
+      this.host.on('contextMenuOpen', (eventData: any) => { this.onContextMenuOpen.emit(eventData); });
+      this.host.on('contextMenuClose', (eventData: any) => {this.onContextMenuClose.emit(eventData); });
+      this.host.on('contextMenuItemClick', (eventData: any) => { this.onContextMenuItemClick.emit(eventData); });
+      this.host.on('contextMenuCreate', (eventData: any) => { this.onContextMenuCreate.emit(eventData); });
       this.host.on('dateChange', (eventData: any) => { this.onDateChange.emit(eventData); });
       this.host.on('editRecurrenceDialogOpen', (eventData: any) => { this.onEditRecurrenceDialogOpen.emit(eventData); });
       this.host.on('editRecurrenceDialogClose', (eventData: any) => { this.onEditRecurrenceDialogClose.emit(eventData); });
       this.host.on('editDialogCreate', (eventData: any) => { this.onEditDialogCreate.emit(eventData); });
       this.host.on('editDialogOpen', (eventData: any) => { this.onEditDialogOpen.emit(eventData); });
       this.host.on('editDialogClose', (eventData: any) => { this.onEditDialogClose.emit(eventData); });
-      this.host.on('viewChange', (eventData: any) => { alert(1);this.onViewChange.emit(eventData); });
+      this.host.on('viewChange', (eventData: any) => { this.onViewChange.emit(eventData); });
    }
 
 } //jqxSchedulerComponent

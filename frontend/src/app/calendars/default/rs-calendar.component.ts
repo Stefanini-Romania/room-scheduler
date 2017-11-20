@@ -303,7 +303,7 @@ export class RSCalendarComponent {
         }
     }
 
-    test($event, content) {
+    /* test($event, content) {
         console.log("BEFORE", this.scheduler.touchDayNameFormat());
         this.scheduler.touchDayNameFormat('full');
         console.log("AFTER", this.scheduler.touchDayNameFormat());
@@ -339,7 +339,7 @@ export class RSCalendarComponent {
         this.model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
 
         this.modalRef = this.modalService.open(content);
-    }
+    } */
 
     showCreateDialog($event, content) {
         if (this.authService.isLoggedIn()) {
