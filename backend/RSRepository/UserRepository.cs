@@ -35,8 +35,8 @@ namespace RSRepository
 
             var sha1 = System.Security.Cryptography.SHA1.Create();
 
-            var hash = sha1.ComputeHash(Encoding.ASCII.GetBytes(password));
-            var encryptedPass = Encoding.ASCII.GetString(hash);
+            var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(password));
+            var encryptedPass = BitConverter.ToString(hash).Replace("-", "").ToLower();
             var returnvar = this.GetUsers().SingleOrDefault(c => c.Name == username && c.Password == encryptedPass);
             return returnvar;
         }

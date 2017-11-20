@@ -29,8 +29,8 @@ namespace RSService.Controllers
             }
             var sha1 = System.Security.Cryptography.SHA1.Create();
 
-            var hash = sha1.ComputeHash(Encoding.ASCII.GetBytes(model.Password));
-            model.Password = Encoding.ASCII.GetString(hash);
+            var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
+            model.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
 
             userRepository.AddUser(model);
             dbOperation.Commit();
