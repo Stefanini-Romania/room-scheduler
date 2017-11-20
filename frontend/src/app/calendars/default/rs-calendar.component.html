@@ -81,7 +81,9 @@
                         <label class="col-md-3"><b>{{ 'calendar.startDate' | translate }}:</b></label>
                         <label class="col">{{ model.startDate | date: 'fullDate'}} {{ model.startDate | date: 'shortTime'}}</label>
                     </div>
-                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['StartDate']" [dismissible]="false">
+                </div>
+                <div class="row" *ngIf="errorMessages && errorMessages['StartDate']">
+                    <ngb-alert type="danger" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['StartDate']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
                 </div>
@@ -90,7 +92,9 @@
                         <label class="col-md-3"><b>{{ 'calendar.endDate' | translate }}:</b></label>
                         <label class="col">{{ model.endDate | date: 'fullDate'}} {{ model.endDate | date: 'shortTime'}}</label>
                     </div>
-                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
+                </div>
+                <div class="row" *ngIf="errorMessages && errorMessages['EndDate']">
+                    <ngb-alert type="danger" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
                 </div>
