@@ -13,12 +13,12 @@ export class RoomSelector implements AfterViewInit, OnDestroy {
     @Output()
     roomChange = new EventEmitter;
 
-    private selectedRoomName: string;
+    public selectedRoomName: string;
     private subscription: Subscription;
 
-    private selectedRoom: Room;
+   public selectedRoom: Room;
 
-    private rooms: Room[] = [];
+    public rooms: Room[] = [];
 
     constructor(private roomService: RoomService, translate: TranslateService) {
         this.subscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
