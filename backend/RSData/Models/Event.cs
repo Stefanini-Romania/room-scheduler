@@ -29,15 +29,15 @@ namespace RSData.Models
 
     public enum EventStatusEnum
     {
-        present,
-        absent,
-        cancelled,
-        waiting
+        present = 0,
+        absent = 1,
+        cancelled = 2,
+        waiting = 3
     }
 
     public enum EventTypeEnum
     {
-        massage,
-        availability
+        massage = 0,
+        availability = 1
     }
 }

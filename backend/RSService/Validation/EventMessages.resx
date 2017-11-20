@@ -162,4 +162,7 @@
   <data name="StartDateSpecific" xml:space="preserve">
     <value>Event.StartDate.IncorrectMinutesFormat</value>
   </data>
+  <data name="UnauthenticatedUser" xml:space="preserve">
+    <value>Event.UserIsNotAuthenticated</value>
+  </data>
 </root>

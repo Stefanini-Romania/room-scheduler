@@ -24,9 +24,9 @@ namespace RSService.Filters
             When(m => m.StartDate.HasValue, () => {
                 RuleFor(m => m.StartDate).Must(CanBook).WithMessage(x => Validation.EventMessages.Limit).When(m => m.EndDate.HasValue);
 
-                RuleFor(m => m.StartDate).GreaterThanOrEqualTo(DateTime.UtcNow).WithMessage(x => Validation.EventMessages.StartDatePast).When(m => m.EndDate.HasValue);
+                RuleFor(m => m.StartDate).GreaterThanOrEqualTo(DateTime.UtcNow.AddHours(2)).WithMessage(x => Validation.EventMessages.StartDatePast).When(m => m.EndDate.HasValue);
 
-                RuleFor(m => m.StartDate).LessThan(DateTime.Now.AddMonths(1)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue);
+               // RuleFor(m => m.StartDate).LessThan(DateTime.Now.AddMonths(2)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue);
 
                 RuleFor(m => m.StartDate).GreaterThanOrEqualTo(m => DateTime.UtcNow.AddMinutes(15)).WithMessage(x => Validation.EventMessages.CancellationTimeSpanLess).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
 
@@ -35,10 +35,12 @@ namespace RSService.Filters
                 RuleFor(x => x.StartDate).Must(AvailabilityTimeS).WithMessage(x => Validation.EventMessages.StartDateAvailabilityRoom);
 
                 RuleFor(x => x.StartDate).Must(IsAvailable).WithMessage(x => Validation.EventMessages.NotAvailable);
-
-                RuleFor(x => x.StartDate).Must(IsNotPenalized).WithMessage(x => Validation.EventMessages.Penalized);
-
+                
                 RuleFor(x => x.StartDate).Must(DayOfWeek).WithMessage(x => Validation.EventMessages.DayOfWeekWeekend);
+
+                RuleFor(x => x.StartDate).Must(TwoMonths).WithMessage(x => Validation.EventMessages.StartDateFuture);
+
+
 
 
 
@@ -60,6 +62,10 @@ namespace RSService.Filters
             // ---------------------------AttendeeId---------------------------
             RuleFor(m => m.AttendeeId)
                 .Must(CanCancel).WithMessage(x => Validation.EventMessages.CancellationOwnBooking).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
+
+            // ---------------------------RoomId---------------------------
+            RuleFor(m => m.RoomId)
+                .Must(IsNotPenalized).WithMessage(x => Validation.EventMessages.Penalized);
         }
 
 
@@ -101,8 +107,8 @@ namespace RSService.Filters
         {
             if(d.HasValue)
             {
-                return ((d.GetValueOrDefault().Hour >= 09 && d.GetValueOrDefault().Hour < 13) ||( d.GetValueOrDefault().Hour >= 14 && d.GetValueOrDefault().Hour <= 17));
-                    
+                return ((d.GetValueOrDefault().Hour >= 09 && d.GetValueOrDefault().Hour <= 17));
+                    //&& d.GetValueOrDefault().Hour < 13) ||( d.GetValueOrDefault().Hour >= 14 
             }
             return false;
         }
@@ -111,8 +117,8 @@ namespace RSService.Filters
         {
             if (d.HasValue)
             {
-                if (d.GetValueOrDefault().Hour == 13 && d.GetValueOrDefault().Minute == 30)
-                    return false;
+               // if (d.GetValueOrDefault().Hour == 13 && d.GetValueOrDefault().Minute == 30)
+              //      return false;
 
                 return (d.GetValueOrDefault().Hour <= 18 && d.GetValueOrDefault().Minute < 30)
                      || (d.GetValueOrDefault().Hour <= 17 && d.GetValueOrDefault().Minute <= 30);
@@ -125,9 +131,9 @@ namespace RSService.Filters
             return rsManager.CheckAvailability((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
         }
 
-        private bool IsNotPenalized(EventViewModel ev, DateTime? date)
+        private bool IsNotPenalized(EventViewModel ev, int roomId)
         {
-            if (rsManager.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate))
+            if (rsManager.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate, roomId))
             {
                 return false;
             }
@@ -140,6 +146,14 @@ namespace RSService.Filters
 
             return false;
         }
+
+        private bool TwoMonths(EventViewModel ev, DateTime? date)
+        {
+            if((ev.StartDate.Value.Month <= DateTime.Now.Month+1)&&(ev.StartDate.Value.Day >=1 && ev.StartDate.Value.Day <=31)&&(ev.StartDate.Value.Year==DateTime.Now.Year))
+                    return true;
+            return false;
+        }
+
         
 
     }

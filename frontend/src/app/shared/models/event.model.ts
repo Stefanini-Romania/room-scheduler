@@ -8,4 +8,17 @@ export class Event{
     attendeeId: number;
     eventStatus: number;
     notes?: string;
+    availabilityType: number;
+}
+
+export enum EventStatusEnum {
+    present = 0,
+    absent,
+    cancelled,
+    waiting
+}
+
+export enum EventTypeEnum {
+    massage = 0,
+    availability
 }

@@ -19,7 +19,8 @@ export class LoginComponent {
     }
 
     ngAfterViewInit(): void {
-        if (this.authService.isLoggedIn()) this.router.navigate(['/calendar']);
+        if(this.authService.isLoggedIn()) 
+            this.router.navigate(['/calendar']);
     }
 
     login() {

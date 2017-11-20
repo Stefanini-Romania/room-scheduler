@@ -249,17 +249,23 @@ footer a {
     top: 35px;
 }
 
-#modal-header{
+.modal-header{
     color: #fff;
     background-color: #004e9e;
+}
+.modal-content .modal-body {
+    align-self: center;    
+    width: 95%; 
 }
 
 #nav-text1 {
     margin-top: 0;
 }
 
-
-
+#toast-container .toast.toast-success {
+    background-color: #004e9e;
+    color: #fff;
+}
 
 
 

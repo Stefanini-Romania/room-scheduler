@@ -1,12 +1,19 @@
-import {Component, ViewChild} from '@angular/core';
-import {jqxSchedulerComponent} from '../../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
+import {Component, ViewChild } from '@angular/core';
+import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
+import { Subscription } from 'rxjs/Subscription';
+import { ToastrService } from 'ngx-toastr';
+
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
 import {Event} from '../../shared/models/event.model';
-
-//cb360a413af57cb163691a7fee3409e860cfe85a
+import {AuthService} from '../../auth/shared/auth.service';
+import {EventTypeEnum} from '../../shared/models/event.model';
+import {EventStatusEnum} from '../../shared/models/event.model';
+import {DialogService} from '../../shared/services/dialog.service';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -17,23 +24,21 @@ import {Event} from '../../shared/models/event.model';
 export class RSCalendarComponent {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
-    events: Event[];
+    events: Event[] = [];
     model: Event = <Event> {};
-    createErrorMessages: any = {};
+    errorMessages: any = {};
+
+    public date: Date = new jqx.date();
 
     public startDate: Date;
-    public selectedStartDate: Date;
-    public selectedEndDate: Date;
-    public roomId: number;
-    public hostId: number;
-    public eventId: number;
-    public saveEventTitle: string;
-    public calendarsDateFrom: Date;
-    public calendarsDateTo: Date;
-    public view = 'weekView';
- 
+    public endDate: Date;
 
-    closeResult: string;
+    public selectedRoom: Room;
+    public hostId: number;
+
+    public saveEventTitle: string;
+
+    public view = 'weekView';
 
     source: any = {
         dataType: "array",
@@ -57,7 +62,8 @@ export class RSCalendarComponent {
         description: "description",
         location: "location",
         subject: "subject",
-        resourceId: "calendar"
+        resourceId: "calendar",
+        timeZone: "UTC"
     };
 
     dataAdapter: any = new jqx.dataAdapter(this.source);
@@ -69,61 +75,121 @@ export class RSCalendarComponent {
     };
 
     views: any[] = [
-        {type: 'dayView', showWeekends: false, timeRuler: {scaleStartHour: 9, scaleEndHour: 18}},
-        {type: 'weekView', showWeekends: false, timeRuler: {scaleStartHour: 9, scaleEndHour: 18}},
+        {type: 'dayView', showWeekends: false, timeRuler: {formatString: 'HH:mm', scaleStartHour: 9, scaleEndHour: 18}},
+        {type: 'weekView', showWeekends: false, timeRuler: {formatString: 'HH:mm', scaleStartHour: 9, scaleEndHour: 18}},
     ];
 
-    constructor(private eventService: EventService, private modalService: NgbModal) {
+    localization: any = {};
+
+    private modalRef: NgbModalRef;
+    private previousValues: any;
+
+    subscription: Subscription;
+
+    constructor(private router: Router, private toastr: ToastrService, private translate: TranslateService,
+                private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
+                private authService: AuthService) {
     }
 
-    /*
-    refreshCalendar() {
-        let events = [];
-        for (let event of this.events) {
-            const e: any = Object.assign({}, event);
-            e.subject = "Quarterly Project Review Meeting";
-            e.calendar = "Room " + event.roomId;
-            events.push(e);
-        }
-        this.source.localData = events;
-        this.dataAdapter = new jqx.dataAdapter(this.source);
+    ngOnInit() {
+        this.subscription =  this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.updateCalendarTranslations();
+        });
     }
-    transformEventToAppointment(event: Event) {
-        let appointment: any = Object.assign({}, event);
-        appointment.subject = "Quarterly Project Review Meeting";
-        appointment.calendar = "Room " + event.roomId;
-        appointment.startDate = new Date(event.startDate);
-        appointment.endDate = new Date(event.endDate);
 
-        return appointment;
+    ngAfterViewInit(): void {
+        this.goToToday();
     }
-     */
+
+    ngOnDestroy() {
+        // unsubscribe to ensure no memory leaks
+        this.subscription.unsubscribe();
+    }
+
     refreshCalendar() {
         let events = [];
+        let eventType: string;
         for (let event of this.events) {
+            switch(event.eventType){
+                case EventTypeEnum.availability: 
+                    eventType = this.translate.instant("calendar.eventType.availabilty");
+                    break;
+                case EventTypeEnum.massage: 
+                    eventType = this.translate.instant("calendar.eventType.massage");
+                    break;
+            }
             events.push(<any>{
                 id: event.id,
                 description: event.notes,
                 location: "",
-                subject: "Massage",
+                subject: eventType,
                 calendar: "Room " + event.roomId,
                 start: new Date(event.startDate),
                 end: new Date(event.endDate)
             });
         }
+
         this.source.localData = events;
         this.dataAdapter = new jqx.dataAdapter(this.source);
     }
-    
 
-    private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return `with: ${reason}`;
-        }
+    updateCalendarTranslations() {
+        const t = this.translate;
+
+        this.localization = {
+            // separator of parts of a date (e.g. '/' in 11/05/1955)
+            '/': '/',
+
+            // separator of parts of a time (e.g. ':' in 05:44 PM)
+            ':': ':',
+
+            // the first day of the week (0 = Sunday, 1 = Monday, etc)
+            firstDay: 0,
+            days: {
+                // full day names
+                names: [
+                    t.instant("calendar.days.names.Sunday"),
+                    t.instant("calendar.days.names.Monday"),
+                    t.instant("calendar.days.names.Tuesday"),
+                    t.instant("calendar.days.names.Wednesday"),
+                    t.instant("calendar.days.names.Thursday"),
+                    t.instant("calendar.days.names.Friday"),
+                    t.instant("calendar.days.names.Saturday")
+                ],
+
+                // abbreviated day names
+                namesAbbr: [
+                    t.instant("calendar.days.namesAbbr.Sun"),
+                    t.instant("calendar.days.namesAbbr.Mon"),
+                    t.instant("calendar.days.namesAbbr.Tue"),
+                    t.instant("calendar.days.namesAbbr.Wed"),
+                    t.instant("calendar.days.namesAbbr.Thu"),
+                    t.instant("calendar.days.namesAbbr.Fri"),
+                    t.instant("calendar.days.namesAbbr.Sat")
+                ],
+
+                // shortest day names
+                namesShort: [
+                    t.instant("calendar.days.namesShort.Su"),
+                    t.instant("calendar.days.namesShort.Mo"),
+                    t.instant("calendar.days.namesShort.Tu"),
+                    t.instant("calendar.days.namesShort.We"),
+                    t.instant("calendar.days.namesShort.Th"),
+                    t.instant("calendar.days.namesShort.Fr"),
+                    t.instant("calendar.days.namesShort.Sa")
+                ]
+            },
+
+            months: {
+                // full month names (13 months for lunar calendards -- 13th month should be "" if not lunar)
+                names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
+                // abbreviated month names
+                namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""]
+            },
+
+            contextMenuEditAppointmentString: t.instant("calendar.event.edit"),
+            contextMenuCreateAppointmentString: t.instant("calendar.event.create"),
+        };
     }
 
     isView(view: string): boolean {
@@ -132,62 +198,90 @@ export class RSCalendarComponent {
 
     setView(view: string) {
         this.view = view;
+        this.date = new jqx.date(this.scheduler.date(), this.scheduler.timeZone());
+
         this.scheduler.view(this.view);
     }
 
     goToToday() {
-        this.startDate = new Date();
-        this.renderCalendar();
-    }
-
-    showCalendarsDate(){
-        const days = this.isView('weekView') ? 4 : 1;
-       
-        this.calendarsDateFrom= new Date(this.scheduler.date().toString());
-       
-        this.calendarsDateTo = new Date(this.scheduler.date().addDays(days).toString());
-    
+        this.date = new jqx.date();
     }
 
     goBack() {
-        const days = this.isView('weekView') ? 7 : 1;
-        this.startDate = new Date(this.scheduler.date().addDays(-days).toString());
-        this.renderCalendar();
+        this.date = this.addDaysInDirection(this.scheduler.date(), -1);
     }
 
     goForward() {
-        const days = this.isView('weekView') ? 7 : 1;
-        this.startDate = new Date(this.scheduler.date().addDays(days).toString());
-        this.renderCalendar();
-     
+        this.date = this.addDaysInDirection(this.scheduler.date(), +1);
     }
 
-    onRoomChanged(selectedRoom: Room) {
-        this.startDate = new Date(this.scheduler.date().toString());
-        this.roomId = selectedRoom.id;
-        this.renderCalendar();
+    private addDaysInDirection(date, direction: number) {
+        let i = this.views.find(e => e.type == this.view);
+        let c = new jqx.date(date, this.scheduler.timeZone());
+
+        let j = function () {
+            while ((c.dayOfWeek() == 0 || c.dayOfWeek() == 6) && false === i.showWeekends) {
+                c = c.addDays(direction * 1);
+            }
+            return c;
+        };
+        switch (this.view) {
+            case"dayView":
+            case"timelineDayView":
+                c = c.addDays(direction * 1);
+                c = j();
+                break;
+
+            case"weekView":
+            case"timelineWeekView":
+                c = c.addDays(direction * 7);
+                break;
+
+            case"agendaView":
+                if (i.days) {
+                    c = c.addDays(i.days);
+                } else {
+                    c = c.addDays(direction * 7);
+                }
+                break;
+        }
+
+        return c;
     }
 
-    onRoomsLoaded(rooms: Room[]) {
-        // select 1st room when rooms are loaded
-        if (rooms.length) {
-            this.roomId = rooms[0].id;
+    showCalendarsDate($event) {
+        if (!this.previousValues || ($event.args.from.toString() !== this.previousValues.from.toString())) {
+            this.previousValues = $event.args;
+
+            let x: Date;
+
+            x = $event.args.from.toDate();
+            this.startDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? 1 : 0),
+                0, 0, 0
+            ));
+
+            x = $event.args.to.toDate();
+            this.endDate = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate() + (this.isView('weekView') ? -3 : 0),
+                23, 59, 59
+            ));
+
             this.renderCalendar();
         }
     }
 
-    ngAfterViewInit(): void {
-        this.scheduler.ensureAppointmentVisible('id1');
-
-        this.startDate = new Date();
+    onRoomChanged(selectedRoom: Room) {
+        this.selectedRoom = selectedRoom;
         this.renderCalendar();
     }
 
     private renderCalendar() {
+        if (!this.startDate || !this.endDate || !this.selectedRoom) {
+            return;
+        }
+        
+        
         this.events = [];
-        let endDate = new Date();
-        endDate.setDate(this.startDate.getDate() + 7);
-        this.eventService.listEvents(this.startDate, endDate, this.roomId, this.hostId).subscribe((events: Event[]) => {
+        this.eventService.listEvents(this.startDate, this.endDate, this.selectedRoom.id, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
                 this.events.push(<Event>event);
@@ -197,60 +291,170 @@ export class RSCalendarComponent {
         });
     }
 
-    showEditDialog(content) {
-        let date = this.scheduler.getSelection();
-        this.selectedStartDate = new Date(date.from.toString());
-        this.selectedEndDate = new Date(date.to.toString());
-        // @TODO detect create or edit
-        this.saveEventTitle = 'calendar.event.create';
-        this.model = new Event();
-        this.model.startDate = this.selectedStartDate;
-        this.model.endDate = this.selectedEndDate;
-        this.model.eventType = 0; // @TODO use constants
-        this.model.eventStatus = 4; // @TODO use constants
-        this.model.roomId = this.roomId;
-        this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-        this.model.attendeeId = 1; // @TODO get user id from logged user
+    onContextMenuItemClick($event, content) {
+        switch ($event.args.item.id) {
+            case "createAppointment":
+                this.showCreateDialog($event, content);
+                break;
 
-        //this.saveEventTitle = 'calendar.event.edit';
-        //this.model = // @TODO get event from the selected event (use this.events[eventId]) where we have all the events;
-
-        this.createErrorMessages = {};
-
-        this.modalService.open(content).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
+            case "editAppointment":
+                this.showEditDialog($event, content);
+                break;
+        }
     }
+
+    /* test($event, content) {
+        console.log("BEFORE", this.scheduler.touchDayNameFormat());
+        this.scheduler.touchDayNameFormat('full');
+        console.log("AFTER", this.scheduler.touchDayNameFormat());
+        if(1)return;
+        if (!this.selectedRoom) {
+            this.dialogService.alert(this.translate.instant("Error.login")).result
+                .then(() => {
+                    this.router.navigate(['/login']);
+                })
+                .catch(() => {});
+
+        }
+        this.redirectToLogin();
+        if(1)return;
+        let modalRef = this.dialogService.alert("This is a test");
+        modalRef.result.then(value => {
+            console.log("V=", value);
+        }, reason => {
+            console.log("D=", reason);
+        });
+        if (1)return;
+        this.saveEventTitle = 'calendar.event.create';
+
+        this.errorMessages = {};
+
+        this.model = new Event();
+        this.model.startDate = new Date();
+        this.model.endDate = new Date();
+        this.model.eventType = EventTypeEnum.massage;
+        this.model.eventStatus = EventStatusEnum.waiting;
+        this.model.roomId = 1;
+        this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+        this.model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
+
+        this.modalRef = this.modalService.open(content);
+    } */
+
+    showCreateDialog($event, content) {
+        if (this.authService.isLoggedIn()) {
+            this.saveEventTitle = 'calendar.event.create';
+
+            this.errorMessages = {};
+
+            let date = this.scheduler.getSelection();
+            if (!date) {
+                // exit in case the user wants to create an event over an existing event
+                return;
+            }
+
+            this.model = new Event();
+            this.model.startDate = new Date(date.from.toString());
+            this.model.endDate = new Date(date.to.toString());
+            this.model.eventType = EventTypeEnum.massage;
+            this.model.eventStatus = EventStatusEnum.waiting;
+            this.model.roomId = this.selectedRoom.id;
+            this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+            this.model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
+
+            this.modalRef = this.modalService.open(content);
+        } else {
+            this.redirectToLogin();
+        }
+    }
+
+    showEditDialog($event, content) {
+        if (this.authService.isLoggedIn()) {
+            this.saveEventTitle = 'calendar.event.edit';
+
+            this.errorMessages = {};
+
+            this.model = this.events.find(e => e.id == $event.args.appointment.id);
+
+            this.modalRef = this.modalService.open(content);
+        } else {
+            this.redirectToLogin();
+        }
+    }
+
+    cancelEvent() {
+        this.model.eventStatus = EventStatusEnum.cancelled;
+        this.saveEvent();
+    }
+
 
     saveEvent() {
         // clear any previous errors
-        this.createErrorMessages = {};
+        this.errorMessages = {};
 
         // try to save
         this.eventService.save(this.model).subscribe(
             () => {
+                // on save event success
                 this.renderCalendar();
+                this.toastr.success(
+                    this.translate.instant('calendar.event.saved'), '',
+                    {positionClass: 'toast-bottom-right'}
+                );
+                this.modalRef.close();
             },
             error => {
-                this.createErrorMessages = {'generic': [error.error.message]};
+                // on save event errors
+                // @TODO handle generic errors
+                if (error.status == 401) {
+                    this.errorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
+                } else {
+                    this.errorMessages = {'generic': [error.error.message]};
 
-                // build error message
-                for (let e of error.error.errors) {
-                    let field = 'generic';
-                    if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
-                        field = e.field;
+                    // build error message
+                    for (let e of error.error.errors) {
+                        let field = 'generic';
+                        if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
+                            field = e.field;
+                        }
+
+                        if (!this.errorMessages[field]) {
+                            this.errorMessages[field] = [];
+                        }
+
+                        this.errorMessages[field].push(e.errorCode);
                     }
 
-                    if (!this.createErrorMessages[field]) {
-                        this.createErrorMessages[field] = [];
+                    this.renderCalendar();
+
                     }
-
-                    this.createErrorMessages[field].push(e.errorCode);
-                }
-
-                this.renderCalendar();
             });
+
+    }
+
+
+    redirectToLogin() {
+        if (!(this.authService.isLoggedIn())) {
+            this.dialogService.alert(this.translate.instant("Error.login")).result
+                .then(() => {
+                    this.router.navigate(['/login']);
+                })
+                .catch(() => {});
+
+        }
+    }
+
+    renderAppointment = (data) => {
+        if (!data.appointment) {
+            return;
+        }
+        let event = this.events.find(e => e.id == data.appointment.id);
+        if (event.eventType == EventTypeEnum.availability ) {
+            data.style = '#E0E0E0'; //gri
+            
+        } else {
+            data.style = '#004e9e'; //albastru
+        }
+        return data;
     }
 }

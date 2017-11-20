@@ -1,9 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {User} from '../../shared/models/user.model';
-import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
+import { environment } from '../../../environments/environment';
+import 'rxjs/Rx';
+
+import {User} from '../../shared/models/user.model';
+
 
 @Injectable()
 export class AuthService {
@@ -14,10 +17,10 @@ export class AuthService {
     }
 
     authenticate(name: string, password: string) {
-        const url = 'http://172.25.4.165:88/api/auth/login';
+        const url = environment.apiUrl + '/api/auth/login';
         const body = JSON.stringify({name: name, password: password});
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post(url, body, {headers: headers})
+        return this.http.post(url, body, { headers: headers, withCredentials: true})
             .catch((error: any) => Observable.throw(error))
             .map((response: Response) => {
 

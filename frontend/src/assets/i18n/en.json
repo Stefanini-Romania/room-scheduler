@@ -1,43 +1,115 @@
 {
+  "page": {
+      "not-found": {
+          "intro": "Page cannot be found",
+          "please.authenticate": "Please login",
+          "here": "here"
+      }
+  },
+
   "welcome": "Welcome",
 
-  "button.close": "Close",
-  "button.save": "Save",
+  "button": {
+      "close": "Close",
+      "save": "Save",
+      "cancel": "Cancel"
+  },
 
   "login.button": "Sign In",
   "logout.button": "Sign out",
   "login.username": "Enter Username",
   "login.password": "Enter Password",
 
-  "calendar.today": "TODAY",
-  "calendar.day": "DAY",
-  "calendar.week": "WEEK",
-  "calendar.rooms": "ROOMS",
-  "calendar.notes": "Notes",
-  "calendar.startDate": "From",
-  "calendar.endDate": "To",
-  "calendar.event.create": "Create new appointment",
-  "calendar.event.edit": "Edit appointment",
+  "calendar": {
+      "today": "TODAY",
+      "day": "DAY",
+      "week": "WEEK",
+      "rooms": "ROOMS",
+      "notes": "Notes",
+      "startDate": "From",
+      "endDate": "To",
+      "event.create": "Create new appointment",
+      "event.edit": "Edit appointment",
+      "event.saved": "Appointment saved",
 
-  "Auth.Password.Empty": "Please enter your password",
-  "Auth.Username.Empty": "Please enter your username",
+      "eventType": {
+          "availabilty": "Not available",
+          "massage": "Massage"
+      },
 
-  "Error.Event.Authentication": "Invalid username or password",
-  "Error.Event.Creation": "Unable to create event",
-  "Error.Event.Edit": "Unable to edit event",
+      "buttons": {
+        "cancel.event": "Cancel Appointment"
+      },
 
-  "Event.AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
-  "Event.StartDate.LessThan15Minutes": "You must book at least 15 minutes before your appointment",
-  "Event.EndDate.Empty": "Please insert an end date",
-  "Event.StartDate.Empty": "Please insert a start date",
-  "Event.EndDate.NotInAvailabilityOfRoom": "The room is not available (end date)",
-  "Event.EndDate.IncorrectMinutesFormat": "Minutes format incorrect (end date)",
-  "Event.EndDate.TimeSpan": "Time span incorrect",
-  "Event.StartDate.LimitPerDay": "You have exceeded your daily limit",
-  "Event.StartDate.NotAvailable": "the time selected is not available",
-  "Event.StartDate.PenalizedUser": "Warning! Sanctioned user",
-  "Event.StartDate.NotInAvailabilityOfRoom": "The room is not available (start date)",
-  "Event.StartDate.GreaterThanTwoMonths": "The selected date is greater than 2 months",
-  "Event.StartDate.IsInThePast": "The selected date has passed",
-  "Event.StartDate.IncorrectMinutesFormat": "Minutes format incorrect (start date)"
+      "days": {
+        "names": {
+            "Monday": "Monday",
+            "Tuesday": "Tuesday",
+            "Wednesday": "Wednesday",
+            "Thursday": "Thursday",
+            "Friday": "Friday",
+            "Saturday": "Saturday",
+            "Sunday": "Sunday"
+          },
+
+          "namesAbbr": {
+              "Sun": "Sun",
+              "Mon": "Mon",
+              "Tue": "Tue",
+              "Wed": "Wed",
+              "Thu": "Thu",
+              "Fri": "Fri",
+              "Sat": "Sat"
+          },
+
+          "namesShort":{
+            "Su": "Su",
+            "Mo": "Mo",
+            "Tu": "Tu",
+            "We": "We",
+            "Th": "Th",
+            "Fr": "Fr",
+            "Sa": "Sa"
+          }
+      }
+  },
+
+  "Auth": {
+      "Password.Empty": "Please enter your password",
+      "Username.Empty": "Please enter your username"
+  },
+
+  "Error": {
+      "login": "You need to login if you want to make an appointment !",
+      "Event.Authentication": "Invalid username or password",
+      "Event.Creation": "Unable to create event",
+      "Event.Edit": "Unable to edit event"
+  },
+
+  "Event": {
+      "AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
+
+      "StartDate": {
+          "LessThan15Minutes": "You must book at least 15 minutes before your appointment",
+          "Empty": "Please insert a start date",
+          "LimitPerDay": "You have exceeded your daily limit",
+          "NotAvailable": "The time selected is not available",
+          "PenalizedUser": "Warning! Sanctioned user",
+          "NotInAvailabilityOfRoom": "The room is not available (start date)",
+          "GreaterThanTwoMonths": "The selected date is greater than 2 months",
+          "IsInThePast": "The selected date has passed",
+          "IncorrectMinutesFormat": "Minutes format incorrect (start date)"
+      },
+
+      "EndDate": {
+          "Empty": "Please insert an end date",
+          "NotInAvailabilityOfRoom": "The room is not available (end date)",
+          "IncorrectMinutesFormat": "Minutes format incorrect (end date)",
+          "TimeSpan": "Time span incorrect"
+      },
+
+      "UserIsNotAuthenticated": "You are not logged in"
+  }
+
+
 }

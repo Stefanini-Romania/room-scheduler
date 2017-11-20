@@ -12,40 +12,48 @@ using System.Linq;
 
 namespace RSService.Controllers
 {
-    // [Authorize]
-  
     public class RoomSchedulerController : BaseController
     {
         private IEventRepository eventRepository;
         private IDbOperation dbOperation;
         private IRoomRepository roomRepository;
         private IAvailabiltyRepository availabilityRepository;
+        private IUserRepository userRepository;
         private IRSManager rsManager;
-        public RoomSchedulerController(IEventRepository _eventRepository, IDbOperation _dbOperation, IRoomRepository _roomRepository, IAvailabiltyRepository _availabilityRepository, IRSManager _rsManager)
+
+        public RoomSchedulerController(IEventRepository _eventRepository, IDbOperation _dbOperation, IRoomRepository _roomRepository, IAvailabiltyRepository _availabilityRepository, IRSManager _rsManager, IUserRepository _userRepository)
         {
             eventRepository = _eventRepository;
             dbOperation = _dbOperation;
             roomRepository = _roomRepository;
             availabilityRepository = _availabilityRepository;
             rsManager = _rsManager;
+            userRepository = _userRepository;
         }
     
        
-        [HttpPost("/event/create")]
+        [HttpPost("/event/create")]   
+        //[Authorize]
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
-            bool isAuthenticated = User.Identity.IsAuthenticated;
-            
+
+            // Get current user id
+            //var userName = HttpContext.User.Identities.First().Name;
+            //int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
+
             if (!ModelState.IsValid)
             {
-                return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
+                return ValidationError(GeneralMessages.Event);
+
+                //return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
             }                    
                 var newEvent = Mapper.Map<Event>(model);
                 newEvent.DateCreated = DateTime.UtcNow;
+                //newEvent.AttendeeId = 6;//currentAttendeeId; //gets attendeeId from current http session
 
                 eventRepository.AddEvent(newEvent);
                 dbOperation.Commit();
-                return Ok();                    
+                return Ok(newEvent);                    
         }
         
         [HttpGet("/event/listall")]
@@ -56,15 +64,6 @@ namespace RSService.Controllers
 
             return Ok(results);
         }
-
-        //[HttpGet("/availability/list")]
-        //public IActionResult GetAvailabilities()
-        //{
-        //    var results = availabilityRepository.GetAvailabilities();
-        //    if (results == null) return NotFound();
-
-        //    return Ok(results);
-        //}
 
         [HttpGet("/event/list")]
         public IActionResult GetEventsByHosts(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
@@ -93,8 +92,15 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/event/edit/{id}")]
+        //[Authorize]
         public IActionResult UpdateEvent(int id, [FromBody] EditViewModel model)
         {
+            //HttpContext.User.Identity.Name
+
+            // Get current user id
+            //var userName = HttpContext.User.Identities.First().Name;
+            //int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
+
             if (ModelState.IsValid)
             {
                 var _model = Mapper.Map<Event>(model);
@@ -111,18 +117,20 @@ namespace RSService.Controllers
                 _event.RoomId = _model.RoomId;
                 _event.Notes = _model.Notes;
                 _event.HostId = _model.HostId;
-                _event.AttendeeId = _model.AttendeeId;
+                _event.AttendeeId = model.AttendeeId;
                 _event.EventStatus = _model.EventStatus;
                 _event.DateCreated = DateTime.UtcNow;
                 dbOperation.Commit();
 
                 if (_event.EventStatus == (int)EventStatusEnum.absent)
-                    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId);
-                return Ok();
+                    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
+                return Ok(_event);
             }
             else
             {
-                return (new ValidationFailedResult(GeneralMessages.EventEdit, ModelState));
+                return ValidationError(GeneralMessages.Event);
+
+                //return (new ValidationFailedResult(GeneralMessages.EventEdit, ModelState));
             }
         }
        

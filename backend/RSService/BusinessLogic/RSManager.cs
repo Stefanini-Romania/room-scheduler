@@ -14,12 +14,14 @@ namespace RSService.BusinessLogic
         private IAvailabiltyRepository availabilityRepository;
         private IPenaltyRepository penaltyRepository;
         private IEventRepository eventRepository;
+        private IDbOperation dbOperation;
 
-        public RSManager(IAvailabiltyRepository _availabiltyRepository, IEventRepository _eventRepository, IPenaltyRepository _penaltyRepository)
+        public RSManager(IAvailabiltyRepository _availabiltyRepository, IEventRepository _eventRepository, IPenaltyRepository _penaltyRepository, IDbOperation _dbOperation)
         {
             availabilityRepository = _availabiltyRepository;
             eventRepository = _eventRepository;
             penaltyRepository = _penaltyRepository;
+            dbOperation = _dbOperation;
         }
 
 
@@ -101,6 +103,7 @@ namespace RSService.BusinessLogic
         public int GetAvailableTime(int userId, DateTime startDate)
         {
             var result = eventRepository.GetEvents()
+                            .Where(e => e.EventStatus == (int)EventStatusEnum.waiting || e.EventStatus == (int)EventStatusEnum.present)
                             .Where(e => e.AttendeeId == userId)
                             .Where(e => e.StartDate.Date == startDate.Date);
             if (result.Count() >= 2)
@@ -134,24 +137,27 @@ namespace RSService.BusinessLogic
 
             foreach (Event ev in events)
             {
-                if (startDate == ev.StartDate || endDate == ev.EndDate)
+                if (ev.EventStatus != (int)EventStatusEnum.cancelled)
                 {
-                    return false;
-                }
-
-                if (startDate > ev.StartDate)
-                {
-                    if (startDate < ev.EndDate)
+                    if (startDate == ev.StartDate || endDate == ev.EndDate)
                     {
                         return false;
                     }
-                }
 
-                if (startDate < ev.StartDate)
-                {
-                    if (endDate > ev.StartDate)
+                    if (startDate > ev.StartDate)
                     {
-                        return false;
+                        if (startDate < ev.EndDate)
+                        {
+                            return false;
+                        }
+                    }
+
+                    if (startDate < ev.StartDate)
+                    {
+                        if (endDate > ev.StartDate)
+                        {
+                            return false;
+                        }
                     }
                 }
             }
@@ -161,11 +167,10 @@ namespace RSService.BusinessLogic
 
         //Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
 
-        public void CheckPenalty(DateTime startDate, int eventId, int attendeeId)
+        public void CheckPenalty(DateTime startDate, int eventId, int attendeeId, int roomId)
         {
-            var eventsCount = eventRepository.GetEvents().Where(ev => ev.AttendeeId == attendeeId)
-                                        .Where(ev => ev.StartDate > startDate.AddDays(-30))      // Last 30 days
-                                        .Where(ev => ev.EventStatus == (int)EventStatusEnum.absent).Count();
+            var eventsCount = eventRepository.GetPastEventsByUser(startDate, attendeeId, roomId).Count();
+
             if (eventsCount == 3)
             {
                 penaltyRepository.AddPenalty(new Penalty()
@@ -174,18 +179,29 @@ namespace RSService.BusinessLogic
                     EventId = eventId,
                     Date = startDate
                 });
+
+                // Edit attendee's events for next 15 days for this room (Cancelled):
+
+                var futureEvents = eventRepository.GetFutureEvents(startDate, attendeeId, roomId);
+
+                if (futureEvents.Count() > 0)
+                {
+                    foreach (Event xEvent in futureEvents)
+                    {
+                        xEvent.EventStatus = (int)EventStatusEnum.cancelled;
+                    }
+                    dbOperation.Commit();
+                }
             }
         }
 
-        public bool HasPenalty(int attendeeId, DateTime newDate)
+        public bool HasPenalty(int attendeeId, DateTime newDate, int roomId)
         {
             Penalty penalty = penaltyRepository.GetPenaltiesByUser(attendeeId)
                                     .SingleOrDefault(p => p.Date.AddDays(15) >= newDate);
 
             if (penalty != null)
             {
-                // Edit attendee's events for next 15 days for this room (Cancelled)
-
                 return true;
             }
 

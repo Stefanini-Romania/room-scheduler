@@ -55,15 +55,22 @@ namespace RSService
                 builder.
                 AllowAnyOrigin().
                 AllowAnyMethod().
-                AllowAnyHeader();
+                AllowAnyHeader().
+                AllowCredentials();
             }));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>
                      {
                          options.LoginPath = "/api/auth/login";
+                         options.LogoutPath = "/api/auth/logout";
+                         //options.Cookie.Domain = "http:// fctestweb1:888";
+                         options.Events.OnRedirectToLogin = context =>
+                         {
+                             context.Response.StatusCode = 401;
+                             return Task.CompletedTask;
+                         };
                      });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +80,7 @@ namespace RSService
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseCors("Cors");
             app.UseAuthentication();
 

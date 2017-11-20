@@ -1,43 +1,129 @@
 {
+  "page": {
+      "not-found": {
+          "intro": "Pagina nu a putut fi găsită",
+          "please.authenticate": "Vă rugăm să vă autentificați",
+          "here": "aici"
+      }
+  },
+
   "welcome": "Salut",
 
-  "button.close": "Închide",
-  "button.save": "Salvează",
+  "button" : {
+      "close": "Închide",
+      "save": "Salvează",
+      "cancel": "Anulează"
+  },
 
   "login.button": "Autentificare",
   "logout.button": "Delogare",
   "login.username": "Introduceți utilizatorul",
   "login.password": "Introduceți parola",
 
-  "calendar.today": "ASTĂZI",
-  "calendar.day": "ZI",
-  "calendar.week": "SĂPTĂMÂNĂ",
-  "calendar.rooms": "CAMERE",
-  "calendar.notes": "Observații",
-  "calendar.startDate": "De la",
-  "calendar.endDate": "Până la",
-  "calendar.event.create": "Adăugare eveniment",
-  "calendar.event.edit": "Editare eveniment",
+  "calendar": {
+      "today": "ASTĂZI",
+      "day": "ZI",
+      "week": "SĂPTĂMÂNĂ",
+      "rooms": "CAMERE",
+      "notes": "Observații",
+      "startDate": "De la",
+      "endDate": "Până la",
+      "event.create": "Adăugare eveniment",
+      "event.edit": "Editare eveniment",
+      "event.saved": "Evenimentul a fost salvat",
 
-  "Auth.Password.Empty": "Introduceți parola",
-  "Auth.Username.Empty": "Introduceți numele de utilizator",
+      "buttons": {
+          "cancel.event": "Anulează rezervarea"
+      },
 
-  "Error.Event.Authentication": "Utilizator sau parolă invalide",
-  "Error.Event.Creation": "Evenimentul nu a putut fi creat",
-  "Error.Event.Edit": "Evenimentul nu a putut fi modificat",
+      "eventType": {
+          "availabilty": "Indisponibil",
+          "massage": "Masaj"
+      },
 
-  "Event.AttendeeId.CancelSomeoneElseBooking": "Nu se poate anula rezervarea altui utilizator",
-  "Event.StartDate.LessThan15Minutes": "Se poate rezerva doar cu 15 minute înainte",
-  "Event.EndDate.Empty": "Ora de încheiere necompletată",
-  "Event.StartDate.Empty": "Ora de început necompletată",
-  "Event.EndDate.NotInAvailabilityOfRoom": "Camera este indisponibilă (ora de sfârșit)",
-  "Event.EndDate.IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de sfârșit)",
-  "Event.EndDate.TimeSpan": "Durata timpului greșită",
-  "Event.StartDate.LimitPerDay": "Ați depășit limita pe o zi",
-  "Event.StartDate.NotAvailable": "Timpul de început indisponibil",
-  "Event.StartDate.PenalizedUser": "Utilizator penalizat",
-  "Event.StartDate.NotInAvailabilityOfRoom": "Camera este indisponibilă (ora de început)",
-  "Event.StartDate.GreaterThanTwoMonths": "Data selectată este mai mare de 2 luni (ora de început)",
-  "Event.StartDate.IsInThePast": "Data selectată este trecută (ora de început)",
-  "Event.StartDate.IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de început)"
+      "days": {
+          "names": {
+              "Monday": "Luni",
+              "Tuesday": "Marți",
+              "Wednesday": "Miercuri",
+              "Thursday": "Joi",
+              "Friday": "Vineri",
+              "Saturday": "Sâmbătă",
+              "Sunday": "Duminică"
+          
+          },
+
+          "namesAbbr": {
+              "Sun": "Du",
+              "Mon": "Lu",
+              "Tue": "Ma",
+              "Wed": "Mi",
+              "Thu": "Jo",
+              "Fri": "Vi",
+              "Sat": "Sb"
+          },
+
+          "namesShort": {
+              "Su": "D",
+              "Mo": "L",
+              "Tu": "Ma",
+              "We": "Mi",
+              "Th": "J",
+              "Fr": "V",
+              "Sa": "S"
+          }
+      },
+
+      "months": {
+          "January": "Ianuarie",
+          "February": "Februarie",
+          "March": "Martie",
+          "April": "Aprilie",
+          "May": "Mai",
+          "June": "Iunie",
+          "July": "Iulie",
+          "August": "August",
+          "September": "Septembrie",
+          "October": "Octombrie",
+          "November": "Noiembrie",
+          "December": "Decembrie"
+      }
+  },
+
+  "Auth": {
+      "Password.Empty": "Introduceți parola",
+      "Username.Empty": "Introduceți numele de utilizator"
+  },
+
+  "Error": {
+      "login": "Trebuie să fiți autentificat pentru a putea crea programari !",
+      "Event.Authentication": "Utilizator sau parolă invalide",
+      "Event.Creation": "Evenimentul nu a putut fi creat",
+      "Event.Edit": "Evenimentul nu a putut fi modificat"
+  },
+
+  "Event": {
+      "AttendeeId.CancelSomeoneElseBooking": "Nu se poate anula rezervarea altui utilizator",
+
+      "StartDate":{
+          "LessThan15Minutes": "Se poate rezerva doar cu 15 minute înainte",
+          "Empty": "Ora de început necompletată",
+          "LimitPerDay": "Ați depășit limita pe o zi",
+          "NotAvailable": "Timpul de început indisponibil",
+          "PenalizedUser": "Utilizator penalizat",
+          "NotInAvailabilityOfRoom": "Camera este indisponibilă (ora de început)",
+          "GreaterThanTwoMonths": "Data selectată este mai mare de 2 luni (ora de început)",
+          "IsInThePast": "Data selectată este trecută (ora de început)",
+          "IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de început)"
+      },
+
+      "EndDate": {
+          "Empty": "Ora de încheiere necompletată",
+          "NotInAvailabilityOfRoom": "Camera este indisponibilă (ora de sfârșit)",
+          "IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de sfârșit)",
+          "TimeSpan": "Durata timpului greșită"
+      },
+
+      "UserIsNotAuthenticated": "Nu sunteți autentificat"
+  }
 }
