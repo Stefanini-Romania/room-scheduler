@@ -18,7 +18,7 @@ export class EventEditorComponent implements OnInit{
     public model: Event;
     public title: string;
 
-    private errorMessages: any = {};
+    public errorMessages: any = {};
 
     constructor(public activeModal: NgbActiveModal, private toastr: ToastrService, private translate: TranslateService, private eventService: EventService) {
     }

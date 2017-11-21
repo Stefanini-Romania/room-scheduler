@@ -415,13 +415,21 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!data.appointment) {
             return;
         }
+
         let event = this.events.find(e => e.id == data.appointment.id);
         if (event.eventType == EventTypeEnum.availability ) {
-            data.style = '#E0E0E0'; //gri
-            
-        } else {
-            data.style = '#004e9e'; //albastru
+            data.style = '#E0E0E0'; //grey
+        } 
+        else {
+            data.style = '#004e9e'; //blue
+        }
+
+        if ((this.authService.isLoggedIn())) {
+            if (event.attendeeId == this.authService.getLoggedUser().id) {
+                data.style = "#d7dd3b"; //green?
+            }
         }
         return data;
+        
     }
 }
