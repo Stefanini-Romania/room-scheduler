@@ -1,11 +1,11 @@
 <div ngbDropdown>
     <button class="btn btn-primary" id="languageSelector" ngbDropdownToggle>
-        <img width=20 src="{{ currentLanguage.icon }}" alt="{{ currentLanguage.name }}"/>
-        {{ currentLanguage.name }}
+        <img height=23 src="{{ currentLanguage.icon }}" class="float-left px-1" alt="{{ currentLanguage.name }}">
+        <span class="d-none d-sm-block float-left">{{ currentLanguage.name }}</span>
     </button>
     <div ngbDropdownMenu aria-labelledby="languageSelector">
         <button *ngFor="let language of languages" class="dropdown-item" (click)="changeLanguage(language.code)">
-            <img width=20 src="{{ language.icon }}" alt="{{ language.name }}"/>
+            <img height=23 src="{{ language.icon }}" alt="{{ language.name }}"/>
             {{ language.name }}
         </button>
     </div>
