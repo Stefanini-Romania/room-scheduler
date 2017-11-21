@@ -11,6 +11,12 @@
             </ngb-alert>
 
             <div class="form-group">
+                    <div class="row" *ngIf="model.id">
+                            <div class="input-group">
+                                <label class="col-md-3"><b>{{'calendar.timeStamp' | translate}}:</b></label>
+                                <label class="col">{{ model.dateCreated | localizedDate | titlecase}} {{ model.dateCreated | date: 'shortTime'}}</label>
+                            </div>
+                        </div>
                 <div class="row">
                     <div class="input-group">
                         <label class="col-md-3"><b>{{ 'calendar.startDate' | translate }}:</b></label>
