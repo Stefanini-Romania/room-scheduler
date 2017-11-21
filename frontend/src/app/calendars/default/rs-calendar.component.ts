@@ -124,9 +124,11 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     break;
             }
 
-            if (event.attendeeId !== this.authService.getLoggedUser().id) {
-                // @TODO allow admins and hosts to edit anyway
-                readOnly = true;
+            if (this.authService.isLoggedIn()) {
+                if (event.attendeeId !== this.authService.getLoggedUser().id) {
+                    // @TODO allow admins and hosts to edit anyway
+                    readOnly = true;
+                }
             }
 
             events.push(<any>{
