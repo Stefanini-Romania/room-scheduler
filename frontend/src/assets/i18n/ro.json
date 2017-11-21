@@ -3,7 +3,8 @@
       "not-found": {
           "intro": "Pagina nu a putut fi găsită",
           "please.authenticate": "Vă rugăm să vă autentificați",
-          "here": "aici"
+          "here": "aici",
+          "go.to": "Navigati catre"
       }
   },
 

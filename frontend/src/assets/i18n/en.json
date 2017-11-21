@@ -3,7 +3,8 @@
       "not-found": {
           "intro": "Page cannot be found",
           "please.authenticate": "Please login",
-          "here": "here"
+          "here": "here",
+          "go.to": "Go to "
       }
   },
 
