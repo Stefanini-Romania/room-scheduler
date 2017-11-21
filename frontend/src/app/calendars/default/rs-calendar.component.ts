@@ -48,7 +48,8 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             {name: 'start', type: 'date'},
             {name: 'end', type: 'date'},
             {name: 'draggable', type: 'boolean'},
-            {name: 'resizable', type: 'boolean'}
+            { name: 'resizable', type: 'boolean' },
+            { name: 'readOnly', type: 'boolean' },
         ],
         id: 'id',
         localData: []
@@ -63,6 +64,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         subject: "subject",
         draggable: "draggable",
         resizable: "resizable",
+        readOnly: "readOnly",
         resourceId: "calendar",
         timeZone: "UTC",
     };
@@ -99,8 +101,6 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.goToToday();
-
-        //this.scheduler.setAppointmentProperty('id4', 'readOnly', true);
     }
 
     ngOnDestroy() {
@@ -112,14 +112,22 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         let events = [];
         let eventType: string;
         for (let event of this.events) {
+            let readOnly = false;
             switch(event.eventType){
                 case EventTypeEnum.availability: 
                     eventType = this.translate.instant("calendar.eventType.availabilty");
+                    readOnly = true;
                     break;
                 case EventTypeEnum.massage: 
                     eventType = this.translate.instant("calendar.eventType.massage");
                     break;
             }
+
+            if (event.attendeeId !== this.authService.getLoggedUser().id) {
+                // @TODO allow admins and hosts to edit anyway
+                readOnly = true;
+            }
+
             events.push(<any>{
                 id: event.id,
                 description: event.notes,
@@ -128,11 +136,14 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 calendar: "Room " + event.roomId,
                 draggable: false,
                 resizable: false,
+                readOnly: readOnly,
                 
                 start: new Date(event.startDate),
                 end: new Date(event.endDate)
             });
         }
+
+        console.log(events);
 
         this.source.localData = events;
         this.dataAdapter = new jqx.dataAdapter(this.source);
@@ -296,16 +307,6 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
-
-    //contextMenuCreate = (menu, settings) => {
-    //    let source = settings.source;
-    //    source.push({ id: 'delete', label: 'Delete Appointment' });
-    //    source.push({ id: 'status', label: 'Set Status' });
-    //}
-
-
-    
-
     ContextMenuOpen(event: any): void {
         if (!event.args.appointment) {
             event.args.menu.jqxMenu('showItem', 'createAppointment');
@@ -314,17 +315,6 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             event.args.menu.jqxMenu('hideItem', 'createAppointment');
         }
     }
-
-    //contextMenuOpen = (menu, appointment, event) => {
-    //    if (!appointment) {
-    //        menu.jqxMenu('hideItem', 'delete');
-    //        menu.jqxMenu('hideItem', 'status');
-    //    }
-    //    else {
-    //        menu.jqxMenu('showItem', 'delete');
-    //        menu.jqxMenu('showItem', 'status');
-    //    }
-    //}
 
     onContextMenuItemClick($event) {
         switch ($event.args.item.id) {
