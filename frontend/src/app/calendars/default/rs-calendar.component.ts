@@ -99,6 +99,8 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.goToToday();
+
+        //this.scheduler.setAppointmentProperty('id4', 'readOnly', true);
     }
 
     ngOnDestroy() {
@@ -293,6 +295,36 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             this.refreshCalendar();
         });
     }
+
+
+    //contextMenuCreate = (menu, settings) => {
+    //    let source = settings.source;
+    //    source.push({ id: 'delete', label: 'Delete Appointment' });
+    //    source.push({ id: 'status', label: 'Set Status' });
+    //}
+
+
+    
+
+    ContextMenuOpen(event: any): void {
+        if (!event.args.appointment) {
+            event.args.menu.jqxMenu('showItem', 'createAppointment');
+        }
+        else {
+            event.args.menu.jqxMenu('hideItem', 'createAppointment');
+        }
+    }
+
+    //contextMenuOpen = (menu, appointment, event) => {
+    //    if (!appointment) {
+    //        menu.jqxMenu('hideItem', 'delete');
+    //        menu.jqxMenu('hideItem', 'status');
+    //    }
+    //    else {
+    //        menu.jqxMenu('showItem', 'delete');
+    //        menu.jqxMenu('showItem', 'status');
+    //    }
+    //}
 
     onContextMenuItemClick($event) {
         switch ($event.args.item.id) {
