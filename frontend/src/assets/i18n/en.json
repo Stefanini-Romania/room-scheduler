@@ -32,7 +32,7 @@
       "event.create": "Create new appointment",
       "event.edit": "Edit appointment",
       "event.saved": "Appointment saved",
-      "timeStamp": "Date created",
+      "timeStamp": "Created at",
 
       "eventType": {
           "availabilty": "Not available",

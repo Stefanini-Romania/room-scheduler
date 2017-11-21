@@ -31,7 +31,8 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public startDate: Date;
     public endDate: Date;
-    public dateCreated: Date;
+    public today: Date;
+   
 
     public selectedRoom: Room;
     public hostId: number;
@@ -123,13 +124,20 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     eventType = this.translate.instant("calendar.eventType.massage");
                     break;
             }
-
+        this.today = new Date();
             if (this.authService.isLoggedIn()) {
                 if (event.attendeeId !== this.authService.getLoggedUser().id) {
                     // @TODO allow admins and hosts to edit anyway
                     readOnly = true;
                 }
+               
+                if(new Date(event.startDate) < this.today){
+                    readOnly = true;
+                }
+
             }
+
+           
 
             events.push(<any>{
                 id: event.id,
@@ -320,6 +328,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     onContextMenuItemClick($event) {
+       
         switch ($event.args.item.id) {
             case "createAppointment":
                 this.showCreateDialog($event);
@@ -385,14 +394,18 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     showEditDialog($event) {
+       
+       
         if (this.authService.isLoggedIn()) {
             this.model = this.events.find(e => e.id == $event.args.appointment.id);
-            this.dateCreated = this.model.dateCreated;
+           
 
             this.openEventEditor(this.model);
         } else {
             this.redirectToLogin();
         }
+
+        
     }
 
     redirectToLogin() {
