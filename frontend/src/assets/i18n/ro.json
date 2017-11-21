@@ -3,7 +3,8 @@
       "not-found": {
           "intro": "Pagina nu a putut fi găsită",
           "please.authenticate": "Vă rugăm să vă autentificați",
-          "here": "aici"
+          "here": "aici",
+          "go.to": "Navigati catre"
       }
   },
 
@@ -31,6 +32,7 @@
       "event.create": "Adăugare eveniment",
       "event.edit": "Editare eveniment",
       "event.saved": "Evenimentul a fost salvat",
+      "timeStamp": "Data creării",
 
       "buttons": {
           "cancel.event": "Anulează rezervarea"

@@ -31,6 +31,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public startDate: Date;
     public endDate: Date;
+    public dateCreated: Date;
 
     public selectedRoom: Room;
     public hostId: number;
@@ -384,6 +385,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     showEditDialog($event) {
         if (this.authService.isLoggedIn()) {
             this.model = this.events.find(e => e.id == $event.args.appointment.id);
+            this.dateCreated = this.model.dateCreated;
 
             this.openEventEditor(this.model);
         } else {

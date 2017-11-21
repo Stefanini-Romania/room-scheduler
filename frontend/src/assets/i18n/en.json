@@ -3,7 +3,8 @@
       "not-found": {
           "intro": "Page cannot be found",
           "please.authenticate": "Please login",
-          "here": "here"
+          "here": "here",
+          "go.to": "Go to "
       }
   },
 
@@ -31,6 +32,7 @@
       "event.create": "Create new appointment",
       "event.edit": "Edit appointment",
       "event.saved": "Appointment saved",
+      "timeStamp": "Date created",
 
       "eventType": {
           "availabilty": "Not available",
