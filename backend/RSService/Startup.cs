@@ -32,7 +32,7 @@ namespace RSService
 
         // This method gets called by the runtime. Use this method to add services to the container.
             public void ConfigureServices(IServiceCollection services)
-        {
+            {
             services.AddMvc(opt =>
             {
                 opt.Filters.Add(typeof(ValidatorActionFilter));
@@ -47,7 +47,7 @@ namespace RSService
             services.AddTransient<IAvailabiltyRepository, AvailabilityRepository>();
             services.AddTransient<IRSManager, RSManager>();
             services.AddTransient<IDbOperation, DbOperation>();
-            services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection), optionsLifetime: ServiceLifetime.Singleton);
 
             services.AddCors(options => options.AddPolicy("Cors",
             builder =>

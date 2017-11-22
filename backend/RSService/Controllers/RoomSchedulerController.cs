@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
@@ -9,53 +10,48 @@ using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace RSService.Controllers
 {
     public class RoomSchedulerController : BaseController
     {
         private IEventRepository eventRepository;
-        private IDbOperation dbOperation;
         private IRoomRepository roomRepository;
         private IAvailabiltyRepository availabilityRepository;
         private IUserRepository userRepository;
         private IRSManager rsManager;
 
-        public RoomSchedulerController(IEventRepository _eventRepository, IDbOperation _dbOperation, IRoomRepository _roomRepository, IAvailabiltyRepository _availabilityRepository, IRSManager _rsManager, IUserRepository _userRepository)
+        public RoomSchedulerController(IEventRepository eventRepository, IRoomRepository roomRepository, IAvailabiltyRepository availabilityRepository, IRSManager rsManager)
         {
-            eventRepository = _eventRepository;
-            dbOperation = _dbOperation;
-            roomRepository = _roomRepository;
-            availabilityRepository = _availabilityRepository;
-            rsManager = _rsManager;
-            userRepository = _userRepository;
+            this.eventRepository = eventRepository;
+            this.roomRepository = roomRepository;
+            this.availabilityRepository = availabilityRepository;
+            this.rsManager = rsManager;
+            this.userRepository = new UserRepository(Context);
         }
-    
-       
-        [HttpPost("/event/create")]   
+
+        [HttpPost("/event/create")]
         //[Authorize]
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
-
-            // Get current user id
-            //var userName = HttpContext.User.Identities.First().Name;
-            //int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
-
+            var userName = HttpContext.User.Identity.Name;
+            var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;
+            
             if (!ModelState.IsValid)
-            {
                 return ValidationError(GeneralMessages.Event);
 
-                //return (new ValidationFailedResult(GeneralMessages.Event, ModelState));
-            }                    
-                var newEvent = Mapper.Map<Event>(model);
-                newEvent.DateCreated = DateTime.UtcNow;
-                //newEvent.AttendeeId = 6;//currentAttendeeId; //gets attendeeId from current http session
+            var newEvent = Mapper.Map<Event>(model);
+            newEvent.DateCreated = DateTime.UtcNow;
+            newEvent.AttendeeId = currentAttendeeId;
 
-                eventRepository.AddEvent(newEvent);
-                dbOperation.Commit();
-                return Ok(newEvent);                    
+            eventRepository.AddEvent(newEvent);
+            Context.SaveChanges();
+            return Ok(newEvent);
         }
-        
+
         [HttpGet("/event/listall")]
         public IActionResult GetEvents()
         {
@@ -120,7 +116,7 @@ namespace RSService.Controllers
                 _event.AttendeeId = model.AttendeeId;
                 _event.EventStatus = _model.EventStatus;
                 _event.DateCreated = DateTime.UtcNow;
-                dbOperation.Commit();
+                Context.SaveChanges();
 
                 if (_event.EventStatus == (int)EventStatusEnum.absent)
                     rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
@@ -133,7 +129,7 @@ namespace RSService.Controllers
                 //return (new ValidationFailedResult(GeneralMessages.EventEdit, ModelState));
             }
         }
-       
+
         [HttpGet("/room/list")]
         public IActionResult GetRooms()
         {
@@ -142,6 +138,5 @@ namespace RSService.Controllers
 
             return Ok(results);
         }
-
     }
 }

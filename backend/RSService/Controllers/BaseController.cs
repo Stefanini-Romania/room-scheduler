@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RSService.Validation;
 using Microsoft.AspNetCore.Http;
+using RSRepository;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,14 +18,26 @@ namespace RSService.Controllers
     {
         private int _currentUser;
 
-        public int GetCurrentUserId()
+        protected RoomPlannerDevContext Context { get; }
+
+        public BaseController()
         {
-            return 1;
+            var connection = @"Server=BUSWGVMINDEV3\MSSQLSERVER12;Database=RoomPlannerDev;User Id=roomplanner;Password=roomplanner123";
+
+            var builder = new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<RoomPlannerDevContext>();
+            builder.UseSqlServer(connection);
+
+            Context = new RoomPlannerDevContext(builder.Options);
         }
 
-        public void SetCurrentUser(int user)
+        protected override void Dispose(bool disposing)
         {
-            _currentUser = user;
+            if (disposing)
+            {
+                Context.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
 
         public IActionResult ValidationError(string message)
