@@ -52,7 +52,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             {name: 'draggable', type: 'boolean'},
             {name: 'resizable', type: 'boolean'},
             {name: 'readOnly', type: 'boolean'},
-            //{name: 'allDay', type: 'boolean'}
+            {name: 'allDay', type: 'boolean'}
         ],
         id: 'id',
         localData: []
@@ -126,7 +126,9 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     eventType = this.translate.instant("calendar.eventType.massage");
                     break;
             }
+
         this.today = new Date();
+     
             if (this.authService.isLoggedIn()) {
                 if (event.attendeeId !== this.authService.getLoggedUser().id) {
                     // @TODO allow admins and hosts to edit anyway
@@ -152,7 +154,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 readOnly: readOnly,              
                 start: new Date(event.startDate),
                 end: new Date(event.endDate),
-                //allDay: false
+                allDay: false
             });
         }
 
