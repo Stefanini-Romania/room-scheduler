@@ -6,26 +6,24 @@ import {User} from '../../shared/models/user.model';
 import {AuthService} from '../shared/auth.service';
 
 @Component({
-    selector: 'login-form',
-    templateUrl: './login-form.component.html',
+    selector: 'register-form',
+    templateUrl: './register-form.component.html',
     styleUrls: [],
     providers: [AuthService],
 })
 
-export class LoginFormComponent {
+export class RegisterFormComponent {
     public errorMessage: string = '';
 
     model: User = <User> {};
 
-    constructor(public activeModal: NgbActiveModal, private authService: AuthService, private router: Router) {
+    constructor(private authService: AuthService, private router: Router) {
     }
     login() {
         this.authService.authenticate(this.model.name, this.model.password)
             .subscribe(
                 () => {
-                    this.activeModal.close();
-                   
-
+                    this.router.navigate(['/calendar']);
                 },
                 error => {
                     this.errorMessage = error.error.message;

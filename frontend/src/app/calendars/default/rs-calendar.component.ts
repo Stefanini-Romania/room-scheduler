@@ -4,7 +4,7 @@ import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService} from "@ngx-translate/core";
 import { Subscription } from 'rxjs/Subscription';
-
+import {LoginFormComponent} from '../../auth/login/login-form.component';
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
@@ -14,6 +14,7 @@ import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
 import {DialogService} from '../../shared/services/dialog.service';
 import {EventEditorComponent} from '../event-editor/event-editor.component';
+import {User} from '../../shared/models/user.model';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -26,7 +27,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     events: Event[] = [];
     model: Event = <Event> {};
-
+ 
     public date: Date = new jqx.date();
 
     public startDate: Date;
@@ -415,10 +416,13 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     redirectToLogin() {
+      
         if (!(this.authService.isLoggedIn())) {
-            this.dialogService.alert(this.translate.instant("Error.login")).result
-                .then(() => {
-                    return this.router.navigate(['/login']);
+            const modalRef:NgbModalRef = this.modalService.open(LoginFormComponent);
+
+          
+                modalRef.result.then(() => {
+                    this.renderCalendar();
                 })
                 .catch(() => {});
         }
