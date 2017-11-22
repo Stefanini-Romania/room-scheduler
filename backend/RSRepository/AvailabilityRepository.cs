@@ -23,22 +23,22 @@ namespace RSRepository
             return availabilities.SingleOrDefault(s => s.Id == id);
         }
 
-        public IEnumerable<Availability> GetAvailabilities()
+        public List<Availability> GetAvailabilities()
         {
-            return availabilities.AsEnumerable();
+            return availabilities.ToList();
         }
 
-        public IEnumerable<Availability> GetAvailabilities(int[] roomId, int[] hostId)
+        public List<Availability> GetAvailabilities(int[] roomId, int[] hostId)
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))
                                  .Where(e => hostId.Contains(e.HostId))
-                                 .AsEnumerable();
+                                 .ToList();
         }
 
-        public IEnumerable<Availability> GetAvailabilities(int[] roomId)
+        public List<Availability> GetAvailabilities(int[] roomId)
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))
-                                 .AsEnumerable();
+                                 .ToList();
         }
 
 

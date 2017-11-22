@@ -24,13 +24,13 @@ namespace RSService.Controllers
         private IUserRepository userRepository;
         private IRSManager rsManager;
 
-        public RoomSchedulerController(IEventRepository eventRepository, IRoomRepository roomRepository, IAvailabiltyRepository availabilityRepository, IRSManager rsManager)
+        public RoomSchedulerController(IRSManager rsManager)
         {
-            this.eventRepository = eventRepository;
-            this.roomRepository = roomRepository;
-            this.availabilityRepository = availabilityRepository;
-            this.rsManager = rsManager;
+            this.roomRepository = new RoomRepository(Context);
+            this.availabilityRepository = new AvailabilityRepository(Context);
+            this.eventRepository = new EventRepository(Context);
             this.userRepository = new UserRepository(Context);
+            this.rsManager = rsManager;
         }
 
         [HttpPost("/event/create")]
@@ -38,17 +38,21 @@ namespace RSService.Controllers
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
             var userName = HttpContext.User.Identity.Name;
-            var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;
+            //var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;
             
             if (!ModelState.IsValid)
                 return ValidationError(GeneralMessages.Event);
 
             var newEvent = Mapper.Map<Event>(model);
             newEvent.DateCreated = DateTime.UtcNow;
-            newEvent.AttendeeId = currentAttendeeId;
+            //newEvent.AttendeeId = currentAttendeeId;
 
             eventRepository.AddEvent(newEvent);
+
+            var x = Context.ChangeTracker;
+
             Context.SaveChanges();
+
             return Ok(newEvent);
         }
 
@@ -71,7 +75,7 @@ namespace RSService.Controllers
 
             var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
 
-            results = results.Concat(availabilityEvents);
+            results = results.Concat(availabilityEvents).ToList();
 
             return Ok(results);
         }
@@ -82,7 +86,7 @@ namespace RSService.Controllers
 
             var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId);
 
-            results = results.Concat(availabilityEvents);
+            results = results.Concat(availabilityEvents).ToList();
 
             return Ok(results);
         }

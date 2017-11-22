@@ -16,7 +16,7 @@ namespace RSRepository
         public UserRepository(RoomPlannerDevContext context)
         {
             this.context = context;
-            users = context.Set<User>();
+            users = context.User;
         }
 
         public void SaveChanges()

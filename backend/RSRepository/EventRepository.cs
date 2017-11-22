@@ -15,15 +15,15 @@ namespace RSRepository
         public EventRepository(RoomPlannerDevContext context)
         {
             this.context = context;
-            events = context.Set<Event>();
+            events = context.Event;
         }
 
-        public IEnumerable<Event> GetEvents()
+        public List<Event> GetEvents()
         {
             return events.ToList();
         }
 
-        public IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
+        public List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
             return events.Where(e => e.StartDate >= startDate)
                          .Where(e => e.StartDate <= endDate)
@@ -33,7 +33,7 @@ namespace RSRepository
                          .ToList();
         }
 
-        public IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
+        public List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
         {
             return events.Where(e => e.StartDate >= startDate)
                          .Where(e => e.StartDate <= endDate)
@@ -42,7 +42,7 @@ namespace RSRepository
                          .ToList();
         }
 
-        public IEnumerable<Event> GetPastEventsByUser(DateTime date, int attendeeId, int roomId)
+        public List<Event> GetPastEventsByUser(DateTime date, int attendeeId, int roomId)
         {
             return events.Where(e => e.StartDate > date.AddDays(-30))       // Last 30 days
                          .Where(e => e.AttendeeId == attendeeId)
@@ -51,15 +51,15 @@ namespace RSRepository
                          .ToList();
         }
 
-        public IEnumerable<Event> GetFutureEvents(DateTime date, int attendeeId, int roomId)
+        public List<Event> GetFutureEvents(DateTime date, int attendeeId, int roomId)
         {
             return events.Where(e => e.StartDate <= date.AddDays(15))
                          .Where(e => e.StartDate > date)
                          .Where(e => e.AttendeeId == attendeeId)
-                         .Where(e => e.RoomId == roomId);
+                         .Where(e => e.RoomId == roomId).ToList();
         }
 
-        public IEnumerable<Event> GetEventsByRoom(DateTime startDate, DateTime endDate, int roomId)
+        public List<Event> GetEventsByRoom(DateTime startDate, DateTime endDate, int roomId)
         {
             return events.Where(e => e.StartDate >= startDate)
                          .Where(e => e.StartDate <= endDate)
