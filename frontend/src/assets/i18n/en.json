@@ -21,6 +21,12 @@
   "login.username": "Enter Username",
   "login.password": "Enter Password",
 
+  "event": {
+      "filter.location": "Filter by location...",
+      "filter.no-results": "No results",
+      "filter.no-rooms": "No rooms"
+  },
+
   "calendar": {
       "today": "GO TO TODAY",
       "day": "DAY",

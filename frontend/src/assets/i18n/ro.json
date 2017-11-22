@@ -21,6 +21,12 @@
   "login.username": "Introduceți utilizatorul",
   "login.password": "Introduceți parola",
 
+  "event": {
+      "filter.location": "Filtrează după locație...",
+      "filter.no-results": "Nu există rezultate",
+      "filter.no-rooms": "Nu există camere"
+  },
+
   "calendar": {
       "today": "ZIUA CURENTĂ",
       "day": "ZI",
