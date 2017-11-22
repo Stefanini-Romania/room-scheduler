@@ -6,13 +6,13 @@ import {User} from '../../shared/models/user.model';
 import {AuthService} from '../shared/auth.service';
 
 @Component({
-    selector: 'login-form',
-    templateUrl: './login-form.component.html',
+    selector: 'register-form',
+    templateUrl: './register-form.component.html',
     styleUrls: [],
     providers: [AuthService],
 })
 
-export class LoginFormComponent {
+export class RegisterFormComponent {
     public errorMessage: string = '';
 
     model: User = <User> {};
@@ -23,8 +23,7 @@ export class LoginFormComponent {
         this.authService.authenticate(this.model.name, this.model.password)
             .subscribe(
                 () => {
-                    // this.activeModal.close();
-
+                   
                 },
                 error => {
                     this.errorMessage = error.error.message;
