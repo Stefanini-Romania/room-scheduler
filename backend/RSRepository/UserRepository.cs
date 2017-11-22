@@ -24,9 +24,9 @@ namespace RSRepository
             context.SaveChanges();
         }
 
-        public IEnumerable<User> GetUsers()
+        public List<User> GetUsers()
         {
-            return users.AsEnumerable();
+            return users.ToList();
         }
 
         public User FindUserByCredential(string username, string password)
@@ -74,7 +74,5 @@ namespace RSRepository
             users.Remove(user);
             context.SaveChanges();
         }
-
-        
     }
 }
