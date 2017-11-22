@@ -14,7 +14,8 @@ import {FormsModule} from '@angular/forms';
 import {CalendarsModule} from './calendars/calendars.module';
 import {SharedModule} from './shared/shared.module';
 import {AuthService} from './auth/shared/auth.service';
-import {AuthModule} from './auth/auth.module';
+// import {AuthModule} from './auth/auth.module';
+import {UsersModule} from './users/users.module';
 import {RoomModule} from './rooms/room.module';
 import {RoomService} from './rooms/shared/room.service';
 import {PageNotFoundComponent} from "./page-not-found.component";
@@ -68,7 +69,8 @@ const routes: Routes = [
         SharedModule,
         CalendarsModule,
         RoomModule,
-        AuthModule,
+        UsersModule
+       
 
     ],
 

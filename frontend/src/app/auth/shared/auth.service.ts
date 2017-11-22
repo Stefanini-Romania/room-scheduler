@@ -35,6 +35,7 @@ export class AuthService {
 
     logout() {
         sessionStorage.removeItem('currentUser');
+        
     }
 
     getLoggedUser(): User {

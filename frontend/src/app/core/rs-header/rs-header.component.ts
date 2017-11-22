@@ -3,6 +3,7 @@ import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {Router} from '@angular/router';
 
+
 @Component({
     selector: 'rs-header',
     templateUrl: './rs-header.component.html'
@@ -26,7 +27,9 @@ export class RSHeader {
 
     logout() {
         this.authService.logout();
-        this.router.navigate(['/login']);
+        // this.router.navigate(['/login']);
+        
+        
     }
 
     redirectToLogin() {

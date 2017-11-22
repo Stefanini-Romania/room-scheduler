@@ -4,7 +4,7 @@ import {RSCalendarComponent} from './default/rs-calendar.component';
 import {RouterModule, Routes} from '@angular/router';
 import {jqxSchedulerComponent} from './default/temp-hack/angular_jqxscheduler';
 //import {jqxSchedulerComponent} from '../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
-
+import {UsersModule} from '../users/users.module';
 import {RoomModule} from './../rooms/room.module';
 import {jqxButtonComponent} from './../../../node_modules/jqwidgets-framework/jqwidgets-ts/angular_jqxbuttons';
 import {CoreModule} from '../core/core.module';
@@ -22,6 +22,7 @@ const routes: Routes = [
         BrowserAnimationsModule,
         RouterModule.forRoot(routes),
         RoomModule,
+        UsersModule
     ],
     providers: [],
     declarations: [jqxSchedulerComponent, jqxButtonComponent, EventEditorComponent, RSCalendarComponent],

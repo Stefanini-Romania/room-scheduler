@@ -4,7 +4,7 @@ import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService} from "@ngx-translate/core";
 import { Subscription } from 'rxjs/Subscription';
-import {LoginFormComponent} from '../../auth/login/login-form.component';
+import {LoginFormComponent} from '../../users/user-login/login-form.component';
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
