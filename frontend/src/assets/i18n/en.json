@@ -21,6 +21,12 @@
   "login.username": "Enter Username",
   "login.password": "Enter Password",
 
+  "event": {
+      "filter.location": "Filter by location...",
+      "filter.no-results": "No results",
+      "filter.no-rooms": "No rooms"
+  },
+
   "calendar": {
       "today": "GO TO TODAY",
       "day": "DAY",
@@ -32,7 +38,7 @@
       "event.create": "Create new appointment",
       "event.edit": "Edit appointment",
       "event.saved": "Appointment saved",
-      "timeStamp": "Date created",
+      "timeStamp": "Created at",
 
       "eventType": {
           "availabilty": "Not available",

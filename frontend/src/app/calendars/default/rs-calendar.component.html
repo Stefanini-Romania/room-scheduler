@@ -1,4 +1,4 @@
-<div class="container h-100" style="padding-top: 80px">
+<div class="container h-100" style="padding-top: 3rem;padding-bottom: 4rem;">
     <div class="row">
         <div class="col">
             <room-selector (roomChange)="onRoomChanged($event)"></room-selector>
@@ -16,12 +16,7 @@
         </div>
 
         <div class="col text-right">
-            <label class="mx-2" *ngIf="startDate && endDate">
-                <b>{{ startDate | localizedDate | titlecase }}</b>
-                <b *ngIf="view == 'weekView'"> - {{ endDate | localizedDate| titlecase }}</b>
-            </label>
-
-            <div class="btn-group" ngbRadioGroup [ngModel]="view">
+            <div class="btn-group float-right" ngbRadioGroup [ngModel]="view">
                 <label ngbButtonLabel class="btn btn-primary" (click)="setView('dayView')">
                     <input ngbButton type="radio" value="dayView">{{'calendar.day' |translate}}
                 </label>
@@ -29,15 +24,19 @@
                     <input ngbButton type="radio" value="weekView">{{'calendar.week' |translate}}
                 </label>
             </div>
+            <label class="mx-2 d-none d-sm-block float-right">
+                <b>{{ startDate | localizedDate | titlecase }}</b>
+                <b *ngIf="view == 'weekView'"> - {{ endDate | localizedDate| titlecase }}</b>
+            </label>
         </div>
 
         <!--<button ngbButtonLabel ngbButton class="btn btn-primary" (click)="test($event)">Refresh</button>-->
     </div>
 
-    <div class="row h-70 mby-5">
+    <div class="row h-100 mby-5">
         <div class="col">
         <jqxScheduler #schedulerReference
-                      [width]="'100%'" [height]="700"
+                      [width]="'100%'" [height]="'100%'"
                       [rowsHeight]="10"
                       [date]="date"
                       [source]="dataAdapter"

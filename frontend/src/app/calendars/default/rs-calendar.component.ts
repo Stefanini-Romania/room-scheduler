@@ -31,7 +31,8 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public startDate: Date;
     public endDate: Date;
-    public dateCreated: Date;
+    public today: Date;
+   
 
     public selectedRoom: Room;
     public hostId: number;
@@ -49,8 +50,9 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             {name: 'start', type: 'date'},
             {name: 'end', type: 'date'},
             {name: 'draggable', type: 'boolean'},
-            { name: 'resizable', type: 'boolean' },
-            { name: 'readOnly', type: 'boolean' },
+            {name: 'resizable', type: 'boolean'},
+            {name: 'readOnly', type: 'boolean'},
+            //{name: 'allDay', type: 'boolean'}
         ],
         id: 'id',
         localData: []
@@ -68,6 +70,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         readOnly: "readOnly",
         resourceId: "calendar",
         timeZone: "UTC",
+        allDay: "allDay"
     };
 
     dataAdapter: any = new jqx.dataAdapter(this.source);
@@ -123,13 +126,20 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     eventType = this.translate.instant("calendar.eventType.massage");
                     break;
             }
-
+        this.today = new Date();
             if (this.authService.isLoggedIn()) {
                 if (event.attendeeId !== this.authService.getLoggedUser().id) {
                     // @TODO allow admins and hosts to edit anyway
                     readOnly = true;
                 }
+               
+                if(new Date(event.startDate) < this.today){
+                    readOnly = true;
+                }
+
             }
+
+           
 
             events.push(<any>{
                 id: event.id,
@@ -139,14 +149,14 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 calendar: "Room " + event.roomId,
                 draggable: false,
                 resizable: false,
-                readOnly: readOnly,
-                
+                readOnly: readOnly,              
                 start: new Date(event.startDate),
-                end: new Date(event.endDate)
+                end: new Date(event.endDate),
+                //allDay: false
             });
         }
 
-        console.log(events);
+        //console.log(events);
 
         this.source.localData = events;
         this.dataAdapter = new jqx.dataAdapter(this.source);
@@ -209,6 +219,8 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             contextMenuEditAppointmentString: t.instant("calendar.event.edit"),
             contextMenuCreateAppointmentString: t.instant("calendar.event.create"),
         };
+
+        this.refreshCalendar();
     }
 
     isView(view: string): boolean {
@@ -320,6 +332,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     onContextMenuItemClick($event) {
+       
         switch ($event.args.item.id) {
             case "createAppointment":
                 this.showCreateDialog($event);
@@ -385,14 +398,18 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     showEditDialog($event) {
+       
+       
         if (this.authService.isLoggedIn()) {
             this.model = this.events.find(e => e.id == $event.args.appointment.id);
-            this.dateCreated = this.model.dateCreated;
+           
 
             this.openEventEditor(this.model);
         } else {
             this.redirectToLogin();
         }
+
+        
     }
 
     redirectToLogin() {

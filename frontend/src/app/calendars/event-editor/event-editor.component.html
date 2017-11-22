@@ -32,10 +32,10 @@
                     <label class="col-md-3"><b>{{ 'calendar.endDate' | translate }}:</b></label>
                     <label class="col">{{ model.endDate | localizedDate | titlecase}} {{ model.endDate | date: 'shortTime'}}</label>
                 </div>
-                <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
-                    <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
-                </ngb-alert>
             </div>
+            <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
+                <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
+            </ngb-alert>       
             <div class="row">
                 <div class="input-group">
                     <div class="col">
