@@ -1,5 +1,4 @@
 import {Component, ViewChild, OnInit,AfterViewInit, OnDestroy} from '@angular/core';
-import {Router} from '@angular/router';
 import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService} from "@ngx-translate/core";
@@ -14,7 +13,6 @@ import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
 import {DialogService} from '../../shared/services/dialog.service';
 import {EventEditorComponent} from '../event-editor/event-editor.component';
-import {User} from '../../shared/models/user.model';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -26,14 +24,11 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
     events: Event[] = [];
-    model: Event = <Event> {};
- 
+
     public date: Date = new jqx.date();
 
     public startDate: Date;
     public endDate: Date;
-    public today: Date;
-   
 
     public selectedRoom: Room;
     public hostId: number;
@@ -74,7 +69,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         allDay: "allDay"
     };
 
-    dataAdapter: any = new jqx.dataAdapter(this.source);
+    dataAdapter = new jqx.dataAdapter(this.source);
 
     resources: any = {
         colorScheme: "scheme05",
@@ -93,7 +88,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     subscription: Subscription;
 
-    constructor(private router: Router, private translate: TranslateService,
+    constructor(private translate: TranslateService,
                 private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
                 private authService: AuthService) {
     }
@@ -105,6 +100,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
+        console.log(this.scheduler.views());
         this.goToToday();
     }
 
@@ -128,15 +124,13 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     break;
             }
 
-        this.today = new Date();
-     
             if (this.authService.isLoggedIn()) {
                 if (event.attendeeId !== this.authService.getLoggedUser().id) {
                     // @TODO allow admins and hosts to edit anyway
                     readOnly = true;
                 }
                
-                if(new Date(event.startDate) < this.today){
+                if(new Date(event.startDate) < new Date()){
                     readOnly = true;
                 }
 
@@ -250,7 +244,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private addDaysInDirection(date, direction: number) {
-        let i = this.views.find(e => e.type == this.view);
+        let i = Array<any>(this.scheduler.views).find(e => e.type == this.view);
         let c = new jqx.date(date, this.scheduler.timeZone());
 
         let j = function () {
@@ -283,7 +277,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         return c;
     }
 
-    showCalendarsDate($event) {
+    updateCalendarDates($event) {
         if (!this.previousValues || ($event.args.from.toString() !== this.previousValues.from.toString())) {
             this.previousValues = $event.args;
 
@@ -312,8 +306,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.startDate || !this.endDate || !this.selectedRoom) {
             return;
         }
-        
-        
+
         this.events = [];
         this.eventService.listEvents(this.startDate, this.endDate, this.selectedRoom.id, this.hostId).subscribe((events: Event[]) => {
 
@@ -335,7 +328,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     onContextMenuItemClick($event) {
-       
+
         switch ($event.args.item.id) {
             case "createAppointment":
                 this.showCreateDialog($event);
@@ -356,16 +349,16 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         });
         if (1)return;*/
 
-        this.model = new Event();
-        this.model.startDate = new Date();
-        this.model.endDate = new Date();
-        this.model.eventType = EventTypeEnum.massage;
-        this.model.eventStatus = EventStatusEnum.waiting;
-        this.model.roomId = 1;
-        this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-        this.model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
+        let model = new Event();
+        model.startDate = new Date();
+        model.endDate = new Date();
+        model.eventType = EventTypeEnum.massage;
+        model.eventStatus = EventStatusEnum.waiting;
+        model.roomId = 1;
+        model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+        model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
 
-        this.openEventEditor(this.model);
+        this.openEventEditor(model);
     }
 
     private openEventEditor(model: Event) {
@@ -385,46 +378,39 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 return;
             }
 
-            this.model = new Event();
-            this.model.startDate = new Date(date.from.toString());
-            this.model.endDate = new Date(date.to.toString());
-            this.model.eventType = EventTypeEnum.massage;
-            this.model.eventStatus = EventStatusEnum.waiting;
-            this.model.roomId = this.selectedRoom.id;
-            this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-            this.model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
+            let model = new Event();
+            model.startDate = new Date(date.from.toString());
+            model.endDate = new Date(date.to.toString());
+            model.eventType = EventTypeEnum.massage;
+            model.eventStatus = EventStatusEnum.waiting;
+            model.roomId = this.selectedRoom.id;
+            model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+            model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
 
-            this.openEventEditor(this.model);
+            this.openEventEditor(model);
         } else {
             this.redirectToLogin();
         }
     }
 
     showEditDialog($event) {
-       
-       
         if (this.authService.isLoggedIn()) {
-            this.model = this.events.find(e => e.id == $event.args.appointment.id);
-           
-
-            this.openEventEditor(this.model);
+            let model = this.events.find(e => e.id == $event.args.appointment.id);
+            this.openEventEditor(model);
         } else {
             this.redirectToLogin();
         }
 
-        
+
     }
 
     redirectToLogin() {
-      
         if (!(this.authService.isLoggedIn())) {
             const modalRef:NgbModalRef = this.modalService.open(LoginFormComponent);
-
-          
-                modalRef.result.then(() => {
-                    this.renderCalendar();
-                })
-                .catch(() => {});
+            modalRef.result.then(() => {
+                this.renderCalendar();
+            })
+            .catch(() => {});
         }
     }
 
@@ -436,7 +422,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         let event = this.events.find(e => e.id == data.appointment.id);
         if (event.eventType == EventTypeEnum.availability ) {
             data.style = '#E0E0E0'; //grey
-        } 
+        }
         else {
             data.style = '#004e9e'; //blue
         }
@@ -446,7 +432,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 data.style = "#d7dd3b"; //green?
             }
         }
+
         return data;
-        
     }
 }
