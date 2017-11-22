@@ -17,13 +17,14 @@ export class LoginFormComponent {
 
     model: User = <User> {};
 
-    constructor(private authService: AuthService, private router: Router) {
+    constructor(public activeModal: NgbActiveModal, private authService: AuthService, private router: Router) {
     }
     login() {
         this.authService.authenticate(this.model.name, this.model.password)
             .subscribe(
                 () => {
-                    // this.activeModal.close();
+                    this.activeModal.close();
+                   
 
                 },
                 error => {

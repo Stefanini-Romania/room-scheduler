@@ -416,24 +416,13 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     redirectToLogin() {
-        // if (!(this.authService.isLoggedIn())) {
-        //     this.dialogService.alert(this.translate.instant("Error.login")).result
-        //         .then(() => {
-        //             return this.router.navigate(['/login']);
-        //         })
-        //         .catch(() => {});
-        // }
-
+      
         if (!(this.authService.isLoggedIn())) {
             const modalRef:NgbModalRef = this.modalService.open(LoginFormComponent);
 
-            // this.dialogService.alert(this.translate.instant("Error.login")).result
+          
                 modalRef.result.then(() => {
-                    // const modalRef:NgbModalRef = this.modalService.open(LoginFormComponent);
-                
-                    // modalRef.result.then(() => {
-                    //     this.renderCalendar();
-                    // });
+                    this.renderCalendar();
                 })
                 .catch(() => {});
         }

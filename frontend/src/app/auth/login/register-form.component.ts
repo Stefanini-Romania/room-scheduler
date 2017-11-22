@@ -23,7 +23,7 @@ export class RegisterFormComponent {
         this.authService.authenticate(this.model.name, this.model.password)
             .subscribe(
                 () => {
-                   
+                    this.router.navigate(['/calendar']);
                 },
                 error => {
                     this.errorMessage = error.error.message;
