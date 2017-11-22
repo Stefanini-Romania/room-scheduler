@@ -34,26 +34,28 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/event/create")]
-        //[Authorize]
+        [Authorize]
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
             var userName = HttpContext.User.Identity.Name;
-            //var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;
-            
+            var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;
+
             if (!ModelState.IsValid)
                 return ValidationError(GeneralMessages.Event);
 
             var newEvent = Mapper.Map<Event>(model);
             newEvent.DateCreated = DateTime.UtcNow;
-            //newEvent.AttendeeId = currentAttendeeId;
+            newEvent.AttendeeId = currentAttendeeId;
 
             eventRepository.AddEvent(newEvent);
-
-            var x = Context.ChangeTracker;
-
             Context.SaveChanges();
 
-            return Ok(newEvent);
+            return Ok(new
+            {
+                Id = newEvent.Id,
+                StartDate = newEvent.StartDate,
+                EndDate = newEvent.EndDate
+            });
         }
 
         [HttpGet("/event/listall")]
@@ -92,14 +94,11 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/event/edit/{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult UpdateEvent(int id, [FromBody] EditViewModel model)
         {
-            //HttpContext.User.Identity.Name
-
-            // Get current user id
-            //var userName = HttpContext.User.Identities.First().Name;
-            //int currentAttendeeId = userRepository.GetUsers().Where(u => u.Name == userName).FirstOrDefault().Id;
+            var userName = HttpContext.User.Identity.Name;
+            var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;
 
             if (ModelState.IsValid)
             {
@@ -117,20 +116,24 @@ namespace RSService.Controllers
                 _event.RoomId = _model.RoomId;
                 _event.Notes = _model.Notes;
                 _event.HostId = _model.HostId;
-                _event.AttendeeId = model.AttendeeId;
+                _event.AttendeeId = currentAttendeeId;
                 _event.EventStatus = _model.EventStatus;
                 _event.DateCreated = DateTime.UtcNow;
                 Context.SaveChanges();
 
                 if (_event.EventStatus == (int)EventStatusEnum.absent)
                     rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
-                return Ok(_event);
+
+                return Ok(new
+                {
+                    Id = _event.Id,
+                    StartDate = _event.StartDate,
+                    EndDate = _event.EndDate
+                });
             }
             else
             {
                 return ValidationError(GeneralMessages.Event);
-
-                //return (new ValidationFailedResult(GeneralMessages.EventEdit, ModelState));
             }
         }
 

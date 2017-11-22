@@ -80,7 +80,7 @@ export class EventService {
         });
 
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.put(url, body, {headers: headers})
+        return this.http.put(url, body, { headers: headers, withCredentials: true })
             .catch((error: any) => Observable.throw(error.message))
             .map((response: Response) => {
                 return response;

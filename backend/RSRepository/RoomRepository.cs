@@ -19,9 +19,9 @@ namespace RSRepository
         }
 
 
-        public IEnumerable<Room> GetRooms()
+        public List<Room> GetRooms()
         {
-            return rooms.AsEnumerable();
+            return rooms.ToList();
         }
 
         public Room GetRoomById(int id)

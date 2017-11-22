@@ -7,7 +7,7 @@ namespace RSRepository
 {
     public interface IRoomRepository
     {
-        IEnumerable<Room> GetRooms();
+        List<Room> GetRooms();
         Room GetRoomById(int id);
         void AddRoom(Room room);
         void UpdateRoom(Room room);
