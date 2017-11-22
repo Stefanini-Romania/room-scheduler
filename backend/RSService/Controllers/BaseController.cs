@@ -16,7 +16,6 @@ namespace RSService.Controllers
     
     public abstract class BaseController : Controller
     {
-        private int _currentUser;
 
         protected RoomPlannerDevContext Context { get; }
 

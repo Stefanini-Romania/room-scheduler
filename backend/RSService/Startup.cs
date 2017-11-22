@@ -50,14 +50,14 @@ namespace RSService
             services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection), optionsLifetime: ServiceLifetime.Singleton);
 
             services.AddCors(options => options.AddPolicy("Cors",
-            builder =>
-            {
-                builder.
-                AllowAnyOrigin().
-                AllowAnyMethod().
-                AllowAnyHeader().
-                AllowCredentials();
-            }));
+                builder =>
+                {
+                    builder.
+                        AllowAnyOrigin().
+                        AllowAnyMethod().
+                        AllowAnyHeader().
+                        AllowCredentials();
+                }));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>

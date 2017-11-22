@@ -43,9 +43,9 @@ namespace RSRepository
             return _roles.SingleOrDefault(s => s.Id == id);
         }
 
-        public IEnumerable<Role> GetRoles()
+        public List<Role> GetRoles()
         {
-            return _roles.AsEnumerable();
+            return _roles.ToList();
         }
 
         public void SaveChanges()

@@ -7,7 +7,7 @@ namespace RSRepository
 {
     interface IDepartmentRepository
     {
-        IEnumerable<Department> GetDepartments();
+        List<Department> GetDepartments();
         Department GetDepartmentById(int id);
         void AddDepartment(Department department);
         void UpdateDepartment(Department department);

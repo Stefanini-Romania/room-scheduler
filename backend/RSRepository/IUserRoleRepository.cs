@@ -7,7 +7,7 @@ namespace RSRepository
 {
     public interface IUserRoleRepository
     {
-        IEnumerable<UserRole> GetUserRoles();
+        List<UserRole> GetUserRoles();
         UserRole GetUserRoleById(int id);
         void AddUserRole(UserRole _userrole);
         void UpdateUserRole(UserRole _userrole);
