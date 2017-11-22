@@ -7,8 +7,8 @@ namespace RSRepository
 {
     public interface IPenaltyRepository
     {
-        IEnumerable<Penalty> GetPenaltiesByUser(int attendeeId);
-        IEnumerable<Penalty> GetPenalties();
+        List<Penalty> GetPenaltiesByUser(int attendeeId);
+        List<Penalty> GetPenalties();
         Penalty GetPenaltyById(int id);
         void AddPenalty(Penalty penalty);
         void UpdatePenalty(Penalty penalty);

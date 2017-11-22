@@ -43,9 +43,9 @@ namespace RSRepository
             return _departments.SingleOrDefault(s => s.Id == id);
         }
 
-        public IEnumerable<Department> GetDepartments()
+        public List<Department> GetDepartments()
         {
-            return _departments.AsEnumerable();
+            return _departments.ToList();
         }
 
 
