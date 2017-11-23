@@ -1,3 +1,4 @@
+import { User } from '../../shared/models/user.model';
 import {Component, ViewChild, OnInit,AfterViewInit, OnDestroy} from '@angular/core';
 import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +15,7 @@ import {EventStatusEnum} from '../../shared/models/event.model';
 import {DialogService} from '../../shared/services/dialog.service';
 import {EventEditorComponent} from '../event-editor/event-editor.component';
 import * as CalendarSettings from './calendar-settings.json';
-import { User } from "../../shared/models/user.model";
+
 
 @Component({
     selector: 'rs-calendar-component',

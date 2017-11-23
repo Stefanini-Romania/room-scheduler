@@ -133,5 +133,8 @@
       },
 
       "UserIsNotAuthenticated": "Nu sunteți autentificat"
-  }
+      
+  },
+
+  "UserPenalized": "UTILIZATOR PENALIZAT"
 }

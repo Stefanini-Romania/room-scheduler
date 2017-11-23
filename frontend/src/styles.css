@@ -267,6 +267,15 @@ footer a {
     color: #fff;
 }
 
+.alert-custom{
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #721c24;
+    height: 38px;
+    text-align: center;
+    width:40%;
+}
+
   /* .jqx-rc-all .jqx-scheduler-appointment {
     left: 567px;
     top: 161px;

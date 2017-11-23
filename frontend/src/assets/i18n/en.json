@@ -117,7 +117,9 @@
       },
 
       "UserIsNotAuthenticated": "You are not logged in"
-  }
+      
+  },
 
+    "UserPenalized": "PENALISED USER"
 
 }

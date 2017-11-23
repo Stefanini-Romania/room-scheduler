@@ -1,4 +1,6 @@
 <div class="container h-100" style="padding-top: 3rem;padding-bottom: 4rem;">
+        
+        
     <div class="row">
         <div class="col">
             <room-selector (roomChange)="onRoomChanged($event)"></room-selector>
@@ -14,6 +16,7 @@
                 </label>
             </div>
         </div>
+       
 
         <div class="col text-right">
             <div class="btn-group float-right" ngbRadioGroup [ngModel]="calendarSettings.view">

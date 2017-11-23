@@ -28,10 +28,11 @@ export class RSHeader {
     logout() {
         this.authService.logout();
         // this.router.navigate(['/login']);
-        
+               
         
     }
 
+   
     redirectToLogin() {
         this.router.navigate(['/login']);
     }
