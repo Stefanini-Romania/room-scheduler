@@ -14,6 +14,7 @@ import {EventStatusEnum} from '../../shared/models/event.model';
 import {DialogService} from '../../shared/services/dialog.service';
 import {EventEditorComponent} from '../event-editor/event-editor.component';
 import * as CalendarSettings from './calendar-settings.json';
+import { User } from "../../shared/models/user.model";
 
 @Component({
     selector: 'rs-calendar-component',
@@ -25,6 +26,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
     events: Event[] = [];
+    users: User[] = [];
 
     public date: Date = new jqx.date();
 
@@ -43,9 +45,10 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     subscription: Subscription;
 
     constructor(private translate: TranslateService,
-                private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
-                private authService: AuthService) {
+        private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
+        private authService: AuthService){
     }
+              
 
     ngOnInit() {
         this.subscription =  this.translate.onLangChange.subscribe(() => {
@@ -63,6 +66,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     refreshCalendar() {
+        let users = [];
         let events = [];
         let eventType: string;
         for (let event of this.events) {
@@ -78,14 +82,15 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }
 
             if (this.authService.isLoggedIn()) {
-                if (event.attendeeId !== this.authService.getLoggedUser().id) {
+                if ((event.attendeeId !== this.authService.getLoggedUser().id) && (this.authService.getLoggedUser().departmentId != null))  {
                     // @TODO allow admins and hosts to edit anyway
                     readOnly = true;
-                }
+                }        
                
-                if(new Date(event.startDate) < new Date()){
+                if ((new Date(event.startDate) <= new Date())&&(this.authService.getLoggedUser().departmentId != null)){
                     readOnly = true;
                 }
+                
 
             }
 
