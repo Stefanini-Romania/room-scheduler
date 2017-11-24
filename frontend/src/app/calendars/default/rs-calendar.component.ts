@@ -38,7 +38,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     public selectedRoom: Room;
     public hostId: number;
 
-    calendarSettings = CalendarSettings;
+    calendarSettings = <any>CalendarSettings;
 
     dataAdapter = new jqx.dataAdapter(this.calendarSettings["source"]);
 
@@ -95,8 +95,6 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 
 
             }
-
-           
 
             events.push(<any>{
                 id: event.id,
