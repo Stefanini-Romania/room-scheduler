@@ -103,7 +103,7 @@ namespace RSService.BusinessLogic
         public int GetAvailableTime(int userId, DateTime startDate)
         {
             var result = eventRepository.GetEvents()
-                            .Where(e => e.EventStatus == (int)EventStatusEnum.waiting || e.EventStatus == (int)EventStatusEnum.present)
+                            .Where(e => e.EventStatus != (int)EventStatusEnum.cancelled)
                             .Where(e => e.AttendeeId == userId)
                             .Where(e => e.StartDate.Date == startDate.Date);
             if (result.Count() >= 2)

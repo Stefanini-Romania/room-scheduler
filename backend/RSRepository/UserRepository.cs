@@ -2,6 +2,8 @@
 using RSData.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
@@ -12,11 +14,15 @@ namespace RSRepository
     {
         private RoomPlannerDevContext context;
         private DbSet<User> users;
+        private DbSet<UserRole> userrole;
+        private DbSet<Role> role;
 
         public UserRepository(RoomPlannerDevContext context)
         {
             this.context = context;
             users = context.User;
+            userrole = context.UserRole;
+            role = context.Role;
         }
 
         public void SaveChanges()
@@ -26,12 +32,14 @@ namespace RSRepository
 
         public List<User> GetUsers()
         {
-            return users.ToList();
+            var result = users.Include(u => u.UserRole).Include(u => u.Penalty)
+                              .ToList();
+            return result;
         }
 
         public User FindUserByCredential(string username, string password)
         {
-            // !! Nu trebuie sa-i aducem pe toti cu GetUsers. Trebuie cautat direct in DbSet-ul de users  !!
+            // TODO:  Nu trebuie sa-i aducem pe toti cu GetUsers. Trebuie cautat direct in DbSet-ul de users  !!
 
             var sha1 = System.Security.Cryptography.SHA1.Create();
 

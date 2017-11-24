@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using RSService.Validation;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using RSService.DTO;
 
 namespace RSService.Controllers
 {
@@ -25,7 +26,7 @@ namespace RSService.Controllers
 
         public AuthController(IUserRepository userRepository, ILogger<AuthController> logger)
         {
-            _userRepository = userRepository;
+            _userRepository = new UserRepository(Context);
             _logger = logger;
         }
 
@@ -36,15 +37,13 @@ namespace RSService.Controllers
             if (!ModelState.IsValid)
             {
                 return ValidationError(GeneralMessages.Authentication);
-
-                //return (new ValidationFailedResult(GeneralMessages.Authentication, ModelState));
             }
 
-            if (_userRepository.FindUserByCredential(model.Name, model.Password) == null )
+            var user = _userRepository.FindUserByCredential(model.Name, model.Password);
+
+            if (user == null )
             {
                 return ValidationError(GeneralMessages.Authentication);
-
-                //return (new ValidationFailedResult(GeneralMessages.Authentication, ModelState));
             }
             
             var claims = new List<Claim>
@@ -57,9 +56,19 @@ namespace RSService.Controllers
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-            var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == model.Name);
-            //Just redirect to our index after logging in. 
-            return Ok(user);
+            // TODO: return DTO object
+            return Ok(new
+            {
+                id = user.Id,
+                email = user.Email,
+                name = user.Name,
+                departmentId = user.DepartmentId,
+                userRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
+                penalty = new List<PenaltyDto>(user.Penalty.Select(li => new PenaltyDto
+                                                                         { Id = li.Id,
+                                                                           Date = li.Date })
+                                              )
+            });
         }
 
         [HttpGet("api/auth/logout"), Authorize]

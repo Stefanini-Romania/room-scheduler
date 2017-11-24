@@ -50,6 +50,7 @@ namespace RSService.Controllers
             eventRepository.AddEvent(newEvent);
             Context.SaveChanges();
 
+            // TODO: return DTO object
             return Ok(new
             {
                 Id = newEvent.Id,
@@ -110,15 +111,10 @@ namespace RSService.Controllers
                     return NotFound();
                 }
 
-                _event.StartDate = _model.StartDate;
-                _event.EndDate = _model.EndDate;
-                _event.EventType = _model.EventType;
-                _event.RoomId = _model.RoomId;
                 _event.Notes = _model.Notes;
-                _event.HostId = _model.HostId;
-                _event.AttendeeId = currentAttendeeId;
                 _event.EventStatus = _model.EventStatus;
                 _event.DateCreated = DateTime.UtcNow;
+
                 Context.SaveChanges();
 
                 if (_event.EventStatus == (int)EventStatusEnum.absent)
