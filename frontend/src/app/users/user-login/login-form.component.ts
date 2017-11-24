@@ -31,4 +31,8 @@ export class LoginFormComponent {
                     this.errorMessage = error.error.message;
                 });
     }
+
+    closeLoginModal(){
+        this.activeModal.close();
+    }
 }

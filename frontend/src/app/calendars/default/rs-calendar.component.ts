@@ -2,6 +2,7 @@ import { User } from '../../shared/models/user.model';
 import {Component, ViewChild, OnInit,AfterViewInit, OnDestroy} from '@angular/core';
 import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+
 import {TranslateService} from "@ngx-translate/core";
 import { Subscription } from 'rxjs/Subscription';
 import {LoginFormComponent} from '../../users/user-login/login-form.component';
@@ -372,6 +373,8 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             .catch(() => {});
         }
     }
+
+
 
     renderAppointment = (data) => {
         if (!data.appointment) {
