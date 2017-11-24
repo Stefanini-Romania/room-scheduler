@@ -276,6 +276,10 @@ footer a {
     width:40%;
 }
 
+.fa-times{
+    color: #fff;
+}
+
   /* .jqx-rc-all .jqx-scheduler-appointment {
     left: 567px;
     top: 161px;
