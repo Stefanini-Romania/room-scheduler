@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {LocalizedDatePipe} from './pipes/localized-date.pipe';
-import {ValidateEqualValidator} from './../shared/validators/validate-equal-validator.directive';
+// @TODO FIX import {ValidateEqualValidator} from './../shared/validators/validate-equal-validator.directive';
 
 
 @NgModule({
     imports: [],
     providers: [],
-    declarations: [LocalizedDatePipe, ValidateEqualValidator],
-    exports: [LocalizedDatePipe, ValidateEqualValidator],
+    declarations: [LocalizedDatePipe/*, ValidateEqualValidator*/],
+    exports: [LocalizedDatePipe/*, ValidateEqualValidator*/],
 })
 export class SharedModule {
 }
