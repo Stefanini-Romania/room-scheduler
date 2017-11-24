@@ -14,19 +14,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using RSService.Validation;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using RSService.BusinessLogic;
 
 namespace RSService.Controllers
 {
 
     public class AuthController : BaseController
     {
-        private IUserRepository _userRepository;
-        private ILogger<AuthController> _logger;
+        private IUserRepository userRepository;
+        private ILogger<AuthController> logger;
+        private IRSManager rSManager;
 
-        public AuthController(IUserRepository userRepository, ILogger<AuthController> logger)
+        public AuthController(IUserRepository userRepository, ILogger<AuthController> logger, IRSManager rSManager)
         {
-            _userRepository = userRepository;
-            _logger = logger;
+            this.userRepository = userRepository;
+            this.logger = logger;
+            this.rSManager = rSManager;
         }
 
         [HttpPost("api/auth/login")]
@@ -40,7 +43,7 @@ namespace RSService.Controllers
                 //return (new ValidationFailedResult(GeneralMessages.Authentication, ModelState));
             }
 
-            if (_userRepository.FindUserByCredential(model.Name, model.Password) == null )
+            if (userRepository.FindUserByCredential(model.Name, model.Password) == null )
             {
                 return ValidationError(GeneralMessages.Authentication);
 
@@ -57,9 +60,16 @@ namespace RSService.Controllers
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-            var user = _userRepository.GetUsers().FirstOrDefault(c => c.Name == model.Name);
+            var user = userRepository.GetUsers().FirstOrDefault(c => c.Name == model.Name);
             //Just redirect to our index after logging in. 
-            return Ok(user);
+            //return Ok(user);
+            return Ok(new
+            {
+                email = user.Email,
+                name = user.Name,
+                departmentId = user.DepartmentId,
+                roles = rSManager.getRolesByUserID(user.Id)
+            });
         }
 
         [HttpGet("api/auth/logout"), Authorize]

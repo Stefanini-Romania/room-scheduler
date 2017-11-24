@@ -23,5 +23,7 @@ namespace RSService.BusinessLogic
         void CheckPenalty(DateTime startDate, int eventId, int attendeeId, int roomId);
 
         bool HasPenalty(int attendeeId, DateTime newDate, int roomId);
+
+        List<int> getRolesByUserID(int userId);
     }
 }
