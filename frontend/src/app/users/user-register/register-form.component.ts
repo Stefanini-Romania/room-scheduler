@@ -29,4 +29,6 @@ export class RegisterFormComponent {
                     this.errorMessage = error.error.message;
                 });
     }
+
+   
 }
