@@ -38,6 +38,7 @@
       "event.create": "Create new appointment",
       "event.edit": "Edit appointment",
       "event.saved": "Appointment saved",
+      "event.canceled":"Appointment deleted",
       "timeStamp": "Created at",
 
       "eventType": {

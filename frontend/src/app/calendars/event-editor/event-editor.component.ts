@@ -29,6 +29,10 @@ export class EventEditorComponent implements OnInit{
 
     cancelEvent() {
         this.model.eventStatus = EventStatusEnum.cancelled;
+        this.toastr.warning(
+            this.translate.instant('calendar.event.canceled'), '',
+            {positionClass: 'toast-bottom-right'}
+        );
         return this.saveEvent();
     }
 
@@ -39,12 +43,14 @@ export class EventEditorComponent implements OnInit{
         // try to save
         return this.eventService.save(this.model).subscribe(
             () => {
-                // on save event success
+                if (this.model.eventStatus != EventStatusEnum.cancelled)
+                {
                 this.toastr.success(
                     this.translate.instant('calendar.event.saved'), '',
                     {positionClass: 'toast-bottom-right'}
-                );
+                );}
                 this.activeModal.close();
+
             },
             error => {
                 // on save event errors
