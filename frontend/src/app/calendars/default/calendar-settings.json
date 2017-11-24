@@ -1,0 +1,47 @@
+{
+  "view": "weekView",
+  "views": [
+    {"type": "dayView",  "showWeekends": false, "timeRuler": {"formatString": "HH:mm", "scaleStartHour": 9, "scaleEndHour": 18}},
+    {"type": "weekView", "showWeekends": false, "timeRuler": {"formatString": "HH:mm", "scaleStartHour": 9, "scaleEndHour": 18}}
+  ],
+  "source": {
+    "dataType": "array",
+    "dataFields": [
+      {"name": "id", "type": "string"},
+      {"name": "description", "type": "string"},
+      {"name": "location", "type": "string"},
+      {"name": "subject", "type": "string"},
+      {"name": "calendar", "type": "string"},
+      {"name": "start", "type": "date"},
+      {"name": "end", "type": "date"},
+      {"name": "draggable", "type": "boolean"},
+      {"name": "resizable", "type": "boolean"},
+      {"name": "readOnly", "type": "boolean"},
+      {"name": "allDay", "type": "boolean"}
+    ],
+    "id": "id",
+    "localData": []
+  },
+
+  "eventDataFields": {
+    "from": "start",
+    "to": "end",
+    "id": "id",
+    "description": "description",
+    "location": "location",
+    "subject": "subject",
+    "draggable": "draggable",
+    "resizable": "resizable",
+    "readOnly": "readOnly",
+    "resourceId": "calendar",
+    "timeZone": "UTC",
+    "allDay": "allDay"
+  },
+
+  "resources": {
+    "colorScheme": "scheme05",
+    "dataField": "calendar"
+  },
+
+  "localization": {}
+}

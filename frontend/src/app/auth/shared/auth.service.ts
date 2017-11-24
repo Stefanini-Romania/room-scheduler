@@ -11,10 +11,7 @@ import {User} from '../../shared/models/user.model';
 @Injectable()
 export class AuthService {
 
-    users: User[];
-
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     authenticate(name: string, password: string) {
         const url = environment.apiUrl + '/api/auth/login';
@@ -35,6 +32,7 @@ export class AuthService {
 
     logout() {
         sessionStorage.removeItem('currentUser');
+        
     }
 
     getLoggedUser(): User {

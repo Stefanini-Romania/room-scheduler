@@ -151,6 +151,9 @@ namespace RSService.Filters
         {
             if((ev.StartDate.Value.Month <= DateTime.Now.Month+1)&&(ev.StartDate.Value.Day >=1 && ev.StartDate.Value.Day <=31)&&(ev.StartDate.Value.Year==DateTime.Now.Year))
                     return true;
+
+            if ((ev.StartDate.Value.Year == DateTime.Now.Year + 1) && (ev.StartDate.Value.Month == 01 && DateTime.Now.Month == 12))
+                return true;
             return false;
         }
 

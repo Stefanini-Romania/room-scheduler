@@ -1,4 +1,6 @@
 <div class="container h-100" style="padding-top: 3rem;padding-bottom: 4rem;">
+        
+        
     <div class="row">
         <div class="col">
             <room-selector (roomChange)="onRoomChanged($event)"></room-selector>
@@ -14,9 +16,10 @@
                 </label>
             </div>
         </div>
+       
 
         <div class="col text-right">
-            <div class="btn-group float-right" ngbRadioGroup [ngModel]="view">
+            <div class="btn-group float-right" ngbRadioGroup [ngModel]="calendarSettings.view">
                 <label ngbButtonLabel class="btn btn-primary" (click)="setView('dayView')">
                     <input ngbButton type="radio" value="dayView">{{'calendar.day' |translate}}
                 </label>
@@ -26,7 +29,7 @@
             </div>
             <label class="mx-2 d-none d-sm-block float-right">
                 <b>{{ startDate | localizedDate | titlecase }}</b>
-                <b *ngIf="view == 'weekView'"> - {{ endDate | localizedDate| titlecase }}</b>
+                <b *ngIf="calendarSettings.view == 'weekView'"> - {{ endDate | localizedDate| titlecase }}</b>
             </label>
         </div>
 
@@ -39,24 +42,23 @@
                       [width]="'100%'" [height]="'100%'"
                       [rowsHeight]="10"
                       [date]="date"
+                      [view]="calendarSettings.view"
+                      [views]="calendarSettings.views"
                       [source]="dataAdapter"
+                      [appointmentDataFields]="calendarSettings.eventDataFields"
+                      [resources]="calendarSettings.resources"
+                      [localization]="calendarSettings.localization"
+                      [renderAppointment]="renderAppointment"
+
                       [showLegend]="true"
-                      [view]="view"
-                      [views]="views"
-                      [appointmentDataFields]="eventDataFields"
-                      [resources]="resources"
-                      [localization]="localization"
                       [showToolbar]="false"
                       [editDialog]="false"
-                      
 
                       (onContextMenuOpen)="ContextMenuOpen($event)"
                       (onContextMenuItemClick)="onContextMenuItemClick($event)"
-
-                      (onDateChange)="showCalendarsDate($event)"
+                      (onDateChange)="updateCalendarDates($event)"
                       (onAppointmentClick)="false"
-                      (onCellDoubleClick)="showCreateDialog($event)"
-                      [renderAppointment]="renderAppointment"
+                      (onCellDoubleClick)="showCreateDialog()"
         ></jqxScheduler>
         </div>
     </div>

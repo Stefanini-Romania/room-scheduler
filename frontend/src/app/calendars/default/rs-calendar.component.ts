@@ -1,10 +1,11 @@
+import { User } from '../../shared/models/user.model';
 import {Component, ViewChild, OnInit,AfterViewInit, OnDestroy} from '@angular/core';
-import {Router} from '@angular/router';
 import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+
 import {TranslateService} from "@ngx-translate/core";
 import { Subscription } from 'rxjs/Subscription';
-import {LoginFormComponent} from '../../auth/login/login-form.component';
+import {LoginFormComponent} from '../../users/user-login/login-form.component';
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
@@ -14,7 +15,8 @@ import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
 import {DialogService} from '../../shared/services/dialog.service';
 import {EventEditorComponent} from '../event-editor/event-editor.component';
-import {User} from '../../shared/models/user.model';
+import * as CalendarSettings from './calendar-settings.json';
+
 
 @Component({
     selector: 'rs-calendar-component',
@@ -26,77 +28,29 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
     events: Event[] = [];
-    model: Event = <Event> {};
- 
+    users: User[] = [];
+
     public date: Date = new jqx.date();
 
     public startDate: Date;
     public endDate: Date;
-    public today: Date;
-   
 
     public selectedRoom: Room;
     public hostId: number;
 
-    public view = 'weekView';
+    calendarSettings = <any>CalendarSettings;
 
-    source: any = {
-        dataType: "array",
-        dataFields: [
-            {name: 'id', type: 'string'},
-            {name: 'description', type: 'string'},
-            {name: 'location', type: 'string'},
-            {name: 'subject', type: 'string'},
-            {name: 'calendar', type: 'string'},
-            {name: 'start', type: 'date'},
-            {name: 'end', type: 'date'},
-            {name: 'draggable', type: 'boolean'},
-            {name: 'resizable', type: 'boolean'},
-            {name: 'readOnly', type: 'boolean'},
-            {name: 'allDay', type: 'boolean'}
-        ],
-        id: 'id',
-        localData: []
-    };
-
-    eventDataFields: any = {
-        from: "start",
-        to: "end",
-        id: "id",
-        description: "description",
-        location: "location",
-        subject: "subject",
-        draggable: "draggable",
-        resizable: "resizable",
-        readOnly: "readOnly",
-        resourceId: "calendar",
-        timeZone: "UTC",
-        allDay: "allDay"
-    };
-
-    dataAdapter: any = new jqx.dataAdapter(this.source);
-
-    resources: any = {
-        colorScheme: "scheme05",
-        dataField: "calendar",
-        source: null
-    };
-
-    views: any[] = [
-        {type: 'dayView', showWeekends: false, timeRuler: {formatString: 'HH:mm', scaleStartHour: 9, scaleEndHour: 18}},
-        {type: 'weekView', showWeekends: false, timeRuler: {formatString: 'HH:mm', scaleStartHour: 9, scaleEndHour: 18}},
-    ];
-
-    localization: any = {};
+    dataAdapter = new jqx.dataAdapter(this.calendarSettings["source"]);
 
     private previousValues: any;
 
     subscription: Subscription;
 
-    constructor(private router: Router, private translate: TranslateService,
-                private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
-                private authService: AuthService) {
+    constructor(private translate: TranslateService,
+        private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
+        private authService: AuthService){
     }
+              
 
     ngOnInit() {
         this.subscription =  this.translate.onLangChange.subscribe(() => {
@@ -114,6 +68,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     refreshCalendar() {
+        let users = [];
         let events = [];
         let eventType: string;
         for (let event of this.events) {
@@ -128,21 +83,18 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     break;
             }
 
-        this.today = new Date();
-     
             if (this.authService.isLoggedIn()) {
-                if (event.attendeeId !== this.authService.getLoggedUser().id) {
+                if ((event.attendeeId !== this.authService.getLoggedUser().id) && (this.authService.getLoggedUser().departmentId != null))  {
                     // @TODO allow admins and hosts to edit anyway
                     readOnly = true;
-                }
+                }        
                
-                if(new Date(event.startDate) < this.today){
+                if ((new Date(event.startDate) <= new Date())&&(this.authService.getLoggedUser().departmentId != null)){
                     readOnly = true;
                 }
+                
 
             }
-
-           
 
             events.push(<any>{
                 id: event.id,
@@ -161,14 +113,14 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
         //console.log(events);
 
-        this.source.localData = events;
-        this.dataAdapter = new jqx.dataAdapter(this.source);
+        this.calendarSettings["source"].localData = events;
+        this.dataAdapter = new jqx.dataAdapter(this.calendarSettings["source"]);
     }
 
     updateCalendarTranslations() {
         const t = this.translate;
 
-        this.localization = {
+        this.calendarSettings["localization"] = {
             // separator of parts of a date (e.g. '/' in 11/05/1955)
             '/': '/',
 
@@ -227,14 +179,14 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     isView(view: string): boolean {
-        return view == this.view;
+        return view == this.calendarSettings["view"];
     }
 
     setView(view: string) {
-        this.view = view;
+        this.calendarSettings["view"] = view;
         this.date = new jqx.date(this.scheduler.date(), this.scheduler.timeZone());
 
-        this.scheduler.view(this.view);
+        this.scheduler.view(view);
     }
 
     goToToday() {
@@ -250,7 +202,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private addDaysInDirection(date, direction: number) {
-        let i = this.views.find(e => e.type == this.view);
+        let i = Array<any>(this.scheduler.views).find(e => e.type == this.calendarSettings["view"]);
         let c = new jqx.date(date, this.scheduler.timeZone());
 
         let j = function () {
@@ -259,7 +211,8 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }
             return c;
         };
-        switch (this.view) {
+
+        switch (this.calendarSettings["view"]) {
             case"dayView":
             case"timelineDayView":
                 c = c.addDays(direction * 1);
@@ -283,7 +236,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         return c;
     }
 
-    showCalendarsDate($event) {
+    updateCalendarDates($event) {
         if (!this.previousValues || ($event.args.from.toString() !== this.previousValues.from.toString())) {
             this.previousValues = $event.args;
 
@@ -312,8 +265,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.startDate || !this.endDate || !this.selectedRoom) {
             return;
         }
-        
-        
+
         this.events = [];
         this.eventService.listEvents(this.startDate, this.endDate, this.selectedRoom.id, this.hostId).subscribe((events: Event[]) => {
 
@@ -335,10 +287,9 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     onContextMenuItemClick($event) {
-       
         switch ($event.args.item.id) {
             case "createAppointment":
-                this.showCreateDialog($event);
+                this.showCreateDialog();
                 break;
 
             case "editAppointment":
@@ -356,16 +307,16 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         });
         if (1)return;*/
 
-        this.model = new Event();
-        this.model.startDate = new Date();
-        this.model.endDate = new Date();
-        this.model.eventType = EventTypeEnum.massage;
-        this.model.eventStatus = EventStatusEnum.waiting;
-        this.model.roomId = 1;
-        this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-        this.model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
+        let model = new Event();
+        model.startDate = new Date();
+        model.endDate = new Date();
+        model.eventType = EventTypeEnum.massage;
+        model.eventStatus = EventStatusEnum.waiting;
+        model.roomId = 1;
+        model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+        model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
 
-        this.openEventEditor(this.model);
+        this.openEventEditor(model);
     }
 
     private openEventEditor(model: Event) {
@@ -377,7 +328,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
-    showCreateDialog($event) {
+    showCreateDialog() {
         if (this.authService.isLoggedIn()) {
             let date = this.scheduler.getSelection();
             if (!date) {
@@ -385,48 +336,43 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 return;
             }
 
-            this.model = new Event();
-            this.model.startDate = new Date(date.from.toString());
-            this.model.endDate = new Date(date.to.toString());
-            this.model.eventType = EventTypeEnum.massage;
-            this.model.eventStatus = EventStatusEnum.waiting;
-            this.model.roomId = this.selectedRoom.id;
-            this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-            this.model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
+            let model = new Event();
+            model.startDate = new Date(date.from.toString());
+            model.endDate = new Date(date.to.toString());
+            model.eventType = EventTypeEnum.massage;
+            model.eventStatus = EventStatusEnum.waiting;
+            model.roomId = this.selectedRoom.id;
+            model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+            model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
 
-            this.openEventEditor(this.model);
+            this.openEventEditor(model);
         } else {
             this.redirectToLogin();
         }
     }
 
     showEditDialog($event) {
-       
-       
         if (this.authService.isLoggedIn()) {
-            this.model = this.events.find(e => e.id == $event.args.appointment.id);
-           
-
-            this.openEventEditor(this.model);
+            let model = this.events.find(e => e.id == $event.args.appointment.id);
+            this.openEventEditor(model);
         } else {
             this.redirectToLogin();
         }
 
-        
+
     }
 
     redirectToLogin() {
-      
         if (!(this.authService.isLoggedIn())) {
             const modalRef:NgbModalRef = this.modalService.open(LoginFormComponent);
-
-          
-                modalRef.result.then(() => {
-                    this.renderCalendar();
-                })
-                .catch(() => {});
+            modalRef.result.then(() => {
+                this.renderCalendar();
+            })
+            .catch(() => {});
         }
     }
+
+
 
     renderAppointment = (data) => {
         if (!data.appointment) {
@@ -436,7 +382,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         let event = this.events.find(e => e.id == data.appointment.id);
         if (event.eventType == EventTypeEnum.availability ) {
             data.style = '#E0E0E0'; //grey
-        } 
+        }
         else {
             data.style = '#004e9e'; //blue
         }
@@ -446,7 +392,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 data.style = "#d7dd3b"; //green?
             }
         }
+
         return data;
-        
     }
 }

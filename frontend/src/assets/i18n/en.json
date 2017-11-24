@@ -16,10 +16,21 @@
       "cancel": "Cancel"
   },
 
+  "register": {
+      "username": "Username",
+      "password": "Password",
+      "email": "Email",
+      "confirmPassword": "Confirm password",
+      "button": "Create account"
+  },
+
+  "mismatch.password": "Passwords don't match. Try again?", 
+
   "login.button": "Sign In",
   "logout.button": "Sign out",
   "login.username": "Enter Username",
   "login.password": "Enter Password",
+  "cancel.login.button": "Cancel",
 
   "event": {
       "filter.location": "Filter by location...",
@@ -38,6 +49,7 @@
       "event.create": "Create new appointment",
       "event.edit": "Edit appointment",
       "event.saved": "Appointment saved",
+      "event.canceled":"Appointment deleted",
       "timeStamp": "Created at",
 
       "eventType": {
@@ -117,7 +129,9 @@
       },
 
       "UserIsNotAuthenticated": "You are not logged in"
-  }
+      
+  },
 
+    "UserPenalized": "PENALISED USER"
 
 }

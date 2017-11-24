@@ -8,9 +8,17 @@
             <a class="navbar-brand" href="/">
                 <img class="d-inline-block align-top" height="30" src="../../../assets/img/Logo_Stefanini_Q.png" alt="Stefanini-logo">
             </a>
-        </div>
 
+
+        </div>
+        <!-- <div class="col">
+            <ngb-alert  id="penalized-user" [dismissible]="false" type="custom" *ngIf="isLoggedIn"><b>{{ 'UserPenalized' | translate }}</b></ngb-alert>
+        </div> -->
+        
+       
+        
         <div class="coll pull-right">
+            
             <language-selector class="d-inline-block" [languages]="languages"></language-selector>
             <div class="d-inline-block" *ngIf="isLoggedIn">
                 <button class="btn btn-primary" (click)="logout()">

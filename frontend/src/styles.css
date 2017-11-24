@@ -226,7 +226,7 @@ footer a {
     position: relative;
 }
   
-#loginbtn {
+#loginbtn , #registerbtn{
     position: relative;
     width: 100%;
     margin-top: 30px;
@@ -264,6 +264,19 @@ footer a {
 
 #toast-container .toast.toast-success {
     background-color: #004e9e;
+    color: #fff;
+}
+
+.alert-custom{
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #721c24;
+    height: 38px;
+    text-align: center;
+    width:40%;
+}
+
+.fa-times{
     color: #fff;
 }
 
