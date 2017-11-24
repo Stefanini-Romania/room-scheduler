@@ -24,7 +24,7 @@ namespace RSService.Controllers
         private IUserRepository _userRepository;
         private ILogger<AuthController> _logger;
 
-        public AuthController(IUserRepository userRepository, ILogger<AuthController> logger)
+        public AuthController(ILogger<AuthController> logger)
         {
             _userRepository = new UserRepository(Context);
             _logger = logger;
