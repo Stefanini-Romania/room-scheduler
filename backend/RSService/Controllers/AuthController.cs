@@ -56,6 +56,10 @@ namespace RSService.Controllers
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+            Boolean hasPenalty = false;
+            var penaltyNr = user.Penalty.Where(p => p.Date.AddDays(15) >= DateTime.Now).Count();
+            if (penaltyNr > 0) hasPenalty = true;
+
             // TODO: return DTO object
             return Ok(new
             {
@@ -64,10 +68,12 @@ namespace RSService.Controllers
                 name = user.Name,
                 departmentId = user.DepartmentId,
                 userRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
-                penalty = new List<PenaltyDto>(user.Penalty.Select(li => new PenaltyDto
-                                                                         { Id = li.Id,
-                                                                           Date = li.Date })
-                                              )
+                penalty = hasPenalty
+                //penalty = new List<PenaltyDto>(user.Penalty.Select(li => new PenaltyDto
+                //                                                         { Id = li.Id,
+                //                                                           Date = li.Date })
+                //)
+
             });
         }
 
