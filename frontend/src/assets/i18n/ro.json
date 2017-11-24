@@ -16,10 +16,21 @@
       "cancel": "Anulează"
   },
 
+  "register": {
+      "username": "Nume de utilizator",
+      "password": "Parola",
+      "email": "Email",
+      "confirmPassword": "Confirmă parola",
+      "button": "Creează cont"
+  },
+
+  "mismatch.password": "Parolele nu se potrivesc. Încearcă din nou?",
+
   "login.button": "Autentificare",
   "logout.button": "Delogare",
   "login.username": "Introduceți utilizatorul",
   "login.password": "Introduceți parola",
+  "cancel.login.button": "Anulare",
 
   "event": {
       "filter.location": "Filtrează după locație...",

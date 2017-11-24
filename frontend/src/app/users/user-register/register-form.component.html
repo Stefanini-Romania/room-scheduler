@@ -1,32 +1,40 @@
 <div class="container d-flex h-100">
-        <div class="row justify-content-center align-self-center col-sm-6 col-md-9 col-lg-8 col-xl-5 mx-auto">
-            <div class="card-body">
-                <form>
-                    <div id="user-cont">
-                        <a href="https://stefanini.com/en/">
+    <div class="row justify-content-center align-self-center col-sm-6 col-md-9 col-lg-8 col-xl-5 mx-auto">
+        <div class="card-body">
+            <form>
+                <div id="user-cont">
+                    <a href="https://stefanini.com/en/">
                         <img src="../../../assets/img/header-logo2.png"  id="logo-header" class="img-fluid">
                         <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
-                        </a>
-    
-                        <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert>
-                        <!-- <label><b>Username</b></label> -->
-                        <input type="text" placeholder="{{ 'login.username' | translate }}" name="UserName" [(ngModel)]="model.name" #UserName="ngModel" required>
-    
-                        <!-- <label><b>Password</b></label> -->
-                        <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
-                        <br />
-                        <button id="loginbtn" type="submit" class="btn btn-primary" (click)="login()">
-                            {{ 'login.button' | translate }}
-                            <i class="fa fa-lock"></i>
-                        </button>
-                        <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->
-                    </div>
-    
-                    <!-- <div id="cancel-cont">
-                        <button id="reset1" type="reset">Cancel</button>
-                        <span class="psw">Forgot <a href="#">password?</a></span>
-                    </div> -->
-                </form>
-            </div>
+                    </a>
+                    <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert>
+
+                    <!-- <label><b>Username</b></label> -->
+                    <input type="text" placeholder="{{ 'register.username' | translate }}" name="name" [(ngModel)]="model.name" #username="ngModel" required>
+
+                    <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required email>
+                    <!-- to do display invalid email validation -->
+
+                    <input type="password" placeholder="{{ 'register.password' | translate }}" name="password" [(ngModel)]="model.password" #password="ngModel" required validateEqual="confirmPassword" reverse="true">
+                                
+                    <input type="password" placeholder="{{ 'register.confirmPassword' | translate }}" name="confirmPassword" [(ngModel)]="model.confirmPassword" #confirmPassword="ngModel" required validateEqual="password" reverse="false">
+                    <ngb-alert type="danger" [dismissible]="false" *ngIf="!confirmPassword.valid && confirmPassword.dirty">{{ 'mismatch.password' | translate }}</ngb-alert>
+                   
+                    <!-- <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert> -->
+                    <!-- <ngb-alert type="danger" *ngIf="password != confirmPassword">{{ 'mismatch.password' | translate }}</ngb-alert> -->
+                    <!-- <ngb-alert type="danger"><span data-ng-show="confirmPassword.$error.match">{{ 'mismatch.password' | translate }}</span></ngb-alert> -->
+                    <button  type="submit" class="btn btn-primary"  id="registerbtn" (click)="login()">
+                        {{ 'register.button' | translate }}
+                        <!-- <i class="fa fa-lock"></i> -->
+                    </button>
+                    <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->
+                </div>
+
+                <!-- <div id="cancel-cont">
+                    <button id="reset1" type="reset">Cancel</button>
+                    <span class="psw">Forgot <a href="#">password?</a></span>
+                </div> -->
+            </form>
         </div>
     </div>
+</div>
