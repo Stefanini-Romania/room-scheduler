@@ -38,6 +38,7 @@
       "event.create": "Adăugare eveniment",
       "event.edit": "Editare eveniment",
       "event.saved": "Evenimentul a fost salvat",
+      "event.canceled":"Evenimentul a fost anulat",
       "timeStamp": "Data creării",
 
       "buttons": {
