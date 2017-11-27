@@ -11,6 +11,8 @@ import {Router} from '@angular/router';
 
 export class RSHeader {
     currentUser: User = undefined;
+   
+     
 
     languages = [
         {'name': 'English', 'code': 'en', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/United-Kingdom_flat.png' },
@@ -35,5 +37,17 @@ export class RSHeader {
    
     redirectToLogin() {
         this.router.navigate(['/login']);
+    }
+
+    get UserIsPenalised(){
+    let UserPenalised: boolean;
+        if (this.authService.isLoggedIn()){
+            if(this.authService.getLoggedUser().penalty.length>0){
+                 return UserPenalised=true;
+            }
+
+            else return UserPenalised=false;
+        }
+
     }
 }
