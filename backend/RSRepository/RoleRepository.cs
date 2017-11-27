@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace RSRepository
 {
-    class RoleRepository : IRoleRepository
+    public class RoleRepository : IRoleRepository
     {
         private RoomPlannerDevContext _context;
         private DbSet<Role> _roles;

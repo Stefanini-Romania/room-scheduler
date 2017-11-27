@@ -6,20 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using RSRepository;
 using RSData.Models;
 using System.Text;
+using RSService.ViewModels;
+using static RSData.Models.Role;
 
 namespace RSService.Controllers
 {
     public class AdminController : BaseController
     {
         private IUserRepository userRepository;
+        private IUserRoleRepository userRoleRepository;
+        private IRoleRepository roleRepository;
 
-        public AdminController(IUserRepository _userRepository)
+        public AdminController(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository)
         {
-            userRepository = _userRepository;
+            this.userRepository = userRepository;
+            this.userRoleRepository = userRoleRepository;
+            this.roleRepository = roleRepository;
         }
 
         [HttpPost("/admin/adduser")]
-        public IActionResult AddUser([FromBody]User model)
+        public IActionResult AddUser([FromBody]UserModel model)
         {
             if (model.Name == null || model.Password == null)
             {
@@ -30,7 +36,25 @@ namespace RSService.Controllers
             var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
             model.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
 
-            userRepository.AddUser(model);
+           
+            User newUser = new RSData.Models.User()
+            {
+                Name = model.Name,
+                Password = model.Password,
+                Email = model.Email,
+                DepartmentId = model.DepartmentId                
+            };
+         
+            userRepository.AddUser(newUser);
+            var my = true;
+            userRoleRepository.AddUserRole(new UserRole()
+            {
+                User = newUser,
+                UserId = newUser.Id,
+                RoleId = model.RoleId,
+                Role = roleRepository.GetRoleById(model.RoleId)
+            });
+           
             Context.SaveChanges();
             return Ok(model);
         }
@@ -69,12 +93,6 @@ namespace RSService.Controllers
             }
             userRepository.DeleteUser(user);
             return Ok();
-        }
-
-
-        public IActionResult Index()
-        {
-            return View();
         }
     }
 }

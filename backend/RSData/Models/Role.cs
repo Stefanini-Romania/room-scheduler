@@ -14,5 +14,12 @@ namespace RSData.Models
         public string Name { get; set; }
 
         public ICollection<UserRole> UserRole { get; set; }
+
+        public enum RolesEnum
+        {
+            attendee = 1,
+            host = 2,
+            admin = 3
+        }
     }
 }

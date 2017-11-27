@@ -107,6 +107,8 @@ namespace RSRepository
 
                 entity.Property(e => e.EventId).HasColumnName("EventID");
 
+                entity.Property(e => e.RoomId).HasColumnName("RoomID");
+
                 entity.HasOne(d => d.Attendee)
                     .WithMany(p => p.Penalty)
                     .HasForeignKey(d => d.AttendeeId)
@@ -118,6 +120,11 @@ namespace RSRepository
                     .HasForeignKey(d => d.EventId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Penalty_Event");
+
+                entity.HasOne(d => d.Room)
+                   .WithMany(p => p.Penalty)
+                   .HasForeignKey(d => d.RoomId)
+                   .HasConstraintName("FK_Penalty_Room");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -180,6 +187,10 @@ namespace RSRepository
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(150);
+
+                entity.Property(e => e.FirstName).HasMaxLength(150);
+
+                entity.Property(e => e.LastName).HasMaxLength(150);
 
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.User)

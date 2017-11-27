@@ -179,7 +179,8 @@ namespace RSService.BusinessLogic
                 {
                     AttendeeId = attendeeId,
                     EventId = eventId,
-                    Date = startDate
+                    Date = startDate,
+                    RoomId = roomId
                 });
 
                 // Edit attendee's events for next 15 days for this room (Cancelled):
