@@ -11,20 +11,20 @@ using static RSData.Models.Role;
 
 namespace RSService.Controllers
 {
-    public class AdminController : BaseController
+    public class UsersController : BaseController
     {
         private IUserRepository userRepository;
         private IUserRoleRepository userRoleRepository;
         private IRoleRepository roleRepository;
 
-        public AdminController(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository)
+        public UsersController(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository)
         {
             this.userRepository = userRepository;
             this.userRoleRepository = userRoleRepository;
             this.roleRepository = roleRepository;
         }
 
-        [HttpPost("/admin/adduser")]
+        [HttpPost("/users/add")]
         public IActionResult AddUser([FromBody]UserModel model)
         {
             if (model.Name == null || model.Password == null)
@@ -40,13 +40,15 @@ namespace RSService.Controllers
             User newUser = new RSData.Models.User()
             {
                 Name = model.Name,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 Password = model.Password,
                 Email = model.Email,
                 DepartmentId = model.DepartmentId                
             };
          
             userRepository.AddUser(newUser);
-            var my = true;
+   
             userRoleRepository.AddUserRole(new UserRole()
             {
                 User = newUser,
@@ -59,7 +61,7 @@ namespace RSService.Controllers
             return Ok(model);
         }
 
-        [HttpPost("/admin/edituser/{id}")]
+        [HttpPost("/users/edit/{id}")]
         public IActionResult EditUser(int id, [FromBody]User model)
         {
             var user = userRepository.GetUsers().FirstOrDefault(c => c.Id == id);
@@ -83,7 +85,7 @@ namespace RSService.Controllers
             return Ok(user);
         }
 
-        [HttpPost("/admin/deleteuser/{id}")]
+        [HttpPost("/users/delete/{id}")]
         public IActionResult DeleteUser(int id)
         {
             var user = userRepository.GetUserById(id);
