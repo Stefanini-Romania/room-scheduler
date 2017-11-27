@@ -132,6 +132,11 @@
       
   },
 
-    "UserPenalized": "PENALISED USER"
+    "UserPenalized": "PENALISED USER",
+
+    "AdminTabs":{
+        "Users": "Users",
+        "Hosts": "Hosts"
+    }
 
 }

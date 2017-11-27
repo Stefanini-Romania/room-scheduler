@@ -35,6 +35,7 @@ export class RegisterFormComponent {
                 error => {
                     this.errorMessage = error.error.message;
                 });*/
+
     }
 
    

@@ -280,6 +280,12 @@ footer a {
     color: #fff;
 }
 
+.admintabs {
+    position: absolute;
+    top:130px;
+    left:10%;
+}
+
   /* .jqx-rc-all .jqx-scheduler-appointment {
     left: 567px;
     top: 161px;

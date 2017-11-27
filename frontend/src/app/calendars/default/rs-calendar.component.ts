@@ -60,6 +60,8 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.goToToday();
+       
+      
     }
 
     ngOnDestroy() {
@@ -92,7 +94,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 if ((new Date(event.startDate) <= new Date())&&(this.authService.getLoggedUser().departmentId != null)){
                     readOnly = true;
                 }
-                
+
 
             }
 
@@ -329,12 +331,15 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     showCreateDialog() {
+       
         if (this.authService.isLoggedIn()) {
             let date = this.scheduler.getSelection();
             if (!date) {
                 // exit in case the user wants to create an event over an existing event
                 return;
             }
+
+    
 
             let model = new Event();
             model.startDate = new Date(date.from.toString());

@@ -148,5 +148,11 @@
       
   },
 
-  "UserPenalized": "UTILIZATOR PENALIZAT"
+  "UserPenalized": "UTILIZATOR PENALIZAT",
+
+  "AdminTabs":{
+    "Users": "Utilizatori",
+    "Hosts": "Host"
+}
+
 }
