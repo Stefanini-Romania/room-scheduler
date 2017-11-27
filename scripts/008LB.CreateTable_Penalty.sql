@@ -9,9 +9,7 @@
     Target Database Engine Type : Standalone SQL Server
 */
 
-
-
-/****** Object:  Table [dbo].[Penalty]    Script Date: 10/11/2017 11:44:40 AM ******/
+/****** Object:  Table [dbo].[Penalty]    Script Date: 27-Nov-17 3:06:16 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -25,6 +23,7 @@ CREATE TABLE [dbo].[Penalty](
 	[AttendeeID] [int] NOT NULL,
 	[EventID] [int] NOT NULL,
 	[Date] [datetime] NOT NULL,
+	[RoomId] [int] NULL,
  CONSTRAINT [PK_Penalty] PRIMARY KEY CLUSTERED 
 (
 	[PenaltyID] ASC
@@ -40,6 +39,15 @@ GO
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Penalty_Event]') AND parent_object_id = OBJECT_ID(N'[dbo].[Penalty]'))
 ALTER TABLE [dbo].[Penalty] CHECK CONSTRAINT [FK_Penalty_Event]
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Penalty_Room]') AND parent_object_id = OBJECT_ID(N'[dbo].[Penalty]'))
+ALTER TABLE [dbo].[Penalty]  WITH CHECK ADD  CONSTRAINT [FK_Penalty_Room] FOREIGN KEY([RoomId])
+REFERENCES [dbo].[Room] ([RoomID])
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Penalty_Room]') AND parent_object_id = OBJECT_ID(N'[dbo].[Penalty]'))
+ALTER TABLE [dbo].[Penalty] CHECK CONSTRAINT [FK_Penalty_Room]
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Penalty_User]') AND parent_object_id = OBJECT_ID(N'[dbo].[Penalty]'))
