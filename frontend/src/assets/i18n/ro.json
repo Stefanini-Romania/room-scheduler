@@ -17,7 +17,9 @@
   },
 
   "register": {
-      "username": "Nume de utilizator",
+      "firstName": "Prenume",
+      "lastName": "Nume de familie",
+      "name": "Nume de utilizator",
       "password": "Parola",
       "email": "Email",
       "confirmPassword": "Confirmă parola",

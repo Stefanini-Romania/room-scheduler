@@ -17,7 +17,9 @@
   },
 
   "register": {
-      "username": "Username",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "name": "Username",
       "password": "Password",
       "email": "Email",
       "confirmPassword": "Confirm password",
