@@ -171,7 +171,9 @@ namespace RSService.BusinessLogic
 
         public void CheckPenalty(DateTime startDate, int eventId, int attendeeId, int roomId)
         {
-            var eventsCount = eventRepository.GetPastEventsByUser(startDate, attendeeId, roomId).Count();
+            var pastEvents = eventRepository.GetPastEventsByUser(startDate, attendeeId, roomId);
+
+            var eventsCount = pastEvents.Count();
 
             if (eventsCount == 3)
             {
@@ -183,6 +185,13 @@ namespace RSService.BusinessLogic
                     RoomId = roomId
                 });
 
+                // Mark these 3 events as being part of a penalty to prevent future counting:
+
+                foreach(Event pastEvent in pastEvents)
+                {
+                    pastEvent.EventStatus = (int)EventStatusEnum.absentChecked;
+                }
+
                 // Edit attendee's events for next 15 days for this room (Cancelled):
 
                 var futureEvents = eventRepository.GetFutureEvents(startDate, attendeeId, roomId);
@@ -193,8 +202,8 @@ namespace RSService.BusinessLogic
                     {
                         xEvent.EventStatus = (int)EventStatusEnum.cancelled;
                     }
-                    dbOperation.Commit();
                 }
+                dbOperation.Commit();
             }
         }
 

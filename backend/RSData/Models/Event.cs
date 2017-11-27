@@ -32,7 +32,8 @@ namespace RSData.Models
         present = 0,
         absent = 1,
         cancelled = 2,
-        waiting = 3
+        waiting = 3,
+        absentChecked = 4
     }
 
     public enum EventTypeEnum
