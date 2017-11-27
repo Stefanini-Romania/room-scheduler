@@ -24,6 +24,7 @@ namespace RSService.Controllers
             this.roleRepository = roleRepository;
         }
 
+
         [HttpPost("/users/add")]
         public IActionResult AddUser([FromBody]UserModel model)
         {
