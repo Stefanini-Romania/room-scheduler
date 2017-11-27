@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RSRepository
 {
-    interface IRoleRepository
+    public interface IRoleRepository
     {
         List<Role> GetRoles();
         Role GetRoleById(int id);
