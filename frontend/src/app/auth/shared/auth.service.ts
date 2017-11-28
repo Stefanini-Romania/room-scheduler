@@ -2,37 +2,34 @@ import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import { environment } from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 import 'rxjs/Rx';
 
 import {User} from '../../shared/models/user.model';
 
-
 @Injectable()
 export class AuthService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     authenticate(name: string, password: string) {
         const url = environment.apiUrl + '/api/auth/login';
         const body = JSON.stringify({name: name, password: password});
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post(url, body, { headers: headers, withCredentials: true})
+        return this.http.post(url, body, {headers: headers, withCredentials: true})
             .catch((error: any) => Observable.throw(error))
             .map((response: Response) => {
-
                 if (response) {
-
                     sessionStorage.setItem('currentUser', JSON.stringify(response));
                 }
 
                 return response;
-            })
+            });
     }
 
     logout() {
         sessionStorage.removeItem('currentUser');
-        
     }
 
     getLoggedUser(): User {
@@ -41,6 +38,7 @@ export class AuthService {
         if (sessionData && sessionData != null) {
             u = Object.assign(new User, JSON.parse(sessionData));
         }
+
         return u;
     }
 

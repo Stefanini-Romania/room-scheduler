@@ -17,8 +17,6 @@ import {DialogService} from '../../shared/services/dialog.service';
 import {EventEditorComponent} from '../event-editor/event-editor.component';
 import * as CalendarSettings from './calendar-settings.json';
 
-
-
 @Component({
     selector: 'rs-calendar-component',
     templateUrl: './rs-calendar.component.html',
@@ -71,7 +69,6 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     refreshCalendar() {
-        let users = [];
         let events = [];
         let eventType: string;
         for (let event of this.events) {
@@ -332,52 +329,43 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     showCreateDialog() {
-       
-        if (this.authService.isLoggedIn()) {
-            if(this.authService.getLoggedUser().penalty.length>0 && this.authService.getLoggedUser().penalty[0]==this.selectedRoom.id){
-                //const modalRef:NgbModalRef = this.dialogService.alert(PenalisedUserComponent);
-                let modalRef = this.dialogService.alert({message: "User.YouArePenalised", title: "User.Title"});
-            }
-            else  {
-            let date = this.scheduler.getSelection();
-            if (!date) {
-                // exit in case the user wants to create an event over an existing event
-                return;
-            }
+        if (!this.authService.isLoggedIn()) {
+            return this.redirectToLogin();
+        }
 
-    
+        if (this.authService.getLoggedUser().hasPenaltiesForRoom(this.selectedRoom)) {
+            return this.dialogService.alert({message: "User.YouArePenalised", title: "User.Title"});
+        }
 
-            let model = new Event();
-            model.startDate = new Date(date.from.toString());
-            model.endDate = new Date(date.to.toString());
-            model.eventType = EventTypeEnum.massage;
-            model.eventStatus = EventStatusEnum.waiting;
-            model.roomId = this.selectedRoom.id;
-            model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-            model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
+        let date = this.scheduler.getSelection();
+        if (!date) {
+            // exit in case the user wants to create an event over an existing event
+            return;
+        }
 
-            this.openEventEditor(model);
-         
+        let model = new Event();
+        model.startDate = new Date(date.from.toString());
+        model.endDate = new Date(date.to.toString());
+        model.eventType = EventTypeEnum.massage;
+        model.eventStatus = EventStatusEnum.waiting;
+        model.roomId = this.selectedRoom.id;
+        model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+        model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
+
+        this.openEventEditor(model);
     }
-    }
-    else {
-        this.redirectToLogin();
-    }
-}
 
     showEditDialog($event) {
-        if (this.authService.isLoggedIn()) {
-            let model = this.events.find(e => e.id == $event.args.appointment.id);
-            this.openEventEditor(model);
-        } else {
+        if (!this.authService.isLoggedIn()) {
             this.redirectToLogin();
         }
 
+        let model = this.events.find(e => e.id == $event.args.appointment.id);
+        this.openEventEditor(model);
     }
 
     redirectToLogin() {
         if (!(this.authService.isLoggedIn())) {
-            
             const modalRef:NgbModalRef = this.modalService.open(LoginFormComponent);
             modalRef.result.then(() => {
                 this.renderCalendar();

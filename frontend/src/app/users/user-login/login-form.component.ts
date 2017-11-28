@@ -9,30 +9,28 @@ import {AuthService} from '../../auth/shared/auth.service';
     selector: 'login-form',
     templateUrl: './login-form.component.html',
     styleUrls: [],
-    providers: [AuthService],
+    providers: [NgbActiveModal, AuthService],
 })
 
 export class LoginFormComponent {
-    public errorMessage: string = '';
+    public errorMessage: string;
 
     model: User = <User> {};
 
-    constructor(public activeModal: NgbActiveModal, private authService: AuthService, private router: Router) {
+    constructor(private authService: AuthService, private router: Router) {
     }
+
     login() {
         this.authService.authenticate(this.model.name, this.model.password)
             .subscribe(
                 () => {
-                    this.activeModal.close();
-                   
-
                 },
                 error => {
                     this.errorMessage = error.error.message;
                 });
     }
 
-    closeLoginModal(){
-        this.activeModal.close();
+    register() {
+        this.router.navigate(['/register']);
     }
 }

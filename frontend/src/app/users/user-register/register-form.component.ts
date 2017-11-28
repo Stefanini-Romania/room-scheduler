@@ -1,14 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Component} from '@angular/core';
 
-import {environment} from './../../../environments/environment';
-import {RoleIdEnum} from './../../shared/models/roleIdEnum.model';
-import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
+import {RoleIdEnum} from '../../shared/models/roleIdEnum.model';
+import {DepartmentIdEnum} from '../../shared/models/departmentIdEnum.model';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
+import {UserService} from '../shared/users.service';
 
 @Component({
     moduleId: module.id,
@@ -19,58 +15,21 @@ import {AuthService} from '../../auth/shared/auth.service';
 })
 
 export class RegisterFormComponent {
-    public model: User = {      
+    public model: User = <User>{
         firstName: '',
         lastName: '',
         name: '',
         email: '',
         password: '',  
         confirmPassword: '', 
-        departmentId: 1,
-        roleId: 1
+        departmentId: DepartmentIdEnum.ADC,
+        roleId: RoleIdEnum.attendee
     };
     
-    public errorMessage: string = '';
-    
-    DepartmentIdEnum: DepartmentIdEnum[] = [];
-    RoleIdEnum: RoleIdEnum[] = [];
-
-    constructor(private authService: AuthService, private router: Router, private http: HttpClient) {
+    constructor(private userService: UserService) {
     }
 
-    //service
-    register(event: User) {
-        const url = environment.apiUrl + '/users/add';
-        const body = JSON.stringify({
-            firstName: this.model.firstName,
-            lastName: this.model.lastName,
-            name: this.model.name,
-            email: this.model.email,
-            password: this.model.password,
-            departmentId: this.model.departmentId,
-            roleId: this.model.roleId = 1
-            
-        });
-        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-
-        return this.http.post(url, body, {headers: headers, withCredentials: true})
-        .catch((error: any) => {
-            return Observable.throw(error);
-        })
-        .map((response: Response) => {
-            return response;
-        });
-
-        /*this.userService.create(this.model)
-            .subscribe(
-                () => {
-                    this.router.navigate(['/calendar']);
-                },
-                error => {
-                    this.errorMessage = error.error.message;
-                });*/
-
+    register() {
+        this.userService.create(this.model);
     }
-
-   
 }

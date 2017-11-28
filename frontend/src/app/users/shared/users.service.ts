@@ -1,7 +1,7 @@
 import {environment} from '../../../environments/environment';
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 import {User} from "../../shared/models/user.model";
@@ -15,9 +15,31 @@ export class UserService {
     public listUsers() {
         const url = environment.apiUrl + '/users/list';
         
-        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.get(url);
+    }
 
+    public create(user: User) {
+        const url = environment.apiUrl + '/users/add';
+
+        const body = JSON.stringify({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            name: user.name,
+            email: user.email,
+            password: user.password,
+            departmentId: user.departmentId,
+            roleId: user.roleId
+        });
+
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+
+        return this.http.post(url, body, {headers: headers, withCredentials: true})
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+            .map((response: Response) => {
+                return response;
+            });
     }
 
    /*  private createUser(user: User) {

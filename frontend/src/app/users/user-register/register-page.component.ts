@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 
 @Component({
-    selector: 'login-component',
+    selector: 'register-component',
     template: `
-        <login-form></login-form>
+        <register-form></register-form>
         <rs-footer></rs-footer>
     `,
     styleUrls: []
 })
 
-export class LoginPageComponent {
+export class RegisterPageComponent {
 }
