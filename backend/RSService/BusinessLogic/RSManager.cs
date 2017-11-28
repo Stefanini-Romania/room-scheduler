@@ -163,8 +163,34 @@ namespace RSService.BusinessLogic
                     }
                 }
             }
-            return true;
+            return true; 
         }
+
+
+        public bool AvailabilityCheck(DateTime startDate, DateTime endDate, int roomId)
+        {
+            var availabilities = availabilityRepository.GetAvailabilitiesyRoom(startDate, startDate, roomId);
+
+            foreach (Availability ev in availabilities)
+            {
+                if (roomId == ev.RoomId)
+                {
+
+                    if (startDate.Hour == ev.StartHour.Hour)
+                    
+                        return false;
+                    
+                    if (endDate.Hour == ev.EndHour.Hour)
+                    
+                        return false;
+                    
+                    if (startDate.Hour > ev.StartHour.Hour && startDate.Hour < ev.EndHour.Hour)
+                        return false;
+                }
+            }
+            return true; ;
+        }
+
 
 
         //Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
