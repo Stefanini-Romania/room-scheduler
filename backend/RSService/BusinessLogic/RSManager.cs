@@ -167,7 +167,7 @@ namespace RSService.BusinessLogic
         }
 
 
-        public bool AvailabilityCheck(DateTime startDate, DateTime endDate, int roomId)
+        public bool HourCheck(DateTime startDate, DateTime endDate, int roomId)
         {
             var availabilities = availabilityRepository.GetAvailabilitiesyRoom(startDate, startDate, roomId);
 
