@@ -274,8 +274,9 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             for (let event of events) {
                 this.events.push(<Event>event);
             }
-
+            
             this.refreshCalendar();
+            
         });
     }
 
@@ -324,7 +325,6 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     private openEventEditor(model: Event) {
         const modalRef:NgbModalRef = this.modalService.open(EventEditorComponent);
         modalRef.componentInstance.model = model;
-
         modalRef.result.then(() => {
             this.renderCalendar();
         });
@@ -364,11 +364,11 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             this.redirectToLogin();
         }
 
-
     }
 
     redirectToLogin() {
         if (!(this.authService.isLoggedIn())) {
+            
             const modalRef:NgbModalRef = this.modalService.open(LoginFormComponent);
             modalRef.result.then(() => {
                 this.renderCalendar();
@@ -376,8 +376,6 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             .catch(() => {});
         }
     }
-
-
 
     renderAppointment = (data) => {
         if (!data.appointment) {
@@ -397,7 +395,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 data.style = "#d7dd3b"; //green?
             }
         }
-
+        
         return data;
     }
 }

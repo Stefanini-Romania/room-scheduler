@@ -1,8 +1,7 @@
-import {Component} from '@angular/core';
+import {HostListener, Component, Output, EventEmitter} from '@angular/core';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {Router} from '@angular/router';
-
 
 @Component({
     selector: 'rs-header',
@@ -29,11 +28,9 @@ export class RSHeader {
 
     logout() {
         this.authService.logout();
+        location.reload(true);
         // this.router.navigate(['/login']);
-               
-        
     }
-
    
     redirectToLogin() {
         this.router.navigate(['/login']);
@@ -50,4 +47,10 @@ export class RSHeader {
         }
 
     }
+    // @Output() this.logout:EventEmitter<any> = new EventEmitter();
+    
+    /* @HostListener('onClick') onClick(){
+        ///We are emitting itchies!!
+            this.logout.emit('itch itch itch');
+          } */
 }
