@@ -9,6 +9,7 @@ using System.Text;
 using RSService.ViewModels;
 using static RSData.Models.Role;
 using RSService.DTO;
+using RSService.Validation;
 
 namespace RSService.Controllers
 {
@@ -53,6 +54,11 @@ namespace RSService.Controllers
         [HttpPost("/users/add")]
         public IActionResult AddUser([FromBody]UserModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return ValidationError(GeneralMessages.User);
+            }
+
             if (model.Name == null || model.Password == null)
             {
                 return BadRequest();
@@ -61,7 +67,6 @@ namespace RSService.Controllers
 
             var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
             model.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
-
            
             User newUser = new RSData.Models.User()
             {

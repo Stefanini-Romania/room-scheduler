@@ -173,6 +173,11 @@ namespace RSService.BusinessLogic
             return userRepository.GetUsers().Where(u => u.Name == username).Count() > 0;
         }
 
+        public bool IsUniqueEmail(String email)
+        {
+            return userRepository.GetUsers().Where(u => u.Email == email).Count() > 0;
+        }
+
 
         public bool HourCheck(DateTime startDate, DateTime endDate, int roomId)
         {

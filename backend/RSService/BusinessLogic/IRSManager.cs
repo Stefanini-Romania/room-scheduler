@@ -28,6 +28,8 @@ namespace RSService.BusinessLogic
         
         bool IsUniqueUserName(String username);
 
+        bool IsUniqueEmail(String email);
+
         List<int> getRolesByUserID(int userId);
 
 
