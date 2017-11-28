@@ -16,6 +16,9 @@
       "cancel": "Anulează"
   },
 
+  "noAccount": "Nu aveți cont",
+  "clickHere": "Click aici",
+
   "register": {
       "firstName": "Prenume",
       "lastName": "Nume de familie",
@@ -26,7 +29,11 @@
       "button": "Creează cont"
   },
 
-  "wrong.email": "Introduceți o adresă de email validă.",
+  "wrong": {
+      "name": "Numele de utilizator este obligatoriu (cel puțin 5 caractere)",
+      "email": "Introduceți o adresă de email validă."
+  },
+  
   "mismatch.password": "Parolele nu se potrivesc. Încearcă din nou?",
 
   "login.button": "Autentificare",

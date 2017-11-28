@@ -1,7 +1,9 @@
+
+<div class="modal-body">
 <div class="container d-flex h-100">
     <div class="row justify-content-center align-self-center col-sm-6 col-md-9 col-lg-8 col-xl-5 mx-auto">
         <div class="card-body">
-            <form>
+            <form  #f="ngForm" novalidate (submit)="register()">
                 <div id="user-cont">
                     <a href="https://stefanini.com/en/">
                         <img src="../../../assets/img/header-logo2.png"  id="logo-header" class="img-fluid">
@@ -16,14 +18,15 @@
                     <input type="text" placeholder="{{ 'register.lastName' | translate }}" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required>
 
                     <input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="model.name" #name="ngModel" required>
+                    <ngb-alert type="danger" [dismissible]="false" *ngIf="!name.valid && name.dirty && submitted">{{ 'wrong.name' | translate }}</ngb-alert>
 
                     <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required email>
                     <!-- to do display invalid email validation -->
                     <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>
 
-                    <input type="password" placeholder="{{ 'register.password' | translate }}" name="password" [(ngModel)]="model.password" #password="ngModel" required validateEqual="confirmPassword" reverse="true">
+                    <input type="password" placeholder="{{ 'register.password' | translate }}" name="password" [(ngModel)]="model.password" #password="ngModel" required validateEqual="confirmPassword" minlength="6" reverse="true" >
                                 
-                    <input type="password" placeholder="{{ 'register.confirmPassword' | translate }}" name="confirmPassword" [(ngModel)]="model.confirmPassword" #confirmPassword="ngModel" required validateEqual="password" reverse="false">
+                    <input type="password" placeholder="{{ 'register.confirmPassword' | translate }}" name="confirmPassword" [(ngModel)]="model.confirmPassword" #confirmPassword="ngModel" required validateEqual="password" minlength="6" reverse="false">
                     <ngb-alert type="danger" [dismissible]="false" *ngIf="!confirmPassword.valid && confirmPassword.dirty">{{ 'mismatch.password' | translate }}</ngb-alert>
                    
                    
@@ -40,7 +43,7 @@
                         </div>
 
                         <div class="float-right">
-                            <button  type="submit" class="btn btn-primary"  >
+                            <button  type="submit" class="btn btn-primary" ng-disabled="!f.form.valid">
                                 {{ 'register.button' | translate }}
                                 <!-- <i class="fa fa-lock"></i> -->
                             </button>
@@ -58,4 +61,4 @@
             </form>
         </div>
     </div>
-</div>
+</div></div>

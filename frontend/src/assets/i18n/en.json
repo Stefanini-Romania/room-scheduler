@@ -16,6 +16,9 @@
       "cancel": "Cancel"
   },
 
+  "noAccount": "No account",
+  "clickHere": "Click here",
+
   "register": {
       "firstName": "First name",
       "lastName": "Last name",
@@ -26,7 +29,11 @@
       "button": "Create account"
   },
 
-  "wrong.email": "Please enter a valid email address.",
+  "wrong": {
+      "name": "Username is required (minimum 5 characters).",
+      "email": "Please enter a valid email address."
+  },
+    
   "mismatch.password": "Passwords don't match. Try again?", 
 
   "login.button": "Sign In",

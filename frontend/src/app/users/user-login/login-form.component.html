@@ -31,6 +31,9 @@
                         </button>
                         <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->
                     </div>
+                    <div *ngIf="!(isLoggedIn)">
+                            {{'noAccount' | translate}}? <a href="/register">{{'clickHere' | translate}}</a>
+                    </div>
 
                     <!-- <div id="cancel-cont">
                         <button id="reset1" type="reset">Cancel</button>

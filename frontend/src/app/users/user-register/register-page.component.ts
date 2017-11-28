@@ -4,14 +4,13 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'login-component',
     template: `
-        <login-form></login-form>
+        <register-form></register-form>
         <rs-footer></rs-footer>
     `,
-    styleUrls: [],
-    providers: [NgbActiveModal],
+    styleUrls: []
+
 })
 
-export class LoginPageComponent {
-    
+export class RegisterPageComponent {
+   
 }
-//removed <login-form></login-form>
