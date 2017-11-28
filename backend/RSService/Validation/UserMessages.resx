@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="UniquePassword" xml:space="preserve">
-    <value>User.Password.IsNotUnique</value>
+  <data name="EmptyFirstName" xml:space="preserve">
+    <value>User.FirstName.IsEmpty</value>
+  </data>
+  <data name="EmptyLastName" xml:space="preserve">
+    <value>User.LastName.IsEmpty</value>
+  </data>
+  <data name="EmptyPassword" xml:space="preserve">
+    <value>User.Password.IsEmpty</value>
+  </data>
+  <data name="EmptyUsername" xml:space="preserve">
+    <value>User.Name.IsEmpty</value>
+  </data>
+  <data name="UniqueEmail" xml:space="preserve">
+    <value>User.Email.IsNotUnique</value>
   </data>
   <data name="UniqueUsername" xml:space="preserve">
     <value>User.Name.IsNotUnique</value>
+  </data>
+  <data name="WeakPassword" xml:space="preserve">
+    <value>User.Password.IsTooShort</value>
   </data>
 </root>

@@ -61,11 +61,47 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User.Password.IsNotUnique.
+        ///   Looks up a localized string similar to User.FirstName.IsEmpty.
         /// </summary>
-        internal static string UniquePassword {
+        internal static string EmptyFirstName {
             get {
-                return ResourceManager.GetString("UniquePassword", resourceCulture);
+                return ResourceManager.GetString("EmptyFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.LastName.IsEmpty.
+        /// </summary>
+        internal static string EmptyLastName {
+            get {
+                return ResourceManager.GetString("EmptyLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.Password.IsEmpty.
+        /// </summary>
+        internal static string EmptyPassword {
+            get {
+                return ResourceManager.GetString("EmptyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.Name.IsEmpty.
+        /// </summary>
+        internal static string EmptyUsername {
+            get {
+                return ResourceManager.GetString("EmptyUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.Email.IsNotUnique.
+        /// </summary>
+        internal static string UniqueEmail {
+            get {
+                return ResourceManager.GetString("UniqueEmail", resourceCulture);
             }
         }
         
@@ -75,6 +111,15 @@ namespace RSService.Validation {
         internal static string UniqueUsername {
             get {
                 return ResourceManager.GetString("UniqueUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.Password.IsTooShort.
+        /// </summary>
+        internal static string WeakPassword {
+            get {
+                return ResourceManager.GetString("WeakPassword", resourceCulture);
             }
         }
     }

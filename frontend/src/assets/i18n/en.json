@@ -140,6 +140,13 @@
     "AdminTabs":{
         "Users": "Users",
         "Hosts": "Hosts"
+    },
+
+    "User":{ 
+        "YouArePenalised" : "Penalised user! You are not allowed to create any appointments.",
+        "Title": "Penalised user"
     }
+
+   
 
 }

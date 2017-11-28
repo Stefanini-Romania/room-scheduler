@@ -156,6 +156,11 @@
   "AdminTabs":{
     "Users": "Utilizatori",
     "Hosts": "Host"
+},
+
+"User":{ 
+    "YouArePenalised" : "Utilizator penalizat! Nu aveți permisiunea de a crea evenimente.",
+    "Title": "Utilizator penalizat"
 }
 
 }
