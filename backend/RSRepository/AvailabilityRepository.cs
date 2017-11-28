@@ -32,6 +32,7 @@ namespace RSRepository
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))
                                  .Where(e => hostId.Contains(e.HostId))
+                                 .Include(e => e.Host)
                                  .ToList();
         }
 
@@ -40,12 +41,14 @@ namespace RSRepository
             return availabilities.Where(e => e.StartHour.Hour >= startDate.Hour)
                          .Where(e => e.StartHour.Hour <= endDate.Hour)
                          .Where(e => e.RoomId == roomId)
+                         .Include(e => e.Host)
                          .ToList();
         }
 
         public List<Availability> GetAvailabilities(int[] roomId)
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))
+                                 .Include(e => e.Host)
                                  .ToList();
         }
 

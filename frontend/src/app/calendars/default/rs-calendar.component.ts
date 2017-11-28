@@ -76,8 +76,8 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         for (let event of this.events) {
             let readOnly = false;
             switch(event.eventType){
-                case EventTypeEnum.availability: 
-                    eventType = this.translate.instant("calendar.eventType.availabilty");
+                case EventTypeEnum.availability:
+                    eventType = event.host + " - " + this.translate.instant("calendar.eventType.availabilty");
                     readOnly = true;
                     break;
                 case EventTypeEnum.massage: 

@@ -86,6 +86,7 @@ namespace RSService.BusinessLogic
                         HostId = entry.HostId,
                         EventStatus = (int)AvailabilityEnum.NotAvailable,
                         DateCreated = DateTime.UtcNow,
+                        Host = entry.Host
                     };
                     availabilityEvents.Add(newEvent);
                 }

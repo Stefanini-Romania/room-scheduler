@@ -13,6 +13,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using RSService.DTO;
 
 namespace RSService.Controllers
 {
@@ -91,7 +92,31 @@ namespace RSService.Controllers
 
             results = results.Concat(availabilityEvents).ToList();
 
-            return Ok(results);
+            //return Ok(results);
+
+            if (results == null)
+                return NotFound();
+
+            List<EventDto> events = new List<EventDto>();
+
+            foreach(var ev in results)
+            {
+                events.Add(new EventDto()
+                {
+                    Id = ev.Id,
+                    StartDate = ev.StartDate,
+                    EndDate = ev.EndDate,
+                    EventType = ev.EventType,
+                    RoomId = ev.RoomId,
+                    Notes = ev.Notes,
+                    HostId = ev.HostId,
+                    AttendeeId = ev.AttendeeId,
+                    EventStatus = ev.EventStatus,
+                    Host = ev.Host.FirstName +" "+ ev.Host.LastName
+                });
+            }
+
+            return Ok(events);
         }
 
         [HttpPut("/event/edit/{id}")]
