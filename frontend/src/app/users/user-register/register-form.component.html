@@ -19,11 +19,13 @@
 
                     <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required email>
                     <!-- to do display invalid email validation -->
+                    <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>
 
                     <input type="password" placeholder="{{ 'register.password' | translate }}" name="password" [(ngModel)]="model.password" #password="ngModel" required validateEqual="confirmPassword" reverse="true">
                                 
                     <input type="password" placeholder="{{ 'register.confirmPassword' | translate }}" name="confirmPassword" [(ngModel)]="model.confirmPassword" #confirmPassword="ngModel" required validateEqual="password" reverse="false">
                     <ngb-alert type="danger" [dismissible]="false" *ngIf="!confirmPassword.valid && confirmPassword.dirty">{{ 'mismatch.password' | translate }}</ngb-alert>
+                   
                    
 
                     <!-- REGISTER BUTTONS -->

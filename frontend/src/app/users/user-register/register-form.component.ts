@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {environment} from './../../../environments/environment';
-import {RoleIdEnum} from './../../shared/models/roleId.model';
+import {RoleIdEnum} from './../../shared/models/roleIdEnum.model';
 import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
@@ -37,14 +37,15 @@ export class RegisterFormComponent {
     constructor(private authService: AuthService, private router: Router, private http: HttpClient) {
     }
 
+    //service
     register(event: User) {
         const url = environment.apiUrl + '/users/add';
         const body = JSON.stringify({
-            firstName: this.model.firstName.toLocaleString(),
-            lastName: this.model.lastName.toLocaleString(),
-            name: this.model.name.toLocaleString(),
-            email: this.model.email.toLocaleString(),
-            password: this.model.password.toLocaleString(),
+            firstName: this.model.firstName,
+            lastName: this.model.lastName,
+            name: this.model.name,
+            email: this.model.email,
+            password: this.model.password,
             departmentId: this.model.departmentId,
             roleId: this.model.roleId = 1
             
