@@ -9,4 +9,5 @@ export class User {
     penalty?: number [];  
     departmentId?: number;
     roleId?: number;
+    userRole?: number [];
 }

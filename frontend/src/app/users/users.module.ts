@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {AuthModule} from '../auth/auth.module';
 import {RouterModule, Routes} from '@angular/router';
 import {CoreModule} from './../core/core.module';
-
+import {UserService} from '../users/shared/users.service';
 
 
 const routes: Routes = [
@@ -16,7 +16,7 @@ const routes: Routes = [
         RouterModule.forRoot(routes),
         CoreModule
     ],
-    providers: [],
+    providers: [UserService],
     declarations: [AdminComponent],
     exports: [AdminComponent],
 })
