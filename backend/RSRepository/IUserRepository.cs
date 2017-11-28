@@ -7,6 +7,7 @@ namespace RSRepository
 {
     public interface IUserRepository
     {
+        List<User> GetUsers2();
         List<User> GetUsers();
         User FindUserByCredential(string username, string password);
         User GetUserById(long id);

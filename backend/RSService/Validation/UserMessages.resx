@@ -117,16 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Authentication" xml:space="preserve">
-    <value>Error.Event.Authentication</value>
+  <data name="UniquePassword" xml:space="preserve">
+    <value>User.Password.IsNotUnique</value>
   </data>
-  <data name="Event" xml:space="preserve">
-    <value>Error.Event.Creation</value>
-  </data>
-  <data name="EventEdit" xml:space="preserve">
-    <value>Error.Event.Edit</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>Error.User.Creation</value>
+  <data name="UniqueUsername" xml:space="preserve">
+    <value>User.Name.IsNotUnique</value>
   </data>
 </root>

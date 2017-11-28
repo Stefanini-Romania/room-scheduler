@@ -15,15 +15,17 @@ namespace RSService.BusinessLogic
         private IPenaltyRepository penaltyRepository;
         private IEventRepository eventRepository;
         private IUserRoleRepository userRoleRepository;
+        private IUserRepository userRepository;
         private IDbOperation dbOperation;
 
-        public RSManager(IAvailabiltyRepository availabiltyRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository)
+        public RSManager(IAvailabiltyRepository availabiltyRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository)
         {
             this.availabilityRepository = availabiltyRepository;
             this.eventRepository = eventRepository;
             this.penaltyRepository = penaltyRepository;
             this.userRoleRepository = userRoleRepository;
             this.dbOperation = dbOperation;
+            this.userRepository = userRepository;
         }
 
 
@@ -164,6 +166,11 @@ namespace RSService.BusinessLogic
                 }
             }
             return true;
+        }
+
+        public bool IsUniqueUserName(String username)
+        {
+            return userRepository.GetUsers().Where(u => u.Name == username).Count() > 0;
         }
 
 

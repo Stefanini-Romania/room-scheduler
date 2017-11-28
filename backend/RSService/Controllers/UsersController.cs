@@ -8,6 +8,7 @@ using RSData.Models;
 using System.Text;
 using RSService.ViewModels;
 using static RSData.Models.Role;
+using RSService.DTO;
 
 namespace RSService.Controllers
 {
@@ -24,6 +25,30 @@ namespace RSService.Controllers
             this.roleRepository = roleRepository;
         }
 
+        [HttpGet("/users/list")]
+        public IActionResult GetUsers()
+        {
+            var results = userRepository.GetUsers();
+            if (results == null)
+                return NotFound();
+            
+            List<UserDTO> final_result = new List<UserDTO>();
+
+            foreach (var it in results)
+            {
+                final_result.Add(new UserDTO()
+                {
+                    Name = it.Name,
+                    FirstName = it.FirstName,
+                    LastName = it.LastName,
+                    Email = it.Email,
+                    UserRole = new List<int>(it.UserRole.Select(li => li.RoleId)),
+                    DepartmentId = it.DepartmentId
+                });
+            }
+
+            return Ok(final_result);
+        }
 
         [HttpPost("/users/add")]
         public IActionResult AddUser([FromBody]UserModel model)

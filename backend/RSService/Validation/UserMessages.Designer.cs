@@ -22,14 +22,14 @@ namespace RSService.Validation {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class GeneralMessages {
+    internal class UserMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal GeneralMessages() {
+        internal UserMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace RSService.Validation {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RSService.Validation.GeneralMessages", typeof(GeneralMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RSService.Validation.UserMessages", typeof(UserMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,20 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.Event.Authentication.
+        ///   Looks up a localized string similar to User.Password.IsNotUnique.
         /// </summary>
-        internal static string Authentication {
+        internal static string UniquePassword {
             get {
-                return ResourceManager.GetString("Authentication", resourceCulture);
+                return ResourceManager.GetString("UniquePassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.Event.Creation.
+        ///   Looks up a localized string similar to User.Name.IsNotUnique.
         /// </summary>
-        internal static string Event {
+        internal static string UniqueUsername {
             get {
-                return ResourceManager.GetString("Event", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.Event.Edit.
-        /// </summary>
-        internal static string EventEdit {
-            get {
-                return ResourceManager.GetString("EventEdit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.User.Creation.
-        /// </summary>
-        internal static string User {
-            get {
-                return ResourceManager.GetString("User", resourceCulture);
+                return ResourceManager.GetString("UniqueUsername", resourceCulture);
             }
         }
     }

@@ -37,6 +37,12 @@ namespace RSRepository
             return result;
         }
 
+        public List<User> GetUsers2()
+        {
+            var result = users.ToList();
+            return result;
+        }
+
         public User FindUserByCredential(string username, string password)
         {
             // TODO:  Nu trebuie sa-i aducem pe toti cu GetUsers. Trebuie cautat direct in DbSet-ul de users  !!
