@@ -17,13 +17,16 @@
   },
 
   "register": {
-      "username": "Nume de utilizator",
+      "firstName": "Prenume",
+      "lastName": "Nume de familie",
+      "name": "Nume de utilizator",
       "password": "Parola",
       "email": "Email",
       "confirmPassword": "Confirmă parola",
       "button": "Creează cont"
   },
 
+  "wrong.email": "Introduceți o adresă de email validă.",
   "mismatch.password": "Parolele nu se potrivesc. Încearcă din nou?",
 
   "login.button": "Autentificare",

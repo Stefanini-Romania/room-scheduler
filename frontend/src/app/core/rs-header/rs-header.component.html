@@ -1,5 +1,5 @@
 <header class="fixed-top">
-    <div class="py-2 px-4 w-100 text-right" id="welcome-message" *ngIf="isLoggedIn">{{ 'welcome' | translate }}, <b>{{currentUser.name}}</b>!</div>
+    <div class="py-2 px-4 w-100 text-right" id="welcome-message" *ngIf="isLoggedIn">{{ 'welcome' | translate }}, <b>{{currentUser.firstName}}</b>!</div>
     <div class="row">
         <img class="w-100" height="75" src="./assets/img/rsheader1.png" alt="">
     </div>
@@ -11,9 +11,9 @@
 
 
         </div>
-        <!-- <div class="col">
-            <ngb-alert  id="penalized-user" [dismissible]="false" type="custom" *ngIf="isLoggedIn"><b>{{ 'UserPenalized' | translate }}</b></ngb-alert>
-        </div> -->
+        <div class="col">
+            <ngb-alert  id="penalized-user" [dismissible]="false" type="custom" *ngIf="UserIsPenalised"><b>{{ 'UserPenalized' | translate }}</b></ngb-alert>
+        </div>
         
        
         

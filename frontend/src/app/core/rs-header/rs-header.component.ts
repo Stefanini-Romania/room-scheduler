@@ -1,8 +1,7 @@
-import {Component} from '@angular/core';
+import {HostListener, Component, Output, EventEmitter} from '@angular/core';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {Router} from '@angular/router';
-
 
 @Component({
     selector: 'rs-header',
@@ -11,6 +10,8 @@ import {Router} from '@angular/router';
 
 export class RSHeader {
     currentUser: User = undefined;
+   
+     
 
     languages = [
         {'name': 'English', 'code': 'en', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/United-Kingdom_flat.png' },
@@ -27,13 +28,29 @@ export class RSHeader {
 
     logout() {
         this.authService.logout();
+        location.reload(true);
         // this.router.navigate(['/login']);
-               
-        
     }
-
    
     redirectToLogin() {
         this.router.navigate(['/login']);
     }
+
+    get UserIsPenalised(){
+    let UserPenalised: boolean;
+        if (this.authService.isLoggedIn()){
+            if(this.authService.getLoggedUser().penalty.length>0){
+                 return UserPenalised=true;
+            }
+
+            else return UserPenalised=false;
+        }
+
+    }
+    // @Output() this.logout:EventEmitter<any> = new EventEmitter();
+    
+    /* @HostListener('onClick') onClick(){
+        ///We are emitting itchies!!
+            this.logout.emit('itch itch itch');
+          } */
 }

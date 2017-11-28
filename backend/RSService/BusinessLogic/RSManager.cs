@@ -165,7 +165,7 @@ namespace RSService.BusinessLogic
                     }
                 }
             }
-            return true;
+            return true; 
         }
 
         public bool IsUniqueUserName(String username)
@@ -174,11 +174,39 @@ namespace RSService.BusinessLogic
         }
 
 
+        public bool HourCheck(DateTime startDate, DateTime endDate, int roomId)
+        {
+            var availabilities = availabilityRepository.GetAvailabilitiesyRoom(startDate, startDate, roomId);
+
+            foreach (Availability ev in availabilities)
+            {
+                if (roomId == ev.RoomId)
+                {
+
+                    if (startDate.Hour == ev.StartHour.Hour)
+                    
+                        return false;
+                    
+                    if (endDate.Hour == ev.EndHour.Hour)
+                    
+                        return false;
+                    
+                    if (startDate.Hour > ev.StartHour.Hour && startDate.Hour < ev.EndHour.Hour)
+                        return false;
+                }
+            }
+            return true; ;
+        }
+
+
+
         //Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
 
         public void CheckPenalty(DateTime startDate, int eventId, int attendeeId, int roomId)
         {
-            var eventsCount = eventRepository.GetPastEventsByUser(startDate, attendeeId, roomId).Count();
+            var pastEvents = eventRepository.GetPastEventsByUser(startDate, attendeeId, roomId);
+
+            var eventsCount = pastEvents.Count();
 
             if (eventsCount == 3)
             {
@@ -190,6 +218,13 @@ namespace RSService.BusinessLogic
                     RoomId = roomId
                 });
 
+                // Mark these 3 events as being part of a penalty to prevent future counting:
+
+                foreach(Event pastEvent in pastEvents)
+                {
+                    pastEvent.EventStatus = (int)EventStatusEnum.absentChecked;
+                }
+
                 // Edit attendee's events for next 15 days for this room (Cancelled):
 
                 var futureEvents = eventRepository.GetFutureEvents(startDate, attendeeId, roomId);
@@ -200,8 +235,8 @@ namespace RSService.BusinessLogic
                     {
                         xEvent.EventStatus = (int)EventStatusEnum.cancelled;
                     }
-                    dbOperation.Commit();
                 }
+                dbOperation.Commit();
             }
         }
 

@@ -24,6 +24,8 @@ namespace RSService.BusinessLogic
 
         bool HasPenalty(int attendeeId, DateTime newDate, int roomId);
 
+        bool HourCheck(DateTime startDate, DateTime endDate, int roomId);
+        
         bool IsUniqueUserName(String username);
 
         List<int> getRolesByUserID(int userId);

@@ -12,6 +12,7 @@ namespace RSRepository
         List<Availability> GetAvailabilities();
         List<Availability> GetAvailabilities(int[] roomId, int[] hostId);
         List<Availability> GetAvailabilities(int[] roomId);
+        List<Availability> GetAvailabilitiesyRoom(DateTime startDate, DateTime endDate, int roomId);
     }
    
 }

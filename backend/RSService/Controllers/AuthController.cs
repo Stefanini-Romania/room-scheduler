@@ -63,6 +63,8 @@ namespace RSService.Controllers
                 email = user.Email,
                 name = user.Name,
                 departmentId = user.DepartmentId,
+                firstName = user.FirstName,
+                lastName = user.LastName,
                 userRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
                 penalty = new List<int>(user.Penalty.Select(li => li.RoomId))
 

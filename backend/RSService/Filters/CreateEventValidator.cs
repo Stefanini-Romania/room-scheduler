@@ -35,10 +35,12 @@ namespace RSService.Filters
                 RuleFor(x => x.StartDate).Must(AvailabilityTimeS).WithMessage(x => Validation.EventMessages.StartDateAvailabilityRoom);
 
                 RuleFor(x => x.StartDate).Must(IsAvailable).WithMessage(x => Validation.EventMessages.NotAvailable);
-                
+
                 RuleFor(x => x.StartDate).Must(DayOfWeek).WithMessage(x => Validation.EventMessages.DayOfWeekWeekend);
 
                 RuleFor(x => x.StartDate).Must(TwoMonths).WithMessage(x => Validation.EventMessages.StartDateFuture);
+
+                //RuleFor(x => x.StartDate).Must(HourAvailable).WithMessage(x => Validation.EventMessages.NotAvailable);
 
 
 
@@ -129,6 +131,11 @@ namespace RSService.Filters
         private bool IsAvailable(EventViewModel ev, DateTime? d)
         {
             return rsManager.CheckAvailability((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
+        }
+
+        private bool HourAvailable(EventViewModel ev, DateTime? d)
+        {
+            return rsManager.HourCheck((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
         }
 
         private bool IsNotPenalized(EventViewModel ev, int roomId)
