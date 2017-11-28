@@ -4,6 +4,8 @@ export class User {
     email: string;
     id?: number;
     departmentId?: number;
-    penalty?: number [];
+    penalty?: number[];
+    firstName?: string;
+    lastName?: string;
     
 }
