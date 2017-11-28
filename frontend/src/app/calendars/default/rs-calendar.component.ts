@@ -334,7 +334,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     showCreateDialog() {
        
         if (this.authService.isLoggedIn()) {
-            if(this.authService.getLoggedUser().penalty.length>0){
+            if(this.authService.getLoggedUser().penalty.length>0 && this.authService.getLoggedUser().penalty[0]==this.selectedRoom.id){
                 //const modalRef:NgbModalRef = this.dialogService.alert(PenalisedUserComponent);
                 let modalRef = this.dialogService.alert({message: "User.YouArePenalised", title: "User.Title"});
             }
