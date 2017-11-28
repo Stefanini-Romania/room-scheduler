@@ -18,6 +18,7 @@ import {EventEditorComponent} from '../event-editor/event-editor.component';
 import * as CalendarSettings from './calendar-settings.json';
 
 
+
 @Component({
     selector: 'rs-calendar-component',
     templateUrl: './rs-calendar.component.html',
@@ -333,6 +334,11 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     showCreateDialog() {
        
         if (this.authService.isLoggedIn()) {
+            if(this.authService.getLoggedUser().penalty.length>0){
+                //const modalRef:NgbModalRef = this.dialogService.alert(PenalisedUserComponent);
+                let modalRef = this.dialogService.alert({message: "User.YouArePenalised", title: "User.Title"});
+            }
+            else  {
             let date = this.scheduler.getSelection();
             if (!date) {
                 // exit in case the user wants to create an event over an existing event
@@ -351,10 +357,13 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
 
             this.openEventEditor(model);
-        } else {
-            this.redirectToLogin();
-        }
+         
     }
+    }
+    else {
+        this.redirectToLogin();
+    }
+}
 
     showEditDialog($event) {
         if (this.authService.isLoggedIn()) {
