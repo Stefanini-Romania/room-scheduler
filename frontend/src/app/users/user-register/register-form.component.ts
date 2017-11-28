@@ -24,7 +24,8 @@ export class RegisterFormComponent {
         lastName: '',
         name: '',
         email: '',
-        password: '',    
+        password: '',  
+        confirmPassword: '', 
         departmentId: 1,
         roleId: 1
     };
