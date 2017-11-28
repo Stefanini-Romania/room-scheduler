@@ -97,9 +97,16 @@
       }
   },
 
+  "user":{
+    "name": "Username",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "userRole": "User role"
+  },
+
   "Auth": {
-      "Password.Empty": "Please enter your password",
-      "Username.Empty": "Please enter your username"
+    "Password.Empty": "Please enter your password",
+    "Username.Empty": "Please enter your username"
   },
 
   "Error": {

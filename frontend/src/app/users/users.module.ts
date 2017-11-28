@@ -4,7 +4,7 @@ import {AuthModule} from '../auth/auth.module';
 import {RouterModule, Routes} from '@angular/router';
 import {CoreModule} from './../core/core.module';
 import {UserService} from '../users/shared/users.service';
-
+import { User } from '../shared/models/user.model';
 
 const routes: Routes = [
     {path: 'admin', component: AdminComponent}
@@ -14,7 +14,7 @@ const routes: Routes = [
     imports: [
         AuthModule,
         RouterModule.forRoot(routes),
-        CoreModule
+        CoreModule,
     ],
     providers: [UserService],
     declarations: [AdminComponent],

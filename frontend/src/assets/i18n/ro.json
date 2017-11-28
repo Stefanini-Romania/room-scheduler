@@ -113,6 +113,13 @@
       }
   },
 
+  "user":{
+    "name": "Utilizator",
+    "firstName": "Prenume",
+    "lastName": "Nume",
+    "userRole": "Rolul de user"
+  },
+
   "Auth": {
       "Password.Empty": "Introduceți parola",
       "Username.Empty": "Introduceți numele de utilizator"

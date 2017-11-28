@@ -4,7 +4,7 @@
             {{'page.not-found.intro' |translate }}.
         <br></h1>
         <h1 *ngIf="!(isLoggedIn)">
-            {{'Event.UserIsNotAuthenticated' |translate}}. {{'page.not-found.please.authenticate' |translate }} <a href="/login">{{'page.not-found.here' |translate }}</a>.
+            {{'Event.UserIsNotAuthenticated' |translate}}. {{'page.not-found.please.authenticate' |translate }} <a href="/calendar">{{'page.not-found.here' |translate }}</a>.
         </h1>
         <h1 *ngIf="isLoggedIn">
             {{'page.not-found.go.to' |translate}} <a href="/calendar">calendar!</a>
