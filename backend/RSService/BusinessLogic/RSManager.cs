@@ -182,25 +182,16 @@ namespace RSService.BusinessLogic
 
         public bool HourCheck(DateTime startDate, DateTime endDate, int roomId)
         {
-            var availabilities = availabilityRepository.GetAvailabilitiesyRoom(startDate, startDate, roomId);
+            var availabilities = availabilityRepository.GetAvailabilitiesByType(startDate,endDate ,roomId);
 
             foreach (Availability ev in availabilities)
-            {
-                if (roomId == ev.RoomId)
-                {
-
-                    if (startDate.Hour == ev.StartHour.Hour)
-                    
-                        return false;
-                    
-                    if (endDate.Hour == ev.EndHour.Hour)
-                    
-                        return false;
-                    
-                    if (startDate.Hour > ev.StartHour.Hour && startDate.Hour < ev.EndHour.Hour)
-                        return false;
-                }
-            }
+                                
+                        if (startDate.TimeOfDay >= ev.StartHour.TimeOfDay && startDate.TimeOfDay <= ev.EndHour.TimeOfDay)
+                            return false;                   
+                
+        
+               
+            
             return true; ;
         }
 
