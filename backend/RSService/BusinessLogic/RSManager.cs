@@ -50,7 +50,7 @@ namespace RSService.BusinessLogic
                         EventType = 1,
                         RoomId = entry.RoomId,
                         HostId = entry.HostId,
-                        EventStatus = (int)AvailabilityEnum.NotAvailable,
+                        EventStatus = entry.AvailabilityType,      //(int)AvailabilityEnum.NotAvailable,
                         DateCreated = DateTime.UtcNow,
                     };
                     availabilityEvents.Add(newEvent);
@@ -84,7 +84,7 @@ namespace RSService.BusinessLogic
                         EventType = 1,
                         RoomId = entry.RoomId,
                         HostId = entry.HostId,
-                        EventStatus = (int)AvailabilityEnum.NotAvailable,
+                        EventStatus = entry.AvailabilityType,      //(int)AvailabilityEnum.NotAvailable,
                         DateCreated = DateTime.UtcNow,
                         Host = entry.Host
                     };
@@ -171,12 +171,12 @@ namespace RSService.BusinessLogic
 
         public bool IsUniqueUserName(String username)
         {
-            return userRepository.GetUsers().Where(u => u.Name == username).Count() > 0;
+            return userRepository.GetUsers().Where(u => u.Name == username).Count() == 0;
         }
 
         public bool IsUniqueEmail(String email)
         {
-            return userRepository.GetUsers().Where(u => u.Email == email).Count() > 0;
+            return userRepository.GetUsers().Where(u => u.Email == email).Count() == 0;
         }
 
 
