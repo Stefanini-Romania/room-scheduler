@@ -2,8 +2,9 @@ import {AdminComponent} from './admin/admin.component';
 import {NgModule} from '@angular/core';
 import {AuthModule} from '../auth/auth.module';
 import {RouterModule, Routes} from '@angular/router';
-import {CoreModule} from './../core/core.module';
-import {UserService} from '../users/shared/users.service';
+import {CoreModule} from '../core/core.module';
+import {SharedModule} from '../shared/shared.module';
+import {UserService} from './shared/users.service';
 import {LoginPageComponent} from './user-login/login-page.component';
 import {LoginFormComponent} from './user-login/login-form.component';
 import {RegisterFormComponent} from './user-register/register-form.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
         AuthModule,
         RouterModule.forRoot(routes),
         CoreModule,
+        SharedModule
     ],
     providers: [UserService],
     declarations: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent, AdminComponent],

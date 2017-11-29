@@ -9,22 +9,34 @@
                     </a>
                     <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert>
 
-                    <!-- <label><b>Username</b></label> -->
+                    <div class="row">
+                        <div class="col"><input type="text" placeholder="{{ 'register.firstName' | translate }}" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required></div>
+                        <div class="col"><input type="text" placeholder="{{ 'register.lastName' | translate }}" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required></div>
+                    </div>
 
-                    <input type="text" placeholder="{{ 'register.firstName' | translate }}" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required>
-                    
-                    <input type="text" placeholder="{{ 'register.lastName' | translate }}" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required>
+                    <div class="row">
+                        <div class="col"><input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="model.name" #name="ngModel" required></div>
+                    </div>
 
-                    <input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="model.name" #name="ngModel" required>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required email>
+                            <!-- to do display invalid email validation -->
+                            <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>
+                        </div>
+                    </div>
 
-                    <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required email>
-                    <!-- to do display invalid email validation -->
-                    <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>
-
-                    <input type="password" placeholder="{{ 'register.password' | translate }}" name="password" [(ngModel)]="model.password" #password="ngModel" required validateEqual="confirmPassword" reverse="true">
-                                
-                    <input type="password" placeholder="{{ 'register.confirmPassword' | translate }}" name="confirmPassword" [(ngModel)]="model.confirmPassword" #confirmPassword="ngModel" required validateEqual="password" reverse="false">
-                    <ngb-alert type="danger" [dismissible]="false" *ngIf="!confirmPassword.valid && confirmPassword.dirty">{{ 'mismatch.password' | translate }}</ngb-alert>
+                    <div class="row">
+                        <div class="col">
+                            <input type="password" autocomplete="off" placeholder="{{ 'register.password' | translate }}" name="password" [(ngModel)]="model.password" #password="ngModel" required validateEqual="confirmPassword" reverse="true">
+                        </div>
+                        <div class="col">
+                            <input type="password" autocomplete="off" placeholder="{{ 'register.confirmPassword' | translate }}" name="confirmPassword" [(ngModel)]="model.confirmPassword" #confirmPassword="ngModel" required validateEqual="password" reverse="false">
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!confirmPassword.valid && confirmPassword.dirty">
+                        <div class="col"><ngb-alert type="danger" [dismissible]="false">{{ 'mismatch.password' | translate }}</ngb-alert></div>
+                    </div>
 
                     <!-- REGISTER BUTTONS -->
                     <div class="row-fluid">
