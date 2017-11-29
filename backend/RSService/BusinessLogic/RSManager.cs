@@ -37,6 +37,7 @@ namespace RSService.BusinessLogic
 
             DateTime currentDay = startDate.Date;
 
+            int fakeId = 1;
             while (endDate.Date >= currentDay)
             {
                 availabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek).ToList();
@@ -45,6 +46,7 @@ namespace RSService.BusinessLogic
                 {
                     Event newEvent = new Event()
                     {
+                        Id = -fakeId++,
                         StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
                         EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
                         EventType = 1,
