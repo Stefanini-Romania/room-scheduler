@@ -1,13 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Router, RouterModule, Routes,} from '@angular/router';
+import {Component} from '@angular/core';
 
-
-import {environment} from './../../../environments/environment';
+import {UserService} from '../shared/users.service';
 import {RoleEnum} from './../../shared/models/role.model';
-import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {RegisterService} from './../shared/register.service';
@@ -21,21 +16,13 @@ import {RegisterService} from './../shared/register.service';
 })
 
 export class RegisterFormComponent {
-    public model: User = {      
-        firstName: '',
-        lastName: '',
-        name: '',
-        email: '',
-        password: '',  
-        confirmPassword: '', 
-        departmentId: 1,
-        roleId: 1
+    public confirmPassword;
+ 	submitted = false;
+    public model: User = <User>{
+        departmentId: DepartmentIdEnum.ADC,
+        userRoles: [RoleEnum.attendee]
     };
     
-    public errorMessage: string = '';
-    
-    DepartmentIdEnum: DepartmentIdEnum[] = [];
-    RoleEnum: RoleEnum[] = [];
 
     constructor(private authService: AuthService, 
                 private router: Router, 
@@ -44,6 +31,8 @@ export class RegisterFormComponent {
                 public activeModal: NgbActiveModal) {
     }
 
+    
+    
     register() {
         this.registerService.createUser(this.model.firstName, 
                                         this.model.lastName, 
@@ -51,7 +40,7 @@ export class RegisterFormComponent {
                                         this.model.email,
                                         this.model.password, 
                                         this.model.departmentId, 
-                                        this.model.roleId)
+                                        this.model.userRoles[1])
         .subscribe(
             () => {
                 this.activeModal.close();
@@ -62,7 +51,3 @@ export class RegisterFormComponent {
                 this.errorMessage = error.error.message;
             });
     }
-}
-    
-
-   

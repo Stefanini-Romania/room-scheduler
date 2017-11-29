@@ -26,7 +26,9 @@
       "password": "Password",
       "email": "Email",
       "confirmPassword": "Confirm password",
-      "button": "Create account"
+      "button": "Create account",
+
+      "noAccount?": "Don't have an account ?"
   },
 
   "wrong": {
@@ -40,6 +42,8 @@
   "logout.button": "Sign out",
   "login.username": "Enter Username",
   "login.password": "Enter Password",
+  "login.alreadyHaveAccount": "Already have an account ?",
+
   "cancel.login.button": "Cancel",
 
   "event": {

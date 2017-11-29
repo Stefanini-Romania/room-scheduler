@@ -139,9 +139,6 @@ body .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disab
     box-shadow: none;
 }
 
-#loginbtn:hover,
-#loginbtn:active,
-#loginbtn:focus,
 #b1:hover,
 #b1:active,
 #b1:focus  {
@@ -226,12 +223,6 @@ footer a {
     position: relative;
 }
   
-#loginbtn {
-    position: relative;
-    width: 100%;
-    margin-top: 30px;
-}
-
 #sign-out {
     position: relative;
     padding: 10px;

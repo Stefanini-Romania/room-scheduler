@@ -4,7 +4,7 @@
           "intro": "Pagina nu a putut fi găsită",
           "please.authenticate": "Vă rugăm să vă autentificați",
           "here": "aici",
-          "go.to": "Navigati catre"
+          "go.to": "Navigați catre"
       }
   },
 
@@ -26,7 +26,9 @@
       "password": "Parola",
       "email": "Email",
       "confirmPassword": "Confirmă parola",
-      "button": "Creează cont"
+      "button": "Creează cont",
+
+      "noAccount?": "Nu aveți un cont ?"
   },
 
   "wrong": {
@@ -40,6 +42,8 @@
   "logout.button": "Delogare",
   "login.username": "Introduceți utilizatorul",
   "login.password": "Introduceți parola",
+  "login.alreadyHaveAccount": "Aveți deja cont ?",
+
   "cancel.login.button": "Anulare",
 
   "event": {

@@ -1,16 +1,6 @@
-<div class="modal-header">
-        <button type="button" class="btn btn-primary close" aria-label="Close" (click)="closeLoginModal()">
-                
-                    <i class="fa fa-times"></i>
-                
-        </button>
-</div>
-    
-
-<div class="modal-body">
-    <div class="container d-flex h-100">
+<div class="container d-flex h-100">
         <div class="row justify-content-center align-self-center mx-auto">
-            
+           
                 <form>
                     <div id="user-cont">
                         <a href="https://stefanini.com/en/">
@@ -25,15 +15,21 @@
                         <!-- <label><b>Password</b></label> -->
                         <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
                         <br />
-                        <button id="loginbtn" type="submit" class="btn btn-primary" (click)="login()">
+                        <!--<button id="loginbtn" type="submit" class="btn btn-primary" (click)="login()"> -->
+                		<button type="submit" class="btn btn-primary" (click)="login()">
                             {{ 'login.button' | translate }}
                             <i class="fa fa-lock"></i>
                         </button>
                         <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->
                     </div>
-                    <div *ngIf="!(isLoggedIn)">
+                    <!--<div *ngIf="!(isLoggedIn)">
                             {{'noAccount' | translate}}? <a href="/register">{{'clickHere' | translate}}</a>
-                    </div>
+                    </div> -->
+
+	            <p>
+	                {{ 'register.noAccount?' | translate }}
+	                <a routerLink="/register">{{ 'register.button' | translate }}</a>.
+	            </p>
 
                     <!-- <div id="cancel-cont">
                         <button id="reset1" type="reset">Cancel</button>
@@ -41,5 +37,4 @@
                     </div> -->
                 </form>
             </div>
-        </div>
-    </div>
+</div>
