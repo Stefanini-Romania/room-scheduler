@@ -20,14 +20,15 @@ export class RSHeader {
     ];
 
     constructor(private authService: AuthService, private router: Router, private roomService: RoomService) {
+        // observe room changing
         roomService.selectedRoomChanged$.subscribe((room: Room) => {
             this.userIsPenalizedInRoom = this.currentUser && this.currentUser.hasPenaltiesForRoom(room);
         });
-    }
 
-    get isLoggedIn(): boolean {
-        this.currentUser = this.authService.getLoggedUser();
-        return this.currentUser && this.authService.isLoggedIn();
+        // observe authentication status
+        authService.user$.subscribe((user: User) => {
+            this.currentUser = user;
+        });
     }
 
     logout() {

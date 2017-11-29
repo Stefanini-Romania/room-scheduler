@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
 import {Response} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
@@ -9,6 +9,7 @@ import {User} from '../../shared/models/user.model';
 
 @Injectable()
 export class AuthService {
+    public user$: EventEmitter<User> = new EventEmitter();
 
     constructor(private http: HttpClient) {
     }
@@ -22,6 +23,7 @@ export class AuthService {
             .map((response: Response) => {
                 if (response) {
                     sessionStorage.setItem('currentUser', JSON.stringify(response));
+                    this.user$.emit(this.getLoggedUser());
                 }
 
                 return response;
@@ -30,6 +32,7 @@ export class AuthService {
 
     logout() {
         sessionStorage.removeItem('currentUser');
+        this.user$.emit(null);
     }
 
     getLoggedUser(): User {
