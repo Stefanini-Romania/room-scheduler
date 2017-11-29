@@ -71,6 +71,7 @@ namespace RSService.BusinessLogic
 
             DateTime currentDay = startDate.Date;
 
+            int fakeId = 1;
             while (endDate.Date >= currentDay)
             {
                 var dayAvailabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek).ToList();
@@ -79,6 +80,7 @@ namespace RSService.BusinessLogic
                 {
                     Event newEvent = new Event()
                     {
+                        Id= -fakeId++,
                         StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
                         EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
                         EventType = 1,
@@ -182,25 +184,16 @@ namespace RSService.BusinessLogic
 
         public bool HourCheck(DateTime startDate, DateTime endDate, int roomId)
         {
-            var availabilities = availabilityRepository.GetAvailabilitiesyRoom(startDate, startDate, roomId);
+            var availabilities = availabilityRepository.GetAvailabilitiesByType(startDate,endDate ,roomId);
 
             foreach (Availability ev in availabilities)
-            {
-                if (roomId == ev.RoomId)
-                {
-
-                    if (startDate.Hour == ev.StartHour.Hour)
-                    
-                        return false;
-                    
-                    if (endDate.Hour == ev.EndHour.Hour)
-                    
-                        return false;
-                    
-                    if (startDate.Hour > ev.StartHour.Hour && startDate.Hour < ev.EndHour.Hour)
-                        return false;
-                }
-            }
+                                
+                        if (startDate.TimeOfDay >= ev.StartHour.TimeOfDay && startDate.TimeOfDay <= ev.EndHour.TimeOfDay)
+                            return false;                   
+                
+        
+               
+            
             return true; ;
         }
 

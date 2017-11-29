@@ -38,17 +38,25 @@ namespace RSRepository
 
         public List<Availability> GetAvailabilitiesyRoom(DateTime startDate, DateTime endDate, int roomId)
         {
-            return availabilities.Where(e => e.StartHour.Hour >= startDate.Hour)
-                         .Where(e => e.StartHour.Hour <= endDate.Hour)
-                         .Where(e => e.RoomId == roomId)
-                         .Include(e => e.Host)
-                         .ToList();
+            return availabilities.Where(e => e.StartHour.TimeOfDay <= startDate.TimeOfDay)
+                                 .Where(e => e.StartHour.TimeOfDay <= endDate.TimeOfDay)
+                                 .Where(e => e.RoomId == roomId)                        
+                                 .ToList();
         }
 
         public List<Availability> GetAvailabilities(int[] roomId)
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))
                                  .Include(e => e.Host)
+                                 .ToList();
+        }
+
+        public List<Availability> GetAvailabilitiesByType(DateTime startDate, DateTime endDate,int roomId)
+        {
+            return availabilities.Where(e => e.StartHour.TimeOfDay <= startDate.TimeOfDay)
+                                 .Where(e => e.StartHour.TimeOfDay <= endDate.TimeOfDay)
+                                 .Where(e => e.RoomId == roomId)
+                                 .Where(e => e.AvailabilityType==1)
                                  .ToList();
         }
 
