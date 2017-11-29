@@ -16,6 +16,9 @@
       "cancel": "Anulează"
   },
 
+  "noAccount": "Nu aveți cont",
+  "clickHere": "Click aici",
+
   "register": {
       "firstName": "Prenume",
       "lastName": "Nume de familie",
@@ -28,7 +31,11 @@
       "noAccount?": "Nu aveți un cont ?"
   },
 
-  "wrong.email": "Introduceți o adresă de email validă.",
+  "wrong": {
+      "name": "Numele de utilizator este obligatoriu (cel puțin 5 caractere)",
+      "email": "Introduceți o adresă de email validă."
+  },
+  
   "mismatch.password": "Parolele nu se potrivesc. Încearcă din nou?",
 
   "login.button": "Autentificare",
@@ -135,6 +142,19 @@
       "Event.Creation": "Evenimentul nu a putut fi creat",
       "Event.Edit": "Evenimentul nu a putut fi modificat"
   },
+
+  "Error.User.Creation": "Eroare creeare cont",
+  "User.Name": {
+    "IsNotUnique": "Acest nume este deja folosit",
+    "IsEmpty": "Alegeți un nume de utilizator"
+    },
+  "User.Password.IsNotUnique": "Parola nu este unică",
+  "User.FirstName.IsEmpty": "Inserați prenumele dumneavoastră",
+  "User.LastName.IsEmpty": "Inserați numele dumneavoastră",
+  "User.Password": {
+    "IsEmpty": "Alegeți o parolă",
+    "IsTooShort": "Parola este prea scurtă (minim 6 caractere)"
+  }, 
 
   "Event": {
       "AttendeeId.CancelSomeoneElseBooking": "Nu se poate anula rezervarea altui utilizator",

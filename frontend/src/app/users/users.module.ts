@@ -1,6 +1,7 @@
+import {Register} from 'ts-node/dist';
 import {AdminComponent} from './admin/admin.component';
+
 import {NgModule} from '@angular/core';
-import {AuthModule} from '../auth/auth.module';
 import {RouterModule, Routes} from '@angular/router';
 import {CoreModule} from '../core/core.module';
 import {SharedModule} from '../shared/shared.module';
@@ -18,7 +19,6 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        AuthModule,
         RouterModule.forRoot(routes),
         CoreModule,
         SharedModule

@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
     selector: 'register-component',
@@ -6,8 +8,11 @@ import {Component} from '@angular/core';
         <register-form></register-form>
         <rs-footer></rs-footer>
     `,
-    styleUrls: []
+    styleUrls: [],
+    providers: [NgbActiveModal]
+
 })
 
 export class RegisterPageComponent {
+   
 }

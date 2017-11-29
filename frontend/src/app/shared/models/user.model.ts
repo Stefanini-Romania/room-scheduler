@@ -7,7 +7,7 @@ export class User {
     firstName?: string;
     lastName?: string;
     password: string;
-    email: string;
+    confirmPassword: string;    email: string;
     penalty?: number [];
     departmentId?: number;
     userRoles?: RoleEnum[];

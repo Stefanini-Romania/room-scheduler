@@ -14,17 +14,29 @@
                 <!-- <label><b>Password</b></label> -->
                 <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
                 <br />
-                <button type="submit" class="btn btn-primary" (click)="login()">
+                <button type="submit" class="btn btn-primary float-right" (click)="login()">
                     {{ 'login.button' | translate }}
                     <i class="fa fa-lock"></i>
                 </button>
                 <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->
             </div>
 
-            <p>
+            <!-- <label><b>Password</b></label> -->
+            <!-- <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
+            <br />
+            <button id="loginbtn" type="submit" class="btn btn-primary" (click)="login()">
+                {{ 'login.button' | translate }}
+                <i class="fa fa-lock"></i>
+            </button> -->
+            <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->
+       
+            <div *ngIf="!(isLoggedIn)">
+                    {{'noAccount' | translate}}? <a href="/register">{{'clickHere' | translate}}</a>
+            </div>
+            <!-- <p>
                 {{ 'register.noAccount?' | translate }}
                 <a routerLink="/register">{{ 'register.button' | translate }}</a>.
-            </p>
+            </p> -->
 
             <!-- <div id="cancel-cont">
                 <button id="reset1" type="reset">Cancel</button>
