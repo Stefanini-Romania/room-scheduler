@@ -1,4 +1,5 @@
 import {Room} from './room.model';
+import {RoleIdEnum} from './roleIdEnum.model';
 
 export class User {
     id?: number;
@@ -17,5 +18,9 @@ export class User {
         const roomId = mixedRoom instanceof Room ? mixedRoom.id : mixedRoom;
 
         return this.penalty && this.penalty.length > 0 && this.penalty.indexOf(roomId) !== -1;
+    }
+
+    hasRole(roleId: RoleIdEnum): boolean {
+        return this.userRole && this.userRole.length && this.userRole.indexOf(roleId) !== -1;
     }
 }
