@@ -9,6 +9,7 @@ import {LoginPageComponent} from './user-login/login-page.component';
 import {LoginFormComponent} from './user-login/login-form.component';
 import {RegisterPageComponent} from './user-register/register-page.component';
 
+import { User } from '../shared/models/user.model';
 
 const routes: Routes = [
     {path: 'admin', component: AdminComponent},
@@ -19,7 +20,7 @@ const routes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forRoot(routes),
-        CoreModule
+        CoreModule,
     ],
     providers: [UserService],
     declarations: [AdminComponent, LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent],

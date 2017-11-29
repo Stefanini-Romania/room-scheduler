@@ -120,6 +120,13 @@
       }
   },
 
+  "user":{
+    "name": "Utilizator",
+    "firstName": "Prenume",
+    "lastName": "Nume",
+    "userRole": "Rolul de user"
+  },
+
   "Auth": {
       "Password.Empty": "Introduceți parola",
       "Username.Empty": "Introduceți numele de utilizator"
@@ -131,6 +138,19 @@
       "Event.Creation": "Evenimentul nu a putut fi creat",
       "Event.Edit": "Evenimentul nu a putut fi modificat"
   },
+
+  "Error.User.Creation": "Eroare creeare cont",
+  "User.Name": {
+    "IsNotUnique": "Acest nume este deja folosit",
+    "IsEmpty": "Alegeți un nume de utilizator"
+    },
+  "User.Password.IsNotUnique": "Parola nu este unică",
+  "User.FirstName.IsEmpty": "Inserați prenumele dumneavoastră",
+  "User.LastName.IsEmpty": "Inserați numele dumneavoastră",
+  "User.Password": {
+    "IsEmpty": "Alegeți o parolă",
+    "IsTooShort": "Parola este prea scurtă (minim 6 caractere)"
+  }, 
 
   "Event": {
       "AttendeeId.CancelSomeoneElseBooking": "Nu se poate anula rezervarea altui utilizator",
