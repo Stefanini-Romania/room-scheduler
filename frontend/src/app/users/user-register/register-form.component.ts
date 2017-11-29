@@ -6,7 +6,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 
 import {environment} from './../../../environments/environment';
-import {RoleIdEnum} from './../../shared/models/roleIdEnum.model';
+import {RoleEnum} from './../../shared/models/role.model';
 import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
@@ -35,7 +35,7 @@ export class RegisterFormComponent {
     public errorMessage: string = '';
     
     DepartmentIdEnum: DepartmentIdEnum[] = [];
-    RoleIdEnum: RoleIdEnum[] = [];
+    RoleEnum: RoleEnum[] = [];
 
     constructor(private authService: AuthService, 
                 private router: Router, 
