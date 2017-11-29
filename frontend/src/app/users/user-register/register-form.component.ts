@@ -1,28 +1,40 @@
-import {Router, RouterModule, Routes,} from '@angular/router';
 import {Component} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {RouterModule, Routes, Router} from '@angular/router';
 
-import {UserService} from '../shared/users.service';
-import {RoleEnum} from './../../shared/models/role.model';
+
+import {environment} from './../../../environments/environment';
+
+import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {RegisterService} from './../shared/register.service';
+import {RoleEnum} from '../../shared/models/role.model';
+import {UserService} from '../shared/users.service';
+
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     moduleId: module.id,
     selector: 'register-form',
     templateUrl: './register-form.component.html',
     styleUrls: [],
-    providers: [AuthService, RegisterService, NgbActiveModal],
+    providers: [AuthService, RegisterService],
 })
 
 export class RegisterFormComponent {
     public confirmPassword;
- 	submitted = false;
+   userRoles
+
     public model: User = <User>{
         departmentId: DepartmentIdEnum.ADC,
         userRoles: [RoleEnum.attendee]
     };
     
+    public errorMessage: string = '';
+    
+    DepartmentIdEnum: DepartmentIdEnum[] = [];
+    RoleIdEnum: RoleEnum[] = [];
 
     constructor(private authService: AuthService, 
                 private router: Router, 
@@ -31,8 +43,6 @@ export class RegisterFormComponent {
                 public activeModal: NgbActiveModal) {
     }
 
-    
-    
     register() {
         this.registerService.createUser(this.model.firstName, 
                                         this.model.lastName, 
@@ -51,3 +61,7 @@ export class RegisterFormComponent {
                 this.errorMessage = error.error.message;
             });
     }
+}
+    
+
+   
