@@ -91,11 +91,15 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }
 
             if (this.authService.isLoggedIn()) {
-                if ((event.attendeeId !== this.authService.getLoggedUser().id) && (this.authService.getLoggedUser().departmentId != null))  {
-                    // @TODO allow admins and hosts to edit anyway
-                    readOnly = true;
-                }        
-               
+
+                if (event.eventType == EventTypeEnum.massage) {
+
+                    if ((event.attendeeId !== this.authService.getLoggedUser().id) && (this.authService.getLoggedUser().departmentId != null)) {
+                        // @TODO allow admins and hosts to edit anyway
+                        readOnly = true;
+                    }   
+                }
+
                 if ((new Date(event.startDate) <= new Date())&&(this.authService.getLoggedUser().departmentId != null)){
                     readOnly = true;
                 }
@@ -287,10 +291,10 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ContextMenuOpen(event: any): void {
         if (!event.args.appointment) {
-            event.args.menu.jqxMenu('showItem', 'createAppointment');
+            //event.args.menu.jqxMenu('showItem', 'createAppointment');
         }
         else {
-            event.args.menu.jqxMenu('hideItem', 'createAppointment');
+            //event.args.menu.jqxMenu('hideItem', 'createAppointment');
         }
     }
 
