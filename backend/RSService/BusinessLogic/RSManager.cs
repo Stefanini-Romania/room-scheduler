@@ -52,8 +52,9 @@ namespace RSService.BusinessLogic
                         EventType = 1,
                         RoomId = entry.RoomId,
                         HostId = entry.HostId,
-                        EventStatus = (int)AvailabilityEnum.NotAvailable,
+                        EventStatus = entry.AvailabilityType,
                         DateCreated = DateTime.UtcNow,
+                        Host = entry.Host
                     };
                     availabilityEvents.Add(newEvent);
                 }
@@ -82,13 +83,13 @@ namespace RSService.BusinessLogic
                 {
                     Event newEvent = new Event()
                     {
-                        Id= -fakeId++,
+                        Id = -fakeId++,
                         StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
                         EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
                         EventType = 1,
                         RoomId = entry.RoomId,
                         HostId = entry.HostId,
-                        EventStatus = (int)AvailabilityEnum.NotAvailable,
+                        EventStatus = entry.AvailabilityType,
                         DateCreated = DateTime.UtcNow,
                         Host = entry.Host
                     };
