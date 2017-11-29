@@ -28,7 +28,7 @@ export class UserService {
             email: user.email,
             password: user.password,
             departmentId: user.departmentId,
-            roleId: user.roleId
+            userRoles: user.userRoles
         });
 
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');

@@ -1,5 +1,5 @@
 import {Room} from './room.model';
-import {RoleIdEnum} from './roleIdEnum.model';
+import {RoleEnum} from './role.model';
 
 export class User {
     id?: number;
@@ -7,20 +7,22 @@ export class User {
     firstName?: string;
     lastName?: string;
     password: string;
-    confirmPassword: string; // @TODO remove this since is NOT part of the User model and only used in registration
     email: string;
     penalty?: number [];
     departmentId?: number;
-    roleId?: number;
-    userRole?: number [];
+    userRoles?: RoleEnum[];
+
+    hasPenalties(): boolean {
+        return this.penalty && this.penalty.length > 0;
+    }
 
     hasPenaltiesForRoom(mixedRoom: Room|number): boolean {
         const roomId = mixedRoom instanceof Room ? mixedRoom.id : mixedRoom;
 
-        return this.penalty && this.penalty.length > 0 && this.penalty.indexOf(roomId) !== -1;
+        return this.hasPenalties() && this.penalty.indexOf(roomId) !== -1;
     }
 
-    hasRole(roleId: RoleIdEnum): boolean {
-        return this.userRole && this.userRole.length && this.userRole.indexOf(roleId) !== -1;
+    hasRole(role: RoleEnum): boolean {
+        return this.userRoles && this.userRoles.length && this.userRoles.indexOf(role) !== -1;
     }
 }

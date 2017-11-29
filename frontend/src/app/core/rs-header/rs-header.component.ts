@@ -1,7 +1,9 @@
-import {HostListener, Component, Output, EventEmitter} from '@angular/core';
+import {Component} from '@angular/core';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {Router} from '@angular/router';
+import {RoomService} from '../../rooms/shared/room.service';
+import {Room} from '../../shared/models/room.model';
 
 @Component({
     selector: 'rs-header',
@@ -10,15 +12,17 @@ import {Router} from '@angular/router';
 
 export class RSHeader {
     currentUser: User = undefined;
-   
-     
+    userIsPenalizedInRoom: boolean = false;
 
     languages = [
         {'name': 'English', 'code': 'en', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/United-Kingdom_flat.png' },
         {'name': 'Română', 'code': 'ro', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/Romania_flat.png'}
     ];
 
-    constructor(private authService: AuthService, private router: Router) {
+    constructor(private authService: AuthService, private router: Router, private roomService: RoomService) {
+        roomService.selectedRoomChanged$.subscribe((room: Room) => {
+            this.userIsPenalizedInRoom = this.currentUser && this.currentUser.hasPenaltiesForRoom(room);
+        });
     }
 
     get isLoggedIn(): boolean {
@@ -29,28 +33,9 @@ export class RSHeader {
     logout() {
         this.authService.logout();
         location.reload(true);
-        // this.router.navigate(['/login']);
     }
    
     redirectToLogin() {
         this.router.navigate(['/login']);
     }
-
-    get UserIsPenalised(){
-    let UserPenalised: boolean;
-        if (this.authService.isLoggedIn()){
-            if(this.authService.getLoggedUser().penalty.length>0){
-                 return UserPenalised=true;
-            }
-
-            else return UserPenalised=false;
-        }
-
-    }
-    // @Output() this.logout:EventEmitter<any> = new EventEmitter();
-    
-    /* @HostListener('onClick') onClick(){
-        ///We are emitting itchies!!
-            this.logout.emit('itch itch itch');
-          } */
 }
