@@ -75,8 +75,15 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             let readOnly = false;
             switch(event.eventType){
                 case EventTypeEnum.availability:
-                    eventType = event.host + " - " + this.translate.instant("calendar.eventType.availabilty");
-                    readOnly = true;
+                    if (event.eventStatus == 1) {
+                        eventType = this.translate.instant("calendar.eventType.availabilty");
+                        readOnly = true;
+                    }
+                    else {
+                        eventType = event.host;
+                        readOnly = false;
+                    }
+                    
                     break;
                 case EventTypeEnum.massage: 
                     eventType = this.translate.instant("calendar.eventType.massage");
@@ -380,8 +387,10 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         let event = this.events.find(e => e.id == data.appointment.id);
-        if (event.eventType == EventTypeEnum.availability ) {
-            data.style = '#E0E0E0'; //grey
+        if (event.eventType == EventTypeEnum.availability) {
+            if (event.eventStatus == 0) {
+                data.style = '#E0E0E0'; //grey
+            }
         }
         else {
             data.style = '#004e9e'; //blue
