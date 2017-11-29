@@ -50,7 +50,7 @@ namespace RSService.BusinessLogic
                         EventType = 1,
                         RoomId = entry.RoomId,
                         HostId = entry.HostId,
-                        EventStatus = (int)AvailabilityEnum.NotAvailable,
+                        EventStatus = entry.AvailabilityType,      //(int)AvailabilityEnum.NotAvailable,
                         DateCreated = DateTime.UtcNow,
                     };
                     availabilityEvents.Add(newEvent);
@@ -71,6 +71,7 @@ namespace RSService.BusinessLogic
 
             DateTime currentDay = startDate.Date;
 
+            int fakeId = 1;
             while (endDate.Date >= currentDay)
             {
                 var dayAvailabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek).ToList();
@@ -79,12 +80,13 @@ namespace RSService.BusinessLogic
                 {
                     Event newEvent = new Event()
                     {
+                        Id= -fakeId++,
                         StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
                         EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
                         EventType = 1,
                         RoomId = entry.RoomId,
                         HostId = entry.HostId,
-                        EventStatus = (int)AvailabilityEnum.NotAvailable,
+                        EventStatus = entry.AvailabilityType,      //(int)AvailabilityEnum.NotAvailable,
                         DateCreated = DateTime.UtcNow,
                         Host = entry.Host
                     };
@@ -171,12 +173,12 @@ namespace RSService.BusinessLogic
 
         public bool IsUniqueUserName(String username)
         {
-            return userRepository.GetUsers().Where(u => u.Name == username).Count() > 0;
+            return userRepository.GetUsers().Where(u => u.Name == username).Count() == 0;
         }
 
         public bool IsUniqueEmail(String email)
         {
-            return userRepository.GetUsers().Where(u => u.Email == email).Count() > 0;
+            return userRepository.GetUsers().Where(u => u.Email == email).Count() == 0;
         }
 
 

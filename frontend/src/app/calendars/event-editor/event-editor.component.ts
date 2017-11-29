@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService} from "@ngx-translate/core";
 import {ToastrService} from 'ngx-toastr';
-
 import {EventStatusEnum} from '../../shared/models/event.model';
 import {EventService} from '../shared/event.service';
 import {Event} from '../../shared/models/event.model';

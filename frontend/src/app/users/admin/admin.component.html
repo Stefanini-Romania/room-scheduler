@@ -2,6 +2,7 @@
         <ngb-tab >
         <ng-template ngbTabTitle><b>{{'AdminTabs.Users' | translate}}</b></ng-template>
           <ng-template ngbTabContent>
+            <div *ngFor="let user of users" >{{'user.name' | translate}}: {{user.name}}, {{'user.firstName' | translate}}: {{user.firstName}}, {{'user.lastName' | translate}}: {{user.lastName}}, {{'user.userRole' | translate}}: {{user.userRole}}</div>
           </ng-template>
         </ngb-tab>
         <ngb-tab>
