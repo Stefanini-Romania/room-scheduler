@@ -112,7 +112,8 @@
     "name": "Username",
     "firstName": "First name",
     "lastName": "Last name",
-    "userRole": "User role"
+    "userRole": "User role",
+    "edit": "Edit user"
   },
 
   "Auth": {

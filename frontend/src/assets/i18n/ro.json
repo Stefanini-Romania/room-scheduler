@@ -128,7 +128,8 @@
     "name": "Utilizator",
     "firstName": "Prenume",
     "lastName": "Nume",
-    "userRole": "Rolul de user"
+    "userRole": "Rolul de user",
+    "edit": "Editează"
   },
 
   "Auth": {
