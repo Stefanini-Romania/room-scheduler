@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RouterModule, Routes, Router} from '@angular/router';
-
+import {ToastrService} from 'ngx-toastr';
+import {TranslateService} from "@ngx-translate/core";
 
 import {environment} from './../../../environments/environment';
 
@@ -31,7 +32,7 @@ export class RegisterFormComponent {
         userRoles: [RoleEnum.attendee]
     };
     
-    public errorMessage: string = '';
+    public errorMessages: any = {};
     
     DepartmentIdEnum: DepartmentIdEnum[] = [];
     RoleIdEnum: RoleEnum[] = [];
@@ -40,7 +41,9 @@ export class RegisterFormComponent {
                 private router: Router, 
                 private http: HttpClient, 
                 private registerService:  RegisterService, 
-                public activeModal: NgbActiveModal) {
+                public activeModal: NgbActiveModal,
+                private toastr: ToastrService,
+                private translate: TranslateService,) {
     }
 
     register() {
@@ -51,6 +54,8 @@ export class RegisterFormComponent {
                                         this.model.password, 
                                         this.model.departmentId, 
                                         this.model.userRoles[1])
+            
+                                            
         .subscribe(
             () => {
                 this.activeModal.close();
@@ -58,9 +63,25 @@ export class RegisterFormComponent {
 
             },
             error => {
-                this.errorMessage = error.error.message;
+                this.errorMessages = {'generic': [error.error.message]};
+    
+                // build error message
+                for (let e of error.error.errors) {
+                    let field = 'generic';
+                    
+                    if (['FirstName', 'LastName', 'Name', 'Email', 'Password'].indexOf(e.field) >= 0) {
+                        field = e.field;
+                    }
+
+                    if (!this.errorMessages[field]) {
+                        this.errorMessages[field] = [];
+                    }
+    
+                    this.errorMessages[field].push(e.errorCode);
+                }
             });
-    }
+        }
+    
 }
     
 

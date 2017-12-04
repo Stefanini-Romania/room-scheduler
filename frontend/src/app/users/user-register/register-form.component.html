@@ -10,15 +10,33 @@
                             <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
                         </a>
                         
-    
+                        <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
+                            <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
+                        </ngb-alert>
                         <div class="row">
                             <div class="col"><input type="text" placeholder="{{ 'register.firstName' | translate }}" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required></div>
-                            <div class="col"><input type="text" placeholder="{{ 'register.lastName' | translate }}" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required></div>
+
+                            <div class="col"><input type="text" placeholder="{{ 'register.lastName' | translate }}" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required></div>               
                         </div>
+                        <!-- BACKEND VALIDATION -->
+                        <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['FirstName']" [dismissible]="false">
+                            <div *ngFor="let errorMessage of errorMessages['FirstName']">{{ errorMessage | translate }}</div>
+                        </ngb-alert>
+                        <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['LastName']" [dismissible]="false">
+                            <div *ngFor="let errorMessage of errorMessages['LastName']">{{ errorMessage | translate }}</div>
+                        </ngb-alert>
+                        <!-- <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['FirstName']" [dismissible]="false">
+                            <div *ngFor="let errorMessage of errorMessages['FirstName']">{{ errorMessage | translate }}</div>
+                        </ngb-alert> -->
     
                         <!-- <ngb-alert type="danger" [dismissible]="false">{{ 'mismatch.password' | translate }}</ngb-alert> -->
                         <input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="model.name" #name="ngModel" required>
+                        <!-- FRONTEND VALIDATION -->
                         <ngb-alert type="danger" [dismissible]="false" *ngIf="!name.valid && name.dirty && submitted">{{ 'wrong.name' | translate }}</ngb-alert>
+                        <!-- BACKEND VALIDATION -->
+                        <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Name']" [dismissible]="false">
+                            <div *ngFor="let errorMessage of errorMessages['Name']">{{ errorMessage | translate }}</div>
+                        </ngb-alert>
                         
                         <!-- <div class="row">
                             <div class="col"><input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="model.name" #name="ngModel" required></div>
@@ -28,9 +46,12 @@
                             <div class="col">
                                 <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required email>
                                 <!-- to do display invalid email validation -->
-                                <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>
+                                <!-- FRONTENDVALIDATION -->
+                                <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>                            
                             </div>
                         </div>
+                        
+                        
     
                         <!-- <input type="password" placeholder="{{ 'register.password' | translate }}" name="password" [(ngModel)]="model.password" #password="ngModel" required validateEqual="confirmPassword" minlength="6" reverse="true" >
                                     
@@ -49,6 +70,9 @@
                         <div class="row" *ngIf="!confirmPassword.valid && confirmPassword.dirty">
                             <div class="col"><ngb-alert type="danger" *ngIf="!confirmPassword.valid && confirmPassword.dirty" [dismissible]="false">{{ 'mismatch.password' | translate }}</ngb-alert></div>
                         </div>
+                        <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Password']" [dismissible]="false">
+                            <div *ngFor="let errorMessage of errorMessages['Password']">{{ errorMessage | translate }}</div>
+                        </ngb-alert>
     
     
     
