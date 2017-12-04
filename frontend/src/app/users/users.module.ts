@@ -26,7 +26,7 @@ const routes: Routes = [
     providers: [UserService],
     declarations: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent, AdminComponent],
     exports: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent, AdminComponent],
-    entryComponents: [LoginFormComponent]
+    entryComponents: [LoginFormComponent, RegisterFormComponent]
 })
 
 export class UsersModule {

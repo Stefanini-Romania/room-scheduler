@@ -26,7 +26,7 @@
       "password": "Parola",
       "email": "Email",
       "confirmPassword": "Confirmă parola",
-      "button": "Creează cont",
+      "button": "Creați-vă cont",
 
       "noAccount?": "Nu aveți un cont ?"
   },
@@ -46,6 +46,8 @@
 
   "cancel.login.button": "Anulare",
 
+  "rooms.edit": "Editare cameră",
+  "location": "Locație",
   "event": {
       "filter.location": "Filtrează după locație...",
       "filter.no-results": "Nu există rezultate",
@@ -128,7 +130,8 @@
     "name": "Utilizator",
     "firstName": "Prenume",
     "lastName": "Nume",
-    "userRole": "Rolul de user"
+    "userRole": "Rolul de user",
+    "edit": "Editează"
   },
 
   "Auth": {
@@ -140,20 +143,26 @@
       "login": "Trebuie să fiți autentificat pentru a putea crea programari !",
       "Event.Authentication": "Utilizator sau parolă invalide",
       "Event.Creation": "Evenimentul nu a putut fi creat",
-      "Event.Edit": "Evenimentul nu a putut fi modificat"
+      "Event.Edit": "Evenimentul nu a putut fi modificat",
+      "User.Creation": "Eroare creare cont"
   },
 
-  "Error.User.Creation": "Eroare creeare cont",
-  "User.Name": {
-    "IsNotUnique": "Acest nume este deja folosit",
-    "IsEmpty": "Alegeți un nume de utilizator"
+  
+  "User": {
+      "YouArePenalised" : "Utilizator penalizat! Nu aveți permisiunea de a crea evenimente.",
+      "Title": "Utilizator penalizat",
+      "FirstName.IsEmpty": "Inserați prenumele dumneavoastră",
+      "LastName.IsEmpty": "Inserați numele dumneavoastră",
+
+    "Name": {
+      "IsNotUnique": "Acest nume este deja folosit",
+      "IsEmpty": "Alegeți un nume de utilizator",
+      "Created": "Contul a fost creat"
     },
-  "User.Password.IsNotUnique": "Parola nu este unică",
-  "User.FirstName.IsEmpty": "Inserați prenumele dumneavoastră",
-  "User.LastName.IsEmpty": "Inserați numele dumneavoastră",
-  "User.Password": {
-    "IsEmpty": "Alegeți o parolă",
-    "IsTooShort": "Parola este prea scurtă (minim 6 caractere)"
+    "Password": {
+      "IsEmpty": "Alegeți o parolă",
+      "IsTooShort": "Parola este prea scurtă (minim 6 caractere)"
+    }
   }, 
 
   "Event": {
@@ -186,12 +195,12 @@
 
   "AdminTabs":{
     "Users": "Utilizatori",
-    "Hosts": "Host"
-},
-
-"User":{ 
-    "YouArePenalised" : "Utilizator penalizat! Nu aveți permisiunea de a crea evenimente.",
-    "Title": "Utilizator penalizat"
+    "Hosts": "Host",
+    "Rooms": "Camere"
+    }
 }
 
-}
+
+    
+
+

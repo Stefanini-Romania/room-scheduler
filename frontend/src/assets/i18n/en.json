@@ -46,6 +46,8 @@
 
   "cancel.login.button": "Cancel",
 
+  "rooms.edit": "Edit room",
+  "location": "Location",
   "event": {
       "filter.location": "Filter by location...",
       "filter.no-results": "No results",
@@ -112,7 +114,8 @@
     "name": "Username",
     "firstName": "First name",
     "lastName": "Last name",
-    "userRole": "User role"
+    "userRole": "User role",
+    "edit": "Edit user"
   },
 
   "Auth": {
@@ -124,21 +127,27 @@
       "login": "You need to login if you want to make an appointment !",
       "Event.Authentication": "Invalid username or password",
       "Event.Creation": "Unable to create event",
-      "Event.Edit": "Unable to edit event"
+      "Event.Edit": "Unable to edit event",
+      "User.Creation": "Error creating account"
   },
 
-  "Error.User.Creation": "Error creating account",
-  "User.Name": {
-      "IsNotUnique": "This name is already used",
-      "IsEmpty": "Please insert a username"
+  "User": {
+      "YouArePenalised" : "Penalised user! You are not allowed to create any appointments.",
+      "Title": "Penalised user",
+      "FirstName.IsEmpty": "Please insert your firstname",
+      "LastName.IsEmpty": "Please insert your lastname",
+
+    "Name": {
+        "IsNotUnique": "This name is already used",
+        "IsEmpty": "Please insert a username",
+        "Created": "Account created"
+    },
+    "Password": {
+        "IsEmpty": "Please insert a password",
+        "IsTooShort": "Password is too short (must be at least 6 characters)"
+    }
   },
-  "User.Password.IsNotUnique": "Password not unique",
-  "User.FirstName.IsEmpty": "Please insert your firstname",
-  "User.LastName.IsEmpty": "Please insert your lastname",
-  "User.Password": {
-      "IsEmpty": "Please insert a password",
-      "IsTooShort": "Password is too short (must be at least 6 characters)"
-    },    
+    
 
   "Event": {
       "AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
@@ -170,14 +179,7 @@
 
     "AdminTabs":{
         "Users": "Users",
-        "Hosts": "Hosts"
-    },
-
-    "User":{ 
-        "YouArePenalised" : "Penalised user! You are not allowed to create any appointments.",
-        "Title": "Penalised user"
+        "Hosts": "Hosts",
+        "Rooms": "Rooms"
     }
-
-   
-
 }
