@@ -19,12 +19,12 @@ namespace RSService.Controllers
             this.roomRepository = roomRepository;
         }
 
+
         [HttpGet("/room/list")]
         public IActionResult GetRooms()
         {
             var rooms = roomRepository.GetRooms();
-            if (rooms == null)
-                return NotFound();
+            if (rooms == null) return NotFound();
 
             List<RoomDTO> roomList = new List<RoomDTO>();
 

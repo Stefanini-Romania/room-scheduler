@@ -158,13 +158,6 @@ namespace RSService.Controllers
             }
         }
 
-        [HttpGet("/room/list")]
-        public IActionResult GetRooms()
-        {
-            var results = roomRepository.GetRooms();
-            if (results == null) return NotFound();
-
-            return Ok(results);
-        }
+       
     }
 }
