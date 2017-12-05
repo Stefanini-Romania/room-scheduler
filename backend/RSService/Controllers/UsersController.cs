@@ -27,9 +27,12 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/users/list")]
-        public IActionResult GetUsers()
+        public IActionResult GetUsers(int limit, int page)
         {
-            var results = userRepository.GetUsers();
+            if (limit == 0) limit = 10;
+            if (page == 0) page = 1;
+
+            var results = userRepository.GetUsers(limit, page);
             if (results == null)
                 return NotFound();
             

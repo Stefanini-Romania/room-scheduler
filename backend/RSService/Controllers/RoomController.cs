@@ -65,5 +65,44 @@ namespace RSService.Controllers
             return Ok(model);
         }
 
+        //[HttpPut("/room/edit/{id}")]
+        //public IActionResult UpdateRoom(int id, [FromBody] RoomDTO model)
+        //{
+        //    var userName = HttpContext.User.Identity.Name;
+        //    var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        var _model = Mapper.Map<Event>(model);
+
+        //        var _event = eventRepository.GetEvents().FirstOrDefault(c => c.Id == id);
+        //        if (_event == null)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        _event.Notes = _model.Notes;
+        //        _event.EventStatus = _model.EventStatus;
+        //        _event.DateCreated = DateTime.UtcNow;
+
+        //        Context.SaveChanges();
+
+        //        if (_event.EventStatus == (int)EventStatusEnum.absent)
+        //            rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
+
+        //        return Ok(new
+        //        {
+        //            Id = _event.Id,
+        //            StartDate = _event.StartDate,
+        //            EndDate = _event.EndDate
+        //        });
+        //    }
+        //    else
+        //    {
+        //        return ValidationError(GeneralMessages.Event);
+        //    }
+        //}
+
+
     }
 }

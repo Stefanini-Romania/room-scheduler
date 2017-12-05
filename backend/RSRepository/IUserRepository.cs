@@ -9,6 +9,7 @@ namespace RSRepository
     {
         List<User> GetUsers2();
         List<User> GetUsers();
+        List<User> GetUsers(int limit, int page);
         User FindUserByCredential(string username, string password);
         User GetUserById(long id);
         void AddUser(User user);
