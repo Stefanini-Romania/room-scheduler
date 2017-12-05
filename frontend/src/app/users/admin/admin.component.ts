@@ -47,7 +47,7 @@ export class AdminComponent implements AfterViewInit{
 
     onSelectUser(user: User) {
         this.selectedUser = user;
-        // const modalRef:NgbModalRef = this.modalService.open(RegisterFormComponent);
+        const modalRef:NgbModalRef = this.modalService.open(RegisterFormComponent);
         
     }
 

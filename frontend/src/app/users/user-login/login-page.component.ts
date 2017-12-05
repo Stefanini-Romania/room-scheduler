@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'login-component',
     template: `
-        <login-form></login-form>
+        <login-form (successfullLogin)="onSuccessfullLogin()"></login-form>
         <rs-footer></rs-footer>
     `,
     styleUrls: [],
@@ -12,6 +13,11 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class LoginPageComponent {
+    constructor(private router: Router) {
+    }
     
+    onSuccessfullLogin() {
+        this.router.navigate(['/calendar']);
+    }
 }
 //removed <login-form></login-form>

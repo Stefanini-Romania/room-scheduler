@@ -103,6 +103,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 if ((new Date(event.startDate) <= new Date())&&(this.authService.getLoggedUser().departmentId != null)){
                     readOnly = true;
                 }
+               
 
 
             }
@@ -380,6 +381,9 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     redirectToLogin() {
         if (!(this.authService.isLoggedIn())) {
             const modalRef:NgbModalRef = this.modalService.open(LoginFormComponent);
+            modalRef.componentInstance.successfullLogin.subscribe(() => {
+                modalRef.close();
+            });
             modalRef.result.then(() => {
                 this.renderCalendar();
             })

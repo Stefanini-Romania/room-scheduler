@@ -7,7 +7,7 @@ import {Room} from '../../shared/models/room.model';
 
 @Component({
     selector: 'rs-header',
-    templateUrl: './rs-header.component.html'
+    templateUrl: './rs-header.component.html',
 })
 
 export class RSHeader {
@@ -27,6 +27,7 @@ export class RSHeader {
 
         // observe authentication status
         authService.user$.subscribe((user: User) => {
+            console.log('GHERE');
             this.currentUser = user;
         });
     }
