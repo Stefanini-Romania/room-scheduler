@@ -35,14 +35,5 @@ export class RegisterService {
             return response;
         });
 
-        /*this.userService.create(this.model)
-            .subscribe(
-                () => {
-                    this.router.navigate(['/calendar']);
-                },
-                error => {
-                    this.errorMessage = error.error.message;
-                });*/
-
     }
 }

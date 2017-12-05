@@ -42,6 +42,7 @@
           <ng-template ngbTabTitle><b>{{'AdminTabs.Rooms' | translate}}</b></ng-template>
           <ng-template ngbTabContent>
               <br>
+              <button class = "btn btn-primary float-right" (click)="onAddRoom()">{{'rooms.add' | translate}}</button><br><br>
               <table class="table table-hover table-striped table-responsive table table-bordered">
                 <thead>
                     <tr>
@@ -56,12 +57,11 @@
                     <td>{{room.name}}</td>
                     <td>{{room.location}}</td>
                     <td> 
-                      <button class = "btn btn-primary" (click)="onSelectRoom()">{{'rooms.edit' | translate}}</button>
+                      <button class = "btn btn-primary">{{'rooms.edit' | translate}}</button>
                     </td>
                   </tr>
                 </tbody>
-
-              </table>
+              </table>        
           </ng-template>
         </ngb-tab>
 </ngb-tabset>

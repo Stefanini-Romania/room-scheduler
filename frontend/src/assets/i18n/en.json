@@ -46,7 +46,14 @@
 
   "cancel.login.button": "Cancel",
 
-  "rooms.edit": "Edit room",
+  "rooms": {
+      "edit": "Edit room",
+      "add": "Add room",
+      "name": "Room's name",
+      "location": "Room's location",
+      "created": "The room has been created"
+  },
+  "roomAdd": "Add room",
   "location": "Location",
   "event": {
       "filter.location": "Filter by location...",
