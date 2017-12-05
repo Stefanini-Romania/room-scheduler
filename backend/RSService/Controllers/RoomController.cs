@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
 using RSService.DTO;
@@ -14,9 +15,9 @@ namespace RSService.Controllers
     {
         private IRoomRepository roomRepository;
 
-        public RoomController(IRoomRepository roomRepository)
+        public RoomController()
         {
-            this.roomRepository = roomRepository;
+            this.roomRepository = new RoomRepository(Context);
         }
 
 
@@ -65,43 +66,42 @@ namespace RSService.Controllers
             return Ok(model);
         }
 
-        //[HttpPut("/room/edit/{id}")]
-        //public IActionResult UpdateRoom(int id, [FromBody] RoomDTO model)
-        //{
-        //    var userName = HttpContext.User.Identity.Name;
-        //    var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;
+        [HttpPut("/room/edit/{id}")]
+        public IActionResult UpdateRoom(int id, [FromBody] RoomDTO roomDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return ValidationError(GeneralMessages.Room);
+            }
+            else
+            {
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        var _model = Mapper.Map<Event>(model);
+                var room = roomRepository.GetRooms().FirstOrDefault(r => r.Id == id);
+                if (room == null)
+                {
+                    return NotFound();
+                }
 
-        //        var _event = eventRepository.GetEvents().FirstOrDefault(c => c.Id == id);
-        //        if (_event == null)
-        //        {
-        //            return NotFound();
-        //        }
+                room.Name = roomDto.Name;
+                room.Location = roomDto.Location;
 
-        //        _event.Notes = _model.Notes;
-        //        _event.EventStatus = _model.EventStatus;
-        //        _event.DateCreated = DateTime.UtcNow;
+                Context.SaveChanges();
 
-        //        Context.SaveChanges();
+                return Ok(roomDto);
+            }
+        }
 
-        //        if (_event.EventStatus == (int)EventStatusEnum.absent)
-        //            rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
-
-        //        return Ok(new
-        //        {
-        //            Id = _event.Id,
-        //            StartDate = _event.StartDate,
-        //            EndDate = _event.EndDate
-        //        });
-        //    }
-        //    else
-        //    {
-        //        return ValidationError(GeneralMessages.Event);
-        //    }
-        //}
+        [HttpDelete("/room/delete/{id}")]
+        public IActionResult DeleteRoom(int id)
+        {
+            var room = roomRepository.GetRoomById(id);
+            if (room == null)
+            {
+                return NotFound();
+            }
+            roomRepository.DeleteRoom(room);
+            return Ok();
+        }
 
 
     }
