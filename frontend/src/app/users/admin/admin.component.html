@@ -31,12 +31,14 @@
               </table>
           </ng-template>
         </ngb-tab>
+
         <ngb-tab>
           <ng-template ngbTabTitle><b>{{'AdminTabs.Hosts' | translate}}</b></ng-template>
           <ng-template ngbTabContent>
           </ng-template>
         </ngb-tab>
-        <!-- <ngb-tab>
+
+        <ngb-tab>
           <ng-template ngbTabTitle><b>{{'AdminTabs.Rooms' | translate}}</b></ng-template>
           <ng-template ngbTabContent>
               <br>
@@ -52,7 +54,14 @@
                 <tbody>
                   <tr *ngFor="let room of rooms">
                     <td>{{room.name}}</td>
+                    <td>{{room.location}}</td>
+                    <td> 
+                      <button class = "btn btn-primary" (click)="onSelectRoom()">{{'rooms.edit' | translate}}</button>
+                    </td>
+                  </tr>
+                </tbody>
 
+              </table>
           </ng-template>
-        </ngb-tab> -->
+        </ngb-tab>
 </ngb-tabset>

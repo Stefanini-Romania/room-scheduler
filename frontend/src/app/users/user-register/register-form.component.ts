@@ -58,9 +58,11 @@ export class RegisterFormComponent {
                                             
         .subscribe(
             () => {
-                this.activeModal.close();
-               
-
+                this.toastr.success(
+                    this.translate.instant('User.Name.Created'), '',
+                    {positionClass: 'toast-bottom-right'}
+                ); 
+                this.router.navigate(['/login']);
             },
             error => {
                 this.errorMessages = {'generic': [error.error.message]};
