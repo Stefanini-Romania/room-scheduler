@@ -32,6 +32,8 @@ namespace RSService.BusinessLogic
 
         List<int> getRolesByUserID(int userId);
 
+        bool IsValidRole(List<int> userRole);
+
 
     }
 }

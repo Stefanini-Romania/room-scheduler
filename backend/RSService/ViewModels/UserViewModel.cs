@@ -1,11 +1,15 @@
-﻿using System;
+﻿using FluentValidation.Attributes;
+using Microsoft.AspNetCore.Identity;
+using RSService.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace RSService.ViewModels
 {
-    public class UserModel
+    //[Validator(typeof(UserValidator))]
+    public class UserViewModel
     {
         public string Email { get; set; }
         public string Name { get; set; }
@@ -13,7 +17,7 @@ namespace RSService.ViewModels
         public string LastName { get; set; }
         public string Password { get; set; }
         public int? DepartmentId { get; set; }
-        public int RoleId { get; set; }
- 
+        public List<int> UserRole { get; set; }
+
     }
 }

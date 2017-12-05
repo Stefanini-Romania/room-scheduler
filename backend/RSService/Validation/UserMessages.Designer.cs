@@ -61,6 +61,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User.Email.IsEmpty.
+        /// </summary>
+        internal static string EmptyEmail {
+            get {
+                return ResourceManager.GetString("EmptyEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User.FirstName.IsEmpty.
         /// </summary>
         internal static string EmptyFirstName {
@@ -111,6 +120,15 @@ namespace RSService.Validation {
         internal static string UniqueUsername {
             get {
                 return ResourceManager.GetString("UniqueUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.UserRole.NotFound.
+        /// </summary>
+        internal static string UserRoleNotFound {
+            get {
+                return ResourceManager.GetString("UserRoleNotFound", resourceCulture);
             }
         }
         

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EmptyEmail" xml:space="preserve">
+    <value>User.Email.IsEmpty</value>
+  </data>
   <data name="EmptyFirstName" xml:space="preserve">
     <value>User.FirstName.IsEmpty</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="UniqueUsername" xml:space="preserve">
     <value>User.Name.IsNotUnique</value>
+  </data>
+  <data name="UserRoleNotFound" xml:space="preserve">
+    <value>User.UserRole.NotFound</value>
   </data>
   <data name="WeakPassword" xml:space="preserve">
     <value>User.Password.IsTooShort</value>

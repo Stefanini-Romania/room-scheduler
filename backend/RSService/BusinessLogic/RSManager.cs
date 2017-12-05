@@ -17,8 +17,9 @@ namespace RSService.BusinessLogic
         private IUserRoleRepository userRoleRepository;
         private IUserRepository userRepository;
         private IDbOperation dbOperation;
+        private IRoleRepository roleRepository;
 
-        public RSManager(IAvailabiltyRepository availabiltyRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository)
+        public RSManager(IAvailabiltyRepository availabiltyRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository, IRoleRepository roleRepository)
         {
             this.availabilityRepository = availabiltyRepository;
             this.eventRepository = eventRepository;
@@ -26,6 +27,7 @@ namespace RSService.BusinessLogic
             this.userRoleRepository = userRoleRepository;
             this.dbOperation = dbOperation;
             this.userRepository = userRepository;
+            this.roleRepository = roleRepository;
         }
 
 
@@ -264,6 +266,20 @@ namespace RSService.BusinessLogic
                 result.Add(it.RoleId);
             }
             return result;
+        }
+
+        public bool IsValidRole(List<int> userRole)
+        {
+            foreach (var roleId in userRole)
+            {
+                var role = roleRepository.GetRoleById(roleId);
+
+                if (role == null)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
     }

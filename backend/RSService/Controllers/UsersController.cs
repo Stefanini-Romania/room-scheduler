@@ -55,77 +55,96 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/users/add")]
-        public IActionResult AddUser([FromBody]UserModel model)
+        public IActionResult AddUser([FromBody]UserViewModel newUser)
         {
             if (!ModelState.IsValid)
             {
                 return ValidationError(GeneralMessages.User);
             }
 
-            if (model.Name == null || model.Password == null)
-            {
-                return BadRequest();
-            }
             var sha1 = System.Security.Cryptography.SHA1.Create();
 
-            var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
-            model.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
+            var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(newUser.Password));
+            newUser.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
            
-            User newUser = new RSData.Models.User()
+            User user = new User()
             {
-                Name = model.Name,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Password = model.Password,
-                Email = model.Email,
-                DepartmentId = model.DepartmentId                
+                Name = newUser.Name,
+                FirstName = newUser.FirstName,
+                LastName = newUser.LastName,
+                Password = newUser.Password,
+                Email = newUser.Email,
+                DepartmentId = newUser.DepartmentId                
             };
-         
-            userRepository.AddUser(newUser);
+
+            userRepository.AddUser(user);
    
-            userRoleRepository.AddUserRole(new UserRole()
+            foreach(var roleId in newUser.UserRole)
             {
-                User = newUser,
-                UserId = newUser.Id,
-                RoleId = model.RoleId,
-                Role = roleRepository.GetRoleById(model.RoleId)
-            });
-           
+                userRoleRepository.AddUserRole(new UserRole()
+                {
+                    UserId = user.Id,
+                    RoleId = roleId
+                });
+            }
+
             Context.SaveChanges();
-            return Ok(model);
+
+            var addedUser = new UserDTO()
+            {
+                Name = user.Name,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
+                DepartmentId = user.DepartmentId
+            };
+            return Ok(addedUser);
         }
 
         [HttpPost("/users/edit/{id}")]
-        public IActionResult EditUser(int id, [FromBody]User model)
+        public IActionResult EditUser(int id, [FromBody]UserViewModel userView)
         {
-            var user = userRepository.GetUsers().FirstOrDefault(c => c.Id == id);
+            if (!ModelState.IsValid)
+            {
+                return ValidationError(GeneralMessages.User);
+            }
+
+            var user = userRepository.GetUserById(id);
             if (user == null)
             {
-                return BadRequest("No such user");
+                return NotFound();
             }
-            if (model.Name != null)
-                user.Name = model.Name;
-            if (model.Password != null)
+
+            user.Name = userView.Name;
+            user.Email = userView.Email;
+            user.DepartmentId = userView.DepartmentId;
+
+            var sha1 = System.Security.Cryptography.SHA1.Create();
+            var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(userView.Password));
+            user.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
+
+            Context.SaveChanges();
+
+            var updatedUser = new UserDTO()
             {
-                var sha1 = System.Security.Cryptography.SHA1.Create();
-                var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
-                user.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
-            }
-            if (model.Email != null)
-                user.Email = model.Email;
-            if (model.DepartmentId != null)
-                user.DepartmentId = model.DepartmentId;
-            userRepository.UpdateUser(user);
-            return Ok(user);
+                Name = user.Name,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
+                DepartmentId = user.DepartmentId
+            };
+            return Ok(updatedUser);
         }
 
-        [HttpPost("/users/delete/{id}")]
+        [HttpDelete("/users/delete/{id}")]
         public IActionResult DeleteUser(int id)
         {
             var user = userRepository.GetUserById(id);
             if (user == null)
             {
-                return BadRequest("No such user");
+                return NotFound();
             }
             userRepository.DeleteUser(user);
             return Ok();
