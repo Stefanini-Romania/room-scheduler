@@ -58,7 +58,11 @@ export class RegisterFormComponent {
                                             
         .subscribe(
             () => {
-
+                this.toastr.success(
+                    this.translate.instant('User.Name.Created'), '',
+                    {positionClass: 'toast-bottom-right'}
+                ); 
+                this.router.navigate(['/login']);
             },
             error => {
                 this.errorMessages = {'generic': [error.error.message]};
@@ -79,14 +83,6 @@ export class RegisterFormComponent {
                 }
             });
         }
-
-        // onSubmit(form) { 
-        //     this.toastr.success(
-        //         this.translate.instant('User.Name.Created'), '',
-        //         {positionClass: 'toast-bottom-right'}
-        //     ); 
-        //     this.router.navigate(['/login']);
-        // }
     
 }
     
