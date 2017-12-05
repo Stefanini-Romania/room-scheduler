@@ -46,7 +46,15 @@
 
   "cancel.login.button": "Anulare",
 
-  "rooms.edit": "Editare cameră",
+  "rooms": {
+      "edit": "Editare cameră",
+      "add": "Adaugă cameră",
+      "name": "Numele camerei",
+      "location": "Locația camerei",
+      "created": "Camera a fost adăugată"
+  },
+
+  "roomAdd": "Adăugare cameră",
   "location": "Locație",
   "event": {
       "filter.location": "Filtrează după locație...",

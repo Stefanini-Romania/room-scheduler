@@ -20,4 +20,4 @@ export class LoginPageComponent {
         this.router.navigate(['/calendar']);
     }
 }
-//removed <login-form></login-form>
+

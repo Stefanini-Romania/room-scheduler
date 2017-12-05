@@ -7,6 +7,7 @@ import {Room} from './../../shared/models/room.model';
 import {UserService} from '../../users/shared/users.service';
 import {User} from '../../shared/models/user.model';
 import {RegisterFormComponent} from '../user-register/register-form.component';
+import {RoomEditorComponent} from './../../rooms/room-editor/room-editor.component';
 
 @Component({
     selector: 'admin-component',
@@ -51,9 +52,12 @@ export class AdminComponent implements AfterViewInit{
         
     }
 
-    onSelectRoom(room :Room) {
-        this.selectRoom = room;
+    // onSelectRoom(room :Room) {
+    //     this.selectRoom = room;
         
-    }
+    // }
 
+    onAddRoom() {
+        const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);
+    }
 }

@@ -43,7 +43,7 @@ export class RegisterFormComponent {
                 private registerService:  RegisterService, 
                 public activeModal: NgbActiveModal,
                 private toastr: ToastrService,
-                private translate: TranslateService,) {
+                private translate: TranslateService) {
     }
 
     register() {
