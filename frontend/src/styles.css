@@ -272,7 +272,7 @@ footer a {
 }
 
 .admintabs {
-    position: absolute;
+    position: relative;
     top:130px;
     left:10%;
 }

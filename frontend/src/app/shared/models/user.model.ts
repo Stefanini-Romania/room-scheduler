@@ -11,6 +11,8 @@ export class User {
     penalty?: number [];
     departmentId?: number;
     userRoles?: RoleEnum[];
+    page?: number;
+    limit?: number;
 
     hasPenalties(): boolean {
         return this.penalty && this.penalty.length > 0;

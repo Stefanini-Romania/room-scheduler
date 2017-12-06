@@ -3,7 +3,9 @@
         <ng-template ngbTabTitle><b>{{'AdminTabs.Users' | translate}}</b></ng-template>
           <ng-template ngbTabContent>
           <br>
-            <table class="table table-hover table-striped table-responsive table table-bordered text-center">
+          <!-- <div class="container"> -->
+           <!-- <ngb-pagination [collectionSize]="120"  [(page)]="page"  [rotate]="true" [ellipses]="false" ></ngb-pagination> -->
+            <table class="table table-hover table-striped table-responsive table-bordered text-center">
               <thead>
                   <tr>
                     <th>{{'user.name' | translate}}</th>
@@ -29,6 +31,7 @@
               </tbody>
 
               </table>
+            <!-- </div> -->
           </ng-template>
         </ngb-tab>
 
@@ -41,6 +44,7 @@
         <ngb-tab>
           <ng-template ngbTabTitle><b>{{'AdminTabs.Rooms' | translate}}</b></ng-template>
           <ng-template ngbTabContent>
+            <div class="container">
               <br>
               <button class = "btn btn-primary float-right" (click)="onAddRoom()">{{'rooms.add' | translate}}</button><br><br>
               <table class="table table-hover table-striped table-responsive table table-bordered">
