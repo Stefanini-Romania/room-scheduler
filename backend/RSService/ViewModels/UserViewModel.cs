@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace RSService.ViewModels
 {
-    //[Validator(typeof(UserValidator))]
     public class UserViewModel
     {
         public string Email { get; set; }
