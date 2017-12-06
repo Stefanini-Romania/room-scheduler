@@ -1,71 +1,70 @@
 <ngb-tabset class="admintabs">
-        <ngb-tab >
-        <ng-template ngbTabTitle><b>{{'AdminTabs.Users' | translate}}</b></ng-template>
-          <ng-template ngbTabContent>
-          <br>
-          <!-- <div class="container"> -->
-           <!-- <ngb-pagination [collectionSize]="120"  [(page)]="page"  [rotate]="true" [ellipses]="false" ></ngb-pagination> -->
-            <table class="table table-hover table-striped table-responsive table-bordered text-center">
-              <thead>
-                  <tr>
-                    <th>{{'user.name' | translate}}</th>
-                    <th>{{'user.firstName' | translate}}</th>
-                    <th>{{'user.lastName' | translate}} </th>
-                    <th>{{'user.userRole' | translate}}</th>
-                    <th>{{'user.edit' | translate}}</th>
-                  </tr>
-              </thead>
+  <ngb-tab>
+  <ng-template ngbTabTitle><b>{{'AdminTabs.Users' | translate}}</b></ng-template>
+    <ng-template ngbTabContent>
+    <br>
+    <!-- <div class="container"> -->
+      <!-- <ngb-pagination [collectionSize]="120"  [(page)]="page"  [rotate]="true" [ellipses]="false" ></ngb-pagination> -->
+      <table class="table table-hover table-striped table-responsive table-bordered text-center">
+        <thead>
+            <tr>
+              <th>{{'user.name' | translate}}</th>
+              <th>{{'user.firstName' | translate}}</th>
+              <th>{{'user.lastName' | translate}} </th>
+              <th>{{'user.userRole' | translate}}</th>
+              <th>{{'user.edit' | translate}}</th>
+            </tr>
+        </thead>
 
-              <tbody>
-                <tr *ngFor="let user of users">
-                  <td>{{user.name}}</td>
-                  <td>{{user.firstName}}</td>
-                  <td>{{user.lastName}}</td>
-                  <td>{{user.userRole}}</td>
-                  <td>
-                    <button class = "btn btn-primary" (click)="onSelectUser()">{{'user.edit' | translate}}</button>
-                  </td>
-                </tr>
-           
-                <!-- <div *ngFor="let user of users" >{{'user.name' | translate}}: {{user.name}}, {{'user.firstName' | translate}}: {{user.firstName}}, {{'user.lastName' | translate}}: {{user.lastName}}, {{'user.userRole' | translate}}: {{user.userRole}}</div> -->
-              </tbody>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{user.name}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.userRole}}</td>
+            <td>
+              <button class = "btn btn-primary" (click)="onSelectUser()">{{'user.edit' | translate}}</button>
+            </td>
+          </tr>
+      
+          <!-- <div *ngFor="let user of users" >{{'user.name' | translate}}: {{user.name}}, {{'user.firstName' | translate}}: {{user.firstName}}, {{'user.lastName' | translate}}: {{user.lastName}}, {{'user.userRole' | translate}}: {{user.userRole}}</div> -->
+        </tbody>
 
-              </table>
-            <!-- </div> -->
-          </ng-template>
-        </ngb-tab>
+        </table>
+      <!-- </div> -->
+    </ng-template>
+  </ngb-tab>
 
-        <ngb-tab>
-          <ng-template ngbTabTitle><b>{{'AdminTabs.Hosts' | translate}}</b></ng-template>
-          <ng-template ngbTabContent>
-          </ng-template>
-        </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>{{'AdminTabs.Hosts' | translate}}</b></ng-template>
+    <ng-template ngbTabContent></ng-template>
+  </ngb-tab>
 
-        <ngb-tab>
-          <ng-template ngbTabTitle><b>{{'AdminTabs.Rooms' | translate}}</b></ng-template>
-          <ng-template ngbTabContent>
-            <!-- <div class="container"> -->
-              <br>
-              <button class = "btn btn-primary float-right" (click)="onAddRoom()">{{'rooms.add' | translate}}</button><br><br>
-              <table class="table table-hover table-striped table-responsive table table-bordered">
-                <thead>
-                    <tr>
-                      <th>{{'calendar.rooms' | translate}}</th>
-                      <th>{{'location' | translate}}</th>
-                      <th>{{'rooms.edit' | translate}}</th>
-                    </tr>
-                </thead>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>{{'AdminTabs.Rooms' | translate}}</b></ng-template>
+    <ng-template ngbTabContent>          
+      <br>
+      <button class = "btn btn-primary float-left" (click)="onAddRoom()">{{'rooms.add' | translate}}</button><br><br>
+      <table class="table table-hover table-striped table-responsive table table-bordered">
+        <thead>
+            <tr>
+              <th>{{'calendar.rooms' | translate}}</th>
+              <th>{{'location' | translate}}</th>
+              <th>{{'rooms.edit' | translate}}</th>
+            </tr>
+        </thead>
 
-                <tbody>
-                  <tr *ngFor="let room of rooms">
-                    <td>{{room.name}}</td>
-                    <td>{{room.location}}</td>
-                    <td> 
-                      <button class = "btn btn-primary">{{'rooms.edit' | translate}}</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>        
-          </ng-template>
-        </ngb-tab>
+        <tbody>
+          <tr *ngFor="let room of rooms">
+            <td>{{room.name}}</td>
+            <td>{{room.location}}</td>
+            <td> 
+              <button class = "btn btn-primary">{{'rooms.edit' | translate}}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>        
+    </ng-template>
+  </ngb-tab>
+  
 </ngb-tabset>
