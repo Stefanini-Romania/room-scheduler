@@ -1,19 +1,15 @@
 <div class="modal-header" >
-    <h6 class="modal-title">{{ roomAdd | translate }}</h6>
+    <h6 class="modal-title">{{ 'rooms.add' | translate }}</h6>
 </div>
 
 <div class="modal-body">
     <div class="container h-100">
         <div class="row justify-content-center align-self-center mx-auto">
             <form>
-                <div id="room-editor">  
-                    
-                    <input type="text" placeholder="{{ 'rooms.name' | translate }}" name="Name" [(ngModel)]="model.name" #Name="ngModel">
-
-                    
+                <div id="room-editor">                    
+                    <input type="text" placeholder="{{ 'rooms.name' | translate }}" name="Name" [(ngModel)]="model.name" #Name="ngModel">                  
                     <input type="text" placeholder="{{ 'rooms.location' | translate }}" name="Location" [(ngModel)]="model.location" #Location="ngModel">
-                    <br />
-                    
+                    <br />                   
                 </div>
             </form>
         </div>

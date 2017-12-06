@@ -34,8 +34,7 @@ export class RoomEditorComponent {
     }
 
     createRoom() {
-         return this.roomService.addRoom(this.model.name, this.model.location)
-        .subscribe(
+        this.roomService.addRoom(this.model.name, this.model.location).subscribe(
             () => {
                 this.toastr.success(
                     this.translate.instant('rooms.created'), '',
