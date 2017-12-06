@@ -13,5 +13,6 @@ namespace RSService.DTO
         public string Email { get; set; }
         public int? DepartmentId { get; set; }
         public List<int> UserRole { get; set; }
+        public int UserTotalNumber { get; set; }
     }
 }

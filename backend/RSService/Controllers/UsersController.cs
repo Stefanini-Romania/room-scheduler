@@ -35,6 +35,8 @@ namespace RSService.Controllers
             var results = userRepository.GetUsers(limit, page);
             if (results == null)
                 return NotFound();
+
+            var userCount = userRepository.GetUsers().Count();
             
             List<UserDTO> final_result = new List<UserDTO>();
 
@@ -47,7 +49,8 @@ namespace RSService.Controllers
                     LastName = it.LastName,
                     Email = it.Email,
                     UserRole = new List<int>(it.UserRole.Select(li => li.RoleId)),
-                    DepartmentId = it.DepartmentId
+                    DepartmentId = it.DepartmentId,
+                    UserTotalNumber = userCount
                 });
             }
 
