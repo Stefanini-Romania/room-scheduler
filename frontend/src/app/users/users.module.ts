@@ -1,5 +1,6 @@
 import {Register} from 'ts-node/dist';
 import {AdminComponent} from './admin/admin.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
@@ -21,7 +22,8 @@ const routes: Routes = [
     imports: [
         RouterModule.forRoot(routes),
         CoreModule,
-        SharedModule
+        SharedModule,
+        NgxPaginationModule
     ],
     providers: [UserService],
     declarations: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent, AdminComponent],

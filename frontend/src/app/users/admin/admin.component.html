@@ -16,24 +16,25 @@
             </tr>
         </thead>
 
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{user.name}}</td>
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.userRole}}</td>
-            <td>
-              <button class = "btn btn-primary" (click)="onSelectUser()">{{'user.edit' | translate}}</button>
-            </td>
-          </tr>
-      
-          <!-- <div *ngFor="let user of users" >{{'user.name' | translate}}: {{user.name}}, {{'user.firstName' | translate}}: {{user.firstName}}, {{'user.lastName' | translate}}: {{user.lastName}}, {{'user.userRole' | translate}}: {{user.userRole}}</div> -->
-        </tbody>
+              <tbody>
+                <tr *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: 1 }"  >
+                  <td>{{user.name}}</td>
+                  <td>{{user.firstName}}</td>
+                  <td>{{user.lastName}}</td>
+                  <td>{{user.userRole}}</td>
+                  <td>
+                    <button class = "btn btn-primary" (click)="onSelectUser()">{{'user.edit' | translate}}</button>
+                  </td>
+                </tr>
+           
+                <!-- <div *ngFor="let user of users" >{{'user.name' | translate}}: {{user.name}}, {{'user.firstName' | translate}}: {{user.firstName}}, {{'user.lastName' | translate}}: {{user.lastName}}, {{'user.userRole' | translate}}: {{user.userRole}}</div> -->
+              </tbody>
 
-        </table>
-      <!-- </div> -->
-    </ng-template>
-  </ngb-tab>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            <!-- </div> -->
+          </ng-template>
+        </ngb-tab>
 
   <ngb-tab>
     <ng-template ngbTabTitle><b>{{'AdminTabs.Hosts' | translate}}</b></ng-template>

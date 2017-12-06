@@ -13,7 +13,7 @@ export class UserService {
     }
 
     public listUsers(limit?: number, page?: number) {
-        limit = 10;
+        limit = 8;
         page = 1;
         const url = environment.apiUrl + '/users/list';
         let params = new HttpParams();

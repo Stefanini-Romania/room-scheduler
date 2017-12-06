@@ -29,6 +29,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jqwidgets-framework": "^5.4.0",
+    "ngx-pagination": "^3.0.3",
     "ngx-popper": "^1.2.0",
     "ngx-toastr": "^6.5.0",
     "popper.js": "^1.12.5",
