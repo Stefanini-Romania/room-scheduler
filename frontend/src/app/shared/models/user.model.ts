@@ -13,6 +13,7 @@ export class User {
     userRoles?: RoleEnum[];
     page?: number;
     limit?: number;
+    userTotalNumber?: number;
 
     hasPenalties(): boolean {
         return this.penalty && this.penalty.length > 0;

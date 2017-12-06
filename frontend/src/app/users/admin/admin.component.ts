@@ -1,4 +1,4 @@
-import {Component,Output, ElementRef, AfterViewInit} from '@angular/core';
+import {Component, EventEmitter, Output, ElementRef, AfterViewInit} from '@angular/core';
 import {NgbModal, NgbModalRef, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 
@@ -16,19 +16,32 @@ import {RoomEditorComponent} from './../../rooms/room-editor/room-editor.compone
     providers: [UserService, RoomService],
 })
 
+// @Input() id: string;
+// @Input() maxSize: number;
+
+
 export class AdminComponent implements AfterViewInit{
+
+    @Output() 
+    pageChange= new EventEmitter <number>();
 
     public users:User[];
     public selectedUser: User;
     public rooms: Room[];
-    public selectRoom: Room;
+    //public selectRoom: Room;
+    public user: User;
 
-      
+    public page : number;
+    public total: number;
+
+    
+         
 
     constructor(private userService:UserService, private roomService: RoomService, private modalService: NgbModal) {
-
+        
     }
 
+    
     ngAfterViewInit(): void {
         
         this.users= [];
@@ -39,7 +52,7 @@ export class AdminComponent implements AfterViewInit{
   
                 this.users.push(<User>user);
             }
-
+          
         });
 
         this.roomService.roomList().subscribe((rooms: any) => {
@@ -66,6 +79,10 @@ export class AdminComponent implements AfterViewInit{
 
     onAddRoom() {
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);
+        modalRef.componentInstance.successfullAdd.subscribe(() => {
+            modalRef.close();
+            
+        });
     }
 
     

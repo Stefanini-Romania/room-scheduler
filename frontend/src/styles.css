@@ -277,6 +277,19 @@ footer a {
     left:10%;
 }
 
+#pageButtons {
+    position: absolute;
+    z-index: 2;
+}
+
+#pageButtons a{
+    color: #fff;
+}
+
+#pageButtons a:hover, #pageButtons a:link{
+    color: #cad400;
+}
+
   /* .jqx-rc-all .jqx-scheduler-appointment {
     left: 567px;
     top: 161px;

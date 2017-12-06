@@ -13,7 +13,11 @@
   "button" : {
       "close": "Închide",
       "save": "Salvează",
-      "cancel": "Anulează"
+      "cancel": "Anulează",
+      "home": "Calendar",
+      "register": "Înregistrare",
+      "admin": "Administrator",
+      "signIn": "Autentificare"
   },
 
   "noAccount": "Nu aveți cont",
@@ -54,7 +58,8 @@
       "location": "Locația camerei",
       "created": "Camera a fost adăugată",
       "deleteRoom": "Șterge camera",
-      "delete": "Șterge"
+      "delete": "Șterge",
+      "deleted": "Camera a fost ștearsă"
   },
 
   "location": "Locație",
