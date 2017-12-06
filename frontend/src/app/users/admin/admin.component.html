@@ -2,6 +2,8 @@
   <ngb-tab>
   <ng-template ngbTabTitle><b>{{'AdminTabs.Users' | translate}}</b></ng-template>
     <ng-template ngbTabContent>
+      <br>
+      <button class="btn btn-primary float-left" (click)="onAddUser()">{{'user.add' | translate}}</button>
     <br>
     <!-- <div class="container"> -->
       <!-- <ngb-pagination [collectionSize]="120"  [(page)]="page"  [rotate]="true" [ellipses]="false" ></ngb-pagination> -->

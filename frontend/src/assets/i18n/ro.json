@@ -136,13 +136,14 @@
       }
   },
 
-  "user":{
+  "user": {
     "name": "Utilizator",
     "firstName": "Prenume",
     "lastName": "Nume",
     "userRole": "Rolul de user",
     "edit": "Editează",
-    "delete": "Șterge utilizatorul"
+    "delete": "Șterge utilizatorul",
+    "add": "Adaugă utilizator"
   },
 
   "Auth": {

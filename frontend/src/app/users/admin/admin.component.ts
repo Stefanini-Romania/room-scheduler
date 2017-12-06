@@ -36,6 +36,7 @@ export class AdminComponent implements AfterViewInit{
         
         this.userService.listUsers().subscribe((users: any) => {
             for (let user of users) {
+  
                 this.users.push(<User>user);
             }
 
@@ -50,6 +51,10 @@ export class AdminComponent implements AfterViewInit{
 
     }
 
+    onAddUser() {
+        const modalRef: NgbModalRef = this.modalService.open(RegisterFormComponent);
+    }
+
     onSelectUser(user: User) {
         this.selectedUser = user;
         const modalRef:NgbModalRef = this.modalService.open(RegisterFormComponent);       
@@ -62,4 +67,6 @@ export class AdminComponent implements AfterViewInit{
     onAddRoom() {
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);
     }
+
+    
 }
