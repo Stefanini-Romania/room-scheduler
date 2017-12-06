@@ -54,7 +54,8 @@
       "location": "Room's location",
       "created": "The room has been created",
       "deleteRoom": "Delete room",
-      "delete": "Delete"
+      "delete": "Delete",
+      "deleted": "The room has been deleted"
   },
 
   "location": "Location",

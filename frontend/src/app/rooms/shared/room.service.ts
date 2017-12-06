@@ -40,4 +40,40 @@ export class RoomService {
                 return response;
             });
     }
+
+    public deleteRoom(room: Room) {
+        const url = environment.apiUrl + '/room/delete' + room.id;
+        const body = JSON.stringify({
+        
+            name: name,
+            location: location        
+        });
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+
+        return this.http.post(url, body, {headers: headers, withCredentials: true})
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+            .map((response: Response) => {
+                return response;
+            });
+    }
+
+    public editRoom(room: Room) {
+        const url = environment.apiUrl + '/room/edit' + room.id;
+        const body = JSON.stringify({
+        
+            name: name,
+            location: location        
+        });
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+
+        return this.http.post(url, body, {headers: headers, withCredentials: true})
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+            .map((response: Response) => {
+                return response;
+            });
+    }
 } 

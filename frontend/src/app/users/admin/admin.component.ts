@@ -21,7 +21,7 @@ export class AdminComponent implements AfterViewInit{
     public users:User[];
     public selectedUser: User;
     public rooms: Room[];
-    public selectRoom: Room;
+    //public selectRoom: Room;
 
       
 
@@ -61,5 +61,9 @@ export class AdminComponent implements AfterViewInit{
 
     onAddRoom() {
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);
+        modalRef.componentInstance.successfullAdd.subscribe(() => {
+            modalRef.close();
+            
+        });
     }
 }

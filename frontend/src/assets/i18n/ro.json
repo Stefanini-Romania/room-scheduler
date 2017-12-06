@@ -54,7 +54,8 @@
       "location": "Locația camerei",
       "created": "Camera a fost adăugată",
       "deleteRoom": "Șterge camera",
-      "delete": "Șterge"
+      "delete": "Șterge",
+      "deleted": "Camera a fost ștearsă"
   },
 
   "location": "Locație",
