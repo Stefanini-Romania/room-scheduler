@@ -6,5 +6,5 @@ import {Component} from '@angular/core';
 
 })
 
-export class RSFooter {
+export class RsFooterComponent {
 }

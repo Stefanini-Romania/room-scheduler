@@ -10,12 +10,12 @@ import {Room} from '../../shared/models/room.model';
     templateUrl: './rs-header.component.html',
 })
 
-export class RSHeader {
+export class RsHeaderComponent {
     currentUser: User = undefined;
-    userIsPenalizedInRoom: boolean = false;
+    userIsPenalizedInRoom = false;
 
     languages = [
-        {'name': 'English', 'code': 'en', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/United-Kingdom_flat.png' },
+        {'name': 'English', 'code': 'en', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/United-Kingdom_flat.png'},
         {'name': 'Română', 'code': 'ro', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/Romania_flat.png'}
     ];
 
@@ -35,9 +35,8 @@ export class RSHeader {
         this.authService.logout();
         location.reload(true);
     }
-   
-    redirectToLogin() {
-        this.router.navigate(['/login']);
-    }
 
+    redirectToLogin() {
+        return this.router.navigate(['/login']);
+    }
 }
