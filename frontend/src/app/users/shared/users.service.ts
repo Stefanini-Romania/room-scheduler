@@ -8,6 +8,8 @@ import {User} from "../../shared/models/user.model";
 
 @Injectable()
 export class UserService {
+
+    public user: User;
     constructor(private http: HttpClient) {
 
     }
@@ -18,7 +20,7 @@ export class UserService {
         const url = environment.apiUrl + '/users/list';
         let params = new HttpParams();
         params = params.append("limit", limit.toString());
-        params = params.append("page", page.toString());
+        params = params.append("page",page.toString());
 
         const body = JSON.stringify(params);
         return this.http.get(url, {params: params});

@@ -13,7 +13,11 @@
   "button": {
       "close": "Close",
       "save": "Save",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "home": "Home",
+      "register": "Register",
+      "admin": "Admin",
+      "signIn": "Sign In"
   },
 
   "noAccount": "No account",

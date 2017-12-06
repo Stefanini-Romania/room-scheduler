@@ -13,7 +13,11 @@
   "button" : {
       "close": "Închide",
       "save": "Salvează",
-      "cancel": "Anulează"
+      "cancel": "Anulează",
+      "home": "Calendar",
+      "register": "Înregistrare",
+      "admin": "Administrator",
+      "signIn": "Autentificare"
   },
 
   "noAccount": "Nu aveți cont",

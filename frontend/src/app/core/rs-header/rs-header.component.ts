@@ -39,4 +39,5 @@ export class RSHeader {
     redirectToLogin() {
         this.router.navigate(['/login']);
     }
+
 }
