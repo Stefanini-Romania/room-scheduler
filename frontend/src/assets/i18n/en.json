@@ -47,11 +47,14 @@
   "cancel.login.button": "Cancel",
 
   "rooms": {
-      "edit": "Edit room",
+      "editRoom": "Edit room",
+      "edit": "Edit",
       "add": "Add room",
       "name": "Room's name",
       "location": "Room's location",
-      "created": "The room has been created"
+      "created": "The room has been created",
+      "deleteRoom": "Delete room",
+      "delete": "Delete"
   },
 
   "location": "Location",

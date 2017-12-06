@@ -45,12 +45,13 @@
     <ng-template ngbTabContent>          
       <br>
       <button class = "btn btn-primary float-left" (click)="onAddRoom()">{{'rooms.add' | translate}}</button><br><br>
-      <table class="table table-hover table-striped table-responsive table table-bordered">
+      <table class="table table-hover table-striped table-responsive table table-bordered text-center">
         <thead>
             <tr>
               <th>{{'calendar.rooms' | translate}}</th>
               <th>{{'location' | translate}}</th>
-              <th>{{'rooms.edit' | translate}}</th>
+              <th>{{'rooms.editRoom' | translate}}</th>
+              <th>{{'rooms.deleteRoom' | translate}}</th>
             </tr>
         </thead>
 
@@ -60,6 +61,9 @@
             <td>{{room.location}}</td>
             <td> 
               <button class = "btn btn-primary">{{'rooms.edit' | translate}}</button>
+            </td>
+            <td>
+              <button class="btn btn-primary" type="button">{{ 'rooms.delete' | translate }}</button>
             </td>
           </tr>
         </tbody>

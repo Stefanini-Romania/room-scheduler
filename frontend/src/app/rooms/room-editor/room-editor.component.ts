@@ -33,7 +33,7 @@ export class RoomEditorComponent {
         this.title = 'rooms.edit';
     }
 
-    createRoom() {
+    addRooms() {
         this.roomService.addRoom(this.model.name, this.model.location).subscribe(
             () => {
                 this.toastr.success(
