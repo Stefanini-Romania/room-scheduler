@@ -1,7 +1,7 @@
 import {environment} from '../../../environments/environment';
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 import {User} from "../../shared/models/user.model";
@@ -9,12 +9,19 @@ import {User} from "../../shared/models/user.model";
 @Injectable()
 export class UserService {
     constructor(private http: HttpClient) {
+
     }
 
-    public listUsers() {
+    public listUsers(limit?: number, page?: number) {
+        limit = 10;
+        page = 1;
         const url = environment.apiUrl + '/users/list';
-        
-        return this.http.get(url);
+        let params = new HttpParams();
+        params = params.append("limit", limit.toString());
+        params = params.append("page", page.toString());
+
+        const body = JSON.stringify(params);
+        return this.http.get(url, {params: params});
     }
 
     public create(user: User) {

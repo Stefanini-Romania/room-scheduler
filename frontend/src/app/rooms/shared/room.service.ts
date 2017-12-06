@@ -9,7 +9,6 @@ import {Room} from '../../shared/models/room.model';
 @Injectable()
 export class RoomService {
     public selectedRoomChanged$: EventEmitter<Room> = new EventEmitter();
-
     rooms: Room[];
 
     constructor(private http: HttpClient) {
@@ -34,12 +33,11 @@ export class RoomService {
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
         return this.http.post(url, body, {headers: headers, withCredentials: true})
-        .catch((error: any) => {
-            return Observable.throw(error);
-        })
-        .map((response: Response) => {
-            return response;
-        });
-
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+            .map((response: Response) => {
+                return response;
+            });
     }
 } 

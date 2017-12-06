@@ -1,5 +1,5 @@
 import {Component,Output, ElementRef, AfterViewInit} from '@angular/core';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 
 import {RoomService}  from './../../rooms/shared/room.service';
@@ -22,9 +22,12 @@ export class AdminComponent implements AfterViewInit{
     public selectedUser: User;
     public rooms: Room[];
     public selectRoom: Room;
+
       
 
-    constructor(private userService:UserService, private roomService: RoomService, private modalService: NgbModal) {}
+    constructor(private userService:UserService, private roomService: RoomService, private modalService: NgbModal) {
+
+    }
 
     ngAfterViewInit(): void {
         
@@ -35,6 +38,7 @@ export class AdminComponent implements AfterViewInit{
             for (let user of users) {
                 this.users.push(<User>user);
             }
+
         });
 
         this.roomService.roomList().subscribe((rooms: any) => {
@@ -48,13 +52,11 @@ export class AdminComponent implements AfterViewInit{
 
     onSelectUser(user: User) {
         this.selectedUser = user;
-        const modalRef:NgbModalRef = this.modalService.open(RegisterFormComponent);
-        
+        const modalRef:NgbModalRef = this.modalService.open(RegisterFormComponent);       
     }
 
     // onSelectRoom(room :Room) {
-    //     this.selectRoom = room;
-        
+    //     this.selectRoom = room;     
     // }
 
     onAddRoom() {

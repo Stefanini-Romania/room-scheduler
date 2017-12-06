@@ -27,7 +27,6 @@ export class RSHeader {
 
         // observe authentication status
         authService.user$.subscribe((user: User) => {
-            console.log('GHERE');
             this.currentUser = user;
         });
     }

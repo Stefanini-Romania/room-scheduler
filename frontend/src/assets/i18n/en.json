@@ -53,7 +53,7 @@
       "location": "Room's location",
       "created": "The room has been created"
   },
-  "roomAdd": "Add room",
+
   "location": "Location",
   "event": {
       "filter.location": "Filter by location...",

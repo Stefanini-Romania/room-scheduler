@@ -54,7 +54,6 @@
       "created": "Camera a fost adăugată"
   },
 
-  "roomAdd": "Adăugare cameră",
   "location": "Locație",
   "event": {
       "filter.location": "Filtrează după locație...",
