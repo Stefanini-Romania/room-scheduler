@@ -125,7 +125,8 @@
     "firstName": "First name",
     "lastName": "Last name",
     "userRole": "User role",
-    "edit": "Edit user"
+    "edit": "Edit user",
+    "delete": "Delete user"
   },
 
   "Auth": {

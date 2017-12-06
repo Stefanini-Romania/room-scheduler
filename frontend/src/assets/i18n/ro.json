@@ -141,7 +141,8 @@
     "firstName": "Prenume",
     "lastName": "Nume",
     "userRole": "Rolul de user",
-    "edit": "Editează"
+    "edit": "Editează",
+    "delete": "Șterge utilizatorul"
   },
 
   "Auth": {
