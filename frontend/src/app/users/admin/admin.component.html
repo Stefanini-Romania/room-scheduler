@@ -20,7 +20,7 @@
         </thead>
 
               <tbody>
-                <tr *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: 1 }"  >
+                <tr *ngFor="let user of users | paginate: { itemsPerPage: 'user.limit', currentPage: 'user.page', totalItems: total }"  >
                   <td>{{user.name}}</td>
                   <td>{{user.firstName}}</td>
                   <td>{{user.lastName}}</td>
@@ -37,7 +37,7 @@
               </tbody>
 
               </table>
-              <pagination-controls (pageChange)="p = $event" directionLinks = "true"></pagination-controls>
+              <pagination-controls  directionLinks = "true"></pagination-controls>
             <!-- </div> -->
           </ng-template>
         </ngb-tab>

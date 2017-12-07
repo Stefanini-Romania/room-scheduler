@@ -80,6 +80,7 @@ export class AdminComponent implements AfterViewInit{
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);
         modalRef.componentInstance.successfullAdd.subscribe(() => {
             modalRef.close();
+            this.roomService.roomList();
             
         });
     }
