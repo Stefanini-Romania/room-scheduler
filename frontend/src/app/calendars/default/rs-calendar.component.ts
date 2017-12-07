@@ -1,11 +1,11 @@
-import { User } from '../../shared/models/user.model';
+import {User} from '../../shared/models/user.model';
 import {Component, ViewChild, OnInit,AfterViewInit, OnDestroy} from '@angular/core';
 import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-
 import {TranslateService} from "@ngx-translate/core";
-import { Subscription } from 'rxjs/Subscription';
-import {LoginFormComponent} from '../../users/user-login/login-form.component';
+import {Subscription} from 'rxjs/Subscription';
+
+import {LoginFormComponent} from '../../users/login-form/login-form.component';
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
@@ -30,19 +30,14 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     users: User[] = [];
 
     public date: Date = new jqx.date();
-
     public startDate: Date;
     public endDate: Date;
-
     public selectedRoom: Room;
     public hostId: number;
-
-    calendarSettings = <any>CalendarSettings;
-
-    dataAdapter = new jqx.dataAdapter(this.calendarSettings["source"]);
-
     private previousValues: any;
 
+    calendarSettings = <any>CalendarSettings;
+    dataAdapter = new jqx.dataAdapter(this.calendarSettings["source"]);
     subscription: Subscription;
 
     constructor(private translate: TranslateService,

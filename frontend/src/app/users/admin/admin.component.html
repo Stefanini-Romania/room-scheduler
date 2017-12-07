@@ -20,11 +20,16 @@
         </thead>
 
               <tbody>
-                <tr *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: 1 }"  >
+                <tr *ngFor="let user of users | paginate: { itemsPerPage: 'user.limit', currentPage: 'user.page', totalItems: total }"  >
                   <td>{{user.name}}</td>
                   <td>{{user.firstName}}</td>
                   <td>{{user.lastName}}</td>
                   <td>{{user.userRole}}</td>
+
+               
+                 
+                 
+                  
                   <td>
                     <button class = "btn btn-primary" (click)="onSelectUser()">{{'user.edit' | translate}}</button>
                   </td>
@@ -37,7 +42,7 @@
               </tbody>
 
               </table>
-              <pagination-controls (pageChange)="p = $event" directionLinks = "true"></pagination-controls>
+              <pagination-controls  directionLinks = "true"></pagination-controls>
             <!-- </div> -->
           </ng-template>
         </ngb-tab>
@@ -67,10 +72,10 @@
             <td>{{room.name}}</td>
             <td>{{room.location}}</td>
             <td> 
-              <button class = "btn btn-primary">{{'rooms.edit' | translate}}</button>
+              <button class = "btn btn-primary" (click)="onSelectRoom()">{{'rooms.edit' | translate}}</button>
             </td>
             <td>
-              <button class="btn btn-primary" type="button" click="deleteRooms($room)">{{ 'rooms.delete' | translate }}</button>
+              <button class="btn btn-primary" type="button" (click)="onDeleteRoom(room)">{{ 'rooms.delete' | translate }}</button>
             </td>
           </tr>
         </tbody>

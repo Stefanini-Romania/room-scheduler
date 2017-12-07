@@ -20,8 +20,8 @@
       "signIn": "Sign In"
   },
 
-  "noAccount": "No account",
-  "clickHere": "Click here",
+  "noAccount": "You don't have an account",
+  "clickHere": "Register here",
 
   "register": {
       "firstName": "First name",

@@ -42,33 +42,34 @@ export class RoomService {
     }
 
     public deleteRoom(room: Room) {
-        const url = environment.apiUrl + '/room/delete' + room.id;
-        const body = JSON.stringify({
-        
+        const url = environment.apiUrl + '/room/delete/' + room.id;
+        console.log(url);
+        const body = JSON.stringify({  
+            id: room.id,    
             name: name,
             location: location        
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
-        return this.http.post(url, body, {headers: headers, withCredentials: true})
-            .catch((error: any) => {
+        return this.http.delete(url, {headers: headers, withCredentials: true})
+            .catch((error: any) => {               
                 return Observable.throw(error);
             })
-            .map((response: Response) => {
+            .map((response: Response) => {                
                 return response;
             });
     }
 
     public editRoom(room: Room) {
-        const url = environment.apiUrl + '/room/edit' + room.id;
+        const url = environment.apiUrl + '/room/edit/' + room.id;
         const body = JSON.stringify({
-        
+            
             name: name,
             location: location        
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
-        return this.http.post(url, body, {headers: headers, withCredentials: true})
+        return this.http.put(url, body, {headers: headers, withCredentials: true})
             .catch((error: any) => {
                 return Observable.throw(error);
             })

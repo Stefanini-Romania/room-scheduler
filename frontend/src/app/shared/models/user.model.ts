@@ -11,6 +11,7 @@ export class User {
     penalty?: number [];
     departmentId?: number;
     userRoles?: RoleEnum[];
+    
    
 
     hasPenalties(): boolean {
