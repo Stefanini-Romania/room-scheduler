@@ -9,7 +9,7 @@ import {AuthService} from '../../auth/shared/auth.service';
     selector: 'login-form',
     templateUrl: './login-form.component.html',
     styleUrls: [],
-    providers: [NgbActiveModal, AuthService],
+    providers: [NgbActiveModal],
 })
 
 export class LoginFormComponent {

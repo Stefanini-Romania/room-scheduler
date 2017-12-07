@@ -20,7 +20,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
     selector: 'register-form',
     templateUrl: './register-form.component.html',
     styleUrls: [],
-    providers: [AuthService, RegisterService],
+    providers: [RegisterService],
 })
 
 export class RegisterFormComponent {
