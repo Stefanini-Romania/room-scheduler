@@ -24,8 +24,7 @@ export class LoginFormComponent {
     }
 
     login() {
-        this.authService.authenticate(this.model.name, this.model.password)
-            .subscribe(
+        this.authService.authenticate(this.model.name, this.model.password).subscribe(
                 () => {
                     this.successfullLogin.emit();
                     //this.activeModal.close();

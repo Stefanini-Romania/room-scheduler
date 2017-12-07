@@ -33,18 +33,13 @@ export class AdminComponent implements AfterViewInit{
     public rooms: Room[];
     public selectRoom: Room;
     public user: User;
-
+    public errorMessage: string;
     public page : number;
     public total: number;
 
-    
-         
-
-    constructor(private userService:UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService) {
-        
+    constructor(private userService:UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService) {       
     }
-
-    
+ 
     ngAfterViewInit(): void {
         
         this.users= [];
@@ -101,7 +96,7 @@ export class AdminComponent implements AfterViewInit{
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);
         modalRef.componentInstance.successfullAdd.subscribe(() => {
             modalRef.close();
-            this.roomService.roomList();
+            //this.roomService.roomList();
             
         });
     }
@@ -118,31 +113,26 @@ export class AdminComponent implements AfterViewInit{
     //     console.log("2");
     // }
 
-    onDeleteRoom(room) { //NOT FINISHED
+    onDeleteRoom(room: Room) { //NOT FINISHED
         //this.selectedRoom = room;            
         //this.roomService.selectRoom(rooms);
         //let model = this.rooms.find(e => e.id == $event.args.room.id);
-
         // console.log(room.id);
-        console.log("HERE");
+        
         this.roomService.deleteRoom(room).subscribe(
-                    () => {                      
+                    (room) => {       
+                        console.log("HERE");                                    
                         this.toastr.warning(
                             this.translate.instant('rooms.deleted'), '',
                             {positionClass: 'toast-bottom-right'}
-                        );                                                         
-                }); 
+                        );
+                    }, 
+                    error => {
+                        this.errorMessage = error.error.message;
+                    });
+                
+             
         //console.log(room);
         //this.model.id = null;
-             
-        // this.toastr.warning(
-        //     this.translate.instant('rooms.deleted'), '',
-        //     {positionClass: 'toast-bottom-right'}
-        // );               
-    }
-
-    
-    
-
-    
+    } 
 }

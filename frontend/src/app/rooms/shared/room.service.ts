@@ -44,11 +44,11 @@ export class RoomService {
     public deleteRoom(room: Room) {
         const url = environment.apiUrl + '/room/delete/' + room.id;
         console.log(url);
-        // const body = JSON.stringify({  
-        //     id: room.id,    
-        //     name: name,
-        //     location: location        
-        // });
+        const body = JSON.stringify({  
+            id: room.id,    
+            name: name,
+            location: location        
+        });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
         return this.http.delete(url, {headers: headers, withCredentials: true})
@@ -61,7 +61,7 @@ export class RoomService {
     }
 
     public editRoom(room: Room) {
-        const url = environment.apiUrl + '/room/edit' + room.id;
+        const url = environment.apiUrl + '/room/edit/' + room.id;
         const body = JSON.stringify({
             
             name: name,

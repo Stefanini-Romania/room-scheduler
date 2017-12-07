@@ -47,13 +47,12 @@ export class RoomEditorComponent {
     //     this.roomService.deleteRoom(this.selectedRoom).subscribe(
     //         () => {
                 
-    //             this.toastr.success(
-    //                 this.translate.instant('rooms.created'), '',
-    //                 {positionClass: 'toast-bottom-right'}
+    //             console.log("delete");
     //             );                                                         
     //     });     
     // }
 
+    
     editRooms() {
         //this.roomService.editRoom()
     }
