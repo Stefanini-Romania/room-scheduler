@@ -6,14 +6,12 @@ export class User {
     name: string;
     firstName?: string;
     lastName?: string;
-    password: string;
-    confirmPassword: string;    email: string;
+    password: string; 
+    email: string;
     penalty?: number [];
     departmentId?: number;
     userRoles?: RoleEnum[];
-    page?: number;
-    limit?: number;
-    userTotalNumber?: number;
+   
 
     hasPenalties(): boolean {
         return this.penalty && this.penalty.length > 0;
