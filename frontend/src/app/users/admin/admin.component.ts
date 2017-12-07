@@ -45,43 +45,16 @@ export class AdminComponent implements AfterViewInit{
         this.users= [];
         this.rooms = [];
 
-        //this.userService.listUsers().subscribe((users: any) => {
-
-        //    for (let user of users) {
-        //        user.userRole[0] = RoleEnum[user.userRole];
-        //        //for (let userRole of user.userRole) {
-        //        //    userRole = "iuhu";//RoleEnum[userRole];
-        //        //}
-        //        this.users.push(<User>user);
-        //    }
-        //});
-
-
-
         this.userService.listUsers().subscribe((users: any) => {
+
             for (let user of users) {
 
-                if ((user.userRole[0] == RoleEnum.attendee)&&(user.userRole[1] == null)) {
-                user.userRole[0] = "Attendee";
+                for (let userRole of user.userRole) {
+                    var index = user.userRole.indexOf(userRole);
+                    user.userRole[index] = RoleEnum[userRole];
                 }
-                if ((user.userRole[0] == RoleEnum.host)&&(user.userRole[1] == null)) {
-                    user.userRole[0] = "Host";
-                }
-                if ((user.userRole[0] == RoleEnum.attendee) && (user.userRole[1] == RoleEnum.admin)) {
-                    user.userRole[0] = "Admin,Attendee";
-                }
-                if ((user.userRole[0] == RoleEnum.attendee) && (user.userRole[1] == RoleEnum.host)) {
-                    user.userRole[0] = "Host,Attendee";
-                }
-                if ((user.userRole[0] == RoleEnum.host) && (user.userRole[1] == RoleEnum.admin)) {
-                    user.userRole[0] = "Admin,Host";
-                }
-                
-                    this.users.push(<User>user);
-                
-            }     
-
-
+                this.users.push(<User>user);
+            }
         });
 
         this.roomService.roomList().subscribe((rooms: any) => {
