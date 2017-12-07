@@ -29,7 +29,7 @@ namespace RSService.Controllers
         [HttpGet("/users/list")]
         public IActionResult GetUsers(int limit, int page)
         {
-            if (limit == 0) limit = 10;
+            if (limit == 0) limit = 8;
             if (page == 0) page = 1;
 
             var results = userRepository.GetUsers(limit, page);

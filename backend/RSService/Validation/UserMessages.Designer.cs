@@ -106,6 +106,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User.UserRole.IsEmpty.
+        /// </summary>
+        internal static string EmptyUserRole {
+            get {
+                return ResourceManager.GetString("EmptyUserRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User.Email.IsNotUnique.
         /// </summary>
         internal static string UniqueEmail {

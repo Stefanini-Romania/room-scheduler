@@ -132,6 +132,9 @@
   <data name="EmptyUsername" xml:space="preserve">
     <value>User.Name.IsEmpty</value>
   </data>
+  <data name="EmptyUserRole" xml:space="preserve">
+    <value>User.UserRole.IsEmpty</value>
+  </data>
   <data name="UniqueEmail" xml:space="preserve">
     <value>User.Email.IsNotUnique</value>
   </data>
