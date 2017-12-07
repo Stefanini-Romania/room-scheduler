@@ -3,6 +3,7 @@ import {NgbModal, NgbModalRef, NgbPaginationConfig } from '@ng-bootstrap/ng-boot
 import {Router} from '@angular/router';
 import {TranslateService} from "@ngx-translate/core";
 import {ToastrService} from 'ngx-toastr';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {RoomService}  from './../../rooms/shared/room.service';
 import {Room} from './../../shared/models/room.model';
@@ -12,11 +13,12 @@ import {RegisterFormComponent} from '../register-form/register-form.component';
 import { RoomEditorComponent } from './../../rooms/room-editor/room-editor.component';
 import { RoleEnum } from '../../shared/models/role.model';
 
+
 @Component({
     selector: 'admin-component',
     templateUrl: './admin.component.html',
     styleUrls: [],
-    providers: [UserService, RoomService],
+    providers: [UserService, RoomService, NgbActiveModal],
 })
 
 // @Input() id: string;
@@ -34,10 +36,15 @@ export class AdminComponent implements AfterViewInit{
     public selectRoom: Room;
     public user: User;
     public errorMessage: string;
+
     public page : number;
     public total: number;
 
-    constructor(private userService:UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService) {       
+    
+         
+
+    constructor(public activeModal: NgbActiveModal,private userService:UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService) {
+        
     }
  
     ngAfterViewInit(): void {
@@ -66,6 +73,10 @@ export class AdminComponent implements AfterViewInit{
 
     onAddUser() {
         const modalRef: NgbModalRef = this.modalService.open(RegisterFormComponent);
+        modalRef.result.then(() => {
+            this.activeModal.close();
+        });
+        
     }
 
     onSelectUser(user: User) {
@@ -85,6 +96,7 @@ export class AdminComponent implements AfterViewInit{
             //this.roomService.roomList();
             
         });
+        
     }
 
     // openRoomEdit(model: Room) {    
@@ -104,12 +116,12 @@ export class AdminComponent implements AfterViewInit{
         //this.roomService.selectRoom(rooms);
         //let model = this.rooms.find(e => e.id == $event.args.room.id);
         // console.log(room.id);
-        
+        // console.log("HERE");
         this.roomService.deleteRoom(room).subscribe(
                     (room) => {       
                         console.log("HERE");                                    
                         this.toastr.warning(
-                            this.translate.instant('rooms.deleted'), '',
+                            this.translate.instant('room.deleted'), '',
                             {positionClass: 'toast-bottom-right'}
                         );
                     }, 
@@ -120,5 +132,34 @@ export class AdminComponent implements AfterViewInit{
              
         //console.log(room);
         //this.model.id = null;
-    } 
+    }                                                         
+              
+
+        //console.log(room);
+        //this.model.id = null;
+             
+        // this.toastr.warning(
+        //     this.translate.instant('rooms.deleted'), '',
+        //     {positionClass: 'toast-bottom-right'}
+        // );               
+    
+
+    onDeleteUser(user) { //NOT FINISHED
+        this.userService.deleteUser(user).subscribe(
+                () => {                   
+                        this.toastr.warning(
+                            this.translate.instant("user.deleted"), '',
+                            {positionClass: 'toast-bottom-right'}
+                        );                                                         
+                },
+                error => {
+                    this.errorMessage = error.message;
+                }
+                ); 
+
+    
+    
+
+    
+    }
 }

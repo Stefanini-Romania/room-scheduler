@@ -132,7 +132,9 @@
     "userRole": "User role",
     "edit": "Edit user",
     "delete": "Delete user",
-    "add":  "Add user"
+    "add":  "Add user",
+    "deleted": "The user has been deleted",
+    "attendee": "Attendee"
   },
 
   "Auth": {

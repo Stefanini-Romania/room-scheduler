@@ -148,7 +148,9 @@
     "userRole": "Rolul de user",
     "edit": "Editează",
     "delete": "Șterge utilizatorul",
-    "add": "Adaugă utilizator"
+    "add": "Adaugă utilizator",
+    "deleted": "Utilizatorul a fost șters",
+    "attendee": "Utilizator"
   },
 
   "Auth": {

@@ -37,7 +37,7 @@ export class UserService {
             email: email,
             password: password,
             departmentId: departmentId,
-            roleId: roleId = 1         
+            roleId: this.user.userRoles[1]         
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
@@ -51,6 +51,19 @@ export class UserService {
 
     }
 
+    public deleteUser(user: User) {
+        const url = environment.apiUrl + '/users/delete/' + user.id;
+        console.log(url);
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+
+        return this.http.delete(url, {headers: headers, withCredentials: true})
+            .catch((error: any) => {               
+                return Observable.throw(error.message);
+            })
+            .map((response: Response) => {        
+                return response;
+            });
+    }
 
 
     // private editUser(user: User) {
