@@ -33,6 +33,7 @@ namespace RSService.Controllers
             {
                 roomList.Add(new RoomDTO()
                 {
+                    Id = it.Id,
                     Name = it.Name,
                     Location = it.Location
                 });

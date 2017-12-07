@@ -23,6 +23,7 @@ namespace RSService.Controllers
         private IRoomRepository roomRepository;
         private IAvailabiltyRepository availabilityRepository;
         private IUserRepository userRepository;
+        private IAvailabiltyRepository availabiltyRepository;
         private IRSManager rsManager;
 
         public RoomSchedulerController(IRSManager rsManager)
@@ -31,6 +32,7 @@ namespace RSService.Controllers
             this.availabilityRepository = new AvailabilityRepository(Context);
             this.eventRepository = new EventRepository(Context);
             this.userRepository = new UserRepository(Context);
+            this.availabilityRepository = new AvailabilityRepository(Context);
             this.rsManager = rsManager;
         }
 
@@ -47,6 +49,19 @@ namespace RSService.Controllers
             var newEvent = Mapper.Map<Event>(model);
             newEvent.DateCreated = DateTime.UtcNow;
             newEvent.AttendeeId = currentAttendeeId;
+
+            var startDateText = model.StartDate.ToString();
+            //var startDate = DateTime.TryParse();
+            //var avList = availabilityRepository.GetAvailabilitiesByHour(model.StartDate, model.RoomId);
+            //var first = avList.FirstOrDefault();
+            //if (first != null)
+            //{
+            //    newEvent.HostId = first.HostId;
+            //}
+            //else
+            //{
+            //    newEvent.HostId = 0;
+            //}
 
             eventRepository.AddEvent(newEvent);
             Context.SaveChanges();
