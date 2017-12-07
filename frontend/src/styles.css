@@ -290,6 +290,12 @@ footer a {
     color: #cad400;
 }
 
+#registerForm{
+    background-color: #F7F7F7;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
   /* .jqx-rc-all .jqx-scheduler-appointment {
     left: 567px;
     top: 161px;
