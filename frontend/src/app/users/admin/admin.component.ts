@@ -8,6 +8,7 @@ import {UserService} from '../../users/shared/users.service';
 import {User} from '../../shared/models/user.model';
 import {RegisterFormComponent} from '../user-register/register-form.component';
 import {RoomEditorComponent} from './../../rooms/room-editor/room-editor.component';
+import { RoleEnum } from "../../shared/models/role.model";
 
 @Component({
     selector: 'admin-component',
@@ -45,7 +46,20 @@ export class AdminComponent implements AfterViewInit{
     ngAfterViewInit(): void {
         
         this.users= [];
-        this.rooms= [];
+        this.rooms = [];
+
+        //this.userService.listUsers().subscribe((users: any) => {
+
+        //    for (let user of users) {
+        //        user.userRole[0] = RoleEnum[user.userRole];
+        //        //for (let userRole of user.userRole) {
+        //        //    userRole = "iuhu";//RoleEnum[userRole];
+        //        //}
+        //        this.users.push(<User>user);
+        //    }
+        //});
+
+
         
         this.userService.listUsers().subscribe((users: any) => {
             for (let user of users) {
