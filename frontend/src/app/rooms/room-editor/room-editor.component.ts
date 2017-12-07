@@ -4,12 +4,12 @@ import {environment} from './../../../environments/environment';
 import {RoomService} from './../shared/room.service';
 import {Room} from './../../shared/models/room.model';
 
-import {ToastrService} from 'ngx-toastr';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService} from "@ngx-translate/core";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     
@@ -26,16 +26,10 @@ export class RoomEditorComponent {
     public model: Room = <Room> {};
     public title: string;
     public errorMessages: any ={};
- 
-    rooms: Room[]= [];
     public selectedRoom: Room;
+    rooms: Room[]= [];
 
     constructor(private http: HttpClient, public activeModal: NgbActiveModal, private translate: TranslateService, private roomService: RoomService, private toastr: ToastrService) {
-    }
-
-
-    ngOnInit() {
-        this.title = 'rooms.edit';
     }
 
     addRooms() {
@@ -45,29 +39,22 @@ export class RoomEditorComponent {
                 this.toastr.success(
                     this.translate.instant('rooms.created'), '',
                     {positionClass: 'toast-bottom-right'}
-                );  
-                //this.activeModal.close();                             
+                );                                                         
         });     
     }
 
-    deleteRooms(room: Room) {
-        this.selectedRoom = room;            
-        //this.roomService.selectRoom(rooms);
-        //let model = this.rooms.find(e => e.id == $event.args.room.Id);
-
-        this.model.id = null;
-             
-        this.toastr.warning(
-            this.translate.instant('rooms.deleted'), '',
-            {positionClass: 'toast-bottom-right'}
-        );               
-     }
+    // deleteRooms() {
+    //     this.roomService.deleteRoom(this.selectedRoom).subscribe(
+    //         () => {
+                
+    //             this.toastr.success(
+    //                 this.translate.instant('rooms.created'), '',
+    //                 {positionClass: 'toast-bottom-right'}
+    //             );                                                         
+    //     });     
+    // }
 
     editRooms() {
-
+        //this.roomService.editRoom()
     }
-    
-    
-        
-
 }

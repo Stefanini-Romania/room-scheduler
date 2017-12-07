@@ -1,17 +1,19 @@
 import {environment} from '../../../environments/environment';
+import {User} from "../../shared/models/user.model";
+
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
-import {User} from "../../shared/models/user.model";
+import 'rxjs/Rx';
+
 
 @Injectable()
 export class UserService {
 
     public user: User;
+    
     constructor(private http: HttpClient) {
-
     }
 
     public listUsers(limit?: number, page?: number) {
@@ -26,70 +28,50 @@ export class UserService {
         return this.http.get(url, {params: params});
     }
 
-    public create(user: User) {
+    public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number, roleId? :number) {
         const url = environment.apiUrl + '/users/add';
-
         const body = JSON.stringify({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            departmentId: user.departmentId,
-            userRoles: user.userRoles
+            firstName: firstName, 
+            lastName: lastName,
+            name: name,
+            email: email,
+            password: password,
+            departmentId: departmentId,
+            roleId: roleId = 1         
         });
-
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
         return this.http.post(url, body, {headers: headers, withCredentials: true})
-            .catch((error: any) => {
-                return Observable.throw(error);
-            })
-            .map((response: Response) => {
-                return response;
-            });
-    }
-
-   /*  private createUser(user: User) {
-        const url = environment.apiUrl + '/user/create';
-        const body = JSON.stringify({
-            name:user.name,
-            firstName:user.firstName,
-            lastName:user.lastName,
-            userRole:user.userRole,
+        .catch((error: any) => {
+            return Observable.throw(error);
+        })
+        .map((response: Response) => {
+            return response;
         });
 
-        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-
-        return this.http.post(url, body, {headers: headers, withCredentials: true})
-            .catch((error: any) => {
-                return Observable.throw(error);
-            })
-            .map((response: Response) => {
-                return response;
-            });
-
     }
 
-    private editUser(user: User) {
-        const url = environment.apiUrl + '/user/edit/' + user.id;
-        const body = JSON.stringify({
-            name:user.name,
-            firstName:user.firstName,
-            lastName:user.lastName,
-            userRole:user.userRole,
-        });
 
-        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.put(url, body, { headers: headers, withCredentials: true })
-            .catch((error: any) => Observable.throw(error.message))
-            .map((response: Response) => {
-                return response;
-            });
-    }
 
-    public save(user: User) {
-        return user.id ? this.editUser(user) : this.createUser(user);
-    }
-*/
+    // private editUser(user: User) {
+    //     const url = environment.apiUrl + '/user/edit/' + user.id;
+    //     const body = JSON.stringify({
+    //         name:user.name,
+    //         firstName:user.firstName,
+    //         lastName:user.lastName,
+    //         userRole:user.userRole,
+    //     });
+
+    //     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    //     return this.http.put(url, body, { headers: headers, withCredentials: true })
+    //         .catch((error: any) => Observable.throw(error.message))
+    //         .map((response: Response) => {
+    //             return response;
+    //         });
+    // }
+
+    // public save(user: User) {
+    //     return user.id ? this.editUser(user) : this.createUser(user);
+    // }
+
 }

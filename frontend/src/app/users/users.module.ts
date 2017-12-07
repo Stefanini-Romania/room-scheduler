@@ -7,10 +7,10 @@ import {RouterModule, Routes} from '@angular/router';
 import {CoreModule} from '../core/core.module';
 import {SharedModule} from '../shared/shared.module';
 import {UserService} from './shared/users.service';
-import {LoginPageComponent} from './user-login/login-page.component';
-import {LoginFormComponent} from './user-login/login-form.component';
-import {RegisterFormComponent} from './user-register/register-form.component';
-import {RegisterPageComponent} from './user-register/register-page.component';
+import {LoginPageComponent} from './login-form/login-page.component';
+import {LoginFormComponent} from './login-form/login-form.component';
+import {RegisterFormComponent} from './register-form/register-form.component';
+import {RegisterPageComponent} from './register-form/register-page.component';
 
 const routes: Routes = [
     {path: 'login', component: LoginPageComponent},

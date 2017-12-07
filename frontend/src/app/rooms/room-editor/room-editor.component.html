@@ -17,7 +17,8 @@
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary float-right" (click)="addRooms()">{{ 'rooms.add' | translate }}</button> 
+    <button type="button" class="btn btn-primary float-right" (click)="addRooms()" *ngIf="!model.id">{{ 'rooms.add' | translate }}</button> 
+    <button type="button" class="btn btn-primary float-right" (click)="editRooms()" *ngIf="model.id">{{ 'rooms.edit' | translate }}</button> 
     <!-- <button type="button" class="btn btn-primary float-right" (click)="closeLoginModal()">{{ 'button.close' | translate }}</button>    -->
 </div>
     
