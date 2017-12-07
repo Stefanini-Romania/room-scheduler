@@ -13,11 +13,15 @@
   "button": {
       "close": "Close",
       "save": "Save",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "home": "Home",
+      "register": "Register",
+      "admin": "Admin",
+      "signIn": "Sign In"
   },
 
-  "noAccount": "No account",
-  "clickHere": "Click here",
+  "noAccount": "You don't have an account",
+  "clickHere": "Register here",
 
   "register": {
       "firstName": "First name",
@@ -54,7 +58,8 @@
       "location": "Room's location",
       "created": "The room has been created",
       "deleteRoom": "Delete room",
-      "delete": "Delete"
+      "delete": "Delete",
+      "deleted": "The room has been deleted"
   },
 
   "location": "Location",
@@ -126,7 +131,8 @@
     "lastName": "Last name",
     "userRole": "User role",
     "edit": "Edit user",
-    "delete": "Delete user"
+    "delete": "Delete user",
+    "add":  "Add user"
   },
 
   "Auth": {

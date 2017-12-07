@@ -3,29 +3,27 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RouterModule, Routes, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {TranslateService} from "@ngx-translate/core";
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+
 
 import {environment} from './../../../environments/environment';
-
 import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
-import {RegisterService} from './../shared/register.service';
 import {RoleEnum} from '../../shared/models/role.model';
 import {UserService} from '../shared/users.service';
-
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     moduleId: module.id,
     selector: 'register-form',
     templateUrl: './register-form.component.html',
     styleUrls: [],
-    providers: [RegisterService],
+    providers: [UserService],
 })
 
 export class RegisterFormComponent {
     public confirmPassword;
-   userRoles
+    userRoles
 
     public model: User = <User>{
         departmentId: DepartmentIdEnum.ADC,
@@ -40,14 +38,14 @@ export class RegisterFormComponent {
     constructor(private authService: AuthService, 
                 private router: Router, 
                 private http: HttpClient, 
-                private registerService:  RegisterService, 
+                private userService:  UserService, 
                 public activeModal: NgbActiveModal,
                 private toastr: ToastrService,
                 private translate: TranslateService) {
     }
 
     register() {
-        this.registerService.createUser(this.model.firstName, 
+        this.userService.createUser(this.model.firstName, 
                                         this.model.lastName, 
                                         this.model.name, 
                                         this.model.email,

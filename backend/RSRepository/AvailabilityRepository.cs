@@ -36,7 +36,7 @@ namespace RSRepository
                                  .ToList();
         }
 
-        public List<Availability> GetAvailabilitiesyRoom(DateTime startDate, DateTime endDate, int roomId)
+        public List<Availability> GetAvailabilitiesByRoom(DateTime startDate, DateTime endDate, int roomId)
         {
             return availabilities.Where(e => e.StartHour.TimeOfDay <= startDate.TimeOfDay)
                                  .Where(e => e.StartHour.TimeOfDay <= endDate.TimeOfDay)
@@ -59,6 +59,15 @@ namespace RSRepository
                                  .Where(e => e.AvailabilityType==1)
                                  .ToList();
         }
+
+        public List<Availability> GetAvailabilitiesByHour(DateTime startDate, int roomId)
+        {
+            return availabilities.Where(a => a.RoomId == roomId)
+                                 .Where(a => a.StartHour.Hour <= startDate.Hour)
+                                 .Where(a => a.EndHour.Hour > startDate.Hour)
+                                 .ToList();
+        }
+
 
 
     }

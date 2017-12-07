@@ -13,11 +13,15 @@
   "button" : {
       "close": "Închide",
       "save": "Salvează",
-      "cancel": "Anulează"
+      "cancel": "Anulează",
+      "home": "Calendar",
+      "register": "Înregistrare",
+      "admin": "Administrator",
+      "signIn": "Autentificare"
   },
 
   "noAccount": "Nu aveți cont",
-  "clickHere": "Click aici",
+  "clickHere": "Înregistrați-vă aici",
 
   "register": {
       "firstName": "Prenume",
@@ -54,7 +58,8 @@
       "location": "Locația camerei",
       "created": "Camera a fost adăugată",
       "deleteRoom": "Șterge camera",
-      "delete": "Șterge"
+      "delete": "Șterge",
+      "deleted": "Camera a fost ștearsă"
   },
 
   "location": "Locație",
@@ -136,13 +141,14 @@
       }
   },
 
-  "user":{
+  "user": {
     "name": "Utilizator",
     "firstName": "Prenume",
     "lastName": "Nume",
     "userRole": "Rolul de user",
     "edit": "Editează",
-    "delete": "Șterge utilizatorul"
+    "delete": "Șterge utilizatorul",
+    "add": "Adaugă utilizator"
   },
 
   "Auth": {

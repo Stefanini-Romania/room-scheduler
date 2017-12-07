@@ -44,6 +44,7 @@ namespace RSService.Controllers
             {
                 final_result.Add(new UserDTO()
                 {
+                    Id = it.Id,
                     Name = it.Name,
                     FirstName = it.FirstName,
                     LastName = it.LastName,
