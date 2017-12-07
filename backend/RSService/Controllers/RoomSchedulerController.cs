@@ -51,17 +51,19 @@ namespace RSService.Controllers
             newEvent.AttendeeId = currentAttendeeId;
 
             var startDateText = model.StartDate.ToString();
-            //var startDate = DateTime.TryParse();
-            //var avList = availabilityRepository.GetAvailabilitiesByHour(model.StartDate, model.RoomId);
-            //var first = avList.FirstOrDefault();
-            //if (first != null)
-            //{
-            //    newEvent.HostId = first.HostId;
-            //}
-            //else
-            //{
-            //    newEvent.HostId = 0;
-            //}
+            DateTime startDate = new DateTime();
+            DateTime.TryParse(startDateText, out startDate);
+
+            var avList = availabilityRepository.GetAvailabilitiesByHour(startDate, model.RoomId);
+            var first = avList.FirstOrDefault();
+            if (first != null)
+            {
+                newEvent.HostId = first.HostId;
+            }
+            else
+            {
+                newEvent.HostId = 0;
+            }
 
             eventRepository.AddEvent(newEvent);
             Context.SaveChanges();

@@ -363,8 +363,6 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         model.eventType = EventTypeEnum.massage;
         model.eventStatus = EventStatusEnum.waiting;
         model.roomId = this.selectedRoom.id;
-        model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-        model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
 
         this.openEventEditor(model);
     }
