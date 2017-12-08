@@ -15,7 +15,7 @@
               <th>{{'user.lastName' | translate}} </th>
               <th>{{'user.userRole' | translate}}</th>
               <th>{{'user.edit' | translate}}</th>
-              <th>{{'user.delete' | translate}}</th>
+              <!-- <th>{{'user.delete' | translate}}</th> -->
             </tr>
         </thead>
 
@@ -25,17 +25,13 @@
                   <td>{{user.firstName}}</td>
                   <td>{{user.lastName}}</td>
                   <td>{{user.userRole}}</td>
-
-               
-                 
-                 
                   
                   <td>
                     <button class = "btn btn-primary" (click)="onSelectUser()">{{'user.edit' | translate}}</button>
                   </td>
-                  <td>
+                  <!-- <td>
                     <button class="btn btn-primary" type="button" (click)="onDeleteUser(user)">{{ 'rooms.delete' | translate }}</button>
-                  </td>
+                  </td> -->
                 </tr>
            
                 <!-- <div *ngFor="let user of users" >{{'user.name' | translate}}: {{user.name}}, {{'user.firstName' | translate}}: {{user.firstName}}, {{'user.lastName' | translate}}: {{user.lastName}}, {{'user.userRole' | translate}}: {{user.userRole}}</div> -->
