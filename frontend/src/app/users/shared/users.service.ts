@@ -68,22 +68,26 @@ export class UserService {
     }
 
 
-    // private editUser(user: User) {
-    //     const url = environment.apiUrl + '/user/edit/' + user.id;
-    //     const body = JSON.stringify({
-    //         name:user.name,
-    //         firstName:user.firstName,
-    //         lastName:user.lastName,
-    //         userRole:user.userRole,
-    //     });
+    public editUser(id: number, firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRoles?: RoleEnum[]) {
+        const url = environment.apiUrl + '/user/edit/' + id;
+        const body = JSON.stringify({
+            name:name,
+            firstName:firstName,
+            lastName:lastName,
+            userRole:userRoles,
+            email:email,
+            password: password,
+            departmentId: departmentId,
 
-    //     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-    //     return this.http.put(url, body, { headers: headers, withCredentials: true })
-    //         .catch((error: any) => Observable.throw(error.message))
-    //         .map((response: Response) => {
-    //             return response;
-    //         });
-    // }
+        });
+
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.put(url, body, { headers: headers, withCredentials: true })
+            .catch((error: any) => Observable.throw(error.message))
+            .map((response: Response) => {
+                return response;
+            });
+    }
 
     // public save(user: User) {
     //     return user.id ? this.editUser(user) : this.createUser(user);

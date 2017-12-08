@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RouterModule, Routes, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -22,6 +22,11 @@ import {UserService} from '../shared/users.service';
 })
 
 export class RegisterFormComponent {
+
+    @Output()
+    successfullAddUser = new EventEmitter;
+    successfullEditUser = new EventEmitter;
+
     public confirmPassword;
     public submitted;
 
@@ -57,6 +62,7 @@ export class RegisterFormComponent {
                                             
         .subscribe(
             () => {
+                this.successfullAddUser.emit();
                 this.toastr.success(
                     this.translate.instant('User.Name.Created'), '',
                     {positionClass: 'toast-bottom-right'}
@@ -82,6 +88,17 @@ export class RegisterFormComponent {
                 }
             });
         }
+
+        editUser(){
+            this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.email, this.model.password, this.model.name, this.model.departmentId, this.model.userRoles).subscribe(
+                () => {
+                    this.successfullEditUser.emit();
+                    this.toastr.success(
+                        this.translate.instant('user.edited'), '',
+                        {positionClass: 'toast-bottom-right'}
+                    )               
+                });       
+        } 
     
 }
     
