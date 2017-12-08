@@ -20,12 +20,13 @@ namespace RSService.Controllers
             this.roomRepository = new RoomRepository(Context);
         }
 
-
         [HttpGet("/room/list")]
         public IActionResult GetRooms()
         {
             var rooms = roomRepository.GetRooms();
             if (rooms == null) return NotFound();
+
+            var roomCount = roomRepository.GetRooms().Count();
 
             List<RoomDTO> roomList = new List<RoomDTO>();
 
@@ -35,7 +36,35 @@ namespace RSService.Controllers
                 {
                     Id = it.Id,
                     Name = it.Name,
-                    Location = it.Location
+                    Location = it.Location,
+                    RoomTotalNumber = roomCount
+                });
+            }
+
+            return Ok(roomList);
+        }
+
+        [HttpGet("/room/list/admin")]
+        public IActionResult GetRooms(int limit, int page)
+        {
+            if (limit == 0) limit = 12;
+            if (page == 0) page = 1;
+
+            var rooms = roomRepository.GetRooms(limit, page);
+            if (rooms == null) return NotFound();
+
+            var roomCount = roomRepository.GetRooms().Count();
+
+            List<RoomDTO> roomList = new List<RoomDTO>();
+
+            foreach (var it in rooms)
+            {
+                roomList.Add(new RoomDTO()
+                {
+                    Id = it.Id,
+                    Name = it.Name,
+                    Location = it.Location,
+                    RoomTotalNumber = roomCount
                 });
             }
 

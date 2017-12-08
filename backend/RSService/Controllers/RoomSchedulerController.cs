@@ -62,7 +62,7 @@ namespace RSService.Controllers
             }
             else
             {
-                newEvent.HostId = 0;
+                newEvent.HostId = 3;
             }
 
             eventRepository.AddEvent(newEvent);

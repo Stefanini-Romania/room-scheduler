@@ -18,10 +18,18 @@ namespace RSRepository
             rooms = context.Set<Room>();
         }
 
-
         public List<Room> GetRooms()
         {
             return rooms.ToList();
+        }
+
+        public List<Room> GetRooms(int limit, int page)
+        {
+            int startPosition = limit * (page - 1);
+
+            var result = rooms.Skip(startPosition).Take(limit)
+                              .ToList();
+            return result;
         }
 
         public Room GetRoomById(int id)
