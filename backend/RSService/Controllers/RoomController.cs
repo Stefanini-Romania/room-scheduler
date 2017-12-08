@@ -22,10 +22,15 @@ namespace RSService.Controllers
 
 
         [HttpGet("/room/list")]
-        public IActionResult GetRooms()
+        public IActionResult GetRooms(int limit, int page)
         {
-            var rooms = roomRepository.GetRooms();
+            if (limit == 0) limit = 8;
+            if (page == 0) page = 1;
+
+            var rooms = roomRepository.GetRooms(limit, page);
             if (rooms == null) return NotFound();
+
+            var roomCount = roomRepository.GetRooms().Count();
 
             List<RoomDTO> roomList = new List<RoomDTO>();
 
@@ -35,7 +40,8 @@ namespace RSService.Controllers
                 {
                     Id = it.Id,
                     Name = it.Name,
-                    Location = it.Location
+                    Location = it.Location,
+                    RoomTotalNumber = roomCount
                 });
             }
 
