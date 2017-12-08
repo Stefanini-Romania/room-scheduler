@@ -86,7 +86,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }
 
             if (this.authService.isLoggedIn()) {
-
+                
                 if (event.eventType == EventTypeEnum.massage) {
 
                     if ((event.attendeeId !== this.authService.getLoggedUser().id) && (this.authService.getLoggedUser().departmentId != null)) {

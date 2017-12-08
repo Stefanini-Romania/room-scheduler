@@ -38,7 +38,7 @@ export class LoginFormComponent {
         this.router.navigate(['/register']);
     }
 
-    isLoggedIn(){
+    isLoggedIn(): boolean{
         return this.authService.isLoggedIn();
     }
 }

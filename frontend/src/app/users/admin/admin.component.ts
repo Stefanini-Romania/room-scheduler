@@ -50,7 +50,6 @@ export class AdminComponent implements AfterViewInit{
     ngAfterViewInit(): void {
         
         this.users= [];
-        this.rooms = [];
 
         this.userService.listUsers().subscribe((users: any) => {
 
@@ -62,8 +61,13 @@ export class AdminComponent implements AfterViewInit{
                 }
                 this.users.push(<User>user);
             }
-        });
 
+            this.refreshRooms();
+        });
+    }
+
+    refreshRooms() {
+        this.rooms = [];
         this.roomService.roomList().subscribe((rooms: any) => {
             for (let room of rooms) {
                 this.rooms.push(<Room>room);
@@ -93,8 +97,7 @@ export class AdminComponent implements AfterViewInit{
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);
         modalRef.componentInstance.successfullAdd.subscribe(() => {
             modalRef.close();
-            //this.roomService.roomList();
-            
+            this.refreshRooms();
         });
         
     }
@@ -119,11 +122,13 @@ export class AdminComponent implements AfterViewInit{
         // console.log("HERE");
         this.roomService.deleteRoom(room).subscribe(
                     (room) => {       
-                        console.log("HERE");                                    
                         this.toastr.warning(
                             this.translate.instant('room.deleted'), '',
                             {positionClass: 'toast-bottom-right'}
                         );
+
+                        this.refreshRooms();
+                        
                     }, 
                     error => {
                         this.errorMessage = error.error.message;
