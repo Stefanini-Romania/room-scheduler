@@ -48,22 +48,23 @@ export class AdminComponent implements AfterViewInit{
     }
  
     ngAfterViewInit(): void {
-        
+        this.refreshUsers();
+        this.refreshRooms();
+    }
+
+    refreshUsers(){
         this.users= [];
-
-        this.userService.listUsers().subscribe((users: any) => {
-
-            for (let user of users) {
-
-                for (let userRole of user.userRole) {
-                    var index = user.userRole.indexOf(userRole);
-                    user.userRole[index] = RoleEnum[userRole];
-                }
-                this.users.push(<User>user);
-            }
-
-            this.refreshRooms();
-        });
+                this.userService.listUsers().subscribe((users: any) => {
+                    for (let user of users) {
+        
+                        for (let userRole of user.userRole) {
+                            var index = user.userRole.indexOf(userRole);
+                            user.userRole[index] = RoleEnum[userRole];
+                        }
+                        this.users.push(<User>user);
+                    } 
+                });
+        
     }
 
     refreshRooms() {
@@ -79,6 +80,7 @@ export class AdminComponent implements AfterViewInit{
         const modalRef: NgbModalRef = this.modalService.open(RegisterFormComponent);
         modalRef.result.then(() => {
             this.activeModal.close();
+            this.refreshUsers();
         });
         
     }
@@ -155,7 +157,8 @@ export class AdminComponent implements AfterViewInit{
                         this.toastr.warning(
                             this.translate.instant("user.deleted"), '',
                             {positionClass: 'toast-bottom-right'}
-                        );                                                         
+                        );       
+                        this.refreshUsers();                                                  
                 },
                 error => {
                     this.errorMessage = error.message;
