@@ -51,7 +51,7 @@ export class RegisterFormComponent {
                                         this.model.email,
                                         this.model.password, 
                                         this.model.departmentId, 
-                                        this.model.userRoles[1])
+                                        this.model.userRoles[0])
             
                                             
         .subscribe(
