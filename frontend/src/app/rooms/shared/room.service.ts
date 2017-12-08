@@ -43,7 +43,6 @@ export class RoomService {
 
     public deleteRoom(room: Room) {
         const url = environment.apiUrl + '/room/delete/' + room.id;
-        console.log(url);
         const body = JSON.stringify({  
             id: room.id,    
             name: name,
@@ -60,10 +59,10 @@ export class RoomService {
             });
     }
 
-    public editRoom(room: Room) {
-        const url = environment.apiUrl + '/room/edit/' + room.id;
+    public editRoom(id: number, name: string, location: string) {
+        const url = environment.apiUrl + '/room/edit/' + id;
         const body = JSON.stringify({
-            
+            id: id,
             name: name,
             location: location        
         });

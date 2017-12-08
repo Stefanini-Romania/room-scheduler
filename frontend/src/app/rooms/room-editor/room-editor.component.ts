@@ -7,7 +7,7 @@ import {Room} from './../../shared/models/room.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService} from "@ngx-translate/core";
 import {ToastrService} from 'ngx-toastr';
 
@@ -22,14 +22,15 @@ import {ToastrService} from 'ngx-toastr';
 export class RoomEditorComponent {
     @Output()
     successfullAdd = new EventEmitter;
+    successfullEdit = new EventEmitter;
 
     public model: Room = <Room> {};
     public title: string;
-    public errorMessages: any ={};
+    public errorMessage: any ={};
     public selectedRoom: Room;
     rooms: Room[]= [];
 
-    constructor(private http: HttpClient, public activeModal: NgbActiveModal, private translate: TranslateService, private roomService: RoomService, private toastr: ToastrService) {
+    constructor(private http: HttpClient, public activeModal: NgbActiveModal, private translate: TranslateService, private roomService: RoomService, private toastr: ToastrService, private modalService: NgbModal) {
     }
 
     addRooms() {
@@ -42,18 +43,15 @@ export class RoomEditorComponent {
                 );                                                         
         });     
     }
-
-    // deleteRooms() {
-    //     this.roomService.deleteRoom(this.selectedRoom).subscribe(
-    //         () => {
-                
-    //             console.log("delete");
-    //             );                                                         
-    //     });     
-    // }
-
     
     editRooms() {
-        //this.roomService.editRoom()
-    }
+        this.roomService.editRoom(this.model.id, this.model.name, this.model.location).subscribe(
+            () => {
+                this.successfullEdit.emit();
+                this.toastr.success(
+                    this.translate.instant('rooms.edited'), '',
+                    {positionClass: 'toast-bottom-right'}
+                )               
+            });       
+    } 
 }

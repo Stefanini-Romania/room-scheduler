@@ -53,6 +53,7 @@
   "rooms": {
       "editRoom": "Editare cameră",
       "edit": "Editare",
+      "edited": "The room has been edited",
       "add": "Adaugă cameră",
       "name": "Numele camerei",
       "location": "Locația camerei",
