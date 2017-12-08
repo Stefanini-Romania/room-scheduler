@@ -37,4 +37,8 @@ export class LoginFormComponent {
     register() {
         this.router.navigate(['/register']);
     }
+
+    isLoggedIn(){
+        return this.authService.isLoggedIn();
+    }
 }

@@ -4,6 +4,7 @@ import {User} from "../../shared/models/user.model";
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {RoleEnum} from '../../shared/models/role.model';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
@@ -28,7 +29,7 @@ export class UserService {
         return this.http.get(url, {params: params});
     }
 
-    public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number, roleId? :number) {
+    public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number, roleId :number) {
         const url = environment.apiUrl + '/users/add';
         const body = JSON.stringify({
             firstName: firstName, 
@@ -37,7 +38,8 @@ export class UserService {
             email: email,
             password: password,
             departmentId: departmentId,
-            roleId: this.user.userRoles[1]         
+            roleId: roleId
+                    
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
