@@ -32,6 +32,10 @@ export class RoomEditorComponent {
 
     constructor(private http: HttpClient, public activeModal: NgbActiveModal, private translate: TranslateService, private roomService: RoomService, private toastr: ToastrService, private modalService: NgbModal) {
     }
+    
+    ngOnInit() {
+        this.title = this.model.id ? 'rooms.editRoom': 'rooms.add';
+    }
 
     addRooms() {
         this.roomService.addRoom(this.model.name, this.model.location).subscribe(

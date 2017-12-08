@@ -106,7 +106,7 @@ export class AdminComponent implements AfterViewInit{
     onDeleteRoom(room: Room) {
         //this.selectedRoom = room;            
         this.roomService.deleteRoom(room).subscribe(
-                (room) => {       
+                () => {       
                     this.toastr.warning(
                         this.translate.instant('room.deleted'), '',
                         {positionClass: 'toast-bottom-right'}
