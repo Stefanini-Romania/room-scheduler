@@ -47,7 +47,7 @@ namespace RSService.Controllers
         [HttpGet("/room/list/admin")]
         public IActionResult GetRooms(int limit, int page)
         {
-            if (limit == 0) limit = 12;
+            if (limit == 0) limit = 10;
             if (page == 0) page = 1;
 
             var rooms = roomRepository.GetRooms(limit, page);
