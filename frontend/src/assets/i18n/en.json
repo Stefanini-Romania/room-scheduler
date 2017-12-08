@@ -53,6 +53,7 @@
   "rooms": {
       "editRoom": "Edit room",
       "edit": "Edit",
+      "edited": "The room has been edited",
       "add": "Add room",
       "name": "Room's name",
       "location": "Room's location",

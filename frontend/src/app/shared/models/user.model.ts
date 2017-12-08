@@ -10,6 +10,7 @@ export class User {
     email: string;
     penalty?: number [];
     departmentId?: number;
+    confirmPassword?: number;
     userRoles?: RoleEnum[];
     
    
