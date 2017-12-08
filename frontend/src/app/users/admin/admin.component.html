@@ -27,10 +27,14 @@
                   <td>{{user.userRole}}</td>
                   
                   <td>
-                    <button class = "btn btn-primary" (click)="onSelectUser()">{{'user.edit' | translate}}</button>
+                    <button class = "btn btn-primary" (click)="onSelectUser()" title="{{'user.edit' | translate}}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
                   </td>
                   <!-- <td>
-                    <button class="btn btn-primary" type="button" (click)="onDeleteUser(user)">{{ 'rooms.delete' | translate }}</button>
+                    <button class="btn btn-primary" type="button" (click)="onDeleteUser(user)" title="{{ 'rooms.delete' | translate }}">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
                   </td> -->
                 </tr>
            
@@ -58,8 +62,7 @@
             <tr>
               <th>{{'calendar.rooms' | translate}}</th>
               <th>{{'location' | translate}}</th>
-              <th>{{'rooms.editRoom' | translate}}</th>
-              <th>{{'rooms.deleteRoom' | translate}}</th>
+              <th>{{'options' | translate}}</th>
             </tr>
         </thead>
 
@@ -68,10 +71,12 @@
             <td>{{room.name}}</td>
             <td>{{room.location}}</td>
             <td> 
-              <button class = "btn btn-primary" (click)="onSelectRoom(room)">{{'rooms.edit' | translate}}</button>
-            </td>
-            <td>
-              <button class="btn btn-primary" type="button" (click)="onDeleteRoom(room)">{{ 'rooms.delete' | translate }}</button>
+              <button class = "btn btn-primary" (click)="onSelectRoom(room)" title="{{'rooms.edit' | translate}}">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-primary" type="button" (click)="onDeleteRoom(room)" title="{{ 'rooms.delete' | translate }}">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
             </td>
           </tr>
         </tbody>

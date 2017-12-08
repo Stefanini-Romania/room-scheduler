@@ -43,15 +43,9 @@ export class RoomService {
 
     public deleteRoom(room: Room) {
         const url = environment.apiUrl + '/room/delete/' + room.id;
-        const body = JSON.stringify({  
-            id: room.id,    
-            name: name,
-            location: location        
-        });
-        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
-        return this.http.delete(url, {headers: headers, withCredentials: true})
-            .catch((error: any) => {               
+        return this.http.delete(url, {responseType: 'text', withCredentials: true})
+            .catch((error: any) => {              
                 return Observable.throw(error);
             })
             .map((response: Response) => {                
