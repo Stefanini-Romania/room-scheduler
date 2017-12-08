@@ -23,12 +23,11 @@ import {UserService} from '../shared/users.service';
 
 export class RegisterFormComponent {
     public confirmPassword;
-    userRoles
     public submitted;
 
     public model: User = <User>{
         departmentId: DepartmentIdEnum.ADC,
-        roleId: RoleEnum.attendee
+        userRoles: [RoleEnum.attendee]
     };
     
     public errorMessages: any = {};
@@ -51,8 +50,9 @@ export class RegisterFormComponent {
                                         this.model.name, 
                                         this.model.email,
                                         this.model.password, 
-                                        this.model.departmentId, 
-                                        this.model.roleId)
+                                        this.model.departmentId,
+                                        this.model.userRoles
+                                        )
             
                                             
         .subscribe(

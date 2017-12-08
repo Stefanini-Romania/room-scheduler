@@ -29,16 +29,16 @@ export class UserService {
         return this.http.get(url, {params: params});
     }
 
-    public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number, roleId :number) {
+    public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRoles?: RoleEnum[]) {
         const url = environment.apiUrl + '/users/add';
-        const body = JSON.stringify({
+        let body = JSON.stringify({
             firstName: firstName, 
             lastName: lastName,
             name: name,
             email: email,
             password: password,
             departmentId: departmentId,
-            roleId: roleId
+            userRole: userRoles
                     
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');

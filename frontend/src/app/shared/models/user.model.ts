@@ -11,7 +11,6 @@ export class User {
     penalty?: number [];
     departmentId?: number;
     confirmPassword?: number;
-    roleId: number;
     userRoles?: RoleEnum[];
     
    
