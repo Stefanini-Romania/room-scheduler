@@ -61,5 +61,31 @@
                       (onCellDoubleClick)="showCreateDialog()"
         ></jqxScheduler>
         </div>
+
+      <div *ngIf="availabilities" class="col col-md-2">
+        <table>
+          <tr *ngFor="let host of availabilities | keys" class="badge badge-primary">
+            <td>
+
+              <table>
+                <tr>
+                  <td>{{ host }}</td>
+                </tr>
+                <tr *ngFor="let day of availabilities[host] | keys">
+                  <td>
+                    <div *ngFor="let event of availabilities[host][day]" class="badge badge-primary">
+                      {{ event.startDate | localizedDate:'EE HH:mm' | titlecase }}
+                      {{ event.endDate | localizedDate:'HH:mm' }}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+</div>
+
     </div>
 </div>

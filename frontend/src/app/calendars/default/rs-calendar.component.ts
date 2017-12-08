@@ -28,6 +28,9 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     events: Event[] = [];
     users: User[] = [];
+    availabilities: any;
+    hosts: any[] = [];
+    availabilityHostGroupName: string;
 
     public date: Date = new jqx.date();
     public startDate: Date;
@@ -274,12 +277,37 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         this.events = [];
+        let hosts = {};
         this.eventService.listEvents(this.startDate, this.endDate, this.selectedRoom.id, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
-                this.events.push(<Event>event);
+                if (event.eventType == EventTypeEnum.availability && event.eventStatus == 0) {
+                    // compute host availabilities
+                    if (!hosts[event.host]) {
+                        hosts[event.host] = {};
+                    }
+
+                    const startDate = new Date(event.startDate);
+                    const day = this.calendarSettings["localization"].days.namesAbbr[startDate.getDay()];
+                    if (!hosts[event.host][day]) {
+                        hosts[event.host][day] = [];
+                    }
+                    /*const endDate = new Date(event.endDate);
+
+                    const startHour = startDate.getHours() + ":" + startDate.getMinutes();
+                    const endHour = endDate.getHours() + ":" + endDate.getMinutes();
+
+                    hosts[event.host][day].push(startHour + " - " + endHour);*/
+                    hosts[event.host][day].push(event);
+
+                } else if(event.eventType == EventTypeEnum.massage || (event.eventType == EventTypeEnum.availability && event.eventStatus == 1))
+                    this.events.push(<Event>event); {
+                }
             }
-            
+
+            this.availabilities = hosts;
+            //console.log(this.availabilities);
+
             this.refreshCalendar();
             
         });
