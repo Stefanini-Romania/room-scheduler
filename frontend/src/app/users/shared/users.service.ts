@@ -24,7 +24,6 @@ export class UserService {
         let params = new HttpParams();
         params = params.append("limit", limit.toString());
         params = params.append("page",page.toString());
-
         const body = JSON.stringify(params);
         return this.http.get(url, {params: params});
     }
@@ -38,8 +37,7 @@ export class UserService {
             email: email,
             password: password,
             departmentId: departmentId,
-            userRole: userRoles
-                    
+            userRole: userRoles             
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
@@ -50,7 +48,6 @@ export class UserService {
         .map((response: Response) => {
             return response;
         });
-
     }
 
     public deleteUser(user: User) {
@@ -78,7 +75,6 @@ export class UserService {
             email:email,
             password: password,
             departmentId: departmentId,
-
         });
 
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
