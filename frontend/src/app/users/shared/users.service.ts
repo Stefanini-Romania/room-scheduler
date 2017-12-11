@@ -17,15 +17,9 @@ export class UserService {
     constructor(private http: HttpClient) {
     }
 
-    public listUsers(limit?: number, page?: number) {
-        limit = 8;
-        page = 1;
+    public listUsers() {
         const url = environment.apiUrl + '/users/list';
-        let params = new HttpParams();
-        params = params.append("limit", limit.toString());
-        params = params.append("page",page.toString());
-        const body = JSON.stringify(params);
-        return this.http.get(url, {params: params});
+        return this.http.get(url);
     }
 
     public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRoles?: RoleEnum[]) {
