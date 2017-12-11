@@ -134,6 +134,7 @@
     "lastName": "Last name",
     "userRole": "User role",
     "edit": "Edit user",
+    "edited": "The user has been edited",
     "delete": "Delete user",
     "add":  "Add user",
     "deleted": "The user has been deleted",

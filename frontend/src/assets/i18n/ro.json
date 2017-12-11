@@ -150,6 +150,7 @@
     "lastName": "Nume",
     "userRole": "Rolul de user",
     "edit": "Editează",
+    "edited": "Editare cu succes",
     "delete": "Șterge utilizatorul",
     "add": "Adaugă utilizator",
     "deleted": "Utilizatorul a fost șters",
