@@ -138,7 +138,7 @@ namespace RSService.Controllers
 
         [HttpPut("/event/edit/{id}")]
         [Authorize]
-        public IActionResult UpdateEvent(int id, [FromBody] EditViewModel model)
+        public IActionResult UpdateEvent(int id, [FromBody] EditEventViewModel model)
         {
             var userName = HttpContext.User.Identity.Name;
             var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;

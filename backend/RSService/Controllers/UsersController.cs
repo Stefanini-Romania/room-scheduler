@@ -10,6 +10,7 @@ using RSService.ViewModels;
 using static RSData.Models.Role;
 using RSService.DTO;
 using RSService.Validation;
+using AutoMapper;
 
 namespace RSService.Controllers
 {
@@ -107,7 +108,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/users/edit/{id}")]
-        public IActionResult EditUser(int id, [FromBody]UserViewModel userView)
+        public IActionResult EditUser(int id, [FromBody]EditUserViewModel userView)
         {
             if (!ModelState.IsValid)
             {
@@ -120,9 +121,14 @@ namespace RSService.Controllers
                 return NotFound();
             }
 
+            //var modifiedUser = Mapper.Map<User>(userView);
+
             user.Name = userView.Name;
+            user.FirstName = userView.FirstName;
+            user.LastName = userView.LastName;
             user.Email = userView.Email;
             user.DepartmentId = userView.DepartmentId;
+            //user.UserRole = userView.UserRole;
 
             var sha1 = System.Security.Cryptography.SHA1.Create();
             var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(userView.Password));

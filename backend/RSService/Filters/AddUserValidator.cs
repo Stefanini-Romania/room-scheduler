@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace RSService.Filters
 {
 
-    public class UserValidator : AbstractValidator<UserViewModel>
+    public class AddUserValidator : AbstractValidator<UserViewModel>
     {
         private IRSManager rsManager;
-        public UserValidator(IRSManager rSManager)
+        public AddUserValidator(IRSManager rSManager)
         {
             rsManager = rSManager;
 

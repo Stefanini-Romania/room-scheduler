@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSService.ViewModels
 {
-    public class EditViewModel
+    public class EditEventViewModel
     {
         public DateTime StartDate { get; set; }
 
