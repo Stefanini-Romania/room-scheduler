@@ -27,7 +27,7 @@ namespace RSService.Controllers
             this.roleRepository = new RoleRepository(Context);
         }
 
-        [HttpGet("/users/list")]
+        [HttpGet("/user/list")]
         public IActionResult GetUsers()
         {
             var results = userRepository.GetUsers();
@@ -54,7 +54,7 @@ namespace RSService.Controllers
             return Ok(final_result);
         }
 
-        [HttpPost("/users/add")]
+        [HttpPost("/user/add")]
         public IActionResult AddUser([FromBody]UserViewModel newUser)
         {
             if (!ModelState.IsValid)
@@ -103,7 +103,7 @@ namespace RSService.Controllers
             return Ok(addedUser);
         }
 
-        [HttpPut("/users/edit/{id}")]
+        [HttpPut("/user/edit/{id}")]
         public IActionResult EditUser(int id, [FromBody]EditUserViewModel userView)
         {
             if (!ModelState.IsValid)
@@ -146,7 +146,7 @@ namespace RSService.Controllers
             return Ok(updatedUser);
         }
 
-        [HttpDelete("/users/delete/{id}")]
+        [HttpDelete("/user/delete/{id}")]
         public IActionResult DeleteUser(int id)
         {
             var user = userRepository.GetUserById(id);
