@@ -143,6 +143,8 @@ namespace RSRepository
                 entity.Property(e => e.Location).HasMaxLength(150);
 
                 entity.Property(e => e.Name).HasMaxLength(150);
+
+                entity.Property(e => e.IsActive).HasColumnName("IsActive");
             });
 
             modelBuilder.Entity<TimeSlot>(entity =>
@@ -191,6 +193,8 @@ namespace RSRepository
                 entity.Property(e => e.FirstName).HasMaxLength(150);
 
                 entity.Property(e => e.LastName).HasMaxLength(150);
+
+                entity.Property(e => e.IsActive).HasColumnName("IsActive");
 
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.User)

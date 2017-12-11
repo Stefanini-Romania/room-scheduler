@@ -26,8 +26,6 @@ namespace RSService.Controllers
             var rooms = roomRepository.GetRooms();
             if (rooms == null) return NotFound();
 
-            var roomCount = roomRepository.GetRooms().Count();
-
             List<RoomDTO> roomList = new List<RoomDTO>();
 
             foreach (var it in rooms)
@@ -37,34 +35,7 @@ namespace RSService.Controllers
                     Id = it.Id,
                     Name = it.Name,
                     Location = it.Location,
-                    RoomTotalNumber = roomCount
-                });
-            }
-
-            return Ok(roomList);
-        }
-
-        [HttpGet("/room/list/admin")]
-        public IActionResult GetRooms(int limit, int page)
-        {
-            if (limit == 0) limit = 10;
-            if (page == 0) page = 1;
-
-            var rooms = roomRepository.GetRooms(limit, page);
-            if (rooms == null) return NotFound();
-
-            var roomCount = roomRepository.GetRooms().Count();
-
-            List<RoomDTO> roomList = new List<RoomDTO>();
-
-            foreach (var it in rooms)
-            {
-                roomList.Add(new RoomDTO()
-                {
-                    Id = it.Id,
-                    Name = it.Name,
-                    Location = it.Location,
-                    RoomTotalNumber = roomCount
+                    IsActive = it.IsActive
                 });
             }
 
@@ -87,7 +58,8 @@ namespace RSService.Controllers
             Room newRoom = new Room()
             {
                 Name = model.Name,
-                Location = model.Location
+                Location = model.Location,
+                IsActive = model.IsActive
             };
 
             roomRepository.AddRoom(newRoom);
@@ -114,6 +86,7 @@ namespace RSService.Controllers
 
                 room.Name = roomDto.Name;
                 room.Location = roomDto.Location;
+                room.IsActive = roomDto.IsActive;
 
                 Context.SaveChanges();
 

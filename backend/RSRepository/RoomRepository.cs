@@ -23,15 +23,6 @@ namespace RSRepository
             return rooms.ToList();
         }
 
-        public List<Room> GetRooms(int limit, int page)
-        {
-            int startPosition = limit * (page - 1);
-
-            var result = rooms.Skip(startPosition).Take(limit)
-                              .ToList();
-            return result;
-        }
-
         public Room GetRoomById(int id)
         {
             return rooms.SingleOrDefault(s => s.Id == id);

@@ -28,16 +28,11 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/users/list")]
-        public IActionResult GetUsers(int limit, int page)
+        public IActionResult GetUsers()
         {
-            if (limit == 0) limit = 8;
-            if (page == 0) page = 1;
-
-            var results = userRepository.GetUsers(limit, page);
+            var results = userRepository.GetUsers();
             if (results == null)
                 return NotFound();
-
-            var userCount = userRepository.GetUsers().Count();
             
             List<UserDTO> final_result = new List<UserDTO>();
 
@@ -52,7 +47,7 @@ namespace RSService.Controllers
                     Email = it.Email,
                     UserRole = new List<int>(it.UserRole.Select(li => li.RoleId)),
                     DepartmentId = it.DepartmentId,
-                    UserTotalNumber = userCount
+                    IsActive = it.IsActive
                 });
             }
 
@@ -102,7 +97,8 @@ namespace RSService.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
-                DepartmentId = user.DepartmentId
+                DepartmentId = user.DepartmentId,
+                IsActive = true
             };
             return Ok(addedUser);
         }
@@ -128,6 +124,7 @@ namespace RSService.Controllers
             user.LastName = userView.LastName;
             user.Email = userView.Email;
             user.DepartmentId = userView.DepartmentId;
+            user.IsActive = userView.IsActive;
             //user.UserRole = userView.UserRole;
 
             var sha1 = System.Security.Cryptography.SHA1.Create();
@@ -143,7 +140,8 @@ namespace RSService.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
-                DepartmentId = user.DepartmentId
+                DepartmentId = user.DepartmentId,
+                IsActive = user.IsActive
             };
             return Ok(updatedUser);
         }

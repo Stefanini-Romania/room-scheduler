@@ -23,6 +23,7 @@ namespace RSData.Models
         public int? DepartmentId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public bool? IsActive { get; set; }
 
         public Department Department { get; set; }
         public ICollection<Availability> Availability { get; set; }

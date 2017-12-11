@@ -30,15 +30,6 @@ namespace RSRepository
             context.SaveChanges();
         }
 
-        public List<User> GetUsers(int limit, int page)
-        {
-            int startPosition = limit * (page - 1);
-
-            var result = users.Skip(startPosition).Take(limit)
-                              .Include(u => u.UserRole).Include(u => u.Penalty)
-                              .ToList();
-            return result;
-        }
 
         public List<User> GetUsers()
         {
