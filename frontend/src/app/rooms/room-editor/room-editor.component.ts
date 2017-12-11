@@ -21,8 +21,8 @@ import {ToastrService} from 'ngx-toastr';
 
 export class RoomEditorComponent {
     @Output()
-    successfullAdd = new EventEmitter;
-    successfullEdit = new EventEmitter;
+    successfullAddRoom = new EventEmitter;
+    successfullEditRoom = new EventEmitter;
 
     public model: Room = <Room> {};
     public title: string;
@@ -40,7 +40,7 @@ export class RoomEditorComponent {
     addRooms() {
         this.roomService.addRoom(this.model.name, this.model.location).subscribe(
             () => {
-                this.successfullAdd.emit();
+                this.successfullAddRoom.emit();
                 this.toastr.success(
                     this.translate.instant('rooms.created'), '',
                     {positionClass: 'toast-bottom-right'}
@@ -51,7 +51,7 @@ export class RoomEditorComponent {
     editRooms() {
         this.roomService.editRoom(this.model.id, this.model.name, this.model.location).subscribe(
             () => {
-                this.successfullEdit.emit();
+                this.successfullEditRoom.emit();
                 this.toastr.success(
                     this.translate.instant('rooms.edited'), '',
                     {positionClass: 'toast-bottom-right'}

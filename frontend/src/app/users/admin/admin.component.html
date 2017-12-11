@@ -54,7 +54,8 @@
 
   <ngb-tab>
     <ng-template ngbTabTitle><b>{{'AdminTabs.Rooms' | translate}}</b></ng-template>
-    <ng-template ngbTabContent>          
+    <ng-template ngbTabContent>       
+      
       <br>
       <button class = "btn btn-primary float-left" (click)="onAddRoom()">{{'rooms.add' | translate}}</button><br><br>
       <table class="table table-hover table-striped table-responsive table table-bordered text-center">
@@ -74,13 +75,28 @@
               <button class = "btn btn-primary" (click)="onSelectRoom(room)" title="{{'rooms.edit' | translate}}">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-primary" type="button" (click)="onDeleteRoom(room)" title="{{ 'rooms.delete' | translate }}">
+              <button class="btn btn-primary" type="button" (click)="open(content, room)" title="{{ 'rooms.delete' | translate }}">
                   <i class="fa fa-trash" aria-hidden="true"></i>
               </button>
             </td>
           </tr>
         </tbody>
-      </table>        
+      </table>
+      
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ 'rooms.deleteRoom' | translate }}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ 'confirmDelete' | translate }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="onDeleteRoom(selectedRoom)">{{ 'rooms.delete' | translate }}</button>
+        </div>
+      </ng-template>           
     </ng-template>
   </ngb-tab>
   

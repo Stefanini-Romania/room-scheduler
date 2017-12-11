@@ -1,6 +1,6 @@
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Component, EventEmitter, Output, ElementRef, AfterViewInit} from '@angular/core';
-import {NgbModal, NgbModalRef, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef, NgbPaginationConfig, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {TranslateService} from "@ngx-translate/core";
 import {ToastrService} from 'ngx-toastr';
@@ -32,6 +32,7 @@ export class AdminComponent implements AfterViewInit{
     @Output() 
     pageChange= new EventEmitter <number>();
 
+    closeResult: string;
     public users:User[];
     public selectedUser: User;
     public rooms: Room[];
@@ -41,7 +42,7 @@ export class AdminComponent implements AfterViewInit{
 
     public page : number;
     public total: number;
-   
+
     constructor(public activeModal: NgbActiveModal,private userService:UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService, private router: Router) {
         
     }
@@ -50,6 +51,25 @@ export class AdminComponent implements AfterViewInit{
         this.refreshUsers();
         this.refreshRooms();
     }
+
+    open(content, room) {
+        this.selectedRoom = room;
+        this.modalService.open(content).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+      }
+    
+      private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+          return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+          return 'by clicking on a backdrop';
+        } else {
+          return  `with: ${reason}`;
+        }
+      }
 
     refreshUsers() {
         this.users= [];
@@ -103,14 +123,14 @@ export class AdminComponent implements AfterViewInit{
     onSelectRoom(model: Room) {
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);   
         modalRef.componentInstance.model = model;  
-        modalRef.componentInstance.successfullEdit.subscribe(() => {
+        modalRef.componentInstance.successfullEditRoom.subscribe(() => {
             modalRef.close();     
         });       
     }
 
     onAddRoom() {
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);
-        modalRef.componentInstance.successfullAdd.subscribe(() => {
+        modalRef.componentInstance.successfullAddRoom.subscribe(() => {
             modalRef.close();      
             this.refreshRooms();
         });       
@@ -122,7 +142,8 @@ export class AdminComponent implements AfterViewInit{
                     this.toastr.warning(
                         this.translate.instant('rooms.deleted'), '',
                         {positionClass: 'toast-bottom-right'}
-                    );                       
+                    );                
+                    //this.modalService.close(); 
                     this.refreshRooms();                      
                 }, 
                 error => {
