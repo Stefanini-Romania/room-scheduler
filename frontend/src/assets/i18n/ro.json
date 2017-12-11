@@ -159,7 +159,10 @@
 
   "Auth": {
       "Password.Empty": "Introduceți parola",
-      "Username.Empty": "Introduceți numele de utilizator"
+      "Username": {
+          "Empty": "Introduceți numele de utilizator",
+          "IsNotActive": "Utilizatorul nu este activ"
+      }
   },
 
   "Error": {

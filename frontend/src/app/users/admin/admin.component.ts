@@ -38,6 +38,7 @@ export class AdminComponent implements AfterViewInit{
     public selectedRoom: Room;
     public user: User;
     public errorMessage: string;
+    public model: User;
 
     constructor(public activeModal: NgbActiveModal,private userService:UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService, private router: Router) {
         
@@ -108,18 +109,24 @@ export class AdminComponent implements AfterViewInit{
         });
     }
 
-    onDeleteUser(user) { //NOT FINISHED
-        this.userService.deleteUser(user).subscribe(
-                () => {                   
-                        this.toastr.warning(
-                            this.translate.instant("user.deleted"), '',
-                            {positionClass: 'toast-bottom-right'}
-                        );       
-                        this.refreshUsers();                                                  
-                },
-                error => {
-                    this.errorMessage = error.message;
-                }); 
+    onDeleteUser(model: User) { //NOT FINISHED
+        this.model.isActive = false;
+        this.toastr.warning(
+            this.translate.instant("user.deleted"), '',
+            {positionClass: 'toast-bottom-right'}
+        );       
+        return this.refreshUsers();  
+        // this.userService.deleteUser(user).subscribe(
+        //         () => {                   
+        //                 this.toastr.warning(
+        //                     this.translate.instant("user.deleted"), '',
+        //                     {positionClass: 'toast-bottom-right'}
+        //                 );       
+        //                 this.refreshUsers();                                                  
+        //         },
+        //         error => {
+        //             this.errorMessage = error.message;
+        //         }); 
     }
 
     onSelectRoom(model: Room) {
