@@ -18,12 +18,12 @@ export class UserService {
     }
 
     public listUsers() {
-        const url = environment.apiUrl + '/users/list';
+        const url = environment.apiUrl + '/user/list';
         return this.http.get(url);
     }
 
     public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRoles?: RoleEnum[]) {
-        const url = environment.apiUrl + '/users/add';
+        const url = environment.apiUrl + '/user/add';
         let body = JSON.stringify({
             firstName: firstName, 
             lastName: lastName,
@@ -31,7 +31,7 @@ export class UserService {
             email: email,
             password: password,
             departmentId: departmentId,
-            userRole: userRoles             
+            userRole: [RoleEnum.attendee]         
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
@@ -45,7 +45,7 @@ export class UserService {
     }
 
     public deleteUser(user: User) {
-        const url = environment.apiUrl + '/users/delete/' + user.id;
+        const url = environment.apiUrl + '/user/delete/' + user.id;
         console.log(url);
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
@@ -62,11 +62,11 @@ export class UserService {
     public editUser(id: number, firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRoles?: RoleEnum[]) {
         const url = environment.apiUrl + '/user/edit/' + id;
         const body = JSON.stringify({
-            name:name,
-            firstName:firstName,
-            lastName:lastName,
-            userRole:userRoles,
-            email:email,
+            name: name,
+            firstName: firstName,
+            lastName: lastName,
+            userRole: [RoleEnum.attendee],
+            email: email,
             password: password,
             departmentId: departmentId,
         });
