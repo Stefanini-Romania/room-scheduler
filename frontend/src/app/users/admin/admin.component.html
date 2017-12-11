@@ -94,7 +94,7 @@
           <p>{{ 'confirmDelete' | translate }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" (click)="onDeleteRoom(selectedRoom)">{{ 'rooms.delete' | translate }}</button>
+          <button type="button" class="btn btn-outline-dark" (click)="onDeleteRoom(selectedRoom);c('Close click')">{{ 'rooms.delete' | translate }}</button>
         </div>
       </ng-template>           
     </ng-template>
