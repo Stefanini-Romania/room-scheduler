@@ -51,7 +51,7 @@ export class AdminComponent implements AfterViewInit{
         this.refreshRooms();
     }
 
-    refreshUsers(){
+    refreshUsers() {
         this.users= [];
                 this.userService.listUsers().subscribe((users: any) => {
                     for (let user of users) { 
@@ -78,14 +78,26 @@ export class AdminComponent implements AfterViewInit{
         modalRef.componentInstance.successfullAddUser.subscribe(() => {
             modalRef.close();
             this.refreshUsers();
-        });
-        
+        });     
     }
 
     onSelectUser(model: User) {
         // this.selectedUser = user;
-        const modalRef:NgbModalRef = this.modalService.open(RegisterFormComponent);
-           
+        const modalRef:NgbModalRef = this.modalService.open(RegisterFormComponent);    
+    }
+
+    onDeleteUser(user) { //NOT FINISHED
+        this.userService.deleteUser(user).subscribe(
+                () => {                   
+                        this.toastr.warning(
+                            this.translate.instant("user.deleted"), '',
+                            {positionClass: 'toast-bottom-right'}
+                        );       
+                        this.refreshUsers();                                                  
+                },
+                error => {
+                    this.errorMessage = error.message;
+                }); 
     }
 
     onSelectRoom(model: Room) {
@@ -104,12 +116,11 @@ export class AdminComponent implements AfterViewInit{
         });       
     }
 
-    onDeleteRoom(room: Room) {
-        //this.selectedRoom = room;            
+    onDeleteRoom(room: Room) {            
         this.roomService.deleteRoom(room).subscribe(
                 () => {       
                     this.toastr.warning(
-                        this.translate.instant('room.deleted'), '',
+                        this.translate.instant('rooms.deleted'), '',
                         {positionClass: 'toast-bottom-right'}
                     );                       
                     this.refreshRooms();                      
@@ -118,18 +129,4 @@ export class AdminComponent implements AfterViewInit{
                     this.errorMessage = error.error.message;
                 });
     }                                                         
-
-    onDeleteUser(user) { //NOT FINISHED
-        this.userService.deleteUser(user).subscribe(
-                () => {                   
-                        this.toastr.warning(
-                            this.translate.instant("user.deleted"), '',
-                            {positionClass: 'toast-bottom-right'}
-                        );       
-                        this.refreshUsers();                                                  
-                },
-                error => {
-                    this.errorMessage = error.message;
-                }); 
-    }
 }
