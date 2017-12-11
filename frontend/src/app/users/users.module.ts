@@ -12,6 +12,7 @@ import {LoginFormComponent} from './login-form/login-form.component';
 import {RegisterFormComponent} from './register-form/register-form.component';
 import {RegisterPageComponent} from './register-form/register-page.component';
 
+
 const routes: Routes = [
     {path: 'login', component: LoginPageComponent},
     {path: 'register', component: RegisterPageComponent},

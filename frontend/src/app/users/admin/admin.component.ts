@@ -15,7 +15,6 @@ import {RegisterFormComponent} from '../register-form/register-form.component';
 import {RoomEditorComponent} from './../../rooms/room-editor/room-editor.component';
 import {RoleEnum} from '../../shared/models/role.model';
 
-
 @Component({
     selector: 'admin-component',
     templateUrl: './admin.component.html',
@@ -40,12 +39,10 @@ export class AdminComponent implements AfterViewInit{
     public user: User;
     public errorMessage: string;
 
-    public page : number;
-    public total: number;
-
     constructor(public activeModal: NgbActiveModal,private userService:UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService, private router: Router) {
         
     }
+
  
     ngAfterViewInit(): void {
         this.refreshUsers();
@@ -73,6 +70,7 @@ export class AdminComponent implements AfterViewInit{
 
     refreshUsers() {
         this.users= [];
+
                 this.userService.listUsers().subscribe((users: any) => {
                     for (let user of users) { 
                         for (let userRole of user.userRole) {
@@ -80,10 +78,10 @@ export class AdminComponent implements AfterViewInit{
                             user.userRole[index] = RoleEnum[userRole];
                         }
                         this.users.push(<User>user);
+                       
                     } 
                 });
     }
-
     refreshRooms() {
         this.rooms = [];
         this.roomService.roomList().subscribe((rooms: any) => {
@@ -153,5 +151,6 @@ export class AdminComponent implements AfterViewInit{
                 error => {
                     this.errorMessage = error.error.message;
                 });
-    }                                                         
+    }  
+    
 }

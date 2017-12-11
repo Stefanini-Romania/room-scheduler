@@ -12,8 +12,7 @@ export class User {
     departmentId?: number;
     confirmPassword?: number;
     userRoles?: RoleEnum[];
-    
-   
+      
 
     hasPenalties(): boolean {
         return this.penalty && this.penalty.length > 0;

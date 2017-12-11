@@ -20,7 +20,7 @@
         </thead>
 
               <tbody>
-                <tr *ngFor="let user of users | paginate: { itemsPerPage: 'user.limit', currentPage: 'user.page', totalItems: total }"  >
+                <tr *ngFor="let user of users | paginate: { itemsPerPage: 8, currentPage: page}"  >
                   <td>{{user.name}}</td>
                   <td>{{user.firstName}}</td>
                   <td>{{user.lastName}}</td>
@@ -36,21 +36,19 @@
                       <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                   </td> -->
+
                 </tr>
-           
-                <!-- <div *ngFor="let user of users" >{{'user.name' | translate}}: {{user.name}}, {{'user.firstName' | translate}}: {{user.firstName}}, {{'user.lastName' | translate}}: {{user.lastName}}, {{'user.userRole' | translate}}: {{user.userRole}}</div> -->
               </tbody>
 
               </table>
-              <!-- <pagination-controls  directionLinks = "true"></pagination-controls> -->
-            <!-- </div> -->
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
           </ng-template>
         </ngb-tab>
 
-  <ngb-tab>
+  <!-- <ngb-tab>
     <ng-template ngbTabTitle><b>{{'AdminTabs.Hosts' | translate}}</b></ng-template>
     <ng-template ngbTabContent></ng-template>
-  </ngb-tab>
+  </ngb-tab> -->
 
   <ngb-tab>
     <ng-template ngbTabTitle><b>{{'AdminTabs.Rooms' | translate}}</b></ng-template>
@@ -68,7 +66,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let room of rooms">
+          <tr *ngFor="let room of rooms | paginate: { itemsPerPage: 8, currentPage: page}">
             <td>{{room.name}}</td>
             <td>{{room.location}}</td>
             <td> 
@@ -97,6 +95,8 @@
           <button type="button" class="btn btn-outline-dark" (click)="onDeleteRoom(selectedRoom);c('Close click')">{{ 'rooms.delete' | translate }}</button>
         </div>
       </ng-template>           
+
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>     
     </ng-template>
   </ngb-tab>
   
