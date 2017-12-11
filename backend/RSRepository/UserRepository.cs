@@ -61,6 +61,11 @@ namespace RSRepository
             return users.SingleOrDefault(s => s.Id == id);
         }
 
+        public User GetUserByUsername(String username)
+        {
+            return users.SingleOrDefault(s => s.Name == username);
+        }
+
         public void AddUser(User user)
         {
             if (user == null)

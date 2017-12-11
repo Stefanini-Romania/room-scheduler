@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace RSService.Filters
 {
 
-    public class AddUserValidator : AbstractValidator<UserViewModel>
+    public class CreateUserValidator : AbstractValidator<UserViewModel>
     {
         private IRSManager rsManager;
-        public AddUserValidator(IRSManager rSManager)
+        public CreateUserValidator(IRSManager rSManager)
         {
             rsManager = rSManager;
 
@@ -33,16 +33,16 @@ namespace RSService.Filters
             });
         }
 
-        public bool IsUniqueUserName(UserViewModel m, String userName) {
+        private bool IsUniqueUserName(UserViewModel m, String userName) {
             return rsManager.IsUniqueUserName(userName);
         }
 
-        public bool IsUniqueEmail(UserViewModel m, String email)
+        private bool IsUniqueEmail(UserViewModel m, String email)
         {
             return rsManager.IsUniqueUserName(email);
         }
 
-        public bool IsValidRole(UserViewModel usm, List<int> userRole)
+        private bool IsValidRole(UserViewModel usm, List<int> userRole)
         {
             return rsManager.IsValidRole(userRole);  
         }

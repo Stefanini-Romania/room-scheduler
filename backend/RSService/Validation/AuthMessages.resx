@@ -123,4 +123,7 @@
   <data name="EmptyUsername" xml:space="preserve">
     <value>Auth.Username.Empty</value>
   </data>
+  <data name="IsNotActive" xml:space="preserve">
+    <value>Auth.Username.IsNotActive</value>
+  </data>
 </root>

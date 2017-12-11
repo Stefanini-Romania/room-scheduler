@@ -41,7 +41,7 @@ namespace RSService.Controllers
 
             var user = _userRepository.FindUserByCredential(model.Name, model.Password);
 
-            if (user == null )
+            if (user == null)
             {
                 return ValidationError(GeneralMessages.Authentication);
             }
@@ -66,7 +66,8 @@ namespace RSService.Controllers
                 firstName = user.FirstName,
                 lastName = user.LastName,
                 userRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
-                penalty = new List<int>(user.Penalty.Select(li => li.RoomId))
+                penalty = new List<int>(user.Penalty.Select(li => li.RoomId)),
+                isActive = user.IsActive
 
                 //new List<PenaltyDTO>(user.Penalty.Select(li=> new PenaltyDto
                 //{

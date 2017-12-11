@@ -30,17 +30,17 @@ namespace RSService.Filters
             });
         }
 
-        public bool IsUniqueUserName(EditUserViewModel m, String userName)
+        private bool IsUniqueUserName(EditUserViewModel m, String userName)
         {
             return rsManager.IsUniqueUserName(userName);
         }
 
-        public bool IsUniqueEmail(EditUserViewModel m, String email)
+        private bool IsUniqueEmail(EditUserViewModel m, String email)
         {
             return rsManager.IsUniqueUserName(email);
         }
 
-        public bool IsValidRole(EditUserViewModel usm, List<int> userRole)
+        private bool IsValidRole(EditUserViewModel usm, List<int> userRole)
         {
             return rsManager.IsValidRole(userRole);
         }

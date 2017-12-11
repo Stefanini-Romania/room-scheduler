@@ -77,5 +77,14 @@ namespace RSService.Validation {
                 return ResourceManager.GetString("EmptyUsername", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auth.Username.IsNotActive.
+        /// </summary>
+        internal static string IsNotActive {
+            get {
+                return ResourceManager.GetString("IsNotActive", resourceCulture);
+            }
+        }
     }
 }
