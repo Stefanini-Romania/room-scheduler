@@ -9,7 +9,8 @@
     Target Database Engine Type : Standalone SQL Server
 */
 
-/****** Object:  Table [dbo].[Room]    Script Date: 27-Nov-17 3:05:41 PM ******/
+
+/****** Object:  Table [dbo].[Room]    Script Date: 11-Dec-17 4:30:27 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -22,6 +23,7 @@ CREATE TABLE [dbo].[Room](
 	[RoomID] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](150) NULL,
 	[Location] [nvarchar](150) NULL,
+	[IsActive] [bit] NULL,
  CONSTRAINT [PK_Room] PRIMARY KEY CLUSTERED 
 (
 	[RoomID] ASC
