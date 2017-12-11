@@ -96,6 +96,9 @@ export class RegisterFormComponent {
                     this.translate.instant('user.edited'), '',
                     {positionClass: 'toast-bottom-right'}
                 )               
+            },       
+            error => {
+                this.errorMessages = error.error.message;
             });       
     } 
     
