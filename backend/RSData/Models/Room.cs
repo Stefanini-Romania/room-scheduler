@@ -18,6 +18,7 @@ namespace RSData.Models
         //public int RoomId { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
+        public bool? IsActive { get; set; }
 
         public ICollection<Availability> Availability { get; set; }
         public ICollection<Event> Event { get; set; }
