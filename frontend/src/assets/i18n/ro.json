@@ -50,6 +50,7 @@
 
   "cancel.login.button": "Anulare",
 
+  "confirmDelete": "Sunteți sigur că vreți să ștergeți?",
   "options": "Opțiuni",
   "rooms": {
       "editRoom": "Editare cameră",
