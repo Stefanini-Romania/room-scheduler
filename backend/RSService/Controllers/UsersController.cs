@@ -19,11 +19,11 @@ namespace RSService.Controllers
         private IUserRoleRepository userRoleRepository;
         private IRoleRepository roleRepository;
 
-        public UsersController(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository)
+        public UsersController()
         {
-            this.userRepository = userRepository;
-            this.userRoleRepository = userRoleRepository;
-            this.roleRepository = roleRepository;
+            this.userRepository = new UserRepository(Context);
+            this.userRoleRepository = new UserRoleRepository(Context);
+            this.roleRepository = new RoleRepository(Context);
         }
 
         [HttpGet("/users/list")]
@@ -106,7 +106,7 @@ namespace RSService.Controllers
             return Ok(addedUser);
         }
 
-        [HttpPost("/users/edit/{id}")]
+        [HttpPut("/users/edit/{id}")]
         public IActionResult EditUser(int id, [FromBody]UserViewModel userView)
         {
             if (!ModelState.IsValid)
