@@ -14,8 +14,7 @@
               <th>{{'user.firstName' | translate}}</th>
               <th>{{'user.lastName' | translate}} </th>
               <th>{{'user.userRole' | translate}}</th>
-              <th>{{'user.edit' | translate}}</th>
-              <!-- <th>{{'user.delete' | translate}}</th> -->
+              <th>{{'options' | translate}}</th>
             </tr>
         </thead>
 
@@ -30,12 +29,10 @@
                     <button class = "btn btn-primary" (click)="onSelectUser(user)" title="{{'user.edit' | translate}}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                  </td>
-                  <!-- <td>
                     <button class="btn btn-primary" type="button" (click)="onDeleteUser(user)" title="{{ 'rooms.delete' | translate }}">
                       <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
-                  </td> -->
+                  </td>
 
                 </tr>
               </tbody>

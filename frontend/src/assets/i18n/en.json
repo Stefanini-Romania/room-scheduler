@@ -143,7 +143,10 @@
 
   "Auth": {
     "Password.Empty": "Please enter your password",
-    "Username.Empty": "Please enter your username"
+    "Username": {
+        "Empty": "Please enter your username",
+        "IsNotActive": "User is not active"
+    }
   },
 
   "Error": {
