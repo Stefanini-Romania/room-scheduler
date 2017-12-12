@@ -127,9 +127,12 @@ namespace RSService.Controllers
             user.IsActive = userView.IsActive;
             //user.UserRole = userView.UserRole;
 
-            var sha1 = System.Security.Cryptography.SHA1.Create();
-            var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(userView.Password));
-            user.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
+            if (userView.Password != null)
+            {
+                var sha1 = System.Security.Cryptography.SHA1.Create();
+                var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(userView.Password));
+                user.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
+            }
 
             Context.SaveChanges();
 
