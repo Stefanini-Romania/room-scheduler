@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {Router} from '@angular/router';
@@ -29,7 +29,12 @@ export class RsHeaderComponent {
         authService.user$.subscribe((user: User) => {
             this.currentUser = user;
         });
+
+        if (authService.isLoggedIn()){
+            this.currentUser = authService.getLoggedUser();
+        }
     }
+    
 
     logout() {
         this.authService.logout();
