@@ -14,13 +14,13 @@ using AutoMapper;
 
 namespace RSService.Controllers
 {
-    public class UsersController : BaseController
+    public class UserController : BaseController
     {
         private IUserRepository userRepository;
         private IUserRoleRepository userRoleRepository;
         private IRoleRepository roleRepository;
 
-        public UsersController()
+        public UserController()
         {
             this.userRepository = new UserRepository(Context);
             this.userRoleRepository = new UserRoleRepository(Context);
@@ -146,7 +146,7 @@ namespace RSService.Controllers
             return Ok(updatedUser);
         }
 
-        [HttpDelete("/user/delete/{id}")]
+        //[HttpDelete("/user/delete/{id}")]
         public IActionResult DeleteUser(int id)
         {
             var user = userRepository.GetUserById(id);

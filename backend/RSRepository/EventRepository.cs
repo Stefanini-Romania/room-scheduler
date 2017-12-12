@@ -69,9 +69,17 @@ namespace RSRepository
                          .ToList();
         }
 
+        public List<Event> GetEventsByDay(DateTime date, int userId)
+        {
+            return events.Where(e => e.EventStatus != (int)EventStatusEnum.cancelled)
+                         .Where(e => e.AttendeeId == userId)
+                         .Where(e => e.StartDate.Date == date.Date)
+                         .ToList();
+        }
+
         public Event GetEventById(int id)
         {
-            return events.SingleOrDefault(s => s.Id == id);
+            return events.FirstOrDefault(e => e.Id == id);
         }
 
         public void AddEvent(Event _event)

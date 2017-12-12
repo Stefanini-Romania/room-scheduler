@@ -19,6 +19,8 @@ namespace RSRepository
 
         List<Event> GetEventsByRoom(DateTime startDate, DateTime endDate, int roomId);
 
+        List<Event> GetEventsByDay(DateTime date, int userId);
+
         Event GetEventById(int id);
 
         void AddEvent(Event _event);

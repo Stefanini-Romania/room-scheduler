@@ -78,7 +78,7 @@ namespace RSService.Controllers
             else
             {
 
-                var room = roomRepository.GetRooms().FirstOrDefault(r => r.Id == id);
+                var room = roomRepository.GetRoomById(id);
                 if (room == null)
                 {
                     return NotFound();
@@ -94,7 +94,7 @@ namespace RSService.Controllers
             }
         }
 
-        [HttpDelete("/room/delete/{id}")]
+        //[HttpDelete("/room/delete/{id}")]
         public IActionResult DeleteRoom(int id)
         {
             var room = roomRepository.GetRoomById(id);

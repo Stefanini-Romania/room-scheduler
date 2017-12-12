@@ -52,18 +52,18 @@ namespace RSRepository
 
             var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(password));
             var encryptedPass = BitConverter.ToString(hash).Replace("-", "").ToLower();
-            var returnvar = this.GetUsers().SingleOrDefault(c => c.Name == username && c.Password == encryptedPass);
+            var returnvar = this.GetUsers().FirstOrDefault(c => c.Name == username && c.Password == encryptedPass);
             return returnvar;
         }
 
         public User GetUserById(long id)
         {
-            return users.SingleOrDefault(s => s.Id == id);
+            return users.FirstOrDefault(s => s.Id == id);
         }
 
         public User GetUserByUsername(String username)
         {
-            return users.SingleOrDefault(s => s.Name == username);
+            return users.FirstOrDefault(s => s.Name == username);
         }
 
         public void AddUser(User user)
