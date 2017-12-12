@@ -26,11 +26,11 @@ namespace RSService.Controllers
             var rooms = roomRepository.GetRooms();
             if (rooms == null) return NotFound();
 
-            List<RoomDTO> roomList = new List<RoomDTO>();
+            List<RoomDto> roomList = new List<RoomDto>();
 
             foreach (var it in rooms)
             {
-                roomList.Add(new RoomDTO()
+                roomList.Add(new RoomDto()
                 {
                     Id = it.Id,
                     Name = it.Name,
@@ -43,7 +43,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/room/add")]
-        public IActionResult AddRoom([FromBody]RoomDTO model)
+        public IActionResult AddRoom([FromBody]RoomDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/room/edit/{id}")]
-        public IActionResult UpdateRoom(int id, [FromBody] RoomDTO roomDto)
+        public IActionResult UpdateRoom(int id, [FromBody] RoomDto roomDto)
         {
             if (!ModelState.IsValid)
             {

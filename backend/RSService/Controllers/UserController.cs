@@ -34,11 +34,11 @@ namespace RSService.Controllers
             if (results == null)
                 return NotFound();
             
-            List<UserDTO> final_result = new List<UserDTO>();
+            List<UserDto> final_result = new List<UserDto>();
 
             foreach (var it in results)
             {
-                final_result.Add(new UserDTO()
+                final_result.Add(new UserDto()
                 {
                     Id = it.Id,
                     Name = it.Name,
@@ -90,7 +90,7 @@ namespace RSService.Controllers
 
             Context.SaveChanges();
 
-            var addedUser = new UserDTO()
+            var addedUser = new UserDto()
             {
                 Name = user.Name,
                 FirstName = user.FirstName,
@@ -136,7 +136,7 @@ namespace RSService.Controllers
 
             Context.SaveChanges();
 
-            var updatedUser = new UserDTO()
+            var updatedUser = new UserDto()
             {
                 Name = user.Name,
                 FirstName = user.FirstName,
