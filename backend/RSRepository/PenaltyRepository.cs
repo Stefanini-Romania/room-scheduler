@@ -31,7 +31,7 @@ namespace RSRepository
 
         public Penalty GetPenaltyById(int id)
         {
-            return penalties.SingleOrDefault(s => s.Id == id);
+            return penalties.FirstOrDefault(s => s.Id == id);
         }
 
         public void AddPenalty(Penalty penalty)

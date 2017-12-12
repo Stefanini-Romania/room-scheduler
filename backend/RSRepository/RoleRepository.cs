@@ -40,7 +40,7 @@ namespace RSRepository
 
         public Role GetRoleById(int id)
         {
-            return _roles.SingleOrDefault(s => s.Id == id);
+            return _roles.FirstOrDefault(s => s.Id == id);
         }
 
         public List<Role> GetRoles()

@@ -20,7 +20,7 @@ namespace RSRepository
 
         public Availability GetAvailabilityById(int id)
         {
-            return availabilities.SingleOrDefault(s => s.Id == id);
+            return availabilities.FirstOrDefault(s => s.Id == id);
         }
 
         public List<Availability> GetAvailabilities()

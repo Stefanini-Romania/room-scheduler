@@ -30,8 +30,6 @@ namespace RSService.BusinessLogic
 
         bool IsUniqueEmail(String email);
 
-        List<int> getRolesByUserID(int userId);
-
         bool IsValidRole(List<int> userRole);
 
         bool IsActiveUser(String username);

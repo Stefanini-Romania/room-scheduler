@@ -41,12 +41,18 @@ namespace RSRepository
         
         public UserRole GetUserRoleById(int id)
         {
-            return userroles.SingleOrDefault(s => s.Id == id);
+            return userroles.FirstOrDefault(s => s.Id == id);
         }
 
         public List<UserRole> GetUserRoles()
         {
             return userroles.ToList();
+        }
+
+        public List<UserRole> GetUserRolesByUser(int userId)
+        {
+            return userroles.Where(e => e.UserId == userId)
+                            .ToList();
         }
 
         public void SaveChanges()

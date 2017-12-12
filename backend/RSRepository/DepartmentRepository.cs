@@ -40,7 +40,7 @@ namespace RSRepository
 
         public Department GetDepartmentById(int id)
         {
-            return _departments.SingleOrDefault(s => s.Id == id);
+            return _departments.FirstOrDefault(s => s.Id == id);
         }
 
         public List<Department> GetDepartments()

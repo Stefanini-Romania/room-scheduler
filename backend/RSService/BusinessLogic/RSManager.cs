@@ -136,9 +136,8 @@ namespace RSService.BusinessLogic
 
         public bool CanCancel(DateTime startDate, DateTime endDate, int roomId, int attendee)
         {
-            var aux = eventRepository.GetEvents().Where(e => e.StartDate == startDate).Where(e => e.EndDate == endDate)
-                                     .Where(e => e.RoomId == roomId).Where(e => e.AttendeeId == attendee);
-            return aux.Count() != 0;
+            var eventToCancel = eventRepository.GetEventForEdit(startDate, endDate, roomId, attendee);
+            return eventToCancel.Count() != 0;
         }
 
         public bool CheckAvailability(DateTime startDate, DateTime endDate, int roomId)
@@ -176,12 +175,30 @@ namespace RSService.BusinessLogic
 
         public bool IsUniqueUserName(String username)
         {
-            return userRepository.GetUsers().Where(u => u.Name == username).Count() == 0;
+            var user = userRepository.GetUserByUsername(username);
+
+            if (user == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool IsUniqueEmail(String email)
         {
-            return userRepository.GetUsers().Where(u => u.Email == email).Count() == 0;
+            var user = userRepository.GetUserByEmail(email);
+
+            if (user == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -245,7 +262,7 @@ namespace RSService.BusinessLogic
         public bool HasPenalty(int attendeeId, DateTime newDate, int roomId)
         {
             Penalty penalty = penaltyRepository.GetPenaltiesByUser(attendeeId)
-                                    .SingleOrDefault(p => p.Date.AddDays(15) >= newDate);
+                                    .FirstOrDefault(p => p.Date.AddDays(15) >= newDate);
 
             if (penalty != null)
             {
@@ -253,17 +270,6 @@ namespace RSService.BusinessLogic
             }
 
             return false;
-        }
-
-        public List<int> getRolesByUserID(int userId)
-        {
-            var result = new List<int>();
-            var userRoles = userRoleRepository.GetUserRoles().Where(e => e.UserId == userId);
-            foreach (var it in userRoles)
-            {
-                result.Add(it.RoleId);
-            }
-            return result;
         }
 
         public bool IsValidRole(List<int> userRole)
