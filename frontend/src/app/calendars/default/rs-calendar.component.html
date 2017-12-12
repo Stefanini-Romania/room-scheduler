@@ -37,7 +37,7 @@
     </div>
 
     <div class="row h-100 mby-5">
-        <div class="col">
+        <div class="col col-md-11">
         <jqxScheduler #schedulerReference
                       [width]="'100%'" [height]="'100%'"
                       [rowsHeight]="10"
@@ -62,9 +62,9 @@
         ></jqxScheduler>
         </div>
 
-        <div *ngIf="availabilities" class="col col-md-4">
+        <div *ngIf="availabilities" class="col col-md-1">
             <table>
-                <tr class="badge badge-primary" *ngFor="let host of availabilities | keys">
+                <tr id="legend" class="badge badge-primary" *ngFor="let host of availabilities | keys">
                     <td>
 
                     <table>
@@ -72,8 +72,9 @@
                         <tr *ngFor="let day of availabilities[host] | keys">
                             <td>
                                 <div class="badge badge-primary" *ngFor="let event of availabilities[host][day]">
-                                {{ event.startDate | localizedDate:'EE HH:mm' | titlecase }}
-                                {{ event.endDate | localizedDate:'HH:mm' }}
+                                    <div>{{ event.startDate | localizedDate:'EE HH:mm' | titlecase }}
+                                         {{ event.endDate | localizedDate:'HH:mm' }}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
