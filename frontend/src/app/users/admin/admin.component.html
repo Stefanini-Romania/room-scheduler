@@ -14,6 +14,7 @@
               <th>{{'user.firstName' | translate}}</th>
               <th>{{'user.lastName' | translate}} </th>
               <th>{{'user.userRole' | translate}}</th>
+              <th>{{'user.isActive' | translate}}</th>
               <th>{{'options' | translate}}</th>
             </tr>
         </thead>
@@ -24,12 +25,12 @@
                   <td>{{user.firstName}}</td>
                   <td>{{user.lastName}}</td>
                   <td>{{user.userRole}}</td>
-                  
+                  <td>{{user.isActive}}</td>
                   <td>
                     <button class = "btn btn-primary" (click)="onSelectUser(user)" title="{{'user.edit' | translate}}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-primary" type="button" (click)="onDeleteUser(user)" title="{{ 'rooms.delete' | translate }}">
+                    <button class="btn btn-primary" type="button" (click)="onDeleteUser(user)" title="{{ 'user.delete' | translate }}">
                       <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                   </td>
@@ -58,6 +59,7 @@
             <tr>
               <th>{{'calendar.rooms' | translate}}</th>
               <th>{{'location' | translate}}</th>
+              <th>{{'rooms.isActive' | translate}}</th>
               <th>{{'options' | translate}}</th>
             </tr>
         </thead>
@@ -66,6 +68,7 @@
           <tr *ngFor="let room of rooms | paginate: { itemsPerPage: 8, currentPage: page}">
             <td>{{room.name}}</td>
             <td>{{room.location}}</td>
+            <td>{{room.isActive}}</td>
             <td> 
               <button class = "btn btn-primary" (click)="onSelectRoom(room)" title="{{'rooms.edit' | translate}}">
                   <i class="fa fa-pencil" aria-hidden="true"></i>

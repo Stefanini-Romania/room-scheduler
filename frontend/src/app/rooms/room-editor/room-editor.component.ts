@@ -49,7 +49,7 @@ export class RoomEditorComponent {
     }
     
     editRooms() {
-        this.roomService.editRoom(this.model.id, this.model.name, this.model.location).subscribe(
+        this.roomService.editRoom(this.model.id, this.model.name, this.model.location, this.model.isActive).subscribe(
             () => {
                 this.successfullEditRoom.emit();
                 this.toastr.success(

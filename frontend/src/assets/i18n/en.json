@@ -62,7 +62,8 @@
       "created": "The room has been created",
       "deleteRoom": "Delete room",
       "delete": "Delete",
-      "deleted": "The room has been deleted"
+      "deleted": "The room has been deleted",
+      "isActive": "Active"
   },
 
   "location": "Location",
@@ -138,7 +139,8 @@
     "delete": "Delete user",
     "add":  "Add user",
     "deleted": "The user has been deleted",
-    "attendee": "Attendee"
+    "attendee": "Attendee",
+    "isActive": "Active"
   },
 
   "Auth": {

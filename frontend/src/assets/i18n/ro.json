@@ -62,7 +62,8 @@
       "created": "Camera a fost adăugată",
       "deleteRoom": "Șterge camera",
       "delete": "Șterge",
-      "deleted": "Camera a fost ștearsă"
+      "deleted": "Camera a fost ștearsă",
+      "isActive": "Activ"
   },
 
   "location": "Locație",
@@ -154,7 +155,8 @@
     "delete": "Șterge utilizatorul",
     "add": "Adaugă utilizator",
     "deleted": "Utilizatorul a fost șters",
-    "attendee": "Utilizator"
+    "attendee": "Utilizator",
+    "isActive": "Activ"
   },
 
   "Auth": {

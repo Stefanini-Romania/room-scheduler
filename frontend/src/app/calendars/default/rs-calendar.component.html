@@ -62,30 +62,27 @@
         ></jqxScheduler>
         </div>
 
-      <div *ngIf="availabilities" class="col col-md-2">
-        <table>
-          <tr *ngFor="let host of availabilities | keys" class="badge badge-primary">
-            <td>
+        <div *ngIf="availabilities" class="col col-md-4">
+            <table>
+                <tr class="badge badge-primary" *ngFor="let host of availabilities | keys">
+                    <td>
 
-              <table>
-                <tr>
-                  <td>{{ host }}</td>
+                    <table>
+                        <tr><td>{{ host }}</td></tr>
+                        <tr *ngFor="let day of availabilities[host] | keys">
+                            <td>
+                                <div class="badge badge-primary" *ngFor="let event of availabilities[host][day]">
+                                {{ event.startDate | localizedDate:'EE HH:mm' | titlecase }}
+                                {{ event.endDate | localizedDate:'HH:mm' }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    </td>
                 </tr>
-                <tr *ngFor="let day of availabilities[host] | keys">
-                  <td>
-                    <div *ngFor="let event of availabilities[host][day]" class="badge badge-primary">
-                      {{ event.startDate | localizedDate:'EE HH:mm' | titlecase }}
-                      {{ event.endDate | localizedDate:'HH:mm' }}
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
-            </td>
-          </tr>
-        </table>
-
-</div>
+            </table>
+        </div>
 
     </div>
 </div>

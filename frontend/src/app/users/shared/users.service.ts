@@ -44,31 +44,32 @@ export class UserService {
         });
     }
 
-    public deleteUser(user: User) {
-        const url = environment.apiUrl + '/user/delete/' + user.id;
-        console.log(url);
-        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    // public deleteUser(user: User) {
+    //     const url = environment.apiUrl + '/user/delete/' + user.id;
+    //     console.log(url);
+    //     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
-        return this.http.delete(url, {headers: headers, withCredentials: true})
-            .catch((error: any) => {               
-                return Observable.throw(error.message);
-            })
-            .map((response: Response) => {        
-                return response;
-            });
-    }
+    //     return this.http.delete(url, {headers: headers, withCredentials: true})
+    //         .catch((error: any) => {               
+    //             return Observable.throw(error.message);
+    //         })
+    //         .map((response: Response) => {        
+    //             return response;
+    //         });
+    // }
 
 
-    public editUser(id: number, firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRoles?: RoleEnum[]) {
+    public editUser(id: number, firstName: string, lastName: string, name: string, email: string, departmentId: number,  userRoles?: RoleEnum[], isActive?: boolean, password?: string) {
         const url = environment.apiUrl + '/user/edit/' + id;
         const body = JSON.stringify({
             name: name,
             firstName: firstName,
             lastName: lastName,
             userRole: [RoleEnum.attendee],
-            email: email,
-            password: password,
+            email: email,       
             departmentId: departmentId,
+            isActive: isActive,
+            password: password
         });
 
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');

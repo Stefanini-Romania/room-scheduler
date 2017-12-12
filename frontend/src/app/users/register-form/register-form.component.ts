@@ -92,7 +92,7 @@ export class RegisterFormComponent {
     }
 
     editUser(){
-        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.email, this.model.password, this.model.name, this.model.departmentId, this.model.userRoles).subscribe(
+        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRoles, this.model.isActive, this.model.password).subscribe(
             () => {
                 this.successfullEditUser.emit();
                 this.toastr.success(

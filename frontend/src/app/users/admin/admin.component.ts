@@ -54,7 +54,7 @@ export class AdminComponent implements AfterViewInit{
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
-      }
+    }
     
       private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
@@ -64,11 +64,10 @@ export class AdminComponent implements AfterViewInit{
         } else {
           return  `with: ${reason}`;
         }
-      }
+    }
 
     refreshUsers() {
         this.users= [];
-
                 this.userService.listUsers().subscribe((users: any) => {
                     for (let user of users) { 
                         for (let userRole of user.userRole) {
@@ -80,6 +79,7 @@ export class AdminComponent implements AfterViewInit{
                     } 
                 });
     }
+
     refreshRooms() {
         this.rooms = [];
         this.roomService.roomList().subscribe((rooms: any) => {
@@ -105,13 +105,23 @@ export class AdminComponent implements AfterViewInit{
         });
     }
 
-    onDeleteUser(model: User) { //NOT FINISHED
-        this.model.isActive = false;
-        this.toastr.warning(
-            this.translate.instant("user.deleted"), '',
-            {positionClass: 'toast-bottom-right'}
-        );       
-        return this.refreshUsers();  
+    onDeleteUser(model: User) {
+        model.isActive = false;
+        this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
+        .subscribe(
+            () => {   
+                this.toastr.warning(
+                    this.translate.instant("user.deleted"), '',
+                    {positionClass: 'toast-bottom-right'}
+                );                
+                this.refreshUsers();                      
+            }, 
+            error => {
+                this.errorMessage = error.error.message;
+            });
+        
+              
+        
         // this.userService.deleteUser(user).subscribe(
         //         () => {                   
         //                 this.toastr.warning(
@@ -141,8 +151,9 @@ export class AdminComponent implements AfterViewInit{
         });       
     }
 
-    onDeleteRoom(room: Room) {            
-        this.roomService.deleteRoom(room).subscribe(
+    onDeleteRoom(model: Room) {   
+        model.isActive = false;         
+        this.roomService.editRoom(model.id, model.name, model.location, model.isActive).subscribe(
                 () => {       
                     this.toastr.warning(
                         this.translate.instant('rooms.deleted'), '',
