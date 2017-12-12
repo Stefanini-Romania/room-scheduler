@@ -22,9 +22,6 @@ import {RoleEnum} from '../../shared/models/role.model';
     providers: [UserService, RoomService, NgbActiveModal],
 })
 
-// @Input() id: string;
-// @Input() maxSize: number;
-
 
 export class AdminComponent implements AfterViewInit{
 
@@ -101,7 +98,6 @@ export class AdminComponent implements AfterViewInit{
     }
 
     onSelectUser(model: User) {
-        //this.selectedUser = this.user;
         const modalRef:NgbModalRef = this.modalService.open(RegisterFormComponent);    
         modalRef.componentInstance.model = model;  
         modalRef.componentInstance.successfullEditUser.subscribe(() => {

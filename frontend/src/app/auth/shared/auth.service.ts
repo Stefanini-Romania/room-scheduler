@@ -9,6 +9,7 @@ import {User} from '../../shared/models/user.model';
 
 @Injectable()
 export class AuthService {
+    
     public user$: EventEmitter<User> = new EventEmitter();
 
     constructor(private http: HttpClient) {
