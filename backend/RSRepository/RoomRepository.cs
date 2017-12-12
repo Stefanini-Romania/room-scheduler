@@ -25,7 +25,7 @@ namespace RSRepository
 
         public Room GetRoomById(int id)
         {
-            return rooms.SingleOrDefault(s => s.Id == id);
+            return rooms.FirstOrDefault(s => s.Id == id);
         }
 
         public void AddRoom(Room room)

@@ -41,7 +41,7 @@ namespace RSService.Controllers
         public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
         {
             var userName = HttpContext.User.Identity.Name;
-            var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;
+            var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
 
             if (!ModelState.IsValid)
                 return ValidationError(GeneralMessages.Event);
@@ -141,13 +141,14 @@ namespace RSService.Controllers
         public IActionResult UpdateEvent(int id, [FromBody] EditEventViewModel model)
         {
             var userName = HttpContext.User.Identity.Name;
-            var currentAttendeeId = userRepository.GetUsers().Single(u => u.Name == userName).Id;
+            var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
 
             if (ModelState.IsValid)
             {
                 var _model = Mapper.Map<Event>(model);
 
-                var _event = eventRepository.GetEvents().FirstOrDefault(c => c.Id == id);
+                var _event = eventRepository.GetEventById(id);
+
                 if (_event == null)
                 {
                     return NotFound();
