@@ -44,7 +44,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/room/add")]
-        public IActionResult AddRoom([FromBody]EditRoomViewModel model) // nu avea rost sa fac un AddRoomViewModel-- ar fi fost la fel cu cel de edit
+        public IActionResult AddRoom([FromBody]EditRoomViewModel model) // o sa madific cu un AddRoomViewModel pentru a te lasa sa dai edit chiar daca nu ai modificat nimci
         {
             if (!ModelState.IsValid)
             {
