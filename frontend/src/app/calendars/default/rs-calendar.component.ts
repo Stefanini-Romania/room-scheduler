@@ -57,7 +57,6 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.goToToday();
-       
       
     }
 

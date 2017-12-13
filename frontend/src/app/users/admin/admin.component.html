@@ -65,7 +65,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let room of rooms | paginate: { itemsPerPage: 8, currentPage: page}">
+          <tr *ngFor="let room of rooms | paginate: { itemsPerPage: 8, currentPage: roompage}">
             <td>{{room.name}}</td>
             <td>{{room.location}}</td>
             <td>{{room.isActive}}</td>
@@ -96,7 +96,7 @@
         </div>
       </ng-template>           
 
-      <pagination-controls (pageChange)="page = $event"></pagination-controls>     
+      <pagination-controls (pageChange)="roompage = $event"></pagination-controls>     
     </ng-template>
   </ngb-tab>
   

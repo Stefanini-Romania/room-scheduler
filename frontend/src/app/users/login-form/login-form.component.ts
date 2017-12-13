@@ -27,7 +27,7 @@ export class LoginFormComponent {
         this.authService.authenticate(this.model.name, this.model.password).subscribe(
                 () => {
                     this.successfullLogin.emit();
-                    //this.activeModal.close();
+ 
                 },
                 error => {
                     this.errorMessage = error.error.message;
