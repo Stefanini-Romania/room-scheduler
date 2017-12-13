@@ -53,7 +53,7 @@ export class RoomEditorComponent {
             () => {
                 this.successfullEditRoom.emit();
                 this.toastr.success(
-                    this.translate.instant('rooms.edited'), '',
+                    this.translate.instant('rooms.saved'), '',
                     {positionClass: 'toast-bottom-right'}
                 )               
             });       

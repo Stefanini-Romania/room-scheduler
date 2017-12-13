@@ -15,7 +15,7 @@
               <th>{{'user.lastName' | translate}} </th>
               <th>{{'user.userRole' | translate}}</th>
               <th>{{'user.isActive' | translate}}</th>
-              <th>{{'user.edit' | translate}}</th>
+              <th>{{'actions' | translate}}</th>
             </tr>
         </thead>
 
@@ -35,7 +35,7 @@
         </tbody>
       </table>
 
-      <ng-template #content let-c="close" let-d="dismiss">
+      <!-- <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
           <h4 class="modal-title">{{ 'user.delete' | translate }}</h4>
           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -48,7 +48,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-dark" (click)="onDeleteUser(selectedUser);c('Close click')">{{ 'rooms.delete' | translate }}</button>
         </div>
-      </ng-template> 
+      </ng-template> -->
       <pagination-controls (pageChange)="page = $event"></pagination-controls>
     </ng-template>
   </ngb-tab>
@@ -67,10 +67,10 @@
       <table class="table table-hover table-striped table-responsive table table-bordered text-center">
         <thead>
             <tr>
-              <th>{{'room' | translate}}</th>
+              <th>{{'AdminTabs.Rooms' | translate}}</th>
               <th>{{'location' | translate}}</th>
               <th>{{'rooms.isActive' | translate}}</th>
-              <th>{{'rooms.edit' | translate}}</th>
+              <th>{{'actions' | translate}}</th>
             </tr>
         </thead>
 
@@ -91,7 +91,7 @@
         </tbody>
       </table>
       
-      <ng-template #content let-c="close" let-d="dismiss">
+      <!-- <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
           <h4 class="modal-title">{{ 'rooms.deleteRoom' | translate }}</h4>
           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -104,7 +104,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-dark" (click)="onDeleteRoom(selectedRoom);c('Close click')">{{ 'rooms.delete' | translate }}</button>
         </div>
-      </ng-template>           
+      </ng-template>-->
 
       <pagination-controls (pageChange)="roompage = $event"></pagination-controls>     
     </ng-template>

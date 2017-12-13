@@ -99,7 +99,7 @@ export class RegisterFormComponent {
             () => {
                 this.successfullEditUser.emit();
                 this.toastr.success(
-                    this.translate.instant('user.edited'), '',
+                    this.translate.instant('user.saved'), '',
                     {positionClass: 'toast-bottom-right'}
                 )               
             },       

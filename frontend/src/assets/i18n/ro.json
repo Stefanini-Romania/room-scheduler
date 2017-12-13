@@ -52,11 +52,12 @@
 
   "confirmDelete": "Sunteți sigur că vreți să ștergeți?",
   "actions": "Acțiuni",
-  "room": "Cameră",
+  
   "rooms": {
       "editRoom": "Editare cameră",
       "edit": "Editare",
-      "edited": "The room has been edited",
+      "save": "Salvează",
+      "saved": "Camera a fost salvată",
       "add": "Adaugă cameră",
       "name": "Numele camerei",
       "location": "Locația camerei",
@@ -152,7 +153,8 @@
     "lastName": "Nume",
     "userRole": "Rolul de user",
     "edit": "Editare",
-    "edited": "Editare cu succes",
+    "save": "Salvează",
+    "saved": "Utilizatorul a fost salvat",
     "delete": "Șterge utilizatorul",
     "add": "Adaugă utilizator",
     "deleted": "Utilizatorul a fost șters",

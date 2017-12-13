@@ -52,11 +52,12 @@
 
   "confirmDelete": "Are you sure you want do delete it?",
   "actions": "Actions",
-  "room": "Room",
+  
   "rooms": {
       "editRoom": "Edit room",
       "edit": "Edit",
-      "edited": "The room has been edited",
+      "save": "Save",
+      "saved": "The room has been saved",
       "add": "Add room",
       "name": "Room's name",
       "location": "Room's location",
@@ -135,8 +136,9 @@
     "firstName": "First name",
     "lastName": "Last name",
     "userRole": "User role",
-    "edit": "Edit user",
-    "edited": "The user has been edited",
+    "edit": "Edit",
+    "save": "Save",
+    "saved": "The user has been saved",
     "delete": "Delete user",
     "add":  "Add user",
     "deleted": "The user has been deleted",
