@@ -187,6 +187,20 @@ namespace RSService.BusinessLogic
             }
         }
 
+        public bool IsUniqueEmail(String email)
+        {
+            var user = userRepository.GetUserByEmail(email);
+
+            if (user == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool IsUniqueUserNameEdit(string username, int userId)
         {
             var users = userRepository.GetUsersByUsername(username, userId);
@@ -201,7 +215,7 @@ namespace RSService.BusinessLogic
             }
         }
 
-        public bool IsUniqueEmail(String email, int userId)
+        public bool IsUniqueEmailEdit(String email, int userId)
         {
             var users = userRepository.GetUsersByEmail(email, userId);
 

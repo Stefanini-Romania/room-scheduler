@@ -39,7 +39,7 @@ namespace RSService.Filters
 
         private bool IsUniqueEmail(UserViewModel m, String email)
         {
-            return rsManager.IsUniqueUserName(email);
+            return rsManager.IsUniqueEmail(email);
         }
 
         private bool IsValidRole(UserViewModel usm, List<int> userRole)
