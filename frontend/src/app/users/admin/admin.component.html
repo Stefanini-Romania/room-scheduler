@@ -15,33 +15,43 @@
               <th>{{'user.lastName' | translate}} </th>
               <th>{{'user.userRole' | translate}}</th>
               <th>{{'user.isActive' | translate}}</th>
-              <th>{{'options' | translate}}</th>
+              <th>{{'user.edit' | translate}}</th>
             </tr>
         </thead>
 
-              <tbody>
-                <tr *ngFor="let user of users | paginate: { itemsPerPage: 8, currentPage: page}"  >
-                  <td>{{user.name}}</td>
-                  <td>{{user.firstName}}</td>
-                  <td>{{user.lastName}}</td>
-                  <td>{{user.userRole}}</td>
-                  <td>{{user.isActive}}</td>
-                  <td>
-                    <button class = "btn btn-primary" (click)="onSelectUser(user)" title="{{'user.edit' | translate}}">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-primary" type="button" (click)="onDeleteUser(user)" title="{{ 'user.delete' | translate }}">
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                  </td>
+        <tbody>
+          <tr *ngFor="let user of users | paginate: { itemsPerPage: 8, currentPage: page}"  >
+            <td>{{user.name}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.userRole}}</td>
+            <td>{{user.isActive}}</td>
+            <td>
+              <button class = "btn btn-primary" (click)="onSelectUser(user)" title="{{'user.edit' | translate}}">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-                </tr>
-              </tbody>
-
-              </table>
-            <pagination-controls (pageChange)="page = $event"></pagination-controls>
-          </ng-template>
-        </ngb-tab>
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ 'user.delete' | translate }}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ 'confirmDelete' | translate }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="onDeleteUser(selectedUser);c('Close click')">{{ 'rooms.delete' | translate }}</button>
+        </div>
+      </ng-template> 
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </ng-template>
+  </ngb-tab>
 
   <!-- <ngb-tab>
     <ng-template ngbTabTitle><b>{{'AdminTabs.Hosts' | translate}}</b></ng-template>
@@ -57,10 +67,10 @@
       <table class="table table-hover table-striped table-responsive table table-bordered text-center">
         <thead>
             <tr>
-              <th>{{'calendar.rooms' | translate}}</th>
+              <th>{{'room' | translate}}</th>
               <th>{{'location' | translate}}</th>
               <th>{{'rooms.isActive' | translate}}</th>
-              <th>{{'options' | translate}}</th>
+              <th>{{'rooms.edit' | translate}}</th>
             </tr>
         </thead>
 
@@ -73,9 +83,9 @@
               <button class = "btn btn-primary" (click)="onSelectRoom(room)" title="{{'rooms.edit' | translate}}">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-primary" type="button" (click)="open(content, room)" title="{{ 'rooms.delete' | translate }}">
+              <!-- <button class="btn btn-primary" type="button" (click)="open(content, room)" title="{{ 'rooms.delete' | translate }}">
                   <i class="fa fa-trash" aria-hidden="true"></i>
-              </button>
+              </button> -->
             </td>
           </tr>
         </tbody>

@@ -51,7 +51,8 @@
   "cancel.login.button": "Cancel",
 
   "confirmDelete": "Are you sure you want do delete it?",
-  "options": "Options",
+  "actions": "Actions",
+  "room": "Room",
   "rooms": {
       "editRoom": "Edit room",
       "edit": "Edit",

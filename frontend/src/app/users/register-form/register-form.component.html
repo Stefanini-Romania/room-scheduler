@@ -101,7 +101,7 @@
                                 </div>
                             </div>
         
-                            <p>
+                            <p *ngIf="!(isLoggedIn) && !model.id">                         
                                 {{ 'login.alreadyHaveAccount' | translate }}
                                 <a routerLink="/login">{{ 'login.button' | translate }}</a>.
                             </p>

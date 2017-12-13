@@ -29,7 +29,7 @@ export class AdminComponent implements AfterViewInit{
     pageChange= new EventEmitter <number>();
 
     closeResult: string;
-    public users:User[];
+    public users: User[];
     public selectedUser: User;
     public rooms: Room[];
     public selectedRoom: Room;
@@ -47,16 +47,7 @@ export class AdminComponent implements AfterViewInit{
         this.refreshRooms();
     }
 
-    open(content, room) {
-        this.selectedRoom = room;
-        this.modalService.open(content).result.then((result) => {
-          this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
-    }
-    
-      private getDismissReason(reason: any): string {
+    private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
           return 'by pressing ESC';
         } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -119,7 +110,7 @@ export class AdminComponent implements AfterViewInit{
             error => {
                 this.errorMessage = error.error.message;
             });
-        
+    }   
               
         
         // this.userService.deleteUser(user).subscribe(
@@ -133,7 +124,7 @@ export class AdminComponent implements AfterViewInit{
         //         error => {
         //             this.errorMessage = error.message;
         //         }); 
-    }
+    
 
     onSelectRoom(model: Room) {
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);   

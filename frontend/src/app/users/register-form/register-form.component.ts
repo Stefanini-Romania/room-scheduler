@@ -5,7 +5,6 @@ import {ToastrService} from 'ngx-toastr';
 import {TranslateService} from "@ngx-translate/core";
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-
 import {environment} from './../../../environments/environment';
 import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
 import {User} from '../../shared/models/user.model';
@@ -28,15 +27,14 @@ export class RegisterFormComponent {
     successfullEditUser = new EventEmitter;
 
     public confirmPassword;
-    public submitted;
-
+    //public submitted;
     public model: User = <User>{
         departmentId: DepartmentIdEnum.ADC,
         userRoles: [RoleEnum.attendee]
     };
     
     public errorMessages: any = {};
-    
+    currentUser: User = undefined;
     DepartmentIdEnum: DepartmentIdEnum[] = [];
     RoleIdEnum: RoleEnum[] = [];
 
@@ -47,6 +45,11 @@ export class RegisterFormComponent {
                 public activeModal: NgbActiveModal,
                 private toastr: ToastrService,
                 private translate: TranslateService) {
+    }
+
+    get isLoggedIn():boolean {
+        this.currentUser = this.authService.getLoggedUser();
+        return this.currentUser && this.authService.isLoggedIn();
     }
 
     register() {

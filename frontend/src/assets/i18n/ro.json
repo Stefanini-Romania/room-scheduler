@@ -51,7 +51,8 @@
   "cancel.login.button": "Anulare",
 
   "confirmDelete": "Sunteți sigur că vreți să ștergeți?",
-  "options": "Opțiuni",
+  "actions": "Acțiuni",
+  "room": "Cameră",
   "rooms": {
       "editRoom": "Editare cameră",
       "edit": "Editare",
@@ -150,7 +151,7 @@
     "firstName": "Prenume",
     "lastName": "Nume",
     "userRole": "Rolul de user",
-    "edit": "Editează",
+    "edit": "Editare",
     "edited": "Editare cu succes",
     "delete": "Șterge utilizatorul",
     "add": "Adaugă utilizator",
