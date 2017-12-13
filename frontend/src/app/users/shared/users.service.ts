@@ -62,6 +62,7 @@ export class UserService {
     public editUser(id: number, firstName: string, lastName: string, name: string, email: string, departmentId: number,  userRoles?: RoleEnum[], isActive?: boolean, password?: string) {
         const url = environment.apiUrl + '/user/edit/' + id;
         const body = JSON.stringify({
+            id: id,
             name: name,
             firstName: firstName,
             lastName: lastName,
