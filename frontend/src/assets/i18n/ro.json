@@ -229,6 +229,12 @@
     "Users": "Utilizatori",
     "Hosts": "Host",
     "Rooms": "Camere"
+    },
+
+     "Room": {
+        "SameNameAndLocation": "Camera există deja în această locație",
+        "Name.IsEmpty": " Inserați numele camerei",
+        "Location.IsEmpty": "Inserați locația camerei"
     }
 }
 

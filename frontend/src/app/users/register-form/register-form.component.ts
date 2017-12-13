@@ -60,8 +60,7 @@ export class RegisterFormComponent {
                                         this.model.password, 
                                         this.model.departmentId,
                                         this.model.userRoles
-                                        )
-                                            
+                                        )                                          
         .subscribe(
             () => {
                 this.successfullAddUser.emit();

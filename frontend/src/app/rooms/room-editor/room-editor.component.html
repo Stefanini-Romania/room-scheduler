@@ -7,8 +7,17 @@
         <div class="row justify-content-center align-self-center mx-auto">
             <form>
                 <div id="room-editor">                    
-                    <input type="text" placeholder="{{ 'rooms.name' | translate }}" name="Name" [(ngModel)]="model.name" #Name="ngModel">                  
+                    <input type="text" placeholder="{{ 'rooms.name' | translate }}" name="Name" [(ngModel)]="model.name" #Name="ngModel">
+                    <!-- NAME VALIDATION -->
+                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Name']" [dismissible]="false">
+                        <div *ngFor="let errorMessage of errorMessages['Name']">{{ errorMessage | translate }}</div>
+                    </ngb-alert>
+
                     <input type="text" placeholder="{{ 'rooms.location' | translate }}" name="Location" [(ngModel)]="model.location" #Location="ngModel">
+                    <!-- LOCATION VALIDATION -->
+                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Location']" [dismissible]="false">
+                        <div *ngFor="let errorMessage of errorMessages['Location']">{{ errorMessage | translate }}</div>
+                    </ngb-alert>
                     <br />                   
                 </div>
             </form>

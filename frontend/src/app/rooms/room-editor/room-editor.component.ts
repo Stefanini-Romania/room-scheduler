@@ -29,6 +29,7 @@ export class RoomEditorComponent {
     public errorMessage: any ={};
     public selectedRoom: Room;
     rooms: Room[]= [];
+    public errorMessages: any = {};
 
     constructor(private http: HttpClient, public activeModal: NgbActiveModal, private translate: TranslateService, private roomService: RoomService, private toastr: ToastrService, private modalService: NgbModal) {
     }
@@ -45,7 +46,26 @@ export class RoomEditorComponent {
                     this.translate.instant('rooms.created'), '',
                     {positionClass: 'toast-bottom-right'}
                 );                                                         
-        });     
+        },
+        error => {
+                this.errorMessages = {'generic': [error.error.message]};
+    
+                // build error message
+                for (let e of error.error.errors) {
+                    let field = 'generic';
+                    
+                    if (['Name', 'Location'].indexOf(e.field) >= 0) {
+                        field = e.field;
+                    }
+
+                    if (!this.errorMessages[field]) {
+                        this.errorMessages[field] = [];
+                    }
+    
+                    this.errorMessages[field].push(e.errorCode);
+                }
+            }
+        );     
     }
     
     editRooms() {
@@ -56,6 +76,22 @@ export class RoomEditorComponent {
                     this.translate.instant('rooms.saved'), '',
                     {positionClass: 'toast-bottom-right'}
                 )               
+            },
+            error => {
+                this.errorMessages = {'generic': [error.error.message]};
+                for (let e of error.error.errors) {
+                    let field = 'generic';
+                    
+                    if (['Name'].indexOf(e.field) >= 0) {
+                        field = e.field;
+                    }
+
+                    if (!this.errorMessages[field]) {
+                        this.errorMessages[field] = [];
+                    }
+    
+                    this.errorMessages[field].push(e.errorCode);
+                }
             });       
     } 
 }
