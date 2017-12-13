@@ -4,6 +4,7 @@ using RSData.Models;
 using RSRepository;
 using RSService.DTO;
 using RSService.Validation;
+using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +69,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/room/add")]
-        public IActionResult AddRoom([FromBody]RoomDto model)
+        public IActionResult AddRoom([FromBody]EditRoomViewModel model) // o sa madific cu un AddRoomViewModel pentru a te lasa sa dai edit chiar daca nu ai modificat nimci
         {
             if (!ModelState.IsValid)
             {
@@ -94,7 +95,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/room/edit/{id}")]
-        public IActionResult UpdateRoom(int id, [FromBody] RoomDto roomDto)
+        public IActionResult UpdateRoom(int id, [FromBody] EditRoomViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -109,13 +110,13 @@ namespace RSService.Controllers
                     return NotFound();
                 }
 
-                room.Name = roomDto.Name;
-                room.Location = roomDto.Location;
-                room.IsActive = roomDto.IsActive;
+                room.Name = model.Name;
+                room.Location = model.Location;
+                room.IsActive = model.IsActive;
 
                 Context.SaveChanges();
 
-                return Ok(roomDto);
+                return Ok(model);
             }
         }
 
