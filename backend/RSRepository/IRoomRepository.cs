@@ -8,6 +8,7 @@ namespace RSRepository
     public interface IRoomRepository
     {
         List<Room> GetRooms();
+        List<Room> GetRoomsByStatus(bool isActive);
         Room GetRoomById(int id);
         void AddRoom(Room room);
         void UpdateRoom(Room room);

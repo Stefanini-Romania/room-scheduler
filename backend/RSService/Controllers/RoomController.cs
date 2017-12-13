@@ -21,25 +21,50 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/room/list")]
-        public IActionResult GetRooms()
+        public IActionResult GetRooms(bool isActive)
         {
-            var rooms = roomRepository.GetRooms();
-            if (rooms == null) return NotFound();
-
-            List<RoomDto> roomList = new List<RoomDto>();
-
-            foreach (var it in rooms)
+            if (!isActive)
             {
-                roomList.Add(new RoomDto()
+                var rooms = roomRepository.GetRooms();
+                if (rooms == null) return NotFound();
+
+                List<RoomDto> roomList = new List<RoomDto>();
+
+                foreach (var it in rooms)
                 {
-                    Id = it.Id,
-                    Name = it.Name,
-                    Location = it.Location,
-                    IsActive = it.IsActive
-                });
+                    roomList.Add(new RoomDto()
+                    {
+                        Id = it.Id,
+                        Name = it.Name,
+                        Location = it.Location,
+                        IsActive = it.IsActive
+                    });
+                }
+
+                return Ok(roomList);
+            }
+            else
+            {
+                var rooms = roomRepository.GetRoomsByStatus(isActive);
+                if (rooms == null) return NotFound();
+
+                List<RoomDto> roomList = new List<RoomDto>();
+
+                foreach (var it in rooms)
+                {
+                    roomList.Add(new RoomDto()
+                    {
+                        Id = it.Id,
+                        Name = it.Name,
+                        Location = it.Location,
+                        IsActive = it.IsActive
+                    });
+                }
+
+                return Ok(roomList);
             }
 
-            return Ok(roomList);
+            
         }
 
         [HttpPost("/room/add")]
@@ -59,7 +84,7 @@ namespace RSService.Controllers
             {
                 Name = model.Name,
                 Location = model.Location,
-                IsActive = model.IsActive
+                IsActive = true
             };
 
             roomRepository.AddRoom(newRoom);

@@ -23,6 +23,12 @@ namespace RSRepository
             return rooms.ToList();
         }
 
+        public List<Room> GetRoomsByStatus(bool isActive)
+        {
+            return rooms.Where(r => r.IsActive == isActive)
+                        .ToList();
+        }
+
         public Room GetRoomById(int id)
         {
             return rooms.FirstOrDefault(s => s.Id == id);

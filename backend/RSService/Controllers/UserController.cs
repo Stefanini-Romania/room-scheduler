@@ -74,7 +74,8 @@ namespace RSService.Controllers
                 LastName = newUser.LastName,
                 Password = newUser.Password,
                 Email = newUser.Email,
-                DepartmentId = newUser.DepartmentId                
+                DepartmentId = newUser.DepartmentId,
+                IsActive = true
             };
 
             userRepository.AddUser(user);
@@ -98,7 +99,7 @@ namespace RSService.Controllers
                 Email = user.Email,
                 UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
                 DepartmentId = user.DepartmentId,
-                IsActive = true
+                IsActive = user.IsActive
             };
             return Ok(addedUser);
         }
