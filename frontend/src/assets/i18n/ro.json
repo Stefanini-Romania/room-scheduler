@@ -235,7 +235,9 @@
         "SameNameAndLocation": "Camera există deja în această locație",
         "Name.IsEmpty": " Inserați numele camerei",
         "Location.IsEmpty": "Inserați locația camerei"
-    }
+    },
+
+    "required.field" : "câmp obligatoriu"
 }
 
 

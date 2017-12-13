@@ -219,5 +219,7 @@
         "SameNameAndLocation": "The room already exists in this location",
         "Name.IsEmpty": "Please insert the room's name",
         "Location.IsEmpty": "Please insert the room's location"     
-    }
+    },
+
+    "required.field" : "mandatory field"
 }
