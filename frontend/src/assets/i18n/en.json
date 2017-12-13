@@ -176,7 +176,8 @@
     "Password": {
         "IsEmpty": "Please insert a password",
         "IsTooShort": "Password is too short (must be at least 6 characters)"
-    }
+    },
+    "Email.IsNotUnique": "This email is already used"
   },
     
 

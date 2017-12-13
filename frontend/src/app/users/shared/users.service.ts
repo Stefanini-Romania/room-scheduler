@@ -34,7 +34,6 @@ export class UserService {
             userRole: [RoleEnum.attendee]         
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-
         return this.http.post(url, body, {headers: headers, withCredentials: true})
         .catch((error: any) => {
             return Observable.throw(error);
@@ -75,7 +74,9 @@ export class UserService {
 
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.put(url, body, { headers: headers, withCredentials: true })
-            .catch((error: any) => Observable.throw(error.message))
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
             .map((response: Response) => {
                 return response;
             });

@@ -48,8 +48,12 @@
                                 <div class="col">
                                     <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required email>
                                     <!-- to do display invalid email validation -->
-                                    <!-- FRONTENDVALIDATION -->
-                                    <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>                            
+                                    <!-- FRONTEND VALIDATION -->
+                                    <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>
+                                    <!-- BACKEND VALIDATION  -->
+                                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Email']" [dismissible]="false">
+                                        <div *ngFor="let errorMessage of errorMessages['Email']">{{ errorMessage | translate }}</div>
+                                    </ngb-alert>
                                 </div>
                             </div>
                             
