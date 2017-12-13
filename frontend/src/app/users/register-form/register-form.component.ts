@@ -27,7 +27,7 @@ export class RegisterFormComponent {
     successfullEditUser = new EventEmitter;
 
     public confirmPassword;
-    //public submitted;
+    public submitted;
     public model: User = <User>{
         departmentId: DepartmentIdEnum.ADC,
         userRoles: [RoleEnum.attendee]
