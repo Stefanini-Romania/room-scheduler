@@ -28,7 +28,9 @@ namespace RSService.BusinessLogic
         
         bool IsUniqueUserName(String username);
 
-        bool IsUniqueEmail(String email);
+        bool IsUniqueUserNameEdit(string username, int userId);
+
+        bool IsUniqueEmail(String email, int userId);
 
         bool IsValidRole(List<int> userRole);
 

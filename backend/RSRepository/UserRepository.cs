@@ -66,9 +66,23 @@ namespace RSRepository
             return users.FirstOrDefault(s => s.Name == username);
         }
 
-        public User GetUserByEmail(string email)
+        public User GetUserByEmail(String email)
         {
             return users.FirstOrDefault(s => s.Email == email);
+        }
+
+        public List<User> GetUsersByUsername(string username, int userId)
+        {
+            return users.Where(s => s.Name == username)
+                        .Where(s => s.Id != userId)
+                        .ToList();
+        }
+
+        public List<User> GetUsersByEmail(string email, int userId)
+        {
+            return users.Where(s => s.Email == email)
+                        .Where(s => s.Id != userId)
+                        .ToList();
         }
 
         public void AddUser(User user)

@@ -106,6 +106,7 @@ namespace RSService.Controllers
         [HttpPut("/user/edit/{id}")]
         public IActionResult EditUser(int id, [FromBody]EditUserViewModel userView)
         {
+
             if (!ModelState.IsValid)
             {
                 return ValidationError(GeneralMessages.User);
@@ -138,6 +139,7 @@ namespace RSService.Controllers
 
             var updatedUser = new UserDto()
             {
+                Id = user.Id,
                 Name = user.Name,
                 FirstName = user.FirstName,
                 LastName = user.LastName,

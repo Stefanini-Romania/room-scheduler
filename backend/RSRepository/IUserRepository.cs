@@ -12,7 +12,9 @@ namespace RSRepository
         User FindUserByCredential(string username, string password);
         User GetUserById(long id);
         User GetUserByUsername(string username);
-        User GetUserByEmail(string email);
+        User GetUserByEmail(String email);
+        List<User> GetUsersByUsername(string username, int userId);
+        List<User> GetUsersByEmail(string email, int userId);
         void AddUser(User user);
         void UpdateUser(User user);
         void DeleteUser(User user);

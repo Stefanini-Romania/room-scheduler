@@ -187,17 +187,31 @@ namespace RSService.BusinessLogic
             }
         }
 
-        public bool IsUniqueEmail(String email)
+        public bool IsUniqueUserNameEdit(string username, int userId)
         {
-            var user = userRepository.GetUserByEmail(email);
+            var users = userRepository.GetUsersByUsername(username, userId);
 
-            if (user == null)
+            if (users.Count() > 0)
             {
-                return true;
+                return false;
             }
             else
             {
+                return true;
+            }
+        }
+
+        public bool IsUniqueEmail(String email, int userId)
+        {
+            var users = userRepository.GetUsersByEmail(email, userId);
+
+            if (users.Count() > 0)
+            {
                 return false;
+            }
+            else
+            {
+                return true;
             }
         }
 
