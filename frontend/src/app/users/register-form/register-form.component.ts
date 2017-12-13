@@ -104,7 +104,20 @@ export class RegisterFormComponent {
                 )               
             },       
             error => {
-                this.errorMessages = error.error.message;
+                this.errorMessages = {'generic': [error.error.message]};
+                for (let e of error.error.errors) {
+                    let field = 'generic';
+                    
+                    if (['Name', 'Email'].indexOf(e.field) >= 0) {
+                        field = e.field;
+                    }
+
+                    if (!this.errorMessages[field]) {
+                        this.errorMessages[field] = [];
+                    }
+    
+                    this.errorMessages[field].push(e.errorCode);
+                }
             });       
     } 
     
