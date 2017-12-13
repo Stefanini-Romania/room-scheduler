@@ -100,7 +100,7 @@ namespace RSService.Controllers
 
             return Ok(results);
         }
-
+      
         public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
         {
             var results = eventRepository.GetEvents(startDate, endDate, roomId);

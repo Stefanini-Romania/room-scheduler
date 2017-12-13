@@ -11,6 +11,7 @@ using static RSData.Models.Role;
 using RSService.DTO;
 using RSService.Validation;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RSService.Controllers
 {
@@ -28,6 +29,7 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/user/list")]
+        [Authorize]
         public IActionResult GetUsers()
         {
             var results = userRepository.GetUsers();
@@ -55,6 +57,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/user/add")]
+        [Authorize]
         public IActionResult AddUser([FromBody]UserViewModel newUser)
         {
             if (!ModelState.IsValid)
@@ -105,6 +108,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/user/edit/{id}")]
+        [Authorize]
         public IActionResult EditUser(int id, [FromBody]EditUserViewModel userView)
         {
 

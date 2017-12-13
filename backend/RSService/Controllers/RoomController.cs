@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
@@ -21,54 +22,54 @@ namespace RSService.Controllers
             this.roomRepository = new RoomRepository(Context);
         }
 
-        [HttpGet("/room/list")]
-        public IActionResult GetRooms(bool isActive)
+        [HttpGet("/room/bookable")]
+        public IActionResult GetActiveRooms(bool isActive)
         {
-            if (!isActive)
+
+            var rooms = roomRepository.GetRoomsByStatus(isActive);
+            if (rooms == null) return NotFound();
+
+            List<RoomDto> roomList = new List<RoomDto>();
+
+            foreach (var it in rooms)
             {
-                var rooms = roomRepository.GetRooms();
-                if (rooms == null) return NotFound();
-
-                List<RoomDto> roomList = new List<RoomDto>();
-
-                foreach (var it in rooms)
+                roomList.Add(new RoomDto()
                 {
-                    roomList.Add(new RoomDto()
-                    {
-                        Id = it.Id,
-                        Name = it.Name,
-                        Location = it.Location,
-                        IsActive = it.IsActive
-                    });
-                }
-
-                return Ok(roomList);
-            }
-            else
-            {
-                var rooms = roomRepository.GetRoomsByStatus(isActive);
-                if (rooms == null) return NotFound();
-
-                List<RoomDto> roomList = new List<RoomDto>();
-
-                foreach (var it in rooms)
-                {
-                    roomList.Add(new RoomDto()
-                    {
-                        Id = it.Id,
-                        Name = it.Name,
-                        Location = it.Location,
-                        IsActive = it.IsActive
-                    });
-                }
-
-                return Ok(roomList);
+                    Id = it.Id,
+                    Name = it.Name,
+                    Location = it.Location,
+                    IsActive = it.IsActive
+                });
             }
 
-            
+            return Ok(roomList); 
+        }
+
+        [HttpGet("/room/list")]
+        [Authorize]
+        public IActionResult GetRooms()
+        {
+            var rooms = roomRepository.GetRooms();
+            if (rooms == null) return NotFound();
+
+            List<RoomDto> roomList = new List<RoomDto>();
+
+            foreach (var it in rooms)
+            {
+                roomList.Add(new RoomDto()
+                {
+                    Id = it.Id,
+                    Name = it.Name,
+                    Location = it.Location,
+                    IsActive = it.IsActive
+                });
+            }
+
+            return Ok(roomList);
         }
 
         [HttpPost("/room/add")]
+        [Authorize]
         public IActionResult AddRoom([FromBody]EditRoomViewModel model) // o sa madific cu un AddRoomViewModel pentru a te lasa sa dai edit chiar daca nu ai modificat nimci
         {
             if (!ModelState.IsValid)
@@ -95,6 +96,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/room/edit/{id}")]
+        [Authorize]
         public IActionResult UpdateRoom(int id, [FromBody] EditRoomViewModel model)
         {
             if (!ModelState.IsValid)
