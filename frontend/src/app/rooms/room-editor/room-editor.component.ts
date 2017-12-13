@@ -46,26 +46,22 @@ export class RoomEditorComponent {
                     this.translate.instant('rooms.created'), '',
                     {positionClass: 'toast-bottom-right'}
                 );                                                         
-        },
-        error => {
+            },
+            error => {
                 this.errorMessages = {'generic': [error.error.message]};
     
                 // build error message
                 for (let e of error.error.errors) {
-                    let field = 'generic';
-                    
+                    let field = 'generic';         
                     if (['Name', 'Location'].indexOf(e.field) >= 0) {
                         field = e.field;
                     }
-
                     if (!this.errorMessages[field]) {
                         this.errorMessages[field] = [];
                     }
-    
                     this.errorMessages[field].push(e.errorCode);
                 }
-            }
-        );     
+            });     
     }
     
     editRooms() {
@@ -80,16 +76,13 @@ export class RoomEditorComponent {
             error => {
                 this.errorMessages = {'generic': [error.error.message]};
                 for (let e of error.error.errors) {
-                    let field = 'generic';
-                    
-                    if (['Name'].indexOf(e.field) >= 0) {
+                    let field = 'generic';               
+                    if (['Name', 'Location'].indexOf(e.field) >= 0) {
                         field = e.field;
                     }
-
                     if (!this.errorMessages[field]) {
                         this.errorMessages[field] = [];
                     }
-    
                     this.errorMessages[field].push(e.errorCode);
                 }
             });       
