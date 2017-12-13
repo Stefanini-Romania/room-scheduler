@@ -70,7 +70,7 @@ export class RegisterFormComponent {
                     {positionClass: 'toast-bottom-right'}
                 ); 
                 //@TODO if logged in as user
-                this.router.navigate(['/login']);
+                // this.router.navigate(['/login']);
 
                 //else stay on same page (as admin)
             },
