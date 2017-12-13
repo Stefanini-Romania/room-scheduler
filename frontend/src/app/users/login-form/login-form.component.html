@@ -8,7 +8,7 @@
                     </a>
                     <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert>
                     <!-- <label><b>Username</b></label> -->
-                    <input type="text" placeholder="{{ 'login.username' | translate }}" name="UserName" [(ngModel)]="model.name" #UserName="ngModel" required>
+                    <input  type="text" placeholder="{{ 'login.username' | translate }}" name="UserName" [(ngModel)]="model.name" #UserName="ngModel" required>
     
                     <!-- <label><b>Password</b></label> -->
                     <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
@@ -29,7 +29,7 @@
                 </button> -->
                 <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->
            
-                <div *ngIf="!(isLoggedIn)">
+                <div *ngIf="!isLoggedIn()">
                         {{'noAccount' | translate}}? <a href="/register">{{'clickHere' | translate}}</a>
                 </div>
     
