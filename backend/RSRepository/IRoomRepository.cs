@@ -9,6 +9,7 @@ namespace RSRepository
     {
         List<Room> GetRooms();
         Room GetRoomById(int id);
+        Room GetRoomByNameAndLocation(String name, String location);
         void AddRoom(Room room);
         void UpdateRoom(Room room);
         void DeleteRoom(Room room);

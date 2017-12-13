@@ -18,8 +18,9 @@ namespace RSService.BusinessLogic
         private IUserRepository userRepository;
         private IDbOperation dbOperation;
         private IRoleRepository roleRepository;
+        private IRoomRepository roomRepository;
 
-        public RSManager(IAvailabiltyRepository availabiltyRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository, IRoleRepository roleRepository)
+        public RSManager(IAvailabiltyRepository availabiltyRepository, IRoomRepository roomRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository, IRoleRepository roleRepository)
         {
             this.availabilityRepository = availabiltyRepository;
             this.eventRepository = eventRepository;
@@ -28,6 +29,7 @@ namespace RSService.BusinessLogic
             this.dbOperation = dbOperation;
             this.userRepository = userRepository;
             this.roleRepository = roleRepository;
+            this.roomRepository = roomRepository;
         }
 
 
@@ -325,6 +327,20 @@ namespace RSService.BusinessLogic
             else
             {
                 return true;
+            }
+        }
+
+        public bool IsUniqueRoom(String name, String location)
+        {
+            var rooms = roomRepository.GetRoomByNameAndLocation(name, location);
+
+            if (rooms == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
