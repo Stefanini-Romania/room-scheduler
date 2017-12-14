@@ -310,10 +310,9 @@ footer a {
  */
 
  #legend {
-    padding-left: 20px;
-    padding-right: 25px;
-    width: 100%;
-    font-size: 100%;
+  margin-bottom:8px;
+  background-color:#004e9e;
+    
  }
 
  .required-field-block {
@@ -380,6 +379,13 @@ footer a {
 	color: #B80000;
 	font-size: 26px;
 	margin: 3px 0 0 12px;
+}
+
+.hostlegend{
+    width: 10%; 
+    font-size: 130%;
+    position: fixed;
+ 
 }
 
 
