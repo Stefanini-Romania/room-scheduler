@@ -143,7 +143,8 @@
     "add":  "Add user",
     "deleted": "The user has been deleted",
     "attendee": "Attendee",
-    "isActive": "Active"
+    "isActive": "Active",
+    "active": "The user has been activated"
   },
 
   "Auth": {
@@ -169,7 +170,7 @@
       "LastName.IsEmpty": "Please insert your lastname",
 
     "Name": {
-        "IsNotUnique": "This name is already used",
+        "IsNotUnique": "This username is already used",
         "IsEmpty": "Please insert a username",
         "Created": "Account created"
     },
