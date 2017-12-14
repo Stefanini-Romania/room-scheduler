@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RouterModule, Routes, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {TranslateService} from "@ngx-translate/core";
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 import {environment} from './../../../environments/environment';
 import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
@@ -11,6 +11,7 @@ import {User} from '../../shared/models/user.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {RoleEnum} from '../../shared/models/role.model';
 import {UserService} from '../shared/users.service';
+
 
 @Component({
     moduleId: module.id,
@@ -26,6 +27,7 @@ export class RegisterFormComponent {
     successfullAddUser = new EventEmitter;
     successfullEditUser = new EventEmitter;
 
+    //refreshUsers  
     public confirmPassword;
     public submitted;
     public model: User = <User>{
@@ -44,7 +46,8 @@ export class RegisterFormComponent {
                 private userService:  UserService, 
                 public activeModal: NgbActiveModal,
                 private toastr: ToastrService,
-                private translate: TranslateService) {
+                private translate: TranslateService,
+                private modalService: NgbModal) {
     }
 
     get isLoggedIn():boolean {
@@ -120,6 +123,28 @@ export class RegisterFormComponent {
             });       
     } 
     
+    // onInactiveUser() {
+
+    //     successfullInactiveUser.subscribe(() => {
+    //         //modalRef.close();     
+    //     }); 
+    // }
+
+    // onDeleteUser(model: User) {
+    //     model.isActive = false;
+    //     this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
+    //     .subscribe(
+    //         () => {   
+    //             this.toastr.warning(
+    //                 this.translate.instant("user.deleted"), '',
+    //                 {positionClass: 'toast-bottom-right'}
+    //             );                
+    //             //this.refreshUsers();                      
+    //         }, 
+    //         error => {
+    //             this.errorMessages = error.error.message;
+    //         });
+    // }   
 }
     
 

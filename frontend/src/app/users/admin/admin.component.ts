@@ -6,7 +6,6 @@ import {TranslateService} from "@ngx-translate/core";
 import {ToastrService} from 'ngx-toastr';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-
 import {RoomService}  from './../../rooms/shared/room.service';
 import {Room} from './../../shared/models/room.model';
 import {UserService} from '../../users/shared/users.service';
@@ -27,6 +26,7 @@ export class AdminComponent implements AfterViewInit{
 
     @Output() 
     pageChange= new EventEmitter <number>();
+    successfullInactiveUser = new EventEmitter;
 
     closeResult: string;
     public users: User[];
@@ -37,10 +37,9 @@ export class AdminComponent implements AfterViewInit{
     public errorMessage: string;
     public model: User;
 
-    constructor(public activeModal: NgbActiveModal,private userService:UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService, private router: Router) {
+    constructor(public activeModal: NgbActiveModal, private userService: UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService, private router: Router) {
         
     }
-
  
     ngAfterViewInit(): void {
         this.refreshUsers();
@@ -90,7 +89,8 @@ export class AdminComponent implements AfterViewInit{
         model.isActive = false;
         this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
         .subscribe(
-            () => {   
+            () => {
+                this.successfullInactiveUser.emit();   
                 this.toastr.warning(
                     this.translate.instant("user.deleted"), '',
                     {positionClass: 'toast-bottom-right'}
@@ -100,22 +100,24 @@ export class AdminComponent implements AfterViewInit{
             error => {
                 this.errorMessage = error.error.message;
             });
-    }   
-              
-        
-        // this.userService.deleteUser(user).subscribe(
-        //         () => {                   
-        //                 this.toastr.warning(
-        //                     this.translate.instant("user.deleted"), '',
-        //                     {positionClass: 'toast-bottom-right'}
-        //                 );       
-        //                 this.refreshUsers();                                                  
-        //         },
-        //         error => {
-        //             this.errorMessage = error.message;
-        //         }); 
-    
+    }
 
+    onActivateUser(model: User) {
+        model.isActive = true;
+        this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
+        .subscribe(
+            () => {   
+                this.toastr.success(
+                    this.translate.instant("user.active"), '',
+                    {positionClass: 'toast-bottom-right'}
+                );                
+                this.refreshUsers();                      
+            }, 
+            error => {
+                this.errorMessage = error.error.message;
+            });
+    }   
+    
     onSelectRoom(model: Room) {
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);   
         modalRef.componentInstance.model = model;  

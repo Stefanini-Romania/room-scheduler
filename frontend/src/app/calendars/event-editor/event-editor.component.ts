@@ -35,7 +35,7 @@ export class EventEditorComponent implements OnInit{
     }
 
     saveEvent() {
-        // clear any previous errors
+        // clear any previous ecxrrors
         this.errorMessages = {};
 
         // try to save

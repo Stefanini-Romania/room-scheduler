@@ -115,7 +115,7 @@
      
         
                             <!-- REGISTER BUTTONS -->
-                            <div class="row-fluid">
+                            <div class="row-fluid" >
                                 <!-- <ngb-alert type="danger" *ngIf="submitted=false" [dismissible]="false" >{{ 'Error.User.Creation' | translate }}</ngb-alert> -->
                                 <div class="btn-group" ngbRadioGroup>
                                     <label ngbButtonLabel class="btn btn-primary">
@@ -126,18 +126,18 @@
                                     </label>                      
                                 </div>
 
-                                <div class="btn-group" ngbRadioGroup *ngIf="model.id">
+                                <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
                                     <label ngbButtonLabel class="btn btn-primary">
-                                        <input ngbButton type="radio" value="1">Activ
+                                        <input ngbButton type="radio" value="1">{{'Active' | translate}}
                                     </label>
-                                    <label ngbButtonLabel class="btn-primary">
-                                        <input ngbButton type="radio" value="2">Inactiv
+                                    <label ngbButtonLabel class="btn-primary" (click)="onInactiveUser()">
+                                        <input ngbButton type="radio" value="2" >{{'Inactive' | translate}}
                                     </label>                      
                                 </div>
         
                                 
                                 <div class="float-right">
-                                    <button  type="submit" class="btn btn-primary" *ngIf="!model.id" (click)="register()">
+                                    <button  type="submit" class="btn btn-primary float-right" *ngIf="!model.id" (click)="register()">
                                         {{ 'register.button' | translate }}
                                         <!-- <i class="fa fa-lock"></i> -->
                                     </button>
@@ -147,7 +147,7 @@
                                 
                             </div>
         
-                            <p *ngIf="!(isLoggedIn) && !model.id">                         
+                            <p *ngIf="!(isLoggedIn()) && !model.id">                         
                                 {{ 'login.alreadyHaveAccount' | translate }}
                                 <a routerLink="/login">{{ 'login.button' | translate }}</a>.
                             </p>
