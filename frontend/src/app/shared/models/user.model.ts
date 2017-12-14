@@ -11,7 +11,7 @@ export class User {
     penalty?: number [];
     departmentId?: number;
     confirmPassword?: number;
-    userRoles?: RoleEnum[];
+    userRole?: RoleEnum[];
     isActive?: boolean; 
       
 
@@ -25,6 +25,6 @@ export class User {
     }
 
     hasRole(role: RoleEnum): boolean {
-        return this.userRoles && this.userRoles.length && this.userRoles.indexOf(role) !== -1;
+        return this.userRole && this.userRole.length && this.userRole.indexOf(role) !== -1;
     }
 }
