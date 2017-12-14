@@ -1,4 +1,9 @@
-
+<div class="modal-header">
+  <h6 class="modal-title">{{ "Edit User" | translate }}</h6>
+  <div>
+    <button type="button" class="btn btn-primary float-right" (click)="closeLoginModal()">{{ 'X' | translate }}</button>
+  </div>
+</div>
 <div class="modal-body mx-auto">
         <div class="container d-flex h-100">
             <!-- <div class="row justify-content-center align-self-center col-sm-6 col-md-9 col-lg-8 col-xl-5 mx-auto">-->
@@ -137,12 +142,17 @@
         
                                 
                                 <div class="float-right">
+                                  <div>
                                     <button  type="submit" class="btn btn-primary float-right btn-sm" *ngIf="!model.id" (click)="register()">
                                         {{ 'register.button' | translate }}
                                         <!-- <i class="fa fa-lock"></i> -->
                                     </button>
+                                    </div>
+                                  <div>
                                     <button type="button" class="btn btn-primary btn-sm float-right" *ngIf="model.id" (click)="editUser()">
-                                        {{ 'user.save' | translate }}</button> 
+                                        {{ 'user.save' | translate }}</button>
+                                  </div>
+                                  
                                 </div>
                                 
                             </div>

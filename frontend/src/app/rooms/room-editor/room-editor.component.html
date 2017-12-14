@@ -1,5 +1,8 @@
 <div class="modal-header">
-    <h6 class="modal-title">{{ title | translate }}</h6>
+  <h6 class="modal-title">{{ title | translate }}</h6>
+  <div>
+    <button type="button" class="btn btn-primary float-right" (click)="closeLoginModal()">{{ 'X' | translate }}</button> 
+  </div>
 </div>
 
 <div class="modal-body">
@@ -48,7 +51,7 @@
     
     <button type="button" class="btn btn-primary float-right" (click)="addRooms()" *ngIf="!model.id">{{ 'rooms.add' | translate }}</button> 
     <button type="button" class="btn btn-primary float-right" (click)="editRooms()" *ngIf="model.id">{{ 'rooms.save' | translate }}</button> 
-    <!-- <button type="button" class="btn btn-primary float-right" (click)="closeLoginModal()">{{ 'button.close' | translate }}</button>    -->
+     <!--<button type="button" class="btn btn-primary float-right" (click)="closeLoginModal()">{{ 'button.close' | translate }}</button>-->    
 </div>
 
 <div class="container d-flex h-100" >
