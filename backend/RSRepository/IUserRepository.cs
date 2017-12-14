@@ -14,6 +14,7 @@ namespace RSRepository
         User GetUserByUsername(string username);
         User GetUserByEmail(String email);
         List<User> GetUserByisActiv();
+        List<User> GetUserByisInactiv();
         List<User> GetUsersByUsername(string username, int userId);
         List<User> GetUsersByEmail(string email, int userId);
         void AddUser(User user);

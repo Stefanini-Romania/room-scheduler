@@ -91,17 +91,17 @@ namespace RSService.Controllers
         {
             if (!hostId.Any())
                 return GetEvents(startDate, endDate, roomId);
-            var users = userRepository.GetUserByisActiv();
+            //var users = userRepository.GetUserByisInactiv();
             var results = eventRepository.GetEvents(startDate, endDate, roomId, hostId);
 
-            foreach(var l in results)
-            {
-                foreach(var d in users)
-                {
-                    if (l.AttendeeId == d.Id)
-                        l.EventStatus = 2;
-                }
-            }
+            //foreach(var l in results)
+            //{
+            //    foreach(var d in users)
+            //    {
+            //        if (l.AttendeeId == d.Id)
+            //            l.EventStatus = 2;
+            //    }
+            //}
 
             var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
 
