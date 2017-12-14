@@ -14,18 +14,26 @@ namespace RSService.BusinessLogic
         private IAvailabiltyRepository availabilityRepository;
         private IPenaltyRepository penaltyRepository;
         private IEventRepository eventRepository;
+        private IUserRoleRepository userRoleRepository;
+        private IUserRepository userRepository;
         private IDbOperation dbOperation;
+        private IRoleRepository roleRepository;
+        private IRoomRepository roomRepository;
 
-        public RSManager(IAvailabiltyRepository _availabiltyRepository, IEventRepository _eventRepository, IPenaltyRepository _penaltyRepository, IDbOperation _dbOperation)
+        public RSManager(IAvailabiltyRepository availabiltyRepository, IRoomRepository roomRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository, IRoleRepository roleRepository)
         {
-            availabilityRepository = _availabiltyRepository;
-            eventRepository = _eventRepository;
-            penaltyRepository = _penaltyRepository;
-            dbOperation = _dbOperation;
+            this.availabilityRepository = availabiltyRepository;
+            this.eventRepository = eventRepository;
+            this.penaltyRepository = penaltyRepository;
+            this.userRoleRepository = userRoleRepository;
+            this.dbOperation = dbOperation;
+            this.userRepository = userRepository;
+            this.roleRepository = roleRepository;
+            this.roomRepository = roomRepository;
         }
 
 
-        public IEnumerable<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
+        public List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
             List<Event> availabilityEvents = new List<Event>();
 
@@ -33,21 +41,24 @@ namespace RSService.BusinessLogic
 
             DateTime currentDay = startDate.Date;
 
+            int fakeId = 1;
             while (endDate.Date >= currentDay)
             {
-                availabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek);
+                availabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek).ToList();
 
                 foreach (Availability entry in availabilities)
                 {
                     Event newEvent = new Event()
                     {
+                        Id = -fakeId++,
                         StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
                         EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
                         EventType = 1,
                         RoomId = entry.RoomId,
                         HostId = entry.HostId,
-                        EventStatus = (int)AvailabilityEnum.NotAvailable,
+                        EventStatus = entry.AvailabilityType,
                         DateCreated = DateTime.UtcNow,
+                        Host = entry.Host
                     };
                     availabilityEvents.Add(newEvent);
                 }
@@ -59,7 +70,7 @@ namespace RSService.BusinessLogic
 
         }
 
-        public IEnumerable<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId)
+        public List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId)
         {
             List<Event> availabilityEvents = new List<Event>();
 
@@ -67,21 +78,24 @@ namespace RSService.BusinessLogic
 
             DateTime currentDay = startDate.Date;
 
+            int fakeId = 1;
             while (endDate.Date >= currentDay)
             {
-                availabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek);
+                var dayAvailabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek).ToList();
 
-                foreach (Availability entry in availabilities)
+                foreach (Availability entry in dayAvailabilities)
                 {
                     Event newEvent = new Event()
                     {
+                        Id = -fakeId++,
                         StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
                         EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
                         EventType = 1,
                         RoomId = entry.RoomId,
                         HostId = entry.HostId,
-                        EventStatus = (int)AvailabilityEnum.NotAvailable,
+                        EventStatus = entry.AvailabilityType,
                         DateCreated = DateTime.UtcNow,
+                        Host = entry.Host
                     };
                     availabilityEvents.Add(newEvent);
                 }
@@ -102,10 +116,8 @@ namespace RSService.BusinessLogic
 
         public int GetAvailableTime(int userId, DateTime startDate)
         {
-            var result = eventRepository.GetEvents()
-                            .Where(e => e.EventStatus == (int)EventStatusEnum.waiting || e.EventStatus == (int)EventStatusEnum.present)
-                            .Where(e => e.AttendeeId == userId)
-                            .Where(e => e.StartDate.Date == startDate.Date);
+            var result = eventRepository.GetEventsByDay(startDate, userId);
+
             if (result.Count() >= 2)
             {
                 return 0;
@@ -126,9 +138,8 @@ namespace RSService.BusinessLogic
 
         public bool CanCancel(DateTime startDate, DateTime endDate, int roomId, int attendee)
         {
-            var aux = eventRepository.GetEvents().Where(e => e.StartDate == startDate).Where(e => e.EndDate == endDate)
-                                     .Where(e => e.RoomId == roomId).Where(e => e.AttendeeId == attendee);
-            return aux.Count() != 0;
+            var eventToCancel = eventRepository.GetEventForEdit(startDate, endDate, roomId, attendee);
+            return eventToCancel.Count() != 0;
         }
 
         public bool CheckAvailability(DateTime startDate, DateTime endDate, int roomId)
@@ -161,15 +172,90 @@ namespace RSService.BusinessLogic
                     }
                 }
             }
-            return true;
+            return true; 
         }
+
+        public bool IsUniqueUserName(String username)
+        {
+            var user = userRepository.GetUserByUsername(username);
+
+            if (user == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsUniqueEmail(String email)
+        {
+            var user = userRepository.GetUserByEmail(email);
+
+            if (user == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsUniqueUserNameEdit(string username, int userId)
+        {
+            var users = userRepository.GetUsersByUsername(username, userId);
+
+            if (users.Count() > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsUniqueEmailEdit(String email, int userId)
+        {
+            var users = userRepository.GetUsersByEmail(email, userId);
+
+            if (users.Count() > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+
+        public bool HourCheck(DateTime startDate, DateTime endDate, int roomId)
+        {
+            var availabilities = availabilityRepository.GetAvailabilitiesByType(startDate,endDate ,roomId);
+
+            foreach (Availability ev in availabilities)
+                                
+                        if (startDate.TimeOfDay >= ev.StartHour.TimeOfDay && startDate.TimeOfDay <= ev.EndHour.TimeOfDay)
+                            return false;                   
+                
+        
+               
+            
+            return true; ;
+        }
+
 
 
         //Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
 
         public void CheckPenalty(DateTime startDate, int eventId, int attendeeId, int roomId)
         {
-            var eventsCount = eventRepository.GetPastEventsByUser(startDate, attendeeId, roomId).Count();
+            var pastEvents = eventRepository.GetPastEventsByUser(startDate, attendeeId, roomId);
+
+            var eventsCount = pastEvents.Count();
 
             if (eventsCount == 3)
             {
@@ -177,8 +263,16 @@ namespace RSService.BusinessLogic
                 {
                     AttendeeId = attendeeId,
                     EventId = eventId,
-                    Date = startDate
+                    Date = startDate,
+                    RoomId = roomId
                 });
+
+                // Mark these 3 events as being part of a penalty to prevent future counting:
+
+                foreach(Event pastEvent in pastEvents)
+                {
+                    pastEvent.EventStatus = (int)EventStatusEnum.absentChecked;
+                }
 
                 // Edit attendee's events for next 15 days for this room (Cancelled):
 
@@ -190,15 +284,15 @@ namespace RSService.BusinessLogic
                     {
                         xEvent.EventStatus = (int)EventStatusEnum.cancelled;
                     }
-                    dbOperation.Commit();
                 }
+                dbOperation.Commit();
             }
         }
 
         public bool HasPenalty(int attendeeId, DateTime newDate, int roomId)
         {
             Penalty penalty = penaltyRepository.GetPenaltiesByUser(attendeeId)
-                                    .SingleOrDefault(p => p.Date.AddDays(15) >= newDate);
+                                    .FirstOrDefault(p => p.Date.AddDays(15) >= newDate);
 
             if (penalty != null)
             {
@@ -206,6 +300,48 @@ namespace RSService.BusinessLogic
             }
 
             return false;
+        }
+
+        public bool IsValidRole(List<int> userRole)
+        {
+            foreach (var roleId in userRole)
+            {
+                var role = roleRepository.GetRoleById(roleId);
+
+                if (role == null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool IsActiveUser(String username)
+        {
+            var isActive = userRepository.GetUserByUsername(username).IsActive;
+
+            if (isActive == false)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsUniqueRoom(String name, String location)
+        {
+            var rooms = roomRepository.GetRoomByNameAndLocation(name, location);
+
+            if (rooms == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

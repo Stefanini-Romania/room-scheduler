@@ -9,6 +9,8 @@ export class Event{
     eventStatus: number;
     notes?: string;
     availabilityType: number;
+    dateCreated: Date;
+    host: string;
 }
 
 export enum EventStatusEnum {

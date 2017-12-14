@@ -3,7 +3,8 @@
       "not-found": {
           "intro": "Page cannot be found",
           "please.authenticate": "Please login",
-          "here": "here"
+          "here": "here",
+          "go.to": "Go to "
       }
   },
 
@@ -12,16 +13,70 @@
   "button": {
       "close": "Close",
       "save": "Save",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "home": "Calendar",
+      "register": "Register",
+      "admin": "Admin",
+      "signIn": "Sign In"
   },
+
+  "noAccount": "You don't have an account",
+  "clickHere": "Register here",
+
+  "register": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "name": "Username",
+      "password": "Password",
+      "email": "Email",
+      "confirmPassword": "Confirm password",
+      "button": "Create account",
+
+      "noAccount?": "Don't have an account ?"
+  },
+
+  "wrong": {
+      "name": "Username is required (minimum 5 characters).",
+      "email": "Please enter a valid email address."
+  },
+    
+  "mismatch.password": "Passwords don't match. Try again?", 
 
   "login.button": "Sign In",
   "logout.button": "Sign out",
   "login.username": "Enter Username",
   "login.password": "Enter Password",
+  "login.alreadyHaveAccount": "Already have an account ?",
+
+  "cancel.login.button": "Cancel",
+
+  "confirmDelete": "Are you sure you want do delete it?",
+  "actions": "Actions",
+  
+  "rooms": {
+      "editRoom": "Edit room",
+      "edit": "Edit",
+      "save": "Save",
+      "saved": "The room has been saved",
+      "add": "Add room",
+      "name": "Room's name",
+      "location": "Room's location",
+      "created": "The room has been created",
+      "deleteRoom": "Delete room",
+      "delete": "Delete",
+      "deleted": "The room has been deleted",
+      "isActive": "Active"
+  },
+
+  "location": "Location",
+  "event": {
+      "filter.location": "Filter by location...",
+      "filter.no-results": "No results",
+      "filter.no-rooms": "No rooms"
+  },
 
   "calendar": {
-      "today": "TODAY",
+      "today": "GO TO TODAY",
       "day": "DAY",
       "week": "WEEK",
       "rooms": "ROOMS",
@@ -31,6 +86,8 @@
       "event.create": "Create new appointment",
       "event.edit": "Edit appointment",
       "event.saved": "Appointment saved",
+      "event.canceled":"Appointment deleted",
+      "timeStamp": "Created at",
 
       "eventType": {
           "availabilty": "Not available",
@@ -74,17 +131,55 @@
       }
   },
 
+  "user":{
+    "name": "Username",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "userRole": "User role",
+    "edit": "Edit",
+    "save": "Save",
+    "saved": "The user has been saved",
+    "delete": "Delete user",
+    "add":  "Add user",
+    "deleted": "The user has been deleted",
+    "attendee": "Attendee",
+    "isActive": "Active"
+  },
+
   "Auth": {
-      "Password.Empty": "Please enter your password",
-      "Username.Empty": "Please enter your username"
+    "Password.Empty": "Please enter your password",
+    "Username": {
+        "Empty": "Please enter your username",
+        "IsNotActive": "User is not active"
+    }
   },
 
   "Error": {
       "login": "You need to login if you want to make an appointment !",
       "Event.Authentication": "Invalid username or password",
       "Event.Creation": "Unable to create event",
-      "Event.Edit": "Unable to edit event"
+      "Event.Edit": "Unable to edit event",
+      "User.Creation": "Error creating account"
   },
+
+  "User": {
+      "YouArePenalised" : "Penalised user! You are not allowed to create any appointments.",
+      "Title": "Penalised user",
+      "FirstName.IsEmpty": "Please insert your firstname",
+      "LastName.IsEmpty": "Please insert your lastname",
+
+    "Name": {
+        "IsNotUnique": "This name is already used",
+        "IsEmpty": "Please insert a username",
+        "Created": "Account created"
+    },
+    "Password": {
+        "IsEmpty": "Please insert a password",
+        "IsTooShort": "Password is too short (must be at least 6 characters)"
+    },
+    "Email.IsNotUnique": "This email is already used"
+  },
+    
 
   "Event": {
       "AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
@@ -105,11 +200,26 @@
           "Empty": "Please insert an end date",
           "NotInAvailabilityOfRoom": "The room is not available (end date)",
           "IncorrectMinutesFormat": "Minutes format incorrect (end date)",
-          "TimeSpan": "Time span incorrect"
+          "TimeSpan": "Timespan incorrect"
       },
 
       "UserIsNotAuthenticated": "You are not logged in"
-  }
+      
+  },
 
+    "UserPenalized": "PENALISED USER",
 
+    "AdminTabs":{
+        "Users": "Users",
+        "Hosts": "Hosts",
+        "Rooms": "Rooms"
+    },
+
+    "Room": {
+        "SameNameAndLocation": "The room already exists in this location",
+        "Name.IsEmpty": "Please insert the room's name",
+        "Location.IsEmpty": "Please insert the room's location"     
+    },
+
+    "required.field" : "mandatory field"
 }

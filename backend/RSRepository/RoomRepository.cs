@@ -18,15 +18,25 @@ namespace RSRepository
             rooms = context.Set<Room>();
         }
 
-
-        public IEnumerable<Room> GetRooms()
+        public List<Room> GetRooms()
         {
-            return rooms.AsEnumerable();
+            return rooms.ToList();
+        }
+
+        public List<Room> GetRoomsByStatus(bool isActive)
+        {
+            return rooms.Where(r => r.IsActive == isActive)
+                        .ToList();
         }
 
         public Room GetRoomById(int id)
         {
-            return rooms.SingleOrDefault(s => s.Id == id);
+            return rooms.FirstOrDefault(s => s.Id == id);
+        }
+
+        public Room GetRoomByNameAndLocation(String name,String location)
+        {
+            return rooms.FirstOrDefault(s => (s.Name == name && s.Location == location));
         }
 
         public void AddRoom(Room room)

@@ -8,9 +8,9 @@ namespace RSService.BusinessLogic
 {
     public interface IRSManager
     {
-        IEnumerable<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] hostId, int[] roomId);
+        List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] hostId, int[] roomId);
 
-        IEnumerable<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId);
+        List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId);
 
         double GetTimeSpan(DateTime start, DateTime end);
 
@@ -23,5 +23,23 @@ namespace RSService.BusinessLogic
         void CheckPenalty(DateTime startDate, int eventId, int attendeeId, int roomId);
 
         bool HasPenalty(int attendeeId, DateTime newDate, int roomId);
+
+        bool HourCheck(DateTime startDate, DateTime endDate, int roomId);
+        
+        bool IsUniqueUserName(String username);
+
+        bool IsUniqueUserNameEdit(string username, int userId);
+
+        bool IsUniqueEmail(String email);
+
+        bool IsUniqueEmailEdit(String email, int userId);
+
+        bool IsValidRole(List<int> userRole);
+
+        bool IsUniqueRoom(String name, String location);
+
+        bool IsActiveUser(String username);
+
+
     }
 }

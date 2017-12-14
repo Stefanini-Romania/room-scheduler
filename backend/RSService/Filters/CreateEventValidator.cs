@@ -35,10 +35,12 @@ namespace RSService.Filters
                 RuleFor(x => x.StartDate).Must(AvailabilityTimeS).WithMessage(x => Validation.EventMessages.StartDateAvailabilityRoom);
 
                 RuleFor(x => x.StartDate).Must(IsAvailable).WithMessage(x => Validation.EventMessages.NotAvailable);
-                
+
                 RuleFor(x => x.StartDate).Must(DayOfWeek).WithMessage(x => Validation.EventMessages.DayOfWeekWeekend);
 
                 RuleFor(x => x.StartDate).Must(TwoMonths).WithMessage(x => Validation.EventMessages.StartDateFuture);
+
+                RuleFor(x => x.StartDate).Must(HourAvailable).WithMessage(x => Validation.EventMessages.NotAvailable);
 
 
 
@@ -131,6 +133,11 @@ namespace RSService.Filters
             return rsManager.CheckAvailability((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
         }
 
+        private bool HourAvailable(EventViewModel ev, DateTime? d)
+        {
+            return rsManager.HourCheck((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
+        }
+
         private bool IsNotPenalized(EventViewModel ev, int roomId)
         {
             if (rsManager.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate, roomId))
@@ -151,6 +158,9 @@ namespace RSService.Filters
         {
             if((ev.StartDate.Value.Month <= DateTime.Now.Month+1)&&(ev.StartDate.Value.Day >=1 && ev.StartDate.Value.Day <=31)&&(ev.StartDate.Value.Year==DateTime.Now.Year))
                     return true;
+
+            if ((ev.StartDate.Value.Year == DateTime.Now.Year + 1) && (ev.StartDate.Value.Month == 01 && DateTime.Now.Month == 12))
+                return true;
             return false;
         }
 

@@ -44,9 +44,9 @@ namespace RSRepository
             return timeslots.SingleOrDefault(s => s.Id == id);
         }
 
-        public IEnumerable<TimeSlot> GetTimeSlots()
+        public List<TimeSlot> GetTimeSlots()
         {
-            return timeslots.AsEnumerable();
+            return timeslots.ToList();
         }
 
         public void SaveChanges()

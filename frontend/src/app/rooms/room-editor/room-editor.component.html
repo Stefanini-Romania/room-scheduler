@@ -1,0 +1,40 @@
+<div class="modal-header" >
+    <h6 class="modal-title">{{ title | translate }}</h6>
+</div>
+
+<div class="modal-body">
+    <div class="container h-100">
+        <div class="row justify-content-center align-self-center mx-auto">
+            <form>
+                <div id="room-editor">                    
+                    <input type="text" placeholder="{{ 'rooms.name' | translate }}" name="Name" [(ngModel)]="model.name" #Name="ngModel">
+                    <small class="text-danger"><i>*{{'required.field' | translate}}</i></small>
+                    <!-- NAME VALIDATION -->
+                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Name']" [dismissible]="false">
+                        <div *ngFor="let errorMessage of errorMessages['Name']">{{ errorMessage | translate }}</div>
+                    </ngb-alert>
+
+                    <input type="text" placeholder="{{ 'rooms.location' | translate }}" name="Location" [(ngModel)]="model.location" #Location="ngModel">
+                    <small class="text-danger"><i>*{{'required.field' | translate}}</i></small>
+                    <!-- LOCATION VALIDATION -->
+                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Location']" [dismissible]="false">
+                        <div *ngFor="let errorMessage of errorMessages['Location']">{{ errorMessage | translate }}</div>
+                    </ngb-alert>
+                    <br />                   
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary float-right" (click)="addRooms()" *ngIf="!model.id">{{ 'rooms.add' | translate }}</button> 
+    <button type="button" class="btn btn-primary float-right" (click)="editRooms()" *ngIf="model.id">{{ 'rooms.save' | translate }}</button> 
+    <!-- <button type="button" class="btn btn-primary float-right" (click)="closeLoginModal()">{{ 'button.close' | translate }}</button>    -->
+</div>
+
+<div class="container d-flex h-100" >
+    <div class="row justify-content-center align-self-center mx-auto">     
+        
+    </div>
+</div>

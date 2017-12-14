@@ -20,15 +20,6 @@ namespace RSRepository
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
 
-       /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"Server=BUSWGVMINDEV3\MSSQLSERVER12;Database=RoomPlannerDev;User Id=roomplanner;Password=roomplanner123");
-            }
-        } */
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Availability>(entity =>
@@ -116,6 +107,8 @@ namespace RSRepository
 
                 entity.Property(e => e.EventId).HasColumnName("EventID");
 
+                entity.Property(e => e.RoomId).HasColumnName("RoomID");
+
                 entity.HasOne(d => d.Attendee)
                     .WithMany(p => p.Penalty)
                     .HasForeignKey(d => d.AttendeeId)
@@ -127,6 +120,11 @@ namespace RSRepository
                     .HasForeignKey(d => d.EventId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Penalty_Event");
+
+                entity.HasOne(d => d.Room)
+                   .WithMany(p => p.Penalty)
+                   .HasForeignKey(d => d.RoomId)
+                   .HasConstraintName("FK_Penalty_Room");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -145,6 +143,8 @@ namespace RSRepository
                 entity.Property(e => e.Location).HasMaxLength(150);
 
                 entity.Property(e => e.Name).HasMaxLength(150);
+
+                entity.Property(e => e.IsActive).HasColumnName("IsActive");
             });
 
             modelBuilder.Entity<TimeSlot>(entity =>
@@ -190,6 +190,12 @@ namespace RSRepository
                     .IsRequired()
                     .HasMaxLength(150);
 
+                entity.Property(e => e.FirstName).HasMaxLength(150);
+
+                entity.Property(e => e.LastName).HasMaxLength(150);
+
+                entity.Property(e => e.IsActive).HasColumnName("IsActive");
+
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.DepartmentId)
@@ -209,7 +215,7 @@ namespace RSRepository
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.UserRole)
                     .HasForeignKey(d => d.RoleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_UserRole_Role");
 
                 entity.HasOne(d => d.User)

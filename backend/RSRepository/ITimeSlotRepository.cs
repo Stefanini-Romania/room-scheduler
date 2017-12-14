@@ -7,7 +7,7 @@ namespace RSRepository
 {
    public interface ITimeSlotRepository
     {
-        IEnumerable<TimeSlot> GetTimeSlots();
+        List<TimeSlot> GetTimeSlots();
         TimeSlot GetTimeSlotById(int id);
         void AddTimeSlot(TimeSlot _timeslot);
         void UpdateTimeSlot(TimeSlot _timeslot);

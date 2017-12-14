@@ -7,8 +7,10 @@ namespace RSRepository
 {
     public interface IRoomRepository
     {
-        IEnumerable<Room> GetRooms();
+        List<Room> GetRooms();
+        List<Room> GetRoomsByStatus(bool isActive);
         Room GetRoomById(int id);
+        Room GetRoomByNameAndLocation(String name, String location);
         void AddRoom(Room room);
         void UpdateRoom(Room room);
         void DeleteRoom(Room room);

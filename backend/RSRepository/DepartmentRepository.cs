@@ -40,12 +40,12 @@ namespace RSRepository
 
         public Department GetDepartmentById(int id)
         {
-            return _departments.SingleOrDefault(s => s.Id == id);
+            return _departments.FirstOrDefault(s => s.Id == id);
         }
 
-        public IEnumerable<Department> GetDepartments()
+        public List<Department> GetDepartments()
         {
-            return _departments.AsEnumerable();
+            return _departments.ToList();
         }
 
 

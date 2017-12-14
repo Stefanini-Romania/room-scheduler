@@ -126,4 +126,10 @@
   <data name="EventEdit" xml:space="preserve">
     <value>Error.Event.Edit</value>
   </data>
+  <data name="Room" xml:space="preserve">
+    <value>Error.Room.Creation</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Error.User.Creation</value>
+  </data>
 </root>

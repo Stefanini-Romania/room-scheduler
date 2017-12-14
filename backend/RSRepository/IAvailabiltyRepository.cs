@@ -9,9 +9,12 @@ namespace RSRepository
     public interface IAvailabiltyRepository
     {
         Availability GetAvailabilityById(int id);
-        IEnumerable<Availability> GetAvailabilities();
-        IEnumerable<Availability> GetAvailabilities(int[] roomId, int[] hostId);
-        IEnumerable<Availability> GetAvailabilities(int[] roomId);
+        List<Availability> GetAvailabilities();
+        List<Availability> GetAvailabilities(int[] roomId, int[] hostId);
+        List<Availability> GetAvailabilities(int[] roomId);
+        List<Availability> GetAvailabilitiesByRoom(DateTime startDate, DateTime endDate, int roomId);
+        List<Availability> GetAvailabilitiesByHour(DateTime startDate, int roomId);
+        List<Availability> GetAvailabilitiesByType(DateTime startDate, DateTime endDate, int roomId);
     }
    
 }

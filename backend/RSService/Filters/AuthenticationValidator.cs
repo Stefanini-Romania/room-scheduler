@@ -12,15 +12,22 @@ namespace RSService.Filters
 {
     public class AuthenticationValidator : AbstractValidator<CredentialModel>
     {
+        private IRSManager rsManager;
 
-        
-            public AuthenticationValidator()
-            {
-                RuleFor(m => m.Name).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyUsername);
-                RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyPassword);
+        public AuthenticationValidator(IRSManager rsManager)
+        {
+            this.rsManager = rsManager;
+
+            RuleFor(m => m.Name).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyUsername);
+            RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyPassword);
+            RuleFor(m => m.Name).Must(IsActive).WithMessage(x => Validation.AuthMessages.IsNotActive);
               
         }
 
-  
+        private bool IsActive(CredentialModel cModel, String username)
+        {
+            return rsManager.IsActiveUser(username);
+        }
+
     }
 }

@@ -1,8 +1,30 @@
-<div ngbDropdown class="d-inline-block">
+<div ngbDropdown #dropdown="ngbDropdown" (openChange)="focusOnLocation()" class="d-inline-block">
     <label class="btn btn-primary" ngbDropdownToggle>
-        {{ selectedRoom ? selectedRoom.name : selectedRoomName }}
+        <i class="fa fa-bookmark float-left px-1 py-1" aria-hidden="true"></i>
+        <span class="d-none d-sm-block float-left">{{ selectedRoom ? selectedRoom.name : selectedRoomName }}</span>
     </label>
     <div ngbDropdownMenu aria-labelledby="roomsButton">
-        <button *ngFor="let room of rooms" class="dropdown-item" (click)="onSelectRoom(room)">{{ room.name }}</button>
+        <div *ngIf="rooms.length" class="dropdown-header">
+            <div class="input-group">
+                <input #location type="text" class="form-control form-control-sm px-1 py-0 my-0" placeholder="{{ 'event.filter.location' | translate }}"
+                       [(ngModel)]="locationFilter" (input)="filteredRoomsByLocation(location.value)"
+                >
+                <span class="input-group-btn">
+                    <button class="btn btn-sm btn-secondary" type="button">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <button *ngFor="let room of filteredRooms" class="dropdown-item" (click)="dropdown.close();onSelectRoom(room)">
+            {{ room.name }}
+            <span *ngIf="room.location">(<em>{{ room.location }}</em>)</span>
+        </button>
+        <div *ngIf="!rooms.length" class="dropdown-item disabled">
+            {{ 'event.filter.no-rooms' | translate }}
+        </div>
+        <div *ngIf="rooms.length && !filteredRooms.length" class="dropdown-item disabled">
+            {{ 'event.filter.no-results' | translate }}
+        </div>
     </div>
 </div>

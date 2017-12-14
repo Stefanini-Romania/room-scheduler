@@ -5,9 +5,9 @@ using System.Text;
 
 namespace RSRepository
 {
-    interface IRoleRepository
+    public interface IRoleRepository
     {
-        IEnumerable<Role> GetRoles();
+        List<Role> GetRoles();
         Role GetRoleById(int id);
         void AddRole(Role role);
         void UpdateRole(Role role);

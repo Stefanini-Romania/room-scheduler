@@ -19,19 +19,19 @@ namespace RSRepository
 
         }
 
-        public IEnumerable<Penalty> GetPenaltiesByUser(int attendeeId)
+        public List<Penalty> GetPenaltiesByUser(int attendeeId)
         {
-            return penalties.Where(p => p.AttendeeId == attendeeId).AsEnumerable();
+            return penalties.Where(p => p.AttendeeId == attendeeId).ToList();
         }
 
-        public IEnumerable<Penalty> GetPenalties()
+        public List<Penalty> GetPenalties()
         {
-            return penalties.AsEnumerable();
+            return penalties.ToList();
         }
 
         public Penalty GetPenaltyById(int id)
         {
-            return penalties.SingleOrDefault(s => s.Id == id);
+            return penalties.FirstOrDefault(s => s.Id == id);
         }
 
         public void AddPenalty(Penalty penalty)

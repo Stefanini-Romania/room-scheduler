@@ -31,12 +31,13 @@ namespace RSService
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-            public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(opt =>
             {
                 opt.Filters.Add(typeof(ValidatorActionFilter));
-            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+            })
+            .AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             var connection = @"Server=BUSWGVMINDEV3\MSSQLSERVER12;Database=RoomPlannerDev;User Id=roomplanner;Password=roomplanner123";
 
@@ -45,19 +46,23 @@ namespace RSService
             services.AddTransient<IRoomRepository, RoomRepository>();
             services.AddTransient<IPenaltyRepository, PenaltyRepository>();
             services.AddTransient<IAvailabiltyRepository, AvailabilityRepository>();
+            services.AddTransient<IUserRoleRepository, UserRoleRepository>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<IRSManager, RSManager>();
             services.AddTransient<IDbOperation, DbOperation>();
-            services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection), optionsLifetime: ServiceLifetime.Singleton);
 
             services.AddCors(options => options.AddPolicy("Cors",
-            builder =>
-            {
-                builder.
-                AllowAnyOrigin().
-                AllowAnyMethod().
-                AllowAnyHeader().
-                AllowCredentials();
-            }));
+                builder =>
+                {
+                    builder.
+                        AllowAnyOrigin().
+                        AllowAnyMethod().
+                        AllowAnyHeader().
+                        AllowCredentials();
+                }));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>
@@ -88,33 +93,34 @@ namespace RSService
 
 
 
-           /* var trackPackageRouteHandler = new Microsoft.AspNetCore.Routing.RouteHandler(context =>
-            {
-                return Task.CompletedTask;
-            });
+            /* var trackPackageRouteHandler = new Microsoft.AspNetCore.Routing.RouteHandler(context =>
+             {
+                 return Task.CompletedTask;
+             });
 
-           /* var builder = new Microsoft.AspNetCore.Routing.RouteBuilder(app, trackPackageRouteHandler);
-            builder.MapRoute(
-                name: "default",
-                template: "{controller=Home}/{action=Index}/{id:int}");
+            /* var builder = new Microsoft.AspNetCore.Routing.RouteBuilder(app, trackPackageRouteHandler);
+             builder.MapRoute(
+                 name: "default",
+                 template: "{controller=Home}/{action=Index}/{id:int}");
 
-            builder.MapRoute("EventListByHosts", "event/list/{hostId}", new
-            {
-                controller = "RoomScheduler", action = nameof(Controllers.RoomSchedulerController.GetEventsByHosts),
-            });
+             builder.MapRoute("EventListByHosts", "event/list/{hostId}", new
+             {
+                 controller = "RoomScheduler", action = nameof(Controllers.RoomSchedulerController.GetEventsByHosts),
+             });
 
-            builder.MapRoute("EventList", "event/list/{hostId?}", new
-            {
-                controller = "RoomScheduler",
-                action = nameof(Controllers.RoomSchedulerController.GetEvents),
-            });
+             builder.MapRoute("EventList", "event/list/{hostId?}", new
+             {
+                 controller = "RoomScheduler",
+                 action = nameof(Controllers.RoomSchedulerController.GetEvents),
+             });
 
-            app.UseRouter(builder.Build());*/
+             app.UseRouter(builder.Build());*/
 
             Mapper.Initialize(Configuration =>
             {
                 Configuration.CreateMap<EventViewModel, Event>().ReverseMap();
-                Configuration.CreateMap<EditViewModel, Event>().ReverseMap();
+                Configuration.CreateMap<EditEventViewModel, Event>().ReverseMap();
+                Configuration.CreateMap<EditUserViewModel, User>().ReverseMap();
 
             });
         }

@@ -9,7 +9,8 @@
     Target Database Engine Type : Standalone SQL Server
 */
 
-/****** Object:  Table [dbo].[User]    Script Date: 02-Nov-17 12:55:34 PM ******/
+
+/****** Object:  Table [dbo].[User]    Script Date: 11-Dec-17 4:29:58 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -24,6 +25,9 @@ CREATE TABLE [dbo].[User](
 	[Name] [nvarchar](150) NOT NULL,
 	[Password] [nvarchar](150) NOT NULL,
 	[DepartmentID] [int] NULL,
+	[FirstName] [nvarchar](150) NULL,
+	[LastName] [nvarchar](150) NULL,
+	[IsActive] [bit] NULL,
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
 	[UserID] ASC

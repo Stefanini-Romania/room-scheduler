@@ -15,34 +15,36 @@ namespace RSRepository
         public EventRepository(RoomPlannerDevContext context)
         {
             this.context = context;
-            events = context.Set<Event>();
+            events = context.Event;
         }
 
-        public IEnumerable<Event> GetEvents()
+        public List<Event> GetEvents()
         {
             return events.ToList();
         }
 
-        public IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
+        public List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
         {
             return events.Where(e => e.StartDate >= startDate)
                          .Where(e => e.StartDate <= endDate)
                          .Where(e => roomId.Contains(e.RoomId))
                          .Where(e => hostId.Contains(e.HostId)) 
-                         .Where(e => e.EventStatus == (int)EventStatusEnum.waiting || e.EventStatus == (int)EventStatusEnum.present)
+                         .Where(e => e.EventStatus != (int)EventStatusEnum.cancelled)
+                         .Include(e => e.Host)
                          .ToList();
         }
 
-        public IEnumerable<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
+        public List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
         {
             return events.Where(e => e.StartDate >= startDate)
                          .Where(e => e.StartDate <= endDate)
                          .Where(e => roomId.Contains(e.RoomId))
-                         .Where(e => e.EventStatus == (int)EventStatusEnum.waiting || e.EventStatus == (int)EventStatusEnum.present)
+                         .Where(e => e.EventStatus != (int)EventStatusEnum.cancelled)
+                         .Include(e => e.Host)
                          .ToList();
         }
 
-        public IEnumerable<Event> GetPastEventsByUser(DateTime date, int attendeeId, int roomId)
+        public List<Event> GetPastEventsByUser(DateTime date, int attendeeId, int roomId)
         {
             return events.Where(e => e.StartDate > date.AddDays(-30))       // Last 30 days
                          .Where(e => e.AttendeeId == attendeeId)
@@ -51,15 +53,15 @@ namespace RSRepository
                          .ToList();
         }
 
-        public IEnumerable<Event> GetFutureEvents(DateTime date, int attendeeId, int roomId)
+        public List<Event> GetFutureEvents(DateTime date, int attendeeId, int roomId)
         {
             return events.Where(e => e.StartDate <= date.AddDays(15))
                          .Where(e => e.StartDate > date)
                          .Where(e => e.AttendeeId == attendeeId)
-                         .Where(e => e.RoomId == roomId);
+                         .Where(e => e.RoomId == roomId).ToList();
         }
 
-        public IEnumerable<Event> GetEventsByRoom(DateTime startDate, DateTime endDate, int roomId)
+        public List<Event> GetEventsByRoom(DateTime startDate, DateTime endDate, int roomId)
         {
             return events.Where(e => e.StartDate >= startDate)
                          .Where(e => e.StartDate <= endDate)
@@ -67,9 +69,24 @@ namespace RSRepository
                          .ToList();
         }
 
+        public List<Event> GetEventsByDay(DateTime date, int userId)
+        {
+            return events.Where(e => e.EventStatus != (int)EventStatusEnum.cancelled)
+                         .Where(e => e.AttendeeId == userId)
+                         .Where(e => e.StartDate.Date == date.Date)
+                         .ToList();
+        }
+
+        public List<Event> GetEventForEdit(DateTime startDate, DateTime endDate, int roomId, int attendee)
+        {
+            return events.Where(e => e.StartDate == startDate).Where(e => e.EndDate == endDate)
+                         .Where(e => e.RoomId == roomId).Where(e => e.AttendeeId == attendee)
+                         .ToList();
+        }
+
         public Event GetEventById(int id)
         {
-            return events.SingleOrDefault(s => s.Id == id);
+            return events.FirstOrDefault(e => e.Id == id);
         }
 
         public void AddEvent(Event _event)

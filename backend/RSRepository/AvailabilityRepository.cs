@@ -20,26 +20,54 @@ namespace RSRepository
 
         public Availability GetAvailabilityById(int id)
         {
-            return availabilities.SingleOrDefault(s => s.Id == id);
+            return availabilities.FirstOrDefault(s => s.Id == id);
         }
 
-        public IEnumerable<Availability> GetAvailabilities()
+        public List<Availability> GetAvailabilities()
         {
-            return availabilities.AsEnumerable();
+            return availabilities.ToList();
         }
 
-        public IEnumerable<Availability> GetAvailabilities(int[] roomId, int[] hostId)
+        public List<Availability> GetAvailabilities(int[] roomId, int[] hostId)
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))
                                  .Where(e => hostId.Contains(e.HostId))
-                                 .AsEnumerable();
+                                 .Include(e => e.Host)
+                                 .ToList();
         }
 
-        public IEnumerable<Availability> GetAvailabilities(int[] roomId)
+        public List<Availability> GetAvailabilitiesByRoom(DateTime startDate, DateTime endDate, int roomId)
+        {
+            return availabilities.Where(e => e.StartHour.TimeOfDay <= startDate.TimeOfDay)
+                                 .Where(e => e.StartHour.TimeOfDay <= endDate.TimeOfDay)
+                                 .Where(e => e.RoomId == roomId)                        
+                                 .ToList();
+        }
+
+        public List<Availability> GetAvailabilities(int[] roomId)
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))
-                                 .AsEnumerable();
+                                 .Include(e => e.Host)
+                                 .ToList();
         }
+
+        public List<Availability> GetAvailabilitiesByType(DateTime startDate, DateTime endDate,int roomId)
+        {
+            return availabilities.Where(e => e.StartHour.TimeOfDay <= startDate.TimeOfDay)
+                                 .Where(e => e.StartHour.TimeOfDay <= endDate.TimeOfDay)
+                                 .Where(e => e.RoomId == roomId)
+                                 .Where(e => e.AvailabilityType==1)
+                                 .ToList();
+        }
+
+        public List<Availability> GetAvailabilitiesByHour(DateTime startDate, int roomId)
+        {
+            return availabilities.Where(a => a.RoomId == roomId)
+                                 .Where(a => a.StartHour.Hour <= startDate.Hour)
+                                 .Where(a => a.EndHour.Hour > startDate.Hour)
+                                 .ToList();
+        }
+
 
 
     }

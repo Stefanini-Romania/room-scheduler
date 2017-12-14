@@ -1,11 +1,11 @@
-import {Router} from '@angular/router';
-import {Component, ViewChild } from '@angular/core';
+import {User} from '../../shared/models/user.model';
+import {Component, ViewChild, OnInit,AfterViewInit, OnDestroy} from '@angular/core';
 import {jqxSchedulerComponent} from './temp-hack/angular_jqxscheduler';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
-import { Subscription } from 'rxjs/Subscription';
-import { ToastrService } from 'ngx-toastr';
+import {TranslateService} from "@ngx-translate/core";
+import {Subscription} from 'rxjs/Subscription';
 
+import {LoginFormComponent} from '../../users/login-form/login-form.component';
 import {EventService} from '../shared/event.service';
 import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
 import {Room} from '../../shared/models/room.model';
@@ -14,6 +14,8 @@ import {AuthService} from '../../auth/shared/auth.service';
 import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
 import {DialogService} from '../../shared/services/dialog.service';
+import {EventEditorComponent} from '../event-editor/event-editor.component';
+import * as CalendarSettings from './calendar-settings.json';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -21,84 +23,41 @@ import {DialogService} from '../../shared/services/dialog.service';
     providers: [EventService, RoomSelector]
 })
 
-export class RSCalendarComponent {
+export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
     events: Event[] = [];
-    model: Event = <Event> {};
-    errorMessages: any = {};
+    users: User[] = [];
+    availabilities: any;
+    hosts: any[] = [];
+    availabilityHostGroupName: string;
 
     public date: Date = new jqx.date();
-
     public startDate: Date;
     public endDate: Date;
-
     public selectedRoom: Room;
     public hostId: number;
-
-    public saveEventTitle: string;
-
-    public view = 'weekView';
-
-    source: any = {
-        dataType: "array",
-        dataFields: [
-            {name: 'id', type: 'string'},
-            {name: 'description', type: 'string'},
-            {name: 'location', type: 'string'},
-            {name: 'subject', type: 'string'},
-            {name: 'calendar', type: 'string'},
-            {name: 'start', type: 'date'},
-            {name: 'end', type: 'date'}
-        ],
-        id: 'id',
-        localData: []
-    };
-
-    eventDataFields: any = {
-        from: "start",
-        to: "end",
-        id: "id",
-        description: "description",
-        location: "location",
-        subject: "subject",
-        resourceId: "calendar",
-        timeZone: "UTC"
-    };
-
-    dataAdapter: any = new jqx.dataAdapter(this.source);
-
-    resources: any = {
-        colorScheme: "scheme05",
-        dataField: "calendar",
-        source: null
-    };
-
-    views: any[] = [
-        {type: 'dayView', showWeekends: false, timeRuler: {formatString: 'HH:mm', scaleStartHour: 9, scaleEndHour: 18}},
-        {type: 'weekView', showWeekends: false, timeRuler: {formatString: 'HH:mm', scaleStartHour: 9, scaleEndHour: 18}},
-    ];
-
-    localization: any = {};
-
-    private modalRef: NgbModalRef;
     private previousValues: any;
 
+    calendarSettings = <any>CalendarSettings;
+    dataAdapter = new jqx.dataAdapter(this.calendarSettings["source"]);
     subscription: Subscription;
 
-    constructor(private router: Router, private toastr: ToastrService, private translate: TranslateService,
-                private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
-                private authService: AuthService) {
+    constructor(private translate: TranslateService,
+        private dialogService: DialogService, private eventService: EventService, private modalService: NgbModal,
+        private authService: AuthService){
     }
+              
 
     ngOnInit() {
-        this.subscription =  this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.subscription =  this.translate.onLangChange.subscribe(() => {
             this.updateCalendarTranslations();
         });
     }
 
     ngAfterViewInit(): void {
         this.goToToday();
+      
     }
 
     ngOnDestroy() {
@@ -110,33 +69,67 @@ export class RSCalendarComponent {
         let events = [];
         let eventType: string;
         for (let event of this.events) {
+            let readOnly = false;
             switch(event.eventType){
-                case EventTypeEnum.availability: 
-                    eventType = this.translate.instant("calendar.eventType.availabilty");
+                case EventTypeEnum.availability:
+                    if (event.eventStatus == 1) {
+                        eventType = this.translate.instant("calendar.eventType.availabilty");
+                        readOnly = true;
+                    }
+                    else {
+                        eventType = event.host;
+                        readOnly = false;
+                    }
+                    
                     break;
                 case EventTypeEnum.massage: 
                     eventType = this.translate.instant("calendar.eventType.massage");
                     break;
             }
+
+            if (this.authService.isLoggedIn()) {
+                
+                if (event.eventType == EventTypeEnum.massage) {
+
+                    if ((event.attendeeId !== this.authService.getLoggedUser().id) && (this.authService.getLoggedUser().departmentId != null)) {
+                        // @TODO allow admins and hosts to edit anyway
+                        readOnly = true;
+                    }   
+                }
+
+                if ((new Date(event.startDate) <= new Date())&&(this.authService.getLoggedUser().departmentId != null)){
+                    readOnly = true;
+                }
+               
+
+
+            }
+
             events.push(<any>{
                 id: event.id,
                 description: event.notes,
                 location: "",
                 subject: eventType,
                 calendar: "Room " + event.roomId,
+                draggable: false,
+                resizable: false,
+                readOnly: readOnly,              
                 start: new Date(event.startDate),
-                end: new Date(event.endDate)
+                end: new Date(event.endDate),
+                allDay: false
             });
         }
 
-        this.source.localData = events;
-        this.dataAdapter = new jqx.dataAdapter(this.source);
+        //console.log(events);
+
+        this.calendarSettings["source"].localData = events;
+        this.dataAdapter = new jqx.dataAdapter(this.calendarSettings["source"]);
     }
 
     updateCalendarTranslations() {
         const t = this.translate;
 
-        this.localization = {
+        this.calendarSettings["localization"] = {
             // separator of parts of a date (e.g. '/' in 11/05/1955)
             '/': '/',
 
@@ -190,17 +183,19 @@ export class RSCalendarComponent {
             contextMenuEditAppointmentString: t.instant("calendar.event.edit"),
             contextMenuCreateAppointmentString: t.instant("calendar.event.create"),
         };
+
+        this.refreshCalendar();
     }
 
     isView(view: string): boolean {
-        return view == this.view;
+        return view == this.calendarSettings["view"];
     }
 
     setView(view: string) {
-        this.view = view;
+        this.calendarSettings["view"] = view;
         this.date = new jqx.date(this.scheduler.date(), this.scheduler.timeZone());
 
-        this.scheduler.view(this.view);
+        this.scheduler.view(view);
     }
 
     goToToday() {
@@ -216,7 +211,7 @@ export class RSCalendarComponent {
     }
 
     private addDaysInDirection(date, direction: number) {
-        let i = this.views.find(e => e.type == this.view);
+        let i = Array<any>(this.scheduler.views).find(e => e.type == this.calendarSettings["view"]);
         let c = new jqx.date(date, this.scheduler.timeZone());
 
         let j = function () {
@@ -225,7 +220,8 @@ export class RSCalendarComponent {
             }
             return c;
         };
-        switch (this.view) {
+
+        switch (this.calendarSettings["view"]) {
             case"dayView":
             case"timelineDayView":
                 c = c.addDays(direction * 1);
@@ -249,7 +245,7 @@ export class RSCalendarComponent {
         return c;
     }
 
-    showCalendarsDate($event) {
+    updateCalendarDates($event) {
         if (!this.previousValues || ($event.args.from.toString() !== this.previousValues.from.toString())) {
             this.previousValues = $event.args;
 
@@ -278,169 +274,141 @@ export class RSCalendarComponent {
         if (!this.startDate || !this.endDate || !this.selectedRoom) {
             return;
         }
-        
-        
+
         this.events = [];
+        let hosts = {};
         this.eventService.listEvents(this.startDate, this.endDate, this.selectedRoom.id, this.hostId).subscribe((events: Event[]) => {
 
             for (let event of events) {
-                this.events.push(<Event>event);
+                if (event.eventType == EventTypeEnum.availability && event.eventStatus == 0) {
+                    // compute host availabilities
+                    if (!hosts[event.host]) {
+                        hosts[event.host] = {};
+                    }
+
+                    const startDate = new Date(event.startDate);
+                    const day = this.calendarSettings["localization"].days.namesAbbr[startDate.getDay()];
+                    if (!hosts[event.host][day]) {
+                        hosts[event.host][day] = [];
+                    }
+                    /*const endDate = new Date(event.endDate);
+
+                    const startHour = startDate.getHours() + ":" + startDate.getMinutes();
+                    const endHour = endDate.getHours() + ":" + endDate.getMinutes();
+
+                    hosts[event.host][day].push(startHour + " - " + endHour);*/
+                    hosts[event.host][day].push(event);
+
+                } else if(event.eventType == EventTypeEnum.massage || (event.eventType == EventTypeEnum.availability && event.eventStatus == 1))
+                    this.events.push(<Event>event); {
+                }
             }
 
+            this.availabilities = hosts;
+            //console.log(this.availabilities);
+
             this.refreshCalendar();
+            
         });
     }
 
-    onContextMenuItemClick($event, content) {
+    ContextMenuOpen(event: any): void {
+        if (!event.args.appointment) {
+            //event.args.menu.jqxMenu('hideItem', 'createAppointment');
+            //event.args.menu.jqxMenu('showItem', 'editAppointment');
+        }
+        else {
+             //event.args.menu.jqxMenu('showItem', 'createAppointment');
+             //event.args.menu.jqxMenu('hideItem', 'editAppointment');
+        }
+    }
+
+    onContextMenuItemClick($event) {
         switch ($event.args.item.id) {
             case "createAppointment":
-                this.showCreateDialog($event, content);
+                this.showCreateDialog();
                 break;
 
             case "editAppointment":
-                this.showEditDialog($event, content);
+                this.showEditDialog($event);
                 break;
         }
     }
 
-    /* test($event, content) {
-        console.log("BEFORE", this.scheduler.touchDayNameFormat());
-        this.scheduler.touchDayNameFormat('full');
-        console.log("AFTER", this.scheduler.touchDayNameFormat());
-        if(1)return;
-        if (!this.selectedRoom) {
-            this.dialogService.alert(this.translate.instant("Error.login")).result
-                .then(() => {
-                    this.router.navigate(['/login']);
-                })
-                .catch(() => {});
-
-        }
-        this.redirectToLogin();
-        if(1)return;
-        let modalRef = this.dialogService.alert("This is a test");
+    test($event) {
+        /*let modalRef = this.dialogService.alert("This is a test");
         modalRef.result.then(value => {
             console.log("V=", value);
         }, reason => {
             console.log("D=", reason);
         });
-        if (1)return;
-        this.saveEventTitle = 'calendar.event.create';
+        if (1)return;*/
 
-        this.errorMessages = {};
+        let model = new Event();
+        model.startDate = new Date();
+        model.endDate = new Date();
+        model.eventType = EventTypeEnum.massage;
+        model.eventStatus = EventStatusEnum.waiting;
+        model.roomId = 1;
+        model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
+        model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
 
-        this.model = new Event();
-        this.model.startDate = new Date();
-        this.model.endDate = new Date();
-        this.model.eventType = EventTypeEnum.massage;
-        this.model.eventStatus = EventStatusEnum.waiting;
-        this.model.roomId = 1;
-        this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-        this.model.attendeeId = 1; // this will be removed after backend will put the attendeeId from server (Current User)
+        this.openEventEditor(model);
+    }
 
-        this.modalRef = this.modalService.open(content);
-    } */
+    private openEventEditor(model: Event) {
+        const modalRef:NgbModalRef = this.modalService.open(EventEditorComponent);
+        modalRef.componentInstance.model = model;
+        modalRef.result.then(() => {
+            this.renderCalendar();
+        });
+    }
 
-    showCreateDialog($event, content) {
-        if (this.authService.isLoggedIn()) {
-            this.saveEventTitle = 'calendar.event.create';
+    showCreateDialog() {
+        if (!this.authService.isLoggedIn()) {
+            return this.redirectToLogin();
+        }
 
-            this.errorMessages = {};
+        if (this.authService.getLoggedUser().hasPenaltiesForRoom(this.selectedRoom)) {
+            return this.dialogService.alert({message: "User.YouArePenalised", title: "User.Title"});
+        }
 
-            let date = this.scheduler.getSelection();
-            if (!date) {
-                // exit in case the user wants to create an event over an existing event
-                return;
-            }
+        let date = this.scheduler.getSelection();
+        if (!date) {
+            // exit in case the user wants to create an event over an existing event
+            return;
+        }
 
-            this.model = new Event();
-            this.model.startDate = new Date(date.from.toString());
-            this.model.endDate = new Date(date.to.toString());
-            this.model.eventType = EventTypeEnum.massage;
-            this.model.eventStatus = EventStatusEnum.waiting;
-            this.model.roomId = this.selectedRoom.id;
-            this.model.hostId = 3; // @TODO WE SHOULD NOT NEED A HOST
-            this.model.attendeeId = this.authService.getLoggedUser().id; // this will be removed after backend will put the attendeeId from server (Current User)
+        let model = new Event();
+        model.startDate = new Date(date.from.toString());
+        model.endDate = new Date(date.to.toString());
+        model.eventType = EventTypeEnum.massage;
+        model.eventStatus = EventStatusEnum.waiting;
+        model.roomId = this.selectedRoom.id;
+        model.attendeeId = this.authService.getLoggedUser().id;
 
-            this.modalRef = this.modalService.open(content);
-        } else {
+        this.openEventEditor(model);
+    }
+
+    showEditDialog($event) {
+        if (!this.authService.isLoggedIn()) {
             this.redirectToLogin();
         }
+
+        let model = this.events.find(e => e.id == $event.args.appointment.id);
+        this.openEventEditor(model);
     }
-
-    showEditDialog($event, content) {
-        if (this.authService.isLoggedIn()) {
-            this.saveEventTitle = 'calendar.event.edit';
-
-            this.errorMessages = {};
-
-            this.model = this.events.find(e => e.id == $event.args.appointment.id);
-
-            this.modalRef = this.modalService.open(content);
-        } else {
-            this.redirectToLogin();
-        }
-    }
-
-    cancelEvent() {
-        this.model.eventStatus = EventStatusEnum.cancelled;
-        this.saveEvent();
-    }
-
-
-    saveEvent() {
-        // clear any previous errors
-        this.errorMessages = {};
-
-        // try to save
-        this.eventService.save(this.model).subscribe(
-            () => {
-                // on save event success
-                this.renderCalendar();
-                this.toastr.success(
-                    this.translate.instant('calendar.event.saved'), '',
-                    {positionClass: 'toast-bottom-right'}
-                );
-                this.modalRef.close();
-            },
-            error => {
-                // on save event errors
-                // @TODO handle generic errors
-                if (error.status == 401) {
-                    this.errorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
-                } else {
-                    this.errorMessages = {'generic': [error.error.message]};
-
-                    // build error message
-                    for (let e of error.error.errors) {
-                        let field = 'generic';
-                        if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
-                            field = e.field;
-                        }
-
-                        if (!this.errorMessages[field]) {
-                            this.errorMessages[field] = [];
-                        }
-
-                        this.errorMessages[field].push(e.errorCode);
-                    }
-
-                    this.renderCalendar();
-
-                    }
-            });
-
-    }
-
 
     redirectToLogin() {
         if (!(this.authService.isLoggedIn())) {
-            this.dialogService.alert(this.translate.instant("Error.login")).result
-                .then(() => {
-                    this.router.navigate(['/login']);
-                })
-                .catch(() => {});
-
+            const modalRef:NgbModalRef = this.modalService.open(LoginFormComponent);
+            modalRef.componentInstance.successfullLogin.subscribe(() => {
+                modalRef.close();
+            });
+            modalRef.result.then(() => {
+                this.renderCalendar();
+            })
+            .catch(() => {});
         }
     }
 
@@ -448,13 +416,25 @@ export class RSCalendarComponent {
         if (!data.appointment) {
             return;
         }
+
         let event = this.events.find(e => e.id == data.appointment.id);
-        if (event.eventType == EventTypeEnum.availability ) {
-            data.style = '#E0E0E0'; //gri
-            
-        } else {
-            data.style = '#004e9e'; //albastru
+        if (event.eventType == EventTypeEnum.availability) {
+            if (event.eventStatus == 0) {
+                data.style = '#E0E0E0'; //grey
+            }
         }
+        else {
+            data.style = '#004e9e'; //blue
+        }
+
+        if ((this.authService.isLoggedIn())) {
+            if (event.attendeeId == this.authService.getLoggedUser().id) {
+                data.style = "#d7dd3b"; //green?
+            }
+        }
+        
         return data;
     }
+
+
 }

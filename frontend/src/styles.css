@@ -86,8 +86,11 @@ h3 {
 }
 
 #user-cont {
-    padding-top: 0;
-    padding-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    background-color: #F7F7F7;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 label
@@ -100,7 +103,7 @@ input[type=text], input[type=password]
 {
     width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin-top: 8px;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -133,15 +136,14 @@ body .btn, button {
 
 body .btn-primary {
     background-color: #004e9e;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 body .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
     box-shadow: none;
 }
 
-#loginbtn:hover,
-#loginbtn:active,
-#loginbtn:focus,
 #b1:hover,
 #b1:active,
 #b1:focus  {
@@ -226,12 +228,6 @@ footer a {
     position: relative;
 }
   
-#loginbtn {
-    position: relative;
-    width: 100%;
-    margin-top: 30px;
-}
-
 #sign-out {
     position: relative;
     padding: 10px;
@@ -267,11 +263,58 @@ footer a {
     color: #fff;
 }
 
+.alert-custom{
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #721c24;
+    height: 38px;
+    text-align: center;
+    width:40%;
+}
 
+.fa-times{
+    color: #fff;
+}
 
+.admintabs {
+    position: relative;
+    top:130px;
+    left:10%;
+}
 
+#pageButtons {
+    position: absolute;
+    z-index: 2;
+}
 
+#pageButtons a{
+    color: #fff;
+}
 
+#pageButtons a:hover, #pageButtons a:link{
+    color: #cad400;
+}
+
+#registerForm{
+    background-color: #F7F7F7;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+  /* .jqx-rc-all .jqx-scheduler-appointment {
+    left: 567px;
+    top: 161px;
+    width: 170px;
+    height: 27px;
+}
+ */
+
+ #legend {
+    padding-left: 20px;
+    padding-right: 25px;
+    width: 100%;
+    font-size: 100%;
+ }
 
 
 

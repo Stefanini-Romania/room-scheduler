@@ -1,116 +1,88 @@
-
-<div class="container h-100" style="padding-top: 80px">
-        <div class="row">
-            <div class="col">
-                <room-selector (roomChange)="onRoomChanged($event)"></room-selector>
-                <div class="btn-group" ngbRadioGroup>
-                    <label ngbButtonLabel class="btn-primary"(click)="goBack()">
-                        <input ngbButton type="radio"><i class="fa fa-arrow-left"></i>
-                    </label>
-                    <label ngbButtonLabel class="btn-primary" (click)="goToToday()">
-                        <input ngbButton type="radio">{{ 'calendar.today' |translate }}
-                    </label>
-                    <label ngbButtonLabel class="btn-primary" (click)="goForward()">
-                        <input ngbButton type="radio"><i class="fa fa-arrow-right"></i>
-                    </label>
-                </div>
-            </div>
-
-            <div class="col text-right">
-                <label class="mx-2" *ngIf="startDate && endDate">
-                    <b>{{ startDate | localizedDate | titlecase }}</b>
-                    <b *ngIf="view == 'weekView'"> - {{ endDate | localizedDate| titlecase }}</b>
+<div class="container h-100" style="padding-top: 3rem;padding-bottom: 4rem;">
+        
+        
+    <div class="row">
+        <div class="col">
+            <room-selector (roomChange)="onRoomChanged($event)"></room-selector>
+            <div class="btn-group" ngbRadioGroup>
+                <label ngbButtonLabel class="btn-primary"(click)="goBack()">
+                    <input ngbButton type="radio"><i class="fa fa-arrow-left"></i>
                 </label>
-
-                <div class="btn-group" ngbRadioGroup [ngModel]="view">
-                    <label ngbButtonLabel class="btn btn-primary" (click)="setView('dayView')">
-                        <input ngbButton type="radio" value="dayView">{{'calendar.day' |translate}}
-                    </label>
-                    <label ngbButtonLabel class="btn-primary" (click)="setView('weekView')">
-                        <input ngbButton type="radio" value="weekView">{{'calendar.week' |translate}}
-                    </label>
-                </div>
-            </div>
-
-            <!--<button ngbButtonLabel ngbButton class="btn btn-primary" (click)="test($event, content)">Refresh</button>-->
-        </div>
-    
-        <div class="row h-75 mby-5">
-            <div class="col">
-            <jqxScheduler #schedulerReference
-                          [width]="'100%'" [height]="'100%'"
-                          [date]="date"
-                          [source]="dataAdapter"
-                          [showLegend]="true"
-                          [view]="view"
-                          [views]="views"
-                          [appointmentDataFields]="eventDataFields"
-                          [resources]="resources"
-                          [localization]="localization"
-                          [showToolbar]="false"
-                          [editDialog]="false"
-                
-                          (onContextMenuItemClick)="onContextMenuItemClick($event, content)"
-
-                          (onDateChange)="showCalendarsDate($event)"
-                          (onAppointmentClick)="false"
-                          (onCellDoubleClick)="showCreateDialog($event, content) "
-                          [renderAppointment]="renderAppointment"   
-            ></jqxScheduler>
+                <label ngbButtonLabel class="btn-primary" (click)="goToToday()">
+                    <input ngbButton type="radio">{{ 'calendar.today' |translate }}
+                </label>
+                <label ngbButtonLabel class="btn-primary" (click)="goForward()">
+                    <input ngbButton type="radio"><i class="fa fa-arrow-right"></i>
+                </label>
             </div>
         </div>
-    </div>
-    
-    
-<!-- MODAL FORM -->
-<ng-template #content let-c="close" let-d="dismiss" size-type="lg">
-    <div class="modal-header" >
-        <h6 class="modal-title">{{ saveEventTitle | translate }}</h6>
-    </div>
+       
 
-    <div class="modal-body">
-        <form>
-            <div class="container">   
-                <!-- generic error message -->
-                <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
-                    <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
-                </ngb-alert>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="input-group">
-                            <label class="col-md-3"><b>{{ 'calendar.startDate' | translate }}:</b></label>
-                            <label class="col">{{ model.startDate | localizedDate | titlecase}} {{ model.startDate | date: 'shortTime'}}</label>
-                        </div>
-                    </div>
-                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['StartDate']" [dismissible]="false">
-                        <div *ngFor="let errorMessage of errorMessages['StartDate']">{{ errorMessage | translate }}</div>
-                    </ngb-alert>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <label class="col-md-3"><b>{{ 'calendar.endDate' | translate }}:</b></label>
-                        <label class="col">{{ model.endDate | localizedDate | titlecase}} {{ model.endDate | date: 'shortTime'}}</label>
-                    </div>
-                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
-                        <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
-                    </ngb-alert>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <div class="col">
-                            <label hidden="true"><b>{{ 'calendar.notes' | translate }}:</b></label>
-                            <textarea placeholder="{{ 'calendar.notes' | translate}}" class="w-100 h-100" name="notes" [(ngModel)]="model.notes" #notes="ngModel"></textarea>
-                        </div>
-                    </div>
-                </div>
+        <div class="col text-right ">
+            <div class="btn-group float-right" ngbRadioGroup [ngModel]="calendarSettings.view">
+                <label ngbButtonLabel class="btn btn-primary" (click)="setView('dayView')">
+                    <input ngbButton type="radio" value="dayView">{{'calendar.day' |translate}}
+                </label>
+                <label ngbButtonLabel class="btn-primary" (click)="setView('weekView')">
+                    <input ngbButton type="radio" value="weekView">{{'calendar.week' |translate}}
+                </label>
             </div>
-        </form>
+            <label class="mx-2 d-none d-sm-block float-right">
+                <b>{{ startDate | localizedDate | titlecase }}</b>
+                <b *ngIf="calendarSettings.view == 'weekView'"> - {{ endDate | localizedDate| titlecase }}</b>
+            </label>
+        </div>
+
+        <!--<button ngbButtonLabel ngbButton class="btn btn-primary" (click)="test($event)">Refresh</button>-->
     </div>
 
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="cancelEvent()"  *ngIf="model.id">{{ 'calendar.buttons.cancel.event' | translate }}</button>
-        <button type="button" class="btn btn-primary" (click)="saveEvent()">{{ 'button.save' | translate }}</button>
-        <button type="button" class="btn btn-primary" (click)="c('Close click')">{{ 'button.close' | translate }}</button>
+    <div class="row h-100 mby-5">
+        <div class="col col-md-11">
+        <jqxScheduler #schedulerReference
+                      [width]="'100%'" [height]="'100%'"
+                      [rowsHeight]="10"
+                      [date]="date"
+                      [view]="calendarSettings.view"
+                      [views]="calendarSettings.views"
+                      [source]="dataAdapter"
+                      [appointmentDataFields]="calendarSettings.eventDataFields"
+                      [resources]="calendarSettings.resources"
+                      [localization]="calendarSettings.localization"
+                      [renderAppointment]="renderAppointment"
+                      
+                      [showLegend]="true"
+                      [showToolbar]="false"
+                      [editDialog]="false"
+
+                      (onContextMenuOpen)="ContextMenuOpen($event)"
+                      (onContextMenuItemClick)="onContextMenuItemClick($event)"
+                      (onDateChange)="updateCalendarDates($event)"
+                      (onAppointmentClick) ="false"
+                      (onCellDoubleClick)="showCreateDialog()"
+        ></jqxScheduler>
+        </div>
+
+        <div *ngIf="availabilities" class="col col-md-1">
+            <table>
+                <tr id="legend" class="badge badge-primary" *ngFor="let host of availabilities | keys">
+                    <td>
+
+                    <table>
+                        <tr><td>{{ host }}</td></tr>
+                        <tr *ngFor="let day of availabilities[host] | keys">
+                            <td>
+                                <div class="badge badge-primary" *ngFor="let event of availabilities[host][day]">
+                                    <div>{{ event.startDate | localizedDate:'EE HH:mm' | titlecase }}
+                                         {{ event.endDate | localizedDate:'HH:mm' }}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-</ng-template>
+</div>

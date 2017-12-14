@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace RSRepository
 {
-    class RoleRepository : IRoleRepository
+    public class RoleRepository : IRoleRepository
     {
         private RoomPlannerDevContext _context;
         private DbSet<Role> _roles;
@@ -40,12 +40,12 @@ namespace RSRepository
 
         public Role GetRoleById(int id)
         {
-            return _roles.SingleOrDefault(s => s.Id == id);
+            return _roles.FirstOrDefault(s => s.Id == id);
         }
 
-        public IEnumerable<Role> GetRoles()
+        public List<Role> GetRoles()
         {
-            return _roles.AsEnumerable();
+            return _roles.ToList();
         }
 
         public void SaveChanges()

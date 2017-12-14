@@ -41,6 +41,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>GeneralMessages.resx</DependentUpon>
     </Compile>
+    <Compile Update="Validation\RoomMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RoomMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Validation\UserMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserMessages.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -55,6 +65,14 @@
     <EmbeddedResource Update="Validation\GeneralMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GeneralMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Validation\RoomMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RoomMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Validation\UserMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

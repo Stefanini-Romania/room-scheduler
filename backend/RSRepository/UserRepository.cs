@@ -2,6 +2,8 @@
 using RSData.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
@@ -12,11 +14,15 @@ namespace RSRepository
     {
         private RoomPlannerDevContext context;
         private DbSet<User> users;
+        private DbSet<UserRole> userrole;
+        private DbSet<Role> role;
 
         public UserRepository(RoomPlannerDevContext context)
         {
             this.context = context;
-            users = context.Set<User>();
+            users = context.User;
+            userrole = context.UserRole;
+            role = context.Role;
         }
 
         public void SaveChanges()
@@ -24,26 +30,64 @@ namespace RSRepository
             context.SaveChanges();
         }
 
-        public IEnumerable<User> GetUsers()
+
+        public List<User> GetUsers()
         {
-            return users.AsEnumerable();
+            var result = users.Include(u => u.UserRole).Include(u => u.Penalty)
+                              .ToList();
+            return result;
+        }
+
+        public List<User> GetUsers2()
+        {
+            var result = users.ToList();
+            return result;
         }
 
         public User FindUserByCredential(string username, string password)
         {
-            // !! Nu trebuie sa-i aducem pe toti cu GetUsers. Trebuie cautat direct in DbSet-ul de users  !!
+            // TODO:  Nu trebuie sa-i aducem pe toti cu GetUsers. Trebuie cautat direct in DbSet-ul de users  !!
 
             var sha1 = System.Security.Cryptography.SHA1.Create();
 
             var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(password));
             var encryptedPass = BitConverter.ToString(hash).Replace("-", "").ToLower();
-            var returnvar = this.GetUsers().SingleOrDefault(c => c.Name == username && c.Password == encryptedPass);
+            var returnvar = this.GetUsers().FirstOrDefault(c => c.Name == username && c.Password == encryptedPass);
             return returnvar;
         }
 
         public User GetUserById(long id)
         {
-            return users.SingleOrDefault(s => s.Id == id);
+            return users.FirstOrDefault(s => s.Id == id);
+        }
+
+        public User GetUserByUsername(String username)
+        {
+            return users.FirstOrDefault(s => s.Name == username);
+        }
+
+        public User GetUserByEmail(String email)
+        {
+            return users.FirstOrDefault(s => s.Email == email);
+        }
+
+        public List<User> GetUsersByUsername(string username, int userId)
+        {
+            return users.Where(s => s.Name == username)
+                        .Where(s => s.Id != userId)
+                        .ToList();
+        }
+
+        public List<User>GetUserByisActiv()
+        {
+            return users.Where(s => s.IsActive != null).ToList();
+        }
+
+        public List<User> GetUsersByEmail(string email, int userId)
+        {
+            return users.Where(s => s.Email == email)
+                        .Where(s => s.Id != userId)
+                        .ToList();
         }
 
         public void AddUser(User user)
@@ -75,6 +119,5 @@ namespace RSRepository
             context.SaveChanges();
         }
 
-        
     }
 }
