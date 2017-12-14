@@ -9,9 +9,11 @@
                 <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert>
                 <!-- <label><b>Username</b></label> -->
                 <input  type="text" placeholder="{{ 'login.username' | translate }}" name="UserName" [(ngModel)]="model.name" #UserName="ngModel" required>
+                <small class="text-danger"><i>*{{'required.field' | translate}}</i></small>
 
                 <!-- <label><b>Password</b></label> -->
                 <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
+                <small class="text-danger"><i>*{{'required.field' | translate}}</i></small>
                 <br />
                 <button type="submit" class="btn btn-primary float-right" (click)="login()">
                     {{ 'login.button' | translate }}

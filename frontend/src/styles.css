@@ -103,7 +103,7 @@ input[type=text], input[type=password]
 {
     width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin-top: 8px;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -136,6 +136,8 @@ body .btn, button {
 
 body .btn-primary {
     background-color: #004e9e;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 body .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
@@ -313,7 +315,6 @@ footer a {
     width: 100%;
     font-size: 100%;
  }
-
 
 
 
