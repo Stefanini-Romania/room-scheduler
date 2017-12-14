@@ -157,10 +157,11 @@
     "saved": "Utilizatorul a fost salvat",
     "delete": "Șterge utilizatorul",
     "add": "Adaugă utilizator",
-    "deleted": "Utilizatorul a fost șters",
+    "deactivated": "Contul de utilizator a fost dezactivat",
     "attendee": "Utilizator",
     "isActive": "Activ",
-    "active": "Contul de utilizator a fost activat"
+    "isNotActive": "Inactiv",
+    "activated": "Contul de utilizator a fost activat"
   },
 
   "Auth": {

@@ -83,6 +83,11 @@ namespace RSRepository
             return users.Where(s => s.IsActive != null).ToList();
         }
 
+        public List<User> GetUserByisInactiv()
+        {
+            return users.Where(s => s.IsActive == false).ToList();
+        }
+
         public List<User> GetUsersByEmail(string email, int userId)
         {
             return users.Where(s => s.Email == email)

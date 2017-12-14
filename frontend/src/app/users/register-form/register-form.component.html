@@ -1,4 +1,9 @@
-
+<div class="modal-header">
+  <h6 class="modal-title">{{ "Edit User" | translate }}</h6>
+  <div>
+    <button type="button" class="btn btn-primary float-right" (click)="closeLoginModal()">{{ 'X' | translate }}</button>
+  </div>
+</div>
 <div class="modal-body mx-auto">
         <div class="container d-flex h-100">
             <!-- <div class="row justify-content-center align-self-center col-sm-6 col-md-9 col-lg-8 col-xl-5 mx-auto">-->
@@ -118,36 +123,41 @@
                             <div class="row-fluid" >
                                 <!-- <ngb-alert type="danger" *ngIf="submitted=false" [dismissible]="false" >{{ 'Error.User.Creation' | translate }}</ngb-alert> -->
                                 <div class="btn-group" ngbRadioGroup>
-                                    <label ngbButtonLabel class="btn btn-primary">
+                                    <label ngbButtonLabel class="btn btn-primary btn-sm">
                                         <input ngbButton type="radio" value="1">ADC
                                     </label>
-                                    <label ngbButtonLabel class="btn-primary">
+                                    <label ngbButtonLabel class="btn-primary btn-sm">
                                         <input ngbButton type="radio" value="2">SDC
                                     </label>                      
                                 </div>
 
                                 <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
-                                    <label ngbButtonLabel class="btn btn-primary">
-                                        <input ngbButton type="radio" value="1">{{'Active' | translate}}
+                                    <label ngbButtonLabel class="btn btn-primary btn-sm" (click)="activateUser(user)">
+                                        <input ngbButton type="radio">{{'user.isActive' | translate}}
                                     </label>
-                                    <label ngbButtonLabel class="btn-primary" (click)="onInactiveUser()">
-                                        <input ngbButton type="radio" value="2" >{{'Inactive' | translate}}
+                                    <label ngbButtonLabel class="btn btn-primary btn-sm" (click)="deactivateUser(user)">
+                                        <input ngbButton type="radio">{{'user.isNotActive' | translate}}
                                     </label>                      
                                 </div>
         
                                 
                                 <div class="float-right">
-                                    <button  type="submit" class="btn btn-primary float-right" *ngIf="!model.id" (click)="register()">
+                                  <div>
+                                    <button  type="submit" class="btn btn-primary float-right btn-sm" *ngIf="!model.id" (click)="register()">
                                         {{ 'register.button' | translate }}
                                         <!-- <i class="fa fa-lock"></i> -->
                                     </button>
-                                    <button type="button" class="btn btn-primary float-right" *ngIf="model.id" (click)="editUser()">
-                                        {{ 'user.save' | translate }}</button> 
+                                    </div>
+                                  <div>
+                                    <button type="button" class="btn btn-primary btn-sm float-right" *ngIf="model.id" (click)="editUser()">
+                                        {{ 'user.save' | translate }}</button>
+                                  </div>
+                                  
                                 </div>
                                 
                             </div>
         
-                            <p *ngIf="!(isLoggedIn()) && !model.id">                         
+                            <p *ngIf="!(isLoggedIn) && !model.id">                         
                                 {{ 'login.alreadyHaveAccount' | translate }}
                                 <a routerLink="/login">{{ 'login.button' | translate }}</a>.
                             </p>

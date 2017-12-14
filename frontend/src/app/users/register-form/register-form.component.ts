@@ -123,28 +123,36 @@ export class RegisterFormComponent {
             });       
     } 
     
-    // onInactiveUser() {
-
-    //     successfullInactiveUser.subscribe(() => {
-    //         //modalRef.close();     
-    //     }); 
-    // }
-
-    // onDeleteUser(model: User) {
-    //     model.isActive = false;
-    //     this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
-    //     .subscribe(
-    //         () => {   
-    //             this.toastr.warning(
-    //                 this.translate.instant("user.deleted"), '',
-    //                 {positionClass: 'toast-bottom-right'}
-    //             );                
-    //             //this.refreshUsers();                      
-    //         }, 
-    //         error => {
-    //             this.errorMessages = error.error.message;
-    //         });
-    // }   
+    deactivateUser(User) {
+        this.model.isActive = false;
+        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRoles, this.model.isActive, this.model.password)
+        .subscribe(
+            () => {   
+                this.toastr.warning(
+                    this.translate.instant("user.deactivated"), '',
+                    {positionClass: 'toast-bottom-right'}
+                );                
+                //this.refreshUsers();                      
+            }, 
+            error => {
+                this.errorMessages = error.error.message;
+            });
+    } 
+    
+    activateUser(User){
+        this.model.isActive = true;
+        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRoles, this.model.isActive, this.model.password)
+        .subscribe(
+            () => {   
+                this.toastr.success(
+                    this.translate.instant("user.activated"), '',
+                    {positionClass: 'toast-bottom-right'}
+                );                                   
+            }, 
+            error => {
+                this.errorMessages = error.error.message;
+            });
+    }
 }
     
 

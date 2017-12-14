@@ -47,7 +47,6 @@ export class AuthService {
         if (sessionData && sessionData != null) {
             u = Object.assign(new User, JSON.parse(sessionData));
         }
-
         return u;
     }
 
