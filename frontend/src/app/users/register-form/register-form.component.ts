@@ -33,7 +33,7 @@ export class RegisterFormComponent {
     public submitted;
     public model: User = <User>{
         departmentId: DepartmentIdEnum.ADC,
-        userRoles: [RoleEnum.attendee]
+        userRole: [RoleEnum.attendee]
     };
     
     public errorMessages: any = {};
@@ -67,7 +67,7 @@ export class RegisterFormComponent {
                                         this.model.email,
                                         this.model.password, 
                                         this.model.departmentId,
-                                        this.model.userRoles
+                                        this.model.userRole
                                         )                                          
         .subscribe(
             () => {
@@ -102,7 +102,7 @@ export class RegisterFormComponent {
     }
 
     editUser(){
-        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRoles, this.model.isActive, this.model.password).subscribe(
+        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRole, this.model.isActive, this.model.password).subscribe(
             () => {
                 this.successfullEditUser.emit();
                 this.toastr.success(
@@ -130,7 +130,7 @@ export class RegisterFormComponent {
     
     deactivateUser(User) {
         this.model.isActive = false;
-        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRoles, this.model.isActive, this.model.password)
+        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRole, this.model.isActive, this.model.password)
         .subscribe(
             () => {   
                 this.toastr.warning(
@@ -146,7 +146,7 @@ export class RegisterFormComponent {
     
     activateUser(User){
         this.model.isActive = true;
-        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRoles, this.model.isActive, this.model.password)
+        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRole, this.model.isActive, this.model.password)
         .subscribe(
             () => {   
                 this.toastr.success(

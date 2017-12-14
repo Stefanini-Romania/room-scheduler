@@ -37,9 +37,9 @@ export class RsHeaderComponent {
         }
     }
     
-    // isAdmin(admin: User) {
-    //     this.currentUser = admin;
-    // }
+    isAdmin(currentUser: User): boolean {
+        return (currentUser && currentUser.userRole.length != 0  && currentUser.userRole.indexOf(RoleEnum.admin) !== -1);
+    }
 
     logout() {
         this.authService.logout().subscribe(
