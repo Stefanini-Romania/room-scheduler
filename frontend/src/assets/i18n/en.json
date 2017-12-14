@@ -64,7 +64,8 @@
       "created": "The room has been created",
       "deleteRoom": "Delete room",
       "delete": "Delete",
-      "deleted": "The room has been deleted",
+      "deactivate": "The room has been deactivated",
+      "activated": "The room has been activated",
       "isActive": "Active"
   },
 
