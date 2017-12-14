@@ -132,11 +132,11 @@
                                 </div>
 
                                 <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
-                                    <label ngbButtonLabel class="btn btn-primary btn-sm">
-                                        <input ngbButton type="radio" value="1">{{'user.isActive' | translate}}
+                                    <label ngbButtonLabel class="btn btn-primary btn-sm" (click)="activateUser(user)">
+                                        <input ngbButton type="radio">{{'user.isActive' | translate}}
                                     </label>
-                                    <label ngbButtonLabel class="btn btn-primary btn-sm" (click)="onDeleteUser(user)">
-                                        <input ngbButton type="radio" value="2" >{{'user.isNotActive' | translate}}
+                                    <label ngbButtonLabel class="btn btn-primary btn-sm" (click)="deactivateUser(user)">
+                                        <input ngbButton type="radio">{{'user.isNotActive' | translate}}
                                     </label>                      
                                 </div>
         

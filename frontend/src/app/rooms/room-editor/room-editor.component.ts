@@ -88,9 +88,9 @@ export class RoomEditorComponent {
             });       
     } 
 
-    onDeleteRoom(model: Room) {   
-        model.isActive = false;         
-        this.roomService.editRoom(model.id, model.name, model.location, model.isActive).subscribe(
+    inactiveRoom(Room) {   
+        this.model.isActive = false;         
+        this.roomService.editRoom(this.model.id, this.model.name, this.model.location, this.model.isActive).subscribe(
                 () => {       
                     this.toastr.warning(
                         this.translate.instant('rooms.deleted'), '',
