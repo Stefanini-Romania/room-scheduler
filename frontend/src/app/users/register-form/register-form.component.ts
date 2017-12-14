@@ -28,6 +28,7 @@ export class RegisterFormComponent {
     successfullEditUser = new EventEmitter;
 
     //refreshUsers  
+    public title: string;    
     public confirmPassword;
     public submitted;
     public model: User = <User>{
@@ -48,6 +49,10 @@ export class RegisterFormComponent {
                 private toastr: ToastrService,
                 private translate: TranslateService,
                 private modalService: NgbModal) {
+    }
+
+    ngOnInit() {
+        this.title = this.model.id ? 'user.edit': 'user.add';
     }
 
     get isLoggedIn():boolean {

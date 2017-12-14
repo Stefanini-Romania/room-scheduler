@@ -34,10 +34,10 @@
                     </ngb-alert>  
 
                     <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" mx-auto>
-                        <label ngbButtonLabel class="btn btn-primary ">
+                        <label ngbButtonLabel class="btn btn-primary" (click)="activateRoom(room)">
                             <input ngbButton type="radio" value="1">{{'user.isActive' | translate}}
                         </label>
-                        <label ngbButtonLabel class="btn btn-primary" (click)="inactveRoom(room)">
+                        <label ngbButtonLabel class="btn btn-primary" (click)="deactivateRoom(room)">
                             <input ngbButton type="radio" value="2" >{{'user.isNotActive' | translate}}
                         </label>                      
                     </div>                 

@@ -64,7 +64,8 @@
       "created": "Camera a fost adăugată",
       "deleteRoom": "Șterge camera",
       "delete": "Șterge",
-      "deleted": "Camera a fost ștearsă",
+      "deactivated": "Camera a fost dezactivată",
+      "activated": "Camera a fost activată",
       "isActive": "Activ"
   },
 

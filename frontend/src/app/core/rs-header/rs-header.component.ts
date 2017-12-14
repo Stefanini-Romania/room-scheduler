@@ -45,10 +45,12 @@ export class RsHeaderComponent {
         this.authService.logout().subscribe(
             () => {
                 location.reload(true);
+                
             },
             error => {
                 throw error;
             });
+        
     }
 
     redirectToLogin() {
