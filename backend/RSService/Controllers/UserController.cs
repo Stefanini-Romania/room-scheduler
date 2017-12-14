@@ -159,11 +159,14 @@ namespace RSService.Controllers
 
           //  var inactiveusers = userRepository.GetUserByisInactiv();           
             var events = eventRepository.GetEvents();
-            foreach (var l in events)
+            if (updatedUser.IsActive == false)
             {
-                if (l.AttendeeId == id)
+                foreach (var l in events)
                 {
-                    l.EventStatus= 2;
+                    if (l.AttendeeId == id)
+                    {
+                        l.EventStatus = 2;
+                    }
                 }
             }
             Context.SaveChanges();
