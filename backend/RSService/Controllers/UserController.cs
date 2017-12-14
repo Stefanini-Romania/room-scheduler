@@ -31,7 +31,7 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/user/list")]
-        //[Authorize]
+        [Authorize]
         public IActionResult GetUsers()
         {
             var results = userRepository.GetUsers();
@@ -110,7 +110,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/user/edit/{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult EditUser(int id, [FromBody]EditUserViewModel userView)
         {
 
