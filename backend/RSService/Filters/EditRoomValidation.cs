@@ -24,7 +24,7 @@ namespace RSService.Filters
 
         private bool IsUniqueRoom(EditRoomViewModel m, String roomName)
         {
-            return rsManager.IsUniqueRoom(roomName, m.Location);
+            return rsManager.IsUniqueRoom(roomName, m.Location, m.IsActive);
         }
     }
 }

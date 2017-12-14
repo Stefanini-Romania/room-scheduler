@@ -10,7 +10,7 @@ namespace RSRepository
         List<Room> GetRooms();
         List<Room> GetRoomsByStatus(Nullable<bool> isActive = null);
         Room GetRoomById(int id);
-        Room GetRoomByNameAndLocation(String name, String location);
+        Room GetRoomByNameAndLocation(String name, String location, bool? activ);
         void AddRoom(Room room);
         void UpdateRoom(Room room);
         void DeleteRoom(Room room);
