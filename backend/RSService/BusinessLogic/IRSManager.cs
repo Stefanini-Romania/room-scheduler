@@ -36,7 +36,7 @@ namespace RSService.BusinessLogic
 
         bool IsValidRole(List<int> userRole);
 
-        bool IsUniqueRoom(String name, String location, bool? activ);
+        bool IsUniqueRoom(String name, String location, int roomid);
 
         bool IsActiveUser(String username);
 

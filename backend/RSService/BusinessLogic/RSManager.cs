@@ -330,9 +330,9 @@ namespace RSService.BusinessLogic
             }
         }
 
-        public bool IsUniqueRoom(String name, String location,bool? activ)
+        public bool IsUniqueRoom(String name, String location, int roomid)
         {
-            var rooms = roomRepository.GetRoomByNameAndLocation(name, location, activ);
+            var rooms = roomRepository.GetRoomByNameAndLocation(name, location,roomid);
 
             if (rooms == null)
             {
