@@ -32,8 +32,13 @@ export class AuthService {
     }
 
     logout() {
+
         sessionStorage.removeItem('currentUser');
         this.user$.emit(null);
+
+        const url = environment.apiUrl + '/api/auth/logout';
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.post(url, { headers: headers, withCredentials: true }); 
     }
 
     getLoggedUser(): User {
