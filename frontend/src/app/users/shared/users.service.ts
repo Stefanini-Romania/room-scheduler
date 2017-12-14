@@ -19,7 +19,8 @@ export class UserService {
 
     public listUsers() {
         const url = environment.apiUrl + '/user/list';
-        return this.http.get(url);
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.get(url, { headers: headers, withCredentials: true });
     }
 
     public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRoles?: RoleEnum[]) {

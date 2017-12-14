@@ -16,40 +16,32 @@ namespace RSService.Controllers
     public class RoomController : BaseController
     {
         private IRoomRepository roomRepository;
+        private IUserRepository userRepository;
 
         public RoomController()
         {
             this.roomRepository = new RoomRepository(Context);
-        }
-
-        [HttpGet("/room/bookable")]
-        public IActionResult GetActiveRooms(bool isActive)
-        {
-
-            var rooms = roomRepository.GetRoomsByStatus(isActive);
-            if (rooms == null) return NotFound();
-
-            List<RoomDto> roomList = new List<RoomDto>();
-
-            foreach (var it in rooms)
-            {
-                roomList.Add(new RoomDto()
-                {
-                    Id = it.Id,
-                    Name = it.Name,
-                    Location = it.Location,
-                    IsActive = it.IsActive
-                });
-            }
-
-            return Ok(roomList); 
+            this.userRepository = new UserRepository(Context);
         }
 
         [HttpGet("/room/list")]
-        [Authorize]
+        //[Authorize]
         public IActionResult GetRooms()
         {
-            var rooms = roomRepository.GetRooms();
+            var userName = HttpContext.User.Identity.Name;
+            if (userName != null)
+            {
+                var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
+            }
+            
+            // if attendee............................
+
+            var rooms = roomRepository.GetRoomsByStatus(true);
+
+            // if admin ..............................
+            //var rooms = roomRepository.GetRooms();
+
+
             if (rooms == null) return NotFound();
 
             List<RoomDto> roomList = new List<RoomDto>();

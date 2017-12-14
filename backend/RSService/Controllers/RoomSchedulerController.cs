@@ -38,7 +38,7 @@ namespace RSService.Controllers
 
         [HttpPost("/event/create")]
         [Authorize]
-        public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
+        public IActionResult AddEvent([FromBody]EventViewModel model)
         {
             var userName = HttpContext.User.Identity.Name;
             var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
