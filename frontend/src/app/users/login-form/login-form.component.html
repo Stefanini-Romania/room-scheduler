@@ -8,12 +8,20 @@
                 </a>
                 <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert>
                 <!-- <label><b>Username</b></label> -->
-                <input  type="text" placeholder="{{ 'login.username' | translate }}" name="UserName" [(ngModel)]="model.name" #UserName="ngModel" required>
-                <small class="text-danger"><i>*{{'required.field' | translate}}</i></small>
+                <div class="required-field-block">
+                    <input  type="text" placeholder="{{ 'login.username' | translate }}" name="UserName" [(ngModel)]="model.name" #UserName="ngModel" required>
+                    <div class="required-icon">
+                            <div class="text">*</div>
+                    </div>
+                </div>
 
                 <!-- <label><b>Password</b></label> -->
-                <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
-                <small class="text-danger"><i>*{{'required.field' | translate}}</i></small>
+                <div class="required-field-block">
+                    <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
+                    <div class="required-icon">
+                            <div class="text">*</div>
+                    </div>
+                </div>
                 <br />
                 <button type="submit" class="btn btn-primary float-right" (click)="login()">
                     {{ 'login.button' | translate }}
