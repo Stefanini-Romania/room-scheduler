@@ -144,6 +144,7 @@
     "deleted": "The user has been deleted",
     "attendee": "Attendee",
     "isActive": "Active",
+    "isNotActive": "Inactive",
     "active": "The user has been activated"
   },
 

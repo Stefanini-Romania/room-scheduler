@@ -128,10 +128,10 @@
 
                                 <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
                                     <label ngbButtonLabel class="btn btn-primary">
-                                        <input ngbButton type="radio" value="1">{{'Active' | translate}}
+                                        <input ngbButton type="radio" value="1">{{'user.isActive' | translate}}
                                     </label>
                                     <label ngbButtonLabel class="btn-primary" (click)="onInactiveUser()">
-                                        <input ngbButton type="radio" value="2" >{{'Inactive' | translate}}
+                                        <input ngbButton type="radio" value="2" >{{'user.isNotActive' | translate}}
                                     </label>                      
                                 </div>
         
@@ -147,7 +147,7 @@
                                 
                             </div>
         
-                            <p *ngIf="!(isLoggedIn()) && !model.id">                         
+                            <p *ngIf="!(isLoggedIn) && !model.id">                         
                                 {{ 'login.alreadyHaveAccount' | translate }}
                                 <a routerLink="/login">{{ 'login.button' | translate }}</a>.
                             </p>

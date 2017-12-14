@@ -5,10 +5,10 @@
             <li class="nav-item">
               <a class="nav-link" href="calendar"><b>{{'button.home' | translate}}</b></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!currentUser">
               <a class="nav-link" href="register">{{'button.register' | translate}}</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" >
               <a class="nav-link" href="admin">{{'button.admin' | translate}}</a>
             </li>
           </ul>

@@ -160,6 +160,7 @@
     "deleted": "Utilizatorul a fost șters",
     "attendee": "Utilizator",
     "isActive": "Activ",
+    "isNotActive": "Inactiv",
     "active": "Contul de utilizator a fost activat"
   },
 
