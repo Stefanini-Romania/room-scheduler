@@ -1,4 +1,4 @@
-<div class="modal-header" >
+<div class="modal-header">
     <h6 class="modal-title">{{ title | translate }}</h6>
 </div>
 
@@ -28,8 +28,16 @@
                     <!-- LOCATION VALIDATION -->
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Location']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['Location']">{{ errorMessage | translate }}</div>
-                    </ngb-alert>
-                    <br />                   
+                    </ngb-alert>  
+
+                    <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" mx-auto>
+                        <label ngbButtonLabel class="btn btn-primary ">
+                            <input ngbButton type="radio" value="1">{{'user.isActive' | translate}}
+                        </label>
+                        <label ngbButtonLabel class="btn btn-primary" (click)="onDeleteRoom (room)">
+                            <input ngbButton type="radio" value="2" >{{'user.isNotActive' | translate}}
+                        </label>                      
+                    </div>                 
                 </div>
             </form>
         </div>
@@ -37,6 +45,7 @@
 </div>
 
 <div class="modal-footer">
+    
     <button type="button" class="btn btn-primary float-right" (click)="addRooms()" *ngIf="!model.id">{{ 'rooms.add' | translate }}</button> 
     <button type="button" class="btn btn-primary float-right" (click)="editRooms()" *ngIf="model.id">{{ 'rooms.save' | translate }}</button> 
     <!-- <button type="button" class="btn btn-primary float-right" (click)="closeLoginModal()">{{ 'button.close' | translate }}</button>    -->

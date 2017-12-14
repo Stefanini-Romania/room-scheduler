@@ -130,21 +130,21 @@ export class RegisterFormComponent {
     //     }); 
     // }
 
-    // onDeleteUser(model: User) {
-    //     model.isActive = false;
-    //     this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
-    //     .subscribe(
-    //         () => {   
-    //             this.toastr.warning(
-    //                 this.translate.instant("user.deleted"), '',
-    //                 {positionClass: 'toast-bottom-right'}
-    //             );                
-    //             //this.refreshUsers();                      
-    //         }, 
-    //         error => {
-    //             this.errorMessages = error.error.message;
-    //         });
-    // }   
+    onDeleteUser(model: User) {
+        model.isActive = false;
+        this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
+        .subscribe(
+            () => {   
+                this.toastr.warning(
+                    this.translate.instant("user.deleted"), '',
+                    {positionClass: 'toast-bottom-right'}
+                );                
+                //this.refreshUsers();                      
+            }, 
+            error => {
+                this.errorMessages = error.error.message;
+            });
+    }   
 }
     
 

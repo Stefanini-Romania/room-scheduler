@@ -118,30 +118,30 @@
                             <div class="row-fluid" >
                                 <!-- <ngb-alert type="danger" *ngIf="submitted=false" [dismissible]="false" >{{ 'Error.User.Creation' | translate }}</ngb-alert> -->
                                 <div class="btn-group" ngbRadioGroup>
-                                    <label ngbButtonLabel class="btn btn-primary">
+                                    <label ngbButtonLabel class="btn btn-primary btn-sm">
                                         <input ngbButton type="radio" value="1">ADC
                                     </label>
-                                    <label ngbButtonLabel class="btn-primary">
+                                    <label ngbButtonLabel class="btn-primary btn-sm">
                                         <input ngbButton type="radio" value="2">SDC
                                     </label>                      
                                 </div>
 
                                 <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
-                                    <label ngbButtonLabel class="btn btn-primary">
+                                    <label ngbButtonLabel class="btn btn-primary btn-sm">
                                         <input ngbButton type="radio" value="1">{{'user.isActive' | translate}}
                                     </label>
-                                    <label ngbButtonLabel class="btn-primary" (click)="onInactiveUser()">
+                                    <label ngbButtonLabel class="btn btn-primary btn-sm" (click)="onDeleteUser(user)">
                                         <input ngbButton type="radio" value="2" >{{'user.isNotActive' | translate}}
                                     </label>                      
                                 </div>
         
                                 
                                 <div class="float-right">
-                                    <button  type="submit" class="btn btn-primary float-right" *ngIf="!model.id" (click)="register()">
+                                    <button  type="submit" class="btn btn-primary float-right btn-sm" *ngIf="!model.id" (click)="register()">
                                         {{ 'register.button' | translate }}
                                         <!-- <i class="fa fa-lock"></i> -->
                                     </button>
-                                    <button type="button" class="btn btn-primary float-right" *ngIf="model.id" (click)="editUser()">
+                                    <button type="button" class="btn btn-primary btn-sm float-right" *ngIf="model.id" (click)="editUser()">
                                         {{ 'user.save' | translate }}</button> 
                                 </div>
                                 

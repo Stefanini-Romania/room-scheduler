@@ -87,4 +87,19 @@ export class RoomEditorComponent {
                 }
             });       
     } 
+
+    onDeleteRoom(model: Room) {   
+        model.isActive = false;         
+        this.roomService.editRoom(model.id, model.name, model.location, model.isActive).subscribe(
+                () => {       
+                    this.toastr.warning(
+                        this.translate.instant('rooms.deleted'), '',
+                        {positionClass: 'toast-bottom-right'}
+                    );                
+                   // this.refreshRooms();                      
+                }, 
+                error => {
+                    this.errorMessage = error.error.message;
+                });
+    }
 }

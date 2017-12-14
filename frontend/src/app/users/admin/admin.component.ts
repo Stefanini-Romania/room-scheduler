@@ -85,22 +85,22 @@ export class AdminComponent implements AfterViewInit{
         });
     }
 
-    onDeleteUser(model: User) {
-        model.isActive = false;
-        this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
-        .subscribe(
-            () => {
-                this.successfullInactiveUser.emit();   
-                this.toastr.warning(
-                    this.translate.instant("user.deleted"), '',
-                    {positionClass: 'toast-bottom-right'}
-                );                
-                this.refreshUsers();                      
-            }, 
-            error => {
-                this.errorMessage = error.error.message;
-            });
-    }
+    // onDeleteUser(model: User) {
+    //     model.isActive = false;
+    //     this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
+    //     .subscribe(
+    //         () => {
+    //             this.successfullInactiveUser.emit();   
+    //             this.toastr.warning(
+    //                 this.translate.instant("user.deleted"), '',
+    //                 {positionClass: 'toast-bottom-right'}
+    //             );                
+    //             this.refreshUsers();                      
+    //         }, 
+    //         error => {
+    //             this.errorMessage = error.error.message;
+    //         });
+    // }
 
     onActivateUser(model: User) {
         model.isActive = true;
@@ -134,20 +134,20 @@ export class AdminComponent implements AfterViewInit{
         });       
     }
 
-    onDeleteRoom(model: Room) {   
-        model.isActive = false;         
-        this.roomService.editRoom(model.id, model.name, model.location, model.isActive).subscribe(
-                () => {       
-                    this.toastr.warning(
-                        this.translate.instant('rooms.deleted'), '',
-                        {positionClass: 'toast-bottom-right'}
-                    );                
-                    //this.modalService.close(); 
-                    this.refreshRooms();                      
-                }, 
-                error => {
-                    this.errorMessage = error.error.message;
-                });
-    }  
+    // onDeleteRoom(model: Room) {   
+    //     model.isActive = false;         
+    //     this.roomService.editRoom(model.id, model.name, model.location, model.isActive).subscribe(
+    //             () => {       
+    //                 this.toastr.warning(
+    //                     this.translate.instant('rooms.deleted'), '',
+    //                     {positionClass: 'toast-bottom-right'}
+    //                 );                
+    //                 //this.modalService.close(); 
+    //                 this.refreshRooms();                      
+    //             }, 
+    //             error => {
+    //                 this.errorMessage = error.error.message;
+    //             });
+    // }  
     
 }
