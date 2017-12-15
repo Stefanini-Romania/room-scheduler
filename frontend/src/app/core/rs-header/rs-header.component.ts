@@ -42,9 +42,8 @@ export class RsHeaderComponent {
     }
 
     logout() {
-        //location.reload(true);
         this.authService.logout();
-        
+        this.router.navigate(['/calendar']);  
     }
 
     redirectToLogin() {

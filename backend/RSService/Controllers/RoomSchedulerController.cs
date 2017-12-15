@@ -40,8 +40,17 @@ namespace RSService.Controllers
         [Authorize]
         public IActionResult AddEvent([FromBody]EventViewModel model)
         {
+            var inactivUser = userRepository.GetUserByisInactiv();
             var userName = HttpContext.User.Identity.Name;
             var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
+
+            foreach (var a in inactivUser)
+            {
+                if (a.Id == currentAttendeeId)
+                    return ValidationError(EventMessages.InactiveUser);
+                //   return ValidationError(GeneralMessages.Event);
+
+            }
 
             if (!ModelState.IsValid)
                 return ValidationError(GeneralMessages.Event);

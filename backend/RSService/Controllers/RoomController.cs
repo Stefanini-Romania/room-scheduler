@@ -25,7 +25,7 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/room/list")]
-        //[Authorize]
+        [Authorize]
         public IActionResult GetRooms()
         {
 
@@ -37,7 +37,7 @@ namespace RSService.Controllers
             }
             var currentUser = userRepository.GetUserById(currentUserId);
 
-            var rooms = roomRepository.GetRoomsByStatus(true);
+            var rooms = roomRepository.GetRooms();
 
             //IF ADMIN:
             if (currentUser != null)
@@ -94,7 +94,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/room/edit/{id}")]
-      //  [Authorize]
+        [Authorize]
         public IActionResult UpdateRoom(int id, [FromBody] EditRoomViewModel model)
         {
             if (!ModelState.IsValid)
