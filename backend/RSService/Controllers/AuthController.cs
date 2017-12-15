@@ -31,7 +31,6 @@ namespace RSService.Controllers
         }
 
         [HttpPost("api/auth/login")]
-        //[AuthenticationValidator]  --attribute
         public async Task<IActionResult> Login([FromBody] CredentialModel model)
         {
             if (!ModelState.IsValid)

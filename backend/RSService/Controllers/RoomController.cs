@@ -25,7 +25,6 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/room/list")]
-        [Authorize]
         public IActionResult GetRooms()
         {
 
@@ -37,7 +36,7 @@ namespace RSService.Controllers
             }
             var currentUser = userRepository.GetUserById(currentUserId);
 
-            var rooms = roomRepository.GetRooms();
+            var rooms = roomRepository.GetRoomsByStatus(true);
 
             //IF ADMIN:
             if (currentUser != null)
