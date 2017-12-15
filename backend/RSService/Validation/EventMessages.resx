@@ -139,7 +139,7 @@
     <value>Event.EndDate.IncorrectMinutesFormat</value>
   </data>
   <data name="InactiveUser" xml:space="preserve">
-    <value>event.UserIsInactiv</value>
+    <value>Event.UserIsInactiv</value>
   </data>
   <data name="InvalidTimeSpan" xml:space="preserve">
     <value>Event.EndDate.TimeSpan</value>

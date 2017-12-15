@@ -124,7 +124,7 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to event.UserIsInactiv.
+        ///   Looks up a localized string similar to Event.UserIsInactiv.
         /// </summary>
         internal static string InactiveUser {
             get {

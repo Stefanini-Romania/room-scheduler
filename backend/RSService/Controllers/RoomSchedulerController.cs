@@ -47,8 +47,8 @@ namespace RSService.Controllers
             foreach (var a in inactivUser)
             {
                 if (a.Id == currentAttendeeId)
-               //     return ValidationError(EventMessages.InactiveUser);
-                    return ValidationError(GeneralMessages.Event);
+                    return ValidationError(EventMessages.InactiveUser);
+                //   return ValidationError(GeneralMessages.Event);
 
             }
 
