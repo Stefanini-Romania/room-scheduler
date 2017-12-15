@@ -37,7 +37,7 @@ namespace RSService.Controllers
             }
             var currentUser = userRepository.GetUserById(currentUserId);
 
-            var rooms = roomRepository.GetRoomsByStatus(true);
+            var rooms = roomRepository.GetRooms();
 
             //IF ADMIN:
             if (currentUser != null)
