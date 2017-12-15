@@ -1,18 +1,20 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {Response} from '@angular/http';
+import {TranslateService} from '@ngx-translate/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import 'rxjs/Rx';
 
 import {User} from '../../shared/models/user.model';
+import {LanguageSelector} from '../../core/language-selector/language-selector';
 
 @Injectable()
 export class AuthService {
     
     public user$: EventEmitter<User> = new EventEmitter();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private translate: TranslateService) {
     }
 
     authenticate(name: string, password: string) {

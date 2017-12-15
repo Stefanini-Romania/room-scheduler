@@ -13,6 +13,7 @@ import {User} from '../../shared/models/user.model';
 import {RegisterFormComponent} from '../register-form/register-form.component';
 import {RoomEditorComponent} from './../../rooms/room-editor/room-editor.component';
 import {RoleEnum} from '../../shared/models/role.model';
+import { AuthService } from '../../auth/shared/auth.service';
 
 @Component({
     selector: 'admin-component',
@@ -37,11 +38,18 @@ export class AdminComponent implements AfterViewInit{
     public errorMessage: string;
     public model: User;
 
-    constructor(public activeModal: NgbActiveModal, private userService: UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService, private router: Router) {
+    constructor(public activeModal: NgbActiveModal, private userService: UserService, 
+        private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, 
+        private translate: TranslateService, private router: Router, private authService: AuthService
+    ) {
         
     }
  
     ngAfterViewInit(): void {
+        if (!this.authService.getLoggedUser().hasRole(RoleEnum.admin)) {
+            this.router.navigate(['calendar'])
+        }
+
         this.refreshUsers();
         this.refreshRooms();
     }

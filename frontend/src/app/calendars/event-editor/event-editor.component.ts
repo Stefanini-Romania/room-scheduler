@@ -33,6 +33,7 @@ export class EventEditorComponent implements OnInit{
         );
         return this.saveEvent();
     }
+    
 
     saveEvent() {
         // clear any previous ecxrrors
