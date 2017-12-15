@@ -16,16 +16,18 @@
                                 <label class="col-md-4"><b>{{'calendar.timeStamp' | translate}}:</b></label>
                                 <label class="col">{{ model.dateCreated | localizedDate | titlecase}} {{ model.dateCreated | date: 'shortTime'}}</label>
                             </div>
-                        </div>
-                <div class="row">
+                    </div>
+            <div class="row">
                     <div class="input-group">
                         <label class="col-md-4"><b>{{ 'calendar.startDate' | translate }}:</b></label>
                         <label class="col">{{ model.startDate | localizedDate | titlecase}} {{ model.startDate | date: 'shortTime'}}</label>
                     </div>
-                </div>
-                <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['StartDate']" [dismissible]="false">
-                    <div *ngFor="let errorMessage of errorMessages['StartDate']">{{ errorMessage | translate }}</div>
-                </ngb-alert>
+            </div>
+
+            <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['StartDate']" [dismissible]="false">
+                <div *ngFor="let errorMessage of errorMessages['StartDate']">{{ errorMessage | translate }}</div>
+            </ngb-alert>
+            
             </div>
             <div class="row">
                 <div class="input-group">

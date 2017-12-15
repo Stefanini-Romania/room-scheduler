@@ -29,5 +29,6 @@ export class LanguageSelector {
 
     changeLanguage(lang) {
         this.translate.use(lang);
+        sessionStorage.setItem('language', lang);
     }
 }

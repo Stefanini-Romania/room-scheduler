@@ -413,7 +413,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     renderAppointment = (data) => {
-        if (!data.appointment) {
+        if (!data.appointment || !this.events.length) {
             return;
         }
 

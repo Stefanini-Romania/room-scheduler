@@ -14,7 +14,11 @@ export class AppComponent {
         translate.setDefaultLang('ro');
 
         // the lang to use, if the lang isn't available, it will use the current loader to get them
-        translate.use('en');
+        let lang = sessionStorage.getItem('language');
+        if (!lang) {
+            lang = 'en';
+        }
+        translate.use(lang);
     }
 }
 
