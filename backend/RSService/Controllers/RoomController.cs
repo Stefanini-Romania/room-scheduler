@@ -25,7 +25,7 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/room/list")]
-        //[Authorize]
+        [Authorize]
         public IActionResult GetRooms()
         {
             var userName = HttpContext.User.Identity.Name;
@@ -88,7 +88,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/room/edit/{id}")]
-      //  [Authorize]
+        [Authorize]
         public IActionResult UpdateRoom(int id, [FromBody] EditRoomViewModel model)
         {
             if (!ModelState.IsValid)
