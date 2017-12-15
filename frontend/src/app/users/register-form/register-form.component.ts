@@ -76,10 +76,10 @@ export class RegisterFormComponent {
                     this.translate.instant('User.Name.Created'), '',
                     {positionClass: 'toast-bottom-right'}
                 ); 
-                //@TODO if logged in as user
-                // this.router.navigate(['/login']);
+                if(!this.isLoggedIn){
+                    this.router.navigate(['/login']);
+                }
 
-                //else stay on same page (as admin)
             },
             error => {
                 this.errorMessages = {'generic': [error.error.message]};
