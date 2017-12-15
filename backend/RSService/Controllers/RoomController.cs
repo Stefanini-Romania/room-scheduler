@@ -66,7 +66,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/room/add")]
-        [Authorize]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult AddRoom([FromBody]EditRoomViewModel model) 
         {
             if (!ModelState.IsValid)

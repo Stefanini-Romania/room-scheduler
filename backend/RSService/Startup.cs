@@ -19,6 +19,7 @@ using RSService.BusinessLogic;
 using RSService.Filters;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RSService
 {
@@ -72,6 +73,11 @@ namespace RSService
                          options.LogoutPath = "/api/auth/logout";
                          //options.Cookie.Domain = "http:// fctestweb1:888";
                          options.Events.OnRedirectToLogin = context =>
+                         {
+                             context.Response.StatusCode = 401;
+                             return Task.CompletedTask;
+                         };
+                         options.Events.OnRedirectToAccessDenied = context =>
                          {
                              context.Response.StatusCode = 401;
                              return Task.CompletedTask;
