@@ -68,7 +68,7 @@ namespace RSService.Controllers
 
         [HttpPost("/room/add")]
         [Authorize]
-        public IActionResult AddRoom([FromBody]EditRoomViewModel model) // o sa madific cu un AddRoomViewModel pentru a te lasa sa dai edit chiar daca nu ai modificat nimci
+        public IActionResult AddRoom([FromBody]EditRoomViewModel model) 
         {
             if (!ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/room/edit/{id}")]
-        [Authorize]
+      //  [Authorize]
         public IActionResult UpdateRoom(int id, [FromBody] EditRoomViewModel model)
         {
             if (!ModelState.IsValid)

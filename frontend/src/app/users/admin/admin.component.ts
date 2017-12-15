@@ -87,7 +87,7 @@ export class AdminComponent implements AfterViewInit{
 
     // onDeleteUser(model: User) {
     //     model.isActive = false;
-    //     this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
+    //     this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRole, model.isActive, model.password)
     //     .subscribe(
     //         () => {
     //             this.successfullInactiveUser.emit();   
@@ -104,7 +104,7 @@ export class AdminComponent implements AfterViewInit{
 
     onActivateUser(model: User) {
         model.isActive = true;
-        this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
+        this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRole, model.isActive, model.password)
         .subscribe(
             () => {   
                 this.toastr.success(
