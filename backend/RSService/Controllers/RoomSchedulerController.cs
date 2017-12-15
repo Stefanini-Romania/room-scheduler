@@ -129,7 +129,8 @@ namespace RSService.Controllers
                     HostId = ev.HostId,
                     AttendeeId = ev.AttendeeId,
                     EventStatus = ev.EventStatus,
-                    Host = ev.Host.FirstName +" "+ ev.Host.LastName
+                    Host = ev.Host.FirstName +" "+ ev.Host.LastName,
+                    DateCreated = ev.DateCreated
                 });
             }
 
