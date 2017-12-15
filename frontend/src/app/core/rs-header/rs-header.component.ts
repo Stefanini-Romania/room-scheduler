@@ -42,14 +42,8 @@ export class RsHeaderComponent {
     }
 
     logout() {
-        this.authService.logout().subscribe(
-            () => {
-                location.reload(true);
-                
-            },
-            error => {
-                throw error;
-            });
+        //location.reload(true);
+        this.authService.logout();
         
     }
 

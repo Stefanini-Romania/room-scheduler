@@ -76,14 +76,6 @@ namespace RSService
                              context.Response.StatusCode = 401;
                              return Task.CompletedTask;
                          };
-                         options.Events.OnSigningOut = context =>
-                         {
-                             //context.Response.Cookies.Delete(CookieAuthenticationDefaults.AuthenticationScheme);
-
-                             //context.CookieOptions.Expires = DateTimeOffset.UtcNow.AddDays(-1);
-                            
-                             return Task.CompletedTask;
-                         };
                      });
         }
 
