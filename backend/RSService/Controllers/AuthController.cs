@@ -78,7 +78,8 @@ namespace RSService.Controllers
             });
         }
 
-        [HttpPost("api/auth/logout"), Authorize]
+        [HttpGet("api/auth/logout")]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

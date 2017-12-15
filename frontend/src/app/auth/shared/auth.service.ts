@@ -32,13 +32,17 @@ export class AuthService {
     }
 
     logout() {
-
-        sessionStorage.removeItem('currentUser');
-        this.user$.emit(null);
-
         const url = environment.apiUrl + '/api/auth/logout';
-        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post(url, { headers: headers, withCredentials: true });
+        return this.http.get(url, { responseType: 'text', withCredentials: true }).subscribe(
+            () => {
+                sessionStorage.removeItem('currentUser');
+                this.user$.emit(null);
+                location.reload(true);
+
+            },
+            error => {
+                throw error;
+            });
     }
 
     getLoggedUser(): User {
