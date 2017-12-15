@@ -28,19 +28,25 @@ namespace RSService.Controllers
         //[Authorize]
         public IActionResult GetRooms()
         {
+
+            var currentUserId = 0;
             var userName = HttpContext.User.Identity.Name;
             if (userName != null)
             {
-                var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
+                currentUserId = userRepository.GetUserByUsername(userName).Id;
             }
-            
-            // if attendee............................
+            var currentUser = userRepository.GetUserById(currentUserId);
 
             var rooms = roomRepository.GetRoomsByStatus(true);
 
-            // if admin ..............................
-            //var rooms = roomRepository.GetRooms();
-
+            //IF ADMIN:
+            if (currentUser != null)
+            {
+                if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.admin))
+                {
+                    rooms = roomRepository.GetRooms();
+                }
+            }
 
             if (rooms == null) return NotFound();
 

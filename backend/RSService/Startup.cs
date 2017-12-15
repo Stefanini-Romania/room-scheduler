@@ -18,6 +18,7 @@ using RSService.ViewModels;
 using RSService.BusinessLogic;
 using RSService.Filters;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Http;
 
 namespace RSService
 {
@@ -73,6 +74,14 @@ namespace RSService
                          options.Events.OnRedirectToLogin = context =>
                          {
                              context.Response.StatusCode = 401;
+                             return Task.CompletedTask;
+                         };
+                         options.Events.OnSigningOut = context =>
+                         {
+                             //context.Response.Cookies.Delete(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                             //context.CookieOptions.Expires = DateTimeOffset.UtcNow.AddDays(-1);
+                            
                              return Task.CompletedTask;
                          };
                      });
