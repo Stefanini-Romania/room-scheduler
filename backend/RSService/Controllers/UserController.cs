@@ -31,7 +31,7 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/user/list")]
-        [Authorize]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult GetUsers()
         {
             var results = userRepository.GetUsers();
@@ -59,7 +59,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/user/add")]
-        [Authorize]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult AddUser([FromBody]UserViewModel newUser)
         {
             if (!ModelState.IsValid)
@@ -110,7 +110,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/user/edit/{id}")]
-        [Authorize]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult EditUser(int id, [FromBody]EditUserViewModel userView)
         {
 

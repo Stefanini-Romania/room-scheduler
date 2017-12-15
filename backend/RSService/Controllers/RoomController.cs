@@ -93,7 +93,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/room/edit/{id}")]
-        [Authorize]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult UpdateRoom(int id, [FromBody] EditRoomViewModel model)
         {
             if (!ModelState.IsValid)
