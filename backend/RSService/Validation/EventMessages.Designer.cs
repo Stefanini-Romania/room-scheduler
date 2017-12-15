@@ -124,6 +124,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.UserIsInactiv.
+        /// </summary>
+        internal static string InactiveUser {
+            get {
+                return ResourceManager.GetString("InactiveUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.TimeSpan.
         /// </summary>
         internal static string InvalidTimeSpan {

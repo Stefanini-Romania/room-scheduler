@@ -58,7 +58,7 @@ namespace RSRepository
 
         public User GetUserById(long id)
         {
-            return users.FirstOrDefault(s => s.Id == id);
+            return users.Include(u => u.UserRole).FirstOrDefault(s => s.Id == id);
         }
 
         public User GetUserByUsername(String username)
@@ -81,6 +81,11 @@ namespace RSRepository
         public List<User>GetUserByisActiv()
         {
             return users.Where(s => s.IsActive != null).ToList();
+        }
+
+        public List<User> GetUserByisInactiv()
+        {
+            return users.Where(s => s.IsActive == false).ToList();
         }
 
         public List<User> GetUsersByEmail(string email, int userId)

@@ -8,9 +8,9 @@ namespace RSRepository
     public interface IRoomRepository
     {
         List<Room> GetRooms();
-        List<Room> GetRoomsByStatus(bool isActive);
+        List<Room> GetRoomsByStatus(Nullable<bool> isActive = null);
         Room GetRoomById(int id);
-        Room GetRoomByNameAndLocation(String name, String location);
+        Room GetRoomByNameAndLocation(String name, String location,int roomid);
         void AddRoom(Room room);
         void UpdateRoom(Room room);
         void DeleteRoom(Room room);

@@ -64,7 +64,8 @@
       "created": "Camera a fost adăugată",
       "deleteRoom": "Șterge camera",
       "delete": "Șterge",
-      "deleted": "Camera a fost ștearsă",
+      "deactivated": "Camera a fost dezactivată",
+      "activated": "Camera a fost activată",
       "isActive": "Activ"
   },
 
@@ -157,9 +158,11 @@
     "saved": "Utilizatorul a fost salvat",
     "delete": "Șterge utilizatorul",
     "add": "Adaugă utilizator",
-    "deleted": "Utilizatorul a fost șters",
+    "deactivated": "Contul de utilizator a fost dezactivat",
     "attendee": "Utilizator",
-    "isActive": "Activ"
+    "isActive": "Activ",
+    "isNotActive": "Inactiv",
+    "activated": "Contul de utilizator a fost activat"
   },
 
   "Auth": {
@@ -186,7 +189,7 @@
       "LastName.IsEmpty": "Inserați numele dumneavoastră",
 
     "Name": {
-      "IsNotUnique": "Acest nume este deja folosit",
+      "IsNotUnique": "Acest nume de utilizator este deja folosit",
       "IsEmpty": "Alegeți un nume de utilizator",
       "Created": "Contul a fost creat"
     },

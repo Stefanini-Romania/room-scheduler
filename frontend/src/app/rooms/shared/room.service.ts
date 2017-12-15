@@ -17,7 +17,7 @@ export class RoomService {
     public roomList() {
         const url = environment.apiUrl + '/room/list';
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.get(url, {headers: headers});
+        return this.http.get(url, { headers: headers, withCredentials: true });
     }
 
     public selectRoom(room: Room) {

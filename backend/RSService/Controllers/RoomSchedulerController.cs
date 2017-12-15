@@ -38,10 +38,19 @@ namespace RSService.Controllers
 
         [HttpPost("/event/create")]
         [Authorize]
-        public IActionResult AddEvent([FromServices] FluentValidation.IValidator<EventViewModel> validator, [FromBody]EventViewModel model)
+        public IActionResult AddEvent([FromBody]EventViewModel model)
         {
+            var inactivUser = userRepository.GetUserByisInactiv();
             var userName = HttpContext.User.Identity.Name;
             var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
+
+            foreach (var a in inactivUser)
+            {
+                if (a.Id == currentAttendeeId)
+                    return ValidationError(EventMessages.InactiveUser);
+                //   return ValidationError(GeneralMessages.Event);
+
+            }
 
             if (!ModelState.IsValid)
                 return ValidationError(GeneralMessages.Event);
@@ -91,18 +100,9 @@ namespace RSService.Controllers
         {
             if (!hostId.Any())
                 return GetEvents(startDate, endDate, roomId);
-            var users = userRepository.GetUserByisActiv();
+            
             var results = eventRepository.GetEvents(startDate, endDate, roomId, hostId);
-
-            foreach(var l in results)
-            {
-                foreach(var d in users)
-                {
-                    if (l.AttendeeId == d.Id)
-                        l.EventStatus = 2;
-                }
-            }
-
+         
             var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
 
             results = results.Concat(availabilityEvents).ToList();
@@ -138,7 +138,8 @@ namespace RSService.Controllers
                     HostId = ev.HostId,
                     AttendeeId = ev.AttendeeId,
                     EventStatus = ev.EventStatus,
-                    Host = ev.Host.FirstName +" "+ ev.Host.LastName
+                    Host = ev.Host.FirstName +" "+ ev.Host.LastName,
+                    DateCreated = ev.DateCreated
                 });
             }
 

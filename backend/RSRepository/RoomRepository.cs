@@ -23,10 +23,15 @@ namespace RSRepository
             return rooms.ToList();
         }
 
-        public List<Room> GetRoomsByStatus(bool isActive)
+        public List<Room> GetRoomsByStatus(Nullable<bool> isActive = null)
         {
-            return rooms.Where(r => r.IsActive == isActive)
+            if(isActive != null)
+            {
+                return rooms.Where(r => r.IsActive == isActive)
                         .ToList();
+            }
+
+            return rooms.ToList();
         }
 
         public Room GetRoomById(int id)
@@ -34,9 +39,9 @@ namespace RSRepository
             return rooms.FirstOrDefault(s => s.Id == id);
         }
 
-        public Room GetRoomByNameAndLocation(String name,String location)
+        public Room GetRoomByNameAndLocation(String name,String location, int roomid)
         {
-            return rooms.FirstOrDefault(s => (s.Name == name && s.Location == location));
+            return rooms.FirstOrDefault(s => (s.Name == name && s.Location == location && s.Id!=roomid));
         }
 
         public void AddRoom(Room room)

@@ -17,7 +17,7 @@ export class LoginPageComponent {
     }
     
     onSuccessfullLogin() {
-        this.router.navigate(['/calendar']);
+        return this.router.navigate(['/calendar']);
     }
 }
 

@@ -314,11 +314,11 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ContextMenuOpen(event: any): void {
         if (!event.args.appointment) {
-            //event.args.menu.jqxMenu('hideItem', 'createAppointment');
-            //event.args.menu.jqxMenu('showItem', 'editAppointment');
+             event.args.menu.jqxMenu('showItem', 'createAppointment');
+             //event.args.menu.jqxMenu('showItem', 'editAppointment');
         }
         else {
-             //event.args.menu.jqxMenu('showItem', 'createAppointment');
+             event.args.menu.jqxMenu('hideItem', 'createAppointment');
              //event.args.menu.jqxMenu('hideItem', 'editAppointment');
         }
     }
@@ -413,7 +413,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     renderAppointment = (data) => {
-        if (!data.appointment) {
+        if (!data.appointment || !this.events.length) {
             return;
         }
 

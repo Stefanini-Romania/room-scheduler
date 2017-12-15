@@ -16,40 +16,37 @@ namespace RSService.Controllers
     public class RoomController : BaseController
     {
         private IRoomRepository roomRepository;
+        private IUserRepository userRepository;
 
         public RoomController()
         {
             this.roomRepository = new RoomRepository(Context);
-        }
-
-        [HttpGet("/room/bookable")]
-        public IActionResult GetActiveRooms(bool isActive)
-        {
-
-            var rooms = roomRepository.GetRoomsByStatus(isActive);
-            if (rooms == null) return NotFound();
-
-            List<RoomDto> roomList = new List<RoomDto>();
-
-            foreach (var it in rooms)
-            {
-                roomList.Add(new RoomDto()
-                {
-                    Id = it.Id,
-                    Name = it.Name,
-                    Location = it.Location,
-                    IsActive = it.IsActive
-                });
-            }
-
-            return Ok(roomList); 
+            this.userRepository = new UserRepository(Context);
         }
 
         [HttpGet("/room/list")]
-        [Authorize]
         public IActionResult GetRooms()
         {
-            var rooms = roomRepository.GetRooms();
+
+            var currentUserId = 0;
+            var userName = HttpContext.User.Identity.Name;
+            if (userName != null)
+            {
+                currentUserId = userRepository.GetUserByUsername(userName).Id;
+            }
+            var currentUser = userRepository.GetUserById(currentUserId);
+
+            var rooms = roomRepository.GetRoomsByStatus(true);
+
+            //IF ADMIN:
+            if (currentUser != null)
+            {
+                if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.admin))
+                {
+                    rooms = roomRepository.GetRooms();
+                }
+            }
+
             if (rooms == null) return NotFound();
 
             List<RoomDto> roomList = new List<RoomDto>();
@@ -69,8 +66,8 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/room/add")]
-        [Authorize]
-        public IActionResult AddRoom([FromBody]EditRoomViewModel model) // o sa madific cu un AddRoomViewModel pentru a te lasa sa dai edit chiar daca nu ai modificat nimci
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        public IActionResult AddRoom([FromBody]EditRoomViewModel model) 
         {
             if (!ModelState.IsValid)
             {
@@ -96,7 +93,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/room/edit/{id}")]
-        [Authorize]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult UpdateRoom(int id, [FromBody] EditRoomViewModel model)
         {
             if (!ModelState.IsValid)

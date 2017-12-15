@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../shared/models/user.model';
+import {RoleEnum} from './../../shared/models/role.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {Router} from '@angular/router';
 import {RoomService} from '../../rooms/shared/room.service';
@@ -13,6 +14,7 @@ import {Room} from '../../shared/models/room.model';
 export class RsHeaderComponent {
     currentUser: User = undefined;
     userIsPenalizedInRoom = false;
+   
 
     languages = [
         {'name': 'English', 'code': 'en', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/United-Kingdom_flat.png'},
@@ -35,10 +37,13 @@ export class RsHeaderComponent {
         }
     }
     
+    isAdmin(currentUser: User): boolean {
+        return (currentUser && currentUser.userRole.length != 0  && currentUser.userRole.indexOf(RoleEnum.admin) !== -1);
+    }
 
     logout() {
         this.authService.logout();
-        location.reload(true);
+        return this.router.navigate(['/calendar']);  
     }
 
     redirectToLogin() {

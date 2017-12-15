@@ -31,7 +31,6 @@ namespace RSService.Controllers
         }
 
         [HttpPost("api/auth/login")]
-        //[AuthenticationValidator]  --attribute
         public async Task<IActionResult> Login([FromBody] CredentialModel model)
         {
             if (!ModelState.IsValid)
@@ -45,12 +44,17 @@ namespace RSService.Controllers
             {
                 return ValidationError(GeneralMessages.Authentication);
             }
-            
+
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, model.Name)
+                new Claim(ClaimTypes.Name, model.Name),
+               
             };
-
+        
+            foreach (var userRole in user.UserRole)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, ((UserRoleEnum)userRole.RoleId).ToString()));
+            }
             var userIdentity = new ClaimsIdentity(claims, "login");
 
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
@@ -78,7 +82,8 @@ namespace RSService.Controllers
             });
         }
 
-        [HttpGet("api/auth/logout"), Authorize]
+        [HttpGet("api/auth/logout")]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

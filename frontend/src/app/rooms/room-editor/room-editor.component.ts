@@ -87,4 +87,34 @@ export class RoomEditorComponent {
                 }
             });       
     } 
+
+    deactivateRoom(Room) {   
+        this.model.isActive = false;         
+        this.roomService.editRoom(this.model.id, this.model.name, this.model.location, this.model.isActive).subscribe(
+                () => {       
+                    this.toastr.warning(
+                        this.translate.instant('rooms.deactivated'), '',
+                        {positionClass: 'toast-bottom-right'}
+                    );                
+                   // this.refreshRooms();                      
+                }, 
+                error => {
+                    this.errorMessage = error.error.message;
+                });
+    }
+
+    activateRoom(Room) {   
+        this.model.isActive = true;         
+        this.roomService.editRoom(this.model.id, this.model.name, this.model.location, this.model.isActive).subscribe(
+                () => {       
+                    this.toastr.success(
+                        this.translate.instant('rooms.activated'), '',
+                        {positionClass: 'toast-bottom-right'}
+                    );                
+                   // this.refreshRooms();                      
+                }, 
+                error => {
+                    this.errorMessage = error.error.message;
+                });
+    }
 }

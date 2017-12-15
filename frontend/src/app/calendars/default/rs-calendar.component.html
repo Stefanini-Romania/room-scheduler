@@ -1,3 +1,4 @@
+
 <div class="container h-100" style="padding-top: 3rem;padding-bottom: 4rem;">
         
         
@@ -50,7 +51,7 @@
                       [localization]="calendarSettings.localization"
                       [renderAppointment]="renderAppointment"
                       
-                      [showLegend]="true"
+                      [showLegend]="false"
                       [showToolbar]="false"
                       [editDialog]="false"
 
@@ -63,26 +64,23 @@
         </div>
 
         <div *ngIf="availabilities" class="col col-md-1">
-            <table>
-                <tr id="legend" class="badge badge-primary" *ngFor="let host of availabilities | keys">
-                    <td>
-
-                    <table>
-                        <tr><td>{{ host }}</td></tr>
-                        <tr *ngFor="let day of availabilities[host] | keys">
-                            <td>
-                                <div class="badge badge-primary" *ngFor="let event of availabilities[host][day]">
-                                    <div>{{ event.startDate | localizedDate:'EE HH:mm' | titlecase }}
-                                         {{ event.endDate | localizedDate:'HH:mm' }}
-                                    </div>
+                <div class="hostlegend">
+                    <div id="legend" class="badge badge-primary" *ngFor="let host of availabilities | keys">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    {{ host }}
                                 </div>
-                            </td>
-                        </tr>
-                    </table>
-
-                    </td>
-                </tr>
-            </table>
+                            </div>
+                            <br>
+                            <div *ngFor="let day of availabilities[host] | keys">
+                                    <div class="row" *ngFor="let event of availabilities[host][day]">
+                                        <div class="col-md-4">{{ event.startDate | localizedDate:'EE' | titlecase }}</div>
+                                        <div class="col-md-4">{{ event.startDate | localizedDate:'HH:mm' | titlecase }}</div>
+                                        <div class="col-md-4">{{ event.endDate | localizedDate:'HH:mm' }}</div>
+                                    </div>
+                            </div>
+                    </div>                    
+                </div>
         </div>
     </div>
 </div>

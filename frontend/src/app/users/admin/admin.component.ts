@@ -6,7 +6,6 @@ import {TranslateService} from "@ngx-translate/core";
 import {ToastrService} from 'ngx-toastr';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-
 import {RoomService}  from './../../rooms/shared/room.service';
 import {Room} from './../../shared/models/room.model';
 import {UserService} from '../../users/shared/users.service';
@@ -14,6 +13,7 @@ import {User} from '../../shared/models/user.model';
 import {RegisterFormComponent} from '../register-form/register-form.component';
 import {RoomEditorComponent} from './../../rooms/room-editor/room-editor.component';
 import {RoleEnum} from '../../shared/models/role.model';
+import { AuthService } from '../../auth/shared/auth.service';
 
 @Component({
     selector: 'admin-component',
@@ -27,6 +27,7 @@ export class AdminComponent implements AfterViewInit{
 
     @Output() 
     pageChange= new EventEmitter <number>();
+    successfullInactiveUser = new EventEmitter;
 
     closeResult: string;
     public users: User[];
@@ -37,12 +38,18 @@ export class AdminComponent implements AfterViewInit{
     public errorMessage: string;
     public model: User;
 
-    constructor(public activeModal: NgbActiveModal,private userService:UserService, private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, private translate: TranslateService, private router: Router) {
+    constructor(public activeModal: NgbActiveModal, private userService: UserService, 
+        private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, 
+        private translate: TranslateService, private router: Router, private authService: AuthService
+    ) {
         
     }
-
  
     ngAfterViewInit(): void {
+        if (!this.authService.getLoggedUser().hasRole(RoleEnum.admin)) {
+            this.router.navigate(['calendar'])
+        }
+
         this.refreshUsers();
         this.refreshRooms();
     }
@@ -86,13 +93,30 @@ export class AdminComponent implements AfterViewInit{
         });
     }
 
-    onDeleteUser(model: User) {
-        model.isActive = false;
-        this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRoles, model.isActive, model.password)
+    // onDeleteUser(model: User) {
+    //     model.isActive = false;
+    //     this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRole, model.isActive, model.password)
+    //     .subscribe(
+    //         () => {
+    //             this.successfullInactiveUser.emit();   
+    //             this.toastr.warning(
+    //                 this.translate.instant("user.deleted"), '',
+    //                 {positionClass: 'toast-bottom-right'}
+    //             );                
+    //             this.refreshUsers();                      
+    //         }, 
+    //         error => {
+    //             this.errorMessage = error.error.message;
+    //         });
+    // }
+
+    onActivateUser(model: User) {
+        model.isActive = true;
+        this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRole, model.isActive, model.password)
         .subscribe(
             () => {   
-                this.toastr.warning(
-                    this.translate.instant("user.deleted"), '',
+                this.toastr.success(
+                    this.translate.instant("user.active"), '',
                     {positionClass: 'toast-bottom-right'}
                 );                
                 this.refreshUsers();                      
@@ -101,21 +125,7 @@ export class AdminComponent implements AfterViewInit{
                 this.errorMessage = error.error.message;
             });
     }   
-              
-        
-        // this.userService.deleteUser(user).subscribe(
-        //         () => {                   
-        //                 this.toastr.warning(
-        //                     this.translate.instant("user.deleted"), '',
-        //                     {positionClass: 'toast-bottom-right'}
-        //                 );       
-        //                 this.refreshUsers();                                                  
-        //         },
-        //         error => {
-        //             this.errorMessage = error.message;
-        //         }); 
     
-
     onSelectRoom(model: Room) {
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);   
         modalRef.componentInstance.model = model;  
@@ -132,20 +142,20 @@ export class AdminComponent implements AfterViewInit{
         });       
     }
 
-    onDeleteRoom(model: Room) {   
-        model.isActive = false;         
-        this.roomService.editRoom(model.id, model.name, model.location, model.isActive).subscribe(
-                () => {       
-                    this.toastr.warning(
-                        this.translate.instant('rooms.deleted'), '',
-                        {positionClass: 'toast-bottom-right'}
-                    );                
-                    //this.modalService.close(); 
-                    this.refreshRooms();                      
-                }, 
-                error => {
-                    this.errorMessage = error.error.message;
-                });
-    }  
+    // onDeleteRoom(model: Room) {   
+    //     model.isActive = false;         
+    //     this.roomService.editRoom(model.id, model.name, model.location, model.isActive).subscribe(
+    //             () => {       
+    //                 this.toastr.warning(
+    //                     this.translate.instant('rooms.deleted'), '',
+    //                     {positionClass: 'toast-bottom-right'}
+    //                 );                
+    //                 //this.modalService.close(); 
+    //                 this.refreshRooms();                      
+    //             }, 
+    //             error => {
+    //                 this.errorMessage = error.error.message;
+    //             });
+    // }  
     
 }

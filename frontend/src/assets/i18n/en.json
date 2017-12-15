@@ -64,7 +64,8 @@
       "created": "The room has been created",
       "deleteRoom": "Delete room",
       "delete": "Delete",
-      "deleted": "The room has been deleted",
+      "deactivate": "The room has been deactivated",
+      "activated": "The room has been activated",
       "isActive": "Active"
   },
 
@@ -141,9 +142,11 @@
     "saved": "The user has been saved",
     "delete": "Delete user",
     "add":  "Add user",
-    "deleted": "The user has been deleted",
+    "deactivated": "The user has been deactivated",
     "attendee": "Attendee",
-    "isActive": "Active"
+    "isActive": "Active",
+    "isNotActive": "Inactive",
+    "activated": "The user has been activated"
   },
 
   "Auth": {
@@ -169,7 +172,7 @@
       "LastName.IsEmpty": "Please insert your lastname",
 
     "Name": {
-        "IsNotUnique": "This name is already used",
+        "IsNotUnique": "This username is already used",
         "IsEmpty": "Please insert a username",
         "Created": "Account created"
     },

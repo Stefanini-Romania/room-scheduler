@@ -20,16 +20,18 @@ namespace RSService.Controllers
         private IUserRepository userRepository;
         private IUserRoleRepository userRoleRepository;
         private IRoleRepository roleRepository;
+        private IEventRepository eventRepository;
 
         public UserController()
         {
             this.userRepository = new UserRepository(Context);
             this.userRoleRepository = new UserRoleRepository(Context);
             this.roleRepository = new RoleRepository(Context);
+            this.eventRepository = new EventRepository(Context);
         }
 
         [HttpGet("/user/list")]
-        [Authorize]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult GetUsers()
         {
             var results = userRepository.GetUsers();
@@ -57,7 +59,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/user/add")]
-        [Authorize]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult AddUser([FromBody]UserViewModel newUser)
         {
             if (!ModelState.IsValid)
@@ -108,7 +110,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/user/edit/{id}")]
-        [Authorize]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult EditUser(int id, [FromBody]EditUserViewModel userView)
         {
 
@@ -121,7 +123,7 @@ namespace RSService.Controllers
             if (user == null)
             {
                 return NotFound();
-            }
+            }         
 
             //var modifiedUser = Mapper.Map<User>(userView);
 
@@ -152,7 +154,22 @@ namespace RSService.Controllers
                 UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
                 DepartmentId = user.DepartmentId,
                 IsActive = user.IsActive
+
             };
+
+          //  var inactiveusers = userRepository.GetUserByisInactiv();           
+            var events = eventRepository.GetEvents();
+            if (updatedUser.IsActive == false)
+            {
+                foreach (var l in events)
+                {
+                    if (l.AttendeeId == id)
+                    {
+                        l.EventStatus = 2;
+                    }
+                }
+            }
+            Context.SaveChanges();
             return Ok(updatedUser);
         }
 

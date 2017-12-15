@@ -17,6 +17,7 @@ namespace RSService.DTO
         public int HostId { get; set; }
         public int AttendeeId { get; set; }
         public int EventStatus { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public string Host { get; set; }
         //public User Attendee { get; set; }

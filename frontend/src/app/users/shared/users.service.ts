@@ -19,10 +19,11 @@ export class UserService {
 
     public listUsers() {
         const url = environment.apiUrl + '/user/list';
-        return this.http.get(url);
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.get(url, { headers: headers, withCredentials: true });
     }
 
-    public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRoles?: RoleEnum[]) {
+    public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRole?: RoleEnum[]) {
         const url = environment.apiUrl + '/user/add';
         let body = JSON.stringify({
             firstName: firstName, 
@@ -58,7 +59,7 @@ export class UserService {
     // }
 
 
-    public editUser(id: number, firstName: string, lastName: string, name: string, email: string, departmentId: number,  userRoles?: RoleEnum[], isActive?: boolean, password?: string) {
+    public editUser(id: number, firstName: string, lastName: string, name: string, email: string, departmentId: number,  userRole?: RoleEnum[], isActive?: boolean, password?: string) {
         const url = environment.apiUrl + '/user/edit/' + id;
         const body = JSON.stringify({
             id: id,

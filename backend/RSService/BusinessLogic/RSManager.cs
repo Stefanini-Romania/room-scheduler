@@ -211,10 +211,7 @@ namespace RSService.BusinessLogic
             {
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            return true;
         }
 
         public bool IsUniqueEmailEdit(String email, int userId)
@@ -225,12 +222,8 @@ namespace RSService.BusinessLogic
             {
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            return true;
         }
-
 
         public bool HourCheck(DateTime startDate, DateTime endDate, int roomId)
         {
@@ -240,13 +233,8 @@ namespace RSService.BusinessLogic
                                 
                         if (startDate.TimeOfDay >= ev.StartHour.TimeOfDay && startDate.TimeOfDay <= ev.EndHour.TimeOfDay)
                             return false;                   
-                
-        
-               
-            
             return true; ;
         }
-
 
 
         //Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
@@ -330,9 +318,9 @@ namespace RSService.BusinessLogic
             }
         }
 
-        public bool IsUniqueRoom(String name, String location)
+        public bool IsUniqueRoom(String name, String location, int roomid)
         {
-            var rooms = roomRepository.GetRoomByNameAndLocation(name, location);
+            var rooms = roomRepository.GetRoomByNameAndLocation(name, location,roomid);
 
             if (rooms == null)
             {
