@@ -312,6 +312,8 @@ footer a {
  #legend {
   margin-bottom:8px;
   background-color:#004e9e;
+  font-weight: 400;
+  padding: 10px;
     
  }
 
@@ -382,7 +384,7 @@ footer a {
 }
 
 .hostlegend{
-    width: 10%; 
+    width: 15%; 
     font-size: 130%;
     position: fixed;
  
