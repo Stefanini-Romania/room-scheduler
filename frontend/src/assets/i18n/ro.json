@@ -175,7 +175,7 @@
 
   "Error": {
       "login": "Trebuie să fiți autentificat pentru a putea crea programari !",
-      "Event.Authentication": "Utilizator sau parolă invalide",
+      "Event.Authentication": "Date greșite. Vă rugăm să încercați din nou",
       "Event.Creation": "Evenimentul nu a putut fi creat",
       "Event.Edit": "Evenimentul nu a putut fi modificat",
       "User.Creation": "Eroare creare cont"
@@ -236,8 +236,10 @@
 
      "Room": {
         "SameNameAndLocation": "Camera există deja în această locație",
-        "Name.IsEmpty": " Inserați numele camerei",
-        "Location.IsEmpty": "Inserați locația camerei"
+        "Name.IsEmpty": "Inserați numele camerei",
+        "Name.TooLong": "Numele camerei este prea lung",
+        "Location.IsEmpty": "Inserați locația camerei",
+        "Location.TooLong": "Numele locației este prea lung"
     },
 
     "required.field" : "câmp obligatoriu"
