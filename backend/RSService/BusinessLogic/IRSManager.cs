@@ -40,6 +40,8 @@ namespace RSService.BusinessLogic
 
         bool IsActiveUser(String username);
 
+        bool IsUser(String username);
+
 
     }
 }

@@ -306,9 +306,23 @@ namespace RSService.BusinessLogic
 
         public bool IsActiveUser(String username)
         {
-            var isActive = userRepository.GetUserByUsername(username).IsActive;
+            var isActive = userRepository.GetUserByUsernameAndActive(username);
 
-            if (isActive == false)
+            if (isActive == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsUser(String username)
+        {
+            var validuser= userRepository.GetUserByUsername(username);
+
+            if (validuser == null)
             {
                 return false;
             }

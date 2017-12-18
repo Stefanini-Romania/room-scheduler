@@ -126,4 +126,7 @@
   <data name="IsNotActive" xml:space="preserve">
     <value>Auth.Username.IsNotActive</value>
   </data>
+  <data name="UserInvalid" xml:space="preserve">
+    <value>Auth.Username.Invalid</value>
+  </data>
 </root>

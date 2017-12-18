@@ -66,6 +66,11 @@ namespace RSRepository
             return users.FirstOrDefault(s => s.Name == username);
         }
 
+        public User GetUserByUsernameAndActive(String username)
+        {
+            return users.FirstOrDefault(s => (s.Name == username&&s.IsActive==true));
+        }
+
         public User GetUserByEmail(String email)
         {
             return users.FirstOrDefault(s => s.Email == email);

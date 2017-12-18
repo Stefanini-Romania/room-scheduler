@@ -86,5 +86,14 @@ namespace RSService.Validation {
                 return ResourceManager.GetString("IsNotActive", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auth.Username.Invalid.
+        /// </summary>
+        internal static string UserInvalid {
+            get {
+                return ResourceManager.GetString("UserInvalid", resourceCulture);
+            }
+        }
     }
 }
