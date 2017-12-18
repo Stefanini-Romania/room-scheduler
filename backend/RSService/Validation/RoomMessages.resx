@@ -123,6 +123,9 @@
   <data name="EmptyRoomName" xml:space="preserve">
     <value>Room.Name.IsEmpty</value>
   </data>
+  <data name="LocationNameLong" xml:space="preserve">
+    <value>Room.Location.TooLong</value>
+  </data>
   <data name="RoomNameLong" xml:space="preserve">
     <value>Room.Name.TooLong</value>
   </data>

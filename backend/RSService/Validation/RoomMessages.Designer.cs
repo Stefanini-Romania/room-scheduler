@@ -79,6 +79,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Room.Location.TooLong.
+        /// </summary>
+        internal static string LocationNameLong {
+            get {
+                return ResourceManager.GetString("LocationNameLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Room.Name.TooLong.
         /// </summary>
         internal static string RoomNameLong {
