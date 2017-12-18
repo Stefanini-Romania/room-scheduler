@@ -197,7 +197,8 @@
       "IsEmpty": "Alegeți o parolă",
       "IsTooShort": "Parola este prea scurtă (minim 6 caractere)"
     },
-    "Email.IsNotUnique": "Acest email este deja folosit"
+    "Email.IsNotUnique": "Acest email este deja folosit",
+    "IsEmpty": "Inserați adresa de email"
   }, 
 
   "Event": {
