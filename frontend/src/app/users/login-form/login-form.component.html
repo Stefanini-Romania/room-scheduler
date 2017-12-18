@@ -22,11 +22,15 @@
                             <div class="text">*</div>
                     </div>
                 </div>
-                <br />
+                
                 <button type="submit" class="btn btn-primary float-right" (click)="login()">
-                    {{ 'login.button' | translate }}
-                    <i class="fa fa-lock"></i>
+                        {{ 'login.button' | translate }}
+                        <i class="fa fa-lock"></i>
                 </button>
+                <div class="clearfixaccount">
+                        {{'noAccount' | translate}}? <a href="/register">{{'clickHere' | translate}}</a>
+                </div>
+                
                 <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->
             <!-- </div> -->
 
@@ -39,9 +43,9 @@
             </button> -->
             <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->
         
-            <div *ngIf="!isLoggedIn()">
-                    {{'noAccount' | translate}}? <a href="/register">{{'clickHere' | translate}}</a>
-            </div>
+            <!-- <div *ngIf="!isLoggedIn()"> -->
+                
+            <!-- </div> -->
 
             <!-- <div id="cancel-cont">
                 <button id="reset1" type="reset">Cancel</button>
