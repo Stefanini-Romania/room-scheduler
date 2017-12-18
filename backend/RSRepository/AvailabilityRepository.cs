@@ -56,7 +56,7 @@ namespace RSRepository
             return availabilities.Where(e => e.StartHour.TimeOfDay <= startDate.TimeOfDay)
                                  .Where(e => e.StartHour.TimeOfDay <= endDate.TimeOfDay)
                                  .Where(e => e.RoomId == roomId)
-                                // .Where(e => e.AvailabilityType==1)
+                                 .Where(e => e.AvailabilityType==1)
                                  .ToList();
         }
 

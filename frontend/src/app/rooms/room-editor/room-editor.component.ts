@@ -16,7 +16,7 @@ import {ToastrService} from 'ngx-toastr';
     selector: 'room-editor',
     templateUrl: './room-editor.component.html',
     styleUrls: [],
-    providers: [RoomService, NgbActiveModal],
+    providers: [RoomService]
 })
 
 export class RoomEditorComponent {
