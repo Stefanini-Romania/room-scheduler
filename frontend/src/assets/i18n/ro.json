@@ -187,7 +187,6 @@
       "Title": "Utilizator penalizat",
       "FirstName.IsEmpty": "Inserați prenumele dumneavoastră",
       "LastName.IsEmpty": "Inserați numele dumneavoastră",
-
     "Name": {
       "IsNotUnique": "Acest nume de utilizator este deja folosit",
       "IsEmpty": "Alegeți un nume de utilizator",
@@ -243,7 +242,8 @@
         "Location.TooLong": "Numele locației este prea lung"
     },
 
-    "required.field" : "câmp obligatoriu"
+    "required.field" : "câmp obligatoriu",
+    "role": "Rol"
 }
 
 

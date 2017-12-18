@@ -37,6 +37,7 @@ export class AdminComponent implements AfterViewInit{
     public user: User;
     public errorMessage: string;
     public model: User;
+    currentUser: User;
 
     constructor(public activeModal: NgbActiveModal, private userService: UserService, 
         private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, 
@@ -54,18 +55,18 @@ export class AdminComponent implements AfterViewInit{
         this.refreshRooms();
     }
 
+    
     refreshUsers() {
-        this.users= [];
-                this.userService.listUsers().subscribe((users: any) => {
-                    for (let user of users) { 
-                        for (let userRole of user.userRole) {
-                            var index = user.userRole.indexOf(userRole);
-                            user.userRole[index] = RoleEnum[userRole];
-                        }
-                        this.users.push(<User>user);
-                       
-                    } 
-                });
+        this.users = [];
+        this.userService.listUsers().subscribe((users: any) => {
+            for (let user of users) { 
+                for (let userRole of user.userRole) {
+                    var index = user.userRole.indexOf(userRole);
+                    user.userRole[index] = RoleEnum[userRole];
+                }
+                this.users.push(<User>user);       
+            } 
+        });
     }
 
     refreshRooms() {
@@ -92,23 +93,6 @@ export class AdminComponent implements AfterViewInit{
             modalRef.close();     
         });
     }
-
-    // onDeleteUser(model: User) {
-    //     model.isActive = false;
-    //     this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRole, model.isActive, model.password)
-    //     .subscribe(
-    //         () => {
-    //             this.successfullInactiveUser.emit();   
-    //             this.toastr.warning(
-    //                 this.translate.instant("user.deleted"), '',
-    //                 {positionClass: 'toast-bottom-right'}
-    //             );                
-    //             this.refreshUsers();                      
-    //         }, 
-    //         error => {
-    //             this.errorMessage = error.error.message;
-    //         });
-    // }
 
     onActivateUser(model: User) {
         model.isActive = true;
@@ -141,21 +125,4 @@ export class AdminComponent implements AfterViewInit{
             this.refreshRooms();
         });       
     }
-
-    // onDeleteRoom(model: Room) {   
-    //     model.isActive = false;         
-    //     this.roomService.editRoom(model.id, model.name, model.location, model.isActive).subscribe(
-    //             () => {       
-    //                 this.toastr.warning(
-    //                     this.translate.instant('rooms.deleted'), '',
-    //                     {positionClass: 'toast-bottom-right'}
-    //                 );                
-    //                 //this.modalService.close(); 
-    //                 this.refreshRooms();                      
-    //             }, 
-    //             error => {
-    //                 this.errorMessage = error.error.message;
-    //             });
-    // }  
-    
 }

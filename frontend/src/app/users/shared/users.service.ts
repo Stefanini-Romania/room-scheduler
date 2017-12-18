@@ -66,7 +66,7 @@ export class UserService {
             name: name,
             firstName: firstName,
             lastName: lastName,
-            userRole: [RoleEnum.attendee],
+            userRole: userRole,
             email: email,       
             departmentId: departmentId,
             isActive: isActive,
