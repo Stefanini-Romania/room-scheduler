@@ -150,7 +150,7 @@
                             </div>   -->
 
 
-                            <div ngbDropdown class="d-inline-block" >
+                            <div ngbDropdown class="d-inline-block" *ngIf="model.id">
                                 <button class="btn btn-primary btn-sm" ngbDropdownToggle>{{'role' | translate}}</button>
                                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                                     <button *ngFor="let Role of roleKeys()" class="dropdown-item" (click)="onRoleChange(Role)">
