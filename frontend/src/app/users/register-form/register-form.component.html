@@ -12,10 +12,10 @@
                     
                     <form  name="regForm" novalidate>
                         <div id="user-cont">
-                            <a href="https://stefanini.com/en/">
+                            <div class="text-center">
                                 <img src="../../../assets/img/header-logo2.png"  id="logo-header" class="img-fluid">
                                 <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
-                            </a>
+                            </div>
                             
                             <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
                                 <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
