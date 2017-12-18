@@ -123,6 +123,9 @@
   <data name="EmptyRoomName" xml:space="preserve">
     <value>Room.Name.IsEmpty</value>
   </data>
+  <data name="RoomNameLong" xml:space="preserve">
+    <value>Room.Name.TooLong</value>
+  </data>
   <data name="UniqueRoom" xml:space="preserve">
     <value>Room.SameNameAndLocation</value>
   </data>
