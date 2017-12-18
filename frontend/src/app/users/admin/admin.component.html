@@ -20,7 +20,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let user of users | paginate: { itemsPerPage: 7, currentPage: page}"  >
+          <tr *ngFor="let user of users | paginate: { itemsPerPage: 6, currentPage: page}"  >
             <td>{{user.name}}</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
@@ -75,7 +75,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let room of rooms | paginate: { itemsPerPage: 8, currentPage: roompage}">
+          <tr *ngFor="let room of rooms | paginate: { itemsPerPage: 6, currentPage: roompage}">
             <td>{{room.name}}</td>
             <td>{{room.location}}</td>
             <td>{{room.isActive}}</td>

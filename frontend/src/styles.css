@@ -35,7 +35,7 @@ html, body
     height: 40px;
     width: 40px;
     position: relative;
-    margin: -3px 0px 20px 80px;
+    margin-bottom: 10px;
 
 }
 
@@ -62,6 +62,7 @@ html, body
     -webkit-text-stroke-width: thin;
     color: #004e9e;
     padding-top: 0 !important;
+   
 }
 
 form 
@@ -256,6 +257,7 @@ footer a {
 
 #nav-text1 {
     margin-top: 0;
+    margin-right: 0;
 }
 
 #toast-container .toast.toast-success {

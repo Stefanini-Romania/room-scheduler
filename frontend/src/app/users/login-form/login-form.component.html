@@ -2,10 +2,10 @@
     <div class="row justify-content-center align-self-center mx-auto">     
         <form>   
             <div id="user-cont" class="mx-auto">
-                <a href="https://stefanini.com/en/" class="nav-link" >
+                <div class="text-center">
                     <img src="../../../assets/img/header-logo2.png"  id="logo-header" class="img-fluid" >
-                    <span id="nav-text1" class="navbar-brand text-center">Room Scheduler</span>
-                </a>
+                    <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
+                </div>
                 <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert>
                 <!-- <label><b>Username</b></label> -->
                 <div class="required-field-block">
