@@ -23,6 +23,7 @@ export class EventEditorComponent implements OnInit{
 
     ngOnInit() {
         this.title = this.model.id ? 'calendar.event.edit': 'calendar.event.create';
+        
     }
 
     cancelEvent() {
@@ -38,6 +39,7 @@ export class EventEditorComponent implements OnInit{
     saveEvent() {
         // clear any previous ecxrrors
         this.errorMessages = {};
+       
 
         // try to save
         return this.eventService.save(this.model).subscribe(
