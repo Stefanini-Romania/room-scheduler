@@ -8,7 +8,7 @@
 <div class="modal-header"  *ngIf="model.id">
   <h6 class="modal-title">{{ title | translate }}</h6>
   <div>
-    <button type="button" class="btn btn-primary" (click)="activeModal.close()">{{ 'button.close' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button>
   </div>
 
 </div> 
@@ -165,17 +165,17 @@
                                        {{Role}}
                                     </button>
                                     </div>
-                                  <div class="modal-footer" >
+                                  <!--<div class="modal-footer" >
 
                                     <button type="button" class="btn btn-primary  float-right" *ngIf="model.id" (click)="editUser()">
                                       {{ 'user.save' | translate }}
                                     </button>
 
-                                    <!--<button type="button" class="btn btn-primary float-right" *ngIf="model.id" (click)="activeModal.close()">
+                                    <button type="button" class="btn btn-primary float-right" *ngIf="model.id" (click)="activeModal.close()">
                                       {{ 'button.close' | translate }}
-                                    </button>-->
+                                    </button>
                                                                                                                                           
-                                  </div>
+                                  </div>-->
                                   
                                 </div>
                             </div> 
@@ -188,7 +188,7 @@
                                 </button>
                                 </div>
                                 <div>
-                                <button type="submit" class="btn btn-primary btn-sm float-right" *ngIf="model.id" (click)="editUser()">
+                                <button type="submit" class="btn btn-primary  float-right" *ngIf="model.id" (click)="editUser()">
                                     {{ 'user.save' | translate }}</button>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                             {{ 'login.alreadyHaveAccount' | translate }}
                             <a routerLink="/login">{{ 'login.button' | translate }}</a>.
                         </p>
-                    </div>
+                    
                 </form>
             <!-- </div>-->
         </div> 
