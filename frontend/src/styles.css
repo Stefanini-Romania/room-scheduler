@@ -58,7 +58,7 @@ html, body
 .navbar-brand
 {
    
-    font-size: 35px !important;
+    font-size: 30px !important;
     -webkit-text-stroke-width: thin;
     color: #004e9e;
     padding-top: 0 !important;
@@ -258,7 +258,7 @@ footer a {
 #nav-text1 {
     margin-top: 0;
     margin-right: 0;
-    font-family: Brush Script MT, Brush Script Std, cursive;
+    font-family: 'daxfont', sans-serif;
 }
 
 #toast-container .toast.toast-success {
@@ -394,6 +394,12 @@ footer a {
 
 .clearfixaccount{
     clear: both;
+}
+
+@font-face{
+    font-family: "daxfont";
+    src: url('DaxRegular.ttf');
+
 }
 
 
