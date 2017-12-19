@@ -51,7 +51,6 @@ export class RegisterFormComponent {
                 private toastr: ToastrService,
                 private translate: TranslateService,
                 private modalService: NgbModal) {
-                    console.log(RoleEnum);
     }
 
     ngOnInit() {
