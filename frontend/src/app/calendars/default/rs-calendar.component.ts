@@ -358,7 +358,12 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private openEventEditor(model: Event) {
         const modalRef:NgbModalRef = this.modalService.open(EventEditorComponent);
+        let initialDate = new Date(model.dateCreated);
+        
+        initialDate.setHours(initialDate.getHours()+2);
+        model.dateCreated = initialDate;
         modalRef.componentInstance.model = model;
+    
         modalRef.result.then(() => {
             this.renderCalendar();
         });
@@ -396,6 +401,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         let model = this.events.find(e => e.id == $event.args.appointment.id);
+        // model.dateCreated = new Date(model.dateCreated.getHours()+2);
         this.openEventEditor(model);
     }
 

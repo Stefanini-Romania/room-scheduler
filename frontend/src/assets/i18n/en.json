@@ -170,7 +170,6 @@
       "Title": "Penalised user",
       "FirstName.IsEmpty": "Please insert your firstname",
       "LastName.IsEmpty": "Please insert your lastname",
-
     "Name": {
         "IsNotUnique": "This username is already used",
         "IsEmpty": "Please insert a username",
@@ -227,5 +226,6 @@
         "Location.TooLong": "The room's location name is too long"   
     },
 
-    "required.field" : "mandatory field"
+    "required.field" : "mandatory field",
+    "role": "Role"
 }

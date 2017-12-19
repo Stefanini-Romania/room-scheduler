@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RouterModule, Routes, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {TranslateService} from "@ngx-translate/core";
-import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal, NgbModalRef, NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 
 import {environment} from './../../../environments/environment';
 import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
@@ -31,15 +31,17 @@ export class RegisterFormComponent {
     public title: string;    
     public confirmPassword;
     public submitted;
+   // public modell: RoleEnum = <RoleEnum>{};
     public model: User = <User>{
         departmentId: DepartmentIdEnum.ADC,
         userRole: [RoleEnum.attendee]
     };
-    
+    public selectedRole = RoleEnum;
+
     public errorMessages: any = {};
     currentUser: User = undefined;
     DepartmentIdEnum: DepartmentIdEnum[] = [];
-    RoleIdEnum: RoleEnum[] = [];
+    RoleIdEnums = RoleEnum;
 
     constructor(private authService: AuthService, 
                 private router: Router, 
@@ -49,6 +51,7 @@ export class RegisterFormComponent {
                 private toastr: ToastrService,
                 private translate: TranslateService,
                 private modalService: NgbModal) {
+                    console.log(RoleEnum);
     }
 
     ngOnInit() {
@@ -60,15 +63,36 @@ export class RegisterFormComponent {
         return this.currentUser && this.authService.isLoggedIn();
     }
 
+    roleKeys() : Array<string> {
+        var keys = Object.keys(this.RoleIdEnums);
+        return keys.slice(keys.length / 2) ;
+    }
+
+    // onSelectRole(RoleIdEnums: RoleEnum) {
+    //     //this.selectedRole = RoleIdEnums;
+    //     var userRoleId = RoleEnum[RoleIdEnums];
+    //     //this.model.userRole = [RoleIdEnums];
+    //     this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, [RoleIdEnums], this.model.isActive, this.model.password);
+    // }   
+
+    // onHostChange (userRoleName) {
+    //     var userRoleId = RoleEnum[userRoleName];
+    //     this.model.userRole = [RoleEnum.host]; 
+    //     //this.model.userRole = [userRoleName];
+    //     console.log(this.model.userRole);
+    // }
+
+    onRoleChange (userRoleName) { //not finished
+        var userRoleId = RoleEnum[userRoleName];
+        var userRole = [];
+        userRole[userRoleId] = userRoleName;
+        this.model.userRole = userRole;
+        console.log(this.model.userRole);
+        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, userRole, this.model.isActive, this.model.password)
+    }
+
     register() {
-        this.userService.createUser(this.model.firstName, 
-                                        this.model.lastName, 
-                                        this.model.name, 
-                                        this.model.email,
-                                        this.model.password, 
-                                        this.model.departmentId,
-                                        this.model.userRole
-                                        )                                          
+        this.userService.createUser(this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.password, this.model.departmentId, this.model.userRole)
         .subscribe(
             () => {
                 this.successfullAddUser.emit();
@@ -102,7 +126,8 @@ export class RegisterFormComponent {
     }
 
     editUser(){
-        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRole, this.model.isActive, this.model.password).subscribe(
+        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRole, this.model.isActive, this.model.password)
+        .subscribe(
             () => {
                 this.successfullEditUser.emit();
                 this.toastr.success(
