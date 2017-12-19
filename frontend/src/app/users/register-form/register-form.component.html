@@ -165,6 +165,17 @@
                                        {{Role}}
                                     </button>
                                     </div>
+
+                                    <div>
+                                        <button  type="submit" class="btn btn-primary float-right btn-sm" *ngIf="!model.id" (click)="register()">
+                                            {{ 'register.button' | translate }}
+                                            <!-- <i class="fa fa-lock"></i> -->
+                                        </button>
+                                        </div>
+                                        <div>
+                                        <button type="submit" class="btn btn-primary  float-right" *ngIf="model.id" (click)="editUser()">
+                                            {{ 'user.save' | translate }}</button>
+                                        </div>
                                   <!--<div class="modal-footer" >
 
                                     <button type="button" class="btn btn-primary  float-right" *ngIf="model.id" (click)="editUser()">
@@ -181,16 +192,7 @@
                             </div> 
                     
                             <div class="float-right">
-                                <div>
-                                <button  type="submit" class="btn btn-primary float-right btn-sm" *ngIf="!model.id" (click)="register()">
-                                    {{ 'register.button' | translate }}
-                                    <!-- <i class="fa fa-lock"></i> -->
-                                </button>
-                                </div>
-                                <div>
-                                <button type="submit" class="btn btn-primary  float-right" *ngIf="model.id" (click)="editUser()">
-                                    {{ 'user.save' | translate }}</button>
-                                </div>
+                                
                             </div>
                             
                         </div>
