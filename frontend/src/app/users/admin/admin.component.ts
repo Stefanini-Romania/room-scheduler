@@ -47,7 +47,7 @@ export class AdminComponent implements AfterViewInit{
     }
  
     ngAfterViewInit(): void {
-        if (!this.authService.getLoggedUser().hasRole(RoleEnum.admin)) {
+        if (!this.authService.isLoggedIn() || !this.authService.getLoggedUser().hasRole(RoleEnum.admin)) {
             this.router.navigate(['calendar'])
         }
 
