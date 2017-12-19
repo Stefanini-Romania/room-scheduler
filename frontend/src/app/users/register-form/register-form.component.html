@@ -4,6 +4,14 @@
     <button type="button" class="btn btn-primary float-right" (click)="closeLoginModal()">{{ 'X' | translate }}</button>
   </div>
 </div> -->
+
+<div class="modal-header"  *ngIf="model.id">
+  <h6 class="modal-title">{{ title | translate }}</h6>
+  <div>
+    <button type="button" class="btn btn-primary" (click)="activeModal.close()">{{ 'button.close' | translate }}</button>
+  </div>
+
+</div> 
 <div class="modal-body mx-auto">
         <div class="container d-flex h-100">
             <!-- <div class="row justify-content-center align-self-center col-sm-6 col-md-9 col-lg-8 col-xl-5 mx-auto">-->
@@ -148,9 +156,16 @@
                                         <!-- <i class="fa fa-lock"></i> -->
                                     </button>
                                     </div>
-                                  <div>
-                                    <button type="button" class="btn btn-primary btn-sm float-right" *ngIf="model.id" (click)="editUser()">
-                                        {{ 'user.save' | translate }}</button>
+                                  <div class="modal-footer" >
+
+                                    <button type="button" class="btn btn-primary  float-right" *ngIf="model.id" (click)="editUser()">
+                                      {{ 'user.save' | translate }}
+                                    </button>
+
+                                    <!--<button type="button" class="btn btn-primary float-right" *ngIf="model.id" (click)="activeModal.close()">
+                                      {{ 'button.close' | translate }}
+                                    </button>-->
+                                                                                                                                          
                                   </div>
                                   
                                 </div>

@@ -18,7 +18,7 @@ import {UserService} from '../shared/users.service';
     selector: 'register-form',
     templateUrl: './register-form.component.html',
     styleUrls: [],
-    providers: [UserService],
+    providers: [UserService]
 })
 
 export class RegisterFormComponent {
