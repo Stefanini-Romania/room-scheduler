@@ -237,9 +237,9 @@
      "Room": {
         "SameNameAndLocation": "Camera există deja în această locație",
         "Name.IsEmpty": "Inserați numele camerei",
-        "Name.TooLong": "Numele camerei este prea lung",
+        "Name.TooLong": "Numele camerei este prea lung (maxim 20 de litere)",
         "Location.IsEmpty": "Inserați locația camerei",
-        "Location.TooLong": "Numele locației este prea lung"
+        "Location.TooLong": "Numele locației este prea lung (maxim 25 litere)"
     },
 
     "required.field" : "câmp obligatoriu",
