@@ -39,7 +39,6 @@ export class AuthService {
             () => {
                 sessionStorage.removeItem('currentUser');
                 this.user$.emit(null);
-                location.reload(true);
 
             },
             error => {
