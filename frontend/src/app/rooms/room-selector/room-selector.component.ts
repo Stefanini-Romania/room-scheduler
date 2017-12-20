@@ -33,12 +33,6 @@ export class RoomSelector implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.rooms = [];
-        // @TODO Used only for tests TO BE REMOVED
-        // let x=new Room();x.name="Room " + this.rooms.length + 1;x.location="Rome";this.rooms.push(x);
-        // x=new Room();x.name="Room " + this.rooms.length + 1;x.location="Rome";this.rooms.push(x);
-        // x=new Room();x.name="Room " + this.rooms.length + 1;x.location="Bucharest";this.rooms.push(x);
-        // this.filteredRoomsByLocation();
-
         this.roomService.roomList().subscribe((rooms: any) => {
             for (let room of rooms) {
                 this.rooms.push(<Room>room);
