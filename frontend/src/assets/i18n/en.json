@@ -222,7 +222,7 @@
     "Room": {
         "SameNameAndLocation": "The room already exists in this location",
         "Name.IsEmpty": "Please insert the room's name",
-        "Name.TooLong": "The room's name is too long (maximum 20 chraracters)",
+        "Name.TooLong": "The room's name is too long (maximum 20 characters)",
         "Location.IsEmpty": "Please insert the room's location",
         "Location.TooLong": "The room's location name is too long (maximum 25 characters)"   
     },

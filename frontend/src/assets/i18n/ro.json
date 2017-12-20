@@ -239,7 +239,7 @@
         "Name.IsEmpty": "Inserați numele camerei",
         "Name.TooLong": "Numele camerei este prea lung (maxim 20 de litere)",
         "Location.IsEmpty": "Inserați locația camerei",
-        "Location.TooLong": "Numele locației este prea lung (maxim 25 litere)"
+        "Location.TooLong": "Numele locației este prea lung (maxim 25 de litere)"
     },
 
     "required.field" : "câmp obligatoriu",
