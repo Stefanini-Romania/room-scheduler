@@ -35,21 +35,6 @@
             </tr>
           </tbody>
         </table>
-
-        <!-- <ng-template #content let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title">{{ 'user.delete' | translate }}</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>{{ 'confirmDelete' | translate }}</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="onDeleteUser(selectedUser);c('Close click')">{{ 'rooms.delete' | translate }}</button>
-          </div>
-        </ng-template> -->
         <pagination-controls (pageChange)="page = $event"></pagination-controls>
       </ng-template>
     </ngb-tab>
@@ -84,29 +69,10 @@
                 <button class = "btn btn-primary" (click)="onSelectRoom(room)" title="{{'rooms.edit' | translate}}">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
-                <!-- <button class="btn btn-primary" type="button" (click)="open(content, room)" title="{{ 'rooms.delete' | translate }}">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </button> -->
               </td>
             </tr>
           </tbody>
         </table>
-        
-        <!-- <ng-template #content let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title">{{ 'rooms.deleteRoom' | translate }}</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>{{ 'confirmDelete' | translate }}</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="onDeleteRoom(selectedRoom);c('Close click')">{{ 'rooms.delete' | translate }}</button>
-          </div>
-        </ng-template>-->
-
         <pagination-controls (pageChange)="roompage = $event"></pagination-controls>     
       </ng-template>
     </ngb-tab>
