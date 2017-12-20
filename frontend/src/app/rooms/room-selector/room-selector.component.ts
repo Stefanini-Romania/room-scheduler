@@ -26,7 +26,6 @@ export class RoomSelector implements AfterViewInit, OnDestroy {
     public location: string;
 
     constructor(config: NgbDropdownConfig, private roomService: RoomService, translate: TranslateService) {
-        config.autoClose = false;
         this.subscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
             this.selectedRoomName = translate.instant('calendar.rooms');
         });
