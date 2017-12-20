@@ -4,8 +4,12 @@ html, body
     background: rgb(255, 255, 255);
     color: black;
     height: 100%;
+    font-family: 'daxfont', sans-serif !important;
+    
  
 }
+
+
 
 .navbar{
     z-index: 1;
@@ -400,6 +404,10 @@ footer a {
     font-family: "daxfont";
     src: url('DaxRegular.ttf');
 
+}
+
+.jqx-scheduler, .jqx-widget-content{
+    font-family: 'daxfont', sans-serif;
 }
 
 
