@@ -44,21 +44,6 @@ export class UserService {
         });
     }
 
-    // public deleteUser(user: User) {
-    //     const url = environment.apiUrl + '/user/delete/' + user.id;
-    //     console.log(url);
-    //     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-
-    //     return this.http.delete(url, {headers: headers, withCredentials: true})
-    //         .catch((error: any) => {               
-    //             return Observable.throw(error.message);
-    //         })
-    //         .map((response: Response) => {        
-    //             return response;
-    //         });
-    // }
-
-
     public editUser(id: number, firstName: string, lastName: string, name: string, email: string, departmentId: number,  userRole?: RoleEnum[], isActive?: boolean, password?: string) {
         const url = environment.apiUrl + '/user/edit/' + id;
         const body = JSON.stringify({
@@ -82,9 +67,4 @@ export class UserService {
                 return response;
             });
     }
-
-    // public save(user: User) {
-    //     return user.id ? this.editUser(user) : this.createUser(user);
-    // }
-
 }
