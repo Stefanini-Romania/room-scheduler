@@ -158,7 +158,7 @@
   },
 
   "Error": {
-      "login": "You need to login if you want to make an appointment !",
+      "login": "You need to login if you want to make an appointment!",
       "Event.Authentication": "Incorrect credentials. Please try again",
       "Event.Creation": "Unable to create event",
       "Event.Edit": "Unable to edit event",
@@ -221,7 +221,7 @@
     "Room": {
         "SameNameAndLocation": "The room already exists in this location",
         "Name.IsEmpty": "Please insert the room's name",
-        "Name.TooLong": "The room's name is too long",
+        "Name.TooLong": "The room's name is too long (max 30 chr",
         "Location.IsEmpty": "Please insert the room's location",
         "Location.TooLong": "The room's location name is too long"   
     },

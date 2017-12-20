@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="required-field-block">
-                                    <input type="text" placeholder="{{ 'register.firstName' | translate }}" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required>
+                                    <input type="text" placeholder="{{ 'register.firstName' | translate }}" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required maxlength="20">
                                     <div class="required-icon">
                                         <div class="text">*</div>
                                     </div>
@@ -33,7 +33,7 @@
                             
                             <div class="col">
                                 <div class="required-field-block">
-                                    <input type="text" placeholder="{{ 'register.lastName' | translate }}" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required>
+                                    <input type="text" placeholder="{{ 'register.lastName' | translate }}" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required maxlength="20">
                                     <div class="required-icon">
                                         <div class="text">*</div>
                                     </div>
@@ -51,7 +51,7 @@
                       
 
                         <div class="required-field-block">
-                            <input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="model.name" #name="ngModel" required>
+                            <input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="model.name" #name="ngModel" required maxlength="20">
                             <div class="required-icon">
                                 <div class="text">*</div>
                             </div>
