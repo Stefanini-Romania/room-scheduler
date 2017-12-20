@@ -19,8 +19,11 @@ export class User {
         return this.penalty && this.penalty.length > 0;
     }
 
-    hasPenaltiesForRoom(mixedRoom: Room|number): boolean {
-        const roomId = mixedRoom instanceof Room ? mixedRoom.id : mixedRoom;
+    hasPenaltiesForRoom(mixedRoom: Room): boolean {
+        let roomId;
+        if(mixedRoom){
+            roomId = mixedRoom.id
+        }
         return this.hasPenalties() && this.penalty.indexOf(roomId) !== -1;
     }
 

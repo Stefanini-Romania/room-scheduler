@@ -101,13 +101,14 @@
 
       "days": {
         "names": {
+            "Sunday": "Sunday",
             "Monday": "Monday",
             "Tuesday": "Tuesday",
             "Wednesday": "Wednesday",
             "Thursday": "Thursday",
             "Friday": "Friday",
-            "Saturday": "Saturday",
-            "Sunday": "Sunday"
+            "Saturday": "Saturday"
+            
           },
 
           "namesAbbr": {
@@ -166,7 +167,7 @@
   },
 
   "User": {
-      "YouArePenalised" : "Penalised user! You are not allowed to create any appointments.",
+      "YouArePenalised" : "Penalised user! You are not allowed to create any events.",
       "Title": "Penalised user",
       "FirstName.IsEmpty": "Please insert your firstname",
       "LastName.IsEmpty": "Please insert your lastname",

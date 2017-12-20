@@ -3,13 +3,8 @@ html, body
 {
     background: rgb(255, 255, 255);
     color: black;
-    height: 100%;
-    font-family: 'daxfont', sans-serif !important;
-    
- 
+    height: 100%; 
 }
-
-
 
 .navbar{
     z-index: 1;
@@ -406,9 +401,9 @@ footer a {
 
 }
 
-.jqx-scheduler, .jqx-widget-content{
+/* .jqx-scheduler, .jqx-widget-content{
     font-family: 'daxfont', sans-serif;
-}
+} */
 
 
    
