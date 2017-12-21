@@ -1,3 +1,8 @@
+<div class="modal-header" *ngIf="router.url != '/login'">
+        <h6 class="modal-title">{{'login.button' | translate}}</h6>
+        <button type="button" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+
 <div class="container d-flex h-100" >
     <div class="row justify-content-center align-self-center mx-auto">     
         <form>   
