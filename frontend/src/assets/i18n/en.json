@@ -69,6 +69,7 @@
       "isActive": "Active"
   },
 
+  "name": "Name",
   "location": "Location",
   "event": {
       "filter.location": "Filter by location...",

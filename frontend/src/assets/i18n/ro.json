@@ -69,6 +69,7 @@
       "isActive": "Activ"
   },
 
+  "name": "Nume",
   "location": "Locație",
   "event": {
       "filter.location": "Filtrează după locație...",
