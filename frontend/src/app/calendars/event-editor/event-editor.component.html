@@ -1,5 +1,6 @@
 <div class="modal-header" >
     <h6 class="modal-title">{{ title | translate }}</h6>
+    <button type="button" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button>
 </div>
 
 <div class="modal-body">
@@ -53,5 +54,4 @@
 <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="cancelEvent()"  *ngIf="model.id">{{ 'calendar.buttons.cancel.event' | translate }}</button>
     <button type="button" class="btn btn-primary" (click)="saveEvent()">{{ 'button.save' | translate }}</button>
-    <button type="button" class="btn btn-primary" (click)="activeModal.close()">{{ 'button.close' | translate }}</button>
 </div>

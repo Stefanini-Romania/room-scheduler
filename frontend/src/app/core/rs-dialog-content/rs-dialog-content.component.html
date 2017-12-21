@@ -1,6 +1,7 @@
 <div size-type="lg">
     <div *ngIf="options.title || options.canCancel" class="modal-header" >
         <h6 *ngIf="options.title" class="modal-title">{{ options.title | translate }}</h6>
+        <button type="button" (click)="modalDialog.close()"><i class="fa fa-times" aria-hidden="true"></i></button>
         <button *ngIf="options.canCancel" type="button" class="close" aria-label="Close" (click)="cancel()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -12,6 +13,5 @@
 
     <div class="modal-footer">
         <button *ngIf="options.canCancel" type="button" class="btn btn-primary" (click)="cancel()">{{ 'button.cancel' | translate }}</button>
-        <button type="button" class="btn btn-primary" (click)="close('close')">{{ 'button.close' | translate }}</button>
     </div>
 </div>
