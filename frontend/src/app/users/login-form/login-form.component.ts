@@ -20,7 +20,7 @@ export class LoginFormComponent {
 
     model: User = <User> {};
 
-    constructor(public activeModal: NgbActiveModal, private authService: AuthService, private router: Router) {
+    constructor(public activeModal: NgbActiveModal, private authService: AuthService, public router: Router) {
     }
 
     login() {
