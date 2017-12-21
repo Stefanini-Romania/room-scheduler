@@ -1,4 +1,4 @@
-<div class="modal-header" *ngIf="model.id">
+<div class="modal-header" *ngIf="isLoggedIn">
   <h6 class="modal-title">{{ title | translate }}</h6>
     <button type="button"(click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button>
 </div>
