@@ -3,7 +3,7 @@
         
         
     <div class="row">
-        <div class="col">
+        <div class="col col-md-11">
             <room-selector (roomChange)="onRoomChanged($event)"></room-selector>
             <div class="btn-group" ngbRadioGroup>
                 <label ngbButtonLabel class="btn-primary"(click)="goBack()">
@@ -16,14 +16,10 @@
                     <input ngbButton type="radio"><i class="fa fa-arrow-right"></i>
                 </label>
             </div>
-        </div>
-       
-
-        <div class="col text-right ">
-            <div class="btn-group float-right" ngbRadioGroup [ngModel]="calendarSettings.view">
-                <label ngbButtonLabel class="btn btn-primary" (click)="setView('dayView')">
+            <div class="btn-group" ngbRadioGroup [ngModel]="calendarSettings.view">
+                <!-- <label ngbButtonLabel class="btn btn-primary" (click)="setView('dayView')">
                     <input ngbButton type="radio" value="dayView">{{'calendar.day' |translate}}
-                </label>
+                </label> -->
                 <label ngbButtonLabel class="btn-primary" (click)="setView('weekView')">
                     <input ngbButton type="radio" value="weekView">{{'calendar.week' |translate}}
                 </label>
@@ -33,6 +29,7 @@
                 <b *ngIf="calendarSettings.view == 'weekView'"> - {{ endDate | localizedDate| titlecase }}</b>
             </label>
         </div>
+       
 
         <!--<button ngbButtonLabel ngbButton class="btn btn-primary" (click)="test($event)">Refresh</button>-->
     </div>
