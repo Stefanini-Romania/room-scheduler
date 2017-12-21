@@ -25,8 +25,8 @@
                 </label>
             </div>
             <label class="mx-2 d-none d-sm-block float-right">
-                <b>{{ startDate | localizedDate | titlecase }}</b>
-                <b *ngIf="calendarSettings.view == 'weekView'"> - {{ endDate | localizedDate| titlecase }}</b>
+                <b id="calendardate">{{ startDate | localizedDate | titlecase }}</b>
+                <b id ="calendardate" *ngIf="calendarSettings.view == 'weekView'"> - {{ endDate | localizedDate| titlecase }}</b>
             </label>
         </div>
        

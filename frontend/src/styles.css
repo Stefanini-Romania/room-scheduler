@@ -405,6 +405,10 @@ label b{
     color: #004e9e;
 }
 
+#calendardate{
+    color: #000;
+}
+
 /* .jqx-scheduler, .jqx-widget-content{
     font-family: 'daxfont', sans-serif;
 } */
