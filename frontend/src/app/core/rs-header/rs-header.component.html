@@ -34,7 +34,7 @@
                     <span class="fa fa-sign-out" aria-hidden="true">{{ 'logout.button' | translate }}</span>
                 </button>
             </div>
-            <div class="d-inline-block" *ngIf="!currentUser">
+            <div class="d-inline-block" *ngIf="!currentUser&&router.url != '/login'">
                 <button type="submit" class="btn btn-primary" (click)="redirectToLogin()">
                     {{ 'login.button' | translate }}
                     <i class="fa fa-lock"></i>
