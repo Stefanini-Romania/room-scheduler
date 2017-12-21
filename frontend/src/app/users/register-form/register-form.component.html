@@ -3,14 +3,12 @@
   <div>
     <button type="button" class="btn btn-primary" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button>
   </div>
-
 </div>
 
 <div class="modal-body mx-auto">
     <div class="container d-flex h-100">
         <!-- <div class="row justify-content-center align-self-center col-sm-6 col-md-9 col-lg-8 col-xl-5 mx-auto">-->           
-            <div id="registerForm" class="mx-auto"> 
-                
+            <div id="registerForm" class="mx-auto">           
                 <form  name="regForm" novalidate>
                     <div id="user-cont">
                         <div class="text-center">
@@ -21,6 +19,12 @@
                         <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
                             <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
                         </ngb-alert>
+
+                        <!-- FIRSTNAME and LASTNAME -->
+                        <div class="row">
+                            <label class="col" *ngIf="model.id"><b>{{ 'register.firstName' | translate }}</b></label> 
+                            <label class="col" *ngIf="model.id"><b>{{ 'register.lastName' | translate }}</b></label> 
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="required-field-block">
@@ -49,7 +53,8 @@
                             <div *ngFor="let errorMessage of errorMessages['LastName']">{{ errorMessage | translate }}</div>
                         </ngb-alert>
                       
-
+                        <!-- USERNAME -->
+                        <label *ngIf="model.id"><b>{{ 'register.name' | translate }}</b></label> 
                         <div class="required-field-block">
                             <input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="model.name" #name="ngModel" required maxlength="20">
                             <div class="required-icon">
@@ -62,9 +67,11 @@
                         <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Name']" [dismissible]="false">
                             <div *ngFor="let errorMessage of errorMessages['Name']">{{ errorMessage | translate }}</div>
                         </ngb-alert>
-    
+                        
+                        <!-- EMAIL -->                      
                         <div class="row">
                             <div class="col">
+                                    <label *ngIf="model.id"><b>{{ 'register.email' | translate }}</b></label> 
                                 <div class="required-field-block">
                                     <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required email>
                                     <div class="required-icon">
@@ -164,8 +171,7 @@
                                         {{ 'user.save' | translate }}
                                     </button>
                                 </div>
-                            </div>
-                            
+                            </div>                           
                         </div>
     
                         <p *ngIf="!(isLoggedIn) && !model.id">                         
