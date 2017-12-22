@@ -59,7 +59,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/user/add")]
-       // [Authorize(Roles = nameof(UserRoleEnum.admin))]
+      // nu trebuue validare si register si admin/add user folosesc aceasta cale
         public IActionResult AddUser([FromBody]UserViewModel newUser)
         {
             if (!ModelState.IsValid)
