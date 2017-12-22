@@ -21,7 +21,7 @@ export class RsHeaderComponent {
         {'name': 'Română', 'code': 'ro', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/Romania_flat.png'}
     ];
 
-    constructor(private authService: AuthService, private router: Router, private roomService: RoomService) {
+    constructor(private authService: AuthService, public router: Router, private roomService: RoomService) {
         // observe room changing
         roomService.selectedRoomChanged$.subscribe((room: Room) => {
             this.userIsPenalizedInRoom = this.currentUser && this.currentUser.hasPenaltiesForRoom(room);
