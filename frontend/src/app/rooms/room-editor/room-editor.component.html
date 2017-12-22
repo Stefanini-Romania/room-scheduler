@@ -2,7 +2,6 @@
 <div class="modal-header">
   <h6 class="modal-title">{{ title | translate }}</h6>
     <button type="button" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button> 
-
 </div>
 
 <div class="modal-body">
@@ -63,7 +62,6 @@
     
     <button type="button" class="btn btn-primary float-right" (click)="addRooms()" *ngIf="!model.id">{{ 'rooms.add' | translate }}</button> 
     <button type="button" class="btn btn-primary float-right" (click)="editRooms()" *ngIf="model.id">{{ 'rooms.save' | translate }}</button> 
-    <!--<button type="button" class="btn btn-primary" (click)="activeModal.close()">{{ 'button.close' | translate }}</button>--> 
 </div>
 
 <div class="container d-flex h-100" >
