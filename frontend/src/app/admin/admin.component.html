@@ -3,10 +3,12 @@
     <ngb-tab>
       <ng-template ngbTabTitle><b>{{'AdminTabs.Users' | translate}}</b></ng-template>
       <ng-template ngbTabContent>
+        <admin-users-tab></admin-users-tab>
+      </ng-template>
+      <!-- <ng-template ngbTabContent>
         
         <button class="btn btn-primary float-left" (click)="onAddUser()">{{'user.add' | translate}}</button>
         <br><br>
-        <!-- <div class="container"> -->
       
         <table class="table table-hover table-striped table-responsive table-bordered text-center">
           <thead>
@@ -36,13 +38,8 @@
           </tbody>
         </table>
         <pagination-controls (pageChange)="page = $event"></pagination-controls>
-      </ng-template>
+      </ng-template> -->
     </ngb-tab>
-
-    <!-- <ngb-tab>
-      <ng-template ngbTabTitle><b>{{'AdminTabs.Hosts' | translate}}</b></ng-template>
-      <ng-template ngbTabContent></ng-template>
-    </ngb-tab> -->
 
     <ngb-tab>
       <ng-template ngbTabTitle><b>{{'AdminTabs.Rooms' | translate}}</b></ng-template>

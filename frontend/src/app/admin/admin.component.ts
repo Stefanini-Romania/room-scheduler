@@ -1,4 +1,4 @@
-import {RoomSelector} from '../../rooms/room-selector/room-selector.component';
+import {RoomSelector} from '../rooms/room-selector/room-selector.component';
 import {Component, EventEmitter, Output, ElementRef, AfterViewInit} from '@angular/core';
 import {NgbModal, NgbModalRef, NgbPaginationConfig, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
@@ -6,14 +6,15 @@ import {TranslateService} from "@ngx-translate/core";
 import {ToastrService} from 'ngx-toastr';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {RoomService}  from './../../rooms/shared/room.service';
-import {Room} from './../../shared/models/room.model';
-import {UserService} from '../../users/shared/users.service';
-import {User} from '../../shared/models/user.model';
-import {RegisterFormComponent} from '../register-form/register-form.component';
-import {RoomEditorComponent} from './../../rooms/room-editor/room-editor.component';
-import {RoleEnum} from '../../shared/models/role.model';
-import { AuthService } from '../../auth/shared/auth.service';
+import {RoomService}  from './../rooms/shared/room.service';
+import {Room} from './../shared/models/room.model';
+import {UserService} from '../users/shared/users.service';
+import {User} from '../shared/models/user.model';
+import {RegisterFormComponent} from '../users/register-form/register-form.component';
+import {RoomEditorComponent} from './../rooms/room-editor/room-editor.component';
+import {RoleEnum} from '../shared/models/role.model';
+import { AuthService } from '../auth/shared/auth.service';
+import{AdminUsersTab} from './admin-users-tab/admin-users-tab.component';
 
 @Component({
     selector: 'admin-component',
@@ -51,22 +52,7 @@ export class AdminComponent implements AfterViewInit{
             this.router.navigate(['calendar'])
         }
 
-        this.refreshUsers();
         this.refreshRooms();
-    }
-
-    
-    refreshUsers() {
-        this.users = [];
-        this.userService.listUsers().subscribe((users: any) => {
-            for (let user of users) { 
-                for (let userRole of user.userRole) {
-                    var index = user.userRole.indexOf(userRole);
-                    user.userRole[index] = RoleEnum[userRole];
-                }
-                this.users.push(<User>user);       
-            } 
-        });
     }
 
     refreshRooms() {
@@ -77,38 +63,6 @@ export class AdminComponent implements AfterViewInit{
             }
         });
     }
-
-    onAddUser() {
-        const modalRef: NgbModalRef = this.modalService.open(RegisterFormComponent);
-        modalRef.componentInstance.successfullAddUser.subscribe(() => {
-            modalRef.close();
-            this.refreshUsers();
-        });     
-    }
-
-    onSelectUser(model: User) {
-        const modalRef:NgbModalRef = this.modalService.open(RegisterFormComponent);    
-        modalRef.componentInstance.model = model;  
-        modalRef.componentInstance.successfullEditUser.subscribe(() => {
-            modalRef.close();     
-        });
-    }
-
-    onActivateUser(model: User) {
-        model.isActive = true;
-        this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRole, model.isActive, model.password)
-        .subscribe(
-            () => {   
-                this.toastr.success(
-                    this.translate.instant("user.active"), '',
-                    {positionClass: 'toast-bottom-right'}
-                );                
-                this.refreshUsers();                      
-            }, 
-            error => {
-                this.errorMessage = error.error.message;
-            });
-    }   
     
     onSelectRoom(model: Room) {
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);   

@@ -15,6 +15,7 @@ import {SharedModule} from './shared/shared.module';
 import {AuthModule} from './auth/auth.module';
 import {UsersModule} from './users/users.module';
 import {RoomModule} from './rooms/room.module';
+import {AdminModule} from './admin/admin.module';
 
 import {AppComponent} from './app.component';
 import {PageNotFoundComponent} from './page-not-found.component';
@@ -68,7 +69,8 @@ const routes: Routes = [
         SharedModule,
         CalendarsModule,
         RoomModule,
-        UsersModule
+        UsersModule,
+        AdminModule
     ],
 
     providers: [],
