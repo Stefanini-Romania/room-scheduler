@@ -14,9 +14,9 @@ import {RegisterPageComponent} from './register-form/register-page.component';
 
 
 const routes: Routes = [
-    {path: 'login', component: LoginPageComponent},
-    {path: 'register', component: RegisterPageComponent},
-    {path: 'admin', component: AdminComponent}
+    {path: 'login', component: LoginPageComponent, data:{name: 'login'}},
+    {path: 'register', component: RegisterPageComponent, data:{name: 'register'}},
+    {path: 'admin', component: AdminComponent, data:{name: 'admin'}}
 ];
 
 @NgModule({

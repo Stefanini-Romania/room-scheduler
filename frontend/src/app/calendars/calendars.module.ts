@@ -12,7 +12,7 @@ import {SharedModule} from '../shared/shared.module';
 import {EventEditorComponent} from './event-editor/event-editor.component';
 
 const routes: Routes = [
-    {path: 'calendar', component: RSCalendarComponent}
+    {path: 'calendar', component: RSCalendarComponent, data:{name: 'calendar'}}
 ];
 
 @NgModule({
