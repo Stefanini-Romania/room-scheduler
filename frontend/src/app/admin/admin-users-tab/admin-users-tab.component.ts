@@ -21,7 +21,6 @@ export class AdminUsersTab implements AfterViewInit{
     pageChange= new EventEmitter <number>();
     successfullInactiveUser = new EventEmitter;
 
-    closeResult: string;
     public users: User[];
     public selectedUser: User;
     public user: User;
