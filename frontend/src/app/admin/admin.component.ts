@@ -15,6 +15,7 @@ import {RoomEditorComponent} from './../rooms/room-editor/room-editor.component'
 import {RoleEnum} from '../shared/models/role.model';
 import { AuthService } from '../auth/shared/auth.service';
 import{AdminUsersTab} from './admin-users-tab/admin-users-tab.component';
+import{AdminRoomsTab} from './admin-rooms-tab/admin-rooms-tab.component';
 
 @Component({
     selector: 'admin-component',
@@ -25,20 +26,6 @@ import{AdminUsersTab} from './admin-users-tab/admin-users-tab.component';
 
 
 export class AdminComponent implements AfterViewInit{
-
-    @Output() 
-    pageChange= new EventEmitter <number>();
-    successfullInactiveUser = new EventEmitter;
-
-    closeResult: string;
-    public users: User[];
-    public selectedUser: User;
-    public rooms: Room[];
-    public selectedRoom: Room;
-    public user: User;
-    public errorMessage: string;
-    public model: User;
-    currentUser: User;
 
     constructor(public activeModal: NgbActiveModal, private userService: UserService, 
         private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, 
@@ -52,31 +39,7 @@ export class AdminComponent implements AfterViewInit{
             this.router.navigate(['calendar'])
         }
 
-        this.refreshRooms();
+
     }
 
-    refreshRooms() {
-        this.rooms = [];
-        this.roomService.roomList().subscribe((rooms: any) => {
-            for (let room of rooms) {
-                this.rooms.push(<Room>room);
-            }
-        });
-    }
-    
-    onSelectRoom(model: Room) {
-        const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);   
-        modalRef.componentInstance.model = model;  
-        modalRef.componentInstance.successfullEditRoom.subscribe(() => {
-            modalRef.close();     
-        });       
-    }
-
-    onAddRoom() {
-        const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);
-        modalRef.componentInstance.successfullAddRoom.subscribe(() => {
-            modalRef.close();      
-            this.refreshRooms();
-        });       
-    }
 }
