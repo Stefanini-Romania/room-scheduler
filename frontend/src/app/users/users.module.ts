@@ -1,5 +1,4 @@
 import {Register} from 'ts-node/dist';
-import {AdminComponent} from '../admin/default/admin.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {AdminModule} from '../admin/admin.module';
 
@@ -17,7 +16,6 @@ import {RegisterPageComponent} from './register-form/register-page.component';
 const routes: Routes = [
     {path: 'login', component: LoginPageComponent, data:{name: 'login'}},
     {path: 'register', component: RegisterPageComponent, data:{name: 'register'}},
-    {path: 'admin', component: AdminComponent, data:{name: 'admin'}}
 ];
 
 @NgModule({
@@ -29,8 +27,8 @@ const routes: Routes = [
         AdminModule
     ],
     providers: [UserService],
-    declarations: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent, AdminComponent],
-    exports: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent, AdminComponent],
+    declarations: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent],
+    exports: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent],
     entryComponents: [LoginFormComponent, RegisterFormComponent]
 })
 
