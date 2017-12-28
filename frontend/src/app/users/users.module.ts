@@ -1,5 +1,5 @@
 import {Register} from 'ts-node/dist';
-import {AdminComponent} from '../admin/admin.component';
+import {AdminComponent} from '../admin/default/admin.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {AdminModule} from '../admin/admin.module';
 

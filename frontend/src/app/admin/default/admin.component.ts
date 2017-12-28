@@ -3,10 +3,10 @@ import {Component, EventEmitter, Output, ElementRef, AfterViewInit} from '@angul
 import {Router} from '@angular/router';
 import {TranslateService} from "@ngx-translate/core";
 
-import {RoleEnum} from '../shared/models/role.model';
-import {AuthService} from '../auth/shared/auth.service';
-import {AdminUsersTab} from './admin-users-tab/admin-users-tab.component';
-import {AdminRoomsTab} from './admin-rooms-tab/admin-rooms-tab.component';
+import {RoleEnum} from '../../shared/models/role.model';
+import {AuthService} from '../../auth/shared/auth.service';
+import {AdminUsersTab} from '../admin-users-tab/admin-users-tab.component';
+import {AdminRoomsTab} from '../admin-rooms-tab/admin-rooms-tab.component';
 
 @Component({
     selector: 'admin-component',
