@@ -20,6 +20,7 @@ export class AdminRoomsTab implements AfterViewInit{
 
     public rooms: Room[];
     public selectedRoom: Room;
+    public roompage;
     
     constructor(private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, 
                 private translate: TranslateService) {

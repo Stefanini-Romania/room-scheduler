@@ -27,6 +27,7 @@ export class AdminUsersTab implements AfterViewInit{
     public errorMessage: string;
     public model: User;
     currentUser: User;
+    public page;
 
     constructor(private userService: UserService, private modalService: NgbModal, private translate: TranslateService, private toastr: ToastrService) {
         
