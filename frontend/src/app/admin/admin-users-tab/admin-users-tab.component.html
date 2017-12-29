@@ -1,34 +1,32 @@
+<button class="btn btn-primary float-left" (click)="onAddUser()">{{'user.add' | translate}}</button>
+<br><br>
+<!-- <div class="container"> -->
 
-    
-    <button class="btn btn-primary float-left" (click)="onAddUser()">{{'user.add' | translate}}</button>
-    <br><br>
-    <!-- <div class="container"> -->
-  
-    <table class="table table-hover table-striped table-responsive table-bordered text-center">
-      <thead>
-          <tr>
-            <th>{{'user.name' | translate}}</th>
-            <th>{{'user.firstName' | translate}}</th>
-            <th>{{'user.lastName' | translate}} </th>
-            <th>{{'user.userRole' | translate}}</th>
-            <th>{{'user.isActive' | translate}}</th>
-            <th>{{'actions' | translate}}</th>
-          </tr>
-      </thead>
+<table class=" scroll table table-hover table-striped table-responsive table-bordered text-center">
+  <thead>
+      <tr>
+        <th>{{'user.name' | translate}}</th>
+        <th>{{'user.firstName' | translate}}</th>
+        <th>{{'user.lastName' | translate}} </th>
+        <th>{{'user.userRole' | translate}}</th>
+        <th>{{'user.isActive' | translate}}</th>
+        <th>{{'actions' | translate}}</th>
+      </tr>
+  </thead>
 
-      <tbody>
-        <tr *ngFor="let user of users | paginate: { itemsPerPage: 6, currentPage: page}"  >
-          <td>{{user.name}}</td>
-          <td>{{user.firstName}}</td>
-          <td>{{user.lastName}}</td>
-          <td>{{user.userRole}}</td>
-          <td>{{user.isActive}}</td>
-          <td>
-            <button class = "btn btn-primary" (click)="onSelectUser(user)" title="{{'user.edit' | translate}}">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  <tbody>
+    <tr *ngFor="let user of users | paginate: { itemsPerPage: 6, currentPage: page}"  >
+      <td>{{user.name}}</td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.userRole}}</td>
+      <td>{{user.isActive}}</td>
+      <td>
+        <button class = "btn btn-primary" (click)="onSelectUser(user)" title="{{'user.edit' | translate}}">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="page = $event"></pagination-controls>

@@ -28,6 +28,7 @@ html, body
 }
 
 
+
 #logo-header
 {  
     text-align: left;
@@ -283,6 +284,10 @@ footer a {
     top: 80px;
 }
 
+.nav-tabs {
+    border-bottom: 1px #ddd !important;
+}
+
 #pageButtons {
     position: absolute;
     z-index: 2;
@@ -414,4 +419,4 @@ label b{
 } */
 
 
-   
+
