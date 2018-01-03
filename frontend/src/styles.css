@@ -390,7 +390,6 @@ footer a {
 }
 
 .hostlegend{
-    width: 15%; 
     font-size: 130%;
     position: fixed;
  
@@ -412,6 +411,15 @@ label b{
 
 #calendardate{
     color: #000;
+}
+
+@media (min-width: 200px){
+
+.col-md-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
 }
 
 /* .jqx-scheduler, .jqx-widget-content{
