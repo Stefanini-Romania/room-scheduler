@@ -70,7 +70,7 @@
                         <div class="col">
                                 <label *ngIf="model.id"><b>{{ 'register.email' | translate }}</b></label> 
                             <div class="required-field-block">
-                                <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required email>
+                                <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required >
                                 <div class="required-icon">
                                     <div class="text">*</div>
                                 </div>
@@ -117,24 +117,28 @@
                     </ngb-alert>
 
                     <!-- REGISTER BUTTONS -->
-                    <div class="row-fluid" >
+                    <div class="row" >
                         <!-- <ngb-alert type="danger" *ngIf="submitted=false" [dismissible]="false" >{{ 'Error.User.Creation' | translate }}</ngb-alert> -->
-                        <div class="btn-group" ngbRadioGroup>
-                            <label ngbButtonLabel class="btn btn-primary btn-sm">
-                                <input ngbButton type="radio" value="1">ADC
-                            </label>
-                            <label ngbButtonLabel class="btn-primary btn-sm">
-                                <input ngbButton type="radio" value="2">SDC
-                            </label>                      
+                        <div class="col-md-4">
+                            <div class="btn-group" ngbRadioGroup>
+                                <label ngbButtonLabel class="btn btn-primary">
+                                    <input ngbButton type="radio" value="1">ADC
+                                </label>
+                                <label ngbButtonLabel class="btn-primary">
+                                    <input ngbButton type="radio" value="2">SDC
+                                </label>                      
+                            </div>
                         </div>
 
-                        <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
-                            <label ngbButtonLabel class="btn btn-primary btn-sm" (click)="activateUser(user)">
-                                <input ngbButton type="radio">{{'user.isActive' | translate}}
-                            </label>
-                            <label ngbButtonLabel class="btn btn-primary btn-sm" (click)="deactivateUser(user)">
-                                <input ngbButton type="radio">{{'user.isNotActive' | translate}}
-                            </label>                      
+                        <div class="col">
+                            <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
+                                <label ngbButtonLabel class="btn btn-primary" (click)="activateUser(user)">
+                                    <input ngbButton type="radio">{{'user.isActive' | translate}}
+                                </label>
+                                <label ngbButtonLabel class="btn btn-primary" (click)="deactivateUser(user)">
+                                    <input ngbButton type="radio">{{'user.isNotActive' | translate}}
+                                </label>                      
+                            </div>
                         </div>
                                             
                         <!-- <div ngbDropdown class="d-inline-block" *ngIf="model.id"> 
@@ -146,30 +150,29 @@
                             </div>
                         </div>   -->
 
-
-                        <!-- <div ngbDropdown class="d-inline-block" *ngIf="model.id">
-                            <button class="btn btn-primary btn-sm" ngbDropdownToggle>{{'role' | translate}}</button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                <button *ngFor="let Role of roleKeys()" class="dropdown-item" (click)="onRoleChange(Role)">
-                                    {{Role}}
-                                </button>
-                            </div>
-                        </div>  -->
+                        <!-- <div class="col">
+                            <div ngbDropdown class="d-inline-block pull-right" *ngIf="model.id">
+                                <button class="btn btn-primary" ngbDropdownToggle>{{'role' | translate}}</button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                    <button *ngFor="let Role of roleKeys()" class="dropdown-item" (click)="onRoleChange(Role)">
+                                        {{Role}}
+                                    </button>
+                                </div>
+                            </div> 
+                        </div> -->
+                        <div class="col">        
+                            <button type="submit" class="btn btn-primary pull-right" *ngIf="model.id" (click)="editUser()">
+                                {{ 'user.save' | translate }}
+                            </button>                    
+                        </div>
                 
-                        <div class="float-right">
-                            <div>
-                                <button  type="submit" class="btn btn-primary float-right btn-sm" *ngIf="!model.id" (click)="register()">
-                                    {{ 'register.button' | translate }} 
-                                    <!-- <i class="fa fa-lock"></i> -->
-                                </button>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-primary btn-sm float-right" *ngIf="model.id" (click)="editUser()">
-                                    {{ 'user.save' | translate }}
-                                </button>
-                            </div>
-                        </div>                           
-                    </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary pull-right" *ngIf="!model.id" (click)="register()">
+                                {{ 'register.button' | translate }} 
+                                <!-- <i class="fa fa-lock"></i> -->
+                            </button>
+                        </div>                                              
+                    </div>               
 
                     <p *ngIf="!(isLoggedIn) && !model.id">                         
                         {{ 'login.alreadyHaveAccount' | translate }}
