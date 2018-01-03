@@ -108,8 +108,7 @@ namespace RSService.Controllers
             };
             return Ok(addedUser);
         }
-        [HttpPost("/user/register")]
-        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        [HttpPost("/user/register")]       
         public IActionResult RegisterUser([FromBody]UserViewModel newUser)
         {
             if (!ModelState.IsValid)
