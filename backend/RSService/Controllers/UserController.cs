@@ -59,7 +59,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/user/add")]
-      // nu trebuue validare si register si admin/add user folosesc aceasta cale
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult AddUser([FromBody]UserViewModel newUser)
         {
             if (!ModelState.IsValid)
@@ -86,6 +86,56 @@ namespace RSService.Controllers
             userRepository.AddUser(user);
    
             foreach(var roleId in newUser.UserRole)
+            {
+                userRoleRepository.AddUserRole(new UserRole()
+                {
+                    UserId = user.Id,
+                    RoleId = roleId
+                });
+            }
+
+            Context.SaveChanges();
+
+            var addedUser = new UserDto()
+            {
+                Name = user.Name,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
+                DepartmentId = user.DepartmentId,
+                IsActive = user.IsActive
+            };
+            return Ok(addedUser);
+        }
+        [HttpPost("/user/register")]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        public IActionResult RegisterUser([FromBody]UserViewModel newUser)
+        {
+            if (!ModelState.IsValid)
+            {
+                return ValidationError(GeneralMessages.User);
+            }
+
+            var sha1 = System.Security.Cryptography.SHA1.Create();
+
+            var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(newUser.Password));
+            newUser.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
+
+            User user = new User()
+            {
+                Name = newUser.Name,
+                FirstName = newUser.FirstName,
+                LastName = newUser.LastName,
+                Password = newUser.Password,
+                Email = newUser.Email,
+                DepartmentId = newUser.DepartmentId,
+                IsActive = true
+            };
+
+            userRepository.AddUser(user);
+
+            foreach (var roleId in newUser.UserRole)
             {
                 userRoleRepository.AddUserRole(new UserRole()
                 {
