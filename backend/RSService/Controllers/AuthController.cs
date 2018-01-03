@@ -58,7 +58,13 @@ namespace RSService.Controllers
             var userIdentity = new ClaimsIdentity(claims, "login");
 
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
+                                          principal,
+                                          new AuthenticationProperties
+                                          {
+                                              IsPersistent = true,
+                                              ExpiresUtc = DateTime.UtcNow.AddMinutes(2)
+                                          });
 
             // TODO: return DTO object
             return Ok(new
