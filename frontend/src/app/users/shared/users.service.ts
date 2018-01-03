@@ -24,7 +24,7 @@ export class UserService {
     }
 
     public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRole?: RoleEnum[]) {
-        const url = environment.apiUrl + '/user/add';
+        const url = environment.apiUrl + '/user/register';
         let body = JSON.stringify({
             firstName: firstName, 
             lastName: lastName,
