@@ -90,8 +90,13 @@ h3 {
     padding-top: 20px;
     padding-bottom: 50px;
     background-color: #F7F7F7;
+    /* background-color: white; */
     padding-left: 20px;
     padding-right: 20px;
+}
+
+.modal-content #user-cont {
+    background-color: #fff;
 }
 
 label
