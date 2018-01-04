@@ -95,7 +95,7 @@ h3 {
     padding-right: 20px;
 }
 
-.modal-content #user-cont {
+.modal-content #user-cont, .modal-content #registerForm {
     background-color: #fff;
 }
 
