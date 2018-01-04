@@ -427,6 +427,14 @@ label b{
 }
 }
 
+@media (max-width: 500px){
+    .col-sm-12{
+        height:70%;
+    }
+}
+
+
+
 /* .jqx-scheduler, .jqx-widget-content{
     font-family: 'daxfont', sans-serif;
 } */
