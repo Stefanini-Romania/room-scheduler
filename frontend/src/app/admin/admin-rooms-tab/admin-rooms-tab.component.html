@@ -1,5 +1,6 @@
 
 <button class = "btn btn-primary float-left" (click)="onAddRoom()">{{'rooms.add' | translate}}</button><br><br>
+<div class="scrollit">
 <table class="table table-hover table-striped table-responsive table table-bordered text-center">
   <thead>
       <tr>
@@ -23,4 +24,5 @@
     </tr>
   </tbody>
 </table>
+</div>
 <pagination-controls (pageChange)="roompage = $event"></pagination-controls>
