@@ -20,6 +20,7 @@ using RSService.Filters;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using RSService.EmailServices;
 
 namespace RSService
 {
@@ -43,6 +44,9 @@ namespace RSService
 
             var connection = @"Server=BUSWGVMINDEV3\MSSQLSERVER12;Database=RoomPlannerDev;User Id=roomplanner;Password=roomplanner123";
 
+
+            services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+            services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IEventRepository, EventRepository>();
             services.AddTransient<IRoomRepository, RoomRepository>();
