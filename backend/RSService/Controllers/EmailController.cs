@@ -29,10 +29,14 @@ namespace RSService.Controllers
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini-noreply", "roomchedulerStefanini@gmail.com"));
             message.To.Add(new MailboxAddress("User", sendmail));
             message.Subject = "Passowrd Reset";
-            message.Body = new TextPart("plain")
+            message.Body = new TextPart("html")
             {
-                Text = " Sadly, for the moment we can't help you but we work hard to improve our application." +
-                "If you didn't request a passowrd reset , just ignore this message. Have a good day"                          
+                Text = "Someone has requested a password reset for the following account: "+sendmail +"<br>"
+                 +
+                "If this was a mistake, just ignore this email and nothing will happen. <br> "
+                + "If you want to reset you passowrd , visit the following address: <br>"
+
+
 
             };
             using (var client = new SmtpClient())
