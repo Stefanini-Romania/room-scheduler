@@ -97,5 +97,24 @@ namespace RSService.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok();
         }
+
+        [HttpPut("/config/session/edit/{value}")]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        public IActionResult ChangeSessionTimeSpan(int value)
+        {
+            if (value == 0)
+            {
+                return ValidationError(GeneralMessages.ConfigVar);
+            }
+
+            var configVariables = _configVarRepository.GetConfigVariables();
+
+            configVariables.SessionTimeSpan = value;
+
+            Context.SaveChanges();
+
+            return Ok();
+        }
+
     }
 }

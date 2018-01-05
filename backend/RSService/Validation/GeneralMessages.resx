@@ -120,6 +120,9 @@
   <data name="Authentication" xml:space="preserve">
     <value>Error.Event.Authentication</value>
   </data>
+  <data name="ConfigVar" xml:space="preserve">
+    <value>Error.ConfigVar.Empty</value>
+  </data>
   <data name="Event" xml:space="preserve">
     <value>Error.Event.Creation</value>
   </data>

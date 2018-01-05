@@ -22,5 +22,10 @@ namespace RSRepository
         {
             return configVar.First().SessionTimeSpan;   
         }
+
+        public ConfigVar GetConfigVariables()
+        {
+            return configVar.First();
+        }
     }
 }
