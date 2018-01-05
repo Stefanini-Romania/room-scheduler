@@ -22,17 +22,12 @@ namespace RSService.Controllers
 
 
         [HttpPost("email/resetpass/{sendmail}")]
-        public IActionResult PassReset(string sendmail /*[FromBody]EditUserViewModel userView*/)
-        {
-           // var user = userRepository.GetUserByEmail(email);
-           // if (user == null)
-           // {
-           //     return NotFound();
-           // }
+        public IActionResult PassReset(string sendmail)
+        {    
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
-            message.To.Add(new MailboxAddress("Scrum Meeting", sendmail));
+            message.To.Add(new MailboxAddress("User", sendmail));
             message.Subject = "Passowrd Reset";
             message.Body = new TextPart("plain")
             {
