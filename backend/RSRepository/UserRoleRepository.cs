@@ -55,6 +55,18 @@ namespace RSRepository
                             .ToList();
         }
 
+        public UserRole GetUserRoleByUserAndRole(int userId, int roleId)
+        {
+            return userroles.FirstOrDefault(e => e.UserId == userId && e.RoleId == roleId);
+        }
+
+        public void RemoveUserRole(int userId, int roleId)
+        {
+            UserRole userRole = userroles.FirstOrDefault(e => e.UserId == userId && e.RoleId == roleId);
+            userroles.Remove(userRole);
+        }
+
+
         public void SaveChanges()
         {
             context.SaveChanges();
