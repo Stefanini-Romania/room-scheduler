@@ -203,7 +203,21 @@ namespace RSService.Controllers
             user.DepartmentId = userView.DepartmentId;
             user.IsActive = userView.IsActive;
 
-            for(int i = 1; i <= 3; i++){
+            // If user is inactive change his events status to cancelled
+            if (user.IsActive == false)
+            {
+                var events = eventRepository.GetEventsByUser(id);
+
+                foreach (var e in events)
+                {
+                    if (e.EventStatus == 3)
+                    {
+                        e.EventStatus = 2;
+                    }
+                }
+            }
+
+            for (int i = 1; i <= 3; i++){
 
                 // If user has role i
                 if (userRoleRepository.GetUserRoleByUserAndRole(id, i) != null)
@@ -260,20 +274,7 @@ namespace RSService.Controllers
                 IsActive = user.IsActive
 
             };
-
-          //  var inactiveusers = userRepository.GetUserByisInactiv();           
-            var events = eventRepository.GetEvents();
-            if (updatedUser.IsActive == false)
-            {
-                foreach (var l in events)
-                {
-                    if (l.AttendeeId == id)
-                    {
-                        l.EventStatus = 2;
-                    }
-                }
-            }
-            Context.SaveChanges();
+          
             return Ok(updatedUser);
         }
 

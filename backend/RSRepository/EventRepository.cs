@@ -44,6 +44,12 @@ namespace RSRepository
                          .ToList();
         }
 
+        public List<Event> GetEventsByUser(int attendeeId)
+        {
+            return events.Where(e => e.AttendeeId == attendeeId)
+                         .ToList();
+        }
+
         public List<Event> GetPastEventsByUser(DateTime date, int attendeeId, int roomId)
         {
             return events.Where(e => e.StartDate > date.AddDays(-30))       // Last 30 days

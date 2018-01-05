@@ -13,6 +13,8 @@ namespace RSRepository
 
         List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId);
 
+        List<Event> GetEventsByUser(int attendeeId);
+
         List<Event> GetPastEventsByUser(DateTime date, int attendeeId, int roomId);
 
         List<Event> GetFutureEvents(DateTime date, int attendeeId, int roomId);
