@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace RSService.Filters
 {
-    public class EditRoomValidation: AbstractValidator<EditRoomViewModel>
+    public class EditRoomValidator: AbstractValidator<EditRoomViewModel>
     {
         private IRSManager rsManager;
-        public EditRoomValidation(IRSManager rSManager)
+        public EditRoomValidator(IRSManager rSManager)
         {
             rsManager = rSManager;
 

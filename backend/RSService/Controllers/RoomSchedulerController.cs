@@ -23,7 +23,6 @@ namespace RSService.Controllers
         private IRoomRepository roomRepository;
         private IAvailabiltyRepository availabilityRepository;
         private IUserRepository userRepository;
-        private IAvailabiltyRepository availabiltyRepository;
         private IRSManager rsManager;
 
         public RoomSchedulerController(IRSManager rsManager)
@@ -182,7 +181,7 @@ namespace RSService.Controllers
             }
             else
             {
-                return ValidationError(GeneralMessages.Event);
+                return ValidationError(GeneralMessages.EventEdit);
             }
         }
 

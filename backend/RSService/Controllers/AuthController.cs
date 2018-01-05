@@ -22,11 +22,13 @@ namespace RSService.Controllers
     public class AuthController : BaseController
     {
         private IUserRepository _userRepository;
+        private IConfigVarRepository _configVarRepository;
         private ILogger<AuthController> _logger;
 
         public AuthController(ILogger<AuthController> logger)
         {
             _userRepository = new UserRepository(Context);
+            _configVarRepository = new ConfigVarRepository(Context);
             _logger = logger;
         }
 
@@ -63,7 +65,7 @@ namespace RSService.Controllers
                                           new AuthenticationProperties
                                           {
                                               IsPersistent = true,
-                                              ExpiresUtc = DateTime.UtcNow.AddMinutes(2)
+                                              ExpiresUtc = DateTime.UtcNow.AddMinutes(_configVarRepository.GetSessionTimeSpan())
                                           });
 
             // TODO: return DTO object

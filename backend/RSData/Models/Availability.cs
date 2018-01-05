@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace RoomScheduler.Models
+namespace RSData.Models
 {
     public partial class Availability : BaseEntity
     {

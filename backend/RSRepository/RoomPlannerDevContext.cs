@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using RSData.Models;
-using RoomScheduler.Models;
 
 namespace RSRepository
 {
@@ -11,6 +10,8 @@ namespace RSRepository
         public RoomPlannerDevContext(DbContextOptions<RoomPlannerDevContext> options)
     : base(options) {}
 
+        public virtual DbSet<Availability> Availability { get; set; }
+        public virtual DbSet<ConfigVar> ConfigVar { get; set; }
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<Penalty> Penalty { get; set; }
@@ -43,6 +44,12 @@ namespace RSRepository
                     .HasForeignKey(d => d.RoomId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Availability_Room");
+            });
+
+            modelBuilder.Entity<ConfigVar>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.SessionTimeSpan);
             });
 
             modelBuilder.Entity<Department>(entity =>

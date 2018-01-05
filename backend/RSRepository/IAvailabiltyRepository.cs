@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RoomScheduler.Models;
+using RSData.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
