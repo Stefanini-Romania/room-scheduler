@@ -259,3 +259,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/backend/RSService/Properties/PublishProfiles/FolderProfile1.pubxml
+/backend/RSService/Properties/PublishProfiles/FolderProfile2.pubxml
+/backend/RSService/Properties/PublishProfiles/FolderProfile3.pubxml
+/backend/RSService/Properties/PublishProfiles/FolderProfile4.pubxml
+/backend/RSService/Properties/PublishProfiles/FolderProfile5.pubxml
