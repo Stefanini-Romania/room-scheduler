@@ -1,6 +1,8 @@
 ﻿using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
+using RSRepository;
+using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +11,32 @@ using System.Threading.Tasks;
 
 namespace RSService.Controllers
 {
-    public class EmailController : Controller
+    public class EmailController : BaseController
     {
-        [HttpPost("api/email/send")]
-        public IActionResult Send()
+        private IUserRepository userRepository;
+
+        public EmailController()
         {
+            this.userRepository = new UserRepository(Context);            
+        }
+
+
+        [HttpPost("email/resetpass/{sendmail}")]
+        public IActionResult PassReset(string sendmail /*[FromBody]EditUserViewModel userView*/)
+        {
+           // var user = userRepository.GetUserByEmail(email);
+           // if (user == null)
+           // {
+           //     return NotFound();
+           // }
+
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Test Project", "roomchedulerStefanini@gmail.com"));
-            message.To.Add(new MailboxAddress("Scrum Meeting", "lgbogdan12@gmail.com"));
-            message.Subject = "Test email";
+            message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
+            message.To.Add(new MailboxAddress("Scrum Meeting", sendmail));
+            message.Subject = "Passowrd Reset";
             message.Body = new TextPart("plain")
             {
-                Text="Hello Room Scheduler"
+                Text="Sadly we can't do anything for you right now. "
             };
             using (var client = new SmtpClient())
             {
