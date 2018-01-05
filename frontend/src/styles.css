@@ -90,8 +90,13 @@ h3 {
     padding-top: 20px;
     padding-bottom: 50px;
     background-color: #F7F7F7;
+    /* background-color: white; */
     padding-left: 20px;
     padding-right: 20px;
+}
+
+.modal-content #user-cont, .modal-content #registerForm {
+    background-color: #fff;
 }
 
 label
@@ -421,6 +426,23 @@ label b{
     max-width: 33.333333%;
 }
 }
+
+@media (max-width: 500px){
+    .col-sm-12{
+        height:70%;
+    }
+
+    .scrollit {
+        overflow:scroll;
+        height:300px;
+        width:100%;
+    }
+}
+
+/* .scrollit {
+    overflow:scroll;
+    height:200px;
+} */
 
 /* .jqx-scheduler, .jqx-widget-content{
     font-family: 'daxfont', sans-serif;
