@@ -14,6 +14,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RSService.DTO;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace RSService.Controllers
 {
@@ -42,6 +44,7 @@ namespace RSService.Controllers
             var inactivUser = userRepository.GetUserByisInactiv();
             var userName = HttpContext.User.Identity.Name;
             var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
+            var currentAttendee = userRepository.GetUserByUsername(userName).Email;
 
             foreach (var a in inactivUser)
             {
@@ -76,6 +79,25 @@ namespace RSService.Controllers
             eventRepository.AddEvent(newEvent);
             Context.SaveChanges();
 
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
+            message.To.Add(new MailboxAddress("User", currentAttendee));
+            message.Subject = "You have an appoitment";
+            message.Body = new TextPart("plain")
+            {
+                Text = " You have a new appoitment on "+newEvent.StartDate.Day+"/"+newEvent.StartDate.Month+"/"+newEvent.StartDate.Year + " from: " +
+                newEvent.StartDate.TimeOfDay + " to " + newEvent.EndDate.TimeOfDay+". We hope you will have a good time!"
+            };
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
+
+                client.Send(message);
+
+                client.Disconnect(true);
+            }
+
             // TODO: return DTO object
             return Ok(new
             {
@@ -83,6 +105,7 @@ namespace RSService.Controllers
                 StartDate = newEvent.StartDate,
                 EndDate = newEvent.EndDate
             });
+         
         }
 
         [HttpGet("/event/listall")]

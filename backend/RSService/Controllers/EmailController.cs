@@ -26,13 +26,13 @@ namespace RSService.Controllers
         {           
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
+            message.From.Add(new MailboxAddress("RoomSchedulerStefanini-noreply", "roomchedulerStefanini@gmail.com"));
             message.To.Add(new MailboxAddress("User", sendmail));
             message.Subject = "Passowrd Reset";
-            message.Body = new TextPart("html")
+            message.Body = new TextPart("plain")
             {
                 Text = " Sadly, for the moment we can't help you but we work hard to improve our application." +
-                "If you didn't request a passowrd reset , please contact our team"                          
+                "If you didn't request a passowrd reset , just ignore this message. Have a good day"                          
 
             };
             using (var client = new SmtpClient())
