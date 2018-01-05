@@ -2,12 +2,12 @@
     <h6 class="modal-title">{{ title | translate }}</h6>
     <button type="button"(click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button>
 </div>
-      
+          
 <div class="container d-flex h-100">
-    <div class="row justify-content-center align-self-center mx-auto" >                  
+    <div class="row justify-content-center align-self-center mx-auto">                   
         <div id="registerForm" class="mx-auto">           
             <form  name="regForm" novalidate>
-                <div id="user-cont" >
+                <div id="user-cont">
                     <div class="text-center">
                         <img src="../../../assets/img/header-logo2.png"  id="logo-header" class="img-fluid">
                         <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
@@ -85,6 +85,7 @@
                         </div>
                     </div>
                     
+                    <!-- PASSWORD -->
                     <div class="row">
                         <div class="col">
                             <div class="required-field-block">
@@ -116,9 +117,10 @@
                         <div *ngFor="let errorMessage of errorMessages['Password']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
 
-                    <!-- REGISTER BUTTONS -->
+                    <!--BUTTONS -->                      
                     <div class="row" >
                         <!-- <ngb-alert type="danger" *ngIf="submitted=false" [dismissible]="false" >{{ 'Error.User.Creation' | translate }}</ngb-alert> -->
+                        <!-- DEPARTMENT -->
                         <div class="col-md-4">
                             <div class="btn-group" ngbRadioGroup>
                                 <label ngbButtonLabel class="btn btn-primary">
@@ -130,6 +132,7 @@
                             </div>
                         </div>
 
+                        <!-- ACTIVE/INACTIVE -->
                         <div class="col">
                             <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
                                 <label ngbButtonLabel class="btn btn-primary" (click)="activateUser(user)">
@@ -140,17 +143,9 @@
                                 </label>                      
                             </div>
                         </div>
-                                            
-                        <!-- <div ngbDropdown class="d-inline-block" *ngIf="model.id"> 
-                            <button class="btn btn-primary btn-sm" ngbDropdownToggle>{{'role' | translate}}</button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                <button class="dropdown-item" name="attendee" (click)="onAttendeeChange('Attendee')">Attendee</button>
-                                <button class="dropdown-item" name="host" (click)="onHostChange('Host')">Host</button>
-                                <button class="dropdown-item" name="admin" (click)="onAdminChange('Admin')">Admin</button>
-                            </div>
-                        </div>   -->
 
-                        <!-- <div class="col">
+                        <!-- ROLES -->
+                        <div class="col">
                             <div ngbDropdown class="d-inline-block pull-right" *ngIf="model.id">
                                 <button class="btn btn-primary" ngbDropdownToggle>{{'role' | translate}}</button>
                                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -159,21 +154,23 @@
                                     </button>
                                 </div>
                             </div> 
-                        </div> -->
-                        <div class="col">        
-                            <button type="submit" class="btn btn-primary pull-right" *ngIf="model.id" (click)="editUser()">
-                                {{ 'user.save' | translate }}
-                            </button>                    
                         </div>
                 
+                        <!-- REGISTER -->
                         <div class="col">
                             <button type="submit" class="btn btn-primary pull-right" *ngIf="!model.id" (click)="register()">
                                 {{ 'register.button' | translate }} 
                                 <!-- <i class="fa fa-lock"></i> -->
                             </button>
-                        </div>                                              
+                        </div>
+                                                
                     </div>               
-
+                    <hr class="my-1" *ngIf="model.id">
+                    <div class="clearfix pull-right">           
+                        <button type="submit" class="btn btn-primary " *ngIf="model.id" (click)="editUser()">
+                            {{ 'user.save' | translate }}
+                        </button>                    
+                    </div>                        
                     <p *ngIf="!(isLoggedIn) && !model.id">                         
                         {{ 'login.alreadyHaveAccount' | translate }}
                         <a routerLink="/login">{{ 'login.button' | translate }}</a>.

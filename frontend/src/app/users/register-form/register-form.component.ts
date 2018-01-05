@@ -5,6 +5,7 @@ import {ToastrService} from 'ngx-toastr';
 import {TranslateService} from "@ngx-translate/core";
 import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
+
 import {environment} from './../../../environments/environment';
 import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
 import {User} from '../../shared/models/user.model';
@@ -27,11 +28,10 @@ export class RegisterFormComponent {
     successfullAddUser = new EventEmitter;
     successfullEditUser = new EventEmitter;
 
-    //refreshUsers  
+      
     public title: string;    
     public confirmPassword;
     public submitted;
-   // public modell: RoleEnum = <RoleEnum>{};
     public model: User = <User>{
         departmentId: DepartmentIdEnum.ADC,
         userRole: [RoleEnum.attendee]
@@ -42,6 +42,7 @@ export class RegisterFormComponent {
     currentUser: User = undefined;
     DepartmentIdEnum: DepartmentIdEnum[] = [];
     RoleIdEnums = RoleEnum;
+    RoleEnum : typeof RoleEnum = RoleEnum;
 
     constructor(private authService: AuthService, 
                 private router: Router, 
@@ -62,33 +63,27 @@ export class RegisterFormComponent {
         return this.currentUser && this.authService.isLoggedIn();
     }
 
-    // roleKeys() : Array<string> {
-    //     let keys = Object.keys(this.RoleIdEnums);
-    //     return keys.slice(keys.length / 2) ;
-    // }
+    roleKeys() : Array<string> {
+        let keys = Object.keys(this.RoleIdEnums);
+        return keys.slice(keys.length / 2);
+    }
+   
 
-    // onRoleChange (userRoleName) { //not finished
-    //     let userRoleId = RoleEnum[userRoleName];
-    //     let userRole = [];  
-    //     userRole[userRoleId] = userRoleName;
-    //     this.model.userRole = userRole[userRoleId];
-    //     console.log(this.model.userRole);
-    //     this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, userRole, this.model.isActive, this.model.password)
-    // }
-
-    // onSelectRole(RoleIdEnums: RoleEnum) {
-    //     //this.selectedRole = RoleIdEnums;
-    //     var userRoleId = RoleEnum[RoleIdEnums];
-    //     //this.model.userRole = [RoleIdEnums];
-    //     this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, [RoleIdEnums], this.model.isActive, this.model.password);
-    // }   
-
-    // onHostChange (userRoleName) {
-    //     var userRoleId = RoleEnum[userRoleName];
-    //     this.model.userRole = [RoleEnum.host]; 
-    //     //this.model.userRole = [userRoleName];
-    //     console.log(this.model.userRole);
-    // }
+    onRoleChange (userRoleId) {   
+        // let userRoleId = RoleEnum[userRoleName];
+        // let userRole = [];
+        // userRole[userRoleId] = userRoleName;
+        // this.model.userRole = userRole;      
+        let userRole=RoleEnum[userRoleId];
+        let roles =[];
+        roles = [userRole];
+        this.model.userRole = roles;
+        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRole, this.model.isActive, this.model.password).subscribe(
+            () => {}, 
+            error => {
+                this.errorMessages = error.error.message;
+            });
+    }
 
     register() {
         this.userService.createUser(this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.password, this.model.departmentId, this.model.userRole)
