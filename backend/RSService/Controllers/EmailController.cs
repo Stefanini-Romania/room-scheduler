@@ -23,15 +23,17 @@ namespace RSService.Controllers
 
         [HttpPost("email/resetpass/{sendmail}")]
         public IActionResult PassReset(string sendmail)
-        {    
+        {           
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
             message.To.Add(new MailboxAddress("User", sendmail));
             message.Subject = "Passowrd Reset";
-            message.Body = new TextPart("plain")
+            message.Body = new TextPart("html")
             {
-                Text="Sadly we can't do anything for you right now. "
+                Text = " Sadly, for the moment we can't help you but we work hard to improve our application." +
+                "If you didn't request a passowrd reset , please contact our team"                          
+
             };
             using (var client = new SmtpClient())
             {
