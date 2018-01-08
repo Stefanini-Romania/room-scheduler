@@ -65,7 +65,7 @@ namespace RSService.Controllers
                                           new AuthenticationProperties
                                           {
                                               IsPersistent = true,
-                                              ExpiresUtc = DateTime.UtcNow.AddMinutes(40) //_configVarRepository.GetSessionTimeSpan())
+                                              ExpiresUtc = DateTime.UtcNow.AddMinutes(_configVarRepository.GetSessionTimeSpan().Value)
                                           });
 
             // TODO: return DTO object
@@ -107,9 +107,8 @@ namespace RSService.Controllers
                 return ValidationError(GeneralMessages.ConfigVar);
             }
 
-            var configVariables = _configVarRepository.GetConfigVariables();
-
-            configVariables.SessionTimeSpan = value;
+            var sessionTimeSpan = _configVarRepository.GetSessionTimeSpan();
+            sessionTimeSpan.Value = value;
 
             Context.SaveChanges();
 

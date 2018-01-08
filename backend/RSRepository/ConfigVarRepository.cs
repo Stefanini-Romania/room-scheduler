@@ -18,14 +18,10 @@ namespace RSRepository
             configVar = context.Set<ConfigVar>();
         }
 
-        public int GetSessionTimeSpan()
+        public ConfigVar GetSessionTimeSpan()
         {
-            return configVar.First().SessionTimeSpan;   
+            return configVar.FirstOrDefault(v => v.VarName == "SessionTimeSpan");
         }
 
-        public ConfigVar GetConfigVariables()
-        {
-            return configVar.First();
-        }
     }
 }

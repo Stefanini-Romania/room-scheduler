@@ -7,7 +7,6 @@ namespace RSRepository
 {
     public interface IConfigVarRepository
     {
-        int GetSessionTimeSpan();
-        ConfigVar GetConfigVariables();
+        ConfigVar GetSessionTimeSpan();
     }
 }
