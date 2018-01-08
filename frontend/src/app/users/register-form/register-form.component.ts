@@ -5,7 +5,6 @@ import {ToastrService} from 'ngx-toastr';
 import {TranslateService} from "@ngx-translate/core";
 import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
-
 import {environment} from './../../../environments/environment';
 import {DepartmentIdEnum} from './../../shared/models/departmentIdEnum.model';
 import {User} from '../../shared/models/user.model';
@@ -42,7 +41,7 @@ export class RegisterFormComponent {
     currentUser: User = undefined;
     DepartmentIdEnum: DepartmentIdEnum[] = [];
     RoleIdEnums = RoleEnum;
-    RoleEnum : typeof RoleEnum = RoleEnum;
+    RoleEnum: typeof RoleEnum = RoleEnum;
     
 
     constructor(private authService: AuthService, 
@@ -115,8 +114,12 @@ export class RegisterFormComponent {
             });
     }
 
-    editUser(){
-        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRole, this.model.isActive, this.model.password)
+    editUser(userRoleId){
+        let userRole = RoleEnum[userRoleId];
+        let roles = [];
+        roles = [userRole];
+        this.model.userRole = roles;
+        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, userRoleId, this.model.isActive, this.model.password)
         .subscribe(
             () => {
                 this.successfullEditUser.emit();
