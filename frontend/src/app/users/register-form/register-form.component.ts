@@ -43,6 +43,7 @@ export class RegisterFormComponent {
     DepartmentIdEnum: DepartmentIdEnum[] = [];
     RoleIdEnums = RoleEnum;
     RoleEnum : typeof RoleEnum = RoleEnum;
+    
 
     constructor(private authService: AuthService, 
                 private router: Router, 
@@ -68,12 +69,7 @@ export class RegisterFormComponent {
         return keys.slice(keys.length / 2);
     }
    
-
-    onRoleChange (userRoleId) {   
-        // let userRoleId = RoleEnum[userRoleName];
-        // let userRole = [];
-        // userRole[userRoleId] = userRoleName;
-        // this.model.userRole = userRole;      
+    onRoleChange (userRoleId) {
         let userRole=RoleEnum[userRoleId];
         let roles =[];
         roles = [userRole];
@@ -132,18 +128,17 @@ export class RegisterFormComponent {
             error => {
                 this.errorMessages = {'generic': [error.error.message]};
                 for (let e of error.error.errors) {
-                    let field = 'generic';
-                    
+                    let field = 'generic';                  
                     if (['Name', 'Email'].indexOf(e.field) >= 0) {
                         field = e.field;
                     }
-
                     if (!this.errorMessages[field]) {
                         this.errorMessages[field] = [];
                     } 
                     this.errorMessages[field].push(e.errorCode);
                 }
-            });       
+            });     
+           
     } 
     
     deactivateUser(User) {
@@ -154,8 +149,7 @@ export class RegisterFormComponent {
                 this.toastr.warning(
                     this.translate.instant("user.deactivated"), '',
                     {positionClass: 'toast-bottom-right'}
-                );                
-                //this.refreshUsers();                      
+                );                               
             }, 
             error => {
                 this.errorMessages = error.error.message;

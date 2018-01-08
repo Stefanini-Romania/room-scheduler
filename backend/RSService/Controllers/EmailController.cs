@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using RSRepository;
+using RSService.DTO;
+using RSService.Validation;
 using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -50,6 +53,47 @@ namespace RSService.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPut("/user/resetPass/{email}")]
+        public IActionResult ResetPassowrd(string email, [FromBody]ResetPassowrdViewModel userView)
+        {
+            var user = userRepository.GetUserByEmail(email);
+
+            if (!ModelState.IsValid)
+            {
+                return ValidationError(GeneralMessages.User);
+            }
+        
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            //var modifiedUser = Mapper.Map<User>(userView);
+
+            user.Password = userView.Password;          
+
+                if (userView.Password != null)
+                {
+                    var sha1 = System.Security.Cryptography.SHA1.Create();
+                    var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(userView.Password));
+                    user.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
+                }
+
+                Context.SaveChanges();
+
+                var updatedUser = new ResetPassDTO()
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Password = user.Password
+
+
+                };
+            
+
+            return Ok(updatedUser);
         }
     }
 }
