@@ -63,6 +63,7 @@ export class AdminUsersTab implements AfterViewInit{
         modalRef.componentInstance.model = model;  
         modalRef.componentInstance.successfullEditUser.subscribe(() => {
             modalRef.close();     
+            this.refreshUsers();
         });
     }
 
