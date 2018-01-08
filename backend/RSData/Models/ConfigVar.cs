@@ -5,7 +5,8 @@ namespace RSData.Models
 {
     public partial class ConfigVar
     {
-        public int Id { get; set; }
-        public int SessionTimeSpan { get; set; }
+        public int VarId { get; set; }
+        public string VarName { get; set; }
+        public int Value { get; set; }
     }
 }

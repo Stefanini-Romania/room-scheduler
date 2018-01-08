@@ -48,8 +48,14 @@ namespace RSRepository
 
             modelBuilder.Entity<ConfigVar>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.SessionTimeSpan);
+                entity.HasKey(e => e.VarId);
+
+                entity.Property(e => e.VarId).ValueGeneratedNever();
+
+                entity.Property(e => e.VarName)
+                    .IsRequired()
+                    .HasMaxLength(50).HasColumnName("VarName");
+                entity.Property(e => e.Value).HasColumnName("Value");
             });
 
             modelBuilder.Entity<Department>(entity =>

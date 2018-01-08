@@ -217,40 +217,45 @@ namespace RSService.Controllers
                 }
             }
 
-            for (int i = 1; i <= 3; i++){
-
-                // If user has role i
-                if (userRoleRepository.GetUserRoleByUserAndRole(id, i) != null)
+            if(userView.UserRole != null)
+            {
+                for (int i = 1; i <= 3; i++)
                 {
-                    int hasRole = 0;
 
-                    // Verify if user still have this role in View
-                    foreach(var roleId in userView.UserRole)
+                    // If user has role i
+                    if (userRoleRepository.GetUserRoleByUserAndRole(id, i) != null)
                     {
-                        if (roleId == i) hasRole = 1;
-                    }
+                        int hasRole = 0;
 
-                    //If not, remove userrole
-                    if (hasRole == 0)
-                    {
-                        userRoleRepository.RemoveUserRole(id, i);
-                    }
-                }
-                else  //If user doesn't have role i
-                {
-                    // Verify if user have this role in View. If so, add new userrole
-                    foreach (var roleId in userView.UserRole)
-                    {
-                        if (roleId == i)
+                        // Verify if user still have this role in View
+                        foreach (var roleId in userView.UserRole)
                         {
-                            userRoleRepository.AddUserRole(new UserRole()
+                            if (roleId == i) hasRole = 1;
+                        }
+
+                        //If not, remove userrole
+                        if (hasRole == 0)
+                        {
+                            userRoleRepository.RemoveUserRole(id, i);
+                        }
+                    }
+                    else  //If user doesn't have role i
+                    {
+                        // Verify if user have this role in View. If so, add new userrole
+                        foreach (var roleId in userView.UserRole)
+                        {
+                            if (roleId == i)
                             {
-                                UserId = user.Id,
-                                RoleId = roleId
-                            });
+                                userRoleRepository.AddUserRole(new UserRole()
+                                {
+                                    UserId = user.Id,
+                                    RoleId = roleId
+                                });
+                            }
                         }
                     }
                 }
+
             }
 
             if (userView.Password != null)
