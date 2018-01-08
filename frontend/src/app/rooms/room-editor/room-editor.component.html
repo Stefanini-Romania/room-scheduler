@@ -14,7 +14,7 @@
                         <label class="col-md-4" *ngIf="model.id"><b>{{ 'name' | translate }}</b></label>             
                         <div class="col"> 
                             <div class="required-field-block">                          
-                                <input type="text" placeholder="{{ 'rooms.name' | translate }}" name="Name" [(ngModel)]="model.name" #Name="ngModel" maxlength="20">
+                                <input type="text" placeholder="{{ 'rooms.name' | translate }}" name="Name" [(ngModel)]="modelForm.name" #Name="ngModel" maxlength="20">
                                 <div class="required-icon">
                                     <div class="text">*</div>
                                 </div>
@@ -31,7 +31,7 @@
                         <label class="col-md-4" *ngIf="model.id"><b>{{ 'location' | translate }}</b></label>
                         <div class="col">
                             <div class="required-field-block">
-                                <input type="text" placeholder="{{ 'rooms.location' | translate }}" name="Location" [(ngModel)]="model.location" #Location="ngModel" maxlength="25">
+                                <input type="text" placeholder="{{ 'rooms.location' | translate }}" name="Location" [(ngModel)]="modelForm.location" #Location="ngModel" maxlength="25">
                                 <div class="required-icon">
                                     <div class="text">*</div>
                                 </div>

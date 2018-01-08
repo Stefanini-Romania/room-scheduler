@@ -25,6 +25,7 @@ export class RoomEditorComponent {
     successfullEditRoom = new EventEmitter;
 
     public model: Room = <Room> {};
+    public modelForm: Room = <Room> {};
     public title: string;
     public errorMessage: any ={};
     public selectedRoom: Room;
@@ -36,6 +37,10 @@ export class RoomEditorComponent {
     
     ngOnInit() {
         this.title = this.model.id ? 'rooms.editRoom': 'rooms.add';
+        this.modelForm.id = this.model.id;
+        this.modelForm.name = this.model.name;
+        this.modelForm.location = this.model.location;
+        this.modelForm.isActive = this.model.isActive;
     }
 
     addRooms() {
@@ -65,8 +70,9 @@ export class RoomEditorComponent {
     }
     
     editRooms() {
-        this.roomService.editRoom(this.model.id, this.model.name, this.model.location, this.model.isActive).subscribe(
+        this.roomService.editRoom(this.modelForm.id, this.modelForm.name, this.modelForm.location, this.modelForm.isActive).subscribe(
             () => {
+                this.model = this.modelForm;
                 this.successfullEditRoom.emit();
                 this.toastr.success(
                     this.translate.instant('rooms.saved'), '',

@@ -60,27 +60,10 @@ export class AdminUsersTab implements AfterViewInit{
 
     onSelectUser(model: User) {
         const modalRef:NgbModalRef = this.modalService.open(RegisterFormComponent);    
-        modalRef.componentInstance.model = model;  
+        modalRef.componentInstance.model = model; 
         modalRef.componentInstance.successfullEditUser.subscribe(() => {
             modalRef.close();     
             this.refreshUsers();
-        });
+        });   
     }
-
-    onActivateUser(model: User) {
-        model.isActive = true;
-        this.userService.editUser(model.id, model.firstName, model.lastName, model.name, model.email, model.departmentId, model.userRole, model.isActive, model.password)
-        .subscribe(
-            () => {   
-                this.toastr.success(
-                    this.translate.instant("user.active"), '',
-                    {positionClass: 'toast-bottom-right'}
-                );                
-                this.refreshUsers();                      
-            }, 
-            error => {
-                this.errorMessage = error.error.message;
-            });
-    } 
-
 }

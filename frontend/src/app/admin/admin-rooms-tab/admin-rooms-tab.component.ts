@@ -44,7 +44,8 @@ export class AdminRoomsTab implements AfterViewInit{
         const modalRef:NgbModalRef = this.modalService.open(RoomEditorComponent);   
         modalRef.componentInstance.model = model;  
         modalRef.componentInstance.successfullEditRoom.subscribe(() => {
-            modalRef.close();     
+            modalRef.close(); 
+            this.refreshRooms();    
         });       
     }
 
