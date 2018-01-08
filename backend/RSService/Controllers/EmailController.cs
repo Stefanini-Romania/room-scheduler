@@ -56,7 +56,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/user/resetPass/{email}")]
-        public IActionResult ResetPassowrd(string email, [FromBody]ResetPassowrdViewModel userView)
+        public IActionResult ResetPassowrd(string email, [FromBody]ResetPasswordViewModel userView)
         {
             var user = userRepository.GetUserByEmail(email);
 
