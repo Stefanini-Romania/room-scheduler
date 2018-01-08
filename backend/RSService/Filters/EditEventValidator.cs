@@ -12,16 +12,11 @@ namespace RSService.Filters
         public EditEventValidator()
         {
 
-            // ---------------------------AttendeeId---------------------------
-            //RuleFor(m => m.AttendeeId)
-            //    .Must(CanCancel).WithMessage(x => Validation.EventMessages.CancellationOwnBooking).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
-
-            //// ---------------------------RoomId---------------------------
-            //RuleFor(m => m.RoomId)
-            //    .Must(IsNotPenalized).WithMessage(x => Validation.EventMessages.Penalized);
+           // //---------------------------AttendeeId-------------------------- -
+           //RuleFor(m => m.AttendeeId)
+           //    .Must(CanCancel).WithMessage(x => Validation.EventMessages.CancellationRight).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
 
         }
-
 
 
     }

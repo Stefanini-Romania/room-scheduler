@@ -134,11 +134,6 @@ namespace RSService.BusinessLogic
             else return 60;
         }
 
-        public bool CanCancel(DateTime startDate, DateTime endDate, int roomId, int attendee)
-        {
-            var eventToCancel = eventRepository.GetEventForEdit(startDate, endDate, roomId, attendee);
-            return eventToCancel.Count() != 0;
-        }
 
         public bool CheckAvailability(DateTime startDate, DateTime endDate, int roomId)
         {

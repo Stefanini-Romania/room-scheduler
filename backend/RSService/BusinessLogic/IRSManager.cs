@@ -16,8 +16,6 @@ namespace RSService.BusinessLogic
 
         int GetAvailableTime(int attendeeId, DateTime startDate);
 
-        bool CanCancel(DateTime startDate, DateTime endDate, int roomId, int attendee);
-
         bool CheckAvailability(DateTime startDate, DateTime endDate, int roomId);
 
         void CheckPenalty(DateTime startDate, int eventId, int attendeeId, int roomId);

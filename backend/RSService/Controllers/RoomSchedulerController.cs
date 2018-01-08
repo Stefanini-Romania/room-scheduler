@@ -41,11 +41,12 @@ namespace RSService.Controllers
         [Authorize]
         public IActionResult AddEvent([FromBody]EventViewModel model)
         {
-            var inactivUser = userRepository.GetUserByisInactiv();
+
             var userName = HttpContext.User.Identity.Name;
             var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
             var currentAttendee = userRepository.GetUserByUsername(userName).Email;
 
+            var inactivUser = userRepository.GetUserByisInactiv();
             foreach (var a in inactivUser)
             {
                 if (a.Id == currentAttendeeId)
@@ -184,6 +185,11 @@ namespace RSService.Controllers
                 if (_event == null)
                 {
                     return NotFound();
+                }
+
+                if (currentAttendeeId != _event.AttendeeId || currentAttendeeId != _event.HostId)
+                {
+                    return ValidationError(EventMessages.CancellationRight);
                 }
 
                 _event.Notes = _model.Notes;
