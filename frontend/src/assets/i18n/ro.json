@@ -30,7 +30,7 @@
       "password": "Parola",
       "email": "Email",
       "confirmPassword": "Confirmă parola",
-      "button": "Creați-vă cont",
+      "button": "Adaugă cont",
 
       "noAccount?": "Nu aveți un cont ?"
   },
@@ -66,7 +66,8 @@
       "delete": "Șterge",
       "deactivated": "Camera a fost dezactivată",
       "activated": "Camera a fost activată",
-      "isActive": "Activ"
+      "isActive": "Activ",
+      "isNotActive": "Inactiv"
   },
 
   "name": "Nume",
@@ -154,7 +155,7 @@
     "firstName": "Prenume",
     "lastName": "Nume",
     "userRole": "Rolul de user",
-    "edit": "Editare",
+    "edit": "Editare utilizator",
     "save": "Salvează",
     "saved": "Utilizatorul a fost salvat",
     "delete": "Șterge utilizatorul",
@@ -179,7 +180,9 @@
       "Event.Authentication": "Date greșite. Vă rugăm să încercați din nou",
       "Event.Creation": "Evenimentul nu a putut fi creat",
       "Event.Edit": "Evenimentul nu a putut fi modificat",
-      "User.Creation": "Eroare creare cont"
+      "User.Creation": "Eroare creare cont",
+      "User.Edit": "Utilizatorul nu a putut fi modificat",
+      "Room.Edit": "Camera nu a putut fi modificată"
   },
 
   

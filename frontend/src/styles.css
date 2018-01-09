@@ -411,7 +411,7 @@ footer a {
 }
 
 label b{
-    color: #004e9e;
+    color: #004e9e;  
 }
 
 #calendardate{
@@ -437,6 +437,10 @@ label b{
         height:300px;
         width:100%;
     }
+}
+
+.table td, .table th {
+    vertical-align: middle !important;
 }
 
 /* .scrollit {
