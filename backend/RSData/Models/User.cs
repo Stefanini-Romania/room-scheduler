@@ -23,6 +23,8 @@ namespace RSData.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool? IsActive { get; set; }
+        public int? ResetPassCode { get; set; }
+        public DateTime DateExpire { get; set; }
 
         public Department Department { get; set; }
         public ICollection<Availability> Availability { get; set; }

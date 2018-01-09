@@ -41,11 +41,6 @@ namespace RSService.Filters
                 RuleFor(x => x.StartDate).Must(TwoMonths).WithMessage(x => Validation.EventMessages.StartDateFuture);
 
                 RuleFor(x => x.StartDate).Must(HourAvailable).WithMessage(x => Validation.EventMessages.NotAvailable);    
-
-
-
-
-
             });
 
             // ---------------------------EndDate---------------------------
@@ -61,13 +56,12 @@ namespace RSService.Filters
                 RuleFor(m => m.EndDate).Must(GoodTime).WithMessage(x => Validation.EventMessages.EndDateSpecific);
             });
 
-            // ---------------------------AttendeeId---------------------------
-            RuleFor(m => m.AttendeeId)
-                .Must(CanCancel).WithMessage(x => Validation.EventMessages.CancellationOwnBooking).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
-
             // ---------------------------RoomId---------------------------
             RuleFor(m => m.RoomId)
                 .Must(IsNotPenalized).WithMessage(x => Validation.EventMessages.Penalized);
+
+            // ---------------------------EventStatus---------------------------
+            RuleFor(m => m.EventStatus).Equal((int)EventStatusEnum.waiting).WithMessage(x => Validation.EventMessages.InvalidEventStatus);
         }
 
 
@@ -78,11 +72,6 @@ namespace RSService.Filters
             int availableTimeSpan = rsManager.GetAvailableTime(ev.AttendeeId, (DateTime)ev.StartDate);
 
             return eventTimeSpan <= availableTimeSpan;
-        }
-
-        private bool CanCancel (EventViewModel ev, int attendee)
-        {
-            return rsManager.CanCancel((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId, attendee);
         }
 
         private bool TimeSpanOfEvent(EventViewModel ev, DateTime? d)

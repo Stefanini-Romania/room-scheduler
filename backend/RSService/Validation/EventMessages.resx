@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CancellationOwnBooking" xml:space="preserve">
+  <data name="CancellationRight" xml:space="preserve">
     <value>Event.AttendeeId.CancelSomeoneElseBooking</value>
   </data>
   <data name="CancellationTimeSpanLess" xml:space="preserve">
@@ -140,6 +140,9 @@
   </data>
   <data name="InactiveUser" xml:space="preserve">
     <value>Event.UserIsInactiv</value>
+  </data>
+  <data name="InvalidEventStatus" xml:space="preserve">
+    <value>Event.EventStatus.NotWaiting</value>
   </data>
   <data name="InvalidTimeSpan" xml:space="preserve">
     <value>Event.EndDate.TimeSpan</value>

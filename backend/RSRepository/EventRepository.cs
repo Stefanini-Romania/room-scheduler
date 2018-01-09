@@ -83,13 +83,6 @@ namespace RSRepository
                          .ToList();
         }
 
-        public List<Event> GetEventForEdit(DateTime startDate, DateTime endDate, int roomId, int attendee)
-        {
-            return events.Where(e => e.StartDate == startDate).Where(e => e.EndDate == endDate)
-                         .Where(e => e.RoomId == roomId).Where(e => e.AttendeeId == attendee)
-                         .ToList();
-        }
-
         public Event GetEventById(int id)
         {
             return events.FirstOrDefault(e => e.Id == id);
