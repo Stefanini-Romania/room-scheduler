@@ -56,7 +56,7 @@ namespace RSRepository
             return returnvar;
         }
 
-        public User GetUserById(long id)
+        public User GetUserById(int id)
         {
             return users.Include(u => u.UserRole).FirstOrDefault(s => s.Id == id);
         }

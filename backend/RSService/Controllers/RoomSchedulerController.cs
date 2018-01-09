@@ -41,10 +41,10 @@ namespace RSService.Controllers
         [Authorize]
         public IActionResult AddEvent([FromBody]EventViewModel model)
         {
+            var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
+            var currentAttendeeId = schedulerIdentity.UserId;
 
-            var userName = HttpContext.User.Identity.Name;
-            var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
-            var currentAttendeeEmail = userRepository.GetUserByUsername(userName).Email;
+            var currentAttendeeEmail = userRepository.GetUserById(currentAttendeeId).Email;
 
             var inactivUser = userRepository.GetUserByisInactiv();
             foreach (var a in inactivUser)
@@ -173,8 +173,9 @@ namespace RSService.Controllers
         [Authorize]
         public IActionResult UpdateEvent(int id, [FromBody] EditEventViewModel model)
         {
-            var userName = HttpContext.User.Identity.Name;
-            var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
+
+            var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
+            var currentAttendeeId = schedulerIdentity.UserId;
 
             if (ModelState.IsValid)
             {
