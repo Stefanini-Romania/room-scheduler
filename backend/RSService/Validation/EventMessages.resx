@@ -144,9 +144,6 @@
   <data name="InvalidEventStatus" xml:space="preserve">
     <value>Event.EventStatus.NotWaiting</value>
   </data>
-  <data name="InvalidEventType" xml:space="preserve">
-    <value>Event.EventType.NotMassage</value>
-  </data>
   <data name="InvalidTimeSpan" xml:space="preserve">
     <value>Event.EndDate.TimeSpan</value>
   </data>

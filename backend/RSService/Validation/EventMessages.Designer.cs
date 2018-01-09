@@ -142,15 +142,6 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Event.EventType.NotMassage.
-        /// </summary>
-        internal static string InvalidEventType {
-            get {
-                return ResourceManager.GetString("InvalidEventType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.TimeSpan.
         /// </summary>
         internal static string InvalidTimeSpan {

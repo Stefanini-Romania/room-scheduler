@@ -62,9 +62,6 @@ namespace RSService.Filters
 
             // ---------------------------EventStatus---------------------------
             RuleFor(m => m.EventStatus).Equal((int)EventStatusEnum.waiting).WithMessage(x => Validation.EventMessages.InvalidEventStatus);
-
-            // ---------------------------EventType---------------------------
-            RuleFor(m => m.EventType).Equal((int)EventTypeEnum.massage).WithMessage(x => Validation.EventMessages.InvalidEventType);
         }
 
 
