@@ -185,7 +185,7 @@ namespace RSService.Controllers
 
             if (!ModelState.IsValid)
             {
-                return ValidationError(GeneralMessages.User);
+                return ValidationError(GeneralMessages.UserEdit);
             }
 
             var user = userRepository.GetUserById(id);

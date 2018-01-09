@@ -132,7 +132,13 @@
   <data name="Room" xml:space="preserve">
     <value>Error.Room.Creation</value>
   </data>
+  <data name="RoomEdit" xml:space="preserve">
+    <value>Error.Room.Edit</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>Error.User.Creation</value>
+  </data>
+  <data name="UserEdit" xml:space="preserve">
+    <value>Error.User.Edit</value>
   </data>
 </root>

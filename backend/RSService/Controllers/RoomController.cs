@@ -98,7 +98,7 @@ namespace RSService.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return ValidationError(GeneralMessages.Room);
+                return ValidationError(GeneralMessages.RoomEdit);
             }
             else
             {
