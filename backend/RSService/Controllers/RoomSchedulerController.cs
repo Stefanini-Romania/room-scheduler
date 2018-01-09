@@ -44,7 +44,7 @@ namespace RSService.Controllers
 
             var userName = HttpContext.User.Identity.Name;
             var currentAttendeeId = userRepository.GetUserByUsername(userName).Id;
-            var currentAttendee = userRepository.GetUserByUsername(userName).Email;
+            var currentAttendeeEmail = userRepository.GetUserByUsername(userName).Email;
 
             var inactivUser = userRepository.GetUserByisInactiv();
             foreach (var a in inactivUser)
@@ -82,7 +82,7 @@ namespace RSService.Controllers
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
-            message.To.Add(new MailboxAddress("User", currentAttendee));
+            message.To.Add(new MailboxAddress("User", currentAttendeeEmail));
             message.Subject = "You have an appoitment";
             message.Body = new TextPart("plain")
             {

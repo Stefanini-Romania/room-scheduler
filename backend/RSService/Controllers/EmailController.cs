@@ -55,43 +55,47 @@ namespace RSService.Controllers
             return Ok();
         }
 
-        [HttpPut("/user/resetPass/{email}")]
+        //[HttpPut("/user/resetPass/{email}")]
         public IActionResult ResetPassowrd(string email, [FromBody]ResetPasswordViewModel userView)
         {
-            var user = userRepository.GetUserByEmail(email);
+
 
             if (!ModelState.IsValid)
             {
                 return ValidationError(GeneralMessages.User);
             }
-        
+
+            var user = userRepository.GetUserByEmail(email);
+
             if (user == null)
             {
                 return NotFound();
             }
 
+
+
             //var modifiedUser = Mapper.Map<User>(userView);
 
-            user.Password = userView.Password;          
+            user.Password = userView.Password;
 
-                if (userView.Password != null)
-                {
-                    var sha1 = System.Security.Cryptography.SHA1.Create();
-                    var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(userView.Password));
-                    user.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
-                }
+            if (userView.Password != null)
+            {
+                var sha1 = System.Security.Cryptography.SHA1.Create();
+                var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(userView.Password));
+                user.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
+            }
 
-                Context.SaveChanges();
+            Context.SaveChanges();
 
-                var updatedUser = new ResetPassDTO()
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    Password = user.Password
+            var updatedUser = new ResetPassDTO()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Password = user.Password
 
 
-                };
-            
+            };
+
 
             return Ok(updatedUser);
         }
