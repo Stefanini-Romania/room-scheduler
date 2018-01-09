@@ -214,6 +214,12 @@ namespace RSRepository
                     .HasForeignKey(d => d.DepartmentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_User_Department");
+
+                entity.Property(e => e.DateExpire)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.ResetPassCode).HasColumnName("ResetPassCode");
             });
 
             modelBuilder.Entity<UserRole>(entity =>
