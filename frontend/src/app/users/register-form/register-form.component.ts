@@ -153,6 +153,14 @@ export class RegisterFormComponent {
     activateUser(User) {
         this.modelForm.isActive = true;
     }
+
+    adcDepartment(User){
+        this.modelForm.departmentId = 1;
+    }
+
+    sdcDepartment(User){
+        this.modelForm.departmentId = 2;
+    }
 }
     
 

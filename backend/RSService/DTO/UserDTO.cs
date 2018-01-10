@@ -7,7 +7,7 @@ namespace RSService.DTO
 {
     public class UserDto
     {
-        public int Id { get; set; }
+
         public string Name { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -15,5 +15,7 @@ namespace RSService.DTO
         public int? DepartmentId { get; set; }
         public List<int> UserRole { get; set; }
         public bool? IsActive { get; set; }
+        public int? ResetPassCode { get; set; }
+        public DateTime DateExpire { get; set; }
     }
 }

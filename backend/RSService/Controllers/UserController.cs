@@ -46,7 +46,7 @@ namespace RSService.Controllers
             {
                 final_result.Add(new UserDto()
                 {
-                    Id = it.Id,
+                    
                     Name = it.Name,
                     FirstName = it.FirstName,
                     LastName = it.LastName,
@@ -82,8 +82,12 @@ namespace RSService.Controllers
                 Password = newUser.Password,
                 Email = newUser.Email,
                 DepartmentId = newUser.DepartmentId,
-                IsActive = true
+                IsActive = true,
+                DateExpire=DateTime.UtcNow
+            
             };
+
+            user.ResetPassCode = user.Id * 100 + 257;
 
             userRepository.AddUser(user);
    
@@ -107,6 +111,8 @@ namespace RSService.Controllers
                 UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
                 DepartmentId = user.DepartmentId,
                 IsActive = user.IsActive
+
+               
             };
             return Ok(addedUser);
         }
@@ -123,7 +129,9 @@ namespace RSService.Controllers
             var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(newUser.Password));
             newUser.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
 
-            User user = new User()
+
+
+          User user = new User()
             {
                 Name = newUser.Name,
                 FirstName = newUser.FirstName,
@@ -133,6 +141,8 @@ namespace RSService.Controllers
                 DepartmentId = newUser.DepartmentId,
                 IsActive = true
             };
+
+            
 
             userRepository.AddUser(user);
 
@@ -147,6 +157,7 @@ namespace RSService.Controllers
 
             Context.SaveChanges();
 
+
             var addedUser = new UserDto()
             {
                 Name = user.Name,
@@ -156,6 +167,7 @@ namespace RSService.Controllers
                 UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
                 DepartmentId = user.DepartmentId,
                 IsActive = user.IsActive
+
             };
 
             var message = new MimeMessage();
@@ -269,7 +281,7 @@ namespace RSService.Controllers
 
             var updatedUser = new UserDto()
             {
-                Id = user.Id,
+              
                 Name = user.Name,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
