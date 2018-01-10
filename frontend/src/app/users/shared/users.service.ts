@@ -23,12 +23,11 @@ export class UserService {
         return this.http.get(url, { headers: headers, withCredentials: true });
     }
 
-    public createUser(firstName: string, lastName: string, name: string, email: string, password: string, departmentId: number,  userRole?: RoleEnum[]) {
+    public createUser(firstName: string, lastName: string, email: string, password: string, departmentId: number,  userRole?: RoleEnum[]) {
         const url = environment.apiUrl + '/user/register';
         let body = JSON.stringify({
             firstName: firstName, 
             lastName: lastName,
-            name: name,
             email: email,
             password: password,
             departmentId: departmentId,
@@ -44,11 +43,10 @@ export class UserService {
         });
     }
 
-    public editUser(id: number, firstName: string, lastName: string, name: string, email: string, departmentId: number,  userRole?: RoleEnum[], isActive?: boolean, password?: string) {
+    public editUser(id: number, firstName: string, lastName: string, email: string, departmentId: number,  userRole?: RoleEnum[], isActive?: boolean, password?: string) {
         const url = environment.apiUrl + '/user/edit/' + id;
         const body = JSON.stringify({
             id: id,
-            name: name,
             firstName: firstName,
             lastName: lastName,
             userRole: userRole,
