@@ -200,8 +200,11 @@
       "IsEmpty": "Alegeți o parolă",
       "IsTooShort": "Parola este prea scurtă (minim 6 caractere)"
     },
-    "Email.IsNotUnique": "Acest email este deja folosit",
-    "Email.IsEmpty": "Inserați adresa de email"
+    "Email": {
+        "IsNotUnique": "Acest email este deja folosit",
+        "IsEmpty": "Inserați adresa de email",
+        "IsNotStefaniniDomain": "Adresa de email trebuie să aibă forma nume@stefanini.com"
+    }
   }, 
 
   "Event": {

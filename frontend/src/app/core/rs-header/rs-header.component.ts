@@ -6,6 +6,7 @@ import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import {RoomService} from '../../rooms/shared/room.service';
 import {Room} from '../../shared/models/room.model';
 
+
 @Component({
     selector: 'rs-header',
     templateUrl: './rs-header.component.html',
@@ -28,7 +29,7 @@ export class RsHeaderComponent {
 
         if(route.root.firstChild.snapshot.data['name']=="login"){
             this.checkIfloginRoute=true;
-        }
+        }  
         });
         
         // observe room changing
@@ -43,17 +44,21 @@ export class RsHeaderComponent {
 
         if (authService.isLoggedIn()){
             this.currentUser = authService.getLoggedUser();
-        }
-
+        } 
     }
-    
+
     isAdmin(currentUser: User): boolean {
         return (currentUser && currentUser.userRole.length != 0  && currentUser.userRole.indexOf(RoleEnum.admin) !== -1);
     }
 
     logout() {
-        this.authService.logout();
-        return this.router.navigate(['/calendar']);  
+        this.authService.logout();  
+        if(this.route.root.firstChild.snapshot.data['name']=="calendar") {
+            window.location.reload(); //TODO remove location reload
+        } 
+        else {
+            return this.router.navigate(['/calendar']); 
+        }
     }
 
     redirectToLogin() {
