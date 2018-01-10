@@ -25,7 +25,7 @@ namespace RSService.Controllers
 
 
         [HttpPost("email/resetpass/{sendmail}")]
-        public IActionResult PassReset(string sendmail)
+        public IActionResult MailPassReset(string sendmail)
         {           
 
             var message = new MimeMessage();

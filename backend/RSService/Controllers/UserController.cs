@@ -19,6 +19,7 @@ namespace RSService.Controllers
 {
     public class UserController : BaseController
     {
+        
         private IUserRepository userRepository;
         private IUserRoleRepository userRoleRepository;
         private IRoleRepository roleRepository;
@@ -44,7 +45,8 @@ namespace RSService.Controllers
 
             foreach (var it in results)
             {
-                final_result.Add(new UserDto()
+
+               final_result.Add(new UserDto()
                 {
                     
                     Name = it.Name,
@@ -131,7 +133,7 @@ namespace RSService.Controllers
 
 
 
-          User user = new User()
+            User user = new User()
             {
                 Name = newUser.Name,
                 FirstName = newUser.FirstName,
@@ -139,8 +141,12 @@ namespace RSService.Controllers
                 Password = newUser.Password,
                 Email = newUser.Email,
                 DepartmentId = newUser.DepartmentId,
-                IsActive = true
-            };
+                IsActive = true,
+
+                
+                
+        };
+
 
             
 
@@ -214,6 +220,7 @@ namespace RSService.Controllers
             user.Email = userView.Email;
             user.DepartmentId = userView.DepartmentId;
             user.IsActive = userView.IsActive;
+            user.ResetPassCode = userView.ResetPassCode;
 
             // If user is inactive change his events status to cancelled
             if (user.IsActive == false)
@@ -288,7 +295,9 @@ namespace RSService.Controllers
                 Email = user.Email,
                 UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
                 DepartmentId = user.DepartmentId,
-                IsActive = user.IsActive
+                IsActive = user.IsActive,
+                ResetPassCode=user.ResetPassCode
+                
 
             };
           

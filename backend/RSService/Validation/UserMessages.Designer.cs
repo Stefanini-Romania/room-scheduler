@@ -61,6 +61,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User.Email.IsNotStefaniniDomain.
+        /// </summary>
+        internal static string EmailWrongEmail {
+            get {
+                return ResourceManager.GetString("EmailWrongEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User.Email.IsEmpty.
         /// </summary>
         internal static string EmptyEmail {

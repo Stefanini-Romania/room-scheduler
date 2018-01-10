@@ -219,7 +219,8 @@ namespace RSRepository
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.ResetPassCode).HasColumnName("ResetPassCode");
+                // entity.Property(e => e.ResetPassCode).HasColumnName("ResetPassCode");
+                entity.Property(e => e.ResetPassCode).HasComputedColumnSql("([UserId]*(100)+(257))");
             });
 
             modelBuilder.Entity<UserRole>(entity =>

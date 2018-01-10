@@ -16,6 +16,7 @@ namespace RSService.ViewModels
         public int? DepartmentId { get; set; }
         public bool? IsActive { get; set; }
         public List<int> UserRole { get; set; }
+        public int? ResetPassCode { get; set; }
 
     }
 }
