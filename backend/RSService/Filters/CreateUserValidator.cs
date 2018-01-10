@@ -20,6 +20,7 @@ namespace RSService.Filters
             RuleFor(m => m.Name).Must(IsUniqueUserName).WithMessage(x => Validation.UserMessages.UniqueUsername);
             RuleFor(m => m.Name).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyUsername);
             RuleFor(m => m.Email).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyEmail);
+            RuleFor(m => m.Email).Must(EmailDomain).WithMessage(x => Validation.UserMessages.EmptyEmail);
             RuleFor(m => m.FirstName).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyFirstName);
             RuleFor(m => m.LastName).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyLastName);
             RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyPassword);    
@@ -40,6 +41,13 @@ namespace RSService.Filters
         private bool IsUniqueEmail(UserViewModel m, String email)
         {
             return rsManager.IsUniqueEmail(email);
+        }
+
+        private bool EmailDomain(UserViewModel m , String email)
+        {
+            if (email.Contains("@stefanini.com"))
+                return true;
+            return false;
         }
 
         private bool IsValidRole(UserViewModel usm, List<int> userRole)
