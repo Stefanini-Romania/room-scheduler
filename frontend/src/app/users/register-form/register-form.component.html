@@ -70,7 +70,7 @@
                         <div class="col">
                                 <label *ngIf="model.id"><b>{{ 'register.email' | translate }}</b></label> 
                             <div class="required-field-block">
-                                <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="modelForm.email" #email="ngModel" required >
+                                <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="modelForm.email" #email="ngModel" required maxlength="35" >
                                 <div class="required-icon">
                                     <div class="text">*</div>
                                 </div>
