@@ -195,10 +195,6 @@ namespace RSRepository
                     .IsRequired()
                     .HasMaxLength(150);
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(150);
-
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(150);
