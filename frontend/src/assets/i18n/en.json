@@ -184,8 +184,11 @@
         "IsEmpty": "Please insert a password",
         "IsTooShort": "Password is too short (must be at least 6 characters)"
     },
-    "Email.IsNotUnique": "This email is already used",
-    "Email.IsEmpty": "Please insert your email address"
+    "Email": {
+        "IsNotUnique": "This email is already used",
+        "IsEmpty": "Please insert your email address",
+        "IsNotStefaniniDomain": "Email format should be name@stefanini.com."
+    }
   },
     
 

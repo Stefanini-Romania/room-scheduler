@@ -54,7 +54,7 @@ export class RsHeaderComponent {
     logout() {
         this.authService.logout();  
         if(this.route.root.firstChild.snapshot.data['name']=="calendar") {
-            window.location.reload();
+            window.location.reload(); //TODO remove location reload
         } 
         else {
             return this.router.navigate(['/calendar']); 
