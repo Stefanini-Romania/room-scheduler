@@ -42,11 +42,13 @@
     
   "mismatch.password": "Passwords don't match. Try again?", 
 
-  "login.button": "Sign In",
+  "login": {
+      "button": "Sign In",
+      "email": "Enter Email",
+      "password": "Enter Password",
+      "alreadyHaveAccount": "Already have an account ?"
+  },
   "logout.button": "Sign out",
-  "login.username": "Enter Username",
-  "login.password": "Enter Password",
-  "login.alreadyHaveAccount": "Already have an account ?",
 
   "cancel.login.button": "Cancel",
 
