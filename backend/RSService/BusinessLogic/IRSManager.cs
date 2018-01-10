@@ -23,10 +23,6 @@ namespace RSService.BusinessLogic
         bool HasPenalty(int attendeeId, DateTime newDate, int roomId);
 
         bool HourCheck(DateTime startDate, DateTime endDate, int roomId);
-        
-        bool IsUniqueUserName(String username);
-
-        bool IsUniqueUserNameEdit(string username, int userId);
 
         bool IsUniqueEmail(String email);
 
@@ -36,9 +32,7 @@ namespace RSService.BusinessLogic
 
         bool IsUniqueRoom(String name, String location, int roomid);
 
-        bool IsActiveUser(String username);
-
-        bool IsUser(String username);
+        bool IsActiveUser(String email);
 
 
     }

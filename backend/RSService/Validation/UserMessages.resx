@@ -129,17 +129,11 @@
   <data name="EmptyPassword" xml:space="preserve">
     <value>User.Password.IsEmpty</value>
   </data>
-  <data name="EmptyUsername" xml:space="preserve">
-    <value>User.Name.IsEmpty</value>
-  </data>
   <data name="EmptyUserRole" xml:space="preserve">
     <value>User.UserRole.IsEmpty</value>
   </data>
   <data name="UniqueEmail" xml:space="preserve">
     <value>User.Email.IsNotUnique</value>
-  </data>
-  <data name="UniqueUsername" xml:space="preserve">
-    <value>User.Name.IsNotUnique</value>
   </data>
   <data name="UserRoleNotFound" xml:space="preserve">
     <value>User.UserRole.NotFound</value>

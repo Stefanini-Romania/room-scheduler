@@ -15,10 +15,6 @@ namespace RSService.Filters
         {
             rsManager = rSManager;
 
-            RuleFor(m => m.Name).Must(IsUniqueUserName).WithMessage(x => Validation.UserMessages.UniqueUsername);
-
-            RuleFor(m => m.Name).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyUsername);
-
             RuleFor(m => m.Email).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyEmail);
 
             RuleFor(m => m.Email).Must(IsUniqueEmail).WithMessage(x => Validation.UserMessages.UniqueEmail);
@@ -32,11 +28,6 @@ namespace RSService.Filters
 
              
 
-        }
-
-        private bool IsUniqueUserName(EditUserViewModel m, String userName)
-        {
-            return rsManager.IsUniqueUserNameEdit(userName, m.Id);
         }
 
         private bool IsUniqueEmail(EditUserViewModel m, String email)

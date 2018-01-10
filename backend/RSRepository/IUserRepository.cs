@@ -9,14 +9,12 @@ namespace RSRepository
     {
         List<User> GetUsers2();
         List<User> GetUsers();
-        User FindUserByCredential(string username, string password);
+        User FindUserByCredential(string email, string password);
         User GetUserById(int id);
-        User GetUserByUsername(string username);
         User GetUserByEmail(String email);
-        User GetUserByUsernameAndActive(String username);
+        User GetUserByEmailAndActive(String email);
         List<User> GetUserByisActiv();
         List<User> GetUserByisInactiv();
-        List<User> GetUsersByUsername(string username, int userId);
         List<User> GetUsersByEmail(string email, int userId);
         void AddUser(User user);
         void UpdateUser(User user);
