@@ -69,7 +69,7 @@ namespace RSService.Controllers
 
             foreach (var userRole in user.UserRole)
             {
-                claims.Append(new Claim(ClaimTypes.Role, ((UserRoleEnum)userRole.RoleId).ToString()));
+                claims.Add(new Claim(ClaimTypes.Role, ((UserRoleEnum)userRole.RoleId).ToString()));
             }
 
             return claims;
