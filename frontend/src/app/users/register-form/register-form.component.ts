@@ -64,11 +64,11 @@ export class RegisterFormComponent {
         this.modelForm.id = this.model.id;
         this.modelForm.firstName = this.model.firstName;
         this.modelForm.lastName = this.model.lastName;
-        this.modelForm.name = this.model.name;
         this.modelForm.email = this.model.email;
         this.modelForm.departmentId = this.model.departmentId;
        // this.modelForm.userRole = this.model.userRole; //Fix
         this.modelForm.isActive = this.model.isActive;
+        //this.model = this.modelForm;
     }
 
     get isLoggedIn():boolean {
@@ -89,7 +89,7 @@ export class RegisterFormComponent {
     }
 
     register() {
-        this.userService.createUser(this.modelForm.firstName, this.modelForm.lastName, this.modelForm.name, this.modelForm.email, this.modelForm.password, this.modelForm.departmentId, this.modelForm.userRole)
+        this.userService.createUser(this.model.firstName, this.model.lastName, this.model.email, this.model.password, this.model.departmentId, this.model.userRole)
         .subscribe(
             () => {
                 this.successfullAddUser.emit();
@@ -121,7 +121,7 @@ export class RegisterFormComponent {
     }
 
     editUser() {  
-        this.userService.editUser(this.modelForm.id, this.modelForm.firstName, this.modelForm.lastName, this.modelForm.name, this.modelForm.email, this.modelForm.departmentId, this.modelForm.userRole, this.modelForm.isActive, this.modelForm.password)
+        this.userService.editUser(this.modelForm.id, this.modelForm.firstName, this.modelForm.lastName, this.modelForm.email, this.modelForm.departmentId, this.modelForm.userRole, this.modelForm.isActive, this.modelForm.password)
         .subscribe(
             () => {
                 this.model = this.modelForm;   

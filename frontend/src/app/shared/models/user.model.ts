@@ -3,7 +3,6 @@ import {RoleEnum} from './role.model';
 
 export class User {
     id?: number;
-    name: string;
     firstName?: string;
     lastName?: string;
     password: string; 
@@ -13,6 +12,8 @@ export class User {
     confirmPassword?: number;
     userRole?: RoleEnum[];
     isActive?: boolean; 
+    resetPassCode?: number;
+    dateExpire?: Date;
       
 
     hasPenalties(): boolean {

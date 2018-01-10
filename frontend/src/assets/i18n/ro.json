@@ -42,11 +42,13 @@
   
   "mismatch.password": "Parolele nu se potrivesc. Încearcă din nou?",
 
-  "login.button": "Autentificare",
+  "login": {
+      "button": "Autentificare",
+      "email": "Introduceți adresa de email",
+      "password": "Introduceți parola",
+      "alreadyHaveAccount": "Aveți deja cont?"
+  },
   "logout.button": "Delogare",
-  "login.username": "Introduceți utilizatorul",
-  "login.password": "Introduceți parola",
-  "login.alreadyHaveAccount": "Aveți deja cont ?",
 
   "cancel.login.button": "Anulare",
 

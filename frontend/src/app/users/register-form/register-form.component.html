@@ -51,19 +51,19 @@
                     </ngb-alert>
                 
                     <!-- USERNAME -->
-                    <label *ngIf="model.id"><b>{{ 'register.name' | translate }}</b></label> 
+                    <!-- <label *ngIf="model.id"><b>{{ 'register.name' | translate }}</b></label> 
                     <div class="required-field-block">
                         <input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="modelForm.name" #name="ngModel" required maxlength="20">
                         <div class="required-icon">
                             <div class="text">*</div>
                         </div>
                     </div>    
-                    <!-- FRONTEND VALIDATION -->
+                    FRONTEND VALIDATION
                     <ngb-alert type="danger" [dismissible]="false" *ngIf="!name.valid && name.dirty && submitted">{{ 'wrong.name' | translate }}</ngb-alert>
-                    <!-- BACKEND VALIDATION -->
+                    BACKEND VALIDATION
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Name']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['Name']">{{ errorMessage | translate }}</div>
-                    </ngb-alert>
+                    </ngb-alert> -->
                     
                     <!-- EMAIL -->                      
                     <div class="row">
@@ -167,7 +167,7 @@
                     </div>               
                     <hr class="my-1" *ngIf="model.id">
                     <div class="clearfix pull-right">           
-                        <button type="submit" class="btn btn-primary " *ngIf="model.id" (click)="editUser()">
+                        <button type="submit" class="btn btn-primary" *ngIf="model.id" (click)="editUser()">
                             {{ 'user.save' | translate }}
                         </button>                    
                     </div>                        

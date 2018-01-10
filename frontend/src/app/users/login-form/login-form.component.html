@@ -14,7 +14,7 @@
                 <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert>
                 <!-- <label><b>Username</b></label> -->
                 <div class="required-field-block">
-                    <input  type="text" placeholder="{{ 'login.username' | translate }}" name="UserName" [(ngModel)]="model.name" #UserName="ngModel" required>
+                    <input  type="text" placeholder="{{ 'login.email' | translate }}" name="email" [(ngModel)]="model.email" #UserName="ngModel" required>
                     <div class="required-icon">
                             <div class="text">*</div>
                     </div>
