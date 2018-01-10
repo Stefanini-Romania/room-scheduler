@@ -106,11 +106,29 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.Room.Edit.
+        /// </summary>
+        internal static string RoomEdit {
+            get {
+                return ResourceManager.GetString("RoomEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.User.Creation.
         /// </summary>
         internal static string User {
             get {
                 return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.User.Edit.
+        /// </summary>
+        internal static string UserEdit {
+            get {
+                return ResourceManager.GetString("UserEdit", resourceCulture);
             }
         }
     }

@@ -9,6 +9,7 @@ using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RSService.Controllers
@@ -28,13 +29,15 @@ namespace RSService.Controllers
         public IActionResult GetRooms()
         {
 
-            var currentUserId = 0;
-            var userName = HttpContext.User.Identity.Name;
-            if (userName != null)
+            User currentUser = null;
+
+            var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
+
+            if (schedulerIdentity != null)
             {
-                currentUserId = userRepository.GetUserByUsername(userName).Id;
+                var currentUserId = schedulerIdentity.UserId;
+                currentUser = userRepository.GetUserById(currentUserId);
             }
-            var currentUser = userRepository.GetUserById(currentUserId);
 
             var rooms = roomRepository.GetRoomsByStatus(true);
 
@@ -98,7 +101,7 @@ namespace RSService.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return ValidationError(GeneralMessages.Room);
+                return ValidationError(GeneralMessages.RoomEdit);
             }
             else
             {

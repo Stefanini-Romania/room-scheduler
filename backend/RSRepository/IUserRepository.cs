@@ -10,7 +10,7 @@ namespace RSRepository
         List<User> GetUsers2();
         List<User> GetUsers();
         User FindUserByCredential(string username, string password);
-        User GetUserById(long id);
+        User GetUserById(int id);
         User GetUserByUsername(string username);
         User GetUserByEmail(String email);
         User GetUserByUsernameAndActive(String username);

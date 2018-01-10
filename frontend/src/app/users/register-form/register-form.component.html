@@ -6,12 +6,12 @@
 <div class="container d-flex h-100">
     <div class="row justify-content-center align-self-center mx-auto">                   
         <div id="registerForm" class="mx-auto">           
-            <form  name="regForm" novalidate>
+            <form name="regForm">
                 <div id="user-cont">
-                    <div class="text-center">
-                        <img src="../../../assets/img/header-logo2.png"  id="logo-header" class="img-fluid">
+                    <!-- <div class="text-center">
+                        <img src="../../../assets/img/header-logo2.png" id="logo-header" class="img-fluid">
                         <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
-                    </div>
+                    </div> -->
                     
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="required-field-block">
-                                <input type="text" placeholder="{{ 'register.firstName' | translate }}" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required maxlength="20">
+                                <input type="text" placeholder="{{ 'register.firstName' | translate }}" name="firstName" [(ngModel)]="modelForm.firstName" #firstName="ngModel" required maxlength="20">
                                 <div class="required-icon">
                                     <div class="text">*</div>
                                 </div>
@@ -34,7 +34,7 @@
                         
                         <div class="col">
                             <div class="required-field-block">
-                                <input type="text" placeholder="{{ 'register.lastName' | translate }}" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required maxlength="20">
+                                <input type="text" placeholder="{{ 'register.lastName' | translate }}" name="lastName" [(ngModel)]="modelForm.lastName" #lastName="ngModel" required maxlength="20">
                                 <div class="required-icon">
                                     <div class="text">*</div>
                                 </div>
@@ -53,7 +53,7 @@
                     <!-- USERNAME -->
                     <label *ngIf="model.id"><b>{{ 'register.name' | translate }}</b></label> 
                     <div class="required-field-block">
-                        <input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="model.name" #name="ngModel" required maxlength="20">
+                        <input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="modelForm.name" #name="ngModel" required maxlength="20">
                         <div class="required-icon">
                             <div class="text">*</div>
                         </div>
@@ -70,7 +70,7 @@
                         <div class="col">
                                 <label *ngIf="model.id"><b>{{ 'register.email' | translate }}</b></label> 
                             <div class="required-field-block">
-                                <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="model.email" #email="ngModel" required >
+                                <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="modelForm.email" #email="ngModel" required >
                                 <div class="required-icon">
                                     <div class="text">*</div>
                                 </div>
@@ -89,7 +89,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="required-field-block">
-                                <input type="password" autocomplete="off" placeholder="{{ 'register.password' | translate }}" name="password" [(ngModel)]="model.password" #password="ngModel" required validateEqual="confirmPassword" reverse="true">
+                                <input type="password" autocomplete="off" placeholder="{{ 'register.password' | translate }}" name="password" [(ngModel)]="modelForm.password" #password="ngModel" required validateEqual="confirmPassword" reverse="true">
                                 <div class="required-icon" *ngIf="!model.id">
                                     <div class="text">*</div>
                                 </div>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="col">
                             <div class="required-field-block">
-                                <input type="password" autocomplete="off" placeholder="{{ 'register.confirmPassword' | translate }}" name="confirmPassword" [(ngModel)]="model.confirmPassword" #confirmPassword="ngModel" required validateEqual="password" reverse="false">
+                                <input type="password" autocomplete="off" placeholder="{{ 'register.confirmPassword' | translate }}" name="confirmPassword" [(ngModel)]="modelForm.confirmPassword" #confirmPassword="ngModel" required validateEqual="password" reverse="false">
                                 <div class="required-icon" *ngIf="!model.id">
                                     <div class="text">*</div>
                                 </div>
@@ -124,10 +124,10 @@
                         <div class="col-md-4">
                             <div class="btn-group" ngbRadioGroup>
                                 <label ngbButtonLabel class="btn btn-primary">
-                                    <input ngbButton type="radio" [value]="1" >ADC
+                                    <input ngbButton type="radio" ng-model="modelForm.departmentId" (click)="adcDepartment(user)">ADC
                                 </label>
                                 <label ngbButtonLabel class="btn-primary">
-                                    <input ngbButton type="radio" [value]="2" >SDC
+                                    <input ngbButton type="radio" ng-model="modelForm.departmentId" (click)="sdcDepartment(user)">SDC
                                 </label>                      
                             </div>
                         </div>
@@ -146,7 +146,7 @@
 
                         <!-- ROLES -->
                         <div class="col">
-                            <div ngbDropdown class="d-inline-block pull-right" *ngIf="model.id">
+                            <div ngbDropdown class="d-inline-block pull-right" *ngIf="model.id" >
                                 <button class="btn btn-primary" ngbDropdownToggle>{{'role' | translate}}</button>
                                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                                     <button *ngFor="let Role of roleKeys()" class="dropdown-item" (click)="onRoleChange(Role)">

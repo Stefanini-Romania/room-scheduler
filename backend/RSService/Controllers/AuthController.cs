@@ -15,9 +15,66 @@ using Microsoft.AspNetCore.Authorization;
 using RSService.Validation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using RSService.DTO;
+using System.Security.Principal;
 
 namespace RSService.Controllers
 {
+    class SchedulerIdentity : ClaimsIdentity
+    {
+        private const string UserIdClaim = "http://rsdata.org/claims/user_id";
+
+        public int UserId
+        {
+            get
+            {
+                var claimValue = FindFirst(UserIdClaim)?.Value;
+                if (claimValue == null)
+                    throw new InvalidOperationException();
+                return int.Parse(claimValue);
+            }
+        }
+        public string Email { get; }
+        public string UserName { get; }
+
+        public SchedulerIdentity(User user)
+            : base(CreateClaims(user), "login")
+        {
+
+        }
+
+        private SchedulerIdentity(ClaimsIdentity other)
+            : base(other)
+        {
+        }
+
+        public static SchedulerIdentity Current(HttpContext context)
+        {
+            var currentIdentity = context.User.Identities.First();
+            if (currentIdentity.IsAuthenticated)
+            {
+                return new SchedulerIdentity(currentIdentity);
+            }
+            return null; 
+        }
+
+        private static List<Claim> CreateClaims(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(UserIdClaim, user.Id.ToString())
+                /*new Claim("userId", user.Id.ToString()),
+                new Claim("email", user.Email)*/
+            };
+
+            foreach (var userRole in user.UserRole)
+            {
+                claims.Append(new Claim(ClaimTypes.Role, ((UserRoleEnum)userRole.RoleId).ToString()));
+            }
+
+            return claims;
+        }
+    }
 
     public class AuthController : BaseController
     {
@@ -47,20 +104,8 @@ namespace RSService.Controllers
                 return ValidationError(GeneralMessages.Authentication);
             }
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, model.Name),
-               
-            };
-        
-            foreach (var userRole in user.UserRole)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, ((UserRoleEnum)userRole.RoleId).ToString()));
-            }
-            var userIdentity = new ClaimsIdentity(claims, "login");
-
-            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
+            var principal = new ClaimsPrincipal(new SchedulerIdentity(user));
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                                           principal,
                                           new AuthenticationProperties
                                           {

@@ -35,6 +35,10 @@ export class RegisterFormComponent {
         departmentId: DepartmentIdEnum.ADC,
         userRole: [RoleEnum.attendee]
     };
+    public modelForm: User = <User> {
+        departmentId: DepartmentIdEnum.ADC,
+        userRole: [RoleEnum.attendee]
+    }
     public selectedRole = RoleEnum;
 
     public errorMessages: any = {};
@@ -42,7 +46,7 @@ export class RegisterFormComponent {
     DepartmentIdEnum: DepartmentIdEnum[] = [];
     RoleIdEnums = RoleEnum;
     RoleEnum: typeof RoleEnum = RoleEnum;
-    
+    public selectedUser: User;
 
     constructor(private authService: AuthService, 
                 private router: Router, 
@@ -55,7 +59,16 @@ export class RegisterFormComponent {
     }
 
     ngOnInit() {
-        this.title = this.model.id ? 'user.edit': 'user.add';
+        this.title = this.model.id ? 'user.edit': 'user.add'; 
+        //TODO: find a more optimal solution
+        this.modelForm.id = this.model.id;
+        this.modelForm.firstName = this.model.firstName;
+        this.modelForm.lastName = this.model.lastName;
+        this.modelForm.name = this.model.name;
+        this.modelForm.email = this.model.email;
+        this.modelForm.departmentId = this.model.departmentId;
+       // this.modelForm.userRole = this.model.userRole; //Fix
+        this.modelForm.isActive = this.model.isActive;
     }
 
     get isLoggedIn():boolean {
@@ -72,16 +85,11 @@ export class RegisterFormComponent {
         let userRole=RoleEnum[userRoleId];
         let roles =[];
         roles = [userRole];
-        this.model.userRole = roles;
-        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRole, this.model.isActive, this.model.password).subscribe(
-            () => {}, 
-            error => {
-                this.errorMessages = error.error.message;
-            });
+        this.modelForm.userRole = roles;
     }
 
     register() {
-        this.userService.createUser(this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.password, this.model.departmentId, this.model.userRole)
+        this.userService.createUser(this.modelForm.firstName, this.modelForm.lastName, this.modelForm.name, this.modelForm.email, this.modelForm.password, this.modelForm.departmentId, this.modelForm.userRole)
         .subscribe(
             () => {
                 this.successfullAddUser.emit();
@@ -92,11 +100,9 @@ export class RegisterFormComponent {
                 if(!this.isLoggedIn){
                     this.router.navigate(['/login']);
                 }
-
             },
             error => {
                 this.errorMessages = {'generic': [error.error.message]};
-    
                 // build error message
                 for (let e of error.error.errors) {
                     let field = 'generic';
@@ -114,19 +120,16 @@ export class RegisterFormComponent {
             });
     }
 
-    editUser(userRoleId){
-        let userRole = RoleEnum[userRoleId];
-        let roles = [];
-        roles = [userRole];
-        this.model.userRole = roles;
-        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, userRoleId, this.model.isActive, this.model.password)
+    editUser() {  
+        this.userService.editUser(this.modelForm.id, this.modelForm.firstName, this.modelForm.lastName, this.modelForm.name, this.modelForm.email, this.modelForm.departmentId, this.modelForm.userRole, this.modelForm.isActive, this.modelForm.password)
         .subscribe(
             () => {
+                this.model = this.modelForm;   
                 this.successfullEditUser.emit();
                 this.toastr.success(
                     this.translate.instant('user.saved'), '',
                     {positionClass: 'toast-bottom-right'}
-                )               
+                );         
             },       
             error => {
                 this.errorMessages = {'generic': [error.error.message]};
@@ -141,37 +144,22 @@ export class RegisterFormComponent {
                     this.errorMessages[field].push(e.errorCode);
                 }
             });     
-           
     } 
     
     deactivateUser(User) {
-        this.model.isActive = false;
-        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRole, this.model.isActive, this.model.password)
-        .subscribe(
-            () => {   
-                this.toastr.warning(
-                    this.translate.instant("user.deactivated"), '',
-                    {positionClass: 'toast-bottom-right'}
-                );                               
-            }, 
-            error => {
-                this.errorMessages = error.error.message;
-            });
+        this.modelForm.isActive = false;       
     } 
     
-    activateUser(User){
-        this.model.isActive = true;
-        this.userService.editUser(this.model.id, this.model.firstName, this.model.lastName, this.model.name, this.model.email, this.model.departmentId, this.model.userRole, this.model.isActive, this.model.password)
-        .subscribe(
-            () => {   
-                this.toastr.success(
-                    this.translate.instant("user.activated"), '',
-                    {positionClass: 'toast-bottom-right'}
-                );                                   
-            }, 
-            error => {
-                this.errorMessages = error.error.message;
-            });
+    activateUser(User) {
+        this.modelForm.isActive = true;
+    }
+
+    adcDepartment(User){
+        this.modelForm.departmentId = 1;
+    }
+
+    sdcDepartment(User){
+        this.modelForm.departmentId = 2;
     }
 }
     
