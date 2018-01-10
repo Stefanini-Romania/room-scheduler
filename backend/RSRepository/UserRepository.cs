@@ -44,16 +44,16 @@ namespace RSRepository
             return result;
         }
 
-        public User FindUserByCredential(string username, string password)
+        public User FindUserByCredential(string email, string password)
         {
-            // TODO:  Nu trebuie sa-i aducem pe toti cu GetUsers. Trebuie cautat direct in DbSet-ul de users  !!
-
             var sha1 = System.Security.Cryptography.SHA1.Create();
 
             var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(password));
             var encryptedPass = BitConverter.ToString(hash).Replace("-", "").ToLower();
-            var returnvar = this.GetUsers().FirstOrDefault(c => c.Name == username && c.Password == encryptedPass);
-            return returnvar;
+
+            var user = users.Include(u => u.UserRole).Include(u => u.Penalty).FirstOrDefault(c => c.Email == email && c.Password == encryptedPass);
+
+            return user;
         }
 
         public User GetUserById(int id)
@@ -61,26 +61,14 @@ namespace RSRepository
             return users.Include(u => u.UserRole).FirstOrDefault(s => s.Id == id);
         }
 
-        public User GetUserByUsername(String username)
+        public User GetUserByEmailAndActive(String email)
         {
-            return users.FirstOrDefault(s => s.Name == username);
-        }
-
-        public User GetUserByUsernameAndActive(String username)
-        {
-            return users.FirstOrDefault(s => (s.Name == username&&s.IsActive==true));
+            return users.FirstOrDefault(s => (s.Email == email && s.IsActive == true));
         }
 
         public User GetUserByEmail(String email)
         {
             return users.FirstOrDefault(s => s.Email == email);
-        }
-
-        public List<User> GetUsersByUsername(string username, int userId)
-        {
-            return users.Where(s => s.Name == username)
-                        .Where(s => s.Id != userId)
-                        .ToList();
         }
 
         public List<User>GetUserByisActiv()

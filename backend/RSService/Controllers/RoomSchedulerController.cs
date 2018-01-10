@@ -41,6 +41,9 @@ namespace RSService.Controllers
         [Authorize]
         public IActionResult AddEvent([FromBody]EventViewModel model)
         {
+            if (!ModelState.IsValid)
+                return ValidationError(GeneralMessages.Event);
+
             var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
             var currentAttendeeId = schedulerIdentity.UserId;
 
@@ -54,9 +57,6 @@ namespace RSService.Controllers
                 //   return ValidationError(GeneralMessages.Event);
 
             }
-
-            if (!ModelState.IsValid)
-                return ValidationError(GeneralMessages.Event);
 
             var newEvent = Mapper.Map<Event>(model);
             newEvent.DateCreated = DateTime.UtcNow;
@@ -173,46 +173,45 @@ namespace RSService.Controllers
         [Authorize]
         public IActionResult UpdateEvent(int id, [FromBody] EditEventViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return ValidationError(GeneralMessages.EventEdit);
+            }
 
             var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
             var currentAttendeeId = schedulerIdentity.UserId;
 
-            if (ModelState.IsValid)
+
+            var _model = Mapper.Map<Event>(model);
+
+            var _event = eventRepository.GetEventById(id);
+
+            if (_event == null)
             {
-                var _model = Mapper.Map<Event>(model);
-
-                var _event = eventRepository.GetEventById(id);
-
-                if (_event == null)
-                {
-                    return NotFound();
-                }
-
-                if (currentAttendeeId != _event.AttendeeId || currentAttendeeId != _event.HostId)
-                {
-                    return ValidationError(EventMessages.CancellationRight);
-                }
-
-                _event.Notes = _model.Notes;
-                _event.EventStatus = _model.EventStatus;
-                _event.DateCreated = DateTime.UtcNow;
-
-                Context.SaveChanges();
-
-                if (_event.EventStatus == (int)EventStatusEnum.absent)
-                    rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
-
-                return Ok(new
-                {
-                    Id = _event.Id,
-                    StartDate = _event.StartDate,
-                    EndDate = _event.EndDate
-                });
+                return NotFound();
             }
-            else
+
+            if (currentAttendeeId != _event.AttendeeId || currentAttendeeId != _event.HostId)
             {
-                return ValidationError(GeneralMessages.EventEdit);
+                return ValidationError(EventMessages.CancellationRight);
             }
+
+            _event.Notes = _model.Notes;
+            _event.EventStatus = _model.EventStatus;
+            _event.DateCreated = DateTime.UtcNow;
+
+            Context.SaveChanges();
+
+            if (_event.EventStatus == (int)EventStatusEnum.absent)
+                rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
+
+            return Ok(new
+            {
+                Id = _event.Id,
+                StartDate = _event.StartDate,
+                EndDate = _event.EndDate
+            });
+          
         }
 
        

@@ -168,20 +168,6 @@ namespace RSService.BusinessLogic
             return true; 
         }
 
-        public bool IsUniqueUserName(String username)
-        {
-            var user = userRepository.GetUserByUsername(username);
-
-            if (user == null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public bool IsUniqueEmail(String email)
         {
             var user = userRepository.GetUserByEmail(email);
@@ -194,17 +180,6 @@ namespace RSService.BusinessLogic
             {
                 return false;
             }
-        }
-
-        public bool IsUniqueUserNameEdit(string username, int userId)
-        {
-            var users = userRepository.GetUsersByUsername(username, userId);
-
-            if (users.Count() > 0)
-            {
-                return false;
-            }
-            return true;
         }
 
         public bool IsUniqueEmailEdit(String email, int userId)
@@ -297,25 +272,11 @@ namespace RSService.BusinessLogic
             return true;
         }
 
-        public bool IsActiveUser(String username)
+        public bool IsActiveUser(String email)
         {
-            var isActive = userRepository.GetUserByUsernameAndActive(username);
+            var isActive = userRepository.GetUserByEmailAndActive(email);
 
             if (isActive == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        public bool IsUser(String username)
-        {
-            var validuser= userRepository.GetUserByUsername(username);
-
-            if (validuser == null)
             {
                 return false;
             }

@@ -117,16 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EmptyEmail" xml:space="preserve">
+    <value>Auth.Email.Empty</value>
+  </data>
   <data name="EmptyPassword" xml:space="preserve">
     <value>Auth.Password.Empty</value>
   </data>
-  <data name="EmptyUsername" xml:space="preserve">
-    <value>Auth.Username.Empty</value>
-  </data>
   <data name="IsNotActive" xml:space="preserve">
-    <value>Auth.Username.IsNotActive</value>
-  </data>
-  <data name="UserInvalid" xml:space="preserve">
-    <value>Auth.Username.Invalid</value>
+    <value>Auth.Email.IsNotActive</value>
   </data>
 </root>

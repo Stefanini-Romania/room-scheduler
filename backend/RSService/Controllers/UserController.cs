@@ -48,8 +48,6 @@ namespace RSService.Controllers
 
                final_result.Add(new UserDto()
                 {
-                    
-                    Name = it.Name,
                     FirstName = it.FirstName,
                     LastName = it.LastName,
                     Email = it.Email,
@@ -78,7 +76,6 @@ namespace RSService.Controllers
            
             User user = new User()
             {
-                Name = newUser.Name,
                 FirstName = newUser.FirstName,
                 LastName = newUser.LastName,
                 Password = newUser.Password,
@@ -106,7 +103,6 @@ namespace RSService.Controllers
 
             var addedUser = new UserDto()
             {
-                Name = user.Name,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
@@ -135,7 +131,6 @@ namespace RSService.Controllers
 
             User user = new User()
             {
-                Name = newUser.Name,
                 FirstName = newUser.FirstName,
                 LastName = newUser.LastName,
                 Password = newUser.Password,
@@ -166,7 +161,6 @@ namespace RSService.Controllers
 
             var addedUser = new UserDto()
             {
-                Name = user.Name,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
@@ -214,7 +208,6 @@ namespace RSService.Controllers
 
             //var modifiedUser = Mapper.Map<User>(userView);
 
-            user.Name = userView.Name;
             user.FirstName = userView.FirstName;
             user.LastName = userView.LastName;
             user.Email = userView.Email;
@@ -288,8 +281,6 @@ namespace RSService.Controllers
 
             var updatedUser = new UserDto()
             {
-              
-                Name = user.Name,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,

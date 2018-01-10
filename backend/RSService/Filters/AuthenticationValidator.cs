@@ -18,27 +18,16 @@ namespace RSService.Filters
         {
             this.rsManager = rsManager;
 
-            RuleFor(m => m.Name).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyUsername);
+            RuleFor(m => m.Name).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyEmail);
             RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyPassword);
             RuleFor(m => m.Name).Must(IsActive).WithMessage(x => Validation.AuthMessages.IsNotActive);
-          //  RuleFor(m => m.Name).Must(UserExists).WithMessage(x => Validation.AuthMessages.IsNotActive);
 
         }
 
-        private bool IsActive(CredentialModel cModel, String username)
+        private bool IsActive(CredentialModel cModel, String email)
         {
-            return rsManager.IsActiveUser(username);
+            return rsManager.IsActiveUser(email);
         }
-
-        //private bool UserExists(CredentialModel cModel, String username)
-        //{
-        //    return rsManager.IsUser(username);
-        //}
-
-
-
-
-
 
     }
 }

@@ -23,6 +23,8 @@ namespace RSService.Controllers
     {
         private const string UserIdClaim = "http://rsdata.org/claims/user_id";
 
+        private const string EmailClaim = "http://rsdata.org/claims/email";
+
         public int UserId
         {
             get
@@ -33,8 +35,16 @@ namespace RSService.Controllers
                 return int.Parse(claimValue);
             }
         }
-        public string Email { get; }
-        public string UserName { get; }
+        public string Email
+        {
+            get
+            {
+                var claimValue = FindFirst(EmailClaim)?.Value;
+                if (claimValue == null)
+                    throw new InvalidOperationException();
+                return claimValue;
+            }
+        }
 
         public SchedulerIdentity(User user)
             : base(CreateClaims(user), "login")
@@ -61,10 +71,8 @@ namespace RSService.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(UserIdClaim, user.Id.ToString())
-                /*new Claim("userId", user.Id.ToString()),
-                new Claim("email", user.Email)*/
+                new Claim(UserIdClaim, user.Id.ToString()),
+                new Claim(EmailClaim, user.Email)
             };
 
             foreach (var userRole in user.UserRole)
@@ -118,7 +126,6 @@ namespace RSService.Controllers
             {
                 id = user.Id,
                 email = user.Email,
-                name = user.Name,
                 departmentId = user.DepartmentId,
                 firstName = user.FirstName,
                 lastName = user.LastName,

@@ -61,6 +61,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auth.Email.Empty.
+        /// </summary>
+        internal static string EmptyEmail {
+            get {
+                return ResourceManager.GetString("EmptyEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auth.Password.Empty.
         /// </summary>
         internal static string EmptyPassword {
@@ -70,29 +79,11 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auth.Username.Empty.
-        /// </summary>
-        internal static string EmptyUsername {
-            get {
-                return ResourceManager.GetString("EmptyUsername", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Auth.Username.IsNotActive.
+        ///   Looks up a localized string similar to Auth.Email.IsNotActive.
         /// </summary>
         internal static string IsNotActive {
             get {
                 return ResourceManager.GetString("IsNotActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Auth.Username.Invalid.
-        /// </summary>
-        internal static string UserInvalid {
-            get {
-                return ResourceManager.GetString("UserInvalid", resourceCulture);
             }
         }
     }
