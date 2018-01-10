@@ -107,7 +107,7 @@ export class RegisterFormComponent {
                 for (let e of error.error.errors) {
                     let field = 'generic';
                     
-                    if (['FirstName', 'LastName', 'Name', 'Email', 'Password'].indexOf(e.field) >= 0) {
+                    if (['FirstName', 'LastName', 'Email', 'Password'].indexOf(e.field) >= 0) {
                         field = e.field;
                     }
 
@@ -135,7 +135,7 @@ export class RegisterFormComponent {
                 this.errorMessages = {'generic': [error.error.message]};
                 for (let e of error.error.errors) {
                     let field = 'generic';                  
-                    if (['Name', 'Email'].indexOf(e.field) >= 0) {
+                    if (['Email'].indexOf(e.field) >= 0) {
                         field = e.field;
                     }
                     if (!this.errorMessages[field]) {

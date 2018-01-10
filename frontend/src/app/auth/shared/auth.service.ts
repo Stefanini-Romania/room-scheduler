@@ -17,9 +17,9 @@ export class AuthService {
     constructor(private http: HttpClient, private translate: TranslateService) {
     }
 
-    authenticate(name: string, password: string) {
+    authenticate(email: string, password: string) {
         const url = environment.apiUrl + '/api/auth/login';
-        const body = JSON.stringify({name: name, password: password});
+        const body = JSON.stringify({email: email, password: password});
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body, {headers: headers, withCredentials: true})
             .catch((error: any) => Observable.throw(error))
