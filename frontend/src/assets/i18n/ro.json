@@ -153,7 +153,7 @@
   },
 
   "user": {
-    "name": "Utilizator",
+    "email": "Email",
     "firstName": "Prenume",
     "lastName": "Nume",
     "userRole": "Rolul de user",

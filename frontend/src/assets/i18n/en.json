@@ -138,7 +138,7 @@
   },
 
   "user":{
-    "name": "Username",
+    "email": "Email",
     "firstName": "First name",
     "lastName": "Last name",
     "userRole": "User role",
