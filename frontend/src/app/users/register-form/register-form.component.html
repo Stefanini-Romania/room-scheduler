@@ -8,10 +8,10 @@
         <div id="registerForm" class="mx-auto">           
             <form name="regForm">
                 <div id="user-cont">
-                    <!-- <div class="text-center">
+                    <div class="text-center" *ngIf="!isLoggedIn">
                         <img src="../../../assets/img/header-logo2.png" id="logo-header" class="img-fluid">
                         <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
-                    </div> -->                 
+                    </div> 
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
