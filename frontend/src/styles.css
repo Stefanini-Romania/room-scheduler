@@ -411,11 +411,6 @@ label b{
     color: #004e9e;
 }
 
- div .modal-header {
-    padding-top: 7px;
-    padding-bottom: 7px;
-}
-
 #calendardate{
     color: #000;
 }
@@ -442,7 +437,21 @@ label b{
 }
 
 .table td, .table th {
-    vertical-align: middle !important;
+    vertical-align: middle !important;   
+}
+
+div .modal-header {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+div .modal-footer {
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+div #room-editor label{
+    margin-bottom: 0px;
 }
 
 /* div #room-editor label {

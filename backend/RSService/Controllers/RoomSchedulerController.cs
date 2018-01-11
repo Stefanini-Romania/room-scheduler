@@ -46,16 +46,12 @@ namespace RSService.Controllers
 
             var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
             var currentAttendeeId = schedulerIdentity.UserId;
+            var currentAttendeeEmail = schedulerIdentity.Email;
 
-            var currentAttendeeEmail = userRepository.GetUserById(currentAttendeeId).Email;
-
-            var inactivUser = userRepository.GetUserByisInactiv();
-            foreach (var a in inactivUser)
+            var attendee = userRepository.GetUserById(currentAttendeeId);
+            if (attendee.IsActive != true)
             {
-                if (a.Id == currentAttendeeId)
-                    return ValidationError(EventMessages.InactiveUser);
-                //   return ValidationError(GeneralMessages.Event);
-
+                return ValidationError(EventMessages.InactiveUser);
             }
 
             var newEvent = Mapper.Map<Event>(model);
@@ -74,7 +70,7 @@ namespace RSService.Controllers
             }
             else
             {
-                newEvent.HostId = 3;  //TODO: get first host from db
+                newEvent.HostId = 0;  //TODO:  no host (not a massage room)
             }
 
             eventRepository.AddEvent(newEvent);
@@ -179,7 +175,7 @@ namespace RSService.Controllers
             }
 
             var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
-            var currentAttendeeId = schedulerIdentity.UserId;
+            var currentUserId = schedulerIdentity.UserId;
 
 
             var _model = Mapper.Map<Event>(model);
@@ -191,7 +187,8 @@ namespace RSService.Controllers
                 return NotFound();
             }
 
-            if (currentAttendeeId != _event.AttendeeId || currentAttendeeId != _event.HostId)
+            // If the event was not created by current user OR current user is not the host for this event
+            if (currentUserId != _event.AttendeeId && currentUserId != _event.HostId)
             {
                 return ValidationError(EventMessages.CancellationRight);
             }
