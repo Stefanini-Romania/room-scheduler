@@ -195,7 +195,9 @@
     
 
   "Event": {
+      "UserIsNotAuthenticated": "You are not logged in",
       "AttendeeId.CancelSomeoneElseBooking": "You can't cancel a booking for someone else",
+      "UserIsInactiv": "Your account is not active",
 
       "StartDate": {
           "LessThan15Minutes": "You must book at least 15 minutes before your appointment",
@@ -214,10 +216,7 @@
           "NotInAvailabilityOfRoom": "The room is not available (end date)",
           "IncorrectMinutesFormat": "Minutes format incorrect (end date)",
           "TimeSpan": "Timespan incorrect"
-      },
-
-      "UserIsNotAuthenticated": "You are not logged in"
-      
+      }   
   },
 
     "UserPenalized": "PENALISED USER",

@@ -22,7 +22,7 @@
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Name']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['Name']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
-
+                    <br />
                     <!-- LOCATION -->                  
                     <label *ngIf="model.id"><b>{{ 'location' | translate }}</b></label>
                     <div class="required-field-block">
