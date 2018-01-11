@@ -24,20 +24,21 @@ namespace RSService.Controllers
         }
 
 
-        [HttpPost("email/resetpass/{sendmail}")]
-        public IActionResult MailPassReset(string sendmail)
+        [HttpPost("email/resetpass/{email}")]
+        public IActionResult MailPassReset(string email)
         {
-            var user = userRepository.GetUserByEmail(sendmail);
+            var user = userRepository.GetUserByEmail(email);
             user.DateExpire = DateTime.UtcNow;
+            user.ResetPassCode = 1;
 
             Context.SaveChanges();
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini-noreply", "roomchedulerStefanini@gmail.com"));
-            message.To.Add(new MailboxAddress("User", sendmail));
+            message.To.Add(new MailboxAddress("User", email));
             message.Subject = "Password Reset";
             message.Body = new TextPart("html")
             {
-                Text = "Someone has requested a password reset for the following account: "+sendmail +"<br>"
+                Text = "Someone has requested a password reset for the following account: "+email +"<br>"
                  +
                 "If this was a mistake, just ignore this email and nothing will happen. <br> "
                 + "If you want to reset you passowrd , visit the following address: <br>"+
@@ -62,7 +63,7 @@ namespace RSService.Controllers
         [HttpPut("/user/resetPass/{email}")]
         public IActionResult ResetPassowrd(string email, [FromBody]ResetPasswordViewModel userView)
         {
-
+           
 
             if (!ModelState.IsValid)
             {
@@ -70,11 +71,15 @@ namespace RSService.Controllers
             }
 
             var user = userRepository.GetUserByEmail(email);
+            
 
             if (user == null)
             {
                 return NotFound(); 
             }
+
+            if (user.ResetPassCode == null)
+                return NotFound();
 
             if ((user.DateExpire.Day != DateTime.UtcNow.Day) || (user.DateExpire.Month != DateTime.UtcNow.Month) || (user.DateExpire.Year != DateTime.UtcNow.Year))
                 return NotFound();
@@ -88,8 +93,9 @@ namespace RSService.Controllers
 
 
             //var modifiedUser = Mapper.Map<User>(userView);
-
+            // if this is a new request -->
             user.Password = userView.Password;
+            user.ResetPassCode = null;
 
             if (userView.Password != null)
             {
@@ -104,7 +110,8 @@ namespace RSService.Controllers
             {
                 Id = user.Id,
                 Email = user.Email,
-                Password = user.Password
+                Password = user.Password,
+                ResetPassCode=user.ResetPassCode
 
 
             };
