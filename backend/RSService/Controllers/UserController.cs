@@ -48,6 +48,7 @@ namespace RSService.Controllers
 
                final_result.Add(new UserDto()
                 {
+                    Id = it.Id,
                     FirstName = it.FirstName,
                     LastName = it.LastName,
                     Email = it.Email,
@@ -128,7 +129,6 @@ namespace RSService.Controllers
             newUser.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
 
 
-
             User user = new User()
             {
                 FirstName = newUser.FirstName,
@@ -136,14 +136,8 @@ namespace RSService.Controllers
                 Password = newUser.Password,
                 Email = newUser.Email,
                 DepartmentId = newUser.DepartmentId,
-                IsActive = true,
-
-                
-                
-        };
-
-
-            
+                IsActive = true   
+            };
 
             userRepository.AddUser(user);
 
