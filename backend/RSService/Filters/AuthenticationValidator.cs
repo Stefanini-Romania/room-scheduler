@@ -18,9 +18,9 @@ namespace RSService.Filters
         {
             this.rsManager = rsManager;
 
-            RuleFor(m => m.Name).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyEmail);
+            RuleFor(m => m.LoginName).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyEmail);
             RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyPassword);
-            RuleFor(m => m.Name).Must(IsActive).WithMessage(x => Validation.AuthMessages.IsNotActive);
+            RuleFor(m => m.LoginName).Must(IsActive).WithMessage(x => Validation.AuthMessages.IsNotActive);
 
         }
 

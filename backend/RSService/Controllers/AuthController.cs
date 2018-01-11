@@ -105,7 +105,7 @@ namespace RSService.Controllers
                 return ValidationError(GeneralMessages.Authentication);
             }
 
-            var user = _userRepository.FindUserByCredential(model.Name, model.Password);
+            var user = _userRepository.FindUserByCredential(model.LoginName, model.Password);
 
             if (user == null)
             {

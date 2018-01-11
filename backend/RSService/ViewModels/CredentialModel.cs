@@ -7,7 +7,7 @@ namespace RSService.ViewModels
 {
     public class CredentialModel
     {
-        public string Name { get; set; }
+        public string LoginName { get; set; }
 
         public string Password { get; set; }
     }
