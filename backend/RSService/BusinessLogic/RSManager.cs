@@ -274,9 +274,9 @@ namespace RSService.BusinessLogic
 
         public bool IsActiveUser(String email)
         {
-            var isActive = userRepository.GetUserByEmailAndActive(email);
+            var activeUser = userRepository.GetUserByEmailAndActive(email);
 
-            if (isActive == null)
+            if (activeUser == null)
             {
                 return false;
             }
