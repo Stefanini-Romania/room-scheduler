@@ -17,9 +17,9 @@ export class AuthService {
     constructor(private http: HttpClient, private translate: TranslateService) {
     }
 
-    authenticate(name: string, password: string) {
+    authenticate(loginName: string, password: string) {
         const url = environment.apiUrl + '/api/auth/login';
-        const body = JSON.stringify({name: name, password: password});
+        const body = JSON.stringify({loginName: loginName, password: password});
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body, {headers: headers, withCredentials: true})
             .catch((error: any) => Observable.throw(error))
@@ -32,16 +32,6 @@ export class AuthService {
                 return response;
             });
     }
-
-    // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    //     return next.handle(req).do(event => {}, err => {
-    //         if (err instanceof HttpErrorResponse && err.status == 401) {
-               
-    //             this.logout();
-
-    //         }
-    //     });
-    // }
 
     logout() {
         const url = environment.apiUrl + '/api/auth/logout';
