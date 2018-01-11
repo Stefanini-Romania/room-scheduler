@@ -26,18 +26,22 @@ namespace RSService.Controllers
 
         [HttpPost("email/resetpass/{sendmail}")]
         public IActionResult MailPassReset(string sendmail)
-        {           
+        {
+            var user = userRepository.GetUserByEmail(sendmail);
+            user.DateExpire = DateTime.UtcNow;
 
+            Context.SaveChanges();
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini-noreply", "roomchedulerStefanini@gmail.com"));
             message.To.Add(new MailboxAddress("User", sendmail));
-            message.Subject = "Passowrd Reset";
+            message.Subject = "Password Reset";
             message.Body = new TextPart("html")
             {
                 Text = "Someone has requested a password reset for the following account: "+sendmail +"<br>"
                  +
                 "If this was a mistake, just ignore this email and nothing will happen. <br> "
-                + "If you want to reset you passowrd , visit the following address: <br>"
+                + "If you want to reset you passowrd , visit the following address: <br>"+
+                "http://localhost:4200/calendarr"
 
 
 
@@ -69,7 +73,16 @@ namespace RSService.Controllers
 
             if (user == null)
             {
+                return NotFound(); 
+            }
+
+            if ((user.DateExpire.Day != DateTime.UtcNow.Day) || (user.DateExpire.Month != DateTime.UtcNow.Month) || (user.DateExpire.Year != DateTime.UtcNow.Year))
                 return NotFound();
+
+            if((user.DateExpire.Day == DateTime.UtcNow.Day) && (user.DateExpire.Month == DateTime.UtcNow.Month) && (user.DateExpire.Year == DateTime.UtcNow.Year))
+            {
+                if ((DateTime.UtcNow.AddHours(0) > user.DateExpire.AddHours(2)))
+                    return NotFound();
             }
 
 
