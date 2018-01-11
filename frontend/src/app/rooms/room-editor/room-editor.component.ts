@@ -44,7 +44,7 @@ export class RoomEditorComponent {
     }
 
     addRooms() {
-        this.roomService.addRoom(this.model.name, this.model.location).subscribe(
+        this.roomService.addRoom(this.modelForm.name, this.modelForm.location).subscribe(
             () => {
                 this.successfullAddRoom.emit();
                 this.toastr.success(

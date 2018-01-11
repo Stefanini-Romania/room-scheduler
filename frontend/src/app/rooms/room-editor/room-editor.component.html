@@ -9,51 +9,42 @@
         <div class="row justify-content-center align-self-center mx-auto">
             <form>
                 <div id="room-editor">   
-                    <!-- NAME -->
-                    <div class="row">
-                        <label class="col-md-4" *ngIf="model.id"><b>{{ 'name' | translate }}</b></label>             
-                        <div class="col"> 
-                            <div class="required-field-block">                          
-                                <input type="text" placeholder="{{ 'rooms.name' | translate }}" name="Name" [(ngModel)]="modelForm.name" #Name="ngModel" maxlength="20">
-                                <div class="required-icon">
-                                    <div class="text">*</div>
-                                </div>
-                            </div>
+                    <!-- NAME -->              
+                    <label *ngIf="model.id"><b>{{ 'name' | translate }}</b></label>                              
+                    <div class="required-field-block">                          
+                        <input type="text" placeholder="{{ 'rooms.name' | translate }}" name="Name" [(ngModel)]="modelForm.name" #Name="ngModel" maxlength="20">
+                        <div class="required-icon">
+                            <div class="text">*</div>
                         </div>
-                    </div>            
+                    </div>
+                               
                     <!-- NAME VALIDATION -->
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Name']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['Name']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
-
-                    <!-- LOCATION -->
-                    <div class="row">
-                        <label class="col-md-4" *ngIf="model.id"><b>{{ 'location' | translate }}</b></label>
-                        <div class="col">
-                            <div class="required-field-block">
-                                <input type="text" placeholder="{{ 'rooms.location' | translate }}" name="Location" [(ngModel)]="modelForm.location" #Location="ngModel" maxlength="25">
-                                <div class="required-icon">
-                                    <div class="text">*</div>
-                                </div>
-                            </div>
+                    <br />
+                    <!-- LOCATION -->                  
+                    <label *ngIf="model.id"><b>{{ 'location' | translate }}</b></label>
+                    <div class="required-field-block">
+                        <input type="text" placeholder="{{ 'rooms.location' | translate }}" name="Location" [(ngModel)]="modelForm.location" #Location="ngModel" maxlength="25">
+                        <div class="required-icon">
+                            <div class="text">*</div>
                         </div>
                     </div>
-                    
-                    <!-- LOCATION VALIDATION -->
+
+                   <!-- LOCATION VALIDATION -->
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Location']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['Location']">{{ errorMessage | translate }}</div>
                     </ngb-alert>  
 
-                    <div class="row">
-                        <div class="btn-group button-block col-md-4 offset-md-4" ngbRadioGroup *ngIf="model.id" mx-auto >
-                            <label ngbButtonLabel class="btn btn-primary" (click)="activateRoom(room)">
-                                <input ngbButton type="radio" value="1">{{'rooms.isActive' | translate}}
-                            </label>
-                            <label ngbButtonLabel class="btn btn-primary" (click)="deactivateRoom(room)">
-                                <input ngbButton type="radio" value="2" >{{'rooms.isNotActive' | translate}}
-                            </label>                      
-                        </div>
-                    </div>                 
+                    <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" mx-auto >
+                        <label ngbButtonLabel class="btn btn-primary" (click)="activateRoom(room)">
+                            <input ngbButton type="radio" value="1">{{'rooms.isActive' | translate}}
+                        </label>
+                        <label ngbButtonLabel class="btn btn-primary" (click)="deactivateRoom(room)">
+                            <input ngbButton type="radio" value="2" >{{'rooms.isNotActive' | translate}}
+                        </label>                      
+                    </div>               
                 </div>
             </form>
         </div>

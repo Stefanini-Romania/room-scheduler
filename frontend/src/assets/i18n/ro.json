@@ -211,7 +211,8 @@
 
   "Event": {
       "AttendeeId.CancelSomeoneElseBooking": "Nu se poate anula rezervarea altui utilizator",
-
+      "IsNotACtiv": "Contul dumneavoastră este inactiv",
+      "UserIsNotAuthenticated": "Nu sunteți autentificat",
       "StartDate":{
           "LessThan15Minutes": "Se poate rezerva doar cu 15 minute înainte",
           "Empty": "Ora de început necompletată",
@@ -229,10 +230,7 @@
           "NotInAvailabilityOfRoom": "Camera este indisponibilă (ora de sfârșit)",
           "IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de sfârșit)",
           "TimeSpan": "Durata timpului greșită"
-      },
-
-      "UserIsNotAuthenticated": "Nu sunteți autentificat"
-      
+      }    
   },
 
   "UserPenalized": "UTILIZATOR PENALIZAT",

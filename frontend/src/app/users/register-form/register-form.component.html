@@ -8,10 +8,10 @@
         <div id="registerForm" class="mx-auto">           
             <form name="regForm">
                 <div id="user-cont">
-                    <!-- <div class="text-center">
+                    <div class="text-center" *ngIf="!isLoggedIn">
                         <img src="../../../assets/img/header-logo2.png" id="logo-header" class="img-fluid">
                         <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
-                    </div> -->                 
+                    </div> 
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
@@ -54,7 +54,7 @@
                         <div class="col">
                                 <label *ngIf="model.id"><b>{{ 'register.email' | translate }}</b></label> 
                             <div class="required-field-block">
-                                <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="modelForm.email" #email="ngModel" required maxlength="35" >
+                                <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="modelForm.email" #email="ngModel" required maxlength="45" >
                                 <div class="required-icon">
                                     <div class="text">*</div>
                                 </div>
@@ -108,11 +108,9 @@
                         <div class="col-md-4">
                             <div class="btn-group" ngbRadioGroup>
                                 <label ngbButtonLabel class="btn btn-primary">
-                                    <input ngbButton type="radio" ng-model="modelForm.departmentId" (click)="adcDepartment(user)">ADC
-                                </label>
+                                    <input ngbButton type="radio">ADC                                </label>
                                 <label ngbButtonLabel class="btn-primary">
-                                    <input ngbButton type="radio" ng-model="modelForm.departmentId" (click)="sdcDepartment(user)">SDC
-                                </label>                      
+                                    <input ngbButton type="radio">SDC                                </label>                      
                             </div>
                         </div>
 
