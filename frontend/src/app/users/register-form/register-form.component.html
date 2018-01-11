@@ -11,8 +11,7 @@
                     <!-- <div class="text-center">
                         <img src="../../../assets/img/header-logo2.png" id="logo-header" class="img-fluid">
                         <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
-                    </div> -->
-                    
+                    </div> -->                 
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
@@ -49,22 +48,7 @@
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['LastName']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['LastName']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
-                
-                    <!-- USERNAME -->
-                    <!-- <label *ngIf="model.id"><b>{{ 'register.name' | translate }}</b></label> 
-                    <div class="required-field-block">
-                        <input type="text" placeholder="{{ 'register.name' | translate }}" name="name" [(ngModel)]="modelForm.name" #name="ngModel" required maxlength="20">
-                        <div class="required-icon">
-                            <div class="text">*</div>
-                        </div>
-                    </div>    
-                    FRONTEND VALIDATION
-                    <ngb-alert type="danger" [dismissible]="false" *ngIf="!name.valid && name.dirty && submitted">{{ 'wrong.name' | translate }}</ngb-alert>
-                    BACKEND VALIDATION
-                    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Name']" [dismissible]="false">
-                        <div *ngFor="let errorMessage of errorMessages['Name']">{{ errorMessage | translate }}</div>
-                    </ngb-alert> -->
-                    
+                                  
                     <!-- EMAIL -->                      
                     <div class="row">
                         <div class="col">
