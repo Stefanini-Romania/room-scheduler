@@ -207,6 +207,18 @@ namespace RSService.Controllers
                 return NotFound();
             }
 
+            if (
+                _event.StartDate != _model.StartDate ||
+                _event.EndDate != _model.EndDate ||
+                _event.EventType != _model.EventType ||
+                _event.RoomId != _model.RoomId ||
+                _event.HostId != _model.HostId ||
+                _event.AttendeeId != _model.AttendeeId
+              )
+            {
+                return ValidationError(GeneralMessages.EventEdit);
+            }
+
             // If the event was not created by current user OR current user is not the host for this event
             if (currentUserId != _event.AttendeeId && currentUserId != _event.HostId)
             {
