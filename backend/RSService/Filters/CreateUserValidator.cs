@@ -18,7 +18,7 @@ namespace RSService.Filters
             rsManager = rSManager;
 
             RuleFor(m => m.Email).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyEmail);
-            RuleFor(m => m.Email).Must(EmailDomain).WithMessage(x => Validation.UserMessages.EmptyEmail);
+            RuleFor(m => m.Email).Must(EmailDomain).WithMessage(x => Validation.UserMessages.EmailWrongDomain);
             RuleFor(m => m.FirstName).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyFirstName);
             RuleFor(m => m.LastName).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyLastName);
             RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyPassword);    
@@ -39,8 +39,11 @@ namespace RSService.Filters
 
         private bool EmailDomain(UserViewModel m , String email)
         {
-            if (email.Contains("@stefanini.com"))
-                return true;
+            if (email!=null)
+            {
+                if (email.Contains("@stefanini.com"))
+                    return true;
+            }
             return false;
         }
 

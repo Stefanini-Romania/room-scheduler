@@ -113,7 +113,28 @@ namespace RSService.Controllers
 
                
             };
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
+            message.To.Add(new MailboxAddress("User", user.Email));
+            message.Subject = "Welcome!";
+            message.Body = new TextPart("plain")
+            {
+                Text = " Your received a new account.<br>"+"Your credentials:<br>"
+                +"Username: "+ user.Email + "<br>" + " We hope that you will have the best time !"
+
+            };
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
+
+                client.Send(message);
+
+                client.Disconnect(true);
+            }
             return Ok(addedUser);
+           
         }
         [HttpPost("/user/register")]       
         public IActionResult RegisterUser([FromBody]UserViewModel newUser)
@@ -164,23 +185,26 @@ namespace RSService.Controllers
 
             };
 
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
-            message.To.Add(new MailboxAddress("User", user.Email));
-            message.Subject = "Welcome!";
-            message.Body = new TextPart("plain")
-            {
-                Text = " We are glad to have you on our application. We hope that you will have the best time !"
-            };
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
+            //if (user.Email != "")
+            //{
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
+                message.To.Add(new MailboxAddress("User", user.Email));
+                message.Subject = "Welcome!";
+                message.Body = new TextPart("plain")
+                {
+                    Text = " We are glad to have you on our application. We hope that you will have the best time !"
+                };
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
 
-                client.Send(message);
+                    client.Send(message);
 
-                client.Disconnect(true);
-            }
+                    client.Disconnect(true);
+                }
+            //}
             return Ok(addedUser);
         }
 
