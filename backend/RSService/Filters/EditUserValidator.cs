@@ -4,6 +4,7 @@ using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RSService.Filters
@@ -17,6 +18,8 @@ namespace RSService.Filters
 
             RuleFor(m => m.Email).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyEmail);
 
+            RuleFor(m => m.Email).Must(EmailDomain).WithMessage(x => Validation.UserMessages.EmailWrongDomain);
+
             RuleFor(m => m.Email).Must(IsUniqueEmail).WithMessage(x => Validation.UserMessages.UniqueEmail);
 
             RuleFor(m => m.FirstName).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyFirstName);
@@ -29,10 +32,21 @@ namespace RSService.Filters
              
 
         }
+      
 
         private bool IsUniqueEmail(EditUserViewModel m, String email)
         {
             return rsManager.IsUniqueEmailEdit(email, m.Id);
+        }
+
+        private bool EmailDomain(EditUserViewModel m, String email)
+        {
+            string MatchEmailPattern = @"(@stefanini\.com)$";
+            if (email != null)
+            {             
+                return Regex.IsMatch(email, MatchEmailPattern);
+            }
+            return false;
         }
 
         private bool IsValidRole(EditUserViewModel usm, List<int> userRole)
