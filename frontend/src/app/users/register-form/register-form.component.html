@@ -38,8 +38,7 @@
                                     <div class="text">*</div>
                                 </div>
                             </div>
-                        </div>
-                                        
+                        </div>                                
                     </div>
                     <!-- BACKEND VALIDATION -->
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['FirstName']" [dismissible]="false">
@@ -48,6 +47,7 @@
                     <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['LastName']" [dismissible]="false">
                         <div *ngFor="let errorMessage of errorMessages['LastName']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
+                    <br />
                                   
                     <!-- EMAIL -->                      
                     <div class="row">
@@ -68,6 +68,7 @@
                             </ngb-alert>
                         </div>
                     </div>
+                    <br />
                     
                     <!-- PASSWORD -->
                     <div class="row">
