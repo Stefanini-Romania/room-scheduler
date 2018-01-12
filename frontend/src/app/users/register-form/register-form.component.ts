@@ -40,13 +40,15 @@ export class RegisterFormComponent {
         userRole: [RoleEnum.attendee]
     }
     public selectedRole = RoleEnum;
-
     public errorMessages: any = {};
+    public selectedUser: User;
+    public user;
+    RoleEnum: typeof RoleEnum = RoleEnum;
     currentUser: User = undefined;
     DepartmentIdEnum: DepartmentIdEnum[] = [];
     RoleIdEnums = RoleEnum;
-    RoleEnum: typeof RoleEnum = RoleEnum;
-    public selectedUser: User;
+    
+    
 
     constructor(private authService: AuthService, 
                 private router: Router, 
