@@ -80,10 +80,10 @@ namespace RSService.Controllers
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
             message.To.Add(new MailboxAddress("User", currentAttendeeEmail));
             message.Subject = "You have an appoitment";
-            message.Body = new TextPart("plain")
+            message.Body = new TextPart("html")
             {
-                Text = " You have a new appoitment on "+newEvent.StartDate.Day+"/"+newEvent.StartDate.Month+"/"+newEvent.StartDate.Year + " from: " +
-                newEvent.StartDate.TimeOfDay + " to " + newEvent.EndDate.TimeOfDay+". We hope you will have a good time!"
+                Text = " You have a new appoitment. <br> "+"Date: "+newEvent.StartDate.Day+"/"+newEvent.StartDate.Month+"/"+newEvent.StartDate.Year +"<br>" +" Hour: " +
+                newEvent.StartDate.TimeOfDay + " to " + newEvent.EndDate.TimeOfDay+ "<br> <br> We hope you will have a good time,<br>Your RoomSchedulerTeam"
             };
             using (var client = new SmtpClient())
             {
