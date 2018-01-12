@@ -108,10 +108,10 @@
                         <!-- DEPARTMENT -->
                         <div class="col-md-4">
                             <div class="btn-group" ngbRadioGroup>
-                                <label ngbButtonLabel class="btn btn-primary">
-                                    <input ngbButton type="radio">ADC                                </label>
-                                <label ngbButtonLabel class="btn-primary">
-                                    <input ngbButton type="radio">SDC                                </label>                      
+                                <label ngbButtonLabel class="btn btn-primary" (click)="adcDepartment(user)">
+                                    <input ngbButton type="radio">ADC </label>
+                                <label ngbButtonLabel class="btn btn-primary" (click)="sdcDepartment(user)">
+                                    <input ngbButton type="radio">SDC </label>                      
                             </div>
                         </div>
 
@@ -129,7 +129,7 @@
 
                         <!-- ROLES -->
                         <div class="col">
-                            <div ngbDropdown class="d-inline-block pull-right" *ngIf="model.id" >
+                            <div ngbDropdown class="d-inline-block pull-right" *ngIf="model.id">
                                 <button class="btn btn-primary" ngbDropdownToggle>{{'role' | translate}}</button>
                                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                                     <button *ngFor="let Role of roleKeys()" class="dropdown-item" (click)="onRoleChange(Role)">
