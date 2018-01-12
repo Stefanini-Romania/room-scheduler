@@ -5,6 +5,7 @@ using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RSService.Filters
@@ -39,10 +40,12 @@ namespace RSService.Filters
 
         private bool EmailDomain(UserViewModel m , String email)
         {
+           string MatchEmailPattern = @"(@stefanini\.com)$";
             if (email!=null)
             {
-                if (email.Contains("@stefanini.com"))
-                    return true;
+                //if (email.Contains("@stefanini.com"))
+                //    return true;
+                return Regex.IsMatch(email, MatchEmailPattern);
             }
             return false;
         }
