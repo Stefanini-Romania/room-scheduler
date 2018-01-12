@@ -70,7 +70,7 @@ namespace RSService.Controllers
             }
             else
             {
-                newEvent.HostId = 0;  //TODO:  no host (not a massage room)
+                newEvent.HostId = 0;  // no host (not a massage room)
             }
 
             eventRepository.AddEvent(newEvent);
@@ -95,7 +95,6 @@ namespace RSService.Controllers
                 client.Disconnect(true);
             }
 
-            // TODO: return DTO object
             return Ok(new
             {
                 Id = newEvent.Id,
@@ -126,7 +125,30 @@ namespace RSService.Controllers
 
             results = results.Concat(availabilityEvents).ToList();
 
-            return Ok(results);
+            if (results == null)
+                return NotFound();
+
+            List<EventDto> events = new List<EventDto>();
+
+            foreach (var ev in results)
+            {
+                events.Add(new EventDto()
+                {
+                    Id = ev.Id,
+                    StartDate = ev.StartDate,
+                    EndDate = ev.EndDate,
+                    EventType = ev.EventType,
+                    RoomId = ev.RoomId,
+                    Notes = ev.Notes,
+                    HostId = ev.HostId,
+                    AttendeeId = ev.AttendeeId,
+                    EventStatus = ev.EventStatus,
+                    Host = ev.Host.FirstName + " " + ev.Host.LastName,
+                    DateCreated = ev.DateCreated
+                });
+            }
+
+            return Ok(events);
         }
       
         public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
@@ -136,8 +158,6 @@ namespace RSService.Controllers
             var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId);
 
             results = results.Concat(availabilityEvents).ToList();
-
-            //return Ok(results);
 
             if (results == null)
                 return NotFound();

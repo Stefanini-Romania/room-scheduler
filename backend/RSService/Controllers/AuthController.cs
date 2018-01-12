@@ -120,25 +120,16 @@ namespace RSService.Controllers
                                               IsPersistent = true,
                                               ExpiresUtc = DateTime.UtcNow.AddMinutes(_configVarRepository.GetSessionTimeSpan().Value)
                                           });
-
-            // TODO: return DTO object
-            return Ok(new
+            return Ok(new AuthUser()
             {
-                id = user.Id,
-                email = user.Email,
-                departmentId = user.DepartmentId,
-                firstName = user.FirstName,
-                lastName = user.LastName,
-                userRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
-                penalty = new List<int>(user.Penalty.Select(li => li.RoomId)),
-                isActive = user.IsActive
-
-                //new List<PenaltyDTO>(user.Penalty.Select(li=> new PenaltyDto
-                //{
-                //    Id = li.Id,
-                //    Date = li.Date
-                //})
-                //)
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DepartmentId = user.DepartmentId,
+                UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
+                Penalty = new List<int>(user.Penalty.Select(li => li.RoomId)),
+                IsActive = user.IsActive
             });
         }
 
