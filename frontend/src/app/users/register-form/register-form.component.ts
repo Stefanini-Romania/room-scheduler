@@ -47,8 +47,7 @@ export class RegisterFormComponent {
     currentUser: User = undefined;
     DepartmentIdEnum: DepartmentIdEnum[] = [];
     RoleIdEnums = RoleEnum;
-    
-    
+    displayRole = "Role";
 
     constructor(private authService: AuthService, 
                 private router: Router, 
@@ -88,6 +87,10 @@ export class RegisterFormComponent {
         let roles =[];
         roles = [userRole];
         this.modelForm.userRole = roles;
+    }
+
+    onRoleSelect (selectedRole: string){
+        this.displayRole = " " + selectedRole;
     }
 
     register() {

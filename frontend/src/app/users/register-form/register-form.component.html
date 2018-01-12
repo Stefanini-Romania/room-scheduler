@@ -127,18 +127,6 @@
                             </div>
                         </div>
 
-                        <!-- ROLES -->
-                        <div class="col">
-                            <div ngbDropdown class="d-inline-block pull-right" *ngIf="model.id">
-                                <button class="btn btn-primary" ngbDropdownToggle>{{'role' | translate}}</button>
-                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                    <button *ngFor="let Role of roleKeys()" class="dropdown-item" (click)="onRoleChange(Role)">
-                                        {{Role}}
-                                    </button>
-                                </div>
-                            </div> 
-                        </div>
-                
                         <!-- REGISTER -->
                         <div class="col">
                             <button type="submit" class="btn btn-primary pull-right" *ngIf="!model.id" (click)="register()">
@@ -146,14 +134,26 @@
                                 <!-- <i class="fa fa-lock"></i> -->
                             </button>
                         </div>
-                                                
-                    </div>               
-                    <hr class="my-1" *ngIf="model.id">
-                    <div class="clearfix pull-right">           
-                        <button type="submit" class="btn btn-primary" *ngIf="model.id" (click)="editUser()">
-                            {{ 'user.save' | translate }}
-                        </button>                    
-                    </div>                        
+                    </div>
+
+                    <!-- ROLES -->
+                    <div class="row">
+                        <div class="col col-md-6">
+                            <div ngbDropdown class="d-inline-block" *ngIf="model.id">
+                                <button class="btn btn-primary" ngbDropdownToggle>{{displayRole}}</button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                    <button *ngFor="let Role of roleKeys()" class="dropdown-item" value="{{Role}}" (click)="onRoleChange(Role);onRoleSelect(Role)">
+                                        {{Role}}
+                                    </button>
+                                </div>
+                            </div> 
+                        </div>                                                      
+                        <div class="col col-md-6">           
+                            <button type="submit" class="btn btn-primary pull-right" *ngIf="model.id" (click)="editUser()">
+                                {{ 'user.save' | translate }}
+                            </button>                    
+                        </div>  
+                    </div>                     
                     <p *ngIf="!(isLoggedIn) && !model.id">                         
                         {{ 'login.alreadyHaveAccount' | translate }}
                         <a routerLink="/login">{{ 'login.button' | translate }}</a>.
