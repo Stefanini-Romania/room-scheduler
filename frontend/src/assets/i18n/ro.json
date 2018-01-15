@@ -35,6 +35,8 @@
       "email": "Email",
       "confirmPassword": "Confirmă parola",
       "button": "Adaugă cont",
+      "status": "Status",
+      "department":"Departament",
 
       "noAccount?": "Nu aveți un cont ?"
   },

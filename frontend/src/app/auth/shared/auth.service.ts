@@ -8,13 +8,14 @@ import 'rxjs/Rx';
 
 import {User} from '../../shared/models/user.model';
 import {LanguageSelector} from '../../core/language-selector/language-selector';
+import {DialogService} from '../../shared/services/dialog.service';
 
 @Injectable()
 export class AuthService {
     
     public user$: EventEmitter<User> = new EventEmitter();
 
-    constructor(private http: HttpClient, private translate: TranslateService) {
+    constructor(private dialogService: DialogService, private http: HttpClient, private translate: TranslateService) {
     }
 
     authenticate(loginName: string, password: string) {
@@ -28,8 +29,13 @@ export class AuthService {
                     sessionStorage.setItem('currentUser', JSON.stringify(response));
                     this.user$.emit(this.getLoggedUser());
                 }
-
+                // setTimeout(function(){
+                //     console.log("LOGOUT");
+                //     sessionStorage.removeItem('currentUser');
+                //     alert( "You have been logged out for security reasons");
+                //   },3000);
                 return response;
+                
             });
     }
 

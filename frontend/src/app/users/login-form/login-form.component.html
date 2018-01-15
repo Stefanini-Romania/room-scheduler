@@ -12,16 +12,19 @@
                     <span id="nav-text1" class="navbar-brand">Room Scheduler</span>
                 </div>
                 <ngb-alert type="danger" *ngIf="errorMessage" [dismissible]="false">{{ errorMessage | translate }}</ngb-alert>
-                <!-- <label><b>Username</b></label> -->
+                
+                <label class="label"><b>{{'register.email'| translate}}</b></label>
                 <div class="required-field-block">
                     <input  type="text" placeholder="{{ 'login.email' | translate }}" name="Email" [(ngModel)]="model.email" #Email="ngModel" required>
                     <div class="required-icon">
                             <div class="text">*</div>
                     </div>
                 </div>
+                <br>
 
-                <!-- <label><b>Password</b></label> -->
+                <label class="label"><b>{{'register.password'| translate}}</b></label>
                 <div class="required-field-block">
+                    
                     <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
                     <div class="required-icon">
                             <div class="text">*</div>

@@ -16,10 +16,31 @@
                         <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
 
+                    <!-- EMAIL -->                      
+                        <div class="row">
+                            <div class="col">
+                                 <label class="label"><b>{{ 'register.email' | translate }}</b></label> 
+                                <div class="required-field-block">
+                                    <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="modelForm.email" #email="ngModel" required maxlength="45" >
+                                        <div class="required-icon">
+                                            <div class="text">*</div>
+                                         </div>
+                                </div>                            
+                                            
+                    <!-- FRONTEND VALIDATION -->
+                        <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>
+                    <!-- BACKEND VALIDATION  -->
+                                <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Email']" [dismissible]="false">
+                                    <div *ngFor="let errorMessage of errorMessages['Email']">{{ errorMessage | translate }}</div>
+                                </ngb-alert>
+                            </div>
+                        </div>
+                        <br />
+
                     <!-- FIRSTNAME and LASTNAME -->
                     <div class="row">
-                        <label class="col" *ngIf="model.id"><b>{{ 'register.firstName' | translate }}</b></label> 
-                        <label class="col" *ngIf="model.id"><b>{{ 'register.lastName' | translate }}</b></label> 
+                        <label class="col label"><b>{{ 'register.firstName' | translate }}</b></label> 
+                        <label class="col label"><b>{{ 'register.lastName' | translate }}</b></label> 
                     </div>
                     <div class="row">
                         <div class="col">
@@ -48,29 +69,12 @@
                         <div *ngFor="let errorMessage of errorMessages['LastName']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
                     <br />
-                                  
-                    <!-- EMAIL -->                      
-                    <div class="row">
-                        <div class="col">
-                                <label *ngIf="model.id"><b>{{ 'register.email' | translate }}</b></label> 
-                            <div class="required-field-block">
-                                <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="modelForm.email" #email="ngModel" required maxlength="45" >
-                                <div class="required-icon">
-                                    <div class="text">*</div>
-                                </div>
-                            </div>                            
-                        
-                            <!-- FRONTEND VALIDATION -->
-                            <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>
-                            <!-- BACKEND VALIDATION  -->
-                            <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Email']" [dismissible]="false">
-                                <div *ngFor="let errorMessage of errorMessages['Email']">{{ errorMessage | translate }}</div>
-                            </ngb-alert>
-                        </div>
-                    </div>
-                    <br />
                     
                     <!-- PASSWORD -->
+                    <div class="row">
+                        <label class="col label"><b>{{ 'register.password' | translate }}</b></label> 
+                        <label class="col label"><b>{{ 'register.confirmPassword' | translate }}</b></label> 
+                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="required-field-block">
@@ -102,43 +106,51 @@
                         <div *ngFor="let errorMessage of errorMessages['Password']">{{ errorMessage | translate }}</div>
                     </ngb-alert>
 
-                    <!--BUTTONS -->                      
-                    <div class="row" >
-                        <!-- <ngb-alert type="danger" *ngIf="submitted=false" [dismissible]="false" >{{ 'Error.User.Creation' | translate }}</ngb-alert> -->
-                        <!-- DEPARTMENT -->
-                        <div class="col-md-4">
-                            <div class="btn-group" ngbRadioGroup>
-                                <label ngbButtonLabel class="btn btn-primary" (click)="adcDepartment(user)">
-                                    <input ngbButton type="radio">ADC </label>
-                                <label ngbButtonLabel class="btn btn-primary" (click)="sdcDepartment(user)">
-                                    <input ngbButton type="radio">SDC </label>                      
-                            </div>
+                    <!--BUTTONS --> 
+                    <br> 
+                    <div class="row">
+                        <div class="col-3">
+                                <label class="label"><b>{{ 'register.department' | translate }}</b></label> 
                         </div>
-
-                        <!-- ACTIVE/INACTIVE -->
-                        <div class="col">
-                            <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
-                                <label ngbButtonLabel class="btn btn-primary" (click)="activateUser(user)">
-                                    <input ngbButton type="radio">{{'user.isActive' | translate}}
-                                </label>
-                                <label ngbButtonLabel class="btn btn-primary" (click)="deactivateUser(user)">
-                                    <input ngbButton type="radio">{{'user.isNotActive' | translate}}
-                                </label>                      
-                            </div>
+                        
+                        <div class="btn-group col-4" ngbRadioGroup>
+                            <label ngbButtonLabel class="btn btn-primary" (click)="adcDepartment(user)">
+                                <input ngbButton type="radio">ADC </label>
+                            <label ngbButtonLabel class="btn btn-primary" (click)="sdcDepartment(user)">
+                                <input ngbButton type="radio">SDC </label>                      
                         </div>
-
-                        <!-- REGISTER -->
                         <div class="col">
                             <button type="submit" class="btn btn-primary pull-right" *ngIf="!model.id" (click)="register()">
                                 {{ 'register.button' | translate }} 
-                                <!-- <i class="fa fa-lock"></i> -->
                             </button>
                         </div>
-                    </div>
+
+                    </div>                    
+
+                        <!-- ACTIVE/INACTIVE -->
+                        <div class="row">
+                            <div class="col-3">
+                                <label *ngIf="model.id" class="label"><b>{{ 'register.status' | translate }}</b></label> 
+                            </div>
+                        
+                            <div class="col-4">
+                                <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
+                                    <label ngbButtonLabel class="btn btn-primary" (click)="activateUser(user)">
+                                        <input ngbButton type="radio">{{'user.isActive' | translate}}
+                                    </label>
+                                    <label ngbButtonLabel class="btn btn-primary" (click)="deactivateUser(user)">
+                                        <input ngbButton type="radio">{{'user.isNotActive' | translate}}
+                                    </label>                      
+                                </div>
+                            </div>
+                         </div>
 
                     <!-- ROLES -->
                     <div class="row">
-                        <div class="col col-md-6">
+                        <div class="col-3">
+                            <label *ngIf="model.id" class="label"><b>{{ 'role' | translate }}</b></label>
+                        </div>
+                        <div class="col col-md-4">
                             <div ngbDropdown class="d-inline-block" *ngIf="model.id">
                                 <button class="btn btn-primary" ngbDropdownToggle>{{displayRole}}</button>
                                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -148,7 +160,7 @@
                                 </div>
                             </div> 
                         </div>                                                      
-                        <div class="col col-md-6">           
+                        <div class="col">           
                             <button type="submit" class="btn btn-primary pull-right" *ngIf="model.id" (click)="editUser()">
                                 {{ 'user.save' | translate }}
                             </button>                    
