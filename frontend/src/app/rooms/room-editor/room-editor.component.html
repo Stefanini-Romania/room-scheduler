@@ -10,7 +10,7 @@
             <form>
                 <div id="room-editor">   
                     <!-- NAME -->              
-                    <label ><b>{{ 'name' | translate }}</b></label>                              
+                    <label class="label"><b>{{ 'name' | translate }}</b></label>                              
                     <div class="required-field-block">                          
                         <input type="text" placeholder="{{ 'rooms.name' | translate }}" name="Name" [(ngModel)]="modelForm.name" #Name="ngModel" maxlength="20">
                         <div class="required-icon">
@@ -24,7 +24,7 @@
                     </ngb-alert>
                     <br />
                     <!-- LOCATION -->                  
-                    <label ><b>{{ 'location' | translate }}</b></label>
+                    <label class="label"><b>{{ 'location' | translate }}</b></label>
                     <div class="required-field-block">
                         <input type="text" placeholder="{{ 'rooms.location' | translate }}" name="Location" [(ngModel)]="modelForm.location" #Location="ngModel" maxlength="25">
                         <div class="required-icon">

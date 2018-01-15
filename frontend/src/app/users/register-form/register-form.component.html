@@ -19,7 +19,7 @@
                     <!-- EMAIL -->                      
                         <div class="row">
                             <div class="col">
-                                 <label ><b>{{ 'register.email' | translate }}</b></label> 
+                                 <label class="label"><b>{{ 'register.email' | translate }}</b></label> 
                                 <div class="required-field-block">
                                     <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="modelForm.email" #email="ngModel" required maxlength="45" >
                                         <div class="required-icon">
@@ -39,8 +39,8 @@
 
                     <!-- FIRSTNAME and LASTNAME -->
                     <div class="row">
-                        <label class="col"><b>{{ 'register.firstName' | translate }}</b></label> 
-                        <label class="col"><b>{{ 'register.lastName' | translate }}</b></label> 
+                        <label class="col label"><b>{{ 'register.firstName' | translate }}</b></label> 
+                        <label class="col label"><b>{{ 'register.lastName' | translate }}</b></label> 
                     </div>
                     <div class="row">
                         <div class="col">
@@ -72,8 +72,8 @@
                     
                     <!-- PASSWORD -->
                     <div class="row">
-                        <label class="col"><b>{{ 'register.password' | translate }}</b></label> 
-                        <label class="col"><b>{{ 'register.confirmPassword' | translate }}</b></label> 
+                        <label class="col label"><b>{{ 'register.password' | translate }}</b></label> 
+                        <label class="col label"><b>{{ 'register.confirmPassword' | translate }}</b></label> 
                     </div>
                     <div class="row">
                         <div class="col">
@@ -110,7 +110,7 @@
                     <br> 
                     <div class="row">
                         <div class="col-3">
-                                <label><b>{{ 'register.department' | translate }}</b></label> 
+                                <label class="label"><b>{{ 'register.department' | translate }}</b></label> 
                         </div>
                         
                         <div class="btn-group col-4" ngbRadioGroup>
@@ -130,7 +130,7 @@
                         <!-- ACTIVE/INACTIVE -->
                         <div class="row">
                             <div class="col-3">
-                                <label *ngIf="model.id"><b>{{ 'register.status' | translate }}</b></label> 
+                                <label *ngIf="model.id" class="label"><b>{{ 'register.status' | translate }}</b></label> 
                             </div>
                         
                             <div class="col-4">
@@ -148,7 +148,7 @@
                     <!-- ROLES -->
                     <div class="row">
                         <div class="col-3">
-                            <label *ngIf="model.id"><b>{{ 'role' | translate }}</b></label>
+                            <label *ngIf="model.id" class="label"><b>{{ 'role' | translate }}</b></label>
                         </div>
                         <div class="col col-md-4">
                             <div ngbDropdown class="d-inline-block" *ngIf="model.id">

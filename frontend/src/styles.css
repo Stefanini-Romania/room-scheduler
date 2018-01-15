@@ -459,6 +459,10 @@ div #room-editor input, div #user-cont input{
     padding-top: 7.5px;
 }
 
+.label{
+    margin-bottom: 0;
+}
+
 div #lost-password input {
     padding-bottom: 6px;
     padding-top: 6px;
