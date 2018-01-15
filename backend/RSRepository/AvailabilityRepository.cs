@@ -28,7 +28,7 @@ namespace RSRepository
             return availabilities.ToList();
         }
 
-        public List<Availability> GetAvailabilities(int[] roomId, int[] hostId)
+        public List<Availability> GetAvailabilities(int[] roomId, int?[] hostId)
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))
                                  .Where(e => hostId.Contains(e.HostId))

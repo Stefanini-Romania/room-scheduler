@@ -19,7 +19,7 @@ namespace RSService.ViewModels
 
         public string Notes { get; set; }
 
-        public int HostId { get; set; }
+        public int? HostId { get; set; }
 
         public int AttendeeId { get; set; }
 

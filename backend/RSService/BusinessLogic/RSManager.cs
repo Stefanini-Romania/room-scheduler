@@ -31,7 +31,7 @@ namespace RSService.BusinessLogic
         }
 
 
-        public List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
+        public List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId, int?[] hostId)
         {
             List<Event> availabilityEvents = new List<Event>();
 

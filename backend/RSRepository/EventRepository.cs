@@ -23,12 +23,12 @@ namespace RSRepository
             return events.ToList();
         }
 
-        public List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
+        public List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int?[] hostId)
         {
             return events.Where(e => e.StartDate >= startDate)
                          .Where(e => e.StartDate <= endDate)
                          .Where(e => roomId.Contains(e.RoomId))
-                         .Where(e => hostId.Contains(e.HostId)) 
+                         .Where(e => hostId.Contains(e.HostId))
                          .Where(e => e.EventStatus != (int)EventStatusEnum.cancelled)
                          .Include(e => e.Host)
                          .ToList();

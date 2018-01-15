@@ -70,7 +70,7 @@ namespace RSService.Controllers
             }
             else
             {
-                newEvent.HostId = 0;  // no host (not a massage room)
+                newEvent.HostId = null;  // no host (not a massage room)
             }
 
             eventRepository.AddEvent(newEvent);
@@ -114,7 +114,7 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/event/list")]
-        public IActionResult GetEventsByHosts(DateTime startDate, DateTime endDate, int[] roomId, int[] hostId)
+        public IActionResult GetEventsByHosts(DateTime startDate, DateTime endDate, int[] roomId, int?[] hostId)
         {
             if (!hostId.Any())
                 return GetEvents(startDate, endDate, roomId);
@@ -177,7 +177,7 @@ namespace RSService.Controllers
                     HostId = ev.HostId,
                     AttendeeId = ev.AttendeeId,
                     EventStatus = ev.EventStatus,
-                    Host = ev.Host.FirstName +" "+ ev.Host.LastName,
+                    //Host = ev.Host.FirstName +" "+ ev.Host.LastName,
                     DateCreated = ev.DateCreated
                 });
             }
@@ -207,18 +207,6 @@ namespace RSService.Controllers
                 return NotFound();
             }
 
-            if (
-                _event.StartDate != _model.StartDate ||
-                _event.EndDate != _model.EndDate ||
-                _event.EventType != _model.EventType ||
-                _event.RoomId != _model.RoomId ||
-                _event.HostId != _model.HostId ||
-                _event.AttendeeId != _model.AttendeeId
-              )
-            {
-                return ValidationError(GeneralMessages.EventEdit);
-            }
-
             // If the event was not created by current user OR current user is not the host for this event
             if (currentUserId != _event.AttendeeId && currentUserId != _event.HostId)
             {
@@ -237,10 +225,10 @@ namespace RSService.Controllers
             _event.EventStatus = _model.EventStatus;
             _event.DateCreated = DateTime.UtcNow;
 
-            Context.SaveChanges();
-
             if (_event.EventStatus == (int)EventStatusEnum.absent)
                 rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
+
+            Context.SaveChanges();
 
             return Ok(new
             {

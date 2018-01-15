@@ -15,7 +15,7 @@ namespace RSData.Models
         public int EventType { get; set; }
         public int RoomId { get; set; }
         public string Notes { get; set; }
-        public int HostId { get; set; }
+        public int? HostId { get; set; }
         public int AttendeeId { get; set; }
         public int EventStatus { get; set; }
         public DateTime DateCreated { get; set; }

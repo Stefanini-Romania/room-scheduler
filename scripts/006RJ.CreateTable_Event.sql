@@ -9,7 +9,7 @@
     Target Database Engine Type : Standalone SQL Server
 */
 
-/****** Object:  Table [dbo].[Event]    Script Date: 02-Nov-17 12:57:00 PM ******/
+/****** Object:  Table [dbo].[Event]    Script Date: 15-Jan-18 4:40:43 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -25,7 +25,7 @@ CREATE TABLE [dbo].[Event](
 	[EventType] [int] NULL,
 	[RoomID] [int] NOT NULL,
 	[Notes] [nvarchar](150) NULL,
-	[HostID] [int] NOT NULL,
+	[HostID] [int] NULL,
 	[AttendeeID] [int] NOT NULL,
 	[EventStatus] [int] NOT NULL,
 	[DateCreated] [datetime] NOT NULL,
