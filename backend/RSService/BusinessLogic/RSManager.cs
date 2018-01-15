@@ -207,7 +207,7 @@ namespace RSService.BusinessLogic
 
         //Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
 
-        public void CheckPenalty(DateTime startDate, int eventId, int attendeeId, int roomId)
+        public void AddPenalty(DateTime startDate, int eventId, int attendeeId, int roomId)
         {
             var pastEvents = eventRepository.GetPastEventsByUser(startDate, attendeeId, roomId);
 

@@ -18,7 +18,7 @@ namespace RSService.BusinessLogic
 
         bool CheckAvailability(DateTime startDate, DateTime endDate, int roomId);
 
-        void CheckPenalty(DateTime startDate, int eventId, int attendeeId, int roomId);
+        void AddPenalty(DateTime startDate, int eventId, int attendeeId, int roomId);
 
         bool HasPenalty(int attendeeId, DateTime newDate, int roomId);
 

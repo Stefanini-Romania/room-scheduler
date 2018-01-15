@@ -177,7 +177,7 @@ namespace RSService.Controllers
                     HostId = ev.HostId,
                     AttendeeId = ev.AttendeeId,
                     EventStatus = ev.EventStatus,
-                    //Host = ev.Host.FirstName +" "+ ev.Host.LastName,
+                    Host = (ev.Host !=null) ?  ev.Host.FirstName +" "+ ev.Host.LastName : null,
                     DateCreated = ev.DateCreated
                 });
             }
@@ -226,7 +226,7 @@ namespace RSService.Controllers
             _event.DateCreated = DateTime.UtcNow;
 
             if (_event.EventStatus == (int)EventStatusEnum.absent)
-                rsManager.CheckPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
+                rsManager.AddPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
 
             Context.SaveChanges();
 
