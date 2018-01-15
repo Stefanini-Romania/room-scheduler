@@ -35,6 +35,8 @@
       "email": "Email",
       "confirmPassword": "Confirm password",
       "button": "Add account",
+      "status": "Status",
+      "department":"Department",
 
       "noAccount?": "Don't have an account ?"
   },

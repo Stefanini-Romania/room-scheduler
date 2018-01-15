@@ -450,8 +450,8 @@ div .modal-footer {
     padding-top: 0px;
 }
 
-div #room-editor label, div #user-cont label{
-    margin-bottom: 0px;
+.col-3 label{
+    padding-top: 10px;
 }
 
 div #room-editor input, div #user-cont input{
