@@ -17,11 +17,15 @@
       "home": "Calendar",
       "register": "Înregistrare",
       "admin": "Administrator",
-      "signIn": "Autentificare"
+      "signIn": "Autentificare",
+      "send": "Trimite"
   },
 
   "noAccount": "Nu aveți cont",
   "clickHere": "Înregistrați-vă aici",
+  "lostPassword": "Ați uitat parola",
+  "insertEmail": "Introduceți mai jos adresa dumneavoastră de email pentru a vă recupera parola",
+  "loginPage": "Înapoi la pagina de login",
 
   "register": {
       "firstName": "Prenume",

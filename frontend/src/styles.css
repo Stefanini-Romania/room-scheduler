@@ -453,9 +453,15 @@ div .modal-footer {
 div #room-editor label, div #user-cont label{
     margin-bottom: 0px;
 }
+
 div #room-editor input, div #user-cont input{
     padding-bottom: 7.5px;
     padding-top: 7.5px;
+}
+
+div #lost-password input {
+    padding-bottom: 6px;
+    padding-top: 6px;
 }
 
 /* div #room-editor label {

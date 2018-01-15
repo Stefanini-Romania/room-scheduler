@@ -17,11 +17,15 @@
       "home": "Calendar",
       "register": "Register",
       "admin": "Admin",
-      "signIn": "Sign In"
+      "signIn": "Sign In",
+      "send": "Send"
   },
 
   "noAccount": "You don't have an account",
   "clickHere": "Register here",
+  "lostPassword": "Forgot password",
+  "insertEmail": "Please insert your email adress here to recover your password",
+  "loginPage": "Go back to login page",
 
   "register": {
       "firstName": "First name",
