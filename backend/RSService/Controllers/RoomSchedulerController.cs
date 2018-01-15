@@ -225,6 +225,14 @@ namespace RSService.Controllers
                 return ValidationError(EventMessages.CancellationRight);
             }
 
+            if (currentUserId == _event.HostId)
+            {
+                if (model.EventStatus != (int)EventStatusEnum.present && model.EventStatus != (int)EventStatusEnum.absent)
+                {
+                    return ValidationError(EventMessages.WrongEventStatus);
+                }
+            }
+
             _event.Notes = _model.Notes;
             _event.EventStatus = _model.EventStatus;
             _event.DateCreated = DateTime.UtcNow;

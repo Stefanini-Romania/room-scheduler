@@ -221,5 +221,14 @@ namespace RSService.Validation {
                 return ResourceManager.GetString("UnauthenticatedUser", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.EventStatus.Wrong.
+        /// </summary>
+        internal static string WrongEventStatus {
+            get {
+                return ResourceManager.GetString("WrongEventStatus", resourceCulture);
+            }
+        }
     }
 }

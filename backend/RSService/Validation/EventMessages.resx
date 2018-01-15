@@ -171,4 +171,7 @@
   <data name="UnauthenticatedUser" xml:space="preserve">
     <value>Event.UserIsNotAuthenticated</value>
   </data>
+  <data name="WrongEventStatus" xml:space="preserve">
+    <value>Event.EventStatus.Wrong</value>
+  </data>
 </root>
