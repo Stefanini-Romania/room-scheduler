@@ -5,6 +5,7 @@ import {ToastrService} from 'ngx-toastr';
 import {EventStatusEnum} from '../../shared/models/event.model';
 import {EventService} from '../shared/event.service';
 import {Event} from '../../shared/models/event.model';
+import {AuthService} from './../../auth/shared/auth.service';
 
 @Component({
     selector: 'event-editor',
@@ -18,7 +19,7 @@ export class EventEditorComponent implements OnInit{
     public title: string;
     public errorMessages: any = {};
 
-    constructor(public activeModal: NgbActiveModal, private toastr: ToastrService, private translate: TranslateService, private eventService: EventService) {
+    constructor(public activeModal: NgbActiveModal, private toastr: ToastrService, private translate: TranslateService, private eventService: EventService, private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -58,6 +59,7 @@ export class EventEditorComponent implements OnInit{
                 // @TODO handle generic errors
                 if (error.status == 401) {
                     this.errorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
+                    this.authService.logout();
                 } else {
                     this.errorMessages = {'generic': [error.error.message]};
 

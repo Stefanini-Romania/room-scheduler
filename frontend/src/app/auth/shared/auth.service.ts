@@ -1,21 +1,22 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {Response} from '@angular/http';
 import {TranslateService} from '@ngx-translate/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import 'rxjs/Rx';
+import {Router} from '@angular/router';
 
 import {User} from '../../shared/models/user.model';
 import {LanguageSelector} from '../../core/language-selector/language-selector';
+import { RoleEnum } from '../../shared/models/role.model';
 import {DialogService} from '../../shared/services/dialog.service';
 
 @Injectable()
 export class AuthService {
     
     public user$: EventEmitter<User> = new EventEmitter();
-
-    constructor(private dialogService: DialogService, private http: HttpClient, private translate: TranslateService) {
+    constructor(private dialogService: DialogService, private http: HttpClient, private translate: TranslateService, private router: Router) {
     }
 
     authenticate(loginName: string, password: string) {
@@ -38,6 +39,16 @@ export class AuthService {
                 
             });
     }
+
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(req).do(event => {}, err => {
+            if (err instanceof HttpErrorResponse && err.status == 401) {           
+                this.logout();
+                this.router.navigate(['/calendar']);
+            }
+        });
+    }
+
 
     logout() {
         const url = environment.apiUrl + '/api/auth/logout';
