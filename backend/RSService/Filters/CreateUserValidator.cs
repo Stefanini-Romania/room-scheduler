@@ -43,8 +43,7 @@ namespace RSService.Filters
            string MatchEmailPattern = @"(@stefanini\.com)$";
             if (email!=null)
             {
-                //if (email.Contains("@stefanini.com"))
-                //    return true;
+           
                 return Regex.IsMatch(email, MatchEmailPattern);
             }
             return false;
