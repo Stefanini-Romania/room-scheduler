@@ -228,7 +228,7 @@ namespace RSService.Controllers
             Context.SaveChanges();
 
             if (_event.EventStatus == (int)EventStatusEnum.absent)
-                rsManager.AddPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);    // works only if host update the events daily
+                rsManager.AddPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);    // works only if host updates the events daily
 
             return Ok(new
             {

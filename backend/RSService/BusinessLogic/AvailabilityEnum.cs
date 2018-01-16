@@ -8,6 +8,7 @@ namespace RSService.BusinessLogic
     public enum AvailabilityEnum
     {
         Available = 0,
-        NotAvailable = 1
+        NotAvailable = 1,
+        Exception = 2
     }
 }
