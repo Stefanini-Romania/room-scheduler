@@ -6,7 +6,7 @@
       <tr>
         <th>{{'AdminTabs.Rooms' | translate}}</th>
         <th>{{'location' | translate}}</th>
-        <th>{{'rooms.isActive' | translate}}</th>
+        <th>{{'rooms.status' | translate}}</th>
         <th>{{'actions' | translate}}</th>
       </tr>
   </thead>
@@ -15,7 +15,8 @@
     <tr *ngFor="let room of rooms | paginate: { itemsPerPage: 6, currentPage: roompage}">
       <td>{{room.name}}</td>
       <td>{{room.location}}</td>
-      <td>{{room.isActive}}</td>
+      <td *ngIf="room.isActive">{{'rooms.isActive' | translate}}</td>
+      <td *ngIf="!room.isActive">{{'rooms.isNotActive' | translate}}</td>
       <td> 
         <button class = "btn btn-primary" (click)="onSelectRoom(room)" title="{{'rooms.edit' | translate}}">
             <i class="fa fa-pencil" aria-hidden="true"></i>

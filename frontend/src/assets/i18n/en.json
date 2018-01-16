@@ -75,7 +75,8 @@
       "deactivate": "The room has been deactivated",
       "activated": "The room has been activated",
       "isActive": "Active",
-      "isNotActive": "Inactive"
+      "isNotActive": "Inactive",
+      "status": "Status"
   },
 
   "name": "Name",

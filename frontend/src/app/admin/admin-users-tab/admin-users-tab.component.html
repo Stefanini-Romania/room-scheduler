@@ -19,7 +19,8 @@
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
       <td>{{user.userRole}}</td>
-      <td>{{user.isActive}}</td>
+      <td *ngIf="user.isActive">{{'user.isActive' | translate}}</td>
+      <td *ngIf="!user.isActive">{{'user.isNotActive' | translate}}</td>
       <td>
         <button class = "btn btn-primary" (click)="onSelectUser(user)" title="{{'user.edit' | translate}}">
             <i class="fa fa-pencil" aria-hidden="true"></i>

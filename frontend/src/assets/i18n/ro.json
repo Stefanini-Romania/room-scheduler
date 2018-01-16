@@ -75,7 +75,8 @@
       "deactivated": "Camera a fost dezactivată",
       "activated": "Camera a fost activată",
       "isActive": "Activ",
-      "isNotActive": "Inactiv"
+      "isNotActive": "Inactiv",
+      "status": "Status"
   },
 
   "name": "Nume",
