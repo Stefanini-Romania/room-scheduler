@@ -201,7 +201,7 @@ namespace RSService.BusinessLogic
                                 
                         if (startDate.TimeOfDay >= ev.StartHour.TimeOfDay && startDate.TimeOfDay <= ev.EndHour.TimeOfDay)
                             return false;                   
-            return true; ;
+            return true;
         }
 
 

@@ -225,10 +225,10 @@ namespace RSService.Controllers
             _event.EventStatus = _model.EventStatus;
             _event.DateCreated = DateTime.UtcNow;
 
-            if (_event.EventStatus == (int)EventStatusEnum.absent)
-                rsManager.AddPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
-
             Context.SaveChanges();
+
+            if (_event.EventStatus == (int)EventStatusEnum.absent)
+                rsManager.AddPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);    // works only if host update the events daily
 
             return Ok(new
             {
