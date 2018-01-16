@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {HttpClientModule, HttpClient, HttpRequest, HTTP_INTERCEPTORS,} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 import {TranslateModule, TranslateLoader, MissingTranslationHandler, MissingTranslationHandlerParams} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -73,7 +73,6 @@ const routes: Routes = [
         AdminModule
     ],
 
-    providers: [],
     declarations: [PageNotFoundComponent, AppComponent ],
     exports: [],
     bootstrap: [AppComponent]
