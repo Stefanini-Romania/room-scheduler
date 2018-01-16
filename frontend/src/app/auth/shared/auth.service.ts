@@ -1,7 +1,7 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {Response} from '@angular/http';
 import {TranslateService} from '@ngx-translate/core';
-import {HttpClient, HttpHeaders, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import 'rxjs/Rx';
@@ -39,16 +39,6 @@ export class AuthService {
                 
             });
     }
-
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req).do(event => {}, err => {
-            if (err instanceof HttpErrorResponse && err.status == 401) {           
-                this.logout();
-                this.router.navigate(['/calendar']);
-            }
-        });
-    }
-
 
     logout() {
         const url = environment.apiUrl + '/api/auth/logout';
