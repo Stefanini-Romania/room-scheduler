@@ -63,6 +63,25 @@ namespace RSService.Controllers
             return Ok();
         }
 
+        [HttpPut("/settings/edit/{varname}/{value}")]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        public IActionResult ChangeSessionTimeSpan(string varname, string value)
+        {
+            if (varname == null || value == null)
+            {
+                return ValidationError(GeneralMessages.Settings);
+            }
+
+            var setting = _settingsRepository.GetSettingsByName(varname);
+
+            setting.Value = value;
+
+            Context.SaveChanges();
+
+            return Ok();
+        }
+
+
 
     }
 }

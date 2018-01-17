@@ -9,5 +9,6 @@ namespace RSRepository
     {
         Settings GetSessionTimeSpan();
         List<Settings> GetSettings();
+        Settings GetSettingsByName(string name);
     }
 }
