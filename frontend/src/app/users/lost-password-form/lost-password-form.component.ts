@@ -47,10 +47,11 @@ export class LostPasswordFormComponent{
         this.userService.resetPassword(this.model.password).subscribe(
             () => {
 
-            },
-            error => {
+        //     },
+        //     error => {
                 
-            });       
-    }
+        //     });       
+    });
+}
        
 }
