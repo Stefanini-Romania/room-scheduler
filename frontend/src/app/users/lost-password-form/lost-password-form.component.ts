@@ -37,5 +37,25 @@ export class LostPasswordFormComponent{
                 // }
             });       
     }
+
+    changePassword(){
+        this.userService.resetPassword(this.model.password).subscribe(
+            () => {
+
+            },
+            error => {
+                // this.errorMessages = {'generic': [error.error.message]};
+                // for (let e of error.error.errors) {
+                //     let field = 'generic';               
+                //     if (['Email'].indexOf(e.field) >= 0) {
+                //         field = e.field;
+                //     }
+                //     if (!this.errorMessages[field]) {
+                //         this.errorMessages[field] = [];
+                //     }
+                //     this.errorMessages[field].push(e.errorCode);
+                // }
+            });       
+    }
        
 }
