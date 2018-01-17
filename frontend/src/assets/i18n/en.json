@@ -26,6 +26,8 @@
   "lostPassword": "Forgot password",
   "insertEmail": "Please insert your email adress here to recover your password",
   "loginPage": "Go back to login page",
+  "change.password": "New password",
+  "change.confirmPassword": "Confirm new password",
 
   "register": {
       "firstName": "First name",
@@ -75,7 +77,8 @@
       "deactivate": "The room has been deactivated",
       "activated": "The room has been activated",
       "isActive": "Active",
-      "isNotActive": "Inactive"
+      "isNotActive": "Inactive",
+      "status": "Status"
   },
 
   "name": "Name",
@@ -230,7 +233,8 @@
     "AdminTabs":{
         "Users": "Users",
         "Hosts": "Hosts",
-        "Rooms": "Rooms"
+        "Rooms": "Rooms",
+        "SystemParameters": "System Parameters"
     },
 
     "Room": {
@@ -242,5 +246,10 @@
     },
 
     "required.field" : "mandatory field",
-    "role": "Role"
+    "role": "Role",
+    "SystemParameters":{
+        "Name":"Parameter",
+        "Value":"Value",
+        "Edit":"Edit"
+    }
 }

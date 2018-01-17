@@ -26,6 +26,8 @@
   "lostPassword": "Ați uitat parola",
   "insertEmail": "Introduceți mai jos adresa dumneavoastră de email pentru a vă recupera parola",
   "loginPage": "Înapoi la pagina de login",
+  "change.password": "Parolă nouă",
+  "change.confirmPassword": "Confirmă parola nouă",
 
   "register": {
       "firstName": "Prenume",
@@ -75,7 +77,8 @@
       "deactivated": "Camera a fost dezactivată",
       "activated": "Camera a fost activată",
       "isActive": "Activ",
-      "isNotActive": "Inactiv"
+      "isNotActive": "Inactiv",
+      "status": "Status"
   },
 
   "name": "Nume",
@@ -244,7 +247,8 @@
   "AdminTabs":{
     "Users": "Utilizatori",
     "Hosts": "Host",
-    "Rooms": "Camere"
+    "Rooms": "Camere",
+    "SystemParameters": "Parametrii sistemului"
     },
 
      "Room": {
@@ -256,7 +260,12 @@
     },
 
     "required.field" : "câmp obligatoriu",
-    "role": "Rol"
+    "role": "Rol",
+    "SystemParameters":{
+        "Name":"Parametru",
+        "Value":"Valoare",
+        "Edit":"Editează"
+    }
 }
 
 

@@ -1,7 +1,7 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {Response} from '@angular/http';
 import {TranslateService} from '@ngx-translate/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import 'rxjs/Rx';
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 
 import {User} from '../../shared/models/user.model';
 import {LanguageSelector} from '../../core/language-selector/language-selector';
-import { RoleEnum } from '../../shared/models/role.model';
+import {RoleEnum} from '../../shared/models/role.model';
 import {DialogService} from '../../shared/services/dialog.service';
 
 @Injectable()
@@ -46,7 +46,6 @@ export class AuthService {
             () => {
                 sessionStorage.removeItem('currentUser');
                 this.user$.emit(null);
-
             },
             error => {
                 throw error;

@@ -45,7 +45,7 @@ export class AdminUsersTab implements AfterViewInit{
                     var index = user.userRole.indexOf(userRole);
                     user.userRole[index] = RoleEnum[userRole];
                 }
-                this.users.push(<User>user);       
+                this.users.push(<User>user);  
             } 
         });
     }
