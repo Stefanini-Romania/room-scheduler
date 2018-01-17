@@ -231,7 +231,8 @@
     "AdminTabs":{
         "Users": "Users",
         "Hosts": "Hosts",
-        "Rooms": "Rooms"
+        "Rooms": "Rooms",
+        "SystemParameters": "System Parameters"
     },
 
     "Room": {

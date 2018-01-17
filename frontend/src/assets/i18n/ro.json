@@ -245,7 +245,8 @@
   "AdminTabs":{
     "Users": "Utilizatori",
     "Hosts": "Host",
-    "Rooms": "Camere"
+    "Rooms": "Camere",
+    "SystemParameters": "Parametrii sistemului"
     },
 
      "Room": {

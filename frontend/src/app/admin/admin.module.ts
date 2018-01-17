@@ -5,6 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AdminUsersTab} from './admin-users-tab/admin-users-tab.component';
 import {AdminRoomsTab} from './admin-rooms-tab/admin-rooms-tab.component';
 import {AdminComponent} from './default/admin.component';
+import {AdminSystemParameters} from './admin-system-parameters/admin-system-parameters.component';
 import {CoreModule} from '../core/core.module';
 
 const routes: Routes = [
@@ -17,8 +18,8 @@ const routes: Routes = [
               RouterModule.forRoot(routes)
     ],
     providers: [],
-    declarations: [AdminUsersTab, AdminRoomsTab, AdminComponent],
-    exports: [AdminUsersTab, AdminRoomsTab, AdminComponent],
+    declarations: [AdminUsersTab, AdminRoomsTab, AdminComponent, AdminSystemParameters],
+    exports: [AdminUsersTab, AdminRoomsTab, AdminComponent, AdminSystemParameters],
     entryComponents: []
 })
 export class AdminModule {

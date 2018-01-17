@@ -7,6 +7,7 @@ import {RoleEnum} from '../../shared/models/role.model';
 import {AuthService} from '../../auth/shared/auth.service';
 import {AdminUsersTab} from '../admin-users-tab/admin-users-tab.component';
 import {AdminRoomsTab} from '../admin-rooms-tab/admin-rooms-tab.component';
+import {AdminSystemParameters} from '../admin-system-parameters/admin-system-parameters.component';
 
 @Component({
     selector: 'admin-component',
