@@ -19,23 +19,13 @@ export class LostPasswordFormComponent{
     }
 
     sendMail(){
-        this.userService.mailPassReset(this.model.email).subscribe(
-            () => {
+        // this.userService.mailPassReset(this.model.email).subscribe(
+        //     () => {
 
-            },
-            error => {
-                // this.errorMessages = {'generic': [error.error.message]};
-                // for (let e of error.error.errors) {
-                //     let field = 'generic';               
-                //     if (['Email'].indexOf(e.field) >= 0) {
-                //         field = e.field;
-                //     }
-                //     if (!this.errorMessages[field]) {
-                //         this.errorMessages[field] = [];
-                //     }
-                //     this.errorMessages[field].push(e.errorCode);
-                // }
-            });       
+        //     },
+        //     error => {
+        //         //this.errorMessages = error.error.message;
+        //     });       
     }
 
     changePassword(){
@@ -44,17 +34,7 @@ export class LostPasswordFormComponent{
 
             },
             error => {
-                // this.errorMessages = {'generic': [error.error.message]};
-                // for (let e of error.error.errors) {
-                //     let field = 'generic';               
-                //     if (['Email'].indexOf(e.field) >= 0) {
-                //         field = e.field;
-                //     }
-                //     if (!this.errorMessages[field]) {
-                //         this.errorMessages[field] = [];
-                //     }
-                //     this.errorMessages[field].push(e.errorCode);
-                // }
+                
             });       
     }
        
