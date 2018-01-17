@@ -258,7 +258,12 @@
     },
 
     "required.field" : "câmp obligatoriu",
-    "role": "Rol"
+    "role": "Rol",
+    "SystemParameters":{
+        "Name":"Parametru",
+        "Value":"Valoare",
+        "Edit":"Editează"
+    }
 }
 
 

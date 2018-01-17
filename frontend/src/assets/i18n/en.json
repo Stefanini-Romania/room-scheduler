@@ -244,5 +244,10 @@
     },
 
     "required.field" : "mandatory field",
-    "role": "Role"
+    "role": "Role",
+    "SystemParameters":{
+        "Name":"Parameter",
+        "Value":"Value",
+        "Edit":"Edit"
+    }
 }
