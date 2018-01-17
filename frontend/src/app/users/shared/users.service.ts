@@ -66,30 +66,32 @@ export class UserService {
             });
     }
 
-    public mailPassReset(email: string) { //NOT FINISHED
-        const url = environment.apiUrl + 'email/resetpass/{email}';
-        const body = JSON.stringify ({
-            email: email
-        });
-
-       
-        return this.http.post(url, body);
+    public mailPassReset(email: string) { 
+        const url = environment.apiUrl + '/email/resetpass/' + email;
+        const body = JSON.stringify({email: email});
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.post(url, body)
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+            .map((response: Response) => {
+                return response;
+            });
     }
 
-    public resetPassword(id: number, email: string, password: string, resetPassCode: number) { //NOT FINISHED
+    public resetPassword(password: string) { //NOT FINISHED
         const url = environment.apiUrl + '/user/resetpass/{email}';
         const body = JSON.stringify({
-            emai: email,
-            password: password,
-            resetPassCode: resetPassCode
+            password: password
         });
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
         return this.http.put(url, body)
-        .catch((error: any) => {
-            return Observable.throw(error);
-        })
-        .map((response: Response) => {
-            return response;
-        });
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+            .map((response: Response) => {
+                return response;
+            });
     }
 }

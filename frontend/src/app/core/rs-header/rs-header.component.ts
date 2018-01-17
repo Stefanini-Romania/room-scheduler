@@ -5,6 +5,7 @@ import {AuthService} from '../../auth/shared/auth.service';
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import {RoomService} from '../../rooms/shared/room.service';
 import {Room} from '../../shared/models/room.model';
+import {APIRequestInterceptor} from './../../auth/shared/api-request-interceptor';
 
 
 @Component({
@@ -22,14 +23,13 @@ export class RsHeaderComponent {
         {'name': 'Română', 'code': 'ro', 'icon': 'https://cdn2.iconfinder.com/data/icons/flags_gosquared/64/Romania_flat.png'}
     ];
 
-    constructor(private authService: AuthService,public route: ActivatedRoute, public router: Router, private roomService: RoomService) {
+    constructor(private authService: AuthService,public route: ActivatedRoute, public router: Router, private roomService: RoomService, private interceptor: APIRequestInterceptor) {
         router.events
         .filter(e => e instanceof NavigationEnd)
         .forEach(e => {
-
-        if(route.root.firstChild.snapshot.data['name']=="login"){
+            if(route.root.firstChild.snapshot.data['name']=="login"){
             this.checkIfloginRoute=true;
-        }  
+            }  
         });
         
         // observe room changing
@@ -42,13 +42,17 @@ export class RsHeaderComponent {
             this.currentUser = user;
         });
 
+        interceptor.removeUser.subscribe((user: User) => {
+            this.currentUser = null;
+        });
+
         if (authService.isLoggedIn()){
             this.currentUser = authService.getLoggedUser();
         } 
     }
 
     isAdmin(currentUser: User): boolean {
-        return (currentUser && currentUser.userRole.length != 0  && currentUser.userRole.indexOf(RoleEnum.admin) !== -1);
+        return (currentUser && currentUser.userRole.length != 0 && currentUser.userRole.indexOf(RoleEnum.admin) !== -1);
     }
 
     logout() {

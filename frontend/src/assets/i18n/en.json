@@ -28,6 +28,7 @@
   "loginPage": "Go back to login page",
   "change.password": "New password",
   "change.confirmPassword": "Confirm new password",
+  "email.sent": "Email sent successfully",
 
   "register": {
       "firstName": "First name",

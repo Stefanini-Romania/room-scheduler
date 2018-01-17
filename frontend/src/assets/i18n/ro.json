@@ -28,6 +28,7 @@
   "loginPage": "Înapoi la pagina de login",
   "change.password": "Parolă nouă",
   "change.confirmPassword": "Confirmă parola nouă",
+  "email.sent": "Email trimis cu succes",
 
   "register": {
       "firstName": "Prenume",
