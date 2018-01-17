@@ -5,8 +5,9 @@ using System.Text;
 
 namespace RSRepository
 {
-    public interface IConfigVarRepository
+    public interface ISettingsRepository
     {
-        ConfigVar GetSessionTimeSpan();
+        Settings GetSessionTimeSpan();
+        List<Settings> GetSettings();
     }
 }

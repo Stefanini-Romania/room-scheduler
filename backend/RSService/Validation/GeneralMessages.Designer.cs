@@ -70,15 +70,6 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.ConfigVar.Empty.
-        /// </summary>
-        internal static string ConfigVar {
-            get {
-                return ResourceManager.GetString("ConfigVar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error.Event.Creation.
         /// </summary>
         internal static string Event {
@@ -111,6 +102,15 @@ namespace RSService.Validation {
         internal static string RoomEdit {
             get {
                 return ResourceManager.GetString("RoomEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.Settings.Empty.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

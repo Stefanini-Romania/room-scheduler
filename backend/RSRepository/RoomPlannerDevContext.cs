@@ -11,7 +11,7 @@ namespace RSRepository
     : base(options) {}
 
         public virtual DbSet<Availability> Availability { get; set; }
-        public virtual DbSet<ConfigVar> ConfigVar { get; set; }
+        public virtual DbSet<Settings> Settings { get; set; }
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<Penalty> Penalty { get; set; }
@@ -46,16 +46,21 @@ namespace RSRepository
                     .HasConstraintName("FK_Availability_Room");
             });
 
-            modelBuilder.Entity<ConfigVar>(entity =>
+            modelBuilder.Entity<Settings>(entity =>
             {
                 entity.HasKey(e => e.VarId);
 
                 entity.Property(e => e.VarId).ValueGeneratedNever();
 
+                entity.Property(e => e.Value)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.VarName)
                     .IsRequired()
-                    .HasMaxLength(50).HasColumnName("VarName");
-                entity.Property(e => e.Value).HasColumnName("Value");
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Department>(entity =>

@@ -87,13 +87,13 @@ namespace RSService.Controllers
     public class AuthController : BaseController
     {
         private IUserRepository _userRepository;
-        private IConfigVarRepository _configVarRepository;
+        private ISettingsRepository _settingsRepository;
         private ILogger<AuthController> _logger;
 
         public AuthController(ILogger<AuthController> logger)
         {
             _userRepository = new UserRepository(Context);
-            _configVarRepository = new ConfigVarRepository(Context);
+            _settingsRepository = new SettingsRepository(Context);
             _logger = logger;
         }
 
@@ -118,7 +118,7 @@ namespace RSService.Controllers
                                           new AuthenticationProperties
                                           {
                                               IsPersistent = true,
-                                              ExpiresUtc = DateTime.UtcNow.AddMinutes(_configVarRepository.GetSessionTimeSpan().Value)
+                                              ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_settingsRepository.GetSessionTimeSpan().Value))
                                           });
             return Ok(new AuthUser()
             {
@@ -141,22 +141,7 @@ namespace RSService.Controllers
             return Ok();
         }
 
-        [HttpPut("/config/session/edit/{value}")]
-        [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult ChangeSessionTimeSpan(int value)
-        {
-            if (value == 0)
-            {
-                return ValidationError(GeneralMessages.ConfigVar);
-            }
-
-            var sessionTimeSpan = _configVarRepository.GetSessionTimeSpan();
-            sessionTimeSpan.Value = value;
-
-            Context.SaveChanges();
-
-            return Ok();
-        }
+        
 
     }
 }
