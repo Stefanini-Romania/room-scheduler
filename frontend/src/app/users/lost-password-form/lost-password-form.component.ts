@@ -29,8 +29,9 @@ export class LostPasswordFormComponent{
     sendMail(email){
         this.userService.mailPassReset(this.model.email).subscribe(
             () => {},
-            response => {
-                if (response.status == 200) {
+          
+            error => {
+                if (error.status == 200) {
                     this.toastr.success(
                         this.translate.instant('email.sent'), '',
                         {positionClass: 'toast-bottom-right'}
@@ -38,20 +39,52 @@ export class LostPasswordFormComponent{
                     this.emailSent.emit();
                 } 
                 else {
-                    this.errorMessages = response.error.message;               
+                           
+                    this.errorMessages = error.error.message; 
+                //     if (error.status == 200) {
+                //         this.toastr.success(
+                //             this.translate.instant('email.sent'), '',
+                //             {positionClass: 'toast-bottom-right'}
+                //         ); 
+                //         this.emailSent.emit();
+                //     } 
+                //     else {
+                //         this.errorMessages = {'generic': [error.error.message]};
+                //         // build error message
+                //         for (let e of error.error.errors) {
+                //             let field = 'generic';
+                            
+                //             if (['Email'].indexOf(e.field) >= 0) {
+                //                 field = e.field;
+                //             }
+                //             if (!this.errorMessages[field]) {
+                //                 this.errorMessages[field] = [];
+                //             }   
+                //             this.errorMessages[field].push(e.errorCode);
+                //         }               
+                //     }
+                // });                     
                 }
             });       
     }
 
     changePassword(password){
-        this.userService.resetPassword(this.model.password).subscribe(
+      
+        this.userService.resetPassword(this.model.email, this.model.password).subscribe(
             () => {
 
-        //     },
-        //     error => {
-                
-        //     });       
-    });
-}
-       
+            },
+            error => {              
+                if (error.status == 200) {
+                    this.toastr.success(
+                        this.translate.instant('email.sent'), '',
+                        {positionClass: 'toast-bottom-right'}
+                    ); 
+                    this.emailSent.emit();
+                } 
+                else {
+                    this.errorMessages = error.error.message; 
+                }
+            });             
+    }
 }
