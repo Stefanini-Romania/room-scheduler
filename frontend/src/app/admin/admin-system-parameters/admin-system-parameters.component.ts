@@ -27,7 +27,6 @@ export class AdminSystemParameters implements AfterViewInit{
         this.settings = [];
         this.systemParametersService.listParameters().subscribe((settings: any) =>{
             for (let setting of settings){
-                console.log(settings);
                 this.settings.push(<Settings>settings);
             }
         });
