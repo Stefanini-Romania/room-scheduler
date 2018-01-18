@@ -24,11 +24,12 @@
   "noAccount": "You don't have an account",
   "clickHere": "Register here",
   "lostPassword": "Forgot password",
-  "insertEmail": "Please insert your email adress here to recover your password",
+  "insertEmail": "Please insert your email adress here. A message will be sent to you with information on how to change your password",
   "loginPage": "Go back to login page",
   "change.password": "New password",
   "change.confirmPassword": "Confirm new password",
   "email.sent": "Email sent successfully",
+  "password.changed": "Password changed successfully",
 
   "register": {
       "firstName": "First name",

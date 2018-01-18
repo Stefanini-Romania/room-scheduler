@@ -11,14 +11,14 @@ import {LoginPageComponent} from './login-form/login-page.component';
 import {LoginFormComponent} from './login-form/login-form.component';
 import {RegisterFormComponent} from './register-form/register-form.component';
 import {RegisterPageComponent} from './register-form/register-page.component';
-import {LostPasswordFormComponent} from './lost-password-form/lost-password-form.component';
-import {LostPasswordPageComponent} from './lost-password-form/lost-password-page.component';
+import {ResetPasswordFormComponent} from './reset-password-form/reset-password-form.component';
+import {ResetPasswordPageComponent} from './reset-password-form/reset-password-page.component';
 
 
 const routes: Routes = [
     {path: 'login', component: LoginPageComponent, data:{name: 'login'}},
     {path: 'register', component: RegisterPageComponent, data:{name: 'register'}},
-    {path: 'lostpassword', component: LostPasswordPageComponent, data:{name: 'lostpassword'}}
+    {path: 'resetpass', component: ResetPasswordPageComponent, data:{name: 'resetpass'}}
 ];
 
 @NgModule({
@@ -30,9 +30,9 @@ const routes: Routes = [
         AdminModule
     ],
     providers: [UserService],
-    declarations: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent, LostPasswordFormComponent, LostPasswordPageComponent],
-    exports: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent, LostPasswordFormComponent, LostPasswordPageComponent],
-    entryComponents: [LoginFormComponent, RegisterFormComponent, LostPasswordFormComponent]
+    declarations: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent, ResetPasswordFormComponent, ResetPasswordPageComponent],
+    exports: [LoginFormComponent, LoginPageComponent, RegisterPageComponent, RegisterFormComponent, ResetPasswordFormComponent, ResetPasswordPageComponent],
+    entryComponents: [LoginFormComponent, RegisterFormComponent, ResetPasswordFormComponent]
 })
 
 export class UsersModule {

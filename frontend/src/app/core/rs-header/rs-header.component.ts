@@ -43,7 +43,7 @@ export class RsHeaderComponent {
         });
 
         interceptor.removeUser.subscribe((user: User) => {
-            this.currentUser = null;
+            this.currentUser = user;
         });
 
         if (authService.isLoggedIn()){

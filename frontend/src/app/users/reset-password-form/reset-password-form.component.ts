@@ -7,16 +7,14 @@ import {User} from '../../shared/models/user.model';
 import {UserService} from '../shared/users.service';
 
 
-
-
 @Component({
-    selector: 'lost-password-form',
-    templateUrl: './lost-password-form.component.html',
+    selector: 'reset-password-form',
+    templateUrl: './reset-password-form.component.html',
     styleUrls: [],
     providers: [],
 })
 
-export class LostPasswordFormComponent{
+export class ResetPasswordFormComponent{
     model: User = <User> {};
     public errorMessages: any = {};
 
