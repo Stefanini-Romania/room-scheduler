@@ -42,7 +42,7 @@ export class RsHeaderComponent {
             this.currentUser = user;
         });
 
-        interceptor.removeUser.subscribe((user: User) => {
+        interceptor.removeUser$.subscribe((user: User) => {
             this.currentUser = user;
         });
 

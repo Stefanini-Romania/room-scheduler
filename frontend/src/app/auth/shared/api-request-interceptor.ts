@@ -4,12 +4,13 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 
 import {AuthService} from './auth.service';
+import {User} from './../../shared/models/user.model';
 
 @Injectable()
 export class APIRequestInterceptor implements HttpInterceptor {
 
-    @Output()
-    removeUser = new EventEmitter();
+ 
+   public removeUser$: EventEmitter<User> = new EventEmitter();
 
     constructor(private router: Router, private injector: Injector){}
 
@@ -20,7 +21,7 @@ export class APIRequestInterceptor implements HttpInterceptor {
                 sessionStorage.removeItem('currentUser');
                 //this.router.navigate(['/login']);  
                 window.location.reload(); //FIX
-                this.removeUser.emit('currentUser');                              
+                this.removeUser$.emit(null);                              
             } 
         });      
     }           
