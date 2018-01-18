@@ -38,6 +38,7 @@ namespace RSService.Controllers
             {
                 final_result.Add(new SettingsDto()
                 {
+                    Id = it.Id,
                     VarName = it.VarName,
                     Value = it.Value
                 });

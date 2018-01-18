@@ -7,6 +7,8 @@ namespace RSService.DTO
 {
     public class SettingsDto
     {
+        public int Id { get; set; }
+
         public string VarName { get; set; }
 
         public string Value { get; set; }
