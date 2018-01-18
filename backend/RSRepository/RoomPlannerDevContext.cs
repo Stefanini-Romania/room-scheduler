@@ -48,9 +48,9 @@ namespace RSRepository
 
             modelBuilder.Entity<Settings>(entity =>
             {
-                entity.HasKey(e => e.VarId);
+                entity.Property(e => e.Id).HasColumnName("VarId");
 
-                entity.Property(e => e.VarId).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Value)
                     .IsRequired()

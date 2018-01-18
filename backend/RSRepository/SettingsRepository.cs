@@ -22,12 +22,11 @@ namespace RSRepository
         public List<Settings> GetSettings()
         {
             return settings.ToList();
-
         }
 
-        public Settings GetSettingsByName(string name)
+        public Settings GetSettingsById(int id)
         {
-            return settings.FirstOrDefault(s => s.VarName == name);
+            return settings.FirstOrDefault(s => s.Id == id);
         }
 
         public Settings GetSessionTimeSpan()

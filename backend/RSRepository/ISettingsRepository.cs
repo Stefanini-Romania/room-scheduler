@@ -8,7 +8,9 @@ namespace RSRepository
     public interface ISettingsRepository
     {
         Settings GetSessionTimeSpan();
+
         List<Settings> GetSettings();
-        Settings GetSettingsByName(string name);
+
+        Settings GetSettingsById(int id);
     }
 }

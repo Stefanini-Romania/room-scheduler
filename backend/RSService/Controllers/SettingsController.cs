@@ -46,35 +46,18 @@ namespace RSService.Controllers
             return Ok(final_result);
         }
 
-        [HttpPut("/settings/session/edit/{value}")]
+        [HttpPut("/settings/edit/{id}")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult ChangeSessionTimeSpan(int value)
+        public IActionResult UpdateVariable(int id, [FromBody] SettingsDto model)
         {
-            if (value == 0)
+            if (!ModelState.IsValid)
             {
                 return ValidationError(GeneralMessages.Settings);
             }
 
-            var sessionTimeSpan = _settingsRepository.GetSessionTimeSpan();
-            sessionTimeSpan.Value = value.ToString();
+            var setting = _settingsRepository.GetSettingsById(id);
 
-            Context.SaveChanges();
-
-            return Ok();
-        }
-
-        [HttpPut("/settings/edit/{varname}/{value}")]
-        [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult ChangeSessionTimeSpan(string varname, string value)
-        {
-            if (varname == null || value == null)
-            {
-                return ValidationError(GeneralMessages.Settings);
-            }
-
-            var setting = _settingsRepository.GetSettingsByName(varname);
-
-            setting.Value = value;
+            setting.Value = model.Value;
 
             Context.SaveChanges();
 

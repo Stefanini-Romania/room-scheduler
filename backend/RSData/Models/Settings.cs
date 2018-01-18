@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace RSData.Models
 {
-    public partial class Settings
+    public partial class Settings : BaseEntity
     {
-        public int VarId { get; set; }
         public string VarName { get; set; }
         public string Value { get; set; }
     }
