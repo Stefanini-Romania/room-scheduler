@@ -23,9 +23,7 @@ export class AdminRoomsTab implements AfterViewInit{
     public roompage;
     
     constructor(private roomService: RoomService, private modalService: NgbModal, private toastr: ToastrService, 
-                private translate: TranslateService) {
-        
-    }
+                private translate: TranslateService) {}
 
     ngAfterViewInit(){
         this.refreshRooms();
