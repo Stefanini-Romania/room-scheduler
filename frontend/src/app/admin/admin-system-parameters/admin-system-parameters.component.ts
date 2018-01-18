@@ -13,7 +13,7 @@ import {Settings} from '../../shared/models/settings.model';
 
 export class AdminSystemParameters implements AfterViewInit{
 
-    public settings: Settings[];
+    public settingslist: Settings[];
 
     constructor(private systemParametersService: SystemParametersService){
         
@@ -24,12 +24,12 @@ export class AdminSystemParameters implements AfterViewInit{
     }
 
     listSettings(){
-        this.settings = [];
-        this.systemParametersService.listParameters().subscribe((settings: any) =>{
-            for (let setting of settings){
-                this.settings.push(<Settings>settings);
+        this.settingslist = [];
+        this.systemParametersService.listParameters().subscribe((settingslist: any) =>{
+            for (let setting of settingslist){
+                this.settingslist.push(<Settings>setting);
             }
         });
-
+       
     }
 }
