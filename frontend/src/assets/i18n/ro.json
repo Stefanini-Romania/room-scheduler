@@ -266,7 +266,8 @@
     "SystemParameters":{
         "Name":"Parametru",
         "Value":"Valoare",
-        "Edit":"Editează"
+        "Edit":"Editează",
+        "Save": "Parametru schimbat cu succes"
     }
 }
 

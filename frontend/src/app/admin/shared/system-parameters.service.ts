@@ -18,8 +18,8 @@ export class SystemParametersService{
         return this.http.get(url, { headers: headers, withCredentials: true });
     }
 
-    public editParameters(id: number, varName: string, value: string) { //NOT FINISHED
-        const url = environment.apiUrl + '/settings/session/edit/' + id;
+    public editParameters(id: number, varName: string, value: string) {
+        const url = environment.apiUrl + '/settings/edit/' + id;
         const body = JSON.stringify ({
             id: id,
             varName: varName,
