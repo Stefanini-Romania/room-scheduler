@@ -68,16 +68,14 @@ export class LostPasswordFormComponent{
             });       
     }
 
-    changePassword(password){
-      
+    changePassword(password){  
         this.userService.resetPassword(this.model.email, this.model.password).subscribe(
-            () => {
+            () => {},
 
-            },
             error => {              
                 if (error.status == 200) {
                     this.toastr.success(
-                        this.translate.instant('email.sent'), '',
+                        this.translate.instant('password.changed'), '',
                         {positionClass: 'toast-bottom-right'}
                     ); 
                     this.emailSent.emit();
