@@ -1,3 +1,4 @@
+<br>
 <div class="scrollit">
   <table class="table table-hover table-striped table-responsive table table-bordered text-center">
     <thead>
@@ -5,18 +6,27 @@
           <th>{{'SystemParameters.Name' | translate}}</th>
           <th>{{'SystemParameters.Value' | translate}}</th>
           <th>{{'SystemParameters.Edit' | translate}}</th>
-        </tr>
+          <th>{{'button.save' | translate}}</th>
+          </tr>
     </thead>
   
     <tbody>
-      <tr *ngFor="let setting of settingslist">
+      <tr *ngFor="let setting of settingslist" >
         <td>{{setting.varName}}</td>
-        <td>{{setting.value}}</td>
+        <td *ngIf="!editable">{{setting.value}}</td>
+        <td *ngIf="editable">
+            <input type="text" [(ngModel)]="setting.value" />
+        </td>
         <td> 
-          <button class = "btn btn-primary">
+          <button class = "btn btn-primary" (click)="makeEditable()">
               <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
         </td>
+        <td> 
+            <button class = "btn btn-primary">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            </button>
+          </td>
       </tr>
     </tbody>
   </table>

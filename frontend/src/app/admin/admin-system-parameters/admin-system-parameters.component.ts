@@ -18,6 +18,7 @@ export class AdminSystemParameters implements AfterViewInit{
     public settingslist: Settings[];
     public model: Settings = <Settings>{};
     public errorMessage: string;
+    public editable: boolean;
     
 
     constructor(private systemParametersService: SystemParametersService, private translate: TranslateService, private toastr: ToastrService){
@@ -52,4 +53,12 @@ export class AdminSystemParameters implements AfterViewInit{
              
             });       
     }
+
+    makeEditable() {
+        this.settingslist = this.settingslist.map((setting) => {
+            if (setting.id) { this.editable = true; }
+            else { this.editable = false; }
+            return setting;
+        });
+      }
 }
