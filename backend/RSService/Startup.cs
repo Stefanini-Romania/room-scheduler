@@ -47,7 +47,7 @@ namespace RSService
             services.AddTransient<IEventRepository, EventRepository>();
             services.AddTransient<IRoomRepository, RoomRepository>();
             services.AddTransient<IPenaltyRepository, PenaltyRepository>();
-            services.AddTransient<IAvailabiltyRepository, AvailabilityRepository>();
+            services.AddTransient<IAvailabilityRepository, AvailabilityRepository>();
             services.AddTransient<IUserRoleRepository, UserRoleRepository>();
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<IUserRepository, UserRepository>();

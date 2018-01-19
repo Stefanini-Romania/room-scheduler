@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace RSRepository
 {
-    public class AvailabilityRepository : IAvailabiltyRepository
+    public class AvailabilityRepository : IAvailabilityRepository
     {
         private RoomPlannerDevContext context;
         private DbSet<Availability> availabilities;
@@ -25,7 +25,9 @@ namespace RSRepository
 
         public List<Availability> GetAvailabilities()
         {
-            return availabilities.ToList();
+            return availabilities.Where(e => e.DayOfWeek == 1)
+                                 .Include(e => e.Host)
+                                 .ToList();
         }
 
         public List<Availability> GetAvailabilities(int?[] roomId, int?[] hostId)
@@ -66,6 +68,11 @@ namespace RSRepository
                                  .Where(a => a.StartDate.Hour <= startDate.Hour)
                                  .Where(a => a.EndDate.Hour > startDate.Hour)
                                  .ToList();
+        }
+
+        public void AddAvailability(Availability availability)
+        {
+            availabilities.Add(availability);
         }
 
 

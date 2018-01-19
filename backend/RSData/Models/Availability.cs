@@ -16,5 +16,19 @@ namespace RSData.Models
 
         public User Host { get; set; }
         public Room Room { get; set; }
+
+        public Availability()
+        {
+        }
+
+        public Availability(DateTime startDate, DateTime endDate, int availabilityType, int? roomId, int hostId)
+        {
+            StartDate = startDate;
+            EndDate = endDate;
+            DayOfWeek = (int)startDate.DayOfWeek;
+            AvailabilityType = availabilityType;
+            RoomId = roomId;
+            HostId = hostId;
+        }
     }
 }

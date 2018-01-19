@@ -23,7 +23,7 @@ namespace RSService.Controllers
     {
         private IEventRepository eventRepository;
         private IRoomRepository roomRepository;
-        private IAvailabiltyRepository availabilityRepository;
+        private IAvailabilityRepository availabilityRepository;
         private IUserRepository userRepository;
         private IRSManager rsManager;
 

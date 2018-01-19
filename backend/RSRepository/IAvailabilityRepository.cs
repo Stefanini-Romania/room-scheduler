@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RSRepository
 {
-    public interface IAvailabiltyRepository
+    public interface IAvailabilityRepository
     {
         Availability GetAvailabilityById(int id);
         List<Availability> GetAvailabilities();
@@ -15,6 +15,7 @@ namespace RSRepository
         List<Availability> GetAvailabilitiesByRoom(DateTime startDate, DateTime endDate, int roomId);
         List<Availability> GetAvailabilitiesByHour(DateTime startDate, int roomId);
         List<Availability> GetAvailabilitiesByType(DateTime startDate, DateTime endDate, int roomId);
+        void AddAvailability(Availability availability);
     }
    
 }

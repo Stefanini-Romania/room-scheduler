@@ -70,6 +70,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.Availability.Creation.
+        /// </summary>
+        internal static string Availability {
+            get {
+                return ResourceManager.GetString("Availability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.Event.Creation.
         /// </summary>
         internal static string Event {

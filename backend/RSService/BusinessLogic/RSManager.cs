@@ -9,7 +9,7 @@ namespace RSService.BusinessLogic
 {
     public class RSManager : IRSManager
     {
-        private IAvailabiltyRepository availabilityRepository;
+        private IAvailabilityRepository availabilityRepository;
         private IPenaltyRepository penaltyRepository;
         private IEventRepository eventRepository;
         private IUserRoleRepository userRoleRepository;
@@ -18,7 +18,7 @@ namespace RSService.BusinessLogic
         private IRoleRepository roleRepository;
         private IRoomRepository roomRepository;
 
-        public RSManager(IAvailabiltyRepository availabiltyRepository, IRoomRepository roomRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository, IRoleRepository roleRepository)
+        public RSManager(IAvailabilityRepository availabiltyRepository, IRoomRepository roomRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository, IRoleRepository roleRepository)
         {
             this.availabilityRepository = availabiltyRepository;
             this.eventRepository = eventRepository;
