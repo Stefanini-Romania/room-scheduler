@@ -71,6 +71,11 @@ namespace RSRepository
             return users.FirstOrDefault(s => s.Email == email);
         }
 
+        public User GetUserByResetPassCode(String ResetPass)
+        {
+            return users.FirstOrDefault(s => s.ResetPassCode == ResetPass);
+        }
+
         public List<User>GetUserByisActiv()
         {
             return users.Where(s => s.IsActive != null).ToList();

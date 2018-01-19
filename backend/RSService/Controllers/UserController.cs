@@ -87,7 +87,7 @@ namespace RSService.Controllers
             
             };
 
-            user.ResetPassCode = user.Id * 100 + 257;
+          
 
             userRepository.AddUser(user);
    

@@ -22,7 +22,7 @@ namespace RSService.ViewModels
 
         public List<int> UserRole { get; set; }
 
-        public int? ResetPassCode { get; set; }
+        public string ResetPassCode { get; set; }
 
         public DateTime DateExpire { get; set; }
 

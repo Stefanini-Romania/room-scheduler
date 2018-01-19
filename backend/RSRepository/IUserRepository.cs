@@ -13,6 +13,7 @@ namespace RSRepository
         User GetUserById(int id);
         User GetUserByEmail(String email);
         User GetUserByEmailAndActive(String email);
+        User GetUserByResetPassCode(String ResetPass);
         List<User> GetUserByisActiv();
         List<User> GetUserByisInactiv();
         List<User> GetUsersByEmail(string email, int userId);

@@ -21,7 +21,7 @@ namespace RSService.DTO
 
         public bool? IsActive { get; set; }
 
-        public int? ResetPassCode { get; set; }
+        public string ResetPassCode { get; set; }
 
         public DateTime DateExpire { get; set; }
     }

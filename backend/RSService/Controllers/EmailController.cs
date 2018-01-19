@@ -29,12 +29,12 @@ namespace RSService.Controllers
         {
             var user = userRepository.GetUserByEmail(email);
             user.DateExpire = DateTime.UtcNow;
-            user.ResetPassCode = 1;
+            user.ResetPassCode = System.Guid.NewGuid().ToString();
 
             Context.SaveChanges();
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini-noreply", "roomchedulerStefanini@gmail.com"));
-            message.To.Add(new MailboxAddress("User", email));
+            message.To.Add(new MailboxAddress("User", email));          
             message.Subject = "Password Reset";
             message.Body = new TextPart("html")
             {
@@ -42,7 +42,7 @@ namespace RSService.Controllers
                  +
                 "If this was a mistake, just ignore this email and nothing will happen. <br> "
                 + "If you want to reset you passowrd , visit the following address: <br>"+
-                "http://localhost:4200/calendar <br>"+
+                "http://localhost:4200/resetpass/"+user.ResetPassCode +"<br>" +
                 "For security reasons, this link will expire in 2 hours.To request another password reset, visit http://localhost:4200/calendar <br>"
                 +"<br>"+"Best,<br>"+"Your RoomSchedulerTeam"
 
@@ -62,8 +62,18 @@ namespace RSService.Controllers
             return Ok();
         }
 
-        [HttpPut("/user/resetpass/{email}")]
-        public IActionResult ResetPassowrd(string email, [FromBody]ResetPasswordViewModel userView)
+        [HttpPost("/user/resetpass/{ResetPassCode}")]
+          public IActionResult CheckCodeResetPass(string resetpasscode, [FromBody]ResetPasswordViewModel userView)
+           {
+            var user = userRepository.GetUserByResetPassCode(resetpasscode);
+
+            if (user == null)
+                return NotFound();
+            return Ok();
+           }
+
+        [HttpPut("/user/resetpass/{ResetPassCode}")]
+        public IActionResult ResetPassowrd(string ResetPassCode, [FromBody]ResetPasswordViewModel userView)
         {
            
 
@@ -72,7 +82,7 @@ namespace RSService.Controllers
                 return ValidationError(GeneralMessages.User);
             }
 
-            var user = userRepository.GetUserByEmail(email);
+            var user = userRepository.GetUserByResetPassCode(ResetPassCode);
             
 
             if (user == null)
