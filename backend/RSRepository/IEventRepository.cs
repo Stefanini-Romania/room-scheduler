@@ -9,9 +9,9 @@ namespace RSRepository
     {
         List<Event> GetEvents();
 
-        List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int?[] hostId);
+        List<Event> GetEvents(DateTime startDate, DateTime endDate, int?[] roomId, int?[] hostId);
 
-        List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId);
+        List<Event> GetEvents(DateTime startDate, DateTime endDate, int?[] roomId);
 
         List<Event> GetEventsByUser(int attendeeId);
 

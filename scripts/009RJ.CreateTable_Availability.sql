@@ -24,7 +24,7 @@ CREATE TABLE [dbo].[Availability](
 	[EndHour] [datetime] NOT NULL,
 	[DayOfWeek] [int] NOT NULL,
 	[AvailabilityType] [int] NOT NULL,
-	[RoomId] [int] NOT NULL,
+	[RoomId] [int] NULL,
 	[HostId] [int] NOT NULL,
  CONSTRAINT [PK_Availability] PRIMARY KEY CLUSTERED 
 (
