@@ -43,7 +43,7 @@ namespace RSService.Controllers
                 "If this was a mistake, just ignore this email and nothing will happen. <br> "
                 + "If you want to reset you passowrd , visit the following address: <br>"+
                 "http://localhost:4200/resetpass/"+user.ResetPassCode +"<br>" +
-                "For security reasons, this link will expire in 2 hours.To request another password reset, visit http://localhost:4200/calendar <br>"
+                "For security reasons, this link will expire in 2 hours.To request another password reset, visit http://localhost:4200/resetpass <br>"
                 +"<br>"+"Best,<br>"+"Your RoomSchedulerTeam"
 
 
@@ -102,10 +102,6 @@ namespace RSService.Controllers
                     return NotFound();
             }
 
-
-
-            //var modifiedUser = Mapper.Map<User>(userView);
-            // if this is a new request -->
             user.Password = userView.Password;
             user.ResetPassCode = null;
 
