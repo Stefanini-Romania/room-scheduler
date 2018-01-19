@@ -80,6 +80,20 @@ export class UserService {
             });
     }
 
+    public checkCodeResetPass(resetPassCode) { 
+        const url = environment.apiUrl + '/user/resetpass/' + resetPassCode;
+        const body = JSON.stringify({
+            resetPassCode: resetPassCode});
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.post(url, body)
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+            .map((response: Response) => {
+                return response;
+            });
+    }
+
     public resetPassword(email: string, password: string) { //NOT FINISHED
         const url = environment.apiUrl + '/user/resetpass/' + email;
         const body = JSON.stringify({

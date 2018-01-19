@@ -12,7 +12,7 @@ export class User {
     confirmPassword?: number;
     userRole?: RoleEnum[];
     isActive?: boolean; 
-    resetPassCode?: number;
+    resetPassCode?: string;
     dateExpire?: Date;
       
 
