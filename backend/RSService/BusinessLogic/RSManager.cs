@@ -49,8 +49,8 @@ namespace RSService.BusinessLogic
                     Event newEvent = new Event()
                     {
                         Id = -fakeId++,
-                        StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
-                        EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
+                        StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartDate.Hour, entry.StartDate.Minute, entry.StartDate.Second),
+                        EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndDate.Hour, entry.EndDate.Minute, entry.EndDate.Second),
                         EventType = (int)EventTypeEnum.availability,
                         RoomId = (int)entry.RoomId,
                         HostId = entry.HostId,
@@ -86,8 +86,8 @@ namespace RSService.BusinessLogic
                     Event newEvent = new Event()
                     {
                         Id = -fakeId++,
-                        StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartHour.Hour, entry.StartHour.Minute, entry.StartHour.Second),
-                        EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndHour.Hour, entry.EndHour.Minute, entry.EndHour.Second),
+                        StartDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.StartDate.Hour, entry.StartDate.Minute, entry.StartDate.Second),
+                        EndDate = new DateTime(currentDay.Year, currentDay.Month, currentDay.Day, entry.EndDate.Hour, entry.EndDate.Minute, entry.EndDate.Second),
                         EventType = (int)EventTypeEnum.availability,
                         RoomId = (int)entry.RoomId,
                         HostId = entry.HostId,
@@ -199,7 +199,7 @@ namespace RSService.BusinessLogic
 
             foreach (Availability ev in availabilities)
                                 
-                        if (startDate.TimeOfDay >= ev.StartHour.TimeOfDay && startDate.TimeOfDay <= ev.EndHour.TimeOfDay)
+                        if (startDate.TimeOfDay >= ev.StartDate.TimeOfDay && startDate.TimeOfDay <= ev.EndDate.TimeOfDay)
                             return false;                   
             return true;
         }
