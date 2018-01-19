@@ -29,7 +29,10 @@
   "change.password": "Parolă nouă",
   "change.confirmPassword": "Confirmă parola nouă",
   "email.sent": "Email trimis cu succes",
-  "password.change": "Parola a fost schimbată cu succes",
+  "password": {
+      "change": "Parola a fost schimbată cu succes",
+      "notChanged": "Cererea a expirat. Încercați din nou"
+  },
 
   "register": {
       "firstName": "Prenume",
