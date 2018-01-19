@@ -1,4 +1,4 @@
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute } from '@angular/router';
 import {Component, EventEmitter, Output} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {TranslateService} from '@ngx-translate/core';
@@ -18,10 +18,28 @@ export class ResetPasswordFormComponent{
     model: User = <User> {};
     public errorMessages: any = {};
 
+    resetPassCode: string;
+    public email;
+
     @Output()
     emailSent = new EventEmitter;
 
-    constructor(public router: Router, public userService: UserService, private toastr: ToastrService, private translate: TranslateService) {
+    constructor(public router: Router, public userService: UserService, private toastr: ToastrService, private translate: TranslateService, params: ActivatedRoute ) {   
+        // let paramCode = params.get("resetPassCode"); //Not Finished
+        // if (paramCode) { 
+        //     this.userService.checkCodeResetPass(this.model.resetPassCode).subscribe(
+        //         () => {},
+        //         error => {
+        //             if (error.status == 404) {
+        //                 this.toastr.warning(
+        //                     this.translate.instant('password.notChanged'), '',
+        //                     {positionClass: 'toast-bottom-right'}
+        //                 ); 
+        //                 this.router.navigate(['/resetpass']);                
+        //             }
+        //         }
+        //        )
+        // }
     }
 
     sendMail(email){
@@ -33,36 +51,36 @@ export class ResetPasswordFormComponent{
                     this.toastr.success(
                         this.translate.instant('email.sent'), '',
                         {positionClass: 'toast-bottom-right'}
-                    ); 
+                    );
                     this.emailSent.emit();
                 } 
-                else {
+                // else {
                            
-                    this.errorMessages = error.error.message; 
-                //     if (error.status == 200) {
-                //         this.toastr.success(
-                //             this.translate.instant('email.sent'), '',
-                //             {positionClass: 'toast-bottom-right'}
-                //         ); 
-                //         this.emailSent.emit();
-                //     } 
-                //     else {
-                //         this.errorMessages = {'generic': [error.error.message]};
-                //         // build error message
-                //         for (let e of error.error.errors) {
-                //             let field = 'generic';
+                //     this.errorMessages = error.error.message; 
+                // //     if (error.status == 200) {
+                // //         this.toastr.success(
+                // //             this.translate.instant('email.sent'), '',
+                // //             {positionClass: 'toast-bottom-right'}
+                // //         ); 
+                // //         this.emailSent.emit();
+                // //     } 
+                // //     else {
+                // //         this.errorMessages = {'generic': [error.error.message]};
+                // //         // build error message
+                // //         for (let e of error.error.errors) {
+                // //             let field = 'generic';
                             
-                //             if (['Email'].indexOf(e.field) >= 0) {
-                //                 field = e.field;
-                //             }
-                //             if (!this.errorMessages[field]) {
-                //                 this.errorMessages[field] = [];
-                //             }   
-                //             this.errorMessages[field].push(e.errorCode);
-                //         }               
-                //     }
-                // });                     
-                }
+                // //             if (['Email'].indexOf(e.field) >= 0) {
+                // //                 field = e.field;
+                // //             }
+                // //             if (!this.errorMessages[field]) {
+                // //                 this.errorMessages[field] = [];
+                // //             }   
+                // //             this.errorMessages[field].push(e.errorCode);
+                // //         }               
+                // //     }
+                // // });                     
+                // }
             });       
     }
 
@@ -77,9 +95,9 @@ export class ResetPasswordFormComponent{
                         {positionClass: 'toast-bottom-right'}
                     );
                 } 
-                else {
-                    this.errorMessages = error.error.message; 
-                }
+                // else {
+                //     this.errorMessages = error.error.message; 
+                // }
             });             
     }
 }
