@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, AfterViewInit} from '@angular/core';
+import {Component, EventEmitter, Output, OnInit, AfterViewInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {ToastrService} from 'ngx-toastr';
 
@@ -16,13 +16,16 @@ import {Settings} from '../../shared/models/settings.model';
 export class AdminSystemParameters implements AfterViewInit{
 
     public settingslist: Settings[];
-    public model: Settings = <Settings>{};
-    public errorMessage: string;
+    public model: Settings = <Settings> {};
+    public errorMessages: any = {};
     public editable: boolean;
     
 
     constructor(private systemParametersService: SystemParametersService, private translate: TranslateService, private toastr: ToastrService){
         
+    }
+    ngOnInit(){
+    
     }
 
     ngAfterViewInit(): void {
@@ -34,6 +37,8 @@ export class AdminSystemParameters implements AfterViewInit{
         this.systemParametersService.listParameters().subscribe((settingslist: any) =>{
             for (let setting of settingslist){
                 this.settingslist.push(<Settings>setting);
+                this.model.id = setting.id;
+                this.model.varName = setting.id;
             }
         });
        
@@ -41,23 +46,33 @@ export class AdminSystemParameters implements AfterViewInit{
 
     editSettings() {
         this.systemParametersService.editParameters(this.model.id, this.model.varName, this.model.value).subscribe(
-            () => {
-                this.toastr.success(
-                    this.translate.instant('SystemParameters.Save'), '',
-                    {positionClass: 'toast-bottom-right'}
-                )               
+            () => {           
             },
             error => {
-                alert(this.errorMessage);
-                console.log(this.model.id);
-             
-            });       
+                if(error.status==200){
+                    this.listSettings();
+                    this.toastr.success(
+                        this.translate.instant('SystemParameters.Save'), '',
+                        {positionClass: 'toast-bottom-right'}        
+                )}
+
+                else {
+                    this.errorMessages = error.error.message;
+                }
+                
+    }); 
+            
+        this.editable=false;
     }
 
     makeEditable() {
         this.settingslist = this.settingslist.map((setting) => {
-            if (setting.id) { this.editable = true; }
-            else { this.editable = false; }
+            if (setting.id) { 
+                this.editable = true; 
+            }
+            else { 
+                this.editable = false; 
+            }
             return setting;
         });
       }

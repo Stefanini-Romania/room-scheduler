@@ -29,7 +29,10 @@
   "change.password": "New password",
   "change.confirmPassword": "Confirm new password",
   "email.sent": "Email sent successfully",
-  "password.changed": "Password changed successfully",
+  "password": {
+      "changed": "Password changed successfully",
+      "notChanged": "Link expired. Try again"
+  },
 
   "register": {
       "firstName": "First name",
