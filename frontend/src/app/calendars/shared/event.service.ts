@@ -62,7 +62,6 @@ export class EventService {
             .map((response: Response) => {
                 return response;
             });
-
     }
 
     private editEvent(event: Event) {

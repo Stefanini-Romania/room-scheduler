@@ -30,13 +30,7 @@ export class AuthService {
                     sessionStorage.setItem('currentUser', JSON.stringify(response));
                     this.user$.emit(this.getLoggedUser());
                 }
-                // setTimeout(function(){
-                //     console.log("LOGOUT");
-                //     sessionStorage.removeItem('currentUser');
-                //     alert( "You have been logged out for security reasons");
-                //   },3000);
-                return response;
-                
+                return response;        
             });
     }
 

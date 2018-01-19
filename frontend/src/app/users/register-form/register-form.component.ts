@@ -69,7 +69,6 @@ export class RegisterFormComponent {
         this.modelForm.departmentId = this.model.departmentId;
        // this.modelForm.userRole = this.model.userRole; //Fix
         this.modelForm.isActive = this.model.isActive;
-        //this.model = this.modelForm;
     }
 
     get isLoggedIn():boolean {

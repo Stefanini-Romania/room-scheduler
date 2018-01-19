@@ -18,13 +18,21 @@ export class SystemParametersService{
         return this.http.get(url, { headers: headers, withCredentials: true });
     }
 
-    public editParameters() { //NOT FINISHED
-        const url = environment.apiUrl + '/settings/session/edit/{value}';
+    public editParameters(id: number, varName: string, value: string) {
+        const url = environment.apiUrl + '/settings/edit/' + id;
         const body = JSON.stringify ({
+            id: id,
+            varName: varName,
+            value: value
         });
-
-       
-        return this.http.post(url, body);
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        
+                return this.http.put(url, body, {headers: headers, withCredentials: true})
+                    .catch((error: any) => {
+                        return Observable.throw(error);
+                    })
+                    .map((response: Response) => {
+                        return response;
+                    });
+            }
     }
-    
-} 

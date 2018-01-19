@@ -56,7 +56,6 @@ export class EventEditorComponent implements OnInit{
             },
             error => {
                 // on save event errors
-                // @TODO handle generic errors
                 if (error.status == 401) {
                     this.errorMessages = {'generic': ['Event.UserIsNotAuthenticated']};
                     this.authService.logout();
@@ -69,15 +68,12 @@ export class EventEditorComponent implements OnInit{
                         if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
                             field = e.field;
                         }
-
                         if (!this.errorMessages[field]) {
                             this.errorMessages[field] = [];
                         }
-
                         this.errorMessages[field].push(e.errorCode);
                     }
                 }
             });
     }
-
 }

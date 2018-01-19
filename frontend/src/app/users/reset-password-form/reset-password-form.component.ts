@@ -75,8 +75,7 @@ export class ResetPasswordFormComponent{
                     this.toastr.success(
                         this.translate.instant('password.changed'), '',
                         {positionClass: 'toast-bottom-right'}
-                    ); 
-                    this.emailSent.emit();
+                    );
                 } 
                 else {
                     this.errorMessages = error.error.message; 

@@ -252,6 +252,7 @@
     "SystemParameters":{
         "Name":"Parameter",
         "Value":"Value",
-        "Edit":"Edit"
+        "Edit":"Edit",
+        "Save": "Parameter successfully changed"
     }
 }

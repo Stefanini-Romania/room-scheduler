@@ -41,18 +41,6 @@ export class RoomService {
             });
     }
 
-    // public deleteRoom(room: Room) {
-    //     const url = environment.apiUrl + '/room/delete/' + room.id;
-
-    //     return this.http.delete(url, {responseType: 'text', withCredentials: true})
-    //         .catch((error: any) => {              
-    //             return Observable.throw(error);
-    //         })
-    //         .map((response: Response) => {                
-    //             return response;
-    //         });
-    // }
-
     public editRoom(id: number, name: string, location: string, isActive?: boolean) {
         const url = environment.apiUrl + '/room/edit/' + id;
         const body = JSON.stringify({
