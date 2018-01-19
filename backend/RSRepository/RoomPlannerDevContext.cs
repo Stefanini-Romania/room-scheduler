@@ -26,8 +26,8 @@ namespace RSRepository
             modelBuilder.Entity<Availability>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("AvailabilityId");
-                entity.Property(e => e.EndHour).HasColumnType("datetime");
-                entity.Property(e => e.StartHour).HasColumnType("datetime");
+                entity.Property(e => e.EndDate).HasColumnType("datetime");
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
                 entity.Property(e => e.DayOfWeek).HasColumnName("DayOfWeek");
                 entity.Property(e => e.AvailabilityType).HasColumnName("AvailabilityType");
                 entity.Property(e => e.RoomId).HasColumnName("RoomId");

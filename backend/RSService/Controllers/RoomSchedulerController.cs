@@ -114,12 +114,14 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/event/list")]
-        public IActionResult GetEventsByHosts(DateTime startDate, DateTime endDate, int[] roomId, int?[] hostId)
+        public IActionResult GetEventsByHosts(DateTime startDate, DateTime endDate, int?[] roomId, int?[] hostId)
         {
             if (!hostId.Any())
                 return GetEvents(startDate, endDate, roomId);
             
             var results = eventRepository.GetEvents(startDate, endDate, roomId, hostId);
+
+            int?[] avRoomId = roomId;
          
             var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
 
@@ -151,7 +153,7 @@ namespace RSService.Controllers
             return Ok(events);
         }
       
-        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
+        public IActionResult GetEvents(DateTime startDate, DateTime endDate, int?[] roomId)
         {
             var results = eventRepository.GetEvents(startDate, endDate, roomId);
 

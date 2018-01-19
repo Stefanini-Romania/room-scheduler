@@ -28,7 +28,7 @@ namespace RSRepository
             return availabilities.ToList();
         }
 
-        public List<Availability> GetAvailabilities(int[] roomId, int?[] hostId)
+        public List<Availability> GetAvailabilities(int?[] roomId, int?[] hostId)
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))
                                  .Where(e => hostId.Contains(e.HostId))
@@ -38,13 +38,13 @@ namespace RSRepository
 
         public List<Availability> GetAvailabilitiesByRoom(DateTime startDate, DateTime endDate, int roomId)
         {
-            return availabilities.Where(e => e.StartHour.TimeOfDay <= startDate.TimeOfDay)
-                                 .Where(e => e.StartHour.TimeOfDay <= endDate.TimeOfDay)
+            return availabilities.Where(e => e.StartDate.TimeOfDay <= startDate.TimeOfDay)
+                                 .Where(e => e.StartDate.TimeOfDay <= endDate.TimeOfDay)
                                  .Where(e => e.RoomId == roomId)                        
                                  .ToList();
         }
 
-        public List<Availability> GetAvailabilities(int[] roomId)
+        public List<Availability> GetAvailabilities(int?[] roomId)
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))
                                  .Include(e => e.Host)
@@ -53,8 +53,8 @@ namespace RSRepository
 
         public List<Availability> GetAvailabilitiesByType(DateTime startDate, DateTime endDate,int roomId)
         {
-            return availabilities.Where(e => e.StartHour.TimeOfDay <= startDate.TimeOfDay)
-                                 .Where(e => e.StartHour.TimeOfDay <= endDate.TimeOfDay)
+            return availabilities.Where(e => e.StartDate.TimeOfDay <= startDate.TimeOfDay)
+                                 .Where(e => e.StartDate.TimeOfDay <= endDate.TimeOfDay)
                                  .Where(e => e.RoomId == roomId)
                                  .Where(e => e.AvailabilityType==1)
                                  .ToList();
@@ -63,8 +63,8 @@ namespace RSRepository
         public List<Availability> GetAvailabilitiesByHour(DateTime startDate, int roomId)
         {
             return availabilities.Where(a => a.RoomId == roomId)
-                                 .Where(a => a.StartHour.Hour <= startDate.Hour)
-                                 .Where(a => a.EndHour.Hour > startDate.Hour)
+                                 .Where(a => a.StartDate.Hour <= startDate.Hour)
+                                 .Where(a => a.EndDate.Hour > startDate.Hour)
                                  .ToList();
         }
 

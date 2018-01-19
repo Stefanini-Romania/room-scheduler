@@ -23,7 +23,7 @@ namespace RSRepository
             return events.ToList();
         }
 
-        public List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId, int?[] hostId)
+        public List<Event> GetEvents(DateTime startDate, DateTime endDate, int?[] roomId, int?[] hostId)
         {
             return events.Where(e => e.StartDate >= startDate)
                          .Where(e => e.StartDate <= endDate)
@@ -34,7 +34,7 @@ namespace RSRepository
                          .ToList();
         }
 
-        public List<Event> GetEvents(DateTime startDate, DateTime endDate, int[] roomId)
+        public List<Event> GetEvents(DateTime startDate, DateTime endDate, int?[] roomId)
         {
             return events.Where(e => e.StartDate >= startDate)
                          .Where(e => e.StartDate <= endDate)

@@ -8,9 +8,9 @@ namespace RSService.BusinessLogic
 {
     public interface IRSManager
     {
-        List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId, int?[] hostId);
+        List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int?[] roomId, int?[] hostId);
 
-        List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int[] roomId);
+        List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int?[] roomId);
 
         double GetTimeSpan(DateTime start, DateTime end);
 

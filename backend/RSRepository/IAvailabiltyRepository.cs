@@ -10,8 +10,8 @@ namespace RSRepository
     {
         Availability GetAvailabilityById(int id);
         List<Availability> GetAvailabilities();
-        List<Availability> GetAvailabilities(int[] roomId, int?[] hostId);
-        List<Availability> GetAvailabilities(int[] roomId);
+        List<Availability> GetAvailabilities(int?[] roomId, int?[] hostId);
+        List<Availability> GetAvailabilities(int?[] roomId);
         List<Availability> GetAvailabilitiesByRoom(DateTime startDate, DateTime endDate, int roomId);
         List<Availability> GetAvailabilitiesByHour(DateTime startDate, int roomId);
         List<Availability> GetAvailabilitiesByType(DateTime startDate, DateTime endDate, int roomId);
