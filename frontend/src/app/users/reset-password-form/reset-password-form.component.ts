@@ -20,6 +20,7 @@ export class ResetPasswordFormComponent{
     checkIfloginRoute = false;
     public errorMessages: any = {};
     public email;
+    public password;
     
     @Output()
     emailSent = new EventEmitter;
@@ -28,23 +29,21 @@ export class ResetPasswordFormComponent{
         // TODO: Refactor using an angulat service or smt
         let part = window.location.href.split('/');
         this.resetPassCode = part[4];
-
-      
-        //let paramCode = params.get("resetPassCode"); //Not Finished
-        // if (this.resetPassCode) { 
-        //     this.userService.checkCodeResetPass(this.model.resetPassCode).subscribe(
-        //         () => {},
-        //         error => {
-        //             if (error.status == 404) {
-        //                 this.toastr.warning(
-        //                     this.translate.instant('password.notChanged'), '',
-        //                     {positionClass: 'toast-bottom-right'}
-        //                 ); 
-        //                 //this.router.navigate(['/resetpass']);                
-        //             }
-        //         }
-        //        )
-        // }
+    
+        //let paramCode = params.get("resetPassCode");
+        if (part[4]) { 
+            this.userService.checkCodeResetPass(part[4]).subscribe(
+                () => {},
+                error => {
+                    if (error.status == 404) {
+                        this.toastr.warning(
+                            this.translate.instant('password.notChanged'), '',
+                            {positionClass: 'toast-bottom-right'}
+                        ); 
+                        this.router.navigate(['/resetpass']);                
+                    }
+                });
+        }
     }
 
     sendMail(email){
@@ -58,7 +57,7 @@ export class ResetPasswordFormComponent{
                         {positionClass: 'toast-bottom-right'}
                     );
                     this.emailSent.emit();
-                } 
+                  } 
                 // else {
                            
                 //     this.errorMessages = error.error.message; 
