@@ -73,7 +73,7 @@ namespace RSService.Controllers
            }
 
         [HttpPut("/user/resetpass/{ResetPassCode}")]
-        public IActionResult ResetPassowrd(string ResetPassCode, [FromForm]ResetPasswordViewModel userView)
+        public IActionResult ResetPassowrd(string ResetPassCode, [FromBody]ResetPasswordViewModel userView)
         {
            
 
@@ -124,7 +124,7 @@ namespace RSService.Controllers
 
             };
 
-
+          //  Response.ContentType = "application/JSON";
             return Ok(updatedUser);
         }
     }
