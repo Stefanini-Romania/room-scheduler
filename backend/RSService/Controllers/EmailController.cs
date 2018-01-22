@@ -104,6 +104,8 @@ namespace RSService.Controllers
                     return NotFound();
             }
 
+            
+
             user.Password = userView.Password;
             user.ResetPassCode = null;
 
