@@ -70,6 +70,17 @@ namespace RSRepository
                                  .ToList();
         }
 
+        public List<Availability> GetAvailabilities(int availabilityType, int? roomId, int? hostId)
+        {
+            return availabilities.Where(a => a.AvailabilityType == availabilityType && a.RoomId == roomId && a.HostId == hostId)
+                                 .ToList();
+        }
+
+        public void RemoveAvailabilities(List<Availability> availabilityList)
+        {
+            availabilities.RemoveRange(availabilityList);
+        }
+
         public void AddAvailability(Availability availability)
         {
             availabilities.Add(availability);

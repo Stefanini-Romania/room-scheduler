@@ -5,6 +5,7 @@ using RSRepository;
 using RSService.BusinessLogic;
 using RSService.DTO;
 using RSService.Validation;
+using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,12 +38,13 @@ namespace RSService.Controllers
             {
                 availabilities.Add(new AvailabilityDto()
                 {
-                    Id = availability.Id,
                     StartDate = availability.StartDate,
                     EndDate = availability.EndDate,
                     AvailabilityType = availability.AvailabilityType,
                     RoomId = availability.RoomId,
-                    Host = availability.Host.FirstName + " " + availability.Host.LastName
+                    HostName = availability.Host.FirstName + " " + availability.Host.LastName,
+                    HostId = availability.HostId
+
                 });
             }
 
@@ -51,11 +53,36 @@ namespace RSService.Controllers
 
         [HttpPost("/availability/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult AddAvailability([FromBody] AvailabilityDto availability)
+        public IActionResult AddAvailability([FromBody] IEnumerable<AvailabilityViewModel> newAvailability)
         {
-            // Verifica daca exista availability pt acest host
-               //- daca da: sterge si adauga unul nou
-               //- daca nu: adauga
+            if (!ModelState.IsValid)
+            {
+                return ValidationError(GeneralMessages.Availability);
+            }
+
+            // If already exists availabilities for this host, remove them
+            var dbAvailabilities = availabilityRepository.GetAvailabilities(newAvailability.First().AvailabilityType, newAvailability.First().RoomId, newAvailability.First().HostId);
+            if (dbAvailabilities != null)
+            {
+                availabilityRepository.RemoveAvailabilities(dbAvailabilities);
+            }
+
+            int dayOfWeek = 0;
+
+            foreach(var av in newAvailability)
+            {
+                dayOfWeek++;
+                Availability availability = new Availability(
+                av.StartDate,
+                av.EndDate,
+                dayOfWeek,
+                av.AvailabilityType,
+                av.RoomId,
+                av.HostId
+                );
+                availabilityRepository.AddAvailability(availability);
+            }
+            Context.SaveChanges();
 
             return Ok();
         }
@@ -90,11 +117,25 @@ namespace RSService.Controllers
             return Ok();
         }
 
+        [HttpPost("/availability/remove/{roomId}/{hostId}")]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        public IActionResult RemoveAvailabilities(int roomId, int hostId)
+        {
+
+            var dbAvailabilities = availabilityRepository.GetAvailabilities((int)AvailabilityEnum.Available, roomId, hostId);
+            if (dbAvailabilities != null)
+            {
+                availabilityRepository.RemoveAvailabilities(dbAvailabilities);
+            }
+
+            Context.SaveChanges();
+
+            return Ok();
+        }
 
 
 
 
-        
 
     }
 }
