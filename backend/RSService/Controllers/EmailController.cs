@@ -29,7 +29,7 @@ namespace RSService.Controllers
         {
             var user = userRepository.GetUserByEmail(email);
             if (user == null)
-                return NotFound();
+                return StatusCode(999);
             user.DateExpire = DateTime.UtcNow;
             user.ResetPassCode = System.Guid.NewGuid().ToString();
 
