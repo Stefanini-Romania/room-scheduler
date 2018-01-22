@@ -271,7 +271,9 @@
         "Value":"Valoare",
         "Edit":"Editează",
         "Save": "Parametru schimbat cu succes"
-    }
+    },
+
+    "SessionTimeSpan": "Expirarea sesiunii"
 }
 
 

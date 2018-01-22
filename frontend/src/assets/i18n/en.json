@@ -257,5 +257,7 @@
         "Value":"Value",
         "Edit":"Edit",
         "Save": "Parameter successfully changed"
-    }
+    },
+
+    "SessionTimeSpan": "Session Timespan"
 }
