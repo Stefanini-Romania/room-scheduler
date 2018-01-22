@@ -57,7 +57,13 @@ export class ResetPasswordFormComponent{
                         {positionClass: 'toast-bottom-right'}
                     );
                     this.emailSent.emit();
-                  } 
+                } 
+                if (error.status == 404) {
+                    this.toastr.warning(
+                        this.translate.instant('email.notSent'), '',
+                        {positionClass: 'toast-bottom-right'}
+                    );
+                }
                 // else {
                            
                 //     this.errorMessages = error.error.message; 

@@ -28,7 +28,10 @@
   "loginPage": "Înapoi la pagina de login",
   "change.password": "Parolă nouă",
   "change.confirmPassword": "Confirmă parola nouă",
-  "email.sent": "Email trimis cu succes",
+  "email": {
+      "sent": "Email trimis cu succes",
+      "notSent": "Adresă de email inexistentă"
+  },
   "password": {
       "change": "Parola a fost schimbată cu succes",
       "notChanged": "Cererea a expirat. Încercați din nou"
