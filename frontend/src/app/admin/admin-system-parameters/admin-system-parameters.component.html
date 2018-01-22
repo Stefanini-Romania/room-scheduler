@@ -12,7 +12,7 @@
   
     <tbody>
       <tr *ngFor="let setting of settingslist" >
-        <td>{{setting.varName}} </td>
+        <td>{{setting.varName | translate}} </td>
         <td *ngIf="!editable">{{setting.value}}</td>
         <td *ngIf="editable">
             <input type="text" [(ngModel)]="model.value"/>
