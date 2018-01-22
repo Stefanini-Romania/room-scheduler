@@ -30,8 +30,8 @@ export class ResetPasswordFormComponent{
         this.resetPassCode = part[4];
 
       
-        // let paramCode = params.get("resetPassCode"); //Not Finished
-        // if (paramCode) { 
+        //let paramCode = params.get("resetPassCode"); //Not Finished
+        // if (this.resetPassCode) { 
         //     this.userService.checkCodeResetPass(this.model.resetPassCode).subscribe(
         //         () => {},
         //         error => {
@@ -40,7 +40,7 @@ export class ResetPasswordFormComponent{
         //                     this.translate.instant('password.notChanged'), '',
         //                     {positionClass: 'toast-bottom-right'}
         //                 ); 
-        //                 this.router.navigate(['/resetpass']);                
+        //                 //this.router.navigate(['/resetpass']);                
         //             }
         //         }
         //        )
@@ -99,6 +99,7 @@ export class ResetPasswordFormComponent{
                         this.translate.instant('password.changed'), '',
                         {positionClass: 'toast-bottom-right'}
                     );
+                    this.router.navigate(['/login']);  
                 } 
                 // else {
                 //     this.errorMessages = error.error.message; 
