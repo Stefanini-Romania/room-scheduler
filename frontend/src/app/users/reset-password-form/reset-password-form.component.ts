@@ -64,32 +64,32 @@ export class ResetPasswordFormComponent{
                         {positionClass: 'toast-bottom-right'}
                     );
                 }
-                // else {
+                //  else {
                            
-                //     this.errorMessages = error.error.message; 
-                // //     if (error.status == 200) {
-                // //         this.toastr.success(
-                // //             this.translate.instant('email.sent'), '',
-                // //             {positionClass: 'toast-bottom-right'}
-                // //         ); 
-                // //         this.emailSent.emit();
-                // //     } 
-                // //     else {
-                // //         this.errorMessages = {'generic': [error.error.message]};
-                // //         // build error message
-                // //         for (let e of error.error.errors) {
-                // //             let field = 'generic';
+                //      this.errorMessages = error.error.message; 
+                //      if (error.status == 200) {
+                //          this.toastr.success(
+                //              this.translate.instant('email.sent'), '',
+                //              {positionClass: 'toast-bottom-right'}
+                //          ); 
+                //          this.emailSent.emit();
+                //      } 
+                //      else {
+                //          this.errorMessages = {'generic': [error.error.message]};
+                //          // build error message
+                //          for (let e of error.error.errors) {
+                //              let field = 'generic';
                             
-                // //             if (['Email'].indexOf(e.field) >= 0) {
-                // //                 field = e.field;
-                // //             }
-                // //             if (!this.errorMessages[field]) {
-                // //                 this.errorMessages[field] = [];
-                // //             }   
-                // //             this.errorMessages[field].push(e.errorCode);
-                // //         }               
-                // //     }
-                // // });                     
+                //              if (['Email'].indexOf(e.field) >= 0) {
+                //                  field = e.field;
+                //             }
+                //              if (!this.errorMessages[field]) {
+                //                  this.errorMessages[field] = [];
+                //              }   
+                //              this.errorMessages[field].push(e.errorCode);
+                //          }               
+                //      }
+                // });                     
                 // }
             });       
     }
@@ -106,9 +106,21 @@ export class ResetPasswordFormComponent{
                     );
                     this.router.navigate(['/login']);  
                 } 
-                // else {
-                //     this.errorMessages = error.error.message; 
-                // }
-            });             
-    }
+                else {
+                    this.errorMessages = {'generic': [error.error.message]};
+                    // build error message
+                    for (let e of error.error.errors) {
+                        let field = 'generic';
+                        
+                        if (['Password'].indexOf(e.field) >= 0) {
+                            field = e.field;
+                        }
+                        if (!this.errorMessages[field]) {
+                            this.errorMessages[field] = [];
+                        }   
+                        this.errorMessages[field].push(e.errorCode);
+                    }               
+                }
+            });
+    }                 
 }
