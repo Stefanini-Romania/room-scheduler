@@ -10,7 +10,7 @@ namespace RSService.Filters
 {
     public class ResetPasswordValidator : AbstractValidator<ResetPasswordViewModel>
     {
-        private IRSManager rsManager;
+        
         public ResetPasswordValidator(IRSManager rSManager)
         {
             RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyPassword);
