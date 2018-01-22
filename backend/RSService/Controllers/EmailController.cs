@@ -63,7 +63,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/user/resetpass/{ResetPassCode}")]
-          public IActionResult CheckCodeResetPass(string resetpasscode, [FromBody]ResetPasswordViewModel userView)
+          public IActionResult CheckCodeResetPass(string resetpasscode, [FromForm]ResetPasswordViewModel userView)
            {
             var user = userRepository.GetUserByResetPassCode(resetpasscode);
 
@@ -73,7 +73,7 @@ namespace RSService.Controllers
            }
 
         [HttpPut("/user/resetpass/{ResetPassCode}")]
-        public IActionResult ResetPassowrd(string ResetPassCode, [FromBody]ResetPasswordViewModel userView)
+        public IActionResult ResetPassowrd(string ResetPassCode, [FromForm]ResetPasswordViewModel userView)
         {
            
 
