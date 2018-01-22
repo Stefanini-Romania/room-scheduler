@@ -94,8 +94,8 @@ export class UserService {
             });
     }
 
-    public resetPassword(email: string, password: string) { //NOT FINISHED
-        const url = environment.apiUrl + '/user/resetpass/' + email;
+    public resetPassword(resetPassCode: string, password: string) {
+        const url = environment.apiUrl + '/user/resetpass/' + resetPassCode;
         const body = JSON.stringify({
             password: password
         });

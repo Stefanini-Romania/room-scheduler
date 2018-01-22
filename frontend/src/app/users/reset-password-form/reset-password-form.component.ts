@@ -16,15 +16,20 @@ import {UserService} from '../shared/users.service';
 
 export class ResetPasswordFormComponent{
     model: User = <User> {};
-    public errorMessages: any = {};
-
     resetPassCode: string;
+    checkIfloginRoute = false;
+    public errorMessages: any = {};
     public email;
-
+    
     @Output()
     emailSent = new EventEmitter;
 
-    constructor(public router: Router, public userService: UserService, private toastr: ToastrService, private translate: TranslateService, params: ActivatedRoute ) {   
+    constructor(public router: Router, public userService: UserService, private toastr: ToastrService, private translate: TranslateService, route: ActivatedRoute ) {   
+        // TODO: Refactor using an angulat service or smt
+        let part = window.location.href.split('/');
+        this.resetPassCode = part[4];
+
+      
         // let paramCode = params.get("resetPassCode"); //Not Finished
         // if (paramCode) { 
         //     this.userService.checkCodeResetPass(this.model.resetPassCode).subscribe(
@@ -85,7 +90,7 @@ export class ResetPasswordFormComponent{
     }
 
     changePassword(password){  
-        this.userService.resetPassword(this.model.email, this.model.password).subscribe(
+        this.userService.resetPassword(this.resetPassCode, this.model.password).subscribe(
             () => {},
 
             error => {              
