@@ -28,6 +28,8 @@ namespace RSService.Controllers
         public IActionResult MailPassReset(string email)
         {
             var user = userRepository.GetUserByEmail(email);
+            if (user == null)
+                return NotFound();
             user.DateExpire = DateTime.UtcNow;
             user.ResetPassCode = System.Guid.NewGuid().ToString();
 
