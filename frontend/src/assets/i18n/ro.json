@@ -33,7 +33,7 @@
       "notSent": "Adresă de email inexistentă"
   },
   "password": {
-      "change": "Parola a fost schimbată cu succes",
+      "changed": "Parola a fost schimbată cu succes",
       "notChanged": "Cererea a expirat. Încercați din nou"
   },
 

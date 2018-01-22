@@ -71,7 +71,7 @@ export class ResetPasswordFormComponent{
         this.userService.resetPassword(this.resetPassCode, this.model.password).subscribe(
             () => {
                 this.toastr.success(
-                    this.translate.instant('password.change'), '',
+                    this.translate.instant('password.changed'), '',
                     {positionClass: 'toast-bottom-right'}
                 );  
                 this.router.navigate(['/login']);       
@@ -88,8 +88,7 @@ export class ResetPasswordFormComponent{
                         this.errorMessages[field] = [];
                     }   
                     this.errorMessages[field].push(e.errorCode);
-                }               
-                
+                }                      
             });
     }                 
 }
