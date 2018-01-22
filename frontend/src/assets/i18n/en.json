@@ -28,7 +28,10 @@
   "loginPage": "Go back to login page",
   "change.password": "New password",
   "change.confirmPassword": "Confirm new password",
-  "email.sent": "Email sent successfully",
+  "email": {
+      "sent": "Email sent successfully",
+      "notSent": "Email address not found"
+  },
   "password": {
       "changed": "Password changed successfully",
       "notChanged": "Link expired. Try again"
@@ -257,5 +260,7 @@
         "Value":"Value",
         "Edit":"Edit",
         "Save": "Parameter successfully changed"
-    }
+    },
+
+    "SessionTimeSpan": "Session Timespan"
 }

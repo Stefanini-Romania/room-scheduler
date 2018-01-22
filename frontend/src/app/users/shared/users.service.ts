@@ -69,7 +69,8 @@ export class UserService {
     public mailPassReset(email: string) { 
         const url = environment.apiUrl + '/email/resetpass/' + email;
         const body = JSON.stringify({
-            email: email});
+            email: email
+        });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body)
             .catch((error: any) => {
@@ -80,10 +81,11 @@ export class UserService {
             });
     }
 
-    public checkCodeResetPass(resetPassCode) { 
+    public checkCodeResetPass(resetPassCode: string) { 
         const url = environment.apiUrl + '/user/resetpass/' + resetPassCode;
         const body = JSON.stringify({
-            resetPassCode: resetPassCode});
+            resetPassCode: resetPassCode
+        });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body)
             .catch((error: any) => {
@@ -94,13 +96,13 @@ export class UserService {
             });
     }
 
-    public resetPassword(email: string, password: string) { //NOT FINISHED
-        const url = environment.apiUrl + '/user/resetpass/' + email;
+    public resetPassword(resetPassCode: string, password: string) {
+        const url = environment.apiUrl + '/user/resetpass/' + resetPassCode;
         const body = JSON.stringify({
             password: password
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.put(url, body)
+        return this.http.put(url, body, {headers: headers})
             .catch((error: any) => {
                 return Observable.throw(error);
             })

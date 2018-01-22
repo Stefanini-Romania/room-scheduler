@@ -28,6 +28,8 @@ namespace RSService.Controllers
         public IActionResult MailPassReset(string email)
         {
             var user = userRepository.GetUserByEmail(email);
+            if (user == null)
+                return NotFound();
             user.DateExpire = DateTime.UtcNow;
             user.ResetPassCode = System.Guid.NewGuid().ToString();
 
@@ -42,9 +44,9 @@ namespace RSService.Controllers
                  +
                 "If this was a mistake, just ignore this email and nothing will happen. <br> "
                 + "If you want to reset you passowrd , visit the following address: <br>"+
-                "http://localhost:4200/resetpass/"+user.ResetPassCode +"<br>" +
-                "For security reasons, this link will expire in 2 hours.To request another password reset, visit http://localhost:4200/resetpass <br>"
-                +"<br>"+"Best,<br>"+"Your RoomSchedulerTeam"
+                "http://fctestweb1:888/resetpass/" + user.ResetPassCode +"<br>" +
+                "For security reasons, this link will expire in 2 hours.To request another password reset, visit http://fctestweb1:888/resetpass <br>"
+                + "<br>"+"Best,<br>"+"Your RoomSchedulerTeam"
 
 
 
@@ -63,7 +65,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/user/resetpass/{ResetPassCode}")]
-          public IActionResult CheckCodeResetPass(string resetpasscode, [FromBody]ResetPasswordViewModel userView)
+          public IActionResult CheckCodeResetPass(string resetpasscode, [FromForm]ResetPasswordViewModel userView)
            {
             var user = userRepository.GetUserByResetPassCode(resetpasscode);
 
@@ -102,6 +104,8 @@ namespace RSService.Controllers
                     return NotFound();
             }
 
+            
+
             user.Password = userView.Password;
             user.ResetPassCode = null;
 
@@ -124,7 +128,7 @@ namespace RSService.Controllers
 
             };
 
-
+          //  Response.ContentType = "application/JSON";
             return Ok(updatedUser);
         }
     }
