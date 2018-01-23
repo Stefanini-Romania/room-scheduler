@@ -276,7 +276,8 @@
         "Save": "Parametru schimbat cu succes"
     },
 
-    "SessionTimeSpan": "Expirarea sesiunii"
+    "SessionTimeSpan": "Expirarea sesiunii",
+    "Session.Logout": "Sesiunea dumneavoastră a expirat"
 }
 
 
