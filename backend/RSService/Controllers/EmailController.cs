@@ -100,7 +100,7 @@ namespace RSService.Controllers
 
             if((user.DateExpire.Day == DateTime.UtcNow.Day) && (user.DateExpire.Month == DateTime.UtcNow.Month) && (user.DateExpire.Year == DateTime.UtcNow.Year))
             {
-                if ((DateTime.UtcNow.AddHours(0) > user.DateExpire.AddHours(2)))
+                if ((DateTime.UtcNow.AddHours(0) > user.DateExpire.AddHours(1)))
                     return NotFound();
             }
 
