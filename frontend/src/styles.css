@@ -481,7 +481,7 @@ div #room-editor input, div #user-cont input{
     margin-bottom: 0;
 }
 
-div #reset-password input {
+div #reset-password input, div #send-password input, div .alert{
     padding-bottom: 6px;
     padding-top: 6px;
 }
