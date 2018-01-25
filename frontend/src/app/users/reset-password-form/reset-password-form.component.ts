@@ -21,6 +21,7 @@ export class ResetPasswordFormComponent{
     public errorMessages: any = {};
     public email;
     public password;
+    public empty: boolean;
     
     @Output()
     emailSent = new EventEmitter;
@@ -47,24 +48,28 @@ export class ResetPasswordFormComponent{
     }
 
     sendMail(email){
-        this.userService.mailPassReset(this.model.email).subscribe(
-            () => {},
-          
-            error => {
-                if (error.status == 200) {
-                    this.toastr.success(
-                        this.translate.instant('email.sent'), '',
-                        {positionClass: 'toast-bottom-right'}
-                    );
-                    this.emailSent.emit();
-                } 
-                if (error.status == 404) {
-                    this.toastr.warning(
-                        this.translate.instant('email.notSent'), '',
-                        {positionClass: 'toast-bottom-right'}
-                    );
-                }
-            });       
+        if(this.model.email){
+            this.userService.mailPassReset(this.model.email).subscribe(
+                () => {},
+              
+                error => {
+                    if (error.status == 200) {
+                        this.toastr.success(
+                            this.translate.instant('email.sent'), '',
+                            {positionClass: 'toast-bottom-right'}
+                        );
+                        this.emailSent.emit();
+                    } 
+                    if (error.status == 404) {
+                        this.toastr.warning(
+                            this.translate.instant('email.notSent'), '',
+                            {positionClass: 'toast-bottom-right'}
+                        );
+                    }
+                }); 
+        }
+        else this.empty=true;
+              
     }
 
     changePassword(password){  
@@ -76,7 +81,7 @@ export class ResetPasswordFormComponent{
                 );  
                 this.router.navigate(['/login']);       
             },
-            error => {                         
+            error => {                        
                 this.errorMessages = {'generic': [error.error.message]};
                 for (let e of error.error.errors) {
                     let field = 'generic';
@@ -90,5 +95,6 @@ export class ResetPasswordFormComponent{
                     this.errorMessages[field].push(e.errorCode);
                 }                      
             });
-    }                 
+    } 
+    
 }
