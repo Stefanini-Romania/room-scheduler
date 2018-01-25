@@ -40,7 +40,7 @@ namespace RSService.Controllers
             message.Subject = "Password Reset";
             message.Body = new TextPart("html")
             {
-                Text = "You have requested a new passowrd for the following account: "+email +"<br>"
+                Text = "You have requested a new password for the following account: "+email +"<br>"
                  +
                 "If this was a mistake, just ignore this email and nothing will happen. <br> "
                 + "If you want to reset you passowrd , visit the following address: <br>"+
