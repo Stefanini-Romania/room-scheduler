@@ -118,13 +118,7 @@
                                 <input ngbButton type="radio">ADC </label>
                             <label ngbButtonLabel class="btn btn-primary" (click)="sdcDepartment(user)">
                                 <input ngbButton type="radio">SDC </label>                      
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary pull-right" *ngIf="!model.id" (click)="register()">
-                                {{ 'register.button' | translate }} 
-                            </button>
-                        </div>
-
+                        </div>                      
                     </div>                    
 
                     <!-- ACTIVE/INACTIVE -->
@@ -159,7 +153,12 @@
                                     </button>
                                 </div>
                             </div> 
-                        </div>                                                      
+                        </div>    
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary pull-right" *ngIf="!model.id" (click)="register()">
+                                {{ 'register.button' | translate }} 
+                            </button>
+                        </div>                                                  
                         <div class="col">           
                             <button type="submit" class="btn btn-primary pull-right" *ngIf="model.id" (click)="editUser()">
                                 {{ 'user.save' | translate }}
