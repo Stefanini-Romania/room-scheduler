@@ -29,7 +29,7 @@ namespace RSService.Controllers
         {
             var user = userRepository.GetUserByEmail(email);
             if (user == null)
-                return NotFound();
+               return Ok();
             user.DateExpire = DateTime.UtcNow;
             user.ResetPassCode = System.Guid.NewGuid().ToString();
 
@@ -46,7 +46,7 @@ namespace RSService.Controllers
                 + "If you want to reset you passowrd , visit the following address: <br>"+
                 "http://fctestweb1:888/resetpass/" + user.ResetPassCode +"<br>" +
                 "For security reasons, this link will expire in 2 hours.To request another password reset, visit http://fctestweb1:888/resetpass <br>"
-                + "<br>"+"Best,<br>"+"Your RoomSchedulerTeam"
+                
 
 
 
