@@ -16,7 +16,7 @@
         <td>{{setting.varName | translate}} </td>
         <td *ngIf="!editable">{{setting.value}}</td>
         <td *ngIf="editable">
-            <input type="text" [(ngModel)]="model.value"/>
+            <input type="text" [(ngModel)]="model.value" />
         </td>
         <td *ngIf="!editable">  
           <button class = "btn btn-primary" (click)="makeEditable()">
