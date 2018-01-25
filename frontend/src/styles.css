@@ -86,10 +86,10 @@ h3 {
     padding: 10px;
 }
 
-#user-cont {
+#user-cont, #reset-password, #send-password {
     background-color: #F7F7F7;
-    padding-top: 20px;
-    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-bottom: 60px;
     padding-left: 20px;
     padding-right: 20px;    
 }
@@ -486,6 +486,10 @@ div #reset-password input {
     padding-top: 6px;
 }
 
+.jqx-scheduler-appointment, .jqx-rc-all {
+    height: 36px;
+    width: 140px;
+}
 /* div #room-editor label {
     margin-bottom: 0px;
 }

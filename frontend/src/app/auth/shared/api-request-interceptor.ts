@@ -25,10 +25,10 @@ export class APIRequestInterceptor implements HttpInterceptor {
                 // this.router.navigate(['/login']);
                 window.location.reload(); //FIX  
                 this.removeUser$.emit(null);
-                this.toastr.warning(
-                    translateService.instant('Session.Logout'), '',
-                    {positionClass: 'toast-bottom-right'}
-                );                                                        
+                // this.toastr.warning(
+                //     translateService.instant('Session.Logout'), '',
+                //     {positionClass: 'toast-bottom-right'}
+                // );                                                        
             } 
         });      
     }           
