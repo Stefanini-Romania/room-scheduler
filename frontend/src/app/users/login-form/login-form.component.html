@@ -1,7 +1,7 @@
 <div class="modal-header" *ngIf="router.url != '/login'">
-        <h6 class="modal-title">{{'login.button' | translate}}</h6>
-        <button type="button" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button>
-    </div>
+    <h6 class="modal-title">{{'login.button' | translate}}</h6>
+    <button type="button" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button>
+</div>
 
 <div class="container d-flex h-100" >
     <div class="row justify-content-center align-self-center mx-auto">     
@@ -17,17 +17,16 @@
                 <div class="required-field-block">
                     <input  type="text" placeholder="{{ 'login.email' | translate }}" name="Email" [(ngModel)]="model.email" #Email="ngModel" required>
                     <div class="required-icon">
-                            <div class="text">*</div>
+                        <div class="text">*</div>
                     </div>
                 </div>
                 <br>
 
                 <label class="label"><b>{{'register.password'| translate}}</b></label>
-                <div class="required-field-block">
-                    
+                <div class="required-field-block">             
                     <input type="password" placeholder="{{ 'login.password' | translate }}" name="Password" [(ngModel)]="model.password" #Password="ngModel" required>
                     <div class="required-icon">
-                            <div class="text">*</div>
+                        <div class="text">*</div>
                     </div>
                 </div>
                 
@@ -36,11 +35,11 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary float-right" (click)="login()">
-                        {{ 'login.button' | translate }}
-                        <i class="fa fa-lock"></i>
+                    {{ 'login.button' | translate }}
+                    <i class="fa fa-lock"></i>
                 </button>
                 <div class="clearfixaccount">
-                        {{'noAccount' | translate}}? <a href="/register">{{'clickHere' | translate}}</a>
+                    {{'noAccount' | translate}}? <a href="/register">{{'clickHere' | translate}}</a>
                 </div>
                 
                 <!-- <input type="checkbox" checked="checked"><span id="rem-me">Remember me</span> -->

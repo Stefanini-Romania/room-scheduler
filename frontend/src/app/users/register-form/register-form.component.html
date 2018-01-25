@@ -17,25 +17,25 @@
                     </ngb-alert>
 
                     <!-- EMAIL -->                      
-                        <div class="row">
-                            <div class="col">
-                                 <label class="label"><b>{{ 'register.email' | translate }}</b></label> 
-                                <div class="required-field-block">
-                                    <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="modelForm.email" #email="ngModel" required maxlength="45" >
-                                        <div class="required-icon">
-                                            <div class="text">*</div>
-                                         </div>
-                                </div>                            
-                                            
-                    <!-- FRONTEND VALIDATION -->
-                        <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>
-                    <!-- BACKEND VALIDATION  -->
-                                <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Email']" [dismissible]="false">
-                                    <div *ngFor="let errorMessage of errorMessages['Email']">{{ errorMessage | translate }}</div>
-                                </ngb-alert>
-                            </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="label"><b>{{ 'register.email' | translate }}</b></label> 
+                            <div class="required-field-block">
+                                <input type="text" placeholder="{{ 'register.email' | translate }}" name="email" [(ngModel)]="modelForm.email" #email="ngModel" required maxlength="45" >
+                                    <div class="required-icon">
+                                        <div class="text">*</div>
+                                    </div>
+                            </div>                            
+                                        
+                            <!-- FRONTEND VALIDATION -->
+                            <ngb-alert type="danger" [dismissible]="false" *ngIf="!email.valid && email.dirty">{{ 'wrong.email' | translate }}</ngb-alert>
+                            <!-- BACKEND VALIDATION  -->
+                            <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Email']" [dismissible]="false">
+                                <div *ngFor="let errorMessage of errorMessages['Email']">{{ errorMessage | translate }}</div>
+                            </ngb-alert>
                         </div>
-                        <br />
+                    </div>
+                    <br />
 
                     <!-- FIRSTNAME and LASTNAME -->
                     <div class="row">
@@ -127,31 +127,31 @@
 
                     </div>                    
 
-                        <!-- ACTIVE/INACTIVE -->
-                        <div class="row">
-                            <div class="col-3">
-                                <label *ngIf="model.id" class="label"><b>{{ 'register.status' | translate }}</b></label> 
+                    <!-- ACTIVE/INACTIVE -->
+                    <div class="row">
+                        <div class="col-3">
+                            <label *ngIf="model.id" class="label"><b>{{ 'register.status' | translate }}</b></label> 
+                        </div>
+                    
+                        <div class="col-4">
+                            <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
+                                <label ngbButtonLabel class="btn btn-primary" (click)="activateUser(user)">
+                                    <input ngbButton type="radio">{{'user.isActive' | translate}}
+                                </label>
+                                <label ngbButtonLabel class="btn btn-primary" (click)="deactivateUser(user)">
+                                    <input ngbButton type="radio">{{'user.isNotActive' | translate}}
+                                </label>                      
                             </div>
-                        
-                            <div class="col-4">
-                                <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" centered mx-auto>
-                                    <label ngbButtonLabel class="btn btn-primary" (click)="activateUser(user)">
-                                        <input ngbButton type="radio">{{'user.isActive' | translate}}
-                                    </label>
-                                    <label ngbButtonLabel class="btn btn-primary" (click)="deactivateUser(user)">
-                                        <input ngbButton type="radio">{{'user.isNotActive' | translate}}
-                                    </label>                      
-                                </div>
-                            </div>
-                         </div>
+                        </div>
+                    </div>
 
                     <!-- ROLES -->
                     <div class="row">
                         <div class="col-3">
-                            <label *ngIf="model.id" class="label"><b>{{ 'role' | translate }}</b></label>
+                            <label *ngIf="isAdmin(currentUser)" class="label"><b>{{ 'role' | translate }}</b></label>
                         </div>
                         <div class="col col-md-4">
-                            <div ngbDropdown class="d-inline-block" *ngIf="model.id">
+                            <div ngbDropdown class="d-inline-block" *ngIf="isAdmin(currentUser)">
                                 <button class="btn btn-primary" ngbDropdownToggle>{{displayRole}}</button>
                                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                                     <button *ngFor="let Role of roleKeys()" class="dropdown-item" value="{{Role}}" (click)="onRoleChange(Role);onRoleSelect(Role)">

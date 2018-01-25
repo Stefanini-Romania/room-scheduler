@@ -5,8 +5,9 @@
         <tr>
           <th>{{'SystemParameters.Name' | translate}}</th>
           <th>{{'SystemParameters.Value' | translate}}</th>
-          <th>{{'SystemParameters.Edit' | translate}}</th>
-          <th>{{'button.save' | translate}}</th>
+          <th *ngIf="!editable">{{'SystemParameters.Edit' | translate}}</th>
+          <th *ngIf="editable">{{'button.save' | translate}}</th>
+          <th *ngIf="editable">{{'button.cancel' | translate}}</th>
           </tr>
     </thead>
   
@@ -17,15 +18,20 @@
         <td *ngIf="editable">
             <input type="text" [(ngModel)]="model.value"/>
         </td>
-        <td> 
+        <td *ngIf="!editable">  
           <button class = "btn btn-primary" (click)="makeEditable()">
               <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
         </td>
-        <td> 
-            <button class = "btn btn-primary">
+        <td *ngIf="editable"> 
+            <button class = "btn btn-primary" >
                 <i class="fa fa-floppy-o" aria-hidden="true" (click)="editSettings()"></i>
             </button>
+          </td>
+        <td *ngIf="editable"> 
+              <button class = "btn btn-primary" (click)="editable=false">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
           </td>
       </tr>
     </tbody>

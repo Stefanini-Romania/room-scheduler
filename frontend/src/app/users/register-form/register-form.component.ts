@@ -71,9 +71,14 @@ export class RegisterFormComponent {
         this.modelForm.isActive = this.model.isActive;
     }
 
+    
     get isLoggedIn():boolean {
         this.currentUser = this.authService.getLoggedUser();
         return this.currentUser && this.authService.isLoggedIn();
+    }
+
+    isAdmin(currentUser: User): boolean {
+        return (currentUser && currentUser.userRole.length != 0 && currentUser.userRole.indexOf(RoleEnum.admin) !== -1);
     }
 
     roleKeys() : Array<string> {
