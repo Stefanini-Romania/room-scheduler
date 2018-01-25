@@ -107,7 +107,7 @@ input[type=text], input[type=password]
 {
     width: 100%;
     padding: 12px 20px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -333,7 +333,7 @@ footer a {
 .required-field-block .required-icon {
     display: inline-block;
     vertical-align: middle;
-    margin: -0.25em 0.25em 0em;
+    margin: 0px 0.25em 0em;
     background-color: #E8E8E8;
     border-color: #E8E8E8;
     padding: 0.5em 0.8em;
@@ -354,7 +354,7 @@ footer a {
 .required-field-block .required-icon {
     background-color: transparent;
     position: absolute;
-    top: 0em;
+    top: -10px;
     right: 0em;
     z-index: 10;
     margin: 0em;
@@ -472,16 +472,11 @@ div .modal-footer {
     padding-top: 10px;
 }
 
-div #room-editor input, div #user-cont input{
-    padding-bottom: 7.5px;
-    padding-top: 7.5px;
-}
-
 .label{
     margin-bottom: 0;
 }
 
-div #reset-password input {
+div #reset-password input, div #send-password input, div #room-editor input, div #user-cont input, div .alert{
     padding-bottom: 6px;
     padding-top: 6px;
 }
@@ -490,13 +485,11 @@ div #reset-password input {
     height: 36px;
     width: 140px;
 }
-/* div #room-editor label {
-    margin-bottom: 0px;
-}
-div #room-editor input {
-    margin-top: 0px;
-} */
 
+#inputparameters{
+    padding-bottom: 7.5px;
+    padding-top: 7.5px;
+}
 
 /* .scrollit {
     overflow:scroll;
