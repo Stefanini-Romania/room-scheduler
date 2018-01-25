@@ -113,12 +113,20 @@ namespace RSService.Controllers
             }
 
             var principal = new ClaimsPrincipal(new SchedulerIdentity(user));
+
+            double sessionTimeSpan = 20;
+
+            if (_settingsRepository.GetSessionTimeSpan() != null)
+            {
+                sessionTimeSpan = Convert.ToDouble(_settingsRepository.GetSessionTimeSpan().Value);
+            }
+
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                                           principal,
                                           new AuthenticationProperties
                                           {
                                               IsPersistent = true,
-                                              ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_settingsRepository.GetSessionTimeSpan().Value))
+                                              ExpiresUtc = DateTime.UtcNow.AddMinutes(sessionTimeSpan)
                                           });
             return Ok(new AuthUser()
             {
