@@ -262,6 +262,6 @@
         "Save": "Parameter successfully changed"
     },
 
-    "SessionTimeSpan": "Session Timespan",
+    "SessionTimeSpan": "Session Timespan (min)",
     "Session.Logout": "Your login session has expired"
 }
