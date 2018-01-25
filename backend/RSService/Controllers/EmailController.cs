@@ -29,7 +29,7 @@ namespace RSService.Controllers
         {
             var user = userRepository.GetUserByEmail(email);
             if (user == null)
-                return NotFound();
+               return Ok();
             user.DateExpire = DateTime.UtcNow;
             user.ResetPassCode = System.Guid.NewGuid().ToString();
 
@@ -40,13 +40,13 @@ namespace RSService.Controllers
             message.Subject = "Password Reset";
             message.Body = new TextPart("html")
             {
-                Text = "You have requested a new passowrd for the following account: "+email +"<br>"
+                Text = "You have requested a new password for the following account: "+email +"<br>"
                  +
                 "If this was a mistake, just ignore this email and nothing will happen. <br> "
                 + "If you want to reset you passowrd , visit the following address: <br>"+
                 "http://fctestweb1:888/resetpass/" + user.ResetPassCode +"<br>" +
                 "For security reasons, this link will expire in 2 hours.To request another password reset, visit http://fctestweb1:888/resetpass <br>"
-                + "<br>"+"Best,<br>"+"Your RoomSchedulerTeam"
+                
 
 
 
@@ -100,7 +100,7 @@ namespace RSService.Controllers
 
             if((user.DateExpire.Day == DateTime.UtcNow.Day) && (user.DateExpire.Month == DateTime.UtcNow.Month) && (user.DateExpire.Year == DateTime.UtcNow.Year))
             {
-                if ((DateTime.UtcNow.AddHours(0) > user.DateExpire.AddHours(2)))
+                if ((DateTime.UtcNow.AddHours(0) > user.DateExpire.AddHours(1)))
                     return NotFound();
             }
 

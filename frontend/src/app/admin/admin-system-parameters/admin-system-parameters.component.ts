@@ -38,7 +38,8 @@ export class AdminSystemParameters implements AfterViewInit{
             for (let setting of settingslist){
                 this.settingslist.push(<Settings>setting);
                 this.model.id = setting.id;
-                this.model.varName = setting.id;
+                this.model.varName = setting.varName;
+                this.model.value = setting.value;
             }
         });
        
