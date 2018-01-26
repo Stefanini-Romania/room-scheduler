@@ -63,12 +63,16 @@ namespace RSService.Controllers
 
         [HttpPost("/user/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult AddUser([FromBody]UserViewModel newUser)
+        public IActionResult AddUser([FromBody]AddUserViewModel newUser)
         {
             if (!ModelState.IsValid)
             {
                 return ValidationError(GeneralMessages.User);
             }
+
+            var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
+            var currentUserId = schedulerIdentity.UserId;
+            var currentUser = userRepository.GetUserById(currentUserId);
 
             var sha1 = System.Security.Cryptography.SHA1.Create();
 

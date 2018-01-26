@@ -10,7 +10,7 @@
 */
 
 
-/****** Object:  Table [dbo].[Settings]    Script Date: 19-Jan-18 1:07:24 PM ******/
+/****** Object:  Table [dbo].[Settings]    Script Date: 26-Jan-18 1:04:55 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -23,6 +23,7 @@ CREATE TABLE [dbo].[Settings](
 	[VarId] [int] NOT NULL,
 	[VarName] [varchar](50) NOT NULL,
 	[Value] [varchar](255) NOT NULL,
+	[DataType] [int] NOT NULL,
  CONSTRAINT [PK_Settings] PRIMARY KEY CLUSTERED 
 (
 	[VarId] ASC
