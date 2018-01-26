@@ -7,5 +7,6 @@ namespace RSData.Models
     {
         public string VarName { get; set; }
         public string Value { get; set; }
+        public int DataType { get; set; }
     }
 }

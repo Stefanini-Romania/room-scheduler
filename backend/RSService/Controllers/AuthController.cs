@@ -114,7 +114,7 @@ namespace RSService.Controllers
 
             var principal = new ClaimsPrincipal(new SchedulerIdentity(user));
 
-            double sessionTimeSpan = 20;
+            double sessionTimeSpan = 10;
 
             if (_settingsRepository.GetSessionTimeSpan() != null)
             {

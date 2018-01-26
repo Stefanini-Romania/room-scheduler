@@ -61,6 +61,8 @@ namespace RSRepository
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.DataType).HasColumnName("DataType");
             });
 
             modelBuilder.Entity<Department>(entity =>

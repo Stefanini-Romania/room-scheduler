@@ -67,7 +67,7 @@ export class RegisterFormComponent {
         this.modelForm.lastName = this.model.lastName;
         this.modelForm.email = this.model.email;
         this.modelForm.departmentId = this.model.departmentId;
-       // this.modelForm.userRole = this.model.userRole; //Fix
+        //this.modelForm.userRole = this.model.userRole; //Fix
         this.modelForm.isActive = this.model.isActive;
     }
 
@@ -98,7 +98,7 @@ export class RegisterFormComponent {
     }
 
     register() {
-        this.userService.createUser(this.modelForm.firstName, this.modelForm.lastName, this.modelForm.email, this.modelForm.password, this.modelForm.departmentId, this.modelForm.userRole)
+        this.userService.createUser(this.modelForm.firstName, this.modelForm.lastName, this.modelForm.email, this.modelForm.password, this.modelForm.departmentId)
         .subscribe(
             () => {
                 this.successfullAddUser.emit();
@@ -109,6 +109,34 @@ export class RegisterFormComponent {
                 if(!this.isLoggedIn){
                     this.router.navigate(['/login']);
                 }
+            },
+            error => {
+                this.errorMessages = {'generic': [error.error.message]};
+                // build error message
+                for (let e of error.error.errors) {
+                    let field = 'generic';
+                    
+                    if (['FirstName', 'LastName', 'Email', 'Password'].indexOf(e.field) >= 0) {
+                        field = e.field;
+                    }
+
+                    if (!this.errorMessages[field]) {
+                        this.errorMessages[field] = [];
+                    }
+    
+                    this.errorMessages[field].push(e.errorCode);
+                }
+            });
+    }
+    addByAdmin() {
+        this.userService.addUser(this.modelForm.firstName, this.modelForm.lastName, this.modelForm.email, this.modelForm.password, this.modelForm.departmentId, this.modelForm.userRole)
+        .subscribe(
+            () => {
+                this.successfullAddUser.emit();
+                this.toastr.success(
+                    this.translate.instant('User.Name.Created'), '',
+                    {positionClass: 'toast-bottom-right'}
+                );
             },
             error => {
                 this.errorMessages = {'generic': [error.error.message]};
