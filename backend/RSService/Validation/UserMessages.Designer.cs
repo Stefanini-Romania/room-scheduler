@@ -61,11 +61,11 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User.Email.IsNotStefaniniDomain.
+        ///   Looks up a localized string similar to User.Email.IsNotValidMail.
         /// </summary>
-        internal static string EmailWrongDomain {
+        internal static string EmailTypeWrong {
             get {
-                return ResourceManager.GetString("EmailWrongDomain", resourceCulture);
+                return ResourceManager.GetString("EmailTypeWrong", resourceCulture);
             }
         }
         

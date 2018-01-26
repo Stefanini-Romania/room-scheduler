@@ -29,12 +29,12 @@ namespace RSService.Controllers
         public IActionResult MailPassReset(string email)
         {
             var user = userRepository.GetUserByEmail(email);
-            if (user == null)
-               return Ok();
-
-            string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$";
-            if (!Regex.IsMatch(email, MatchEmailPattern))
+            string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$"; 
+            bool a = Regex.IsMatch(email, MatchEmailPattern);
+            if (a == false)
                 return NotFound();
+            if (user == null)
+               return Ok();     
                       
             user.DateExpire = DateTime.UtcNow;
             user.ResetPassCode = System.Guid.NewGuid().ToString();

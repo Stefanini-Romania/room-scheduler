@@ -141,7 +141,7 @@
   <data name="WeakPassword" xml:space="preserve">
     <value>User.Password.IsTooShort</value>
   </data>
-  <data name="EmailWrongDomain" xml:space="preserve">
-    <value>User.Email.IsNotStefaniniDomain</value>
+  <data name="EmailTypeWrong" xml:space="preserve">
+    <value>User.Email.IsNotValidMail</value>
   </data>
 </root>
