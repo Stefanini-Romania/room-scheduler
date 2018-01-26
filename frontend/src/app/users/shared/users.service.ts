@@ -31,7 +31,7 @@ export class UserService {
             email: email,
             password: password,
             departmentId: departmentId,
-            userRole: [RoleEnum.attendee]         
+            userRole: userRole         
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(url, body, {headers: headers, withCredentials: true})

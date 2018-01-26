@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using RSData.Models;
 using RSService.BusinessLogic;
 using RSService.ViewModels;
 using System;
@@ -15,10 +16,13 @@ namespace RSService.Filters
         public EditUserValidator(IRSManager rSManager)
         {
             rsManager = rSManager;
+            When(m => m.UserRole.Contains((int)UserRoleEnum.attendee) && !m.UserRole.Contains((int)UserRoleEnum.host), () =>
+            {
+                RuleFor(m => m.Email).Must(EmailDomain).WithMessage(x => Validation.UserMessages.EmailWrongDomain);
+
+            });
 
             RuleFor(m => m.Email).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyEmail);
-
-            RuleFor(m => m.Email).Must(EmailDomain).WithMessage(x => Validation.UserMessages.EmailWrongDomain);
 
             RuleFor(m => m.Email).Must(IsUniqueEmail).WithMessage(x => Validation.UserMessages.UniqueEmail);
 
