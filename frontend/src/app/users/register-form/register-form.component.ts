@@ -98,7 +98,7 @@ export class RegisterFormComponent {
     }
 
     register() {
-        this.userService.createUser(this.modelForm.firstName, this.modelForm.lastName, this.modelForm.email, this.modelForm.password, this.modelForm.departmentId)
+        this.userService.registerUser(this.modelForm.firstName, this.modelForm.lastName, this.modelForm.email, this.modelForm.password, this.modelForm.departmentId)
         .subscribe(
             () => {
                 this.successfullAddUser.emit();
