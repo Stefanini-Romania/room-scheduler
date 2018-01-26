@@ -10,6 +10,7 @@ import {AdminSystemParameters} from './admin-system-parameters/admin-system-para
 import {SystemParametersService} from './shared/system-parameters.service';
 import {CoreModule} from '../core/core.module';
 
+
 const routes: Routes = [
     {path: 'admin', component: AdminComponent, data:{name: 'admin'}}
 ];

@@ -222,7 +222,7 @@
     "Email": {
         "IsNotUnique": "Acest email este deja folosit",
         "IsEmpty": "Inserați adresa de email",
-        "IsNotStefaniniDomain": "Adresa de email trebuie să aibă forma nume@stefanini.com"
+        "IsNotValidMail": "Acest email nu este valid"
     }
   }, 
 
