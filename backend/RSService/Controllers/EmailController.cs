@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 
@@ -30,6 +31,11 @@ namespace RSService.Controllers
             var user = userRepository.GetUserByEmail(email);
             if (user == null)
                return Ok();
+
+            string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$";
+            if (!Regex.IsMatch(email, MatchEmailPattern))
+                return NotFound();
+                      
             user.DateExpire = DateTime.UtcNow;
             user.ResetPassCode = System.Guid.NewGuid().ToString();
 

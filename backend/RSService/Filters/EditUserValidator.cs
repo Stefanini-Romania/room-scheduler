@@ -16,12 +16,9 @@ namespace RSService.Filters
         public EditUserValidator(IRSManager rSManager)
         {
             rsManager = rSManager;
-            When(m => m.UserRole.Contains((int)UserRoleEnum.attendee) && !m.UserRole.Contains((int)UserRoleEnum.host), () =>
-            {
-                RuleFor(m => m.Email).Must(EmailDomain).WithMessage(x => Validation.UserMessages.EmailWrongDomain);
-
-            });
-
+           
+            RuleFor(m => m.Email).Must(EmailDomain).WithMessage(x => Validation.UserMessages.EmailWrongDomain);
+          
             RuleFor(m => m.Email).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyEmail);
 
             RuleFor(m => m.Email).Must(IsUniqueEmail).WithMessage(x => Validation.UserMessages.UniqueEmail);
@@ -45,7 +42,7 @@ namespace RSService.Filters
 
         private bool EmailDomain(EditUserViewModel m, String email)
         {
-            string MatchEmailPattern = @"(@stefanini\.com)$";
+            string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"+ "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$"; ;
             if (email != null)
             {             
                 return Regex.IsMatch(email, MatchEmailPattern);
