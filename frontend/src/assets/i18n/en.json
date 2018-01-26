@@ -206,7 +206,7 @@
     "Email": {
         "IsNotUnique": "This email is already used",
         "IsEmpty": "Please insert your email address",
-        "IsNotStefaniniDomain": "Email format should be name@stefanini.com."
+        "IsNotValidMail": "This email is not valid"
     }
   },
     
