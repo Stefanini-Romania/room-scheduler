@@ -23,8 +23,27 @@ export class UserService {
         return this.http.get(url, { headers: headers, withCredentials: true });
     }
 
-    public createUser(firstName: string, lastName: string, email: string, password: string, departmentId: number,  userRole?: RoleEnum[]) {
+    public createUser(firstName: string, lastName: string, email: string, password: string, departmentId: number) {
         const url = environment.apiUrl + '/user/register';
+        let body = JSON.stringify({
+            firstName: firstName, 
+            lastName: lastName,
+            email: email,
+            password: password,
+            departmentId: departmentId        
+        });
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.post(url, body, {headers: headers, withCredentials: true})
+        .catch((error: any) => {
+            return Observable.throw(error);
+        })
+        .map((response: Response) => {
+            return response;
+        });
+    }
+
+    public addUser(firstName: string, lastName: string, email: string, password: string, departmentId: number,  userRole?: RoleEnum[]) {
+        const url = environment.apiUrl + '/user/add';
         let body = JSON.stringify({
             firstName: firstName, 
             lastName: lastName,

@@ -155,19 +155,16 @@
                             </div> 
                         </div>                                                                           
                     </div>
-                    <hr class="my-1">
-                                     
-                                  
-                            <button type="submit" class="btn btn-primary pull-right" *ngIf="model.id" (click)="editUser()">
-                                {{ 'user.save' | translate }}
-                            </button>                    
-                        
-                            
-                            <button type="submit" class="btn btn-primary pull-right" *ngIf="!model.id" (click)="register()">
-                                {{ 'register.button' | translate }} 
-                            </button>
-                                  
-                                       
+                    <hr class="my-1">                              
+                    <button type="submit" class="btn btn-primary pull-right" *ngIf="model.id" (click)="editUser()">
+                        {{ 'user.save' | translate }}
+                    </button>                                     
+                    <button type="submit" class="btn btn-primary pull-right" *ngIf="!model.id && !isAdmin(currentUser)" (click)="register()">
+                        {{ 'register.button' | translate }} 
+                    </button>                                   
+                    <button type="submit" class="btn btn-primary pull-right" *ngIf="!model.id && isAdmin(currentUser)" (click)="addByAdmin()">
+                        {{ 'register.button' | translate }} 
+                    </button>                                   
                     <p *ngIf="!(isLoggedIn) && !model.id">                         
                         {{ 'login.alreadyHaveAccount' | translate }}
                         <a routerLink="/login">{{ 'login.button' | translate }}</a>.
@@ -177,3 +174,4 @@
         </div>
     </div> 
 </div>
+    
