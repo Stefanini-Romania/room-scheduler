@@ -226,7 +226,7 @@ namespace RSService.Controllers
             user.Email = userView.Email;
             user.DepartmentId = userView.DepartmentId;
             user.IsActive = userView.IsActive;
-            user.ResetPassCode = userView.ResetPassCode;
+    
 
             // If user is inactive change his events status to cancelled
             if (user.IsActive == false)
@@ -300,7 +300,7 @@ namespace RSService.Controllers
                 UserRole = new List<int>(user.UserRole.Select(li => li.RoleId)),
                 DepartmentId = user.DepartmentId,
                 IsActive = user.IsActive,
-                ResetPassCode=user.ResetPassCode
+   
                 
 
             };
