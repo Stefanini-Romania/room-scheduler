@@ -51,6 +51,27 @@ namespace RSService.Controllers
             return Ok(availabilities);
         }
 
+        [HttpGet("/availability/host/list")]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        public IActionResult GetHosts()
+        {
+            var results = userRepository.GetHosts();
+            if (results == null) return NotFound();
+
+            List<HostDto> final_result = new List<HostDto>();
+
+            foreach (var it in results)
+            {
+                final_result.Add(new HostDto()
+                {
+                    Id = it.Id,
+                    FirstName = it.FirstName,
+                    LastName = it.LastName
+                });
+            }
+            return Ok(final_result);
+        }
+
         [HttpPost("/availability/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult AddAvailability([FromBody] IEnumerable<AvailabilityViewModel> newAvailability)
@@ -89,29 +110,54 @@ namespace RSService.Controllers
 
 
         [HttpPost("/availability/exception/add")]
-        //[Authorize(Roles = nameof(UserRoleEnum.admin) +","+ nameof(UserRoleEnum.host))]
-        [Authorize(Roles = nameof(UserRoleEnum.host))]
-        public IActionResult AddException([FromBody] AvailabilityExceptionDto avException)
+        [Authorize(Roles = nameof(UserRoleEnum.admin) +","+ nameof(UserRoleEnum.host))]
+        public IActionResult AddException([FromBody] IEnumerable<AvailabilityExceptionDto> avException, int? hostId)
         {
             if (!ModelState.IsValid)
                 return ValidationError(GeneralMessages.Availability);
 
             var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
-            var attendee = userRepository.GetUserById(schedulerIdentity.UserId);
-            if (attendee.IsActive != true)
+            var currentUser = userRepository.GetUserById(schedulerIdentity.UserId);
+            if (currentUser.IsActive != true)
             {
                 return ValidationError(EventMessages.InactiveUser);
             }
 
-            Availability availability = new Availability(
-                                        avException.StartDate, 
-                                        avException.EndDate, 
-                                        (int)AvailabilityEnum.Exception,
-                                        null,
-                                        attendee.Id
-                                        );
+            if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.host))
+            {
+                foreach (var ex in avException)
+                {
+                    Availability availability = new Availability(
+                                            ex.StartDate,
+                                            ex.EndDate,
+                                            (int)AvailabilityEnum.Exception,
+                                            null,
+                                            currentUser.Id
+                                            );
 
-            availabilityRepository.AddAvailability(availability);
+                    availabilityRepository.AddAvailability(availability);
+                }
+            }
+            else  //Admin
+            {
+                if (!hostId.HasValue)
+                {
+                    return ValidationError(AvailabilityMessages.EmptyHostId);
+                }
+                foreach (var ex in avException)
+                {
+                    Availability availability = new Availability(
+                                            ex.StartDate,
+                                            ex.EndDate,
+                                            (int)AvailabilityEnum.Exception,
+                                            null,
+                                            (int)hostId
+                                            );
+
+                    availabilityRepository.AddAvailability(availability);
+                }
+            }
+
             Context.SaveChanges();
 
             return Ok();

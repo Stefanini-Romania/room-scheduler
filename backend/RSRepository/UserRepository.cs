@@ -93,6 +93,12 @@ namespace RSRepository
                         .ToList();
         }
 
+        public List<User> GetHosts()
+        {
+            return users.Where(u => u.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.host))
+                        .ToList();
+        }
+
         public void AddUser(User user)
         {
             if (user == null)

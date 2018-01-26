@@ -45,7 +45,6 @@ namespace RSService.Controllers
 
             foreach (var it in results)
             {
-
                final_result.Add(new UserDto()
                 {
                     Id = it.Id,

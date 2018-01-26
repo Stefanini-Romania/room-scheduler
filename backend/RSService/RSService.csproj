@@ -42,6 +42,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>GeneralMessages.resx</DependentUpon>
     </Compile>
+    <Compile Update="Validation\AvailabilityMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AvailabilityMessages.resx</DependentUpon>
+    </Compile>
     <Compile Update="Validation\RoomMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -66,6 +71,10 @@
     <EmbeddedResource Update="Validation\GeneralMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GeneralMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Validation\AvailabilityMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AvailabilityMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Validation\RoomMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
