@@ -23,7 +23,7 @@ export class UserService {
         return this.http.get(url, { headers: headers, withCredentials: true });
     }
 
-    public createUser(firstName: string, lastName: string, email: string, password: string, departmentId: number) {
+    public registerUser(firstName: string, lastName: string, email: string, password: string, departmentId: number) {
         const url = environment.apiUrl + '/user/register';
         let body = JSON.stringify({
             firstName: firstName, 
