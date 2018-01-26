@@ -87,8 +87,6 @@ namespace RSService.Controllers
             
             };
 
-          
-
             userRepository.AddUser(user);
    
             foreach(var roleId in newUser.UserRole)
@@ -162,14 +160,11 @@ namespace RSService.Controllers
 
             userRepository.AddUser(user);
 
-            foreach (var roleId in newUser.UserRole)
+            userRoleRepository.AddUserRole(new UserRole()
             {
-                userRoleRepository.AddUserRole(new UserRole()
-                {
-                    UserId = user.Id,
-                    RoleId = roleId
-                });
-            }
+                UserId = user.Id,
+                RoleId = (int)UserRoleEnum.attendee
+            });
 
             Context.SaveChanges();
 
