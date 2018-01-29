@@ -283,7 +283,11 @@
     },
 
     "SessionTimeSpan": "Expirarea sesiunii (min)",
-    "Session.Logout": "Sesiunea dumneavoastră a expirat"
+    "Session.Logout": "Sesiunea dumneavoastră a expirat",
+
+    "Settings": {
+        "Value.Wrong.Type": "Valoarea introdusă este invalidă. Vă rugăm să introduceți un număr!"
+    }
 }
 
 

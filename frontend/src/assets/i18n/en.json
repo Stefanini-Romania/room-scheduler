@@ -269,5 +269,9 @@
     },
 
     "SessionTimeSpan": "Session Timespan (min)",
-    "Session.Logout": "Your login session has expired"
+    "Session.Logout": "Your login session has expired",
+
+    "Settings": {
+        "Value.Wrong.Type": "You have entered an invalid value. Please make sure you insert a number!"
+    }
 }
