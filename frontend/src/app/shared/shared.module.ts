@@ -1,13 +1,16 @@
 import {NgModule} from '@angular/core';
-import { LocalizedDatePipe } from './pipes/localized-date.pipe';
-import { KeysPipe } from './pipes/keys.pipe';
+import {CommonModule} from "@angular/common";
+import {LocalizedDatePipe} from './pipes/localized-date.pipe';
+import {KeysPipe} from './pipes/keys.pipe';
 import {ValidateEqualValidator} from './validators/validate-equal-validator.directive';
+import {HostAvailability} from './hosts/host-availability.component';
 
 @NgModule({
-    imports: [],
+    imports: [CommonModule],
     providers: [],
-    declarations: [KeysPipe, LocalizedDatePipe, ValidateEqualValidator],
-    exports: [KeysPipe, LocalizedDatePipe, ValidateEqualValidator],
+    declarations: [KeysPipe, LocalizedDatePipe, ValidateEqualValidator, HostAvailability],
+    exports: [KeysPipe, LocalizedDatePipe, ValidateEqualValidator, HostAvailability]
 })
+
 export class SharedModule {
 }

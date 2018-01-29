@@ -9,6 +9,7 @@ import {AdminHostComponent} from './admin-host-tab/admin-host-tab.component';
 import {AdminSystemParameters} from './admin-system-parameters/admin-system-parameters.component';
 import {SystemParametersService} from './shared/system-parameters.service';
 import {CoreModule} from '../core/core.module';
+import {SharedModule} from '../shared/shared.module';
 
 
 const routes: Routes = [
@@ -18,7 +19,9 @@ const routes: Routes = [
 @NgModule({
     imports: [CoreModule,
               NgxPaginationModule,
-              RouterModule.forRoot(routes)
+              RouterModule.forRoot(routes),
+              SharedModule
+              
     ],
     providers: [SystemParametersService],
     declarations: [AdminUsersTab, AdminRoomsTab, AdminComponent, AdminSystemParameters, AdminHostComponent],
