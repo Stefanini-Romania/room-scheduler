@@ -490,6 +490,10 @@ div #reset-password input, div #send-password input, div #room-editor input, div
     padding-top: 7.5px;
 }
 
+#dropdownHosts  {
+    position: relative;
+}
+
 /* .scrollit {
     overflow:scroll;
     height:200px;

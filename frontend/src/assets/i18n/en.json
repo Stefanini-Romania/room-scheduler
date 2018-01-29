@@ -97,6 +97,12 @@
       "filter.no-rooms": "No rooms"
   },
 
+  "host": {
+    "filter.lastName": "Filter by last name...",
+    "filter.no-results": "No results",
+    "filter.no-hosts": "No hosts"
+},
+
   "calendar": {
       "today": "GO TO TODAY",
       "day": "DAY",

@@ -97,6 +97,12 @@
       "filter.no-rooms": "Nu există camere"
   },
 
+  "host": {
+    "filter.lastName": "Filtrează după nume...",
+    "filter.no-results": "Nu există rezultate",
+    "filter.no-hosts": "Nu există host"
+},
+
   "calendar": {
       "today": "ZIUA CURENTĂ",
       "day": "ZI",

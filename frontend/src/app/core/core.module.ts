@@ -12,12 +12,13 @@ import {LanguageSelector} from './language-selector/language-selector';
 import {DialogService} from '../shared/services/dialog.service';
 import {RSDialogContentComponent} from './rs-dialog-content/rs-dialog-content.component';
 import {APIRequestInterceptor} from './../auth/shared/api-request-interceptor';
+import {HostSelector} from '../hosts/host-selector.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, HttpModule, NgbModule, TranslateModule, SharedModule],
     providers: [DialogService, APIRequestInterceptor],
-    declarations: [RsHeaderComponent, RsFooterComponent, LanguageSelector, RSDialogContentComponent],
-    exports: [CommonModule, FormsModule, TranslateModule, NgbModule, RsHeaderComponent, RsFooterComponent],
+    declarations: [RsHeaderComponent, RsFooterComponent, LanguageSelector, RSDialogContentComponent, HostSelector],
+    exports: [CommonModule, FormsModule, TranslateModule, NgbModule, RsHeaderComponent, RsFooterComponent, HostSelector],
     entryComponents: [RSDialogContentComponent]
 })
 export class CoreModule {

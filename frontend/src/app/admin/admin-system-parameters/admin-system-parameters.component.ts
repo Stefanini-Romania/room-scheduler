@@ -66,7 +66,7 @@ export class AdminSystemParameters implements AfterViewInit{
         this.editable=false;
     }
 
-    makeEditable() {
+    makeEditable(model: Settings) {
         this.settingslist = this.settingslist.map((setting) => {
             if (setting.id) { 
                 this.editable = true; 
@@ -77,4 +77,5 @@ export class AdminSystemParameters implements AfterViewInit{
             return setting;
         });
       }
+      
 }

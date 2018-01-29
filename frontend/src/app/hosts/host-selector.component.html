@@ -1,0 +1,35 @@
+<div id="dropdownHosts">
+    <div ngbDropdown #dropdown="ngbDropdown" (openChange)="focusOnName()">
+        <button class="btn btn-primary" ngbDropdownToggle id="hostsButton">
+            <i class="fa fa-bookmark float-left px-1 py-1" aria-hidden="true"></i>
+            <span class="d-none d-sm-block float-left">{{ selectedHost ? selectedHost.firstName + " "+selectedHost.lastName : selectedHostName }}</span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="hostsButton" class="dropdown-menu show" id="tab-content-dropdown-menu">
+            <div *ngIf="hosts.length" class="dropdown-header" >
+                <div class="input-group">
+                    <input #lastName type="text" class="form-control form-control-sm px-1 py-0 my-0" placeholder="{{ 'host.filter.lastName' | translate }}"
+                        [(ngModel)]="lastNameFilter" (input)="filteredHostsByName(lastName.value)"
+                        (click)="$event.stopPropagation(); dropdown.open();">
+                </div>
+            </div>
+            <button  class="dropdown-item" *ngFor="let host of filteredHosts" (click)="dropdown.close();onSelectHost(host)">
+                {{ host.firstName }} {{ host.lastName }}
+            </button>
+            <div *ngIf="!hosts.length" class="dropdown-item disabled">
+                {{ 'host.filter.no-hosts' | translate }}
+            </div>
+            <div *ngIf="hosts.length && !filteredHosts.length" class="dropdown-item disabled">
+                {{ 'host.filter.no-results' | translate }}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
