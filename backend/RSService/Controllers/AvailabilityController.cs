@@ -74,7 +74,7 @@ namespace RSService.Controllers
 
         [HttpPost("/availability/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult AddAvailability([FromBody] IEnumerable<AvailabilityViewModel> newAvailability)
+        public IActionResult AddAvailability([FromBody] AvailabilityViewModel newAvailability)
         {
             if (!ModelState.IsValid)
             {
@@ -82,27 +82,22 @@ namespace RSService.Controllers
             }
 
             // If already exists availabilities for this host, remove them
-            var dbAvailabilities = availabilityRepository.GetAvailabilities(newAvailability.First().AvailabilityType, newAvailability.First().RoomId, newAvailability.First().HostId);
+            var dbAvailabilities = availabilityRepository.GetAvailabilities(newAvailability.AvailabilityType, newAvailability.RoomId, newAvailability.HostId);
             if (dbAvailabilities != null)
             {
                 availabilityRepository.RemoveAvailabilities(dbAvailabilities);
             }
 
-            int dayOfWeek = 0;
-
-            foreach(var av in newAvailability)
-            {
-                dayOfWeek++;
-                Availability availability = new Availability(
-                av.StartDate,
-                av.EndDate,
-                dayOfWeek,
-                av.AvailabilityType,
-                av.RoomId,
-                av.HostId
-                );
-                availabilityRepository.AddAvailability(availability);
-            }
+            Availability availability = new Availability(
+            newAvailability.StartDate,
+            newAvailability.EndDate,
+            1, // day of week
+            newAvailability.AvailabilityType,
+            newAvailability.RoomId,
+            newAvailability.HostId
+            );
+            availabilityRepository.AddAvailability(availability);
+            
             Context.SaveChanges();
 
             return Ok();
