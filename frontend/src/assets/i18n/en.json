@@ -30,7 +30,7 @@
   "change.confirmPassword": "Confirm new password",
   "email": {
       "sent": "Email sent successfully",
-      "notSent": "Email address not found"
+      "notSent": "Email address not valid"
   },
   "password": {
       "changed": "Password changed successfully",

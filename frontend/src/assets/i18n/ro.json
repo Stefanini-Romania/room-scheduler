@@ -30,7 +30,7 @@
   "change.confirmPassword": "Confirmă parola nouă",
   "email": {
       "sent": "Email trimis cu succes",
-      "notSent": "Adresă de email inexistentă"
+      "notSent": "Adresă de email invalidă"
   },
   "password": {
       "changed": "Parola a fost schimbată cu succes",
