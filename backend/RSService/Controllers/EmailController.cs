@@ -21,7 +21,7 @@ namespace RSService.Controllers
 
         public EmailController()
         {
-            this.userRepository = new UserRepository(Context);            
+            this.userRepository = new UserRepository(Context);
         }
 
 
@@ -29,30 +29,30 @@ namespace RSService.Controllers
         public IActionResult MailPassReset(string email)
         {
             var user = userRepository.GetUserByEmail(email);
-            string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$"; 
+            string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$";
             bool a = Regex.IsMatch(email, MatchEmailPattern);
             if (a == false)
                 return NotFound();
             if (user == null)
-               return Ok();     
-                      
+                return Ok();
+
             user.DateExpire = DateTime.UtcNow;
             user.ResetPassCode = System.Guid.NewGuid().ToString();
 
             Context.SaveChanges();
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini-noreply", "roomchedulerStefanini@gmail.com"));
-            message.To.Add(new MailboxAddress("User", email));          
+            message.To.Add(new MailboxAddress("User", email));
             message.Subject = "Password Reset";
             message.Body = new TextPart("html")
             {
-                Text = "You have requested a new password for the following account: "+email +"<br>"
+                Text = "You have requested a new password for the following account: " + email + "<br>"
                  +
                 "If this was a mistake, just ignore this email and nothing will happen. <br> "
-                + "If you want to reset you passowrd , visit the following address: <br>"+
-                "http://fctestweb1:888/resetpass/" + user.ResetPassCode +"<br>" +
+                + "If you want to reset you passowrd , visit the following address: <br>" +
+                "http://fctestweb1:888/resetpass/" + user.ResetPassCode + "<br>" +
                 "For security reasons, this link will expire in 2 hours.To request another password reset, visit http://fctestweb1:888/resetpass <br>"
-                
+
 
 
 
@@ -71,14 +71,15 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/user/resetpass/{ResetPassCode}")]
-          public IActionResult CheckCodeResetPass(string resetpasscode, [FromForm]ResetPasswordViewModel userView)
-           {
+        public IActionResult CheckCodeResetPass(string resetpasscode, [FromForm]ResetPasswordViewModel userView)
+        {
             var user = userRepository.GetUserByResetPassCode(resetpasscode);
 
             if (user == null)
                 return NotFound();
             return Ok();
-           }
+        }
+       
 
         [HttpPut("/user/resetpass/{ResetPassCode}")]
         public IActionResult ResetPassowrd(string ResetPassCode, [FromBody]ResetPasswordViewModel userView)

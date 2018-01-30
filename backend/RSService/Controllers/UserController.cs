@@ -60,6 +60,37 @@ namespace RSService.Controllers
             return Ok(final_result);
         }
 
+        [HttpPost("users/reminder")]
+        public IActionResult EventReminder()
+        {
+            var date = DateTime.Now;
+            var events = eventRepository.GetEventsByDateTimeNow();
+            foreach(Event evnt in events)
+            {
+                var usr = userRepository.GetUserById(evnt.AttendeeId);
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
+                message.To.Add(new MailboxAddress("User", usr.Email));
+                message.Subject = "Remainder";
+                message.Body = new TextPart("html")
+                {
+                    Text = " You have a massage programmed for today in less than an hour!<br>" +" DateStart: "+ evnt.StartDate.TimeOfDay
+
+                };
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
+
+                    client.Send(message);
+
+                    client.Disconnect(true);
+                }               
+            }
+            return Ok();
+        }
+
         [HttpPost("/user/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult AddUser([FromBody]AddUserViewModel newUser)
