@@ -492,6 +492,7 @@ div #reset-password input, div #send-password input, div #room-editor input, div
 
 #dropdownHosts  {
     position: relative;
+    margin-right:10px;
 }
 
 /* .scrollit {
