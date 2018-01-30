@@ -199,7 +199,7 @@ namespace RSService.BusinessLogic
 
             foreach (Availability ev in availabilities)
                                 
-                        if (startDate.TimeOfDay >= ev.StartDate.TimeOfDay && startDate.TimeOfDay <= ev.EndDate.TimeOfDay)
+                        if (startDate.TimeOfDay >= ev.StartDate.TimeOfDay && startDate.TimeOfDay < ev.EndDate.TimeOfDay)
                             return false;                   
             return true;
         }
