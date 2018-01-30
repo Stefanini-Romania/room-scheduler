@@ -8,6 +8,7 @@ import {EventService} from './../../calendars/shared/event.service';
 import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
 import {HostAvailabilityService} from './../services/host-availability.service';
+//import {HostService} from './../services/host-availability.service';
 
 @Component({
     selector: 'host-availability',
@@ -23,9 +24,8 @@ export class HostAvailability{
     hosts: any[] = [];
     availabilityHostGroupName: string;
     host: User[] = [];
-
-    
-    public date: Date = new jqx.date();
+    day: any[] = [];
+  
     public startDate: Date;
     public endDate: Date;
     
@@ -39,10 +39,11 @@ export class HostAvailability{
         this.availabilities = [];
         this.HostAvailabilityService.HostAvailabilityList().subscribe((availabilities: any) => {
             for (let day of availabilities) {
-                console.log(availabilities);
+               
                 //for (let event of availabilities[host][day])
                 this.availabilities.push(<Event>availabilities);
             }
+            //console.log(availabilities);
         });
     }
 }
