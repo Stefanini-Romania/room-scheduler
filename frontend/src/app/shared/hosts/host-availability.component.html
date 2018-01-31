@@ -1,21 +1,51 @@
-<div hidden="true" *ngIf="availabilities" class="col col-xl-1 col-md-2 col-sm-12 col-xs-12" style="flex-basis: auto">
-    <div class="hostlegend">
-        <div id="legend" class="badge badge-primary" *ngFor="let host of availabilities | keys">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div *ngFor="let day of availabilities">
-                    {{ day.hostName }}
+
+
+<!-- <div class="container">
+    <div class="row">
+        <div *ngIf="availabilities" class="col col-xl-1 col-md-2 col-sm-12 col-xs-12" style="flex-basis: auto">
+        <div class="hostlegend">
+            <div id="legend" class="badge badge-primary" *ngFor="let host of availabilities | keys">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        {{ host }}
+                    </div>
+                </div>
+                <br>
+                <div *ngFor="let day of availabilities[host] | keys">
+                    <div class="row" *ngFor="let event of availabilities[host][day]">
+                        <div class="col-md-4">{{ event.startDate | localizedDate:'EE' | titlecase }}</div>
+                        <div class="col-md-4">{{ event.startDate | localizedDate:'HH:mm' | titlecase }}</div>
+                        <div class="col-md-4">{{ event.endDate | localizedDate:'HH:mm' }}</div>
+                    </div>
+                </div>
+            </div>                                     
+        </div>
+        </div>
+    </div>
+</div>     -->
+
+<div class="container" hidden="true">
+    <div class="row">
+        <div id="legend" *ngIf="availabilities" style="flex-basis: auto">
+            <div class="hostlegend">
+                <div class="badge badge-primary" *ngFor="let host of availabilities | keys">
+                    <div class="row">
+                        <div class="col col-md-12 text-center">
+                            {{ host }}
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let day of availabilities | keys">
+                    <div class="row" *ngFor="let event of availabilities | keys">
+                        <div class="col-md-4">{{ event.startDate | localizedDate:'EE' | titlecase }}</div>
+                        <div class="col-md-4">{{ event.startDate | localizedDate:'HH:mm' }}</div>
+                        <div class="col-md-4">{{ event.endDate | localizedDate:'HH:mm' }}</div>                   
                     </div>
                 </div>
             </div>
-            <br>
-            <div *ngFor="let day of availabilities">
-                <!-- <div class="row" *ngFor="let event of availabilities[host][day]"> -->
-                    <div class="col-md-4">{{ day.startDate | localizedDate:'EE' | titlecase }}</div>
-                    <div class="col-md-4">{{ day.startDate | localizedDate:'HH:mm' | titlecase }}</div>
-                    <div class="col-md-4">{{ day.endDate | localizedDate:'HH:mm' }}</div>
-                <!-- </div> -->
-            </div>
-        </div>                                     
+            <!-- <div *ngFor="let day of availabilities">
+                {{day.startDate}}
+            </div> -->
+        </div>
     </div>
 </div>
