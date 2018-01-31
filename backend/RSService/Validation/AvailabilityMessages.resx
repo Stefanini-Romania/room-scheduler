@@ -120,4 +120,7 @@
   <data name="EmptyHostId" xml:space="preserve">
     <value>AvailabilityException.HostId.Empty</value>
   </data>
+  <data name="EmptyStartDate" xml:space="preserve">
+    <value>Availability.StartDate.Empty</value>
+  </data>
 </root>

@@ -30,6 +30,11 @@ namespace RSService.Controllers
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult GetAvailabilities(int? hostId, DateTime startDate)
         {
+            if (startDate == DateTime.MinValue)
+            {
+                return BadRequest();
+            }
+
             if (!hostId.HasValue)
             {
                 var exceptions = availabilityRepository.GetAvailabilitiesByType((int)AvailabilityEnum.Exception, startDate, startDate.AddDays(5));
@@ -137,7 +142,7 @@ namespace RSService.Controllers
 
         [HttpPost("/availability/exception/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin) +","+ nameof(UserRoleEnum.host))]
-        public IActionResult AddException([FromBody] IEnumerable<AvailabilityExceptionDto> avException, int? hostId)
+        public IActionResult AddException([FromBody] AvailabilityExceptionDto avException, int? hostId)
         {
             if (!ModelState.IsValid)
                 return ValidationError(GeneralMessages.Availability);
@@ -151,19 +156,18 @@ namespace RSService.Controllers
 
             if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.host))
             {
-                foreach (var ex in avException)
-                {
-                    Availability availability = new Availability(
-                                            ex.StartDate,
-                                            ex.EndDate,
-                                            (int)AvailabilityEnum.Exception,
-                                            null, 
-                                            currentUser.Id,
-                                            null
-                                            );
+               
+                Availability availability = new Availability(
+                                        avException.StartDate,
+                                        avException.EndDate,
+                                        (int)AvailabilityEnum.Exception,
+                                        null, 
+                                        currentUser.Id,
+                                        null
+                                        );
 
-                    availabilityRepository.AddAvailability(availability);
-                }
+                availabilityRepository.AddAvailability(availability);
+                
             }
             else  //Admin
             {
@@ -171,19 +175,16 @@ namespace RSService.Controllers
                 {
                     return ValidationError(AvailabilityMessages.EmptyHostId);
                 }
-                foreach (var ex in avException)
-                {
-                    Availability availability = new Availability(
-                                            ex.StartDate,
-                                            ex.EndDate,
-                                            (int)AvailabilityEnum.Exception,
-                                            null,
-                                            (int)hostId,
-                                            null
-                                            );
+                Availability availability = new Availability(
+                                        avException.StartDate,
+                                        avException.EndDate,
+                                        (int)AvailabilityEnum.Exception,
+                                        null,
+                                        (int)hostId,
+                                        null
+                                        );
 
-                    availabilityRepository.AddAvailability(availability);
-                }
+                availabilityRepository.AddAvailability(availability); 
             }
 
             Context.SaveChanges();
