@@ -105,7 +105,7 @@ namespace RSService.Controllers
 
         [HttpPost("/availability/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
-        public IActionResult AddAvailability([FromBody] AvailabilityViewModel newAvailability)
+        public IActionResult AddAvailability([FromBody] AvailabilityViewModel newAvailability, int? hostId)
         {
             if (!ModelState.IsValid)
             {
@@ -120,18 +120,50 @@ namespace RSService.Controllers
 
             //}
 
-            foreach(var day in newAvailability.DaysOfWeek)
+            var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
+            var currentUser = userRepository.GetUserById(schedulerIdentity.UserId);
+            if (currentUser.IsActive != true)
             {
-                Availability availability = new Availability(
-                    newAvailability.StartDate,
-                    newAvailability.EndDate,
-                    day,
-                    newAvailability.AvailabilityType,
-                    newAvailability.RoomId,
-                    newAvailability.HostId,
-                    newAvailability.Occurence
-                );
-                availabilityRepository.AddAvailability(availability);
+                return ValidationError(EventMessages.InactiveUser);
+            }
+
+            if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.host))
+            {
+                foreach (var day in newAvailability.DaysOfWeek)
+                {
+                    Availability availability = new Availability(
+                                        newAvailability.StartDate,
+                                        newAvailability.EndDate,
+                                        day,
+                                        (int)AvailabilityEnum.Available,
+                                        newAvailability.RoomId,
+                                        currentUser.Id,
+                                        newAvailability.Occurrence
+                                        );
+
+                    availabilityRepository.AddAvailability(availability);
+                }
+            }
+            else   // Admin:
+            {
+                if (!hostId.HasValue)
+                {
+                    return ValidationError(AvailabilityMessages.EmptyHostId);
+                }
+
+                foreach (var day in newAvailability.DaysOfWeek)
+                {
+                    Availability availability = new Availability(
+                        newAvailability.StartDate,
+                        newAvailability.EndDate,
+                        day,
+                        newAvailability.AvailabilityType,
+                        newAvailability.RoomId,
+                        (int)hostId,
+                        newAvailability.Occurrence
+                    );
+                    availabilityRepository.AddAvailability(availability);
+                }
             }
 
             Context.SaveChanges();
