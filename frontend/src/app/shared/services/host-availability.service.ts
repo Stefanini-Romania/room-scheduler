@@ -14,7 +14,7 @@ export class HostAvailabilityService {
     constructor(private http: HttpClient) {
     }
 
-    public HostAvailabilityList(startDate: Date, hostId: number, endDate?: Date,roomdId?: number) {
+    public HostAvailabilityList(startDate: Date, hostId: number, endDate?: Date, roomId?: number) {
         const url = environment.apiUrl + '/availability/list';
         let params = new HttpParams();
         
@@ -25,6 +25,12 @@ export class HostAvailabilityService {
         if (endDate) {
             x = endDate;
             params = params.append("endDate", new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), 23, 59, 59)).toJSON());
+        }
+        if (roomId > 0) {
+            params = params.append("roomId", roomId.toString());
+        }
+        if (hostId > 0) {
+            params = params.append("hostId", hostId.toString());
         }
 
         const body = JSON.stringify(params);

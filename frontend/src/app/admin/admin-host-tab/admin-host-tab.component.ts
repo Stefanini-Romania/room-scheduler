@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Output, OnInit, AfterViewInit} from '@angular/core';
+import {Availability} from '../../shared/models/availability.model';
 
 @Component({
     selector: 'admin-host-tab',
@@ -8,46 +9,36 @@ import {Component, EventEmitter, Output, OnInit, AfterViewInit} from '@angular/c
 })
 
 export class AdminHostComponent {
-    public currentYear;
-    public weeks =[];
-
-    ngAfterViewInit(){  
-        this.getCurrentYear();  
-        this.getWeeksInYear((this.currentYear));
-    //    console.log(this.getWeeksInYear(this.currentYear));
-    }
+    
+    public today: Date;
+    public model: Availability = <Availability>{};
 
     constructor(){
-        
-    } 
-    getCurrentYear(){
-        let today = new Date();
-        this.currentYear = today.getFullYear();
-        return this.currentYear;
+
     }
 
-     getWeeksInYear(year){
-        this.weeks=[]
-        var firstDate=new Date(year, 0, 1),
-            lastDate=new Date(year, 11, 31), 
-            numDays= lastDate.getDate();
-        
-        var start=1;
-        var end=7-firstDate.getDay();
+    ngAfterViewInit(){
+        this.getStartOfWeek();
+        this.getToday();
+        this.model.startDate = this.today;
 
-        while(start<=365){
-            
-            this.weeks.push({start:start,end:end});
-            start = end + 1;
-            end = end + 7;
-            end = start === 1 && end === 8 ? 1 : end;
-             if(end>365)
-              end=365;    
-        }      
+    }
 
-        
-         return this.weeks;
-     }  
-     
-      
+    getToday() {
+        this.today = new Date();
+        return this.today;
+    }
+    
+    getStartOfWeek(){
+        this.model.startDate = new Date();
+        let dayOfWeek = this.model.startDate.getDay();
+        let currentDate = this.model.startDate.getDate();
+        while(dayOfWeek!==1){
+            dayOfWeek--;
+            currentDate=currentDate-1;
+        }
+        this.model.startDate.setDate(currentDate);
+        this.model.endDate = new Date(this.model.startDate.getFullYear(), this.model.startDate.getMonth(), this.model.startDate.getDate()+4);
+
+    }
 }

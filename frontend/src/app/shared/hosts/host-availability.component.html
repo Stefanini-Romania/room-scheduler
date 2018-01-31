@@ -24,28 +24,44 @@
     </div>
 </div>     -->
 
-<div class="container" hidden="true">
+<!-- <div class="container">
     <div class="row">
         <div id="legend" *ngIf="availabilities" style="flex-basis: auto">
             <div class="hostlegend">
-                <div class="badge badge-primary" *ngFor="let host of availabilities | keys">
+                <div  *ngFor="let day of availabilities">
                     <div class="row">
                         <div class="col col-md-12 text-center">
-                            {{ host }}
+                            {{ day.hostId }}
                         </div>
                     </div>
                 </div>
                 <div *ngFor="let day of availabilities | keys">
-                    <div class="row" *ngFor="let event of availabilities | keys">
-                        <div class="col-md-4">{{ event.startDate | localizedDate:'EE' | titlecase }}</div>
-                        <div class="col-md-4">{{ event.startDate | localizedDate:'HH:mm' }}</div>
-                        <div class="col-md-4">{{ event.endDate | localizedDate:'HH:mm' }}</div>                   
+                    <div class="row" *ngFor="let day of availabilities | keys">
+                        <div class="col-md-4">{{ day.startDate | localizedDate:'EE' | titlecase }}</div>
+                        <div class="col-md-4">{{ day.startDate | localizedDate:'HH:mm' }}</div>
+                        <div class="col-md-4">{{ day.endDate | localizedDate:'HH:mm' }}</div>                   
                     </div>
                 </div>
             </div>
-            <!-- <div *ngFor="let day of availabilities">
+            < <div *ngFor="let day of availabilities">
                 {{day.startDate}}
-            </div> -->
+            </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<table class="table table-hover table-striped table-responsive table table-bordered text-center">
+    <thead>
+        <tr>
+            <th>{{ "Host" }}</th>         
+        </tr>
+    </thead>
+    
+    <tbody>
+        <tr *ngFor="let day of availabilities">
+        <td>{{day.startDate | localizedDate:'EE' | titlecase }} </td>
+        <td>{{day.startDate | localizedDate:'HH:mm' }} </td> 
+        <td>{{day.endDate | localizedDate:'HH:mm'}} </td> 
+        </tr>
+    </tbody>
+</table>
