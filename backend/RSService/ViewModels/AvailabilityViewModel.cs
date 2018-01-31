@@ -10,7 +10,9 @@ namespace RSService.ViewModels
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int AvailabilityType { get; set; }
-        public int? RoomId { get; set; }
+        public int[] DaysOfWeek { get; set; }
+        public int RoomId { get; set; }
         public int HostId { get; set; }
+        public int Occurence { get; set; }
     }
 }

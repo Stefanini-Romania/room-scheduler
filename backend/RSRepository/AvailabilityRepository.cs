@@ -53,6 +53,19 @@ namespace RSRepository
                                  .ToList();
         }
 
+        public List<Availability> GetAvailabilitiesByHost(int hostId)
+        {
+            return availabilities.Where(a => a.HostId == hostId)
+                                 .ToList();
+        }
+
+        public List<Availability> GetAvailabilitiesByType(int availabilityType, DateTime startDate, DateTime endDate)
+        {
+            return availabilities.Where(a => a.AvailabilityType == availabilityType)
+                                 .Where(a => a.StartDate >= startDate && a.StartDate <= endDate)
+                                 .ToList();
+        }
+
         public List<Availability> GetAvailabilitiesByType(DateTime startDate, DateTime endDate,int roomId)
         {
             return availabilities.Where(e => e.StartDate.TimeOfDay <= startDate.TimeOfDay)
@@ -67,12 +80,6 @@ namespace RSRepository
             return availabilities.Where(a => a.RoomId == roomId)
                                  .Where(a => a.StartDate.Hour <= startDate.Hour)
                                  .Where(a => a.EndDate.Hour > startDate.Hour)
-                                 .ToList();
-        }
-
-        public List<Availability> GetAvailabilities(int availabilityType, int? roomId, int? hostId)
-        {
-            return availabilities.Where(a => a.AvailabilityType == availabilityType && a.RoomId == roomId && a.HostId == hostId)
                                  .ToList();
         }
 

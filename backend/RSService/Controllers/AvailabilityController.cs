@@ -28,27 +28,53 @@ namespace RSService.Controllers
 
         [HttpGet("/availability/list")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult GetAvailabilities()
+        public IActionResult GetAvailabilities(int? hostId, DateTime startDate)
         {
-            var results = availabilityRepository.GetAvailabilities();
-            if (results == null) return NotFound();
-
-            List<AvailabilityDto> availabilities = new List<AvailabilityDto>();
-            foreach(var availability in results)
+            if (!hostId.HasValue)
             {
-                availabilities.Add(new AvailabilityDto()
-                {
-                    StartDate = availability.StartDate,
-                    EndDate = availability.EndDate,
-                    AvailabilityType = availability.AvailabilityType,
-                    RoomId = availability.RoomId,
-                    HostName = availability.Host.FirstName + " " + availability.Host.LastName,
-                    HostId = availability.HostId
+                var exceptions = availabilityRepository.GetAvailabilitiesByType((int)AvailabilityEnum.Exception, startDate, startDate.AddDays(5));
 
-                });
+                List<AvailabilityDto> finalResults = new List<AvailabilityDto>();
+                foreach(var ex in exceptions)
+                {
+                    finalResults.Add(new AvailabilityDto(ex.StartDate, ex.EndDate, ex.DayOfWeek, ex.AvailabilityType));
+                }
+                return Ok(finalResults);
             }
 
-            return Ok(availabilities);
+            var availabilities = availabilityRepository.GetAvailabilitiesByHost((int)hostId);
+            if (availabilities == null) return NotFound();
+
+            List<AvailabilityDto> results = new List<AvailabilityDto>();
+
+            foreach(var av in availabilities)
+            {
+                if (av.AvailabilityType == (int)AvailabilityEnum.Exception)
+                {
+                    if (av.StartDate >= startDate && av.StartDate <= startDate.AddDays(4))
+                    {
+                        results.Add(new AvailabilityDto(av.StartDate, av.EndDate, av.DayOfWeek, av.AvailabilityType));
+                    }
+                }
+                else
+                {
+                    DateTime date = av.StartDate;
+                    while (date.Date <= startDate.Date)
+                    {
+                        if (date.Date == startDate.Date)
+                        {
+                            results.Add(new AvailabilityDto(
+                                            date, 
+                                            new DateTime(date.Year,date.Month,date.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second), 
+                                            av.DayOfWeek, 
+                                            av.AvailabilityType, 
+                                            av.RoomId));
+                        }
+                        date = date.AddDays(7 * (int)av.Occurrence);
+                    }
+                }
+            }
+            return Ok(results);
         }
 
         [HttpGet("/availability/host/list")]
@@ -73,7 +99,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/availability/add")]
-        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        [Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
         public IActionResult AddAvailability([FromBody] AvailabilityViewModel newAvailability)
         {
             if (!ModelState.IsValid)
@@ -81,23 +107,28 @@ namespace RSService.Controllers
                 return ValidationError(GeneralMessages.Availability);
             }
 
-            // If already exists availabilities for this host, remove them
-            var dbAvailabilities = availabilityRepository.GetAvailabilities(newAvailability.AvailabilityType, newAvailability.RoomId, newAvailability.HostId);
-            if (dbAvailabilities != null)
+            // Validations
+            // If already exists availabilities for this host in this day, return Error
+            //var dbAvailabilities = availabilityRepository.GetAvailabilities(newAvailability);
+            //if (dbAvailabilities != null)
+            //{
+
+            //}
+
+            foreach(var day in newAvailability.DaysOfWeek)
             {
-                availabilityRepository.RemoveAvailabilities(dbAvailabilities);
+                Availability availability = new Availability(
+                    newAvailability.StartDate,
+                    newAvailability.EndDate,
+                    day,
+                    newAvailability.AvailabilityType,
+                    newAvailability.RoomId,
+                    newAvailability.HostId,
+                    newAvailability.Occurence
+                );
+                availabilityRepository.AddAvailability(availability);
             }
 
-            Availability availability = new Availability(
-            newAvailability.StartDate,
-            newAvailability.EndDate,
-            1, // day of week
-            newAvailability.AvailabilityType,
-            newAvailability.RoomId,
-            newAvailability.HostId
-            );
-            availabilityRepository.AddAvailability(availability);
-            
             Context.SaveChanges();
 
             return Ok();
@@ -126,8 +157,9 @@ namespace RSService.Controllers
                                             ex.StartDate,
                                             ex.EndDate,
                                             (int)AvailabilityEnum.Exception,
-                                            null,
-                                            currentUser.Id
+                                            null, 
+                                            currentUser.Id,
+                                            null
                                             );
 
                     availabilityRepository.AddAvailability(availability);
@@ -146,7 +178,8 @@ namespace RSService.Controllers
                                             ex.EndDate,
                                             (int)AvailabilityEnum.Exception,
                                             null,
-                                            (int)hostId
+                                            (int)hostId,
+                                            null
                                             );
 
                     availabilityRepository.AddAvailability(availability);
@@ -158,21 +191,21 @@ namespace RSService.Controllers
             return Ok();
         }
 
-        [HttpPost("/availability/remove/{roomId}/{hostId}")]
-        [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult RemoveAvailabilities(int roomId, int hostId)
-        {
+        //[HttpPost("/availability/remove/{roomId}/{hostId}")]
+        //[Authorize(Roles = nameof(UserRoleEnum.admin))]
+        //public IActionResult RemoveAvailabilities(int roomId, int hostId)
+        //{
 
-            var dbAvailabilities = availabilityRepository.GetAvailabilities((int)AvailabilityEnum.Available, roomId, hostId);
-            if (dbAvailabilities != null)
-            {
-                availabilityRepository.RemoveAvailabilities(dbAvailabilities);
-            }
+        //    var dbAvailabilities = availabilityRepository.GetAvailabilities((int)AvailabilityEnum.Available, roomId, hostId);
+        //    if (dbAvailabilities != null)
+        //    {
+        //        availabilityRepository.RemoveAvailabilities(dbAvailabilities);
+        //    }
 
-            Context.SaveChanges();
+        //    Context.SaveChanges();
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
 
 
