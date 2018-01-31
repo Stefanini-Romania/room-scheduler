@@ -500,6 +500,17 @@ div #reset-password input, div #send-password input, div #room-editor input, div
     overflow-y:scroll;
 }
 
+#datePicker{
+    height: 40px;
+    align-self: center;
+    border-radius: 0;
+}
+
+.datePickerForm{
+    margin:0;
+    padding-top:0;
+}
+
 /* .scrollit {
     overflow:scroll;
     height:200px;

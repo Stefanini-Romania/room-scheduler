@@ -1,18 +1,19 @@
 
 <div class="row">
         <host-selector></host-selector>
-        <div id="dropdownHosts">
-                <div >
-                    <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-primary" ngbDropdownToggle >{{'week' | translate }}</button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" id="dropdownArea">
-                            <button *ngFor="let week of weeks; let i=index" class="dropdown-item">
-                                {{'week' | translate }} {{i+1}}
-                            </button>
-                        </div>
-                    </div> 
-                </div>                                                                           
-        </div>
+        <form class="form-inline datePickerForm">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" id="datePicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" (click)="d.toggle()" type="button">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
 </div>
 
 <host-availability></host-availability>
