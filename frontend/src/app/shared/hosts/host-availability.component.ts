@@ -32,6 +32,7 @@ export class HostAvailability{
     public startDate: Date;
     public endDate: Date;  
     public hostId: number;
+    public exception: boolean;
 
     constructor(public HostAvailabilityService: HostAvailabilityService) {}
     
@@ -39,29 +40,28 @@ export class HostAvailability{
         this.listAvailabilities();
     }
 
-        listAvailabilities()
-    {
+    listAvailabilities() {
         // if (!this.startDate || !this.endDate || !this.selectedHost) {
         //     return;
         // }
+    
         this.getStartOfWeek();
         this.startDate = new Date();
-        
-        let hosts = {};
 
         this.availabilities = [];
-        this.HostAvailabilityService.HostAvailabilityList(this.model.startDate, this.hostId = 3, this.model.endDate, this.roomId).subscribe((availabilities: Availability[]) => {
+        this.HostAvailabilityService.HostAvailabilityList(this.model.startDate, this.model.hostId = 3, this.model.endDate, this.model.roomId).subscribe((availabilities: Availability[]) => {
             for (let day of availabilities) {           
-                // if (!hosts[day.hostId]) {
-                //     hosts[day.hostId] = [];
-                // }
-                // hosts[availabilities.].push(availabilities);
-                //for (let event of availabilities[host][day])
                 this.availabilities.push(<Availability>day);
+                // if (day.availabilityType == 2){  
+                //     this.exception == true;
+                //     console.log("Excep");
+                // } else {
+                //     console.log("noExcep");
+                //     this.exception == false;
+                // }
             }
-            console.log("avails", availabilities);
-            console.log("days", this.day);
         });
+        
     }
 
     getStartOfWeek(){
