@@ -273,5 +273,8 @@
 
     "Settings": {
         "Value.Wrong.Type": "You have entered an invalid value. Please make sure you insert a number!"
-    }
+    },
+     "Availability":{
+         "startDate": "Start Date"
+     }
 }

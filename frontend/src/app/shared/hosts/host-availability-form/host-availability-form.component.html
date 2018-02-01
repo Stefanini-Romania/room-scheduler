@@ -1,0 +1,45 @@
+<div class="modal-header">
+        <h6 class="modal-title">{{ title | translate }}</h6>
+        <button type="button" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button> 
+    </div>
+    
+    <div class="modal-body">
+        <div class="container h-100">
+            <div class="row justify-content-center align-self-center mx-auto">
+                <form>
+                    
+                            <label class="label"><b>{{'Availability.startDate'|translate}}</b></label>
+                        <div class="row">
+                                                              
+                                <form class="form-inline datePickerForm">
+                                        <div class="form-group">
+                                          <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd"
+                                                   name="dp" ngbDatepicker #d="ngbDatepicker" id="datePicker" >
+                                            <div class="input-group-append">
+                                              <button class="btn btn-primary" (click)="d.toggle()" type="button" id="dropdownHosts">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                </form>
+                                        
+                               <room-selector></room-selector>    
+                        </div>                             
+                   
+                </form>
+                
+            </div>
+
+            <div class="row justify-content-center align-self-center mx-auto">
+                    <ngb-timepicker [(ngModel)]="time" class="timePicker"></ngb-timepicker>
+                    <ngb-timepicker [(ngModel)]="endtime"></ngb-timepicker>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary float-right" >{{'button.save'|translate}}</button> 
+    </div>

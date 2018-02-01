@@ -511,6 +511,15 @@ div #reset-password input, div #send-password input, div #room-editor input, div
     padding-top:0;
 }
 
+.timePicker{
+    margin-right:10px;
+}
+
+input[_ngcontent-c1]{
+    height:40px;
+    border-radius:0px;
+}
+
 /* .scrollit {
     overflow:scroll;
     height:200px;
