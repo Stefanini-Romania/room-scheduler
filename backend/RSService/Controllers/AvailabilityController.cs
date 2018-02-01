@@ -173,7 +173,6 @@ namespace RSService.Controllers
             return Ok();
         }
 
-
         [HttpPost("/availability/exception/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin) +","+ nameof(UserRoleEnum.host))]
         public IActionResult AddException([FromBody] AvailabilityExceptionDto avException, int? hostId)

@@ -52,7 +52,7 @@ namespace RSRepository
 
         public List<Event> GetPastEventsByUser(DateTime date, int attendeeId, int roomId)
         {
-            return events.Where(e => e.StartDate > date.AddDays(-30))       // Last 30 days
+            return events.Where(e => e.StartDate > date)
                          .Where(e => e.AttendeeId == attendeeId)
                          .Where(e => e.RoomId == roomId)
                          .Where(ev => ev.EventStatus == (int)EventStatusEnum.absent)
@@ -61,7 +61,7 @@ namespace RSRepository
 
         public List<Event> GetFutureEvents(DateTime date, int attendeeId, int roomId)
         {
-            return events.Where(e => e.StartDate <= date.AddDays(15))
+            return events.Where(e => e.StartDate <= date)
                          .Where(e => e.StartDate > date)
                          .Where(e => e.AttendeeId == attendeeId)
                          .Where(e => e.RoomId == roomId).ToList();
@@ -74,16 +74,13 @@ namespace RSRepository
                          .Where(e => e.RoomId == roomId)
                          .ToList();
         }
-     
 
         public List<Event> GetEventsByDateTimeNow()
         {
             
             return events.Where(e => e.EventStatus == (int)EventStatusEnum.waiting)
                          .Where(e => (e.StartDate.Hour == DateTime.Now.Hour && e.StartDate.Minute != 0) || (e.StartDate.Hour == DateTime.Now.Hour+1 && e.StartDate.Minute == 0))
-                         .ToList();
-
-                       
+                         .ToList();              
         }
 
         public List<Event> GetEventsByDay(DateTime date, int userId)
@@ -115,14 +112,6 @@ namespace RSRepository
         //    {
         //        throw new ArgumentNullException("Update a null event");
         //    }
-        //}
-
-
-
-        //public void DeleteEvent(int eventID)
-        //{
-        //    Event _event = events.Find(eventID);
-        //    events.Remove(_event);
         //}
 
         

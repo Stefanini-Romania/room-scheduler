@@ -209,7 +209,7 @@ namespace RSService.BusinessLogic
 
         public void AddPenalty(DateTime startDate, int eventId, int attendeeId, int roomId)
         {
-            var pastEvents = eventRepository.GetPastEventsByUser(startDate, attendeeId, roomId);
+            var pastEvents = eventRepository.GetPastEventsByUser(startDate.AddDays(-30), attendeeId, roomId);  //Last 30 days
 
             var eventsCount = pastEvents.Count();
 
@@ -232,7 +232,7 @@ namespace RSService.BusinessLogic
 
                 // Edit attendee's events for next 15 days for this room (Cancelled):
 
-                var futureEvents = eventRepository.GetFutureEvents(startDate, attendeeId, roomId);
+                var futureEvents = eventRepository.GetFutureEvents(startDate.AddDays(15), attendeeId, roomId);
 
                 if (futureEvents.Count() > 0)
                 {
