@@ -69,8 +69,8 @@ namespace RSService.Controllers
                         if (date.Date == startDate.Date)
                         {
                             results.Add(new AvailabilityDto(
-                                            date, 
-                                            new DateTime(date.Year,date.Month,date.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second), 
+                                            date.AddDays(av.DayOfWeek -1), 
+                                            new DateTime(date.Year, date.Month, date.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second).AddDays(av.DayOfWeek -1), 
                                             av.DayOfWeek, 
                                             av.AvailabilityType, 
                                             av.RoomId));
