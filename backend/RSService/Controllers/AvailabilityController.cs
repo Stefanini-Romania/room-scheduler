@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RSData.Models;
 using RSRepository;
@@ -42,7 +43,7 @@ namespace RSService.Controllers
                 List<AvailabilityDto> finalResults = new List<AvailabilityDto>();
                 foreach(var ex in exceptions)
                 {
-                    finalResults.Add(new AvailabilityDto(ex.StartDate, ex.EndDate, ex.DayOfWeek, ex.AvailabilityType));
+                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.DayOfWeek, ex.AvailabilityType));
                 }
                 return Ok(finalResults);
             }
@@ -58,7 +59,7 @@ namespace RSService.Controllers
                 {
                     if (av.StartDate >= startDate && av.StartDate <= startDate.AddDays(4))
                     {
-                        results.Add(new AvailabilityDto(av.StartDate, av.EndDate, av.DayOfWeek, av.AvailabilityType));
+                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.DayOfWeek, av.AvailabilityType));
                     }
                 }
                 else
@@ -69,6 +70,7 @@ namespace RSService.Controllers
                         if (date.Date == startDate.Date)
                         {
                             results.Add(new AvailabilityDto(
+                                            av.Id,
                                             date.AddDays(av.DayOfWeek -1), 
                                             new DateTime(date.Year, date.Month, date.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second).AddDays(av.DayOfWeek -1), 
                                             av.DayOfWeek, 
@@ -224,24 +226,32 @@ namespace RSService.Controllers
             return Ok();
         }
 
-        //[HttpPost("/availability/remove/{roomId}/{hostId}")]
-        //[Authorize(Roles = nameof(UserRoleEnum.admin))]
-        //public IActionResult RemoveAvailabilities(int roomId, int hostId)
-        //{
+        [HttpPut("/availability/edit/{id}")]
+        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        public IActionResult UpdateAvailability(int id, [FromBody] EditAvailabilityViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return ValidationError(GeneralMessages.Availability);
+            }
 
-        //    var dbAvailabilities = availabilityRepository.GetAvailabilities((int)AvailabilityEnum.Available, roomId, hostId);
-        //    if (dbAvailabilities != null)
-        //    {
-        //        availabilityRepository.RemoveAvailabilities(dbAvailabilities);
-        //    }
+            var availability = availabilityRepository.GetAvailabilityById(id);
 
-        //    Context.SaveChanges();
+            if (availability == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok();
-        //}
+            availability.StartDate = model.StartDate;
+            availability.EndDate = model.EndDate;
+            availability.AvailabilityType = model.AvailabilityType;
+            availability.RoomId = model.RoomId;
+            availability.Occurrence = model.Occurrence;
 
+            Context.SaveChanges();
 
-
+            return Ok();
+        }
 
 
     }

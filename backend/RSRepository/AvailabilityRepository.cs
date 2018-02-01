@@ -83,11 +83,6 @@ namespace RSRepository
                                  .ToList();
         }
 
-        public void RemoveAvailabilities(List<Availability> availabilityList)
-        {
-            availabilities.RemoveRange(availabilityList);
-        }
-
         public void AddAvailability(Availability availability)
         {
             availabilities.Add(availability);
