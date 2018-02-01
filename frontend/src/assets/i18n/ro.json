@@ -291,7 +291,9 @@
 
     "Availability":{
         "startDate": "De la"
-    }
+    },
+    "Availabilities": "Disponibilități",
+    "Exceptions": "Excepții"
 }
 
 

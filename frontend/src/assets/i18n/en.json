@@ -276,5 +276,9 @@
     },
      "Availability":{
          "startDate": "Start Date"
-     }
+     },
+     
+    "Availabilities": "Availabilities",
+    "Exceptions": "Exceptions"
+
 }

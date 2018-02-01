@@ -1,6 +1,6 @@
 import {Component, NgModule} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
 
 import {User} from '../../shared/models/user.model';
 import {Event} from '../../shared/models/event.model';
@@ -34,7 +34,7 @@ export class HostAvailability{
     public hostId: number;
     public exception: boolean;
 
-    constructor(public HostAvailabilityService: HostAvailabilityService) {}
+    constructor(public HostAvailabilityService: HostAvailabilityService, translate: TranslateService) {}
     
     ngAfterViewInit(){
         this.listAvailabilities();
@@ -47,7 +47,6 @@ export class HostAvailability{
     
         this.getStartOfWeek();
         this.startDate = new Date();
-
         this.availabilities = [];
         this.HostAvailabilityService.HostAvailabilityList(this.model.startDate, this.model.hostId = 3, this.model.endDate, this.model.roomId).subscribe((availabilities: Availability[]) => {
             for (let day of availabilities) {           
@@ -60,9 +59,8 @@ export class HostAvailability{
                 //     this.exception == false;
                 // }
             }
-        });
-        
-    }
+        });       
+    }   
 
     getStartOfWeek(){
         this.model.startDate = new Date();
