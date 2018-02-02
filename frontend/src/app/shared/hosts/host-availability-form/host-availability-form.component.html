@@ -1,5 +1,5 @@
 <div class="modal-header">
-        <h6 class="modal-title">{{ title | translate }}</h6>
+        <h6 class="modal-title">{{'Availability.add' | translate}}</h6>
         <button type="button" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button> 
     </div>
     
@@ -7,10 +7,11 @@
         <div class="container h-100">
             <div class="row justify-content-center align-self-center mx-auto">
                 <form>
-                    
+                    <div class="row">
                             <label class="label"><b>{{'Availability.startDate'|translate}}</b></label>
+                    </div> 
                         <div class="row">
-                                                              
+                        <!--DATE PICKER-->                         
                                 <form class="form-inline datePickerForm">
                                         <div class="form-group">
                                           <div class="input-group">
@@ -26,16 +27,54 @@
                                 </form>
                                         
                                <room-selector></room-selector>    
-                        </div>                             
-                   
+                        </div>
                 </form>
                 
             </div>
-
-            <div class="row justify-content-center align-self-center mx-auto">
-                    <ngb-timepicker [(ngModel)]="time" class="timePicker"></ngb-timepicker>
-                    <ngb-timepicker [(ngModel)]="endtime"></ngb-timepicker>
+            <!--START AND END HOUR-->
+            <div>
+                    <div class="row">
+                            <label class="label col-5 labelHour"><b>{{'Availability.startHour' | translate}}</b></label>
+                            <label class="label col-5 labelHour"><b>{{'Availability.endHour' | translate}}</b></label>
+                    </div>
+        
+                    <div class="row justify-content-center align-self-center mx-auto">
+                            <ngb-timepicker [(ngModel)]="time" class="timePicker"></ngb-timepicker>
+                            <ngb-timepicker [(ngModel)]="endtime"></ngb-timepicker>
+                    </div>
             </div>
+            <!--DAY OF WEEK CHECKBOX-->
+            <form [formGroup]="checkboxGroupForm">
+                <div class="btn-group btn-group-toggle">
+                      <label class="btn-primary labelCheckbox" ngbButtonLabel>
+                        <input type="checkbox" formControlName="monday" ngbButton>{{'calendar.days.namesAbbr.Mon' | translate}}
+                      </label>
+                      <label class="btn-primary labelCheckbox" ngbButtonLabel>
+                        <input type="checkbox" formControlName="tuesday" ngbButton> {{'calendar.days.namesAbbr.Tue' | translate}}
+                      </label>
+                      <label class="btn-primary labelCheckbox" ngbButtonLabel>
+                        <input type="checkbox" formControlName="wednesday" ngbButton> {{'calendar.days.namesAbbr.Wed' | translate}}
+                      </label>
+                      <label class="btn-primary labelCheckbox" ngbButtonLabel>
+                            <input type="checkbox" formControlName="thursday" ngbButton> {{'calendar.days.namesAbbr.Thu' | translate}}
+                    </label>
+                    <label class="btn-primary labelCheckbox" ngbButtonLabel>
+                            <input type="checkbox" formControlName="friday" ngbButton> {{'calendar.days.namesAbbr.Fri' | translate}}
+                    </label>
+                </div>
+            </form>
+            <!--OCCURENCE-->
+            <div class="row labelCheckbox">
+                      <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>{{'Availability.occurence' | translate}}</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                          <button class="dropdown-item">1 {{'week' | translate}}</button>
+                          <button class="dropdown-item">2 {{'weeks' | translate}}</button>
+                          <button class="dropdown-item">3 {{'weeks' | translate}}</button>
+                          <button class="dropdown-item">4 {{'weeks' | translate}}</button>
+                        </div>
+            </div>
+           
         </div>
     </div>
     

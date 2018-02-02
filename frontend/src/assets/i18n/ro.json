@@ -88,7 +88,8 @@
       "isNotActive": "Inactiv",
       "status": "Status"
   },
-  "week": "Săptămâna",
+  "week": "Săptămână",
+  "weeks": "Săptămâni",
   "name": "Nume",
   "location": "Locație",
   "event": {
@@ -290,7 +291,12 @@
     },
 
     "Availability":{
-        "startDate": "De la"
+        "startDate": "Alegeți data",
+        "occurence": "Recurență",
+        "startHour": "De la ora",
+        "endHour": "Până la ora",
+        "add": "Adaugă disponibilitate"
+        
     },
     "Availabilities": "Disponibilități",
     "Exceptions": "Excepții"
