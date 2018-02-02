@@ -8,8 +8,8 @@ import {User} from '../../shared/models/user.model';
 import {Availability} from './../models/availability.model';
 
 @Injectable()
-export class HostAvailabilityService {
-    
+export class HostService {
+    public  selectedHostChanged$: EventEmitter<User> = new EventEmitter();
     
     constructor(private http: HttpClient) {
     }
@@ -36,6 +36,36 @@ export class HostAvailabilityService {
         const body = JSON.stringify(params);
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.get(url, {headers: headers, withCredentials: true, params: params});
+    }
+
+    public HostList() {
+        const url = environment.apiUrl + '/availability/host/list';
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.get(url, { headers: headers, withCredentials: true });
+    }
+
+    public selectHost(host: User) {
+        this.selectedHostChanged$.emit(host);
+    }  
+    public AddHostAvailability(startDate: Date, endDate: Date, availabilityType: number, daysOfWeek: number[], occurrence: number, roomId?: number){
+        const url = environment.apiUrl + '/availability/add';
+        const body = JSON.stringify({
+            startDate: startDate,
+            endDate: endDate,
+            availabilityType: availabilityType,
+            daysOfWeek: daysOfWeek,
+            occurrence: occurrence,
+            roomId: roomId   
+        });
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+
+        return this.http.post(url, body, {headers: headers, withCredentials: true})
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+            .map((response: Response) => {
+                return response;
+            });
     }
 
    

@@ -89,6 +89,7 @@
       "status": "Status"
   },
   "week": "Week",
+  "weeks": "Weeks",
   "name": "Name",
   "location": "Location",
   "event": {
@@ -273,5 +274,16 @@
 
     "Settings": {
         "Value.Wrong.Type": "You have entered an invalid value. Please make sure you insert a number!"
-    }
+    },
+     "Availability":{
+         "startDate": "Start date",
+         "occurence": "Occurence",
+         "startHour": "Start hour",
+         "endHour": "End hour",
+         "add": "Add availability"
+     },
+     
+    "Availabilities": "Availabilities",
+    "Exceptions": "Exceptions"
+
 }

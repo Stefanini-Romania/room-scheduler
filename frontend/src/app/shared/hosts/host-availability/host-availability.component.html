@@ -1,0 +1,34 @@
+<div class="row">
+    <table class="table table-hover table-striped table-responsive table table-bordered text-center col col-md-2" >
+        <thead>
+            <tr>
+                <th colspan="3">{{'Availabilities' | translate}}</th>  
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor="let day of availabilities">
+            <td>{{day.startDate | localizedDate:'EE' | titlecase }} </td>
+            <td>{{day.startDate | localizedDate:'HH:mm' }} </td> 
+            <td>{{day.endDate | localizedDate:'HH:mm'}} </td> 
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-hover table-striped table-responsive table table-bordered text-center col col-md-2" >
+        <thead>
+            <tr>
+                <th colspan="3">{{ 'Exceptions' | translate }}</th>    
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor="let day of exceptions" >
+            <td>{{day.startDate | localizedDate:'EE' | titlecase }} </td>
+            <td>{{day.startDate | localizedDate:'HH:mm' }} </td> 
+            <td>{{day.endDate | localizedDate:'HH:mm'}} </td> 
+            </tr>
+        </tbody>
+    </table>
+</div>
+    

@@ -8,6 +8,7 @@ import {AuthService} from '../../auth/shared/auth.service';
 import {AdminUsersTab} from '../admin-users-tab/admin-users-tab.component';
 import {AdminRoomsTab} from '../admin-rooms-tab/admin-rooms-tab.component';
 import {AdminSystemParameters} from '../admin-system-parameters/admin-system-parameters.component';
+//import {HostAvailability} from './../../shared/hosts/host-availability.component';
 
 @Component({
     selector: 'admin-component',

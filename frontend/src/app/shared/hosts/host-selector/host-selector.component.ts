@@ -4,8 +4,8 @@ import {ToastrService} from 'ngx-toastr';
 import { Subscription } from 'rxjs/Subscription';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 
-import {HostService} from './shared/host-selector.service';
-import {User} from '../shared/models/user.model';
+import {HostService} from './../../services/host.service';
+import {User} from './../../models/user.model';
 
 
 @Component({
