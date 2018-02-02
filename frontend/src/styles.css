@@ -520,6 +520,15 @@ input[_ngcontent-c1]{
     border-radius:0px;
 }
 
+.labelCheckbox{
+    margin-left:5px !important;
+}
+
+.labelHour{
+    padding-left: 0 !important;
+    margin-left: 25px;
+}
+
 /* .scrollit {
     overflow:scroll;
     height:200px;

@@ -7,7 +7,7 @@ import {KeysPipe} from './pipes/keys.pipe';
 import {ValidateEqualValidator} from './validators/validate-equal-validator.directive';
 import {HostAvailability} from './hosts/host-availability.component';
 import {HostAvailabilityForm} from './hosts/host-availability-form/host-availability-form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import {RoomModule} from '../rooms/room.module';
 
 
@@ -16,7 +16,8 @@ import {RoomModule} from '../rooms/room.module';
                 TranslateModule,
                 NgbModule.forRoot(),
                 FormsModule,
-                RoomModule],
+                RoomModule,
+                ReactiveFormsModule],
     providers: [],
     declarations: [KeysPipe, LocalizedDatePipe, ValidateEqualValidator, HostAvailability, HostAvailabilityForm],
     exports: [KeysPipe, LocalizedDatePipe, ValidateEqualValidator, HostAvailability, HostAvailabilityForm],
