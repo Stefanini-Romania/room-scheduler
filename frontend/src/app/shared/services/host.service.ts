@@ -8,8 +8,8 @@ import {User} from '../../shared/models/user.model';
 import {Availability} from './../models/availability.model';
 
 @Injectable()
-export class HostAvailabilityService {
-    
+export class HostService {
+    public  selectedHostChanged$: EventEmitter<User> = new EventEmitter();
     
     constructor(private http: HttpClient) {
     }
@@ -38,5 +38,13 @@ export class HostAvailabilityService {
         return this.http.get(url, {headers: headers, withCredentials: true, params: params});
     }
 
-   
+    public HostList() {
+        const url = environment.apiUrl + '/availability/host/list';
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.get(url, { headers: headers, withCredentials: true });
+    }
+
+    public selectHost(host: User) {
+        this.selectedHostChanged$.emit(host);
+    }  
 }

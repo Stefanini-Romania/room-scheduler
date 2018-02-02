@@ -4,7 +4,8 @@ import {NgbModal, NgbModalRef, NgbPaginationConfig, ModalDismissReasons} from '@
 
 import {HostAvailabilityForm} from '../../shared/hosts/host-availability-form/host-availability-form.component';
 import {User} from './../../shared/models/user.model';
-import {HostService} from './../../hosts/shared/host-selector.service';
+import {HostService} from './../../shared/services/host.service';
+
 @Component({
     selector: 'admin-host-tab',
     templateUrl: './admin-host-tab.component.html',

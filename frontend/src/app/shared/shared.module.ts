@@ -5,7 +5,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {LocalizedDatePipe} from './pipes/localized-date.pipe';
 import {KeysPipe} from './pipes/keys.pipe';
 import {ValidateEqualValidator} from './validators/validate-equal-validator.directive';
-import {HostAvailability} from './hosts/host-availability.component';
+import {HostAvailability} from './hosts/host-availability/host-availability.component';
 import {HostAvailabilityForm} from './hosts/host-availability-form/host-availability-form.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import {RoomModule} from '../rooms/room.module';

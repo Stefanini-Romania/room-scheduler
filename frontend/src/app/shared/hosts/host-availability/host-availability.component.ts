@@ -2,20 +2,19 @@ import {Component, NgModule} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
 
-import {User} from '../../shared/models/user.model';
-import {Event} from '../../shared/models/event.model';
-import {EventService} from './../../calendars/shared/event.service';
-import {EventTypeEnum} from '../../shared/models/event.model';
-import {EventStatusEnum} from '../../shared/models/event.model';
-import {HostAvailabilityService} from './../services/host-availability.service';
-import {Availability} from './../models/availability.model';
-import {HostSelector} from '../../hosts/host-selector.component';
-//import {HostService} from './../services/host-availability.service';
+import {User} from '../../../shared/models/user.model';
+import {Event} from '../../../shared/models/event.model';
+import {EventService} from './../../../calendars/shared/event.service';
+import {EventTypeEnum} from '../../../shared/models/event.model';
+import {EventStatusEnum} from '../../../shared/models/event.model';
+import {HostService} from './../../services/host.service';
+import {Availability} from './../../models/availability.model';
+import {HostSelector} from './../host-selector/host-selector.component';
 
 @Component({
     selector: 'host-availability',
     templateUrl: './host-availability.component.html',
-    providers: [EventService, HostAvailabilityService, HostSelector]
+    providers: [EventService, HostService, HostSelector]
 })
 
 export class HostAvailability{
@@ -37,7 +36,7 @@ export class HostAvailability{
     public hostId: number;
     public exception: boolean;
 
-    constructor(public HostAvailabilityService: HostAvailabilityService, translate: TranslateService) {}
+    constructor(public HostService: HostService, translate: TranslateService) {}
     
     ngAfterViewInit(){
         this.listAvailabilities();
@@ -55,7 +54,7 @@ export class HostAvailability{
         this.events = [];
 
         //this.model.hostId = this.selectedHost.id;
-        this.HostAvailabilityService.HostAvailabilityList(this.model.startDate, this.model.hostId = 3, this.model.endDate, this.model.roomId).subscribe((events: Availability[]) => {
+        this.HostService.HostAvailabilityList(this.model.startDate, this.model.hostId = 3, this.model.endDate, this.model.roomId).subscribe((events: Availability[]) => {
             for (let day of events) {    
                 if (day.availabilityType == 2) {
                     this.exceptions.push(<Availability>day);
