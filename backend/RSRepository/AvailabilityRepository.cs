@@ -83,6 +83,14 @@ namespace RSRepository
                                  .ToList();
         }
 
+        public List<Availability> GetAvailabilitiesByHostAndDay(int hostId, int dayOfWeek)
+        {
+            return availabilities.Where(a => a.HostId == hostId)
+                                 .Where(a => a.AvailabilityType == 0)
+                                 .Where(a => a.DayOfWeek == dayOfWeek)
+                                 .ToList();
+        }
+
         public void AddAvailability(Availability availability)
         {
             availabilities.Add(availability);

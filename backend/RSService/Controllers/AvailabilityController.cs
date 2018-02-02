@@ -121,6 +121,7 @@ namespace RSService.Controllers
             //{
 
             //}
+            // Un host sa poata apela serviciile doar pt programul sau, nu si pt programul altui host 
 
             var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
             var currentUser = userRepository.GetUserById(schedulerIdentity.UserId);
@@ -189,18 +190,21 @@ namespace RSService.Controllers
 
             if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.host))
             {
-               
-                Availability availability = new Availability(
-                                        avException.StartDate,
-                                        avException.EndDate,
+                //Find the rooms where the host has availability and add exception for each room
+                var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDay(currentUser.Id, (int)avException.StartDate.DayOfWeek);
+
+                foreach (var av in availabilities)
+                {
+                    Availability availability = new Availability(
+                                        new DateTime(avException.StartDate.Year, avException.StartDate.Month, avException.StartDate.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second),
+                                        new DateTime(avException.EndDate.Year, avException.EndDate.Month, avException.EndDate.Day, av.EndDate.Hour,av.EndDate.Minute, av.EndDate.Second),
                                         (int)AvailabilityEnum.Exception,
-                                        null, 
+                                        av.RoomId,
                                         currentUser.Id,
                                         null
                                         );
-
-                availabilityRepository.AddAvailability(availability);
-                
+                    availabilityRepository.AddAvailability(availability);
+                } 
             }
             else  //Admin
             {
@@ -208,18 +212,23 @@ namespace RSService.Controllers
                 {
                     return ValidationError(AvailabilityMessages.EmptyHostId);
                 }
-                Availability availability = new Availability(
-                                        avException.StartDate,
-                                        avException.EndDate,
+                //Find the rooms where the host has availability and add exception for each room
+                var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDay((int)hostId, (int)avException.StartDate.DayOfWeek);
+
+                foreach (var av in availabilities)
+                {
+                    Availability availability = new Availability(
+                                        new DateTime(avException.StartDate.Year, avException.StartDate.Month, avException.StartDate.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second),
+                                        new DateTime(avException.EndDate.Year, avException.EndDate.Month, avException.EndDate.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second),
                                         (int)AvailabilityEnum.Exception,
-                                        null,
+                                        av.RoomId,
                                         (int)hostId,
                                         null
                                         );
-
-                availabilityRepository.AddAvailability(availability); 
+                    availabilityRepository.AddAvailability(availability);
+                }
+                 
             }
-
             Context.SaveChanges();
 
             return Ok();

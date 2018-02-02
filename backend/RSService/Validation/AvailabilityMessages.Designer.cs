@@ -61,6 +61,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Availability.EndDate.Empty.
+        /// </summary>
+        internal static string EmptyEndDate {
+            get {
+                return ResourceManager.GetString("EmptyEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AvailabilityException.HostId.Empty.
         /// </summary>
         internal static string EmptyHostId {

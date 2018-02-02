@@ -34,6 +34,5 @@ namespace RSService.BusinessLogic
 
         bool IsActiveUser(String email);
 
-
     }
 }
