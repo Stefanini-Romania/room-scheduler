@@ -16,7 +16,7 @@
                                         <div class="form-group">
                                           <div class="input-group">
                                             <input class="form-control" placeholder="yyyy-mm-dd"
-                                                   name="dp" ngbDatepicker #d="ngbDatepicker" id="datePicker" >
+                                                   name="dp" ngbDatepicker #d="ngbDatepicker" id="datePicker" [(ngModel)]="model.startDate">
                                             <div class="input-group-append">
                                               <button class="btn btn-primary" (click)="d.toggle()" type="button" id="dropdownHosts">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -47,7 +47,7 @@
             <form [formGroup]="checkboxGroupForm">
                 <div class="btn-group btn-group-toggle">
                       <label class="btn-primary labelCheckbox" ngbButtonLabel>
-                        <input type="checkbox" formControlName="monday" ngbButton>{{'calendar.days.namesAbbr.Mon' | translate}}
+                        <input type="checkbox" formControlName="monday" ngbButton >{{'calendar.days.namesAbbr.Mon' | translate}}
                       </label>
                       <label class="btn-primary labelCheckbox" ngbButtonLabel>
                         <input type="checkbox" formControlName="tuesday" ngbButton> {{'calendar.days.namesAbbr.Tue' | translate}}

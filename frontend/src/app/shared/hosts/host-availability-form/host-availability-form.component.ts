@@ -1,6 +1,7 @@
 import {Component, NgModule, OnInit} from '@angular/core'
 import {TranslateService} from "@ngx-translate/core";
-import {NgbActiveModal, NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap'
+import {NgbActiveModal, NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastrService} from 'ngx-toastr';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 import {User} from '../../models/user.model';
@@ -15,8 +16,9 @@ import {HostService} from './../../services/host.service';
 
 export class HostAvailabilityForm{
     public checkboxGroupForm: FormGroup;
+    public model: Availability = <Availability>{};
 
-    constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal){}
+    constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService){}
 
     ngOnInit() {
         this.checkboxGroupForm = this.formBuilder.group({
@@ -27,4 +29,24 @@ export class HostAvailabilityForm{
           friday: false
         });
       }
-}
+
+      addAvailability(){
+          this.hostService.AddHostAvailability(
+              this.model.startDate, 
+              this.model.endDate, 
+              this.model.availabilityType, 
+              this.model.daysOfWeek, 
+              this.model.occurrence, 
+              this.model.roomId).subscribe(() => {
+               
+                this.toastr.success(
+                    this.translate.instant('rooms.created'), '',
+                    {positionClass: 'toast-bottom-right'}
+                );                                                         
+            },
+            error => {
+                
+            });    
+
+      }
+    }

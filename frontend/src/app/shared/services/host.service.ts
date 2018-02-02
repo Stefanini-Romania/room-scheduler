@@ -47,7 +47,7 @@ export class HostService {
     public selectHost(host: User) {
         this.selectedHostChanged$.emit(host);
     }  
-    public AddHostAvailability(startDate: Date, endDate: Date, availabilityType: number, daysOfWeek: any, occurrence: number, roomId?: number){
+    public AddHostAvailability(startDate: Date, endDate: Date, availabilityType: number, daysOfWeek: number[], occurrence: number, roomId?: number){
         const url = environment.apiUrl + '/availability/add';
         const body = JSON.stringify({
             startDate: startDate,
