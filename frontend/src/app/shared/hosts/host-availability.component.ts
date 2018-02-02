@@ -9,18 +9,21 @@ import {EventTypeEnum} from '../../shared/models/event.model';
 import {EventStatusEnum} from '../../shared/models/event.model';
 import {HostAvailabilityService} from './../services/host-availability.service';
 import {Availability} from './../models/availability.model';
+import {HostSelector} from '../../hosts/host-selector.component';
 //import {HostService} from './../services/host-availability.service';
 
 @Component({
     selector: 'host-availability',
     templateUrl: './host-availability.component.html',
-    providers: [EventService, HostAvailabilityService]
+    providers: [EventService, HostAvailabilityService, HostSelector]
 })
 
 export class HostAvailability{
 
     users: User[] = [];
     public availabilities: Availability[] = [];
+    public exceptions: Availability[] = [];
+    public events: Availability[] = [];
     public model: Availability = <Availability>{};
     public selectedHost: User;
     public roomId: number;
@@ -48,19 +51,25 @@ export class HostAvailability{
         this.getStartOfWeek();
         this.startDate = new Date();
         this.availabilities = [];
-        this.HostAvailabilityService.HostAvailabilityList(this.model.startDate, this.model.hostId = 3, this.model.endDate, this.model.roomId).subscribe((availabilities: Availability[]) => {
-            for (let day of availabilities) {           
-                this.availabilities.push(<Availability>day);
-                // if (day.availabilityType == 2){  
-                //     this.exception == true;
-                //     console.log("Excep");
-                // } else {
-                //     console.log("noExcep");
-                //     this.exception == false;
-                // }
+        this.exceptions = [];
+        this.events = [];
+
+        //this.model.hostId = this.selectedHost.id;
+        this.HostAvailabilityService.HostAvailabilityList(this.model.startDate, this.model.hostId = 3, this.model.endDate, this.model.roomId).subscribe((events: Availability[]) => {
+            for (let day of events) {    
+                if (day.availabilityType == 2) {
+                    this.exceptions.push(<Availability>day);
+                } else {
+                    this.availabilities.push(<Availability>day);
+                }                           
             }
         });       
     }   
+
+    onHostChanged(selectedHost: User) {
+        this.selectedHost = selectedHost;
+        this.listAvailabilities();
+    }
 
     getStartOfWeek(){
         this.model.startDate = new Date();
@@ -71,7 +80,7 @@ export class HostAvailability{
             currentDate=currentDate-1;
         }
         this.model.startDate.setDate(currentDate);
-        this.model.endDate = new Date(this.model.startDate.getFullYear(), this.model.startDate.getMonth(), this.model.startDate.getDate()+4);
+        this.model.endDate = new Date(this.model.startDate.getFullYear(),   this.model.startDate.getMonth(), this.model.startDate.getDate()+4);
 
     }
 

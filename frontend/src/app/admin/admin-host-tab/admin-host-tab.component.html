@@ -1,6 +1,6 @@
 
 <div class="row" style="margin-left:0px">
-  <host-selector></host-selector>
+  <host-selector (hostChange)="onHostChanged($event)"></host-selector>
   <form class="form-inline datePickerForm">
     <div class="form-group">
       <div class="input-group">
