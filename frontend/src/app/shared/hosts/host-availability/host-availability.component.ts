@@ -67,7 +67,7 @@ export class HostAvailability{
         this.exceptions = [];
         this.events = [];
         //this.model.hostId = this.HostService.
-        this.HostService.HostAvailabilityList(this.model.startDate, this.model.hostId, this.model.endDate, this.model.roomId).subscribe((events: Availability[]) => {
+        this.HostService.HostAvailabilityList(this.model.startDate, this.model.hostId=3, this.model.endDate, this.model.roomId).subscribe((events: Availability[]) => {
             for (let day of events) {    
                 if (day.availabilityType == 2) {
                     this.exceptions.push(<Availability>day);
