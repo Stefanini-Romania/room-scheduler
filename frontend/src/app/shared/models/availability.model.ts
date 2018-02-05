@@ -2,7 +2,7 @@ export class Availability{
     id?: number;
     startDate: Date;
     endDate?: Date;
-    daysOfWeek: number[];
+    daysOfWeek: any;
     availabilityType: number;
     roomId?: number;
     hostId: number;

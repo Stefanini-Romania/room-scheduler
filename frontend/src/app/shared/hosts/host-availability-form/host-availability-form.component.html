@@ -26,7 +26,7 @@
                                         </div>
                                 </form>
                                         
-                               <room-selector></room-selector>    
+                               <room-selector (roomChange)="onRoomChanged($event)"></room-selector>    
                         </div>
                 </form>
                 
@@ -39,39 +39,31 @@
                     </div>
         
                     <div class="row justify-content-center align-self-center mx-auto">
-                            <ngb-timepicker  class="timePicker"></ngb-timepicker>
-                            <ngb-timepicker ></ngb-timepicker>
+                            <ngb-timepicker  class="timePicker" [(ngModel)]="startHour"></ngb-timepicker>
+                            <ngb-timepicker [(ngModel)]="endHour"></ngb-timepicker>
                     </div>
             </div>
             <!--DAY OF WEEK CHECKBOX-->
-            <form [formGroup]="checkboxGroupForm">
-                <div class="btn-group btn-group-toggle">
-                      <label class="btn-primary labelCheckbox" ngbButtonLabel>
-                        <input type="checkbox" formControlName="monday" ngbButton >{{'calendar.days.namesAbbr.Mon' | translate}}
-                      </label>
-                      <label class="btn-primary labelCheckbox" ngbButtonLabel>
-                        <input type="checkbox" formControlName="tuesday" ngbButton> {{'calendar.days.namesAbbr.Tue' | translate}}
-                      </label>
-                      <label class="btn-primary labelCheckbox" ngbButtonLabel>
-                        <input type="checkbox" formControlName="wednesday" ngbButton> {{'calendar.days.namesAbbr.Wed' | translate}}
-                      </label>
-                      <label class="btn-primary labelCheckbox" ngbButtonLabel>
-                            <input type="checkbox" formControlName="thursday" ngbButton> {{'calendar.days.namesAbbr.Thu' | translate}}
-                    </label>
-                    <label class="btn-primary labelCheckbox" ngbButtonLabel>
-                            <input type="checkbox" formControlName="friday" ngbButton> {{'calendar.days.namesAbbr.Fri' | translate}}
-                    </label>
+            <div class="form-group btn-group">
+                    <div *ngFor="let day of daysOfWeek">
+                        <label class="btn-primary labelCheckbox" ngbButtonLabel>
+                            <input type="checkbox"
+                                   name="daysOfWeek"
+                                   value="{{day.value}}"
+                                   [(ngModel)]="day.checked"/>
+                            {{day.name}}
+                        </label>
+                    </div>
                 </div>
-            </form>
             <!--OCCURENCE-->
             <div class="row labelCheckbox">
                       <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>{{'Availability.occurence' | translate}}</button>
+                        <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle >{{'Availability.occurence' | translate}}</button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                          <button class="dropdown-item">1 {{'week' | translate}}</button>
-                          <button class="dropdown-item">2 {{'weeks' | translate}}</button>
-                          <button class="dropdown-item">3 {{'weeks' | translate}}</button>
-                          <button class="dropdown-item">4 {{'weeks' | translate}}</button>
+                          <button class="dropdown-item" value="1" >1 {{'week' | translate}}</button>
+                          <button class="dropdown-item" value="2" >2 {{'weeks' | translate}}</button>
+                          <button class="dropdown-item" value="3" >3 {{'weeks' | translate}}</button>
+                          <button class="dropdown-item" value="4" >4 {{'weeks' | translate}}</button>
                         </div>
             </div>
            
@@ -80,5 +72,5 @@
     
     <div class="modal-footer">
         
-        <button type="button" class="btn btn-primary float-right" >{{'button.save'|translate}}</button> 
+        <button type="button" class="btn btn-primary float-right" (click)="addAvailability()">{{'button.save'|translate}}</button> 
     </div>
