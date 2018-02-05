@@ -87,7 +87,7 @@ namespace RSRepository
         {
             return availabilities.Where(a => a.HostId == hostId)
                                  .Where(a => a.AvailabilityType == 0)
-                                 .Where(a => a.DayOfWeek == dayOfWeek)
+                                 .Where(a => (int)a.StartDate.DayOfWeek == dayOfWeek)
                                  .ToList();
         }
 
