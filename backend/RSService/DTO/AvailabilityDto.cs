@@ -10,26 +10,23 @@ namespace RSService.DTO
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int DayOfWeek { get; set; }
         public int AvailabilityType { get; set; }
         public int? RoomId { get; set; }
 
-        public AvailabilityDto(int id, DateTime startDate, DateTime endDate, int dayOfWeek,  int availabilityType, int? roomId)
+        public AvailabilityDto(int id, DateTime startDate, DateTime endDate, int availabilityType, int? roomId)
         {
             Id = id;
             StartDate = startDate;
             EndDate = endDate;
-            DayOfWeek = dayOfWeek;
             AvailabilityType = availabilityType;
             RoomId = roomId;
         }
 
-        public AvailabilityDto(int id, DateTime startDate, DateTime endDate, int dayOfWeek, int availabilityType)
+        public AvailabilityDto(int id, DateTime startDate, DateTime endDate, int availabilityType)
         {
             Id = id;
             StartDate = startDate;
             EndDate = endDate;
-            DayOfWeek = dayOfWeek;
             AvailabilityType = availabilityType;
         }
     }

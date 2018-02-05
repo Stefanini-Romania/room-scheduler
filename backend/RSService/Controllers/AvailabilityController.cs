@@ -43,7 +43,7 @@ namespace RSService.Controllers
                 List<AvailabilityDto> finalResults = new List<AvailabilityDto>();
                 foreach(var ex in exceptions)
                 {
-                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.DayOfWeek, ex.AvailabilityType));
+                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType));
                 }
                 return Ok(finalResults);
             }
@@ -57,23 +57,22 @@ namespace RSService.Controllers
             {
                 if (av.AvailabilityType == (int)AvailabilityEnum.Exception)
                 {
-                    if (av.StartDate >= startDate && av.StartDate <= startDate.AddDays(4))
+                    if (av.StartDate.Date >= startDate && av.StartDate.Date <= startDate.AddDays(4).Date)
                     {
-                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.DayOfWeek, av.AvailabilityType));
+                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType));
                     }
                 }
                 else
                 {
-                    DateTime date = av.StartDate;
+                    DateTime date = av.StartDate.AddDays(-(int)av.StartDate.DayOfWeek + 1);
                     while (date.Date <= startDate.Date)
                     {
                         if (date.Date == startDate.Date)
                         {
                             results.Add(new AvailabilityDto(
                                             av.Id,
-                                            date.AddDays(av.DayOfWeek -1), 
-                                            new DateTime(date.Year, date.Month, date.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second).AddDays(av.DayOfWeek -1), 
-                                            av.DayOfWeek, 
+                                            new DateTime(date.Year, date.Month, date.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second).AddDays((int)av.StartDate.DayOfWeek - 1), 
+                                            new DateTime(date.Year, date.Month, date.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second).AddDays((int)av.StartDate.DayOfWeek - 1),
                                             av.AvailabilityType, 
                                             av.RoomId));
                         }
@@ -135,15 +134,14 @@ namespace RSService.Controllers
                 foreach (var day in newAvailability.DaysOfWeek)
                 {
                     Availability availability = new Availability(
-                                        newAvailability.StartDate,
-                                        newAvailability.EndDate,
+                                        newAvailability.StartDate.AddDays(day - 1),
+                                        newAvailability.EndDate.AddDays(day - 1),
                                         day,
                                         (int)AvailabilityEnum.Available,
                                         newAvailability.RoomId,
                                         currentUser.Id,
                                         newAvailability.Occurrence
                                         );
-
                     availabilityRepository.AddAvailability(availability);
                 }
             }
@@ -157,14 +155,14 @@ namespace RSService.Controllers
                 foreach (var day in newAvailability.DaysOfWeek)
                 {
                     Availability availability = new Availability(
-                        newAvailability.StartDate,
-                        newAvailability.EndDate,
+                        newAvailability.StartDate.AddDays(day - 1),
+                        newAvailability.EndDate.AddDays(day - 1),
                         day,
                         newAvailability.AvailabilityType,
                         newAvailability.RoomId,
                         (int)hostId,
                         newAvailability.Occurrence
-                    );
+                        );
                     availabilityRepository.AddAvailability(availability);
                 }
             }
@@ -190,21 +188,17 @@ namespace RSService.Controllers
 
             if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.host))
             {
-                //Find the rooms where the host has availability and add exception for each room
-                var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDay(currentUser.Id, (int)avException.StartDate.DayOfWeek);
+                //var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDay(currentUser.Id, (int)avException.StartDate.DayOfWeek);
 
-                foreach (var av in availabilities)
-                {
-                    Availability availability = new Availability(
-                                        new DateTime(avException.StartDate.Year, avException.StartDate.Month, avException.StartDate.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second),
-                                        new DateTime(avException.EndDate.Year, avException.EndDate.Month, avException.EndDate.Day, av.EndDate.Hour,av.EndDate.Minute, av.EndDate.Second),
-                                        (int)AvailabilityEnum.Exception,
-                                        av.RoomId,
-                                        currentUser.Id,
-                                        null
-                                        );
-                    availabilityRepository.AddAvailability(availability);
-                } 
+                Availability availability = new Availability(
+                                    avException.StartDate,
+                                    avException.EndDate,
+                                    (int)AvailabilityEnum.Exception,
+                                    null, // av.RoomId,
+                                    currentUser.Id,
+                                    null
+                                    );
+                availabilityRepository.AddAvailability(availability);  
             }
             else  //Admin
             {
