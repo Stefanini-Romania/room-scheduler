@@ -26,23 +26,11 @@ namespace RSData.Models
         {
             StartDate = startDate;
             EndDate = endDate;
-            DayOfWeek = (int)startDate.DayOfWeek;
             AvailabilityType = availabilityType;
             RoomId = roomId;
             HostId = hostId;
             Occurrence = occurrence;
             
-        }
-
-        public Availability(DateTime startDate, DateTime endDate, int dayOfWeek, int availabilityType, int? roomId, int hostId, int? occurrence)
-        {
-            StartDate = startDate;
-            EndDate = endDate;
-            DayOfWeek = dayOfWeek;
-            AvailabilityType = availabilityType;
-            RoomId = roomId;
-            HostId = hostId;
-            Occurrence = occurrence;
         }
     }
 }

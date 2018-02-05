@@ -136,7 +136,6 @@ namespace RSService.Controllers
                     Availability availability = new Availability(
                                         newAvailability.StartDate.AddDays(day - 1),
                                         newAvailability.EndDate.AddDays(day - 1),
-                                        day,
                                         (int)AvailabilityEnum.Available,
                                         newAvailability.RoomId,
                                         currentUser.Id,
@@ -157,7 +156,6 @@ namespace RSService.Controllers
                     Availability availability = new Availability(
                         newAvailability.StartDate.AddDays(day - 1),
                         newAvailability.EndDate.AddDays(day - 1),
-                        day,
                         newAvailability.AvailabilityType,
                         newAvailability.RoomId,
                         (int)hostId,
@@ -188,17 +186,21 @@ namespace RSService.Controllers
 
             if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.host))
             {
-                //var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDay(currentUser.Id, (int)avException.StartDate.DayOfWeek);
+                //Find the availabilities for that day of week and add exception for each room
+                var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDay(currentUser.Id, (int)avException.StartDate.DayOfWeek);
 
-                Availability availability = new Availability(
-                                    avException.StartDate,
-                                    avException.EndDate,
-                                    (int)AvailabilityEnum.Exception,
-                                    null, // av.RoomId,
-                                    currentUser.Id,
-                                    null
-                                    );
-                availabilityRepository.AddAvailability(availability);  
+                foreach(var av in availabilities)
+                {
+                    Availability availability = new Availability(
+                                new DateTime(Math.Max(avException.StartDate.TimeOfDay.Ticks, av.StartDate.TimeOfDay.Ticks)),
+                                new DateTime(Math.Min(avException.EndDate.TimeOfDay.Ticks, av.EndDate.TimeOfDay.Ticks)),
+                                (int)AvailabilityEnum.Exception,
+                                av.RoomId,
+                                currentUser.Id,
+                                null
+                                );
+                    availabilityRepository.AddAvailability(availability);
+                }           
             }
             else  //Admin
             {
@@ -206,22 +208,42 @@ namespace RSService.Controllers
                 {
                     return ValidationError(AvailabilityMessages.EmptyHostId);
                 }
-                //Find the rooms where the host has availability and add exception for each room
+                //Find the availabilities for that day of week and add exception for each room
                 var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDay((int)hostId, (int)avException.StartDate.DayOfWeek);
 
                 foreach (var av in availabilities)
                 {
+                    DateTime newStart;
+                    DateTime newEnd;
+
+                    if (avException.StartDate.TimeOfDay.Ticks > av.StartDate.TimeOfDay.Ticks)
+                    {
+                        newStart = avException.StartDate;
+                    }
+                    else
+                    {
+                        newStart = new DateTime(avException.StartDate.Year, avException.StartDate.Month, avException.StartDate.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second);
+                    }
+
+                    if (avException.EndDate.TimeOfDay.Ticks < av.EndDate.TimeOfDay.Ticks)
+                    {
+                        newEnd = avException.EndDate;
+                    }
+                    else
+                    {
+                        newEnd = new DateTime(avException.EndDate.Year, avException.EndDate.Month, avException.EndDate.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second);
+                    }
+
                     Availability availability = new Availability(
-                                        new DateTime(avException.StartDate.Year, avException.StartDate.Month, avException.StartDate.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second),
-                                        new DateTime(avException.EndDate.Year, avException.EndDate.Month, avException.EndDate.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second),
-                                        (int)AvailabilityEnum.Exception,
-                                        av.RoomId,
-                                        (int)hostId,
-                                        null
-                                        );
+                                newStart,
+                                newEnd,
+                                (int)AvailabilityEnum.Exception,
+                                av.RoomId,
+                                (int)hostId,
+                                null
+                                );
                     availabilityRepository.AddAvailability(availability);
                 }
-                 
             }
             Context.SaveChanges();
 
