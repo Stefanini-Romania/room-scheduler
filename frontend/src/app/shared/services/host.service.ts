@@ -14,7 +14,7 @@ export class HostService {
     constructor(private http: HttpClient) {
     }
 
-    public HostAvailabilityList(startDate: Date, hostId: number, endDate?: Date, roomId?: number) {
+    public HostAvailabilityList(startDate: Date, hostId?: number, endDate?: Date, roomId?: number) {
         const url = environment.apiUrl + '/availability/list';
         let params = new HttpParams();
         
