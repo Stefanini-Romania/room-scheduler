@@ -191,9 +191,30 @@ namespace RSService.Controllers
 
                 foreach(var av in availabilities)
                 {
+                    DateTime newStart;
+                    DateTime newEnd;
+
+                    if (avException.StartDate.TimeOfDay.Ticks > av.StartDate.TimeOfDay.Ticks)
+                    {
+                        newStart = avException.StartDate;
+                    }
+                    else
+                    {
+                        newStart = new DateTime(avException.StartDate.Year, avException.StartDate.Month, avException.StartDate.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second);
+                    }
+
+                    if (avException.EndDate.TimeOfDay.Ticks < av.EndDate.TimeOfDay.Ticks)
+                    {
+                        newEnd = avException.EndDate;
+                    }
+                    else
+                    {
+                        newEnd = new DateTime(avException.EndDate.Year, avException.EndDate.Month, avException.EndDate.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second);
+                    }
+
                     Availability availability = new Availability(
-                                new DateTime(Math.Max(avException.StartDate.TimeOfDay.Ticks, av.StartDate.TimeOfDay.Ticks)),
-                                new DateTime(Math.Min(avException.EndDate.TimeOfDay.Ticks, av.EndDate.TimeOfDay.Ticks)),
+                                newStart,
+                                newEnd,
                                 (int)AvailabilityEnum.Exception,
                                 av.RoomId,
                                 currentUser.Id,
