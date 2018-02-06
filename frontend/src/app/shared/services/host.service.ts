@@ -47,19 +47,24 @@ export class HostService {
     public selectHost(host: User) {
         this.selectedHostChanged$.emit(host);
     }  
-    public AddHostAvailability(startDate: Date, endDate: Date, availabilityType: number, daysOfWeek: any, occurrence: number, roomId?: number){
+    public AddHostAvailability(startDate: Date, endDate: Date, availabilityType: number, daysOfWeek: any, occurrence: number, roomId?: number, hostId?: number){
         const url = environment.apiUrl + '/availability/add';
+        let params = new HttpParams();
+        if (hostId > 0){
+            params = params.append("hostId", hostId.toString());
+        }
         const body = JSON.stringify({
             startDate: startDate,
             endDate: endDate,
             availabilityType: availabilityType,
             daysOfWeek: daysOfWeek,
             occurrence: occurrence,
-            roomId: roomId   
+            roomId: roomId,
+            
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
-        return this.http.post(url, body, {headers: headers, withCredentials: true})
+        return this.http.post(url, body, {headers: headers, withCredentials: true, params: params})
             .catch((error: any) => {
                 return Observable.throw(error);
             })

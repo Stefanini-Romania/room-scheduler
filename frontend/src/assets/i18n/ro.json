@@ -88,7 +88,7 @@
       "isNotActive": "Inactiv",
       "status": "Status"
   },
-  "week": "Săptămână",
+  "week": "Săptămână(i)",
   "weeks": "Săptămâni",
   "name": "Nume",
   "location": "Locație",
@@ -295,7 +295,9 @@
         "occurence": "Recurență",
         "startHour": "De la ora",
         "endHour": "Până la ora",
-        "add": "Adaugă disponibilitate"
+        "add": "Adaugă disponibilitate",
+        "successfully.added": "Disponibilitatea a fost adăugată cu succes!",
+        "notSuccessfull": "Atenție! Disponibilitatea nu a putut fi salvată!"
         
     },
     "Availabilities": "Disponibilități",

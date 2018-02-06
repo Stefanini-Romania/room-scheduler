@@ -88,7 +88,7 @@
       "isNotActive": "Inactive",
       "status": "Status"
   },
-  "week": "Week",
+  "week": "Week(s)",
   "weeks": "Weeks",
   "name": "Name",
   "location": "Location",
@@ -280,7 +280,9 @@
          "occurence": "Occurence",
          "startHour": "Start hour",
          "endHour": "End hour",
-         "add": "Add availability"
+         "add": "Add availability",
+         "successfully.added": "The availability has been successfully added!",
+         "notSuccessfull": "Error! The availability has not been saved!"
      },
      
     "Availabilities": "Availabilities",

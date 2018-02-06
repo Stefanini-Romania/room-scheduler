@@ -529,6 +529,12 @@ input[_ngcontent-c1]{
     margin-left: 25px;
 }
 
+#occurrence{
+    color: #212529;
+    background-color: white;
+    padding-top: px !important;
+}
+
 /* .scrollit {
     overflow:scroll;
     height:200px;
