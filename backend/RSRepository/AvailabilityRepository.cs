@@ -23,13 +23,6 @@ namespace RSRepository
             return availabilities.FirstOrDefault(s => s.Id == id);
         }
 
-        public List<Availability> GetAvailabilities()
-        {
-            return availabilities.Where(e => e.DayOfWeek == 1)
-                                 .Include(e => e.Host)
-                                 .ToList();
-        }
-
         public List<Availability> GetAvailabilities(int?[] roomId, int?[] hostId)
         {
             return availabilities.Where(e => roomId.Contains(e.RoomId))

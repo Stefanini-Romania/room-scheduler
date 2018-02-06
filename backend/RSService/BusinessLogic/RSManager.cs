@@ -42,7 +42,7 @@ namespace RSService.BusinessLogic
             int fakeId = 1;
             while (endDate.Date >= currentDay)
             {
-                availabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek).ToList();
+                availabilities = availabilities.Where(e => e.StartDate.DayOfWeek == currentDay.DayOfWeek).ToList();
 
                 foreach (Availability entry in availabilities)
                 {
@@ -79,7 +79,7 @@ namespace RSService.BusinessLogic
             int fakeId = 1;
             while (endDate.Date >= currentDay)
             {
-                var dayAvailabilities = availabilities.Where(e => e.DayOfWeek == (int)currentDay.DayOfWeek).ToList();
+                var dayAvailabilities = availabilities.Where(e => e.StartDate.DayOfWeek == currentDay.DayOfWeek).ToList();
 
                 foreach (Availability entry in dayAvailabilities)
                 {

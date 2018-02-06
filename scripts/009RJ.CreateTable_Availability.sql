@@ -9,7 +9,7 @@
     Target Database Engine Type : Standalone SQL Server
 */
 
-/****** Object:  Table [dbo].[Availability]    Script Date: 30-Jan-18 5:20:49 PM ******/
+/****** Object:  Table [dbo].[Availability]    Script Date: 06-Feb-18 1:20:13 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -22,11 +22,10 @@ CREATE TABLE [dbo].[Availability](
 	[AvailabilityId] [int] IDENTITY(1,1) NOT NULL,
 	[StartDate] [datetime] NOT NULL,
 	[EndDate] [datetime] NOT NULL,
-	[DayOfWeek] [int] NOT NULL,
 	[AvailabilityType] [int] NOT NULL,
-	[RoomId] [int] NULL,
+	[RoomId] [int] NOT NULL,
 	[HostId] [int] NOT NULL,
-	[Occurrence] [int] NOT NULL,
+	[Occurrence] [int] NULL,
  CONSTRAINT [PK_Availability] PRIMARY KEY CLUSTERED 
 (
 	[AvailabilityId] ASC

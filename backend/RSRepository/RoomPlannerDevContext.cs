@@ -28,7 +28,6 @@ namespace RSRepository
                 entity.Property(e => e.Id).HasColumnName("AvailabilityId");
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
-                entity.Property(e => e.DayOfWeek).HasColumnName("DayOfWeek");
                 entity.Property(e => e.AvailabilityType).HasColumnName("AvailabilityType");
                 entity.Property(e => e.RoomId).HasColumnName("RoomId");
                 entity.Property(e => e.HostId).HasColumnName("HostId");

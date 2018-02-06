@@ -43,7 +43,7 @@ namespace RSService.Controllers
                 List<AvailabilityDto> finalResults = new List<AvailabilityDto>();
                 foreach(var ex in exceptions)
                 {
-                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType));
+                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType, ex.RoomId));
                 }
                 return Ok(finalResults);
             }
@@ -59,7 +59,7 @@ namespace RSService.Controllers
                 {
                     if (av.StartDate.Date >= startDate && av.StartDate.Date <= startDate.AddDays(4).Date)
                     {
-                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType));
+                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType, av.RoomId));
                     }
                 }
                 else
@@ -114,12 +114,6 @@ namespace RSService.Controllers
             }
 
             // Validations
-            // If already exists availabilities for this host in this day, return Error
-            //var dbAvailabilities = availabilityRepository.GetAvailabilities(newAvailability);
-            //if (dbAvailabilities != null)
-            //{
-
-            //}
             // Un host sa poata apela serviciile doar pt programul sau, nu si pt programul altui host 
 
             var schedulerIdentity = SchedulerIdentity.Current(HttpContext);

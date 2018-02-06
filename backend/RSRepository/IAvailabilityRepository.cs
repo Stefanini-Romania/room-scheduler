@@ -9,7 +9,6 @@ namespace RSRepository
     public interface IAvailabilityRepository
     {
         Availability GetAvailabilityById(int id);
-        List<Availability> GetAvailabilities();
         List<Availability> GetAvailabilities(int?[] roomId, int?[] hostId);
         List<Availability> GetAvailabilities(int?[] roomId);
         List<Availability> GetAvailabilitiesByHost(int hostId);
