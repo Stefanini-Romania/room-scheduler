@@ -14,7 +14,7 @@ import {HostSelector} from './../host-selector/host-selector.component';
 @Component({
     selector: 'host-availability',
     templateUrl: './host-availability.component.html',
-    providers: [EventService, HostService, HostSelector]
+    providers: [EventService, HostService]
 })
 
 export class HostAvailability{
@@ -42,6 +42,20 @@ export class HostAvailability{
         this.listAvailabilities();
     }
 
+
+    // onHostChanged(selectedHost: User) {
+    //     this.selectedHost = selectedHost;
+    //     this.listAvailabilities();
+    // }
+    
+    onSelectHost(host: User) {
+        //this.selectedHost = host;
+
+        // broadcast global event that host has changed
+        this.HostService.selectHost(host);
+        //this.hostChange.emit(host);
+    }
+
     listAvailabilities() {
         // if (!this.startDate || !this.endDate || !this.selectedHost) {
         //     return;
@@ -52,9 +66,8 @@ export class HostAvailability{
         this.availabilities = [];
         this.exceptions = [];
         this.events = [];
-
-        //this.model.hostId = this.selectedHost.id;
-        this.HostService.HostAvailabilityList(this.model.startDate, this.model.hostId = 3, this.model.endDate, this.model.roomId).subscribe((events: Availability[]) => {
+        //this.model.hostId = this.HostService.
+        this.HostService.HostAvailabilityList(this.model.startDate, this.model.hostId=3, this.model.endDate, this.model.roomId).subscribe((events: Availability[]) => {
             for (let day of events) {    
                 if (day.availabilityType == 2) {
                     this.exceptions.push(<Availability>day);
@@ -65,11 +78,6 @@ export class HostAvailability{
         });       
     }   
 
-    onHostChanged(selectedHost: User) {
-        this.selectedHost = selectedHost;
-        this.listAvailabilities();
-    }
-
     getStartOfWeek(){
         this.model.startDate = new Date();
         let dayOfWeek = this.model.startDate.getDay();
@@ -79,9 +87,6 @@ export class HostAvailability{
             currentDate=currentDate-1;
         }
         this.model.startDate.setDate(currentDate);
-        this.model.endDate = new Date(this.model.startDate.getFullYear(),   this.model.startDate.getMonth(), this.model.startDate.getDate()+4);
-
-    }
-
-    
+        this.model.endDate = new Date(this.model.startDate.getFullYear(), this.model.startDate.getMonth(), this.model.startDate.getDate()+4);
+    } 
 }
