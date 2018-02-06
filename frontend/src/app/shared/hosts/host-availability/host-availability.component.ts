@@ -1,31 +1,28 @@
-import {Component, NgModule} from '@angular/core'
+import {Component, NgModule, Host, EventEmitter} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
 
 import {User} from '../../../shared/models/user.model';
-import {Event} from '../../../shared/models/event.model';
-import {EventService} from './../../../calendars/shared/event.service';
-import {EventTypeEnum} from '../../../shared/models/event.model';
-import {EventStatusEnum} from '../../../shared/models/event.model';
 import {HostService} from './../../services/host.service';
 import {Availability} from './../../models/availability.model';
 import {HostSelector} from './../host-selector/host-selector.component';
 
+
 @Component({
     selector: 'host-availability',
     templateUrl: './host-availability.component.html',
-    providers: [EventService, HostService]
+    providers: [HostService]
 })
 
 export class HostAvailability{
-
-    users: User[] = [];
+   
     public availabilities: Availability[] = [];
     public exceptions: Availability[] = [];
     public events: Availability[] = [];
     public model: Availability = <Availability>{};
     public selectedHost: User;
     public roomId: number;
+    users: User[] = [];
     hosts: any[] = [];
     availabilityHostGroupName: string;
     host: User[] = [];
@@ -35,39 +32,28 @@ export class HostAvailability{
     public endDate: Date;  
     public hostId: number;
     public exception: boolean;
-
-    constructor(public HostService: HostService, translate: TranslateService) {}
-    
-    ngAfterViewInit(){
-        this.listAvailabilities();
+  
+    constructor(public HostService: HostService, translate: TranslateService) {
+        
     }
 
-
-    // onHostChanged(selectedHost: User) {
-    //     this.selectedHost = selectedHost;
-    //     this.listAvailabilities();
-    // }
-    
-    onSelectHost(host: User) {
-        //this.selectedHost = host;
-
-        // broadcast global event that host has changed
-        this.HostService.selectHost(host);
-        //this.hostChange.emit(host);
+    onHostChanged(selectedHost: User) {
+        this.selectedHost = selectedHost;
+        this.listAvailabilities();
     }
 
     listAvailabilities() {
         // if (!this.startDate || !this.endDate || !this.selectedHost) {
         //     return;
         // }
-    
+       
         this.getStartOfWeek();
         this.startDate = new Date();
         this.availabilities = [];
         this.exceptions = [];
         this.events = [];
-        //this.model.hostId = this.HostService.
-        this.HostService.HostAvailabilityList(this.model.startDate, this.model.hostId=3, this.model.endDate, this.model.roomId).subscribe((events: Availability[]) => {
+        
+        this.HostService.HostAvailabilityList(this.model.startDate, this.selectedHost.id, this.model.endDate, this.model.roomId).subscribe((events: Availability[]) => {
             for (let day of events) {    
                 if (day.availabilityType == 2) {
                     this.exceptions.push(<Availability>day);

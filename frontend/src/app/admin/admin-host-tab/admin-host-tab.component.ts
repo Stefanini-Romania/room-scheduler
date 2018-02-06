@@ -5,13 +5,13 @@ import {NgbModal, NgbModalRef, NgbPaginationConfig, ModalDismissReasons} from '@
 import {HostAvailabilityForm} from '../../shared/hosts/host-availability-form/host-availability-form.component';
 import {User} from './../../shared/models/user.model';
 import {HostService} from './../../shared/services/host.service';
+import {HostAvailability} from './../../shared/hosts/host-availability/host-availability.component';
 
 @Component({
     selector: 'admin-host-tab',
     templateUrl: './admin-host-tab.component.html',
     styleUrls: [],
-    providers: [HostService]
-    
+    providers: [HostService, HostAvailability]  
 })
 
 export class AdminHostComponent {
@@ -20,8 +20,8 @@ export class AdminHostComponent {
     public model: Availability = <Availability>{};
     public selectedHost: User;
 
-    constructor(private modalService: NgbModal, public hostService: HostService){
-        hostService.selectedHostChanged$.subscribe((host: User) => {
+    constructor(private modalService: NgbModal, public HostService: HostService, public hostAvailability: HostAvailability){
+        HostService.selectedHostChanged$.subscribe((host: User) => {
             this.selectedHost;
         });
     }
@@ -43,7 +43,6 @@ export class AdminHostComponent {
     })}
 
     onHostChanged(selectedHost: User) {
-        this.selectedHost = selectedHost;
-        //this.listAvailabilities();
+        this.selectedHost = selectedHost; 
     }
 }

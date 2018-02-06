@@ -17,8 +17,8 @@ import {HostSelector} from '../shared/hosts/host-selector/host-selector.componen
 @NgModule({
     imports: [CommonModule, FormsModule, HttpModule, NgbModule, TranslateModule, SharedModule],
     providers: [DialogService, APIRequestInterceptor],
-    declarations: [RsHeaderComponent, RsFooterComponent, LanguageSelector, RSDialogContentComponent, HostSelector],
-    exports: [CommonModule, FormsModule, TranslateModule, NgbModule, RsHeaderComponent, RsFooterComponent, HostSelector],
+    declarations: [RsHeaderComponent, RsFooterComponent, LanguageSelector, RSDialogContentComponent],
+    exports: [CommonModule, FormsModule, TranslateModule, NgbModule, RsHeaderComponent, RsFooterComponent],
     entryComponents: [RSDialogContentComponent]
 })
 export class CoreModule {
