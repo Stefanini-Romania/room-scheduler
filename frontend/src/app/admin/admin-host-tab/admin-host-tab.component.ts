@@ -38,7 +38,9 @@ export class AdminHostComponent {
 
     onAddAvailability() {
         const modalRef:NgbModalRef = this.modalService.open(HostAvailabilityForm);
-    }
+        modalRef.componentInstance.successfullAddAvailability.subscribe(() => {
+            modalRef.close();
+    })}
 
     onHostChanged(selectedHost: User) {
         this.selectedHost = selectedHost;

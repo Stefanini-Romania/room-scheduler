@@ -1,4 +1,4 @@
-import {Component, NgModule, OnInit} from '@angular/core'
+import {Component, NgModule, OnInit, Output, EventEmitter} from '@angular/core'
 import {TranslateService} from "@ngx-translate/core";
 import {NgbActiveModal, NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
@@ -17,6 +17,9 @@ import {Room} from '../../models/room.model';
 })
 
 export class HostAvailabilityForm{
+    @Output()
+    successfullAddAvailability = new EventEmitter;
+
     public model: Availability = <Availability>{};
     public startHour;
     public endHour;
@@ -82,6 +85,7 @@ export class HostAvailabilityForm{
             },
             error => {
                 if(error.status==200){
+                    this.successfullAddAvailability.emit();
                     this.toastr.success(
                         this.translate.instant('Availability.successfully.added'), '',
                         {positionClass: 'toast-bottom-right'}
