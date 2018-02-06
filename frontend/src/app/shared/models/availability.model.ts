@@ -7,4 +7,5 @@ export class Availability{
     roomId?: number;
     hostId: number;
     occurrence: number;
+    status: number;
 }
