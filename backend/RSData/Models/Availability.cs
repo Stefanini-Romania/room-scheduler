@@ -13,6 +13,7 @@ namespace RSData.Models
         public int RoomId { get; set; }
         public int HostId { get; set; }
         public int? Occurrence { get; set; }
+        public int Status { get; set; }
 
         public User Host { get; set; }
         public Room Room { get; set; }
@@ -29,7 +30,16 @@ namespace RSData.Models
             RoomId = roomId;
             HostId = hostId;
             Occurrence = occurrence;
-            
+            Status = (int)AvailabilityStatusEnum.active;
+
+
         }
     }
+
+    public enum AvailabilityStatusEnum
+    {
+        active = 0,
+        inactive = 1
+    }
+
 }

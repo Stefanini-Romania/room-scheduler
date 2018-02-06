@@ -43,7 +43,7 @@ namespace RSService.Controllers
                 List<AvailabilityDto> finalResults = new List<AvailabilityDto>();
                 foreach(var ex in exceptions)
                 {
-                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType, ex.RoomId));
+                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType, ex.Room.Name));
                 }
                 return Ok(finalResults);
             }
@@ -59,7 +59,7 @@ namespace RSService.Controllers
                 {
                     if (av.StartDate.Date >= startDate && av.StartDate.Date <= startDate.AddDays(4).Date)
                     {
-                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType, av.RoomId));
+                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType, av.Room.Name));
                     }
                 }
                 else
@@ -74,7 +74,7 @@ namespace RSService.Controllers
                                             new DateTime(date.Year, date.Month, date.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second).AddDays((int)av.StartDate.DayOfWeek - 1), 
                                             new DateTime(date.Year, date.Month, date.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second).AddDays((int)av.StartDate.DayOfWeek - 1),
                                             av.AvailabilityType, 
-                                            av.RoomId));
+                                            av.Room.Name));
                         }
                         date = date.AddDays(7 * (int)av.Occurrence);
                     }
@@ -286,6 +286,7 @@ namespace RSService.Controllers
             availability.AvailabilityType = model.AvailabilityType;
             availability.RoomId = model.RoomId;
             availability.Occurrence = model.Occurrence;
+            availability.Status = model.Status;
 
             Context.SaveChanges();
 
