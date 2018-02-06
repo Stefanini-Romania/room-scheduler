@@ -32,6 +32,7 @@ namespace RSRepository
                 entity.Property(e => e.RoomId).HasColumnName("RoomId");
                 entity.Property(e => e.HostId).HasColumnName("HostId");
                 entity.Property(e => e.Occurrence).HasColumnName("Occurrence");
+                entity.Property(e => e.Status).HasColumnName("Status");
 
                 entity.HasOne(d => d.Host)
                     .WithMany(p => p.Availability)

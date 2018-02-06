@@ -12,5 +12,6 @@ namespace RSService.ViewModels
         public int AvailabilityType { get; set; }
         public int RoomId { get; set; }
         public int Occurrence { get; set; }
+        public int Status { get; set; }
     }
 }
