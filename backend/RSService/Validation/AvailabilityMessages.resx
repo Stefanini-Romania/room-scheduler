@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EmptyDayOfWeek" xml:space="preserve">
+    <value>Availability.DayOfWeek.Empty</value>
+  </data>
   <data name="EmptyEndDate" xml:space="preserve">
     <value>Availability.EndDate.Empty</value>
   </data>
   <data name="EmptyHostId" xml:space="preserve">
     <value>AvailabilityException.HostId.Empty</value>
+  </data>
+  <data name="EmptyOccurrence" xml:space="preserve">
+    <value>Availability.Occurrence.Empty</value>
+  </data>
+  <data name="EmptyRoomId" xml:space="preserve">
+    <value>Availability.RoomId.Empty</value>
   </data>
   <data name="EmptyStartDate" xml:space="preserve">
     <value>Availability.StartDate.Empty</value>

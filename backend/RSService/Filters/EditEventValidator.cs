@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using RSData.Models;
 using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace RSService.Filters
     {
         public EditEventValidator()
         {
-
-           // //---------------------------AttendeeId-------------------------- -
-           //RuleFor(m => m.AttendeeId)
-           //    .Must(CanCancel).WithMessage(x => Validation.EventMessages.CancellationRight).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
+            RuleFor(m => m.StartDate).GreaterThanOrEqualTo(m => DateTime.UtcNow.ToLocalTime().AddMinutes(15)).WithMessage(x => Validation.EventMessages.CancellationTimeSpanLess).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
+            
+            
+            // //---------------------------AttendeeId-------------------------- -
+            //RuleFor(m => m.AttendeeId)
+            //    .Must(CanCancel).WithMessage(x => Validation.EventMessages.CancellationRight).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
 
         }
 

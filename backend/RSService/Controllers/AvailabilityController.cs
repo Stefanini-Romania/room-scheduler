@@ -150,7 +150,7 @@ namespace RSService.Controllers
                     Availability availability = new Availability(
                         newAvailability.StartDate.AddDays(day - 1),
                         newAvailability.EndDate.AddDays(day - 1),
-                        newAvailability.AvailabilityType,
+                        (int)AvailabilityEnum.Available,
                         newAvailability.RoomId,
                         (int)hostId,
                         newAvailability.Occurrence

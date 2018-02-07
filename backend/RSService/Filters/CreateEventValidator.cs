@@ -24,11 +24,10 @@ namespace RSService.Filters
             When(m => m.StartDate.HasValue, () => {
                 RuleFor(m => m.StartDate).Must(CanBook).WithMessage(x => Validation.EventMessages.Limit).When(m => m.EndDate.HasValue);
 
-                RuleFor(m => m.StartDate).GreaterThanOrEqualTo(DateTime.UtcNow.AddHours(2)).WithMessage(x => Validation.EventMessages.StartDatePast).When(m => m.EndDate.HasValue);
+                RuleFor(m => m.StartDate).GreaterThanOrEqualTo(DateTime.UtcNow.ToLocalTime()).WithMessage(x => Validation.EventMessages.StartDatePast).When(m => m.EndDate.HasValue);
 
-               // RuleFor(m => m.StartDate).LessThan(DateTime.Now.AddMonths(2)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue);
+                // RuleFor(m => m.StartDate).LessThan(DateTime.Now.AddMonths(2)).WithMessage(x => Validation.EventMessages.StartDateFuture).When(m => m.EndDate.HasValue);
 
-                RuleFor(m => m.StartDate).GreaterThanOrEqualTo(m => DateTime.UtcNow.AddMinutes(15)).WithMessage(x => Validation.EventMessages.CancellationTimeSpanLess).When(m => m.EventStatus == (int)EventStatusEnum.cancelled);
 
                 RuleFor(m => m.StartDate).Must(GoodTime).WithMessage(x => Validation.EventMessages.StartDateSpecific);
 

@@ -61,6 +61,15 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Availability.DayOfWeek.Empty.
+        /// </summary>
+        internal static string EmptyDayOfWeek {
+            get {
+                return ResourceManager.GetString("EmptyDayOfWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Availability.EndDate.Empty.
         /// </summary>
         internal static string EmptyEndDate {
@@ -75,6 +84,24 @@ namespace RSService.Validation {
         internal static string EmptyHostId {
             get {
                 return ResourceManager.GetString("EmptyHostId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Availability.Occurrence.Empty.
+        /// </summary>
+        internal static string EmptyOccurrence {
+            get {
+                return ResourceManager.GetString("EmptyOccurrence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Availability.RoomId.Empty.
+        /// </summary>
+        internal static string EmptyRoomId {
+            get {
+                return ResourceManager.GetString("EmptyRoomId", resourceCulture);
             }
         }
         

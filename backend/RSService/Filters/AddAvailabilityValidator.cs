@@ -19,10 +19,17 @@ namespace RSService.Filters
 
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
 
+            //RuleFor(a => a.StartDate)
+
+
+
             RuleFor(a => a.EndDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyEndDate);
 
-            //RuleFor(a => a.RoomId).       // diferit de zero
+            RuleFor(a => a.RoomId).NotEmpty().WithMessage(AvailabilityMessages.EmptyRoomId);
 
+            RuleFor(a => a.DaysOfWeek).NotEmpty().WithMessage(AvailabilityMessages.EmptyDayOfWeek);
+
+            RuleFor(a => a.Occurrence).NotEmpty().WithMessage(AvailabilityMessages.EmptyOccurrence);
 
 
 
