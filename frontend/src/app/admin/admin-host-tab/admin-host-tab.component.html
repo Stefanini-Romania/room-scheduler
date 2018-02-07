@@ -1,6 +1,6 @@
 
 <div class="row" style="margin-left:0px">
-  <host-selector (hostChange)="onHostChanged($event)"></host-selector>
+  <!-- <host-selector (hostChange)="onHostChanged($event)"></host-selector> -->
   <form class="form-inline datePickerForm">
     <div class="form-group">
       <div class="input-group">
@@ -12,8 +12,10 @@
         </div>
       </div>
     </div>
-  </form>
+  </form> &nbsp;
+  <button class="btn btn-primary" (click)="onAddAvailability()">{{'Availability.add' | translate}}</button>
+  
 </div>
 
-<button class="btn btn-primary" (click)="onAddAvailability()">{{'Availability.add' | translate}}</button>
+
 <host-availability></host-availability>

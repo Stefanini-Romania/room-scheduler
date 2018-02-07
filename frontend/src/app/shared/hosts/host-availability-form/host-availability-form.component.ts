@@ -57,7 +57,10 @@ export class HostAvailabilityForm{
         let availabilityStartDate = new Date(this.model.startDate["year"], this.model.startDate["month"]-1, this.model.startDate["day"], this.startHour["hour"], this.startHour["minute"], 0);
         JSON.stringify(availabilityStartDate);
 
+        
+
         let dayOfWeek = availabilityStartDate.getDay();
+
         let currentDate = availabilityStartDate.getDate();
         while(dayOfWeek!==1){
             dayOfWeek--;
