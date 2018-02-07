@@ -39,9 +39,14 @@ namespace RSRepository
             return rooms.FirstOrDefault(s => s.Id == id);
         }
 
-        public Room GetRoomByNameAndLocation(String name,String location, int roomid)
+        public Room GetRoomByNameAndLocation(String name,String location, int roomId)
         {
-            return rooms.FirstOrDefault(s => (s.Name == name && s.Location == location && s.Id!=roomid));
+            return rooms.FirstOrDefault(s => (s.Name == name && s.Location == location && s.Id!=roomId));
+        }
+
+        public Room GetRoomByIdAndStatus(int roomId, bool status)
+        {
+            return rooms.FirstOrDefault(r => r.Id == roomId && r.IsActive == status);
         }
 
         public void AddRoom(Room room)

@@ -34,5 +34,7 @@ namespace RSService.BusinessLogic
 
         bool IsActiveUser(String email);
 
+        bool IsActiveRoom(int roomId);
+
     }
 }

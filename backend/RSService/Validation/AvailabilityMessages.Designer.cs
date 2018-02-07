@@ -113,5 +113,50 @@ namespace RSService.Validation {
                 return ResourceManager.GetString("EmptyStartDate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Availability.EndDate.IncorrectMinutesFormat.
+        /// </summary>
+        internal static string EndDateMinutesFormat {
+            get {
+                return ResourceManager.GetString("EndDateMinutesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Availability.RoomId.Inactive.
+        /// </summary>
+        internal static string InactiveRoom {
+            get {
+                return ResourceManager.GetString("InactiveRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Availability.DayOfWeek.IncorrectValue.
+        /// </summary>
+        internal static string IncorrectDayOfWeek {
+            get {
+                return ResourceManager.GetString("IncorrectDayOfWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Availability.Occurrence.IncorrectValue.
+        /// </summary>
+        internal static string IncorrectOccurrence {
+            get {
+                return ResourceManager.GetString("IncorrectOccurrence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Availability.StartDate.IncorrectMinutesFormat.
+        /// </summary>
+        internal static string StartDateMinutesFormat {
+            get {
+                return ResourceManager.GetString("StartDateMinutesFormat", resourceCulture);
+            }
+        }
     }
 }

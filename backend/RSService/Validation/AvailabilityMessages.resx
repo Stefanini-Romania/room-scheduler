@@ -135,4 +135,19 @@
   <data name="EmptyStartDate" xml:space="preserve">
     <value>Availability.StartDate.Empty</value>
   </data>
+  <data name="EndDateMinutesFormat" xml:space="preserve">
+    <value>Availability.EndDate.IncorrectMinutesFormat</value>
+  </data>
+  <data name="InactiveRoom" xml:space="preserve">
+    <value>Availability.RoomId.Inactive</value>
+  </data>
+  <data name="IncorrectDayOfWeek" xml:space="preserve">
+    <value>Availability.DayOfWeek.IncorrectValue</value>
+  </data>
+  <data name="IncorrectOccurrence" xml:space="preserve">
+    <value>Availability.Occurrence.IncorrectValue</value>
+  </data>
+  <data name="StartDateMinutesFormat" xml:space="preserve">
+    <value>Availability.StartDate.IncorrectMinutesFormat</value>
+  </data>
 </root>

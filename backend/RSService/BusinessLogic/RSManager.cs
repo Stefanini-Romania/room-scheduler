@@ -299,6 +299,18 @@ namespace RSService.BusinessLogic
                 return false;
             }
         }
+
+        public bool IsActiveRoom(int roomId)
+        {
+            var room = roomRepository.GetRoomByIdAndStatus(roomId, true);
+
+            if (room == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
 //----------------------------------------------------------------------------------------------------------------------
 
 

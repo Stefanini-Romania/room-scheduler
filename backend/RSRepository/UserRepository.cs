@@ -93,9 +93,10 @@ namespace RSRepository
                         .ToList();
         }
 
-        public List<User> GetHosts()
+        public List<User> GetActiveHosts()
         {
             return users.Where(u => u.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.host))
+                        .Where(u => u.IsActive == true)
                         .ToList();
         }
 

@@ -87,7 +87,7 @@ namespace RSService.Controllers
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
         public IActionResult GetHosts()
         {
-            var results = userRepository.GetHosts();
+            var results = userRepository.GetActiveHosts();
             if (results == null) return NotFound();
 
             List<HostDto> final_result = new List<HostDto>();
@@ -212,7 +212,7 @@ namespace RSService.Controllers
                                 (int)AvailabilityEnum.Exception,
                                 av.RoomId,
                                 currentUser.Id,
-                                null
+                                0
                                 );
                     availabilityRepository.AddAvailability(availability);
                 }           
@@ -255,7 +255,7 @@ namespace RSService.Controllers
                                 (int)AvailabilityEnum.Exception,
                                 av.RoomId,
                                 (int)hostId,
-                                null
+                                0
                                 );
                     availabilityRepository.AddAvailability(availability);
                 }

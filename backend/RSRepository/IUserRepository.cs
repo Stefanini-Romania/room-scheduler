@@ -17,7 +17,7 @@ namespace RSRepository
         List<User> GetUserByisActiv();
         List<User> GetUserByisInactiv();
         List<User> GetUsersByEmail(string email, int userId);
-        List<User> GetHosts();
+        List<User> GetActiveHosts();
         void AddUser(User user);
         void UpdateUser(User user);
         void DeleteUser(User user);
