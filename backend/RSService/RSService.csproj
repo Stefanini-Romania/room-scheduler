@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="7.2.1" />
+    <PackageReference Include="HangFire" Version="1.6.17" />
     <PackageReference Include="MailKit" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.0" />
