@@ -32,9 +32,9 @@ export class HostAvailability{
     public endDate: Date;  
     public hostId: number;
     public exception: boolean;
-  
+    public displayDate = new Date();
+    
     constructor(public HostService: HostService, translate: TranslateService) {
-        
     }
 
     onHostChanged(selectedHost: User) {
@@ -47,32 +47,47 @@ export class HostAvailability{
         //     return;
         // }
        
-        this.getStartOfWeek();
-        this.startDate = new Date();
+
+        if (this.model.startDate){
+            JSON.stringify(this.model.startDate);
+            var newDate = new Date(this.model.startDate["year"], this.model.startDate["month"]-1, this.model.startDate["day"], 0);
+            JSON.stringify(newDate);
+            let dayOfWeek = newDate.getDay();
+            let currentDate = newDate.getDate();
+            while(dayOfWeek!==1){
+                dayOfWeek--;
+                currentDate=currentDate-1;
+            }
+            newDate.setDate(currentDate);
+            this.model.endDate = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate()+4);
+        } 
+        else {
+            newDate = this.model.startDate = new Date();
+            let dayOfWeek = newDate.getDay();
+            let currentDate = newDate.getDate();
+            while(dayOfWeek!==1){
+                dayOfWeek--;
+                currentDate=currentDate-1;
+            }
+            newDate.setDate(currentDate);
+            this.model.endDate = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate()+4);
+        }
         this.availabilities = [];
         this.exceptions = [];
         this.events = [];
-        
-        this.HostService.HostAvailabilityList(this.model.startDate, this.selectedHost.id, this.model.endDate, this.model.roomId).subscribe((events: Availability[]) => {
-            for (let day of events) {    
-                if (day.availabilityType == 2) {
-                    this.exceptions.push(<Availability>day);
-                } else {
-                    this.availabilities.push(<Availability>day);
-                }                           
-            }
-        });       
-    }   
-
-    getStartOfWeek(){
-        this.model.startDate = new Date();
-        let dayOfWeek = this.model.startDate.getDay();
-        let currentDate = this.model.startDate.getDate();
-        while(dayOfWeek!==1){
-            dayOfWeek--;
-            currentDate=currentDate-1;
-        }
-        this.model.startDate.setDate(currentDate);
-        this.model.endDate = new Date(this.model.startDate.getFullYear(), this.model.startDate.getMonth(), this.model.startDate.getDate()+4);
+       
+        this.HostService.HostAvailabilityList(
+            newDate, 
+            this.selectedHost.id, 
+            this.model.endDate, 
+            this.model.roomId).subscribe((events: Availability[]) => {
+                for (let day of events) {    
+                    if (day.availabilityType == 2) {
+                        this.exceptions.push(<Availability>day);
+                    } else {
+                        this.availabilities.push(<Availability>day);
+                    }                           
+                }
+        });        
     } 
 }
