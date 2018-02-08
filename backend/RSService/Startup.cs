@@ -20,6 +20,8 @@ using RSService.Filters;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using Hangfire;
+using RSService.Controllers;
 
 namespace RSService
 {
@@ -35,6 +37,8 @@ namespace RSService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHangfire(x => x.UseSqlServerStorage("Server=BUSWGVMINDEV3\\MSSQLSERVER12;Database=RoomPlannerDev;User Id=roomplanner;Password=roomplanner123"));
+
             services.AddMvc(opt =>
             {
                 opt.Filters.Add(typeof(ValidatorActionFilter));
@@ -92,11 +96,16 @@ namespace RSService
             {
                 app.UseDeveloperExceptionPage();
             }
-
+          
             app.UseCors("Cors");
             app.UseAuthentication();
+           
 
             app.UseMvc();
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
+            RecurringJob.AddOrUpdate<UserController>(x => x.EventReminder(),Cron.Hourly);
+
 
 
 
