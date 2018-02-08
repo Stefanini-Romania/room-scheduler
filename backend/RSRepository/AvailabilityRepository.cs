@@ -78,11 +78,14 @@ namespace RSRepository
                                  .ToList();
         }
 
-        public List<Availability> GetAvailabilitiesByHostAndDay(int hostId, int dayOfWeek)
+        public List<Availability> GetAvailabilitiesByHostAndDate(int hostId, DateTime startDate, DateTime endDate)
         {
             return availabilities.Where(a => a.HostId == hostId)
                                  .Where(a => a.AvailabilityType == 0)
-                                 .Where(a => (int)a.StartDate.DayOfWeek == dayOfWeek)
+                                 .Where(a => a.StartDate.DayOfWeek == startDate.DayOfWeek)
+                                 .Where(a => a.StartDate.TimeOfDay <= startDate.TimeOfDay && a.EndDate.TimeOfDay > startDate.TimeOfDay ||
+                                        a.StartDate.TimeOfDay < endDate.TimeOfDay && a.EndDate.TimeOfDay >= endDate.TimeOfDay ||
+                                        a.StartDate.TimeOfDay > startDate.TimeOfDay && a.EndDate.TimeOfDay < endDate.TimeOfDay)
                                  .ToList();
         }
 

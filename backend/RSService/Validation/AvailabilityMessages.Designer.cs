@@ -151,6 +151,24 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Availability.StartDate.EndDate.InvalidTime.
+        /// </summary>
+        internal static string InvalidTime {
+            get {
+                return ResourceManager.GetString("InvalidTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AvailabilityException.StartDate.EndDate.TimeSpanLimit.
+        /// </summary>
+        internal static string InvalidTimeSpan {
+            get {
+                return ResourceManager.GetString("InvalidTimeSpan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Availability.StartDate.IncorrectMinutesFormat.
         /// </summary>
         internal static string StartDateMinutesFormat {

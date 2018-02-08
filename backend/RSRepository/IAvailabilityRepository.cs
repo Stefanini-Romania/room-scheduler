@@ -16,7 +16,7 @@ namespace RSRepository
         List<Availability> GetAvailabilitiesByHour(DateTime startDate, int roomId);
         List<Availability> GetAvailabilitiesByType(int availabilityType, DateTime startDate, DateTime endDate);
         List<Availability> GetAvailabilitiesByType(DateTime startDate, DateTime endDate, int roomId);
-        List<Availability> GetAvailabilitiesByHostAndDay(int hostId, int dayOfWeek);
+        List<Availability> GetAvailabilitiesByHostAndDate(int hostId, DateTime startDate, DateTime endDate);
         void AddAvailability(Availability availability);
     }
    

@@ -180,10 +180,15 @@ namespace RSService.Controllers
 
             if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.host))
             {
-                //Find the availabilities for that day of week and add exception for each room
-                var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDay(currentUser.Id, (int)avException.StartDate.DayOfWeek);
+                //Find the availabilities for that day that intersect exception and add exception for each room
+                var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDate(currentUser.Id, avException.StartDate, avException.EndDate);
 
-                foreach(var av in availabilities)
+                if (!availabilities.Any())
+                {
+                    return ValidationError(AvailabilityMessages.InvalidTime);
+                }
+
+                foreach (var av in availabilities)
                 {
                     DateTime newStart;
                     DateTime newEnd;
@@ -223,8 +228,13 @@ namespace RSService.Controllers
                 {
                     return ValidationError(AvailabilityMessages.EmptyHostId);
                 }
-                //Find the availabilities for that day of week and add exception for each room
-                var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDay((int)hostId, (int)avException.StartDate.DayOfWeek);
+                //Find the availabilities for that day that intersect exception and add exception for each room
+                var availabilities = availabilityRepository.GetAvailabilitiesByHostAndDate((int)hostId, avException.StartDate, avException.EndDate);
+
+                if (!availabilities.Any())
+                {
+                    return ValidationError(AvailabilityMessages.InvalidTime);
+                }
 
                 foreach (var av in availabilities)
                 {

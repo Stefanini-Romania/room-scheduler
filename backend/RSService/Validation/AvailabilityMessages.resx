@@ -147,6 +147,12 @@
   <data name="IncorrectOccurrence" xml:space="preserve">
     <value>Availability.Occurrence.IncorrectValue</value>
   </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Availability.StartDate.EndDate.InvalidTime</value>
+  </data>
+  <data name="InvalidTimeSpan" xml:space="preserve">
+    <value>AvailabilityException.StartDate.EndDate.TimeSpanLimit</value>
+  </data>
   <data name="StartDateMinutesFormat" xml:space="preserve">
     <value>Availability.StartDate.IncorrectMinutesFormat</value>
   </data>
