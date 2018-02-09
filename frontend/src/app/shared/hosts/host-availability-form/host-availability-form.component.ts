@@ -24,7 +24,9 @@ export class HostAvailabilityForm{
     public startHour;
     public endHour;
     public selectedRoom: Room;
-
+    public addAvail: boolean;
+    public minuteStep = 30;
+    
     constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService){}
 
     ngOnInit() {
@@ -53,56 +55,58 @@ export class HostAvailabilityForm{
 
       addAvailability(){
 
-        JSON.stringify(this.model.startDate);
-        let availabilityStartDate = new Date(this.model.startDate["year"], this.model.startDate["month"]-1, this.model.startDate["day"], this.startHour["hour"], this.startHour["minute"], 0);
-        JSON.stringify(availabilityStartDate);
-
-        
-
-        let dayOfWeek = availabilityStartDate.getDay();
-
-        let currentDate = availabilityStartDate.getDate();
-        while(dayOfWeek!==1){
-            dayOfWeek--;
-            currentDate=currentDate-1;
-        }
-        availabilityStartDate.setDate(currentDate);
-
-        this.model.endDate =new Date(availabilityStartDate.getFullYear(), availabilityStartDate.getMonth(),availabilityStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]) ;
+        if(this.model.startDate && this.startHour && this.endHour){
+            JSON.stringify(this.model.startDate);
+            let availabilityStartDate = new Date(this.model.startDate["year"], this.model.startDate["month"]-1, this.model.startDate["day"], this.startHour["hour"], this.startHour["minute"], 0);
+            JSON.stringify(availabilityStartDate);
     
-        JSON.stringify(this.model.endDate)
+            
+    
+            let dayOfWeek = availabilityStartDate.getDay();
+    
+            let currentDate = availabilityStartDate.getDate();
+            while(dayOfWeek!==1){
+                dayOfWeek--;
+                currentDate=currentDate-1;
+            }
+            availabilityStartDate.setDate(currentDate);
+    
+            this.model.endDate =new Date(availabilityStartDate.getFullYear(), availabilityStartDate.getMonth(),availabilityStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]) ;
         
-        this.model.daysOfWeek = this.selectedDaysOfWeek;
-        this.model.occurrence=this.selectedOccurrence.value;
-        this.hostService.AddHostAvailability(
-
-              availabilityStartDate,
-              this.model.endDate, 
-              this.model.availabilityType = 0, 
-              this.model.daysOfWeek, 
-              this.model.occurrence, 
-              this.selectedRoom.id,
-              this.model.hostId = 5).subscribe(() => {
-               
-                                                                         
-            },
-            error => {
-                if(error.status==200){
-                    this.successfullAddAvailability.emit();
-                    this.toastr.success(
-                        this.translate.instant('Availability.successfully.added'), '',
-                        {positionClass: 'toast-bottom-right'}
-                    );
-                }
-
-                else{
-                    this.toastr.warning(
-                        this.translate.instant('Availability.notSuccessfull'), '',
-                        {positionClass: 'toast-bottom-right'}
-                    );
-                }
-            });    
-
+            JSON.stringify(this.model.endDate)
+            
+            this.model.daysOfWeek = this.selectedDaysOfWeek;
+            this.model.occurrence=this.selectedOccurrence.value;
+            this.hostService.AddHostAvailability(
+    
+                  availabilityStartDate,
+                  this.model.endDate, 
+                  this.model.availabilityType = 0, 
+                  this.model.daysOfWeek, 
+                  this.model.occurrence, 
+                  this.selectedRoom.id,
+                  this.model.hostId = 5).subscribe(() => {
+                   
+                                                                             
+                },
+                error => {
+                    if(error.status==200){
+                        this.successfullAddAvailability.emit();
+                        this.toastr.success(
+                            this.translate.instant('Availability.successfully.added'), '',
+                            {positionClass: 'toast-bottom-right'}
+                        );
+                    }
+    
+                    else{
+                        this.toastr.warning(
+                            this.translate.instant('Availability.notSuccessfull'), '',
+                            {positionClass: 'toast-bottom-right'}
+                        );
+                    }
+                });        
+        }
+        else this.addAvail=false;
       }
 
 

@@ -208,7 +208,8 @@
       "Event.Edit": "Evenimentul nu a putut fi modificat",
       "User.Creation": "Eroare creare cont",
       "User.Edit": "Utilizatorul nu a putut fi modificat",
-      "Room.Edit": "Camera nu a putut fi modificată"
+      "Room.Edit": "Camera nu a putut fi modificată",
+      "Availability.Add": "Eroare adăugare disponibilitate! Toate câmpurile sunt obligatorii."
   },
 
   
