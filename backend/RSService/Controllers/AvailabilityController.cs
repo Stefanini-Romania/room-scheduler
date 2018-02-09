@@ -113,9 +113,6 @@ namespace RSService.Controllers
                 return ValidationError(GeneralMessages.Availability);
             }
 
-            // Validations
-            // Un host sa poata apela serviciile doar pt programul sau, nu si pt programul altui host 
-
             var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
             var currentUser = userRepository.GetUserById(schedulerIdentity.UserId);
             if (currentUser.IsActive != true)
@@ -293,7 +290,6 @@ namespace RSService.Controllers
 
             availability.StartDate = model.StartDate;
             availability.EndDate = model.EndDate;
-            availability.AvailabilityType = model.AvailabilityType;
             availability.RoomId = model.RoomId;
             availability.Occurrence = model.Occurrence;
             availability.Status = model.Status;

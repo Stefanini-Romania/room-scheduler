@@ -147,6 +147,9 @@
   <data name="IncorrectOccurrence" xml:space="preserve">
     <value>Availability.Occurrence.IncorrectValue</value>
   </data>
+  <data name="IncorrectStatus" xml:space="preserve">
+    <value>Availability.Status.IncorrectValue</value>
+  </data>
   <data name="InvalidTime" xml:space="preserve">
     <value>Availability.StartDate.EndDate.InvalidTime</value>
   </data>

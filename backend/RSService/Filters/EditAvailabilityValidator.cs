@@ -9,18 +9,16 @@ using System.Threading.Tasks;
 
 namespace RSService.Filters
 {
-    public class AddAvailabilityValidator : AbstractValidator<AvailabilityViewModel>
+    public class EditAvailabilityValidator : AbstractValidator<EditAvailabilityViewModel>
     {
         private IRSManager _rsManager;
 
-        public AddAvailabilityValidator(IRSManager rsManager)
+        public EditAvailabilityValidator(IRSManager rsManager)
         {
             _rsManager = rsManager;
 
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
             RuleFor(m => m.StartDate).Must(GoodTime).WithMessage(AvailabilityMessages.StartDateMinutesFormat);
-
-
 
             RuleFor(a => a.EndDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyEndDate);
             RuleFor(m => m.EndDate).Must(GoodTime).WithMessage(AvailabilityMessages.EndDateMinutesFormat);
@@ -28,46 +26,44 @@ namespace RSService.Filters
             RuleFor(a => a.RoomId).NotEmpty().WithMessage(AvailabilityMessages.EmptyRoomId);
             RuleFor(a => a.RoomId).Must(ActiveRoom).WithMessage(AvailabilityMessages.InactiveRoom);
 
-            RuleFor(a => a.DaysOfWeek).NotEmpty().WithMessage(AvailabilityMessages.EmptyDayOfWeek);
-            RuleFor(a => a.DaysOfWeek).Must(ValidDays).WithMessage(AvailabilityMessages.IncorrectDayOfWeek);
-
             RuleFor(a => a.Occurrence).Must(ValidOccurrence).WithMessage(AvailabilityMessages.IncorrectOccurrence);
+
+            RuleFor(a => a.Status).Must(ValidStatus).WithMessage(AvailabilityMessages.IncorrectStatus);
 
 
         }
 
-        private bool GoodTime(AvailabilityViewModel av, DateTime d)
+        private bool GoodTime(EditAvailabilityViewModel av, DateTime d)
         {
-            
+
             return (d.Minute == 0 && d.Second == 0) ||
                    (d.Minute == 30 && d.Second == 0);
         }
 
-        private bool ActiveRoom(AvailabilityViewModel av, int roomId)
+        private bool ActiveRoom(EditAvailabilityViewModel av, int roomId)
         {
             return _rsManager.IsActiveRoom(roomId);
         }
 
-        private bool ValidDays(AvailabilityViewModel av, int[] daysOfWeek)
+        private bool ValidOccurrence(EditAvailabilityViewModel av, int occurrence)
         {
-            foreach(var day in daysOfWeek)
-            {
-                if(day !=1 && day != 2 && day !=3 && day !=4 && day !=5)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private bool ValidOccurrence(AvailabilityViewModel av, int occurrence)
-        {
-            if (occurrence !=0 && occurrence != 1 && occurrence != 2 && occurrence != 3 && occurrence != 4)
+            if (occurrence !=0 && occurrence !=1 && occurrence !=2 && occurrence !=3 && occurrence !=4)
             {
                 return false;
             }
             return true;
         }
+
+        private bool ValidStatus(EditAvailabilityViewModel av, int status)
+        {
+            if (status != 0 && status != 1)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
 
     }
 }
