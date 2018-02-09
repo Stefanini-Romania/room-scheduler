@@ -288,11 +288,20 @@ namespace RSService.Controllers
                 return NotFound();
             }
 
-            availability.StartDate = model.StartDate;
-            availability.EndDate = model.EndDate;
-            availability.RoomId = model.RoomId;
-            availability.Occurrence = model.Occurrence;
-            availability.Status = model.Status;
+            if (availability.AvailabilityType == (int)AvailabilityEnum.Exception)
+            {
+                availability.Status = model.Status;
+            }
+            else
+            {
+                availability.StartDate = model.StartDate;
+                availability.EndDate = model.EndDate;
+                availability.RoomId = model.RoomId;
+                availability.Occurrence = model.Occurrence;
+                availability.Status = model.Status;
+            }
+
+            
 
             Context.SaveChanges();
 
