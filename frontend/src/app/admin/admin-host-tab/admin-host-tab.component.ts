@@ -3,6 +3,7 @@ import {Availability} from '../../shared/models/availability.model';
 import {NgbModal, NgbModalRef, NgbPaginationConfig, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 import {HostAvailabilityForm} from '../../shared/hosts/host-availability-form/host-availability-form.component';
+import {HostExceptionForm} from '../../shared/hosts/host-exception-form/host-exception-form.component';
 import {User} from './../../shared/models/user.model';
 import {HostService} from './../../shared/services/host.service';
 import {HostAvailability} from './../../shared/hosts/host-availability/host-availability.component';
@@ -42,6 +43,13 @@ export class AdminHostComponent {
         modalRef.componentInstance.successfullAddAvailability.subscribe(() => {
             modalRef.close();
     })}
+
+    onAddException() {
+        const modalRef:NgbModalRef = this.modalService.open(HostExceptionForm);
+        modalRef.componentInstance.successfullAddException.subscribe(() => {
+            modalRef.close();
+        })
+    }
 
     onHostChanged(selectedHost: User) {
         this.selectedHost = selectedHost; 

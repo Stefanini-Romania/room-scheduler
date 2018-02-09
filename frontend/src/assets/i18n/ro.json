@@ -299,8 +299,13 @@
         "add": "Adaugă disponibilitate",
         "successfully.added": "Disponibilitatea a fost adăugată cu succes!",
         "notSuccessfull": "Atenție! Disponibilitatea nu a putut fi salvată!"
-        
     },
+    "Exception": {
+        "add": "Adaugă excepție",
+        "successfully.added": "Excepția a fost adăugată!",
+        "notSuccessfull": "Atenție! Excepția nu a putut fi salvată!"
+    },
+    
     "Availabilities": "Disponibilități",
     "Exceptions": "Excepții"
 }
