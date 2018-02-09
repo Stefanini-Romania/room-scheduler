@@ -62,7 +62,7 @@ export class HostAvailability{
             this.model.endDate = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate()+4);
         } 
         else {
-            newDate = this.model.startDate = new Date();
+            newDate = this.displayDate;
             let dayOfWeek = newDate.getDay();
             let currentDate = newDate.getDate();
             while(dayOfWeek!==1){
