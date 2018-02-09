@@ -10,6 +10,7 @@ import {HostAvailabilityForm} from './hosts/host-availability-form/host-availabi
 import {HostSelector} from './../shared/hosts/host-selector/host-selector.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import {RoomModule} from '../rooms/room.module';
+import { HostService } from './services/host.service';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import {RoomModule} from '../rooms/room.module';
                 FormsModule,
                 RoomModule,
                 ReactiveFormsModule],
-    providers: [],
+    providers: [HostService],
     declarations: [KeysPipe, LocalizedDatePipe, ValidateEqualValidator, HostAvailability, HostAvailabilityForm, HostSelector],
     exports: [KeysPipe, LocalizedDatePipe, ValidateEqualValidator, HostAvailability, HostAvailabilityForm, HostSelector],
     entryComponents: [HostAvailabilityForm]

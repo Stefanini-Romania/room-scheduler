@@ -11,7 +11,7 @@ import {HostSelector} from './../host-selector/host-selector.component';
 @Component({
     selector: 'host-availability',
     templateUrl: './host-availability.component.html',
-    providers: [HostService]
+    providers: []
 })
 
 export class HostAvailability{

@@ -11,7 +11,7 @@ import {HostAvailability} from './../../shared/hosts/host-availability/host-avai
     selector: 'admin-host-tab',
     templateUrl: './admin-host-tab.component.html',
     styleUrls: [],
-    providers: [HostService, HostAvailability]  
+    providers: [HostAvailability]  
 })
 
 export class AdminHostComponent {
@@ -20,9 +20,9 @@ export class AdminHostComponent {
     public model: Availability = <Availability>{};
     public selectedHost: User;
 
-    constructor(private modalService: NgbModal, public HostService: HostService, public hostAvailability: HostAvailability){
-        HostService.selectedHostChanged$.subscribe((host: User) => {
-            this.selectedHost;
+    constructor(private modalService: NgbModal, private hostService: HostService, public hostAvailability: HostAvailability){
+        hostService.selectedHostChanged$.subscribe((host: User) => {
+            this.selectedHost = host;
         });
     }
 
@@ -37,7 +37,8 @@ export class AdminHostComponent {
     }
 
     onAddAvailability() {
-        const modalRef:NgbModalRef = this.modalService.open(HostAvailabilityForm);
+        const modalRef:NgbModalRef = this.modalService.open(HostAvailabilityForm, {});
+        modalRef.componentInstance.host = this.selectedHost;
         modalRef.componentInstance.successfullAddAvailability.subscribe(() => {
             modalRef.close();
     })}

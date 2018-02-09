@@ -12,15 +12,12 @@ import {User} from './../../models/user.model';
     selector: 'host-selector',
     templateUrl: './host-selector.component.html',
     styleUrls: [],
-    providers: [HostService]
+    providers: []
     
 })
 
 export class HostSelector {
     @ViewChild('location') input: ElementRef;
-
-    @Output()
-    hostChange = new EventEmitter;
 
     public hosts: User[] = [];
     public selectedHost: User;
@@ -60,7 +57,6 @@ export class HostSelector {
 
         // broadcast global event that host has changed
         this.HostService.selectHost(host);
-        this.hostChange.emit(host);
     }
 
     private assignCopy(){
