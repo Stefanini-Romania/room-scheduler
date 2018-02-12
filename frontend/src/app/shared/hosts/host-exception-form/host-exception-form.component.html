@@ -5,9 +5,10 @@
     
 <div class="modal-body">
     <div class="container h-100">
-        <div class="justify-content-center align-self-center mx-auto">          
+        <div class="justify-content-center align-self-center mx-auto">    
+            <ngb-alert [dismissible]="false" type="danger" *ngIf="addExcept==false">{{'Error.Exception.Add' | translate}}</ngb-alert>                    
             <label class="label col-5"><b>{{'Availability.startDate'|translate}}</b></label>
-            <!--DATE PICKER-->                         
+            <!--DATE PICKER-->           
             <form class="form-inline datePickerForm">
                 <div class="form-group">
                     <div class="input-group">
@@ -34,18 +35,6 @@
                 <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep"></ngb-timepicker>
             </div>
         </div>
-        <!--DAY OF WEEK CHECKBOX-->
-        <div class="form-group btn-group">
-            <div *ngFor="let day of daysOfWeek">
-                <label class="btn-primary labelCheckbox" ngbButtonLabel>
-                    <input type="checkbox"
-                            name="daysOfWeek"
-                            value="{{day.value}}"
-                            [(ngModel)]="day.checked"/>
-                    {{day.name}}
-                </label>
-            </div>
-        </div>     
     </div>
 </div>
 

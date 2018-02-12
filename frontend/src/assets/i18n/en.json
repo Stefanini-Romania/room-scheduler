@@ -194,7 +194,8 @@
       "User.Creation": "Error creating account",
       "User.Edit": "Unable to edit user",
       "Room.Edit": "Unable to edit room",
-      "Availability.Add": "Error adding availability! All fields are mandatory."
+      "Availability.Add": "Error adding availability! All fields are mandatory.",
+      "Exception.Add": "Error adding exception! All fields are mandatory."
   },
 
   "User": {

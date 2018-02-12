@@ -74,7 +74,7 @@ export class HostService {
             });
     }
 
-    public AddHostException(startDate: Date, endDate: Date, daysOfWeek: any, hostId?: number){
+    public AddHostException(startDate: Date, endDate: Date, hostId?: number){
         const url = environment.apiUrl + '/availability/exception/add';
         let params = new HttpParams();
         if (hostId > 0){
@@ -82,9 +82,7 @@ export class HostService {
         }
         const body = JSON.stringify({
             startDate: startDate,
-            endDate: endDate,
-            daysOfWeek: daysOfWeek,
-                 
+            endDate: endDate,             
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
@@ -95,7 +93,5 @@ export class HostService {
             .map((response: Response) => {
                 return response;
             });
-    }
-
-   
+    }  
 }
