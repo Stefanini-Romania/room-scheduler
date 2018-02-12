@@ -25,6 +25,7 @@ namespace RSService.Controllers
         private IUserRoleRepository userRoleRepository;
         private IRoleRepository roleRepository;
         private IEventRepository eventRepository;
+        private ISettingsRepository settingsRepository;
 
         public UserController()
         {
@@ -32,6 +33,7 @@ namespace RSService.Controllers
             this.userRoleRepository = new UserRoleRepository(Context);
             this.roleRepository = new RoleRepository(Context);
             this.eventRepository = new EventRepository(Context);
+            this.settingsRepository = new SettingsRepository(Context);
         }
 
         [HttpGet("/user/list")]
@@ -64,10 +66,13 @@ namespace RSService.Controllers
         [HttpPost("users/reminder")]
         public IActionResult EventReminder()
         {
-            var date = DateTime.Now;
-            var events = eventRepository.GetEventsByDateTimeNow();
-            foreach(Event evnt in events)
-            {              
+            //this will always have just one value;
+            var emailremindervalue = settingsRepository.GetValueOfEmailReminderSettings();
+            foreach (Settings set in emailremindervalue)
+            {
+                var events = eventRepository.GetEventsByDateTimeNow(Int32.Parse(set.Value));
+                foreach (Event evnt in events)
+                {
                     var usr = userRepository.GetUserById(evnt.AttendeeId);
 
                     var message = new MimeMessage();
@@ -76,7 +81,9 @@ namespace RSService.Controllers
                     message.Subject = "Remainder";
                     message.Body = new TextPart("html")
                     {
-                        Text = " You have a massage programmed for today in less than an hour!<br>" + " DateStart: " + evnt.StartDate.TimeOfDay
+                        Text = " You have a massage programmed for today in less than an hour!<br>" 
+                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>"
+                        + " Room: " +evnt.Room
 
                     };
                     using (var client = new SmtpClient())
@@ -88,7 +95,8 @@ namespace RSService.Controllers
 
                         client.Disconnect(true);
                     }
-                          
+
+                }
             }
             return Ok();
         }      
@@ -154,7 +162,7 @@ namespace RSService.Controllers
             message.Subject = "Welcome!";
             message.Body = new TextPart("plain")
             {
-                Text = " Your received a new account.<br>"+"Your credentials:<br>"
+                Text = " Your received a new account.<br>"+"Your username:<br>"
                 +"Username: "+ user.Email + "<br>" + " We hope that you will have the best time !"
 
             };
