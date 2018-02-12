@@ -68,26 +68,29 @@ namespace RSService.Controllers
             var events = eventRepository.GetEventsByDateTimeNow();
             foreach(Event evnt in events)
             {
-                var usr = userRepository.GetUserById(evnt.AttendeeId);
-
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
-                message.To.Add(new MailboxAddress("User", usr.Email));
-                message.Subject = "Remainder";
-                message.Body = new TextPart("html")
+                if (evnt.StartDate.Date == date.Date)
                 {
-                    Text = " You have a massage programmed for today in less than an hour!<br>" +" DateStart: "+ evnt.StartDate.TimeOfDay
+                    var usr = userRepository.GetUserById(evnt.AttendeeId);
 
-                };
-                using (var client = new SmtpClient())
-                {
-                    client.Connect("smtp.gmail.com", 587, false);
-                    client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
+                    message.To.Add(new MailboxAddress("User", usr.Email));
+                    message.Subject = "Remainder";
+                    message.Body = new TextPart("html")
+                    {
+                        Text = " You have a massage programmed for today in less than an hour!<br>" + " DateStart: " + evnt.StartDate.TimeOfDay
 
-                    client.Send(message);
+                    };
+                    using (var client = new SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, false);
+                        client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
 
-                    client.Disconnect(true);
-                }               
+                        client.Send(message);
+
+                        client.Disconnect(true);
+                    }
+                }           
             }
             return Ok();
         }      
