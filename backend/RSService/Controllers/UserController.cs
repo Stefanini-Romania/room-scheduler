@@ -82,8 +82,10 @@ namespace RSService.Controllers
                     message.Subject = "Remainder";
                     message.Body = new TextPart("html")
                     {
-                        Text = " You have a massage programmed for today in less than an hour!<br>" 
-                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>"
+                        Text = " You have a massage programmed for today ! <br>" 
+                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>" + "<br>"
+                        + " Enjoy!"
+
                         
 
                     };
