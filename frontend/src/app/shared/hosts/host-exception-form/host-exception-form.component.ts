@@ -44,7 +44,7 @@ export class HostExceptionForm {
             this.hostService.AddHostException(
                 availabilityStartDate,
                 this.model.endDate,
-                this.model.hostId=3).subscribe(() => {                                  
+                this.host.id).subscribe(() => {                                  
                 },
                 error => {
                     if(error.status==200) {

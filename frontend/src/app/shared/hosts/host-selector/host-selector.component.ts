@@ -19,6 +19,9 @@ import {User} from './../../models/user.model';
 export class HostSelector {
     @ViewChild('location') input: ElementRef;
 
+    @Output()
+    hostChange = new EventEmitter;
+    
     public hosts: User[] = [];
     public selectedHost: User;
     public filteredHosts: User[] = [];
@@ -57,6 +60,7 @@ export class HostSelector {
 
         // broadcast global event that host has changed
         this.HostService.selectHost(host);
+        this.hostChange.emit(host);
     }
 
     private assignCopy(){

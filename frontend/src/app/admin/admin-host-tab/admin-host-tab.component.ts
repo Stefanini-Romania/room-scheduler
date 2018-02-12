@@ -45,7 +45,8 @@ export class AdminHostComponent {
     })}
 
     onAddException() {
-        const modalRef:NgbModalRef = this.modalService.open(HostExceptionForm);
+        const modalRef:NgbModalRef = this.modalService.open(HostExceptionForm, {});
+        modalRef.componentInstance.host = this.selectedHost;
         modalRef.componentInstance.successfullAddException.subscribe(() => {
             modalRef.close();
         })
