@@ -4,6 +4,7 @@ import {NgbActiveModal, NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap'
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SelectControlValueAccessor} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import {NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 import {User} from '../../models/user.model';
 import {Availability} from '../../models/availability.model';
@@ -12,7 +13,7 @@ import {HostService} from './../../services/host.service';
 @Component({
     selector: 'host-exception-form',
     templateUrl: './host-exception-form.component.html',
-    providers: [HostService]
+    providers: [NgbDatepickerConfig]
 })
 
 export class HostExceptionForm {
@@ -31,7 +32,12 @@ export class HostExceptionForm {
     public addExcept: boolean;
     public errorMessages: any = {};
 
-    constructor(public hostService: HostService, private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private toastr: ToastrService){}
+    constructor(public hostService: HostService, private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private toastr: ToastrService, private datePickerConfig: NgbDatepickerConfig){
+        datePickerConfig.markDisabled = (date: NgbDateStruct) => {
+            const day = new Date(date.year, date.month - 1, date.day);
+            return day.getDay() === 0 || day.getDay() === 6;
+          };
+    }
 
     addException(){
         if(this.model.startDate && this.startHour && this.endHour) {
