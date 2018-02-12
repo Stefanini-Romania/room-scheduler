@@ -67,9 +67,7 @@ namespace RSService.Controllers
             var date = DateTime.Now;
             var events = eventRepository.GetEventsByDateTimeNow();
             foreach(Event evnt in events)
-            {
-                if (evnt.StartDate.Date == date.Date)
-                {
+            {              
                     var usr = userRepository.GetUserById(evnt.AttendeeId);
 
                     var message = new MimeMessage();
@@ -90,7 +88,7 @@ namespace RSService.Controllers
 
                         client.Disconnect(true);
                     }
-                }           
+                          
             }
             return Ok();
         }      
