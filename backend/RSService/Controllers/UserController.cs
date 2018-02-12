@@ -24,6 +24,7 @@ namespace RSService.Controllers
         private IUserRoleRepository userRoleRepository;
         private IRoleRepository roleRepository;
         private IEventRepository eventRepository;
+        private ISettingsRepository settingsRepository;
 
         public UserController()
         {
@@ -31,6 +32,7 @@ namespace RSService.Controllers
             this.userRoleRepository = new UserRoleRepository(Context);
             this.roleRepository = new RoleRepository(Context);
             this.eventRepository = new EventRepository(Context);
+            this.settingsRepository = new SettingsRepository(Context);
         }
 
         [HttpGet("/user/list")]
@@ -62,31 +64,41 @@ namespace RSService.Controllers
 
         [HttpPost("users/reminder")]
         public IActionResult EventReminder()
-        {
-            var date = DateTime.Now;
-            var events = eventRepository.GetEventsByDateTimeNow();
-            foreach(Event evnt in events)
+        {         
+
+            //this will olways will have just one value, so it doesn't matter it's for in for;
+            var emailremindervalue = settingsRepository.GetValueOfEmailReminderSettings();
+            foreach (Settings set in emailremindervalue)
             {
-                var usr = userRepository.GetUserById(evnt.AttendeeId);
-
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
-                message.To.Add(new MailboxAddress("User", usr.Email));
-                message.Subject = "Remainder";
-                message.Body = new TextPart("html")
+                var events = eventRepository.GetEventsByDateTimeNow(Int32.Parse(set.Value));
+                foreach (Event evnt in events)
                 {
-                    Text = " You have a massage programmed for today in less than an hour!<br>" +" DateStart: "+ evnt.StartDate.TimeOfDay
+                    var usr = userRepository.GetUserById(evnt.AttendeeId);
 
-                };
-                using (var client = new SmtpClient())
-                {
-                    client.Connect("smtp.gmail.com", 587, false);
-                    client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
+                    message.To.Add(new MailboxAddress("User", usr.Email));
+                    message.Subject = "Remainder";
+                    message.Body = new TextPart("html")
+                    {
+                        Text = " You have a massage programmed for today! <br>" 
+                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>" + "<br>"
+                        + " Enjoy!"
 
-                    client.Send(message);
+                        
 
-                    client.Disconnect(true);
-                }               
+                    };
+                    using (var client = new SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, false);
+                        client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
+
+                        client.Send(message);
+
+                        client.Disconnect(true);
+                    }
+
+                }
             }
             return Ok();
         }      
@@ -152,8 +164,8 @@ namespace RSService.Controllers
             message.Subject = "Welcome!";
             message.Body = new TextPart("plain")
             {
-                Text = " Your received a new account.<br>"+"Your credentials:<br>"
-                +"Username: "+ user.Email + "<br>" + " We hope that you will have the best time !"
+                Text = " Your received a new account.<br>"+"Your username:<br>"
+                +"Username: "+ user.Email + "<br>" 
 
             };
             using (var client = new SmtpClient())

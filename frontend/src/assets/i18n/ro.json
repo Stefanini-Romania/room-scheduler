@@ -209,7 +209,9 @@
       "User.Creation": "Eroare creare cont",
       "User.Edit": "Utilizatorul nu a putut fi modificat",
       "Room.Edit": "Camera nu a putut fi modificată",
-      "Availability.Add": "Eroare adăugare disponibilitate! Toate câmpurile sunt obligatorii."
+      "Availability.Add": "Eroare adăugare disponibilitate! Toate câmpurile sunt obligatorii.",
+      "Availability.Creation": "Eroare de creare",
+      "Exception.Add": "Eroare adăugare excepție! Toate câmpurile sunt obligatorii."
   },
 
   
@@ -298,9 +300,28 @@
         "endHour": "Până la ora",
         "add": "Adaugă disponibilitate",
         "successfully.added": "Disponibilitatea a fost adăugată cu succes!",
-        "notSuccessfull": "Atenție! Disponibilitatea nu a putut fi salvată!"
-        
+        "notSuccessfull": "Atenție! Disponibilitatea nu a putut fi salvată!",
+        "StartDate.IncorrectMinutesFormat": "Formatul minutelor este incorect (00 sau 30)",
+        "EndDate.IncorrectMinutesFormat": "Formatul minutelor este incorect (00 sau 30)",
+        "StartDate.EndDate.InvalidTime": "Durata inserată este invalidă",
+        "StartDate.Empty": "Introduceți data de început",
+        "EndDate.Empty": "Introduceți data de sfârșit",
+        "DayOfWeek.Empty": "Selectați ziua săptămânii",
+        "Occurrence.Empty": "Selectați recurența",
+        "RoomId.Inactive": "Camera selectată nu este activă",
+        "DayOfWeek.IncorrectValue": "Ziua selectată are valoarea incorectă",
+        "Occurrence.IncorrectValue": "Recurența selectată are valoarea incorectă",
+        "Status.IncorrectValue": "Statusul are valoarea incorectă"
     },
+
+    "AvailabilityException.StartDate.EndDate.TimeSpanLimit": "Durata introdusă este incorectă",
+
+    "Exception": {
+        "add": "Adaugă excepție",
+        "successfully.added": "Excepția a fost adăugată!",
+        "notSuccessfull": "Atenție! Excepția nu a putut fi salvată!"
+    },
+    
     "Availabilities": "Disponibilități",
     "Exceptions": "Excepții"
 }

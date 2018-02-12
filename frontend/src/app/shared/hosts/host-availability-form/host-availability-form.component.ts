@@ -1,22 +1,26 @@
-import {Component, NgModule, OnInit, Output, EventEmitter} from '@angular/core'
+import {Component, Input, NgModule, OnInit, Output, EventEmitter} from '@angular/core'
 import {TranslateService} from "@ngx-translate/core";
 import {NgbActiveModal, NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { SelectControlValueAccessor } from '@angular/forms';
+import {NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 import {User} from '../../models/user.model';
 import {Availability} from '../../models/availability.model';
 import {HostService} from './../../services/host.service';
 import {Room} from '../../models/room.model';
 
+
 @Component({
     selector: 'host-availability-form',
     templateUrl: './host-availability-form.component.html',
-    providers: [HostService]
+    providers: [NgbDatepickerConfig]
 })
 
 export class HostAvailabilityForm{
+    @Input() host: User;
+
     @Output()
     successfullAddAvailability = new EventEmitter;
 
@@ -24,13 +28,17 @@ export class HostAvailabilityForm{
     public startHour;
     public endHour;
     public selectedRoom: Room;
+    public selectedHost: User;
     public addAvail: boolean;
     public minuteStep = 30;
     
-    constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService){}
-
-    ngOnInit() {
-      }
+    constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService, private datePickerConfig: NgbDatepickerConfig){
+        datePickerConfig.markDisabled = (date: NgbDateStruct) => {
+            const day = new Date(date.year, date.month - 1, date.day);
+            return day.getDay() === 0 || day.getDay() === 6;
+          };
+    }
+ 
       daysOfWeek = [
         {name:this.translate.instant("calendar.days.namesAbbr.Mon"), value:1, checked:false},
         {name:this.translate.instant("calendar.days.namesAbbr.Tue"), value:2, checked:false},
@@ -85,7 +93,7 @@ export class HostAvailabilityForm{
                   this.model.daysOfWeek, 
                   this.model.occurrence, 
                   this.selectedRoom.id,
-                  this.model.hostId = 5).subscribe(() => {
+                  this.host.id).subscribe(() => {
                    
                                                                              
                 },

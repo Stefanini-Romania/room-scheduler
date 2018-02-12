@@ -29,6 +29,12 @@ namespace RSRepository
             return settings.FirstOrDefault(s => s.Id == id);
         }
 
+        public List<Settings> GetValueOfEmailReminderSettings()
+        {
+            return settings.Where(x => x.VarName.Equals("EmailReminderTime"))
+                           .ToList();
+        }
+
         public Settings GetSessionTimeSpan()
         {
             return settings.FirstOrDefault(v => v.VarName == "SessionTimeSpan");

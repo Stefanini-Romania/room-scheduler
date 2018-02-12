@@ -11,6 +11,8 @@ namespace RSRepository
 
         List<Settings> GetSettings();
 
+        List<Settings> GetValueOfEmailReminderSettings();
+
         Settings GetSettingsById(int id);
     }
 }

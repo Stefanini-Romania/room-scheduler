@@ -1,4 +1,4 @@
-import {Component, NgModule, Host, EventEmitter} from '@angular/core'
+import {Component, NgModule, Input, EventEmitter} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
 
@@ -11,10 +11,11 @@ import {HostSelector} from './../host-selector/host-selector.component';
 @Component({
     selector: 'host-availability',
     templateUrl: './host-availability.component.html',
-    providers: [HostService]
+    providers: []
 })
 
 export class HostAvailability{
+    @Input() host: User;
    
     public availabilities: Availability[] = [];
     public exceptions: Availability[] = [];
@@ -25,7 +26,6 @@ export class HostAvailability{
     users: User[] = [];
     hosts: any[] = [];
     availabilityHostGroupName: string;
-    host: User[] = [];
     day: any[] = [];
   
     public startDate: Date;
@@ -34,7 +34,7 @@ export class HostAvailability{
     public exception: boolean;
     public displayDate = new Date();
     
-    constructor(public HostService: HostService, translate: TranslateService) {
+    constructor(public hostService: HostService, translate: TranslateService) {
     }
 
     onHostChanged(selectedHost: User) {
@@ -47,7 +47,6 @@ export class HostAvailability{
         //     return;
         // }
        
-
         if (this.model.startDate){
             JSON.stringify(this.model.startDate);
             var newDate = new Date(this.model.startDate["year"], this.model.startDate["month"]-1, this.model.startDate["day"], 0);
@@ -76,8 +75,8 @@ export class HostAvailability{
         this.exceptions = [];
         this.events = [];
        
-        this.HostService.HostAvailabilityList(
-            newDate, 
+        this.hostService.HostAvailabilityList(
+            newDate,
             this.selectedHost.id, 
             this.model.endDate, 
             this.model.roomId).subscribe((events: Availability[]) => {

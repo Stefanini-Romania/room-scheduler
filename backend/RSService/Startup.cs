@@ -104,7 +104,7 @@ namespace RSService
             app.UseMvc();
             app.UseHangfireDashboard();
             app.UseHangfireServer();
-            RecurringJob.AddOrUpdate<UserController>(x => x.EventReminder(),Cron.Hourly);
+            RecurringJob.AddOrUpdate<UserController>(x => x.EventReminder(),Cron.Minutely);
 
 
 

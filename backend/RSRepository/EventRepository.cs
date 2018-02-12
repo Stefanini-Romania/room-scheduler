@@ -12,6 +12,7 @@ namespace RSRepository
         private RoomPlannerDevContext context;
         private DbSet<Event> events;
 
+
         public EventRepository(RoomPlannerDevContext context)
         {
             this.context = context;
@@ -75,13 +76,15 @@ namespace RSRepository
                          .ToList();
         }
 
-        public List<Event> GetEventsByDateTimeNow()
+        public List<Event> GetEventsByDateTimeNow(int value)
         {
-            
+
             return events.Where(e => e.EventStatus == (int)EventStatusEnum.waiting)
-                         .Where(e => (e.StartDate.Hour == DateTime.Now.Hour && e.StartDate.Minute != 0) || (e.StartDate.Hour == DateTime.Now.Hour+1 && e.StartDate.Minute == 0))
-                         .ToList();              
-        }
+                          .Where(e => e.StartDate.Date == DateTime.Now.Date)
+                          .Where(e => e.StartDate.Hour >= DateTime.Now.Hour)
+                          .Where(e => e.StartDate.AddMinutes(0) == DateTime.Now.AddMinutes(value))
+                          .ToList();              
+        } 
 
         public List<Event> GetEventsByDay(DateTime date, int userId)
         {

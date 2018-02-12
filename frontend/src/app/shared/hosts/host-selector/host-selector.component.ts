@@ -12,7 +12,7 @@ import {User} from './../../models/user.model';
     selector: 'host-selector',
     templateUrl: './host-selector.component.html',
     styleUrls: [],
-    providers: [HostService]
+    providers: []
     
 })
 
@@ -21,7 +21,7 @@ export class HostSelector {
 
     @Output()
     hostChange = new EventEmitter;
-
+    
     public hosts: User[] = [];
     public selectedHost: User;
     public filteredHosts: User[] = [];
