@@ -51,27 +51,30 @@ export class HostExceptionForm {
             this.hostService.AddHostException(
                 availabilityStartDate,
                 this.model.endDate,
-                this.host.id).subscribe(() => {  
-                    this.successfullAddException.emit();
-                    this.toastr.success(
-                        this.translate.instant('Exception.successfully.added'), '',
-                        {positionClass: 'toast-bottom-right'}
-                    );
-                },
-                error => {
-                    this.errorMessages = {'generic': [error.error.message]};
-                    for (let e of error.error.errors) {
-                        let field = 'generic';
-                        
-                        if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
-                            field = e.field;
-                        }  
-                        if (!this.errorMessages[field]) {
-                            this.errorMessages[field] = [];
-                        }      
-                        this.errorMessages[field].push(e.errorCode);
-                    }              
-                });    
+                this.host.id).subscribe(() => {},
+                    error => {
+                        if(error.status==200){
+                            this.successfullAddException.emit();
+                            this.toastr.success(
+                                this.translate.instant('Exception.successfully.added'), '',
+                                {positionClass: 'toast-bottom-right'}
+                            );
+                        }
+                        else {
+                            this.errorMessages = {'generic': [error.error.message]};
+                            for (let e of error.error.errors) {
+                                let field = 'generic';
+                                
+                                if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
+                                    field = e.field;
+                                }  
+                                if (!this.errorMessages[field]) {
+                                    this.errorMessages[field] = [];
+                                }      
+                                this.errorMessages[field].push(e.errorCode);
+                            }     
+                        }         
+                    });    
         } 
         else this.addExcept=false;
     }
