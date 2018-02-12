@@ -2,7 +2,7 @@ import {Component, Input, NgModule, OnInit, Output, EventEmitter} from '@angular
 import {TranslateService} from "@ngx-translate/core";
 import {NgbActiveModal, NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import { SelectControlValueAccessor } from '@angular/forms';
 import {NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
@@ -37,7 +37,23 @@ export class HostAvailabilityForm{
             const day = new Date(date.year, date.month - 1, date.day);
             return day.getDay() === 0 || day.getDay() === 6;
           };
+
+        
     }
+    //validation for hours between 9 and 18 availability
+     ctrl = new FormControl('', (control: FormControl) => {
+        const value = control.value;
+    
+        if (!value) {
+          return null;
+        }
+    
+        if (value.hour < 9 || value.hour > 17) {
+          return {tooEarly: true};
+        }
+    
+        return null;
+      });
  
       daysOfWeek = [
         {name:this.translate.instant("calendar.days.namesAbbr.Mon"), value:1, checked:false},

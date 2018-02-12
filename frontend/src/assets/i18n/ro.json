@@ -311,7 +311,8 @@
         "RoomId.Inactive": "Camera selectată nu este activă",
         "DayOfWeek.IncorrectValue": "Ziua selectată are valoarea incorectă",
         "Occurrence.IncorrectValue": "Recurența selectată are valoarea incorectă",
-        "Status.IncorrectValue": "Statusul are valoarea incorectă"
+        "Status.IncorrectValue": "Statusul are valoarea incorectă",
+        "Hours": "Vă rugăm să țineți cont că intervalul orar trebuie să fie între 9 si 18."
     },
 
     "AvailabilityException.StartDate.EndDate.TimeSpanLimit": "Durata introdusă este incorectă",

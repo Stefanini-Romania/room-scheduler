@@ -297,7 +297,8 @@
         "RoomId.Inactive": "The selected room is not active",
         "DayOfWeek.IncorrectValue": "The selected day has an incorrect value",
         "Occurrence.IncorrectValue": "The selected occurrence has an incorrect value",
-        "Status.IncorrectValue": "The status has an incorrect value"
+        "Status.IncorrectValue": "The status has an incorrect value",
+        "Hours": "Please be aware that selected hours must be between 9 and 18."
     },
     "AvailabilityException.StartDate.EndDate.TimeSpanLimit": "Timespan inserted is incorrect",
 
