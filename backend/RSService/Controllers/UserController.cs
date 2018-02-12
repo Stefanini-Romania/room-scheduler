@@ -67,7 +67,7 @@ namespace RSService.Controllers
         public IActionResult EventReminder()
         {         
 
-            //this will always have just one value;
+            //this will olways will have just one value, so it doesn't matter it's for in for;
             var emailremindervalue = settingsRepository.GetValueOfEmailReminderSettings();
             foreach (Settings set in emailremindervalue)
             {
@@ -166,7 +166,7 @@ namespace RSService.Controllers
             message.Body = new TextPart("plain")
             {
                 Text = " Your received a new account.<br>"+"Your username:<br>"
-                +"Username: "+ user.Email + "<br>" + " We hope that you will have the best time !"
+                +"Username: "+ user.Email + "<br>" 
 
             };
             using (var client = new SmtpClient())

@@ -83,7 +83,7 @@ namespace RSService.Controllers
             message.Body = new TextPart("html")
             {
                 Text = " You have a new appoitment. <br> "+"Date: "+newEvent.StartDate.Day+"/"+newEvent.StartDate.Month+"/"+newEvent.StartDate.Year +"<br>" +" Hour: " +
-                newEvent.StartDate.TimeOfDay + " to " + newEvent.EndDate.TimeOfDay+ "<br> <br> We hope you will have a good time"
+                newEvent.StartDate.TimeOfDay + " to " + newEvent.EndDate.TimeOfDay
             };
             using (var client = new SmtpClient())
             {
