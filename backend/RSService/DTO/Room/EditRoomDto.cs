@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RSService.ViewModels
+namespace RSService.DTO
 {
-    public class EditRoomViewModel
+    public class EditRoomDto
     {
         public int Id { get; set; }
 

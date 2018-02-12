@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using RSRepository;
 using RSData.Models;
 using System.Text;
-using RSService.ViewModels;
 using static RSData.Models.Role;
 using RSService.DTO;
 using RSService.Validation;
@@ -67,7 +66,7 @@ namespace RSService.Controllers
         public IActionResult EventReminder()
         {         
 
-            //this will always have just one value;
+            //this will olways will have just one value, so it doesn't matter it's for in for;
             var emailremindervalue = settingsRepository.GetValueOfEmailReminderSettings();
             foreach (Settings set in emailremindervalue)
             {
@@ -82,8 +81,10 @@ namespace RSService.Controllers
                     message.Subject = "Remainder";
                     message.Body = new TextPart("html")
                     {
-                        Text = " You have a massage programmed for today in less than an hour!<br>" 
-                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>"
+                        Text = " You have a massage programmed for today! <br>" 
+                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>" + "<br>"
+                        + " Enjoy!"
+
                         
 
                     };
@@ -104,7 +105,7 @@ namespace RSService.Controllers
 
         [HttpPost("/user/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult AddUser([FromBody]AddUserViewModel newUser)
+        public IActionResult AddUser([FromBody]AddUserDto newUser)
         {
             if (!ModelState.IsValid)
             {
@@ -164,7 +165,7 @@ namespace RSService.Controllers
             message.Body = new TextPart("plain")
             {
                 Text = " Your received a new account.<br>"+"Your username:<br>"
-                +"Username: "+ user.Email + "<br>" + " We hope that you will have the best time !"
+                +"Username: "+ user.Email + "<br>" 
 
             };
             using (var client = new SmtpClient())
@@ -180,7 +181,7 @@ namespace RSService.Controllers
            
         }
         [HttpPost("/user/register")]       
-        public IActionResult RegisterUser([FromBody]UserViewModel newUser)
+        public IActionResult RegisterUser([FromBody]RegisterUserDto newUser)
         {
             if (!ModelState.IsValid)
             {
@@ -250,7 +251,7 @@ namespace RSService.Controllers
 
         [HttpPut("/user/edit/{id}")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult EditUser(int id, [FromBody]EditUserViewModel userView)
+        public IActionResult EditUser(int id, [FromBody]EditUserDto userView)
         {
 
             if (!ModelState.IsValid)

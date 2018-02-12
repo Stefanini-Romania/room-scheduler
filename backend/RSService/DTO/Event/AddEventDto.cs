@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RSService.ViewModels
+namespace RSService.DTO
 {
     [Validator(typeof(CreateEventValidator))]
-    public class EventViewModel
+    public class AddEventDto
     {
 
         public DateTime? StartDate { get; set; }

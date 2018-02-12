@@ -1,50 +1,64 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RSService.BusinessLogic;
-using RSService.Controllers;
-using RSService.ViewModels;
+using RSService.Filters;
+using RSService.Validation;
 using System;
+using Xunit;
+using System.Linq;
+using RSService.DTO;
 
 namespace RSTests
 {
-    [TestClass]
     public class AvailabilityTest
     {
-        IRSManager _rsManager;
-
-        [TestMethod]
-        public void AddValidAvailability()
+        [Fact]
+        public void WhenFields_AreNotFullfield_DenyAdd()
         {
-            AvailabilityViewModel availability = new AvailabilityViewModel()
-            {
-                StartDate = new DateTime(2018, 2, 12, 9, 0, 0),
-                EndDate = new DateTime(2018, 2, 12, 13, 0, 0),
-                DaysOfWeek = new int[] { 1, 2, 3, 4, 5 },
-                RoomId = 5,
-                Occurrence = 0
-            };
+            var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
+            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(false);
 
-            AvailabilityController AvController = new AvailabilityController(_rsManager);
+            var validator = new AddAvailabilityValidator(rsMoq.Object);
 
+            var validationResults = validator.Validate(new AddAvailabilityDto());
 
-            // ??
-            //AvController.AddAvailability(availability, 1386);
-
-
-
+            Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AvailabilityMessages.EmptyStartDate));
+            Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AvailabilityMessages.EmptyEndDate));
+            Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AvailabilityMessages.EmptyRoomId));
         }
 
-        public void AddAvailabilityWithWrongTime()
+        [Fact]
+        public void WhenRoomId_IsEmpty_NoDatabaseCallIsMade()
         {
-            AvailabilityViewModel availability = new AvailabilityViewModel()
-            {
-                StartDate = new DateTime(2018, 2, 12, 9, 15, 0),
-                EndDate = new DateTime(2018, 2, 12, 13, 0, 0),
-                DaysOfWeek = new int[] { 1, 2, 3, 4, 5 },
-                RoomId = 5,
-                Occurrence = 0
-            };
+            var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
+            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Throws(new Exception("IsActiveRoom is called"));
+
+            var validator = new AddAvailabilityValidator(rsMoq.Object);
+
+            var validationResults = validator.Validate(new AddAvailabilityDto());
         }
 
+        [Theory]
+        [InlineData(0, true)]
+        [InlineData(1, true)]
+        [InlineData(2, true)]
+        [InlineData(3, true)]
+        [InlineData(4, true)]
+        [InlineData(5, false)]
+        [InlineData(-1, false)]
+        public void WhenOccurence_Varies_IsAsExpected(int occurence, bool isOccurenceValid)
+        {
+            AddAvailabilityDto availability = new AddAvailabilityDto()
+            {
+                Occurrence = occurence,
+            };
 
+            var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Loose);
+            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
+
+            var validator = new AddAvailabilityValidator(rsMoq.Object);
+
+            var validationResults = validator.Validate(availability);
+
+            Assert.Equal(isOccurenceValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectOccurrence) == null);
+        }
     }
 }

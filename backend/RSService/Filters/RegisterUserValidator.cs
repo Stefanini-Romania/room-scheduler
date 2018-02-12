@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using RSData.Models;
 using RSService.BusinessLogic;
 using RSService.Controllers;
-using RSService.ViewModels;
+using RSService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace RSService.Filters
 {
 
-    public class RegisterUserValidator : AbstractValidator<UserViewModel>
+    public class RegisterUserValidator : AbstractValidator<RegisterUserDto>
     {
         private IRSManager rsManager;
         public RegisterUserValidator(IRSManager rSManager)
@@ -41,12 +41,12 @@ namespace RSService.Filters
 
         }
 
-        private bool IsUniqueEmail(UserViewModel m, String email)
+        private bool IsUniqueEmail(RegisterUserDto m, String email)
         {
             return rsManager.IsUniqueEmail(email);
         }
 
-        private bool EmailFormat(UserViewModel m , String email)
+        private bool EmailFormat(RegisterUserDto m , String email)
         {
            string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"+ "@"+ @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$"; ;
             if (email!=null)
@@ -57,7 +57,7 @@ namespace RSService.Filters
             return false;
         }
 
-        private bool IsValidRole(UserViewModel usm, List<int> userRole)
+        private bool IsValidRole(RegisterUserDto usm, List<int> userRole)
         {
             return rsManager.IsValidRole(userRole);  
         }

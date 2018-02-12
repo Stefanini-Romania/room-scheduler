@@ -4,7 +4,6 @@ using MimeKit;
 using RSRepository;
 using RSService.DTO;
 using RSService.Validation;
-using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,7 +68,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("/user/resetpass/{ResetPassCode}")]
-        public IActionResult CheckCodeResetPass(string resetpasscode, [FromForm]ResetPasswordViewModel userView)
+        public IActionResult CheckCodeResetPass(string resetpasscode, [FromForm]ResetPasswordDto userView)
         {
             var user = userRepository.GetUserByResetPassCode(resetpasscode);
 
@@ -80,7 +79,7 @@ namespace RSService.Controllers
        
 
         [HttpPut("/user/resetpass/{ResetPassCode}")]
-        public IActionResult ResetPassowrd(string ResetPassCode, [FromBody]ResetPasswordViewModel userView)
+        public IActionResult ResetPassowrd(string ResetPassCode, [FromBody]ResetPasswordDto userView)
         {
            
 

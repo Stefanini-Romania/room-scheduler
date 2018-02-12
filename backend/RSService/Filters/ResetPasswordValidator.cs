@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using RSService.BusinessLogic;
-using RSService.ViewModels;
+using RSService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RSService.Filters
 {
-    public class ResetPasswordValidator : AbstractValidator<ResetPasswordViewModel>
+    public class ResetPasswordValidator : AbstractValidator<ResetPasswordDto>
     {
         
         public ResetPasswordValidator(IRSManager rSManager)

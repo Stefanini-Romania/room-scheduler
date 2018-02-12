@@ -6,7 +6,6 @@ using RSData.Models;
 using RSRepository;
 using RSService.BusinessLogic;
 using RSService.Validation;
-using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +38,7 @@ namespace RSService.Controllers
 
         [HttpPost("/event/create")]
         [Authorize]
-        public IActionResult AddEvent([FromBody]EventViewModel model)
+        public IActionResult AddEvent([FromBody]AddEventDto model)
         {
             if (!ModelState.IsValid)
                 return ValidationError(GeneralMessages.Event);
@@ -83,7 +82,7 @@ namespace RSService.Controllers
             message.Body = new TextPart("html")
             {
                 Text = " You have a new appoitment. <br> "+"Date: "+newEvent.StartDate.Day+"/"+newEvent.StartDate.Month+"/"+newEvent.StartDate.Year +"<br>" +" Hour: " +
-                newEvent.StartDate.TimeOfDay + " to " + newEvent.EndDate.TimeOfDay+ "<br> <br> We hope you will have a good time"
+                newEvent.StartDate.TimeOfDay + " to " + newEvent.EndDate.TimeOfDay
             };
             using (var client = new SmtpClient())
             {
@@ -189,7 +188,7 @@ namespace RSService.Controllers
 
         [HttpPut("/event/edit/{id}")]
         [Authorize]
-        public IActionResult UpdateEvent(int id, [FromBody] EditEventViewModel model)
+        public IActionResult UpdateEvent(int id, [FromBody] EditEventDto model)
         {
             if (!ModelState.IsValid)
             {

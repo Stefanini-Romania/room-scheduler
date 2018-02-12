@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using RSData.Models;
 using RSService.BusinessLogic;
-using RSService.ViewModels;
+using RSService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RSService.Filters
 {
-    public class CreateEventValidator : AbstractValidator<EventViewModel>
+    public class CreateEventValidator : AbstractValidator<AddEventDto>
     {
         IRSManager rsManager;
 
@@ -65,7 +65,7 @@ namespace RSService.Filters
         }
 
 
-        private bool CanBook(EventViewModel ev, DateTime? d)
+        private bool CanBook(AddEventDto ev, DateTime? d)
         {
             double eventTimeSpan = rsManager.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
 
@@ -74,7 +74,7 @@ namespace RSService.Filters
             return eventTimeSpan <= availableTimeSpan;
         }
 
-        private bool TimeSpanOfEvent(EventViewModel ev, DateTime? d)
+        private bool TimeSpanOfEvent(AddEventDto ev, DateTime? d)
         {
             double eventTimeSpan = rsManager.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
 
@@ -85,7 +85,7 @@ namespace RSService.Filters
             return true;
         }
         
-        private bool GoodTime(EventViewModel ev, DateTime? d)
+        private bool GoodTime(AddEventDto ev, DateTime? d)
         {
             if (d.HasValue) {
                 return (d.GetValueOrDefault().Minute == 0 && d.GetValueOrDefault().Second == 0) 
@@ -94,7 +94,7 @@ namespace RSService.Filters
             return false;
         }
 
-        private bool AvailabilityTimeS(EventViewModel ev, DateTime?d)
+        private bool AvailabilityTimeS(AddEventDto ev, DateTime?d)
         {
             if(d.HasValue)
             {
@@ -104,7 +104,7 @@ namespace RSService.Filters
             return false;
         }
 
-        private bool AvailabilityTimeE(EventViewModel ev, DateTime? d)
+        private bool AvailabilityTimeE(AddEventDto ev, DateTime? d)
         {
             if (d.HasValue)
             {
@@ -117,17 +117,17 @@ namespace RSService.Filters
             return false;
         }
 
-        private bool IsAvailable(EventViewModel ev, DateTime? d)
+        private bool IsAvailable(AddEventDto ev, DateTime? d)
         {
             return rsManager.CheckAvailability((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
         }
 
-        private bool HourAvailable(EventViewModel ev, DateTime? d)
+        private bool HourAvailable(AddEventDto ev, DateTime? d)
         {
             return rsManager.HourCheck((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
         }
 
-        private bool IsNotPenalized(EventViewModel ev, int roomId)
+        private bool IsNotPenalized(AddEventDto ev, int roomId)
         {
             if (rsManager.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate, roomId))
             {
@@ -135,7 +135,7 @@ namespace RSService.Filters
             }
             return true;
         }
-        private bool DayOfWeek(EventViewModel ev, DateTime? date)
+        private bool DayOfWeek(AddEventDto ev, DateTime? date)
         {
             if ((int)ev.StartDate.Value.DayOfWeek >= 1 && (int)ev.StartDate.Value.DayOfWeek <= 5)
                 return true;
@@ -143,7 +143,7 @@ namespace RSService.Filters
             return false;
         }
 
-        private bool TwoMonths(EventViewModel ev, DateTime? date)
+        private bool TwoMonths(AddEventDto ev, DateTime? date)
         {
             if((ev.StartDate.Value.Month <= DateTime.Now.Month+1)&&(ev.StartDate.Value.Day >=1 && ev.StartDate.Value.Day <=31)&&(ev.StartDate.Value.Year==DateTime.Now.Year))
                     return true;

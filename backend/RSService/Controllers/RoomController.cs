@@ -5,7 +5,6 @@ using RSData.Models;
 using RSRepository;
 using RSService.DTO;
 using RSService.Validation;
-using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +69,7 @@ namespace RSService.Controllers
 
         [HttpPost("/room/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult AddRoom([FromBody]EditRoomViewModel model) 
+        public IActionResult AddRoom([FromBody]EditRoomDto model) 
         {
             if (!ModelState.IsValid)
             {
@@ -97,7 +96,7 @@ namespace RSService.Controllers
 
         [HttpPut("/room/edit/{id}")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult UpdateRoom(int id, [FromBody] EditRoomViewModel model)
+        public IActionResult UpdateRoom(int id, [FromBody] EditRoomDto model)
         {
             if (!ModelState.IsValid)
             {

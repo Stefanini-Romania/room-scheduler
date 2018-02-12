@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RSData.Models;
 using RSRepository;
-using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,7 +97,7 @@ namespace RSService.Controllers
         }
 
         [HttpPost("api/auth/login")]
-        public async Task<IActionResult> Login([FromBody] CredentialModel model)
+        public async Task<IActionResult> Login([FromBody] CredentialsDto model)
         {
             if (!ModelState.IsValid)
             {
