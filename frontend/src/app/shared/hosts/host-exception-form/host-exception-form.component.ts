@@ -29,6 +29,7 @@ export class HostExceptionForm {
     public displayDate = new Date();
     public minuteStep = 30;
     public addExcept: boolean;
+    public errorMessages: any = {};
 
     constructor(public hostService: HostService, private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private toastr: ToastrService){}
 
@@ -44,22 +45,26 @@ export class HostExceptionForm {
             this.hostService.AddHostException(
                 availabilityStartDate,
                 this.model.endDate,
-                this.host.id).subscribe(() => {                                  
+                this.host.id).subscribe(() => {  
+                    this.successfullAddException.emit();
+                    this.toastr.success(
+                        this.translate.instant('Exception.successfully.added'), '',
+                        {positionClass: 'toast-bottom-right'}
+                    );
                 },
                 error => {
-                    if(error.status==200) {
-                        this.successfullAddException.emit();
-                        this.toastr.success(
-                            this.translate.instant('Exception.successfully.added'), '',
-                            {positionClass: 'toast-bottom-right'}
-                        );
-                    }
-                    else {
-                        this.toastr.warning(
-                            this.translate.instant('Exception.notSuccessfull'), '',
-                            {positionClass: 'toast-bottom-right'}
-                        );
-                    }
+                    this.errorMessages = {'generic': [error.error.message]};
+                    for (let e of error.error.errors) {
+                        let field = 'generic';
+                        
+                        if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
+                            field = e.field;
+                        }  
+                        if (!this.errorMessages[field]) {
+                            this.errorMessages[field] = [];
+                        }      
+                        this.errorMessages[field].push(e.errorCode);
+                    }              
                 });    
         } 
         else this.addExcept=false;

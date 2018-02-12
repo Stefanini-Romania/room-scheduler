@@ -6,13 +6,16 @@
 <div class="modal-body">
     <div class="container h-100">
         <div class="justify-content-center align-self-center mx-auto">    
-            <ngb-alert [dismissible]="false" type="danger" *ngIf="addExcept==false">{{'Error.Exception.Add' | translate}}</ngb-alert>                    
+            <ngb-alert [dismissible]="false" type="danger" *ngIf="addExcept==false">{{'Error.Exception.Add' | translate}}</ngb-alert>          
+            <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
+                <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
+            </ngb-alert>          
             <label class="label col-5"><b>{{'Availability.startDate'|translate}}</b></label>
             <!--DATE PICKER-->           
             <form class="form-inline datePickerForm">
                 <div class="form-group">
                     <div class="input-group">
-                        <input class="form-control" placeholder="{{displayDate | date: 'yyyy-MM-dd'}}" name="dp" ngbDatepicker #d="ngbDatepicker" id="datePicker" [(ngModel)]="model.startDate" (focus)="d.open()">
+                        <input class="form-control" placeholder="{{displayDate | date: 'yyyy-MM-dd'}}" name="dp" ngbDatepicker #d="ngbDatepicker" id="datePicker" [(ngModel)]="model.startDate" (focus)="d.open()" requiered>
                         <div class="input-group-append">
                             <button class="btn btn-primary" (click)="d.toggle()" type="button" id="dropdownHosts">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -23,6 +26,12 @@
                 </div>
             </form>               
         </div>
+        <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['StartDate']" [dismissible]="false">
+            <div *ngFor="let errorMessage of errorMessages['StartDate']">{{ errorMessage | translate }}</div>
+        </ngb-alert>
+        <!-- <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
+            <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
+        </ngb-alert> -->
 
         <!--START AND END HOUR-->
         <div>

@@ -195,6 +195,7 @@
       "User.Edit": "Unable to edit user",
       "Room.Edit": "Unable to edit room",
       "Availability.Add": "Error adding availability! All fields are mandatory.",
+      "Availability.Creation": "Error creating",
       "Exception.Add": "Error adding exception! All fields are mandatory."
   },
 
@@ -285,8 +286,21 @@
         "endHour": "End hour",
         "add": "Add availability",
         "successfully.added": "The availability has been successfully added!",
-        "notSuccessfull": "Error! The availability has not been saved!"
+        "notSuccessfull": "Error! The availability has not been saved!",
+        "StartDate.IncorrectMinutesFormat": "Minutes format is incorrect (00 or 30)",
+        "EndDate.IncorrectMinutesFormat": "Minutes format is incorrect (00 or 30)",
+        "StartDate.EndDate.InvalidTime": "The duration inserted is invalid",
+        "StartDate.Empty": "Please insert the start date",
+        "EndDate.Empty": "Please insert the end date",
+        "DayOfWeek.Empty": "Please select the day of week",
+        "Occurrence.Empty": "Please select the occurrence",
+        "RoomId.Inactive": "The selected room is not active",
+        "DayOfWeek.IncorrectValue": "The selected day has an incorrect value",
+        "Occurrence.IncorrectValue": "The selected occurrence has an incorrect value",
+        "Status.IncorrectValue": "The status has an incorrect value"
     },
+    "AvailabilityException.StartDate.EndDate.TimeSpanLimit": "Timespan inserted is incorrect",
+
     "Exception": {
         "add": "Add exception",
         "successfully.added": "The exception has been added!",
