@@ -65,7 +65,8 @@ namespace RSService.Controllers
 
         [HttpPost("users/reminder")]
         public IActionResult EventReminder()
-        {
+        {         
+
             //this will always have just one value;
             var emailremindervalue = settingsRepository.GetValueOfEmailReminderSettings();
             foreach (Settings set in emailremindervalue)
@@ -83,7 +84,7 @@ namespace RSService.Controllers
                     {
                         Text = " You have a massage programmed for today in less than an hour!<br>" 
                         + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>"
-                        + " Room: " +evnt.Room
+                        
 
                     };
                     using (var client = new SmtpClient())
