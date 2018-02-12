@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RSService.ViewModels
+namespace RSService.DTO
 {
-    public class EditAvailabilityViewModel
+    public class EditAvailabilityDto
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

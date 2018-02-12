@@ -2,7 +2,7 @@
 using RSRepository;
 using RSService.BusinessLogic;
 using RSService.Controllers;
-using RSService.ViewModels;
+using RSService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RSService.Filters
 {
-    public class AuthenticationValidator : AbstractValidator<CredentialModel>
+    public class AuthenticationValidator : AbstractValidator<CredentialsDto>
     {
         private IRSManager rsManager;
 
@@ -24,7 +24,7 @@ namespace RSService.Filters
 
         }
 
-        private bool IsActive(CredentialModel cModel, String email)
+        private bool IsActive(CredentialsDto cModel, String email)
         {
             return rsManager.IsActiveUser(email);
         }

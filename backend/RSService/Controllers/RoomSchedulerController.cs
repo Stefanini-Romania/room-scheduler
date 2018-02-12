@@ -6,7 +6,6 @@ using RSData.Models;
 using RSRepository;
 using RSService.BusinessLogic;
 using RSService.Validation;
-using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +38,7 @@ namespace RSService.Controllers
 
         [HttpPost("/event/create")]
         [Authorize]
-        public IActionResult AddEvent([FromBody]EventViewModel model)
+        public IActionResult AddEvent([FromBody]AddEventDto model)
         {
             if (!ModelState.IsValid)
                 return ValidationError(GeneralMessages.Event);
@@ -189,7 +188,7 @@ namespace RSService.Controllers
 
         [HttpPut("/event/edit/{id}")]
         [Authorize]
-        public IActionResult UpdateEvent(int id, [FromBody] EditEventViewModel model)
+        public IActionResult UpdateEvent(int id, [FromBody] EditEventDto model)
         {
             if (!ModelState.IsValid)
             {

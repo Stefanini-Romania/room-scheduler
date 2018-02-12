@@ -6,7 +6,6 @@ using RSRepository;
 using RSService.BusinessLogic;
 using RSService.DTO;
 using RSService.Validation;
-using RSService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,7 +105,7 @@ namespace RSService.Controllers
 
         [HttpPost("/availability/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
-        public IActionResult AddAvailability([FromBody] AvailabilityViewModel newAvailability, int? hostId)
+        public IActionResult AddAvailability([FromBody] AddAvailabilityDto newAvailability, int? hostId)
         {
             if (!ModelState.IsValid)
             {
@@ -274,7 +273,7 @@ namespace RSService.Controllers
 
         [HttpPut("/availability/edit/{id}")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult UpdateAvailability(int id, [FromBody] EditAvailabilityViewModel model)
+        public IActionResult UpdateAvailability(int id, [FromBody] EditAvailabilityDto model)
         {
             if (!ModelState.IsValid)
             {

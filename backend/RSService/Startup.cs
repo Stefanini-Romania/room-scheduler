@@ -14,7 +14,6 @@ using RSRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using AutoMapper;
-using RSService.ViewModels;
 using RSService.BusinessLogic;
 using RSService.Filters;
 using FluentValidation.AspNetCore;
@@ -22,6 +21,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Hangfire;
 using RSService.Controllers;
+using RSService.DTO;
 
 namespace RSService
 {
@@ -134,9 +134,9 @@ namespace RSService
 
             Mapper.Initialize(Configuration =>
             {
-                Configuration.CreateMap<EventViewModel, Event>().ReverseMap();
-                Configuration.CreateMap<EditEventViewModel, Event>().ReverseMap();
-                Configuration.CreateMap<EditUserViewModel, User>().ReverseMap();
+                Configuration.CreateMap<AddEventDto, Event>().ReverseMap();
+                Configuration.CreateMap<EditEventDto, Event>().ReverseMap();
+                Configuration.CreateMap<EditUserDto, User>().ReverseMap();
 
             });
         }

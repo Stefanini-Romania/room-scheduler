@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using RSService.BusinessLogic;
-using RSService.ViewModels;
+using RSService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RSService.Filters
 {
-    public class EditRoomValidator: AbstractValidator<EditRoomViewModel>
+    public class EditRoomValidator: AbstractValidator<EditRoomDto>
     {
         private IRSManager rsManager;
         public EditRoomValidator(IRSManager rSManager)
@@ -24,7 +24,7 @@ namespace RSService.Filters
 
         }
 
-        private bool IsUniqueRoom(EditRoomViewModel m, String roomName)
+        private bool IsUniqueRoom(EditRoomDto m, String roomName)
         {
             return rsManager.IsUniqueRoom(roomName, m.Location,m.Id);
         }

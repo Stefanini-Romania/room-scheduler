@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RSService.ViewModels
+namespace RSService.DTO
 {
-    public class EditEventViewModel
+    public class EditEventDto
     {
         public DateTime StartDate { get; set; }
 

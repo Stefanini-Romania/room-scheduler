@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using RSData.Models;
 using RSService.BusinessLogic;
-using RSService.ViewModels;
+using RSService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RSService.Filters
 {
-    public class AddUserValidator : AbstractValidator<AddUserViewModel>
+    public class AddUserValidator : AbstractValidator<AddUserDto>
     {
         private IRSManager _rsManager;
         public AddUserValidator(IRSManager rsManager)
@@ -33,12 +33,12 @@ namespace RSService.Filters
 
         }
 
-        private bool IsUniqueEmail(AddUserViewModel m, String email)
+        private bool IsUniqueEmail(AddUserDto m, String email)
         {
             return _rsManager.IsUniqueEmail(email);
         }
 
-        private bool EmailFormat(AddUserViewModel m, String email)
+        private bool EmailFormat(AddUserDto m, String email)
         {
             string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$"; ;
             if (email != null)
@@ -49,7 +49,7 @@ namespace RSService.Filters
             return false;
         }
 
-        private bool IsValidRole(AddUserViewModel usm, List<int> userRole)
+        private bool IsValidRole(AddUserDto usm, List<int> userRole)
         {
             return _rsManager.IsValidRole(userRole);
         }

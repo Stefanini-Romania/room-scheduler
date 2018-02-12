@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace RSService.ViewModels
+namespace RSService.DTO
 {
-    public class CredentialModel
+    public class CredentialsDto
     {
         public string LoginName { get; set; }
 

@@ -22,7 +22,7 @@ namespace RSService.Validation {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AvailabilityMessages {
+    public class AvailabilityMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace RSService.Validation {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RSService.Validation.AvailabilityMessages", typeof(AvailabilityMessages).Assembly);
@@ -51,7 +51,7 @@ namespace RSService.Validation {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to Availability.DayOfWeek.Empty.
         /// </summary>
-        internal static string EmptyDayOfWeek {
+        public static string EmptyDayOfWeek {
             get {
                 return ResourceManager.GetString("EmptyDayOfWeek", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to Availability.EndDate.Empty.
         /// </summary>
-        internal static string EmptyEndDate {
+        public static string EmptyEndDate {
             get {
                 return ResourceManager.GetString("EmptyEndDate", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to AvailabilityException.HostId.Empty.
         /// </summary>
-        internal static string EmptyHostId {
+        public static string EmptyHostId {
             get {
                 return ResourceManager.GetString("EmptyHostId", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to Availability.Occurrence.Empty.
         /// </summary>
-        internal static string EmptyOccurrence {
+        public static string EmptyOccurrence {
             get {
                 return ResourceManager.GetString("EmptyOccurrence", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to Availability.RoomId.Empty.
         /// </summary>
-        internal static string EmptyRoomId {
+        public static string EmptyRoomId {
             get {
                 return ResourceManager.GetString("EmptyRoomId", resourceCulture);
             }
@@ -108,25 +108,16 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to Availability.StartDate.Empty.
         /// </summary>
-        internal static string EmptyStartDate {
+        public static string EmptyStartDate {
             get {
                 return ResourceManager.GetString("EmptyStartDate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Availability.EndDate.IncorrectMinutesFormat.
-        /// </summary>
-        internal static string EndDateMinutesFormat {
-            get {
-                return ResourceManager.GetString("EndDateMinutesFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Availability.RoomId.Inactive.
         /// </summary>
-        internal static string InactiveRoom {
+        public static string InactiveRoom {
             get {
                 return ResourceManager.GetString("InactiveRoom", resourceCulture);
             }
@@ -135,25 +126,43 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to Availability.DayOfWeek.IncorrectValue.
         /// </summary>
-        internal static string IncorrectDayOfWeek {
+        public static string IncorrectDayOfWeek {
             get {
                 return ResourceManager.GetString("IncorrectDayOfWeek", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Availability.EndDate.IncorrectTime.
+        /// </summary>
+        public static string IncorrectEndTime {
+            get {
+                return ResourceManager.GetString("IncorrectEndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Availability.Occurrence.IncorrectValue.
         /// </summary>
-        internal static string IncorrectOccurrence {
+        public static string IncorrectOccurrence {
             get {
                 return ResourceManager.GetString("IncorrectOccurrence", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Availability.StartDate.IncorrectTime.
+        /// </summary>
+        public static string IncorrectStartTime {
+            get {
+                return ResourceManager.GetString("IncorrectStartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Availability.Status.IncorrectValue.
         /// </summary>
-        internal static string IncorrectStatus {
+        public static string IncorrectStatus {
             get {
                 return ResourceManager.GetString("IncorrectStatus", resourceCulture);
             }
@@ -162,7 +171,7 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to Availability.StartDate.EndDate.InvalidTime.
         /// </summary>
-        internal static string InvalidTime {
+        public static string InvalidTime {
             get {
                 return ResourceManager.GetString("InvalidTime", resourceCulture);
             }
@@ -171,18 +180,9 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to AvailabilityException.StartDate.EndDate.TimeSpanLimit.
         /// </summary>
-        internal static string InvalidTimeSpan {
+        public static string InvalidTimeSpan {
             get {
                 return ResourceManager.GetString("InvalidTimeSpan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Availability.StartDate.IncorrectMinutesFormat.
-        /// </summary>
-        internal static string StartDateMinutesFormat {
-            get {
-                return ResourceManager.GetString("StartDateMinutesFormat", resourceCulture);
             }
         }
     }

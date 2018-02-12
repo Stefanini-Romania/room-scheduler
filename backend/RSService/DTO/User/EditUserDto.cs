@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RSService.ViewModels
+namespace RSService.DTO
 {
-    public class AddUserViewModel
+    public class EditUserDto
     {
+        public int Id { get; set; }
+
         public string Email { get; set; }
 
         public string FirstName { get; set; }
@@ -17,6 +19,11 @@ namespace RSService.ViewModels
 
         public int? DepartmentId { get; set; }
 
+        public bool? IsActive { get; set; }
+
         public List<int> UserRole { get; set; }
+
+     
+
     }
 }

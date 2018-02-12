@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using RSRepository;
 using RSData.Models;
 using System.Text;
-using RSService.ViewModels;
 using static RSData.Models.Role;
 using RSService.DTO;
 using RSService.Validation;
@@ -94,7 +93,7 @@ namespace RSService.Controllers
 
         [HttpPost("/user/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult AddUser([FromBody]AddUserViewModel newUser)
+        public IActionResult AddUser([FromBody]AddUserDto newUser)
         {
             if (!ModelState.IsValid)
             {
@@ -170,7 +169,7 @@ namespace RSService.Controllers
            
         }
         [HttpPost("/user/register")]       
-        public IActionResult RegisterUser([FromBody]UserViewModel newUser)
+        public IActionResult RegisterUser([FromBody]RegisterUserDto newUser)
         {
             if (!ModelState.IsValid)
             {
@@ -240,7 +239,7 @@ namespace RSService.Controllers
 
         [HttpPut("/user/edit/{id}")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
-        public IActionResult EditUser(int id, [FromBody]EditUserViewModel userView)
+        public IActionResult EditUser(int id, [FromBody]EditUserDto userView)
         {
 
             if (!ModelState.IsValid)
