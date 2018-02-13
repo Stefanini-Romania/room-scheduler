@@ -20,6 +20,11 @@ namespace RSService.Filters
             {
                 RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
             });
+
+            When(p => p.VarName == "EmailReminderTime", () =>
+            {
+                RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
+            });
         }
 
 
