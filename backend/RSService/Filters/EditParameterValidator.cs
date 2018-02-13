@@ -19,11 +19,13 @@ namespace RSService.Filters
             When(p => p.VarName == "SessionTimeSpan", () =>
             {
                 RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
+                RuleFor(p => p.Value).Must(SessionMaxMinValue).WithMessage(p => Validation.SettingsMessages.EmailValueTooSmallOrTooBig);
             });
 
             When(p => p.VarName == "EmailReminderTime", () =>
             {
                 RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
+                RuleFor(p => p.Value).Must(EmailMaxMinValue).WithMessage(p => Validation.SettingsMessages.SessionValueTooSmallOrTooBig);
             });
         }
 
@@ -36,6 +38,21 @@ namespace RSService.Filters
             {
                 return true;
             }
+            return false;
+        }
+
+        private bool EmailMaxMinValue(SettingsDto settings, string value)
+        {
+            int valoare = Int32.Parse(value);
+            if (valoare >= 10 && valoare <= 120)
+                return true;
+            return false;
+        }
+        private bool SessionMaxMinValue(SettingsDto settings, string value)
+        {
+            int valoare = Int32.Parse(value);
+            if (valoare >= 1 && valoare <= 60)
+                return true;
             return false;
         }
 
