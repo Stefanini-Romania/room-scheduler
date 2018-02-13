@@ -74,6 +74,26 @@ export class HostService {
             });
     }
 
+    public EditHostAvailability(id: number, startDate: Date, endDate: Date, daysOfWeek: any, occurrence: number, roomId?: number){
+        const url = environment.apiUrl + '/availability/edit/' + id;
+        const body = JSON.stringify({
+            startDate: startDate,
+            endDate: endDate,
+            daysOfWeek: daysOfWeek,
+            occurrence: occurrence,
+            roomId: roomId,       
+        });
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+
+        return this.http.post(url, body, {headers: headers, withCredentials: true})
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+            .map((response: Response) => {
+                return response;
+            });
+    }
+
     public AddHostException(startDate: Date, endDate: Date, hostId?: number){
         const url = environment.apiUrl + '/availability/exception/add';
         let params = new HttpParams();
