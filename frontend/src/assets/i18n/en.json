@@ -274,6 +274,7 @@
 
     "SessionTimeSpan": "Session Timespan (min)",
     "Session.Logout": "Your login session has expired",
+    "EmailReminderTime": "Email Reminder Time (min)",
 
     "Settings": {
         "Value.Wrong.Type": "You have entered an invalid value. Please make sure you insert a number!"
