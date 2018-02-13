@@ -47,8 +47,8 @@
                 <label class="label col-5 labelHour"><b>{{'Availability.endHour' | translate}}</b></label>
             </div>
             <div class="row align-self-center mx-auto">
-                <ngb-timepicker class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep"></ngb-timepicker>
-                <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep"></ngb-timepicker>
+                <ngb-timepicker class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
+                <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
             </div>
         </div>
     </div>
