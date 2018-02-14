@@ -16,18 +16,19 @@ namespace RSService.Filters
         {
             rsManager = _rsManager;
 
-           When(p => p.VarName.Equals("SessionTimeSpan"), () =>
+            When(p => p.VarName == "SessionTimeSpan", () =>
             {
                 RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
                 RuleFor(p => p.Value).Must(SessionMaxMinValue).WithMessage(p => Validation.SettingsMessages.SessionValueTooSmallOrTooBig);
             });
 
-               When(p => p.VarName == "EmailReminderTime", () =>
-               {
-            RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
-            RuleFor(p => p.Value).Must(EmailMaxMinValue).WithMessage(p => Validation.SettingsMessages.EmailValueTooSmallOrTooBig);
-               });
-        }
+            When(p => p.VarName == "EmailReminderTime", () =>
+            {
+                RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
+                RuleFor(p => p.Value).Must(EmailMaxMinValue).WithMessage(p => Validation.SettingsMessages.EmailValueTooSmallOrTooBig);
+            });
+        
+    }
 
 
         private bool IsNumber(SettingsDto settings, string value)
