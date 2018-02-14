@@ -291,6 +291,8 @@
         "endHour": "End hour",
         "add": "Add availability",
         "edit": "Edit availability",
+        "removed": "The availability has been removed",
+        "remove": "Remove",
         "successfully.added": "The availability has been successfully added!",
         "successfully.edit": "The availability has been successfully edited!",
         "notSuccessfull": "Error! The availability has not been saved!",

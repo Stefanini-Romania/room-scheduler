@@ -306,6 +306,8 @@
         "endHour": "Până la ora",
         "add": "Adaugă disponibilitate",
         "edit": "Editare disponibilitate",
+        "removed": "Disponibilitatea a fost eliminată",
+        "remove" : "Elimină",
         "successfully.added": "Disponibilitatea a fost adăugată cu succes!",
         "successfully.edit": "Disponibilitatea a fost editată cu succes!",
         "notSuccessfull": "Atenție! Disponibilitatea nu a putut fi salvată!",

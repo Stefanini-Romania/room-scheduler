@@ -133,22 +133,32 @@ export class HostAvailabilityForm{
     }
 
     editAvailability() {
-        this.hostService.EditHostAvailability(this.model.id, this.model.startDate, this.model.endDate, this.model.daysOfWeek, this.model.occurrence, this.model.roomId).subscribe(
+        this.hostService.EditHostAvailability(this.model.id, this.model.startDate, this.model.endDate, this.model.status, this.model.occurrence, this.model.roomId).subscribe(
             () => {},
             error => {
-                if(error.status==200){
+                if (error.status==200){
                     this.successfullEditAvailability.emit();
                     this.toastr.success(
                         this.translate.instant('Availability.successfully.edit'), '',
                         {positionClass: 'toast-bottom-right'}
                     );
                 }
-                else{
+                else if (this.model.status != 1){
                     this.toastr.warning(
                         this.translate.instant('Availability.notSuccessfull.edit'), '',
                         {positionClass: 'toast-bottom-right'}
                     );
                 }
             });           
+    }
+
+    removeAvailability() {
+        this.model.status = 1;
+        this.toastr.warning(
+            this.translate.instant('Availability.removed'), '',
+            {positionClass: 'toast-bottom-right'}
+        );
+        return this.editAvailability();
+        
     }
 }
