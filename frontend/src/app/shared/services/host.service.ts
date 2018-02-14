@@ -74,13 +74,13 @@ export class HostService {
             });
     }
 
-    public EditHostAvailability(id: number, startDate: Date, endDate: Date,   occurrence: number, status: number, roomId?: number){
+    public EditHostAvailability(id: number, startDate: Date, endDate: Date, status: number, occurrence: number, roomId?: number){
         const url = environment.apiUrl + '/availability/edit/' + id;
         const body = JSON.stringify({
             startDate: startDate,
             endDate: endDate,
-            occurrence: occurrence,
             status: status,
+            occurrence: occurrence, 
             roomId: roomId,       
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
