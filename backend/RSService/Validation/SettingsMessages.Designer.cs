@@ -61,6 +61,24 @@ namespace RSService.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.Value.EmailTooSmallOrTooBig.
+        /// </summary>
+        internal static string EmailValueTooSmallOrTooBig {
+            get {
+                return ResourceManager.GetString("EmailValueTooSmallOrTooBig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.Value.SessionTooSmallOrTooBig.
+        /// </summary>
+        internal static string SessionValueTooSmallOrTooBig {
+            get {
+                return ResourceManager.GetString("SessionValueTooSmallOrTooBig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.Value.WrongType.
         /// </summary>
         internal static string WrongValue {

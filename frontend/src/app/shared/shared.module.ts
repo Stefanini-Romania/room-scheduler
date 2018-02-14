@@ -9,6 +9,7 @@ import {HostAvailability} from './hosts/host-availability/host-availability.comp
 import {HostAvailabilityForm} from './hosts/host-availability-form/host-availability-form.component';
 import {HostExceptionForm} from './hosts/host-exception-form/host-exception-form.component';
 import {HostSelector} from './../shared/hosts/host-selector/host-selector.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RoomModule} from '../rooms/room.module';
@@ -21,7 +22,8 @@ import { HostService } from './services/host.service';
                 NgbModule.forRoot(),
                 FormsModule,
                 RoomModule,
-                ReactiveFormsModule],
+                ReactiveFormsModule,
+                NgxPaginationModule],
 
     providers: [HostService],
     declarations: [KeysPipe, LocalizedDatePipe, ValidateEqualValidator, HostAvailability, HostAvailabilityForm, HostExceptionForm, HostSelector],

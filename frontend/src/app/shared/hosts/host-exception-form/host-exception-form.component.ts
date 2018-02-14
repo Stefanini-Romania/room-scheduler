@@ -1,7 +1,7 @@
 import {Component, NgModule, Input, Output, EventEmitter} from '@angular/core'
 import {TranslateService} from "@ngx-translate/core";
 import {NgbActiveModal, NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import {SelectControlValueAccessor} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
@@ -38,6 +38,21 @@ export class HostExceptionForm {
             return day.getDay() === 0 || day.getDay() === 6;
           };
     }
+
+        //validation for hours between 9 and 18 availability
+        ctrl = new FormControl('', (control: FormControl) => {
+            const value = control.value;
+        
+            if (!value) {
+              return null;
+            }
+        
+            if (value.hour < 9 || value.hour > 17) {
+              return {tooEarly: true};
+            }
+        
+            return null;
+          });
 
     addException(){
         if(this.model.startDate && this.startHour && this.endHour) {

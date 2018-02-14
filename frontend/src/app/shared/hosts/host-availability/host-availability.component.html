@@ -1,4 +1,3 @@
-
 <form class="form-inline datePickerForm">
     <div class="form-group">
         <div class="input-group">
@@ -13,19 +12,25 @@
 </form>
 <host-selector (hostChange)="onHostChanged($event)"></host-selector>
 <div class="row">
-    <table class="table table-hover table-striped table-responsive table table-bordered text-center col col-md-2" >
+    <table class="table table-hover table-striped table-responsive table table-bordered text-center col col-md-3" >
         <thead>
             <tr>
                 <th colspan="4">{{'Availabilities' | translate}}</th>  
+                <th>{{'col.edit' | translate}}</th>  
             </tr>
         </thead>
         
         <tbody>
-            <tr *ngFor="let day of availabilities">
-            <td>{{day.startDate | localizedDate:'EE' | titlecase }} </td>
-            <td>{{day.startDate | localizedDate:'HH:mm' }} </td> 
-            <td>{{day.endDate | localizedDate:'HH:mm'}} </td> 
-            <td>{{day.roomName}}</td>
+            <tr *ngFor="let day of availabilities | paginate: { itemsPerPage: 6, currentPage: availPage}">
+                <td>{{day.startDate | localizedDate:'EE' | titlecase }} </td>
+                <td>{{day.startDate | localizedDate:'HH:mm' }} </td> 
+                <td>{{day.endDate | localizedDate:'HH:mm'}} </td> 
+                <td>{{day.roomName}}</td>
+                <td>
+                    <button class = "btn btn-primary" (click)="onSelectAvailability(availabilities)" title="{{'Availability.edit' | translate}}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -46,4 +51,5 @@
         </tbody>
     </table>
 </div>
+<pagination-controls (pageChange)="availPage = $event"></pagination-controls>
     

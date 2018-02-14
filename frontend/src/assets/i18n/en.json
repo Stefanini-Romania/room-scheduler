@@ -9,6 +9,7 @@
   },
 
   "welcome": "Welcome",
+  "col.edit": "Edit",
 
   "button": {
       "close": "Close",
@@ -18,7 +19,8 @@
       "register": "Register",
       "admin": "Admin",
       "signIn": "Sign In",
-      "send": "Send"
+      "send": "Send",
+      "edit": "Edit"
   },
 
   "noAccount": "You don't have an account",
@@ -274,9 +276,12 @@
 
     "SessionTimeSpan": "Session Timespan (min)",
     "Session.Logout": "Your login session has expired",
+    "EmailReminderTime": "Email Reminder Time (min)",
 
     "Settings": {
-        "Value.Wrong.Type": "You have entered an invalid value. Please make sure you insert a number!"
+        "Value.Wrong.Type": "You have entered an invalid value. Please make sure you insert a number!",
+        "Value.EmailTooSmallOrTooBig": "You have entered an invalid value. Please insert a value between 10 and 60!",
+        "Value.SessionTooSmallOrTooBig": "You have entered an invalid value. Please insert a value between 1 and 60!"
     },
 
     "Availability":{
@@ -285,8 +290,11 @@
         "startHour": "Start hour",
         "endHour": "End hour",
         "add": "Add availability",
+        "edit": "Edit availability",
         "successfully.added": "The availability has been successfully added!",
+        "successfully.edit": "The availability has been successfully edited!",
         "notSuccessfull": "Error! The availability has not been saved!",
+        "notSuccessfull.edit": "Error! The availability has not been edited!",
         "StartDate.IncorrectMinutesFormat": "Minutes format is incorrect (00 or 30)",
         "EndDate.IncorrectMinutesFormat": "Minutes format is incorrect (00 or 30)",
         "StartDate.EndDate.InvalidTime": "The duration inserted is invalid",
@@ -297,7 +305,8 @@
         "RoomId.Inactive": "The selected room is not active",
         "DayOfWeek.IncorrectValue": "The selected day has an incorrect value",
         "Occurrence.IncorrectValue": "The selected occurrence has an incorrect value",
-        "Status.IncorrectValue": "The status has an incorrect value"
+        "Status.IncorrectValue": "The status has an incorrect value",
+        "Hours": "Please be aware that selected hours must be between 9 and 18."
     },
     "AvailabilityException.StartDate.EndDate.TimeSpanLimit": "Timespan inserted is incorrect",
 
@@ -309,5 +318,4 @@
      
     "Availabilities": "Availabilities",
     "Exceptions": "Exceptions"
-
 }

@@ -78,11 +78,11 @@ namespace RSRepository
 
         public List<Event> GetEventsByDateTimeNow(int value)
         {
-
+            
             return events.Where(e => e.EventStatus == (int)EventStatusEnum.waiting)
                           .Where(e => e.StartDate.Date == DateTime.Now.Date)
-                          .Where(e => e.StartDate.Hour >= DateTime.Now.Hour)
-                          .Where(e => e.StartDate.AddMinutes(0) == DateTime.Now.AddMinutes(value))
+                          .Where(e => e.StartDate.Hour >= DateTime.Now.Hour && e.StartDate <= DateTime.Now.AddHours(1))
+                          .Where(e => (e.StartDate.Minute == DateTime.Now.AddMinutes(value).Minute))
                           .ToList();              
         } 
 

@@ -534,6 +534,9 @@ input[_ngcontent-c1]{
     background-color: white;
   
 }
+.marginLeftRight{
+    margin: 0 5px !important;
+}
 
 /* .scrollit {
     overflow:scroll;

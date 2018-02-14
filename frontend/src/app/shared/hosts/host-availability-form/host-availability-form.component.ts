@@ -2,7 +2,7 @@ import {Component, Input, NgModule, OnInit, Output, EventEmitter} from '@angular
 import {TranslateService} from "@ngx-translate/core";
 import {NgbActiveModal, NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import { SelectControlValueAccessor } from '@angular/forms';
 import {NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
@@ -23,6 +23,7 @@ export class HostAvailabilityForm{
 
     @Output()
     successfullAddAvailability = new EventEmitter;
+    successfullEditAvailability = new EventEmitter;
 
     public model: Availability = <Availability>{};
     public startHour;
@@ -37,32 +38,46 @@ export class HostAvailabilityForm{
             const day = new Date(date.year, date.month - 1, date.day);
             return day.getDay() === 0 || day.getDay() === 6;
           };
+
+        
     }
+    //validation for hours between 9 and 18 availability
+    ctrl = new FormControl('', (control: FormControl) => {
+        const value = control.value;
+    
+        if (!value) {
+          return null;
+        }
+    
+        if (value.hour < 9 || value.hour > 17) {
+          return {tooEarly: true};
+        }
+    
+        return null;
+    });
  
-      daysOfWeek = [
+    daysOfWeek = [
         {name:this.translate.instant("calendar.days.namesAbbr.Mon"), value:1, checked:false},
         {name:this.translate.instant("calendar.days.namesAbbr.Tue"), value:2, checked:false},
         {name:this.translate.instant("calendar.days.namesAbbr.Wed"), value:3, checked:false},
         {name:this.translate.instant("calendar.days.namesAbbr.Thu"), value:4, checked:false},
         {name:this.translate.instant("calendar.days.namesAbbr.Fri"), value:5, checked:false}
-      ]
-      get selectedDaysOfWeek() { // right now: ['1','3']
+    ]
+    
+    get selectedDaysOfWeek() { // right now: ['1','3']
         return this.daysOfWeek
-                  .filter(opt => opt.checked)
-                  .map(opt => opt.value)
-      }
+            .filter(opt => opt.checked)
+            .map(opt => opt.value)
+    }
 
-      occurrence = [{value: 1}, {value: 2}, {value: 3}, {value: 4}];
-      selectedOccurrence = this.occurrence[0];
+    occurrence = [{value: 1}, {value: 2}, {value: 3}, {value: 4}];
+    selectedOccurrence = this.occurrence[0];
 
-    
-    
-      onRoomChanged(selectedRoom: Room) {
+    onRoomChanged(selectedRoom: Room) {
         this.selectedRoom = selectedRoom;
     }
 
-      addAvailability(){
-
+    addAvailability(){
         if(this.model.startDate && this.startHour && this.endHour){
             JSON.stringify(this.model.startDate);
             let availabilityStartDate = new Date(this.model.startDate["year"], this.model.startDate["month"]-1, this.model.startDate["day"], this.startHour["hour"], this.startHour["minute"], 0);
@@ -115,7 +130,25 @@ export class HostAvailabilityForm{
                 });        
         }
         else this.addAvail=false;
-      }
-
-
     }
+
+    editAvailability() {
+        this.hostService.EditHostAvailability(this.model.id, this.model.startDate, this.model.endDate, this.model.daysOfWeek, this.model.occurrence, this.model.roomId).subscribe(
+            () => {},
+            error => {
+                if(error.status==200){
+                    this.successfullEditAvailability.emit();
+                    this.toastr.success(
+                        this.translate.instant('Availability.successfully.edit'), '',
+                        {positionClass: 'toast-bottom-right'}
+                    );
+                }
+                else{
+                    this.toastr.warning(
+                        this.translate.instant('Availability.notSuccessfull.edit'), '',
+                        {positionClass: 'toast-bottom-right'}
+                    );
+                }
+            });           
+    }
+}
