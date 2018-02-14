@@ -82,7 +82,8 @@ namespace RSRepository
             return events.Where(e => e.EventStatus == (int)EventStatusEnum.waiting)
                           .Where(e => e.StartDate.Date == DateTime.Now.Date)
                           .Where(e => e.StartDate.Hour >= DateTime.Now.Hour && e.StartDate <= DateTime.Now.AddHours(2))
-                          .Where(e => (e.StartDate.Minute == DateTime.Now.AddMinutes(value).Minute) || (e.StartDate.Minute == DateTime.Now.AddMinutes(value).Minute -1)
+                          .Where(e => (e.StartDate.Minute == DateTime.Now.AddMinutes(value).Minute)
+                          //|| (e.StartDate.Minute == DateTime.Now.AddMinutes(value).Minute -1)
                           || (e.StartDate.Minute == DateTime.Now.AddMinutes(value).Minute + 1))
                           .ToList();              
         } 
