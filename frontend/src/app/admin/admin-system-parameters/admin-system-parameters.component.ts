@@ -52,6 +52,7 @@ export class AdminSystemParameters implements AfterViewInit{
     }
 
     editSettings() {
+
         this.systemParametersService.editParameters(this.modelForm.id, this.modelForm.varName, this.modelForm.value).subscribe(
             () => {           
             },
@@ -64,8 +65,25 @@ export class AdminSystemParameters implements AfterViewInit{
                         {positionClass: 'toast-bottom-right'}        
                 )}
 
-                else {
-                    this.errorMessages = error.error.message;
+                else if(error.status!=200){
+                    // this.errorMessages = error.error.message;
+                    this.errorMessages = {'generic': [error.error.message]};
+                    
+                                // build error message
+                                for (let e of error.error.errors) {
+                                    let field = 'generic';         
+                                    if (['Value'].indexOf(e.field) >= 0) {
+                                        field = e.field;
+                                    }
+                                    if (!this.errorMessages[field]) {
+                                        this.errorMessages[field] = [];
+                                    }
+                                    this.errorMessages[field].push(e.errorCode);
+                                }
+                                this.toastr.warning(
+                                    this.translate.instant('SystemParameters.Error'), '',
+                                    {positionClass: 'toast-bottom-right'}        
+                            );
                 }
                 
     });    
