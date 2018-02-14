@@ -18,10 +18,10 @@ namespace RSService.Filters
             _rsManager = rsManager;
 
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
-            RuleFor(a => a.StartDate).Must(GoodTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
+            RuleFor(a => a.StartDate).Must(GoodStartTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
 
             RuleFor(a => a.EndDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyEndDate);
-            RuleFor(m => m.EndDate).Must(GoodTime).WithMessage(AvailabilityMessages.IncorrectEndTime);
+            RuleFor(m => m.EndDate).Must(GoodEndTime).WithMessage(AvailabilityMessages.IncorrectEndTime);
 
             RuleFor(a => a.RoomId).NotEmpty().WithMessage(AvailabilityMessages.EmptyRoomId);
             When(a => a.RoomId != 0, () =>
@@ -35,10 +35,16 @@ namespace RSService.Filters
             RuleFor(a => a.Occurrence).Must(ValidOccurrence).WithMessage(AvailabilityMessages.IncorrectOccurrence);
         }
 
-        private bool GoodTime(AddAvailabilityDto av, DateTime d)
+        private bool GoodStartTime(AddAvailabilityDto av, DateTime d)
         {
 
             return d.Hour >= 9 && d.Hour <= 17 && d.Second == 0 && (d.Minute == 0 || d.Minute == 30);
+        }
+
+        private bool GoodEndTime(AddAvailabilityDto av, DateTime d)
+        {
+            return d.Hour >= 9 && d.Hour <= 17 && d.Second == 0 && (d.Minute == 0 || d.Minute == 30) ||
+                   d.Hour >=9 && d.Hour == 18 && d.Second == 0 && d.Minute == 0;
         }
 
         private bool ActiveRoom(AddAvailabilityDto av, int roomId)
