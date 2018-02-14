@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSData", "RSData\RSData.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSRepository", "RSRepository\RSRepository.csproj", "{4E751866-B3AA-4559-BF2D-78DBA0C3B0D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSTests", "RSTests\RSTests.csproj", "{57D4B549-8E63-44E3-B824-9C30F03DFE83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSTests", "RSTests\RSTests.csproj", "{57D4B549-8E63-44E3-B824-9C30F03DFE83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -302,8 +302,6 @@ namespace RSService.Controllers
                 availability.Status = model.Status;
             }
 
-            
-
             Context.SaveChanges();
 
             return Ok();
