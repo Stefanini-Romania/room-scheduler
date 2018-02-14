@@ -1,7 +1,7 @@
 import {Component, NgModule, Input, EventEmitter} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
-import {NgbModal, NgbModalRef, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef,NgbPaginationConfig, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 import {User} from '../../../shared/models/user.model';
 import {HostService} from './../../services/host.service';
@@ -30,6 +30,7 @@ export class HostAvailability{
     hosts: any[] = [];
     availabilityHostGroupName: string;
     day: any[] = [];
+    public availPage;
   
     public startDate: Date;
     public endDate: Date;  

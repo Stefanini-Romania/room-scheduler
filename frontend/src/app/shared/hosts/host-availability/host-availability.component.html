@@ -21,7 +21,7 @@
         </thead>
         
         <tbody>
-            <tr *ngFor="let day of availabilities">
+            <tr *ngFor="let day of availabilities | paginate: { itemsPerPage: 6, currentPage: availPage}">
                 <td>{{day.startDate | localizedDate:'EE' | titlecase }} </td>
                 <td>{{day.startDate | localizedDate:'HH:mm' }} </td> 
                 <td>{{day.endDate | localizedDate:'HH:mm'}} </td> 
@@ -51,4 +51,5 @@
         </tbody>
     </table>
 </div>
+<pagination-controls (pageChange)="availPage = $event"></pagination-controls>
     
