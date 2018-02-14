@@ -294,7 +294,9 @@
     "EmailReminderTime": "Notificare Email (min)",
 
     "Settings": {
-        "Value.Wrong.Type": "Valoarea introdusă este invalidă. Vă rugăm să introduceți un număr!"
+        "Value.Wrong.Type": "Valoarea introdusă este invalidă. Vă rugăm să introduceți un număr!",
+        "Value.EmailTooSmallOrTooBig": "Valoarea introdusă este invalidă. Vă rugăm să introduceți un număr între 10 și 60!",
+        "Value.SessionTooSmallOrTooBig": "Valoarea introdusă este invalidă. Vă rugăm să introduceți un număr între 1 și 60!"
     },
 
     "Availability":{

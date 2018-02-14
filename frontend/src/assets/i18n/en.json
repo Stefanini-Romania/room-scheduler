@@ -279,7 +279,9 @@
     "EmailReminderTime": "Email Reminder Time (min)",
 
     "Settings": {
-        "Value.Wrong.Type": "You have entered an invalid value. Please make sure you insert a number!"
+        "Value.Wrong.Type": "You have entered an invalid value. Please make sure you insert a number!",
+        "Value.EmailTooSmallOrTooBig": "You have entered an invalid value. Please insert a value between 10 and 60!",
+        "Value.SessionTooSmallOrTooBig": "You have entered an invalid value. Please insert a value between 1 and 60!"
     },
 
     "Availability":{
