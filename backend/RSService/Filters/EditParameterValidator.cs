@@ -44,7 +44,7 @@ namespace RSService.Filters
         private bool EmailMaxMinValue(SettingsDto settings, string value)
         {
             int valoare = Int32.Parse(value);
-            if (valoare >= 10 && valoare <= 120)
+            if (valoare >= 10 && valoare <= 60)
                 return true;
             return false;
         }
