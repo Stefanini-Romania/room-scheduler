@@ -1,11 +1,13 @@
 import {Component, NgModule, Input, EventEmitter} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
+import {NgbModal, NgbModalRef, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 import {User} from '../../../shared/models/user.model';
 import {HostService} from './../../services/host.service';
 import {Availability} from './../../models/availability.model';
 import {HostSelector} from './../host-selector/host-selector.component';
+import {HostAvailabilityForm} from './../host-availability-form/host-availability-form.component';
 
 
 @Component({
@@ -16,6 +18,7 @@ import {HostSelector} from './../host-selector/host-selector.component';
 
 export class HostAvailability{
     @Input() host: User;
+   
    
     public availabilities: Availability[] = [];
     public exceptions: Availability[] = [];
@@ -34,7 +37,7 @@ export class HostAvailability{
     public exception: boolean;
     public displayDate = new Date();
     
-    constructor(public hostService: HostService, translate: TranslateService) {
+    constructor(public hostService: HostService, translate: TranslateService, private modalService: NgbModal) {
     }
 
     onHostChanged(selectedHost: User) {
@@ -89,4 +92,14 @@ export class HostAvailability{
                 }
         });        
     } 
+
+    onSelectAvailability(model: Availability) {
+        const modalRef: NgbModalRef = this.modalService.open(HostAvailabilityForm); 
+        modalRef.componentInstance.model = model; 
+        modalRef.componentInstance.host = this.selectedHost;
+        modalRef.componentInstance.successfullEditAvailability.subscribe(() => {
+            modalRef.close();     
+            this.listAvailabilities();
+        });   
+    }
 }

@@ -33,6 +33,13 @@
             <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
         </ngb-alert> -->
 
+        <!-- VALIDATION FOR HOURS BETWEEN 9 AND 18 -->
+        <div class="marginLeftRight text-center">
+                <ngb-alert type="danger" [dismissible]="false" *ngIf="!ctrl.valid">
+                        <div *ngIf="ctrl.errors['tooEarly']">{{'Availability.Hours' | translate}}</div>
+                </ngb-alert>
+        </div>
+
         <!--START AND END HOUR-->
         <div class="align-self-center mx-auto">
             <div class="row">
@@ -40,8 +47,8 @@
                 <label class="label col-5 labelHour"><b>{{'Availability.endHour' | translate}}</b></label>
             </div>
             <div class="row align-self-center mx-auto">
-                <ngb-timepicker class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep"></ngb-timepicker>
-                <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep"></ngb-timepicker>
+                <ngb-timepicker class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
+                <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
             </div>
         </div>
     </div>

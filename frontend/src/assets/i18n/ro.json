@@ -10,6 +10,8 @@
 
   "welcome": "Salut",
 
+  "col.edit": "Editare",
+
   "button" : {
       "close": "Închide",
       "save": "Salvează",
@@ -18,7 +20,8 @@
       "register": "Înregistrare",
       "admin": "Administrator",
       "signIn": "Autentificare",
-      "send": "Trimite"
+      "send": "Trimite",
+      "edit": "Editare"
   },
 
   "noAccount": "Nu aveți cont",
@@ -288,6 +291,7 @@
 
     "SessionTimeSpan": "Expirarea sesiunii (min)",
     "Session.Logout": "Sesiunea dumneavoastră a expirat",
+    "EmailReminderTime": "Notificare Email (min)",
 
     "Settings": {
         "Value.Wrong.Type": "Valoarea introdusă este invalidă. Vă rugăm să introduceți un număr!"
@@ -299,8 +303,11 @@
         "startHour": "De la ora",
         "endHour": "Până la ora",
         "add": "Adaugă disponibilitate",
+        "edit": "Editare disponibilitate",
         "successfully.added": "Disponibilitatea a fost adăugată cu succes!",
+        "successfully.edit": "Disponibilitatea a fost editată cu succes!",
         "notSuccessfull": "Atenție! Disponibilitatea nu a putut fi salvată!",
+        "notSuccessfull.edit": "Atenție! Disponibilitatea nu a putut fi editată!",
         "StartDate.IncorrectMinutesFormat": "Formatul minutelor este incorect (00 sau 30)",
         "EndDate.IncorrectMinutesFormat": "Formatul minutelor este incorect (00 sau 30)",
         "StartDate.EndDate.InvalidTime": "Durata inserată este invalidă",

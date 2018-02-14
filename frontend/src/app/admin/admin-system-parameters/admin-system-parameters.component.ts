@@ -17,6 +17,7 @@ export class AdminSystemParameters implements AfterViewInit{
 
     public settingslist: Settings[];
     public model: Settings = <Settings> {};
+    public modelForm: Settings = <Settings>{};
     public errorMessages: any = {};
     public editable: boolean;
     
@@ -24,12 +25,17 @@ export class AdminSystemParameters implements AfterViewInit{
     constructor(private systemParametersService: SystemParametersService, private translate: TranslateService, private toastr: ToastrService){
         
     }
-    ngOnInit(){
-    
+
+    ngOnInit() {
+        this.modelForm.id = this.model.id;
+        this.modelForm.varName = this.model.varName;
+        this.modelForm.value = this.model.value;
+
     }
 
     ngAfterViewInit(): void {
         this.listSettings();
+        
     }
 
     listSettings(){
@@ -37,19 +43,20 @@ export class AdminSystemParameters implements AfterViewInit{
         this.systemParametersService.listParameters().subscribe((settingslist: any) =>{
             for (let setting of settingslist){
                 this.settingslist.push(<Settings>setting);
-                this.model.id = setting.id;
-                this.model.varName = setting.varName;
-                this.model.value = setting.value;
+                this.modelForm.id = setting.id;
+                this.modelForm.varName = setting.varName;
+                this.modelForm.value = setting.value;
             }
         });
        
     }
 
     editSettings() {
-        this.systemParametersService.editParameters(this.model.id, this.model.varName, this.model.value).subscribe(
+        this.systemParametersService.editParameters(this.modelForm.id, this.modelForm.varName, this.modelForm.value).subscribe(
             () => {           
             },
             error => {
+                this.model = this.modelForm;
                 if(error.status==200){
                     this.listSettings();
                     this.toastr.success(
@@ -61,21 +68,13 @@ export class AdminSystemParameters implements AfterViewInit{
                     this.errorMessages = error.error.message;
                 }
                 
-    }); 
-            
+    });    
         this.editable=false;
     }
 
     makeEditable(model: Settings) {
-        this.settingslist = this.settingslist.map((setting) => {
-            if (setting.id) { 
-                this.editable = true; 
-            }
-            else { 
-                this.editable = false; 
-            }
-            return setting;
-        });
+        this.modelForm=model;
+        this.editable = true; 
       }
       
 }

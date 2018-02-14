@@ -9,6 +9,7 @@
   },
 
   "welcome": "Welcome",
+  "col.edit": "Edit",
 
   "button": {
       "close": "Close",
@@ -18,7 +19,8 @@
       "register": "Register",
       "admin": "Admin",
       "signIn": "Sign In",
-      "send": "Send"
+      "send": "Send",
+      "edit": "Edit"
   },
 
   "noAccount": "You don't have an account",
@@ -274,6 +276,7 @@
 
     "SessionTimeSpan": "Session Timespan (min)",
     "Session.Logout": "Your login session has expired",
+    "EmailReminderTime": "Email Reminder Time (min)",
 
     "Settings": {
         "Value.Wrong.Type": "You have entered an invalid value. Please make sure you insert a number!"
@@ -285,8 +288,11 @@
         "startHour": "Start hour",
         "endHour": "End hour",
         "add": "Add availability",
+        "edit": "Edit availability",
         "successfully.added": "The availability has been successfully added!",
+        "successfully.edit": "The availability has been successfully edited!",
         "notSuccessfull": "Error! The availability has not been saved!",
+        "notSuccessfull.edit": "Error! The availability has not been edited!",
         "StartDate.IncorrectMinutesFormat": "Minutes format is incorrect (00 or 30)",
         "EndDate.IncorrectMinutesFormat": "Minutes format is incorrect (00 or 30)",
         "StartDate.EndDate.InvalidTime": "The duration inserted is invalid",
@@ -310,5 +316,4 @@
      
     "Availabilities": "Availabilities",
     "Exceptions": "Exceptions"
-
 }
