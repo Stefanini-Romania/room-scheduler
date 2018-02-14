@@ -17,7 +17,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <input class="form-control" placeholder="yyyy-mm-dd"
-                                                name="dp" ngbDatepicker #d="ngbDatepicker"  id="datePicker" [(ngModel)]="model.startDate">
+                                                name="startDate" ngbDatepicker #d="ngbDatepicker"  id="datePicker" [(ngModel)]="model.startDate" #startDate="ngModel"> 
                                         <div class="input-group-append" >
                                             <button class="btn btn-primary" (click)="d.toggle()" type="button" id="dropdownHosts">
                                             <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -82,7 +82,8 @@
     </div>
 </div>
     
-<div class="modal-footer">   
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="removeAvailability()"  *ngIf="model.id">{{ 'Availability.remove' | translate }}</button>   
     <button type="button" class="btn btn-primary float-right" *ngIf="!model.id" (click)="addAvailability()">{{'button.save'|translate}}</button> 
     <button type="button" class="btn btn-primary float-right" *ngIf="model.id" (click)="editAvailability()">{{'button.edit'|translate}}</button> 
 </div>
