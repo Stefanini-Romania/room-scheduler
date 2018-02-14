@@ -136,14 +136,14 @@ export class HostAvailabilityForm{
         this.hostService.EditHostAvailability(this.model.id, this.model.startDate, this.model.endDate, this.model.status, this.model.occurrence, this.model.roomId).subscribe(
             () => {},
             error => {
-                if (error.status==200){
+                if (error.status == 200 && this.model.status !== 1){
                     this.successfullEditAvailability.emit();
                     this.toastr.success(
                         this.translate.instant('Availability.successfully.edit'), '',
                         {positionClass: 'toast-bottom-right'}
                     );
                 }
-                else if (this.model.status != 1){
+                else if (this.model.status !== 1){
                     this.toastr.warning(
                         this.translate.instant('Availability.notSuccessfull.edit'), '',
                         {positionClass: 'toast-bottom-right'}
@@ -158,7 +158,7 @@ export class HostAvailabilityForm{
             this.translate.instant('Availability.removed'), '',
             {positionClass: 'toast-bottom-right'}
         );
-        return this.editAvailability();
-        
+        this.activeModal.close();
+        return this.editAvailability();   
     }
 }

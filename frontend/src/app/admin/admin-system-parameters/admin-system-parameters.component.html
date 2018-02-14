@@ -1,5 +1,20 @@
 <br>
+<!--FRONTEND VALIDATION-->
+<!-- <div style="width :20%" class="text-center" >
+    <ngb-alert type="danger" *ngIf="wrongValue">
+        {{'Settings.Value.EmailTooSmallOrTooBig' | translate}}
+    </ngb-alert>
+</div> -->
+
+<!--BACKEND VALIDATION-->
+<div style="width :20%" class="text-center">
+    <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['Value']" [dismissible]="false">
+        <div *ngFor="let errorMessage of errorMessages['Value']">{{ errorMessage | translate }}</div>
+    </ngb-alert>
+</div>
+
 <div class="scrollit">
+    
   <table class="table table-hover table-striped table-responsive table table-bordered text-center">
     <thead>
         <tr>

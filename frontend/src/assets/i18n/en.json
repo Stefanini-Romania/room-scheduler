@@ -271,7 +271,8 @@
         "Name":"Parameter",
         "Value":"Value",
         "Edit":"Edit",
-        "Save": "Parameter successfully changed"
+        "Save": "Parameter successfully changed",
+        "Error": "Error! Entered value couldn't be saved"
     },
 
     "SessionTimeSpan": "Session Timespan (min)",

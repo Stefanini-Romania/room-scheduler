@@ -286,7 +286,8 @@
         "Name":"Parametru",
         "Value":"Valoare",
         "Edit":"Editează",
-        "Save": "Parametru schimbat cu succes"
+        "Save": "Parametru schimbat cu succes",
+        "Error": "Eroare! Valoarea introdusă nu a putut fi salvată"
     },
 
     "SessionTimeSpan": "Expirarea sesiunii (min)",
