@@ -11,14 +11,16 @@ namespace RSService.DTO
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int AvailabilityType { get; set; }
+        public int RoomId { get; set; }
         public string RoomName { get; set; }
 
-        public AvailabilityDto(int id, DateTime startDate, DateTime endDate, int availabilityType, string roomName)
+        public AvailabilityDto(int id, DateTime startDate, DateTime endDate, int availabilityType, int roomId, string roomName)
         {
             Id = id;
             StartDate = startDate;
             EndDate = endDate;
             AvailabilityType = availabilityType;
+            RoomId = roomId;
             RoomName = roomName;
         }
 

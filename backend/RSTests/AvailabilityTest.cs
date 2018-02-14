@@ -13,6 +13,8 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
+            // Folosim moq pt a face validarea de active room sa treaca, intrucat testam altceva
+
             var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
             rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(false);
 
@@ -44,21 +46,69 @@ namespace RSTests
         [InlineData(4, true)]
         [InlineData(5, false)]
         [InlineData(-1, false)]
-        public void WhenOccurence_Varies_IsAsExpected(int occurence, bool isOccurenceValid)
+        public void WhenOccurence_Varies_IsAsExpected(int occurence, bool isValidOccurrence)
         {
             AddAvailabilityDto availability = new AddAvailabilityDto()
             {
                 Occurrence = occurence,
             };
 
-            var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Loose);
+            // Folosim moq pt a face validarea de active room sa treaca, intrucat testam doar occurrence-ul
+            var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
             rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
             var validationResults = validator.Validate(availability);
 
-            Assert.Equal(isOccurenceValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectOccurrence) == null);
+            Assert.Equal(isValidOccurrence, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectOccurrence) == null);
         }
+
+        [Theory]
+        [InlineData(2018, 02, 19, 10, 0, 0, true)]
+        [InlineData(2018, 02, 19, 10, 15, 0, false)]
+        [InlineData(2018, 02, 19, 10, 0, 30, false)]
+        [InlineData(2018, 02, 19, 08, 0, 0, false)]
+        [InlineData(2018, 02, 19, 18, 0, 0, false)]
+        [InlineData(2018, 02, 19, 17, 30, 0, true)]
+        public void WhenStartDate_IsInBusinessHours_AllowAdding(int year, int month, int day, int hour, int minute, int second, bool isValidStartDate)
+        {
+            AddAvailabilityDto availability = new AddAvailabilityDto()
+            {
+                StartDate = new DateTime(year, month, day, hour, minute, second)
+            };
+
+            var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
+            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
+
+            var validator = new AddAvailabilityValidator(rsMoq.Object);
+
+            var validationResults = validator.Validate(availability);
+
+            Assert.Equal(isValidStartDate, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectStartTime) == null);
+        }
+
+        [Theory]
+        [InlineData(2018, 02, 19, 10, 0, 0, true)]
+        [InlineData(2018, 02, 19, 10, 15, 0, false)]
+        [InlineData(2018, 02, 19, 10, 0, 30, false)]
+        [InlineData(2018, 02, 19, 08, 0, 0, false)]
+        [InlineData(2018, 02, 19, 18, 0, 0, false)]
+        [InlineData(2018, 02, 19, 17, 30, 0, true)]
+        public void WhenEndDate_IsInBusinessHours_AllowAdding(int year, int month, int day, int hour, int minute, int second, bool isValidStartDate)
+        {
+            AddAvailabilityDto availability = new AddAvailabilityDto()
+            {
+                EndDate = new DateTime(year, month, day, hour, minute, second)
+            };
+
+            var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
+            //rsMoq.Setup(li => li.IsActiveRoom);
+        }
+
+
+
+
+
     }
 }

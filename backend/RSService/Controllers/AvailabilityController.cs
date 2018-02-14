@@ -42,7 +42,7 @@ namespace RSService.Controllers
                 List<AvailabilityDto> finalResults = new List<AvailabilityDto>();
                 foreach(var ex in exceptions)
                 {
-                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType, ex.Room.Name));
+                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType, ex.Room.Id, ex.Room.Name));
                 }
                 return Ok(finalResults);
             }
@@ -58,7 +58,7 @@ namespace RSService.Controllers
                 {
                     if (av.StartDate.Date >= startDate && av.StartDate.Date <= startDate.AddDays(4).Date)
                     {
-                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType, av.Room.Name));
+                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType, av.Room.Id, av.Room.Name));
                     }
                 }
                 else
@@ -72,7 +72,8 @@ namespace RSService.Controllers
                                             av.Id,
                                             new DateTime(date.Year, date.Month, date.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second).AddDays((int)av.StartDate.DayOfWeek - 1), 
                                             new DateTime(date.Year, date.Month, date.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second).AddDays((int)av.StartDate.DayOfWeek - 1),
-                                            av.AvailabilityType, 
+                                            av.AvailabilityType,
+                                            av.Room.Id,
                                             av.Room.Name));
                         }
                         date = date.AddDays(7 * (int)av.Occurrence);
@@ -195,6 +196,7 @@ namespace RSService.Controllers
                     }
                     else
                     {
+                        //newStart1 = avException.StartDate.Date.Add(av.StartDate.TimeOfDay);
                         newStart = new DateTime(avException.StartDate.Year, avException.StartDate.Month, avException.StartDate.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second);
                     }
 

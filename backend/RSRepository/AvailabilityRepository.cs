@@ -89,6 +89,7 @@ namespace RSRepository
                                  .ToList();
         }
 
+
         public void AddAvailability(Availability availability)
         {
             availabilities.Add(availability);

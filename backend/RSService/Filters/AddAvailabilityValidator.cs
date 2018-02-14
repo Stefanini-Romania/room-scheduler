@@ -18,7 +18,7 @@ namespace RSService.Filters
             _rsManager = rsManager;
 
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
-            RuleFor(m => m.StartDate).Must(GoodTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
+            RuleFor(a => a.StartDate).Must(GoodTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
 
             RuleFor(a => a.EndDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyEndDate);
             RuleFor(m => m.EndDate).Must(GoodTime).WithMessage(AvailabilityMessages.IncorrectEndTime);
