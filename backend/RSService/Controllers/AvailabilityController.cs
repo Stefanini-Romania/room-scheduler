@@ -42,7 +42,7 @@ namespace RSService.Controllers
                 List<AvailabilityDto> finalResults = new List<AvailabilityDto>();
                 foreach(var ex in exceptions)
                 {
-                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType, ex.Room.Id, ex.Room.Name));
+                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType, ex.Room.Id, ex.Room.Name, ex.Occurrence));
                 }
                 return Ok(finalResults);
             }
@@ -58,7 +58,7 @@ namespace RSService.Controllers
                 {
                     if (av.StartDate.Date >= startDate && av.StartDate.Date <= startDate.AddDays(4).Date)
                     {
-                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType, av.Room.Id, av.Room.Name));
+                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType, av.Room.Id, av.Room.Name, av.Occurrence));
                     }
                 }
                 else
@@ -74,7 +74,8 @@ namespace RSService.Controllers
                                             new DateTime(date.Year, date.Month, date.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second).AddDays((int)av.StartDate.DayOfWeek - 1),
                                             av.AvailabilityType,
                                             av.Room.Id,
-                                            av.Room.Name));
+                                            av.Room.Name,
+                                            av.Occurrence));
                         }
                         date = date.AddDays(7 * (int)av.Occurrence);
                     }

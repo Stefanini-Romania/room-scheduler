@@ -12,7 +12,7 @@ namespace RSData.Models
         public int AvailabilityType { get; set; }
         public int RoomId { get; set; }
         public int HostId { get; set; }
-        public int? Occurrence { get; set; }
+        public int Occurrence { get; set; }
         public int Status { get; set; }
 
         public User Host { get; set; }
@@ -22,7 +22,7 @@ namespace RSData.Models
         {
         }
 
-        public Availability(DateTime startDate, DateTime endDate, int availabilityType, int roomId, int hostId, int? occurrence)
+        public Availability(DateTime startDate, DateTime endDate, int availabilityType, int roomId, int hostId, int occurrence)
         {
             StartDate = startDate;
             EndDate = endDate;

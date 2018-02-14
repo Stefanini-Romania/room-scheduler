@@ -9,7 +9,8 @@
     Target Database Engine Type : Standalone SQL Server
 */
 
-/****** Object:  Table [dbo].[Availability]    Script Date: 06-Feb-18 1:20:13 PM ******/
+
+/****** Object:  Table [dbo].[Availability]    Script Date: 14-Feb-18 6:06:00 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -25,7 +26,8 @@ CREATE TABLE [dbo].[Availability](
 	[AvailabilityType] [int] NOT NULL,
 	[RoomId] [int] NOT NULL,
 	[HostId] [int] NOT NULL,
-	[Occurrence] [int] NULL,
+	[Occurrence] [int] NOT NULL,
+	[Status] [int] NOT NULL,
  CONSTRAINT [PK_Availability] PRIMARY KEY CLUSTERED 
 (
 	[AvailabilityId] ASC
@@ -34,9 +36,9 @@ CREATE TABLE [dbo].[Availability](
 END
 GO
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Occurrence_Constraint]') AND type = 'D')
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF_Value]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[Availability] ADD  CONSTRAINT [Occurrence_Constraint]  DEFAULT ((1)) FOR [Occurrence]
+ALTER TABLE [dbo].[Availability] ADD  CONSTRAINT [DF_Value]  DEFAULT ((0)) FOR [Occurrence]
 END
 GO
 
