@@ -5,8 +5,11 @@
     
 <div class="modal-body">
     <div class="container h-100">
-        <div class="row justify-content-center align-self-center mx-auto">
-            <ngb-alert [dismissible]="false" type="danger" *ngIf="addAvail==false">{{'Error.Availability.Add' | translate}}</ngb-alert>
+        <ngb-alert [dismissible]="false" type="danger" *ngIf="addAvail==false">{{'Error.Availability.Add' | translate}}</ngb-alert>
+        <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
+            <div *ngFor="let errorMessage of errorMessages['generic']">{{ errorMessage | translate }}</div>
+        </ngb-alert>
+        <div class="row justify-content-center align-self-center mx-auto">          
             <form>
                 <div class="row">
                     <label class="label"><b>{{'Availability.startDate'|translate}}</b></label>
@@ -30,6 +33,9 @@
             </form>
             
         </div>
+        <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
+            <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
+        </ngb-alert>
         <!--START AND END HOUR-->
         <div>
             <!-- VALIDATION FOR HOURS BETWEEN 9 AND 18 -->
