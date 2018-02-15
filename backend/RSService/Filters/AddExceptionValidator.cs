@@ -20,6 +20,7 @@ namespace RSService.Filters
             RuleFor(a => a.EndDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyEndDate);
             RuleFor(a => a.EndDate).Must(GoodEndTime).WithMessage(AvailabilityMessages.IncorrectEndTime);
             RuleFor(a => a.EndDate).Must(GoodEndDate).WithMessage(AvailabilityMessages.InvalidTimeSpan);
+            RuleFor(a => a.EndDate).GreaterThan(a => a.StartDate).WithMessage(AvailabilityMessages.LessThanStartDate);
 
         }
 
