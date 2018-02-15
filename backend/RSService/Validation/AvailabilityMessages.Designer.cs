@@ -185,5 +185,14 @@ namespace RSService.Validation {
                 return ResourceManager.GetString("InvalidTimeSpan", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Availability.EndDate.LessOrEqualThanStartDate.
+        /// </summary>
+        public static string LessThanStartDate {
+            get {
+                return ResourceManager.GetString("LessThanStartDate", resourceCulture);
+            }
+        }
     }
 }

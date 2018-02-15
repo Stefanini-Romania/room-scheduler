@@ -21,7 +21,8 @@ namespace RSService.Filters
             RuleFor(a => a.StartDate).Must(GoodStartTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
 
             RuleFor(a => a.EndDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyEndDate);
-            RuleFor(m => m.EndDate).Must(GoodEndTime).WithMessage(AvailabilityMessages.IncorrectEndTime);
+            RuleFor(a => a.EndDate).Must(GoodEndTime).WithMessage(AvailabilityMessages.IncorrectEndTime);
+            RuleFor(a => a.EndDate).GreaterThan(a => a.StartDate).WithMessage(AvailabilityMessages.LessThanStartDate);
 
             RuleFor(a => a.RoomId).NotEmpty().WithMessage(AvailabilityMessages.EmptyRoomId);
             When(a => a.RoomId != 0, () =>
@@ -79,6 +80,8 @@ namespace RSService.Filters
 
             return true;
         }
+
+
 
     }
 }
