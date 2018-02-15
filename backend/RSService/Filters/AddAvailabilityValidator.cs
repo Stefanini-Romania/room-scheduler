@@ -73,7 +73,7 @@ namespace RSService.Filters
 
         private bool ValidOccurrence(AddAvailabilityDto av, int occurrence)
         {
-            if (occurrence != 0 && occurrence != 1 && occurrence != 2 && occurrence != 3 && occurrence != 4)
+            if (occurrence != 1 && occurrence != 2 && occurrence != 3 && occurrence != 4)
             {
                 return false;
             }

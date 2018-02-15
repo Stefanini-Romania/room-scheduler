@@ -40,7 +40,7 @@ namespace RSTests
         }
 
         [Theory]
-        [InlineData(0, true)]
+        [InlineData(0, false)]
         [InlineData(1, true)]
         [InlineData(2, true)]
         [InlineData(3, true)]

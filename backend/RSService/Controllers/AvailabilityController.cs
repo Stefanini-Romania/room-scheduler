@@ -197,7 +197,7 @@ namespace RSService.Controllers
                     }
                     else
                     {
-                        //newStart1 = avException.StartDate.Date.Add(av.StartDate.TimeOfDay);
+                        //TODO: newStart1 = avException.StartDate.Date.Add(av.StartDate.TimeOfDay);
                         newStart = new DateTime(avException.StartDate.Year, avException.StartDate.Month, avException.StartDate.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second);
                     }
 
