@@ -32,6 +32,8 @@ export class HostAvailabilityForm{
     public selectedHost: User;
     public addAvail: boolean;
     public minuteStep = 30;
+    public title: string;
+    public displayDate = new Date();
     
     constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService, private datePickerConfig: NgbDatepickerConfig){
         datePickerConfig.markDisabled = (date: NgbDateStruct) => {
@@ -72,6 +74,10 @@ export class HostAvailabilityForm{
 
     occurrence = [{value: 1}, {value: 2}, {value: 3}, {value: 4}];
     selectedOccurrence = this.occurrence[0];
+
+    ngOnInit() {
+        this.title = this.model.id ? 'Availability.edit': 'Availability.add';
+    }
 
     onRoomChanged(selectedRoom: Room) {
         this.selectedRoom = selectedRoom;

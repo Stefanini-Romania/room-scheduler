@@ -73,6 +73,7 @@ namespace RSService.Controllers
                 var events = eventRepository.GetEventsByDateTimeNow(Int32.Parse(set.Value));
                 foreach (Event evnt in events)
                 {
+                    evnt.EventStatus = (int)EventStatusEnum.waitingRemindet;
                     var usr = userRepository.GetUserById(evnt.AttendeeId);
 
                     var message = new MimeMessage();
