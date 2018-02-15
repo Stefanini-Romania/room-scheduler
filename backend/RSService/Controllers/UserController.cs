@@ -89,7 +89,6 @@ namespace RSService.Controllers
                         + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>" 
                         + " Room Name: "+ room.Name +"<br>"
                         + " Room Location: "+ room.Location + "<br>"
-                        + " Enjoy!"
 
                         
 
