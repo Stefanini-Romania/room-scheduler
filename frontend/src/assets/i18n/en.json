@@ -300,6 +300,8 @@
         "notSuccessfull.edit": "Error! The availability has not been edited!",
         "StartDate.IncorrectMinutesFormat": "Minutes format is incorrect (00 or 30)",
         "EndDate.IncorrectMinutesFormat": "Minutes format is incorrect (00 or 30)",
+        "EndDate.LessOrEqualThanStartDate": "The start date cannot be greater than the end date",
+        "EndDate.IncorrectTime": "The end date inserted is not correct",
         "StartDate.EndDate.InvalidTime": "The duration inserted is invalid",
         "StartDate.Empty": "Please insert the start date",
         "EndDate.Empty": "Please insert the end date",

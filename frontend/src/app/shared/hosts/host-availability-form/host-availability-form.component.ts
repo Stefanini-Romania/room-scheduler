@@ -34,6 +34,7 @@ export class HostAvailabilityForm{
     public minuteStep = 30;
     public title: string;
     public displayDate = new Date();
+    public errorMessages: any = {};
     
     constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService, private datePickerConfig: NgbDatepickerConfig){
         datePickerConfig.markDisabled = (date: NgbDateStruct) => {
@@ -128,6 +129,18 @@ export class HostAvailabilityForm{
                     }
     
                     else{
+                        this.errorMessages = {'generic': [error.error.message]};
+                        for (let e of error.error.errors) {
+                            let field = 'generic';
+                            
+                            if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
+                                field = e.field;
+                            }  
+                            if (!this.errorMessages[field]) {
+                                this.errorMessages[field] = [];
+                            }      
+                            this.errorMessages[field].push(e.errorCode);
+                        }     
                         this.toastr.warning(
                             this.translate.instant('Availability.notSuccessfull'), '',
                             {positionClass: 'toast-bottom-right'}
@@ -150,6 +163,18 @@ export class HostAvailabilityForm{
                     );
                 }
                 else if (this.model.status !== 1){
+                    this.errorMessages = {'generic': [error.error.message]};
+                    for (let e of error.error.errors) {
+                        let field = 'generic';
+                        
+                        if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
+                            field = e.field;
+                        }  
+                        if (!this.errorMessages[field]) {
+                            this.errorMessages[field] = [];
+                        }      
+                        this.errorMessages[field].push(e.errorCode);
+                    }     
                     this.toastr.warning(
                         this.translate.instant('Availability.notSuccessfull.edit'), '',
                         {positionClass: 'toast-bottom-right'}

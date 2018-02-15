@@ -315,6 +315,8 @@
         "notSuccessfull.edit": "Atenție! Disponibilitatea nu a putut fi editată!",
         "StartDate.IncorrectMinutesFormat": "Formatul minutelor este incorect (00 sau 30)",
         "EndDate.IncorrectMinutesFormat": "Formatul minutelor este incorect (00 sau 30)",
+        "EndDate.LessOrEqualThanStartDate": "Data de început nu poate fi mai mare decât data de sfârșit",
+        "EndDate.IncorrectTime": "Data de sfârșit inserată nu este corectă",
         "StartDate.EndDate.InvalidTime": "Durata inserată este invalidă",
         "StartDate.Empty": "Introduceți data de început",
         "EndDate.Empty": "Introduceți data de sfârșit",
