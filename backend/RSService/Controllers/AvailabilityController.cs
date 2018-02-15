@@ -78,6 +78,10 @@ namespace RSService.Controllers
                                             av.Occurrence));
                         }
                         date = date.AddDays(7 * av.Occurrence);
+                        if (av.Occurrence == 0)
+                        {
+                            throw new Exception("Occurrence is 0!");
+                        }
                     }
                 }
             }
