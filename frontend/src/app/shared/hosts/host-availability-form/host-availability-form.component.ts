@@ -34,7 +34,7 @@ export class HostAvailabilityForm{
     public minuteStep = 30;
     public title: string;
     public displayDate = new Date();
-    public errorMessages: any = {};
+    public errorMessages: any = {}; 
     
     constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService, private datePickerConfig: NgbDatepickerConfig){
         datePickerConfig.markDisabled = (date: NgbDateStruct) => {
@@ -101,21 +101,21 @@ export class HostAvailabilityForm{
             }
             availabilityStartDate.setDate(currentDate);
     
-            this.model.endDate =new Date(availabilityStartDate.getFullYear(), availabilityStartDate.getMonth(),availabilityStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]) ;
+            this.model.endDate = new Date(availabilityStartDate.getFullYear(), availabilityStartDate.getMonth(),availabilityStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]) ;
         
-            JSON.stringify(this.model.endDate)
+            JSON.stringify(this.model.endDate);
             
             this.model.daysOfWeek = this.selectedDaysOfWeek;
             this.model.occurrence=this.selectedOccurrence.value;
             this.hostService.AddHostAvailability(
     
-                  availabilityStartDate,
-                  this.model.endDate, 
-                  this.model.availabilityType = 0, 
-                  this.model.daysOfWeek, 
-                  this.model.occurrence, 
-                  this.selectedRoom.id,
-                  this.host.id).subscribe(() => {
+                availabilityStartDate,
+                this.model.endDate, 
+                this.model.availabilityType = 0, 
+                this.model.daysOfWeek, 
+                this.model.occurrence, 
+                this.selectedRoom.id,
+                this.host.id).subscribe(() => {
                    
                                                                              
                 },
@@ -151,7 +151,12 @@ export class HostAvailabilityForm{
         else this.addAvail=false;
     }
 
-    editAvailability() {
+    editAvailability() {   
+        this.model.occurrence = this.selectedOccurrence.value;
+        this.model.roomId = this.selectedRoom.id;
+       // this.model.startDate = this.availabilityStartDate;
+
+ 
         this.hostService.EditHostAvailability(this.model.id, this.model.startDate, this.model.endDate, this.model.status, this.model.occurrence, this.model.roomId).subscribe(
             () => {},
             error => {
