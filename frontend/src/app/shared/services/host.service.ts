@@ -14,25 +14,21 @@ export class HostService {
     constructor(private http: HttpClient) {
     }
 
-    public HostAvailabilityList(startDate: Date, hostId?: number, endDate?: Date, roomId?: number) {
+    public HostAvailabilityList(startDate: Date, hostId?: number, roomId?: number) {
         const url = environment.apiUrl + '/availability/list';
         let params = new HttpParams();
         
         let x: Date;
         x = startDate;
         params = params.append("startDate", new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), 0, 0, 0)).toJSON());
-
-        if (endDate) {
-            x = endDate;
-            params = params.append("endDate", new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), 23, 59, 59)).toJSON());
-        }
-        if (roomId > 0) {
-            params = params.append("roomId", roomId.toString());
-        }
         if (hostId > 0) {
             params = params.append("hostId", hostId.toString());
         }
 
+        if (roomId > 0) {
+            params = params.append("roomId", roomId.toString());
+        }
+        
         const body = JSON.stringify(params);
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
         return this.http.get(url, {headers: headers, withCredentials: true, params: params});

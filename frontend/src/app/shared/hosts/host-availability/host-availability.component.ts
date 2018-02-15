@@ -62,7 +62,6 @@ export class HostAvailability{
                 currentDate=currentDate-1;
             }
             newDate.setDate(currentDate);
-            this.model.endDate = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate()+4);
         } 
         else {
             newDate = this.displayDate;
@@ -73,7 +72,6 @@ export class HostAvailability{
                 currentDate=currentDate-1;
             }
             newDate.setDate(currentDate);
-            this.model.endDate = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate()+4);
         }
         this.availabilities = [];
         this.exceptions = [];
@@ -81,8 +79,7 @@ export class HostAvailability{
        
         this.hostService.HostAvailabilityList(
             newDate,
-            this.selectedHost.id, 
-            this.model.endDate, 
+            this.selectedHost.id,  
             this.model.roomId).subscribe((events: Availability[]) => {
                 for (let day of events) {    
                     if (day.availabilityType == 2) {
