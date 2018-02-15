@@ -76,6 +76,7 @@ namespace RSService.Controllers
                 foreach (Event evnt in events)
                 {
                     evnt.EventStatus = (int)EventStatusEnum.waitingRemindet;
+                    Context.SaveChanges();
                     var usr = userRepository.GetUserById(evnt.AttendeeId);
                     var room = roomRepository.GetRoomById(evnt.RoomId);
 
@@ -167,9 +168,9 @@ namespace RSService.Controllers
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
             message.To.Add(new MailboxAddress("User", user.Email));
             message.Subject = "Welcome!";
-            message.Body = new TextPart("plain")
+            message.Body = new TextPart("html")
             {
-                Text = " Your received a new account.<br>"+"Your username:<br>"
+                Text = " You received a new account.<br>"
                 +"Username: "+ user.Email + "<br>" 
 
             };
@@ -237,9 +238,9 @@ namespace RSService.Controllers
                 message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
                 message.To.Add(new MailboxAddress("User", user.Email));
                 message.Subject = "Welcome!";
-                message.Body = new TextPart("plain")
+                message.Body = new TextPart("html")
                 {
-                    Text = " We are glad to have you on our application. We hope that you will have the best time !"
+                    Text = " Welcome to RoomScheduler!"
                 };
                 using (var client = new SmtpClient())
                 {
