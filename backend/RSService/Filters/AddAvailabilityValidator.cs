@@ -59,6 +59,10 @@ namespace RSService.Filters
             {
                 return false;
             }
+            if (daysOfWeek.Length > 5)
+            {
+                return false;
+            }
 
             foreach (var day in daysOfWeek)
             {

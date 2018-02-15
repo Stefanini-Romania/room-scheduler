@@ -5,6 +5,7 @@ using System;
 using Xunit;
 using System.Linq;
 using RSService.DTO;
+using System.Collections.Generic;
 
 namespace RSTests
 {
@@ -25,7 +26,7 @@ namespace RSTests
 
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AvailabilityMessages.EmptyStartDate));
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AvailabilityMessages.EmptyEndDate));
-            Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AvailabilityMessages.EmptyRoomId));
+            Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AvailabilityMessages.EmptyDayOfWeek));
         }
 
         [Fact]
@@ -47,7 +48,7 @@ namespace RSTests
         [InlineData(4, true)]
         [InlineData(5, false)]
         [InlineData(-1, false)]
-        public void WhenOccurence_Varies_IsAsExpected(int occurence, bool isValidOccurrence)
+        public void WhenOccurence_IsInGoodRange_AllowAdding(int occurence, bool isValidOccurrence)
         {
             AddAvailabilityDto availability = new AddAvailabilityDto()
             {
@@ -112,12 +113,53 @@ namespace RSTests
             Assert.Equal(isValidEndDate, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectEndTime) == null);
         }
 
-        //[Theory]
-        ////[MemberData("DaysOfWeek", int[],)]
-        //public void WhenDaysOfWeek_IsInGoodRange_AllowAdding()
-        //{
+        public class DaysOfWeek
+        {
+            public int[] Days { get; set; }
+            public bool IsValid { get; set; }
+        }
 
-        //}
+        public static IEnumerable<object[]> GetDays()
+        {
+            yield return new object[] {
+                new DaysOfWeek{ Days = new int[]{ 1, 2, 3 }, IsValid = true },
+                new DaysOfWeek() { Days = new int[] { 1, 3, 6 }, IsValid = false },
+                new DaysOfWeek{ Days = new int[]{ 1, 2, 3, 4, 5, 1 }, IsValid = false }
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetDays))]
+        public void WhenDaysOfWeek_IsInGoodRange_AllowAdding(DaysOfWeek d1, DaysOfWeek d2, DaysOfWeek d3)
+        {
+            AddAvailabilityDto availability1 = new AddAvailabilityDto()
+            {
+                DaysOfWeek = d1.Days
+            };
+            AddAvailabilityDto availability2 = new AddAvailabilityDto()
+            {
+                DaysOfWeek = d2.Days
+            };
+            AddAvailabilityDto availability3 = new AddAvailabilityDto()
+            {
+                DaysOfWeek = d3.Days
+            };
+            var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
+            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
+
+            var validator = new AddAvailabilityValidator(rsMoq.Object);
+
+            var validationResults = validator.Validate(availability1);
+            Assert.Equal(d1.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
+
+            validationResults = validator.Validate(availability2);
+            Assert.Equal(d2.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
+
+            validationResults = validator.Validate(availability3);
+            Assert.Equal(d3.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
+
+
+        }
 
 
 
