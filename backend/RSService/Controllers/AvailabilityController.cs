@@ -77,7 +77,7 @@ namespace RSService.Controllers
                                             av.Room.Name,
                                             av.Occurrence));
                         }
-                        date = date.AddDays(7 * (int)av.Occurrence);
+                        date = date.AddDays(7 * av.Occurrence);
                     }
                 }
             }
