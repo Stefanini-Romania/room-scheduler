@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h6 class="modal-title">{{'Availability.add' | translate}}</h6>
+    <h6 class="modal-title">{{title | translate}}</h6>
     <button type="button" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button> 
 </div>
     
@@ -9,62 +9,57 @@
             <ngb-alert [dismissible]="false" type="danger" *ngIf="addAvail==false">{{'Error.Availability.Add' | translate}}</ngb-alert>
             <form>
                 <div class="row">
-                        <label class="label"><b>{{'Availability.startDate'|translate}}</b></label>
+                    <label class="label"><b>{{'Availability.startDate'|translate}}</b></label>
                 </div> 
-                    <div class="row">
+                <div class="row">
                     <!--DATE PICKER-->                         
-                            <form class="form-inline datePickerForm">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd"
-                                                name="startDate" ngbDatepicker #d="ngbDatepicker"  id="datePicker" [(ngModel)]="model.startDate" #startDate="ngModel"> 
-                                        <div class="input-group-append" >
-                                            <button class="btn btn-primary" (click)="d.toggle()" type="button" id="dropdownHosts">
-                                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                        </div>
-                                    </div>
-                            </form>
-                                    
-                            <room-selector (roomChange)="onRoomChanged($event)"></room-selector>    
-                    </div>
+                    <form class="form-inline datePickerForm">
+                        <div class="form-group">
+                            <div class="input-group">
+                            <input class="form-control" placeholder="{{displayDate | date: 'yyyy-MM-dd'}}"  name="startDate" ngbDatepicker #d="ngbDatepicker"  id="datePicker" [(ngModel)]="model.startDate" #startDate="ngModel" (focus)="d.open()"> 
+                            <div class="input-group-append" >
+                                <button class="btn btn-primary" (click)="d.toggle()" type="button" id="dropdownHosts">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+                    </form>                                 
+                    <room-selector (roomChange)="onRoomChanged($event)"></room-selector>    
+                </div>
             </form>
             
         </div>
         <!--START AND END HOUR-->
         <div>
             <!-- VALIDATION FOR HOURS BETWEEN 9 AND 18 -->
-                <div class="marginLeftRight text-center">
-                        <ngb-alert type="danger" [dismissible]="false" *ngIf="!ctrl.valid">
-                                <div *ngIf="ctrl.errors['tooEarly']">{{'Availability.Hours' | translate}}</div>
-                        </ngb-alert>
-                </div>
-                <div class="row">
-                        
-                        <label class="label col-5 labelHour"><b>{{'Availability.startHour' | translate}}</b></label>
-                        <label class="label col-5 labelHour"><b>{{'Availability.endHour' | translate}}</b></label>
-                        
-                </div>
+            <div class="marginLeftRight text-center">
+                <ngb-alert type="danger" [dismissible]="false" *ngIf="!ctrl.valid">
+                        <div *ngIf="ctrl.errors['tooEarly']">{{'Availability.Hours' | translate}}</div>
+                </ngb-alert>
+            </div>
+            <div class="row">                  
+                <label class="label col-5 labelHour"><b>{{'Availability.startHour' | translate}}</b></label>
+                <label class="label col-5 labelHour"><b>{{'Availability.endHour' | translate}}</b></label>                    
+            </div>
 
-    
-                <div class="row justify-content-center align-self-center mx-auto">
-                        <ngb-timepicker  class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
-                        <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
-                </div>
+            <div class="row justify-content-center align-self-center mx-auto">
+                <ngb-timepicker  class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
+                <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
+            </div>
         </div>
         <!--DAY OF WEEK CHECKBOX-->
-        <div class="form-group btn-group">
-                <div *ngFor="let day of daysOfWeek">
-                    <label class="btn-primary labelCheckbox" ngbButtonLabel>
-                        <input type="checkbox"
-                                name="daysOfWeek"
-                                value="{{day.value}}"
-                                [(ngModel)]="day.checked"/>
-                        {{day.name}}
-                    </label>
-                </div>
+        <div class="form-group btn-group" *ngIf="!model.id">
+            <div *ngFor="let day of daysOfWeek">
+                <label class="btn-primary labelCheckbox" ngbButtonLabel>
+                    <input type="checkbox"
+                            name="daysOfWeek"
+                            value="{{day.value}}"
+                            [(ngModel)]="day.checked"/>
+                    {{day.name}}
+                </label>
             </div>
+        </div>
         <!--OCCURENCE-->
         <!-- <div class="row labelCheckbox">
                 <div ngbDropdown class="d-inline-block">
@@ -77,8 +72,7 @@
 
         <select [(ngModel)]="selectedOccurrence" class="btn btn-primary" style="margin-left: 5px;">
             <option id = "occurrence" *ngFor="let week of occurrence" [ngValue]="week" id = "occurrence"> {{week.value}} {{'week' | translate}} </option>
-        </select>
-        
+        </select>       
     </div>
 </div>
     
