@@ -25,6 +25,7 @@ namespace RSService.Controllers
         private IRoleRepository roleRepository;
         private IEventRepository eventRepository;
         private ISettingsRepository settingsRepository;
+        private IRoomRepository roomRepository;
 
         public UserController()
         {
@@ -33,6 +34,7 @@ namespace RSService.Controllers
             this.roleRepository = new RoleRepository(Context);
             this.eventRepository = new EventRepository(Context);
             this.settingsRepository = new SettingsRepository(Context);
+            this.roomRepository = new RoomRepository(Context);
         }
 
         [HttpGet("/user/list")]
@@ -75,6 +77,7 @@ namespace RSService.Controllers
                 {
                     evnt.EventStatus = (int)EventStatusEnum.waitingRemindet;
                     var usr = userRepository.GetUserById(evnt.AttendeeId);
+                    var room = roomRepository.GetRoomById(evnt.RoomId);
 
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
@@ -83,7 +86,9 @@ namespace RSService.Controllers
                     message.Body = new TextPart("html")
                     {
                         Text = " You have a massage programmed for today! <br>" 
-                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>" + "<br>"
+                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>" 
+                        + " Room Name: "+ room.Name +"<br>"
+                        + " Room Location: "+ room.Location + "<br>"
                         + " Enjoy!"
 
                         
