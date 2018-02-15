@@ -13,8 +13,9 @@ namespace RSService.DTO
         public int AvailabilityType { get; set; }
         public int RoomId { get; set; }
         public string RoomName { get; set; }
+        public int Occurrence { get; set; }
 
-        public AvailabilityDto(int id, DateTime startDate, DateTime endDate, int availabilityType, int roomId, string roomName)
+        public AvailabilityDto(int id, DateTime startDate, DateTime endDate, int availabilityType, int roomId, string roomName, int occurrence)
         {
             Id = id;
             StartDate = startDate;
@@ -22,6 +23,7 @@ namespace RSService.DTO
             AvailabilityType = availabilityType;
             RoomId = roomId;
             RoomName = roomName;
+            Occurrence = occurrence;
         }
 
     }

@@ -10,6 +10,7 @@ namespace RSTests
 {
     public class AvailabilityTest
     {
+
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
@@ -39,7 +40,7 @@ namespace RSTests
         }
 
         [Theory]
-        [InlineData(0, true)]
+        [InlineData(0, false)]
         [InlineData(1, true)]
         [InlineData(2, true)]
         [InlineData(3, true)]
@@ -66,11 +67,11 @@ namespace RSTests
 
         [Theory]
         [InlineData(2018, 02, 19, 10, 0, 0, true)]
+        [InlineData(2018, 02, 19, 17, 30, 0, true)]
         [InlineData(2018, 02, 19, 10, 15, 0, false)]
         [InlineData(2018, 02, 19, 10, 0, 30, false)]
         [InlineData(2018, 02, 19, 08, 0, 0, false)]
         [InlineData(2018, 02, 19, 18, 0, 0, false)]
-        [InlineData(2018, 02, 19, 17, 30, 0, true)]
         public void WhenStartDate_IsInBusinessHours_AllowAdding(int year, int month, int day, int hour, int minute, int second, bool isValidStartDate)
         {
             AddAvailabilityDto availability = new AddAvailabilityDto()
@@ -89,12 +90,11 @@ namespace RSTests
         }
 
         [Theory]
-        [InlineData(2018, 02, 19, 10, 0, 0, true)]
-        [InlineData(2018, 02, 19, 10, 15, 0, false)]
-        [InlineData(2018, 02, 19, 10, 0, 30, false)]
-        [InlineData(2018, 02, 19, 08, 0, 0, false)]
-        [InlineData(2018, 02, 19, 18, 0, 0, false)]
-        [InlineData(2018, 02, 19, 17, 30, 0, true)]
+        [InlineData(2018, 02, 19, 13, 0, 0, true)]
+        [InlineData(2018, 02, 19, 18, 0, 0, true)]
+        [InlineData(2018, 02, 19, 13, 15, 0, false)]
+        [InlineData(2018, 02, 19, 13, 0, 30, false)]
+        [InlineData(2018, 02, 19, 18, 30, 0, false)]
         public void WhenEndDate_IsInBusinessHours_AllowAdding(int year, int month, int day, int hour, int minute, int second, bool isValidEndDate)
         {
             AddAvailabilityDto availability = new AddAvailabilityDto()
@@ -112,7 +112,12 @@ namespace RSTests
             Assert.Equal(isValidEndDate, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectEndTime) == null);
         }
 
+        //[Theory]
+        ////[MemberData("DaysOfWeek", int[],)]
+        //public void WhenDaysOfWeek_IsInGoodRange_AllowAdding()
+        //{
 
+        //}
 
 
 

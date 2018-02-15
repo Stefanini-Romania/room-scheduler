@@ -159,4 +159,7 @@
   <data name="InvalidTimeSpan" xml:space="preserve">
     <value>AvailabilityException.StartDate.EndDate.TimeSpanLimit</value>
   </data>
+  <data name="LessThanStartDate" xml:space="preserve">
+    <value>Availability.EndDate.LessOrEqualThanStartDate</value>
+  </data>
 </root>
