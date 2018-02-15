@@ -75,14 +75,17 @@ namespace RSService.Controllers
             eventRepository.AddEvent(newEvent);
             Context.SaveChanges();
 
+            var room = roomRepository.GetRoomById(newEvent.RoomId);
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
             message.To.Add(new MailboxAddress("User", currentAttendeeEmail));
             message.Subject = "You have an appoitment";
             message.Body = new TextPart("html")
             {
-                Text = " You have a new appoitment. <br> "+"Date: "+newEvent.StartDate.Day+"/"+newEvent.StartDate.Month+"/"+newEvent.StartDate.Year +"<br>" +" Hour: " +
-                newEvent.StartDate.TimeOfDay + " to " + newEvent.EndDate.TimeOfDay
+                Text = " You have a new appoitment. <br> " + "Date: " + newEvent.StartDate.Day + "/" + newEvent.StartDate.Month + "/" + newEvent.StartDate.Year + "<br>"
+                + " Hour: " + newEvent.StartDate.TimeOfDay + " to " + newEvent.EndDate.TimeOfDay + "<br>"
+                + " Room Name: " + room.Name + "<br>"
+                + " Room Location: " + room.Location
             };
             using (var client = new SmtpClient())
             {

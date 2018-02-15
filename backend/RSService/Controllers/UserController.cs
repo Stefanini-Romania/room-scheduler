@@ -25,6 +25,7 @@ namespace RSService.Controllers
         private IRoleRepository roleRepository;
         private IEventRepository eventRepository;
         private ISettingsRepository settingsRepository;
+        private IRoomRepository roomRepository;
 
         public UserController()
         {
@@ -33,6 +34,7 @@ namespace RSService.Controllers
             this.roleRepository = new RoleRepository(Context);
             this.eventRepository = new EventRepository(Context);
             this.settingsRepository = new SettingsRepository(Context);
+            this.roomRepository = new RoomRepository(Context);
         }
 
         [HttpGet("/user/list")]
@@ -74,7 +76,9 @@ namespace RSService.Controllers
                 foreach (Event evnt in events)
                 {
                     evnt.EventStatus = (int)EventStatusEnum.waitingRemindet;
+                    Context.SaveChanges();
                     var usr = userRepository.GetUserById(evnt.AttendeeId);
+                    var room = roomRepository.GetRoomById(evnt.RoomId);
 
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
@@ -83,8 +87,9 @@ namespace RSService.Controllers
                     message.Body = new TextPart("html")
                     {
                         Text = " You have a massage programmed for today! <br>" 
-                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>" + "<br>"
-                        + " Enjoy!"
+                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>" 
+                        + " Room Name: "+ room.Name +"<br>"
+                        + " Room Location: "+ room.Location + "<br>"
 
                         
 
@@ -163,9 +168,9 @@ namespace RSService.Controllers
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
             message.To.Add(new MailboxAddress("User", user.Email));
             message.Subject = "Welcome!";
-            message.Body = new TextPart("plain")
+            message.Body = new TextPart("html")
             {
-                Text = " Your received a new account.<br>"+"Your username:<br>"
+                Text = " You received a new account.<br>"
                 +"Username: "+ user.Email + "<br>" 
 
             };
@@ -233,9 +238,9 @@ namespace RSService.Controllers
                 message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
                 message.To.Add(new MailboxAddress("User", user.Email));
                 message.Subject = "Welcome!";
-                message.Body = new TextPart("plain")
+                message.Body = new TextPart("html")
                 {
-                    Text = " We are glad to have you on our application. We hope that you will have the best time !"
+                    Text = " Welcome to RoomScheduler!"
                 };
                 using (var client = new SmtpClient())
                 {
