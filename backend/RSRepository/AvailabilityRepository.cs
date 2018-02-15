@@ -56,7 +56,7 @@ namespace RSRepository
         public List<Availability> GetAvailabilitiesByType(int availabilityType, DateTime startDate, DateTime endDate)
         {
             return availabilities.Where(a => a.AvailabilityType == availabilityType)
-                                 .Where(a => a.StartDate >= startDate && a.StartDate <= endDate)
+                                 .Where(a => a.StartDate >= startDate && a.StartDate < endDate)
                                  .Include(a => a.Room)
                                  .ToList();
         }
