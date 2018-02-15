@@ -83,7 +83,6 @@ namespace RSRepository
                           .Where(e => e.StartDate.Date == DateTime.Now.Date)
                           .Where(e => e.StartDate.Hour >= DateTime.Now.Hour && e.StartDate < DateTime.Now.AddHours(1))
                           .Where(e => (e.StartDate.Minute == DateTime.Now.AddMinutes(value).Minute))
-                          .Where(e => (e.StartDate.Minute == DateTime.Now.AddMinutes(value).Minute+1))
                           .ToList();              
         } 
 
