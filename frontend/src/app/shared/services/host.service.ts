@@ -51,8 +51,8 @@ export class HostService {
             params = params.append("hostId", hostId.toString());
         }
         const body = JSON.stringify({
-            startDate: startDate,
-            endDate: endDate,
+            startDate: startDate.toLocaleString(),
+            endDate: endDate.toLocaleString(),
             availabilityType: availabilityType,
             daysOfWeek: daysOfWeek,
             occurrence: occurrence,
@@ -73,8 +73,8 @@ export class HostService {
     public EditHostAvailability(id: number, startDate: Date, endDate: Date, status: number, occurrence: number, roomId?: number){
         const url = environment.apiUrl + '/availability/edit/' + id;
         const body = JSON.stringify({
-            startDate: startDate,
-            endDate: endDate,
+            startDate: startDate.toLocaleString(),
+            endDate: endDate.toLocaleString(),
             status: status,
             occurrence: occurrence, 
             roomId: roomId,       

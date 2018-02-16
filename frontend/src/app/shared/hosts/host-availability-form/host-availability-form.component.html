@@ -19,7 +19,7 @@
                     <form class="form-inline datePickerForm">
                         <div class="form-group">
                             <div class="input-group">
-                            <input class="form-control" placeholder="{{displayDate | date: 'yyyy-MM-dd'}}"  name="startDate" ngbDatepicker #d="ngbDatepicker"  id="datePicker" [(ngModel)]="model.startDate" #startDate="ngModel" (focus)="d.open()"> 
+                            <input class="form-control" placeholder="{{displayDate | date: 'yyyy-MM-dd'}}"  name="startDate" ngbDatepicker #d="ngbDatepicker"  id="datePicker" [(ngModel)]="model.startDate" (ngModelChange)="dateFormat()" #startDate="ngModel" (focus)="d.open()"> 
                             <div class="input-group-append" >
                                 <button class="btn btn-primary" (click)="d.toggle()" type="button" id="dropdownHosts">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -41,7 +41,7 @@
             <!-- VALIDATION FOR HOURS BETWEEN 9 AND 18 -->
             <div class="marginLeftRight text-center">
                 <ngb-alert type="danger" [dismissible]="false" *ngIf="!ctrl.valid">
-                        <div *ngIf="ctrl.errors['tooEarly']">{{'Availability.Hours' | translate}}</div>
+                    <div *ngIf="ctrl.errors['tooEarly']">{{'Availability.Hours' | translate}}</div>
                 </ngb-alert>
             </div>
             <div class="row">                  
@@ -50,7 +50,7 @@
             </div>
 
             <div class="row justify-content-center align-self-center mx-auto">
-                <ngb-timepicker  class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
+                <ngb-timepicker class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
                 <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
             </div>
         </div>
