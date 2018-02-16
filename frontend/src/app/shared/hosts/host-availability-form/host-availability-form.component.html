@@ -19,7 +19,7 @@
                     <form class="form-inline datePickerForm">
                         <div class="form-group">
                             <div class="input-group">
-                            <input class="form-control" placeholder="{{displayDate | date: 'yyyy-MM-dd'}}"  name="startDate" ngbDatepicker #d="ngbDatepicker"  id="datePicker" [(ngModel)]="model.startDate" (ngModelChange)="dateFormat()" #startDate="ngModel" (focus)="d.open()"> 
+                            <input class="form-control" placeholder="{{displayDate | date: 'yyyy-MM-dd'}}"  name="startDate" ngbDatepicker #d="ngbDatepicker"  id="datePicker" [(ngModel)]="model.startDate" #startDate="ngModel" (focus)="d.open()"> 
                             <div class="input-group-append" >
                                 <button class="btn btn-primary" (click)="d.toggle()" type="button" id="dropdownHosts">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
