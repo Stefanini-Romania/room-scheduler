@@ -229,7 +229,7 @@
       "UserIsInactiv": "Your account is not active",
 
       "StartDate": {
-          "LessThan15Minutes": "You must book at least 15 minutes before your appointment",
+          "LessThan15Minutes": "Error! You can't cancel an appointment 15 minutes before.",
           "Empty": "Please insert a start date",
           "LimitPerDay": "You have exceeded your daily limit",
           "NotAvailable": "The time selected is not available",

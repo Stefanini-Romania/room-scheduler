@@ -244,7 +244,7 @@
       "IsNotACtiv": "Contul dumneavoastră este inactiv",
       "UserIsNotAuthenticated": "Nu sunteți autentificat",
       "StartDate":{
-          "LessThan15Minutes": "Se poate rezerva doar cu 15 minute înainte",
+          "LessThan15Minutes": "Eroare! Nu puteți anula o programare cu 15 minute inainte de începerea ei.",
           "Empty": "Ora de început necompletată",
           "LimitPerDay": "Ați depășit limita pe o zi",
           "NotAvailable": "Timpul de început indisponibil",
