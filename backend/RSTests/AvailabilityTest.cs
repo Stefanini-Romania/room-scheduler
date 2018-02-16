@@ -122,45 +122,37 @@ namespace RSTests
         public static IEnumerable<object[]> GetDays()
         {
             yield return new object[] {
-                new DaysOfWeek{ Days = new int[]{ 1, 2, 3 }, IsValid = true },
-                new DaysOfWeek() { Days = new int[] { 1, 3, 6 }, IsValid = false },
-                new DaysOfWeek{ Days = new int[]{ 1, 2, 3, 4, 5, 1 }, IsValid = false }
+                new DaysOfWeek() { Days = new int[]{ 1, 2, 3 }, IsValid = true }
+            };
+            yield return new object[]
+            {
+                new DaysOfWeek() { Days = new int[] { 1, 3, 6 }, IsValid = false }
+            };
+            yield return new object[]
+            {
+                new DaysOfWeek() { Days = new int[]{ 1, 2, 3, 4, 5, 1 }, IsValid = false }
             };
         }
 
         [Theory]
         [MemberData(nameof(GetDays))]
-        public void WhenDaysOfWeek_IsInGoodRange_AllowAdding(DaysOfWeek d1, DaysOfWeek d2, DaysOfWeek d3)
+        public void WhenDaysOfWeek_IsInGoodRange_AllowAdding(DaysOfWeek d)
         {
-            AddAvailabilityDto availability1 = new AddAvailabilityDto()
+            AddAvailabilityDto availability = new AddAvailabilityDto()
             {
-                DaysOfWeek = d1.Days
+                DaysOfWeek = d.Days
             };
-            AddAvailabilityDto availability2 = new AddAvailabilityDto()
-            {
-                DaysOfWeek = d2.Days
-            };
-            AddAvailabilityDto availability3 = new AddAvailabilityDto()
-            {
-                DaysOfWeek = d3.Days
-            };
+           
             var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
             rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
-            var validationResults = validator.Validate(availability1);
-            Assert.Equal(d1.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
-
-            validationResults = validator.Validate(availability2);
-            Assert.Equal(d2.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
-
-            validationResults = validator.Validate(availability3);
-            Assert.Equal(d3.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
-
-
+            var validationResults = validator.Validate(availability);
+            Assert.Equal(d.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
         }
 
+        //public void When
 
 
     }
