@@ -15,10 +15,7 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
-            // Folosim moq pt a face validarea de active room sa treaca, intrucat testam altceva
-
             var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
-            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(false);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
@@ -55,9 +52,10 @@ namespace RSTests
                 Occurrence = occurence,
             };
 
-            // Folosim moq pt a face validarea de active room sa treaca, intrucat testam doar occurrence-ul
+            
             var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
-            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
+            // Facem setup-ul pt a face validarea de active room sa treaca, intrucat testam doar occurrence-ul
+            //rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
@@ -81,7 +79,6 @@ namespace RSTests
             };
 
             var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
-            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
@@ -104,7 +101,6 @@ namespace RSTests
             };
 
             var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
-            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
@@ -144,7 +140,6 @@ namespace RSTests
             };
            
             var rsMoq = new Moq.Mock<IRSManager>(Moq.MockBehavior.Strict);
-            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
