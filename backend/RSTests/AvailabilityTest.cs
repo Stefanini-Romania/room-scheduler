@@ -147,7 +147,7 @@ namespace RSTests
             Assert.Equal(d.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
         }
 
-        //public void When
+        
 
 
     }

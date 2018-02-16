@@ -49,6 +49,7 @@ namespace RSRepository
         public List<Availability> GetAvailabilitiesByHost(int hostId)
         {
             return availabilities.Where(a => a.HostId == hostId)
+                                 .Where(a => a.Status == 0)
                                  .Include(a => a.Room)
                                  .ToList();
         }
@@ -57,6 +58,7 @@ namespace RSRepository
         {
             return availabilities.Where(a => a.AvailabilityType == availabilityType)
                                  .Where(a => a.StartDate >= startDate && a.StartDate < endDate)
+                                 .Where(a => a.Status == 0)
                                  .Include(a => a.Room)
                                  .ToList();
         }
