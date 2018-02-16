@@ -201,8 +201,7 @@ namespace RSService.Controllers
                     }
                     else
                     {
-                        //TODO: newStart1 = avException.StartDate.Date.Add(av.StartDate.TimeOfDay);
-                        newStart = new DateTime(avException.StartDate.Year, avException.StartDate.Month, avException.StartDate.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second);
+                        newStart = avException.StartDate.Date.Add(av.StartDate.TimeOfDay);
                     }
 
                     if (avException.EndDate.TimeOfDay.Ticks < av.EndDate.TimeOfDay.Ticks)
@@ -211,7 +210,7 @@ namespace RSService.Controllers
                     }
                     else
                     {
-                        newEnd = new DateTime(avException.EndDate.Year, avException.EndDate.Month, avException.EndDate.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second);
+                        newEnd = avException.EndDate.Date.Add(av.EndDate.TimeOfDay);
                     }
 
                     Availability availability = new Availability(
@@ -250,7 +249,7 @@ namespace RSService.Controllers
                     }
                     else
                     {
-                        newStart = new DateTime(avException.StartDate.Year, avException.StartDate.Month, avException.StartDate.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second);
+                        newStart = avException.StartDate.Date.Add(av.StartDate.TimeOfDay);
                     }
 
                     if (avException.EndDate.TimeOfDay.Ticks < av.EndDate.TimeOfDay.Ticks)
@@ -259,7 +258,7 @@ namespace RSService.Controllers
                     }
                     else
                     {
-                        newEnd = new DateTime(avException.EndDate.Year, avException.EndDate.Month, avException.EndDate.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second);
+                        newEnd = avException.EndDate.Date.Add(av.EndDate.TimeOfDay);
                     }
 
                     Availability availability = new Availability(
