@@ -28,12 +28,27 @@ export class EventEditorComponent implements OnInit{
     }
 
     cancelEvent() {
+   
         this.model.eventStatus = EventStatusEnum.cancelled;
-        this.toastr.warning(
-            this.translate.instant('calendar.event.canceled'), '',
-            {positionClass: 'toast-bottom-right'}
-        );
-        return this.saveEvent();
+        this.eventService.save(this.model).subscribe(()=>{
+        },
+        error => {
+            if (error.status==200)
+            {
+            this.toastr.success(
+                this.translate.instant('calendar.event.canceled'), '',
+                {positionClass: 'toast-bottom-right'}
+            );
+            this.activeModal.close();
+            }
+            
+             else if(error.status!=200){
+                this.toastr.warning(
+                    this.translate.instant('Event.StartDate.LessThan15Minutes'), '',
+                    {positionClass: 'toast-bottom-right'}
+                );
+            }
+        });
     }
     
 
