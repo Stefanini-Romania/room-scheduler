@@ -70,8 +70,8 @@ namespace RSService.Controllers
                         {
                             results.Add(new AvailabilityDto(
                                             av.Id,
-                                            new DateTime(date.Year, date.Month, date.Day, av.StartDate.Hour, av.StartDate.Minute, av.StartDate.Second).AddDays((int)av.StartDate.DayOfWeek - 1), 
-                                            new DateTime(date.Year, date.Month, date.Day, av.EndDate.Hour, av.EndDate.Minute, av.EndDate.Second).AddDays((int)av.StartDate.DayOfWeek - 1),
+                                            date.Date.Add(av.StartDate.TimeOfDay).AddDays((int)av.StartDate.DayOfWeek - 1),
+                                            date.Date.Add(av.EndDate.TimeOfDay).AddDays((int)av.StartDate.DayOfWeek - 1),
                                             av.AvailabilityType,
                                             av.Room.Id,
                                             av.Room.Name,
