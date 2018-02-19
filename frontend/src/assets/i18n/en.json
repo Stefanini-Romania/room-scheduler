@@ -234,16 +234,14 @@
           "LimitPerDay": "You have exceeded your daily limit",
           "NotAvailable": "The time selected is not available",
           "PenalizedUser": "Warning! Sanctioned user",
-          "NotInAvailabilityOfRoom": "The room is not available (start date)",
           "GreaterThanTwoMonths": "The selected date is greater than 2 months",
           "IsInThePast": "The selected date has passed",
-          "IncorrectMinutesFormat": "Minutes format incorrect (start date)"
+          "IncorrectTime": "Time format incorrect (start date)"
       },
 
       "EndDate": {
           "Empty": "Please insert an end date",
-          "NotInAvailabilityOfRoom": "The room is not available (end date)",
-          "IncorrectMinutesFormat": "Minutes format incorrect (end date)",
+          "IncorrectTime": "Time format incorrect (end date)",
           "TimeSpan": "Timespan incorrect"
       }   
   },

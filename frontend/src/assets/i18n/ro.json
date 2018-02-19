@@ -249,16 +249,14 @@
           "LimitPerDay": "Ați depășit limita pe o zi",
           "NotAvailable": "Timpul de început indisponibil",
           "PenalizedUser": "Utilizator penalizat",
-          "NotInAvailabilityOfRoom": "Camera este indisponibilă (ora de început)",
           "GreaterThanTwoMonths": "Data selectată este mai mare de 2 luni (ora de început)",
           "IsInThePast": "Data selectată este trecută (ora de început)",
-          "IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de început)"
+          "IncorrectTime": "Formatul orei greșit (ora de început)"
       },
 
       "EndDate": {
           "Empty": "Ora de încheiere necompletată",
-          "NotInAvailabilityOfRoom": "Camera este indisponibilă (ora de sfârșit)",
-          "IncorrectMinutesFormat": "Formatarea minutelor greșită (ora de sfârșit)",
+          "IncorrectTime": "Formatul orei greșit (ora de sfârșit)",
           "TimeSpan": "Durata timpului greșită"
       }    
   },
