@@ -13,7 +13,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using MimeKit;
 using MailKit.Net.Smtp;
-using Hangfire;
+
 
 namespace RSService.Controllers
 {

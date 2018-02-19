@@ -19,7 +19,6 @@ using RSService.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
-using Hangfire;
 using RSService.Controllers;
 using RSService.DTO;
 
