@@ -11,11 +11,11 @@ namespace RSService.Validators
 {
     public class CreateEventValidator : AbstractValidator<AddEventDto>
     {
-        IRSManager rsManager;
+        IRSBusiness rsBusiness;
 
-        public CreateEventValidator(IRSManager _rsManager)
+        public CreateEventValidator(IRSBusiness _rsBusiness)
         {
-            rsManager = _rsManager;
+            rsBusiness = _rsBusiness;
 
             // ---------------------------StartDate---------------------------
 
@@ -67,16 +67,16 @@ namespace RSService.Validators
 
         private bool CanBook(AddEventDto ev, DateTime? d)
         {
-            double eventTimeSpan = rsManager.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
+            double eventTimeSpan = rsBusiness.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
 
-            int availableTimeSpan = rsManager.GetAvailableTime(ev.AttendeeId, (DateTime)ev.StartDate);
+            int availableTimeSpan = rsBusiness.GetAvailableTime(ev.AttendeeId, (DateTime)ev.StartDate);
 
             return eventTimeSpan <= availableTimeSpan;
         }
 
         private bool TimeSpanOfEvent(AddEventDto ev, DateTime? d)
         {
-            double eventTimeSpan = rsManager.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
+            double eventTimeSpan = rsBusiness.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
 
             if (eventTimeSpan != 30 && eventTimeSpan != 60)
             {
@@ -119,17 +119,17 @@ namespace RSService.Validators
 
         private bool IsAvailable(AddEventDto ev, DateTime? d)
         {
-            return rsManager.CheckAvailability((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
+            return rsBusiness.CheckAvailability((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
         }
 
         private bool HourAvailable(AddEventDto ev, DateTime? d)
         {
-            return rsManager.HourCheck((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
+            return rsBusiness.HourCheck((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
         }
 
         private bool IsNotPenalized(AddEventDto ev, int roomId)
         {
-            if (rsManager.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate, roomId))
+            if (rsBusiness.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate, roomId))
             {
                 return false;
             }

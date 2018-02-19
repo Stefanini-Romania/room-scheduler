@@ -15,13 +15,13 @@ namespace RSService.Controllers
 {
     public class AvailabilityController : BaseController
     {
-        private IRSManager rsManager;
+        private IRSBusiness rsBusiness;
         private IUserRepository userRepository;
         private IAvailabilityRepository availabilityRepository;
 
-        public AvailabilityController(IRSManager rsManager)
+        public AvailabilityController(IRSBusiness rsBusiness)
         {
-            this.rsManager = rsManager;
+            this.rsBusiness = rsBusiness;
             userRepository = new UserRepository(Context);
             availabilityRepository = new AvailabilityRepository(Context);
         }

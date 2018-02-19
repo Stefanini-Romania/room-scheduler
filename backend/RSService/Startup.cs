@@ -56,7 +56,7 @@ namespace RSService
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IRoleRepository, RoleRepository>();
-            services.AddTransient<IRSManager, RSManager>();
+            services.AddTransient<IRSBusiness, RSBusiness>();
             services.AddTransient<IDbOperation, DbOperation>();
             services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection), optionsLifetime: ServiceLifetime.Singleton);
 

@@ -12,10 +12,10 @@ namespace RSService.Validators
 {
     public class AddUserValidator : AbstractValidator<AddUserDto>
     {
-        private IRSManager _rsManager;
-        public AddUserValidator(IRSManager rsManager)
+        private IRSBusiness _rsBusiness;
+        public AddUserValidator(IRSBusiness rsBusiness)
         {
-            _rsManager = rsManager;
+            _rsBusiness = rsBusiness;
 
             RuleFor(m => m.Email).Must(EmailFormat).WithMessage(x => Validation.UserMessages.EmailTypeWrong);
             RuleFor(m => m.Email).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyEmail);
@@ -35,7 +35,7 @@ namespace RSService.Validators
 
         private bool IsUniqueEmail(AddUserDto m, String email)
         {
-            return _rsManager.IsUniqueEmail(email);
+            return _rsBusiness.IsUniqueEmail(email);
         }
 
         private bool EmailFormat(AddUserDto m, String email)
@@ -51,7 +51,7 @@ namespace RSService.Validators
 
         private bool IsValidRole(AddUserDto usm, List<int> userRole)
         {
-            return _rsManager.IsValidRole(userRole);
+            return _rsBusiness.IsValidRole(userRole);
         }
     }
 }

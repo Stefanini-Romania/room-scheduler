@@ -10,11 +10,11 @@ namespace RSService.Validators
 {
     public class EditParameterValidator : AbstractValidator<SettingsDto>
     {
-        IRSManager rsManager;
+        IRSBusiness rsBusiness;
 
-        public EditParameterValidator(IRSManager _rsManager)
+        public EditParameterValidator(IRSBusiness _rsBusiness)
         {
-            rsManager = _rsManager;
+            rsBusiness = _rsBusiness;
 
             When(p => p.VarName == "SessionTimeSpan", () =>
             {

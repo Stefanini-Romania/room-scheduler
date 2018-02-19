@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSService.BusinessLogic
 {
-    public class RSManager : IRSManager
+    public class RSBusiness : IRSBusiness
     {
         private IAvailabilityRepository availabilityRepository;
         private IPenaltyRepository penaltyRepository;
@@ -18,7 +18,7 @@ namespace RSService.BusinessLogic
         private IRoleRepository roleRepository;
         private IRoomRepository roomRepository;
 
-        public RSManager(IAvailabilityRepository availabiltyRepository, IRoomRepository roomRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository, IRoleRepository roleRepository)
+        public RSBusiness(IAvailabilityRepository availabiltyRepository, IRoomRepository roomRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository, IRoleRepository roleRepository)
         {
             this.availabilityRepository = availabiltyRepository;
             this.eventRepository = eventRepository;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSService.BusinessLogic
 {
-    public interface IRSManager
+    public interface IRSBusiness
     {
         List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int?[] roomId, int?[] hostId);
 

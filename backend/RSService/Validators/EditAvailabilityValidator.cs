@@ -11,11 +11,11 @@ namespace RSService.Validators
 {
     public class EditAvailabilityValidator : AbstractValidator<EditAvailabilityDto>
     {
-        private IRSManager _rsManager;
+        private IRSBusiness _rsBusiness;
 
-        public EditAvailabilityValidator(IRSManager rsManager)
+        public EditAvailabilityValidator(IRSBusiness rsBusiness)
         {
-            _rsManager = rsManager;
+            _rsBusiness = rsBusiness;
 
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
             RuleFor(m => m.StartDate).Must(GoodStartTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
@@ -48,7 +48,7 @@ namespace RSService.Validators
 
         private bool ActiveRoom(EditAvailabilityDto av, int roomId)
         {
-            return _rsManager.IsActiveRoom(roomId);
+            return _rsBusiness.IsActiveRoom(roomId);
         }
 
         private bool ValidOccurrence(EditAvailabilityDto av, int occurrence)

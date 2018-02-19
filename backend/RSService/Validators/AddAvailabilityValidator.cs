@@ -11,11 +11,11 @@ namespace RSService.Validators
 {
     public class AddAvailabilityValidator : AbstractValidator<AddAvailabilityDto>
     {
-        private IRSManager _rsManager;
+        private IRSBusiness _rsBusiness;
 
-        public AddAvailabilityValidator(IRSManager rsManager)
+        public AddAvailabilityValidator(IRSBusiness rsBusiness)
         {
-            _rsManager = rsManager;
+            _rsBusiness = rsBusiness;
 
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
             RuleFor(a => a.StartDate).Must(GoodStartTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
@@ -50,7 +50,7 @@ namespace RSService.Validators
 
         private bool ActiveRoom(AddAvailabilityDto av, int roomId)
         {
-            return _rsManager.IsActiveRoom(roomId);
+            return _rsBusiness.IsActiveRoom(roomId);
         }
 
         private bool ValidDays(AddAvailabilityDto av, int[] daysOfWeek)

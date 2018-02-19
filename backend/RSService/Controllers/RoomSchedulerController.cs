@@ -24,16 +24,16 @@ namespace RSService.Controllers
         private IRoomRepository roomRepository;
         private IAvailabilityRepository availabilityRepository;
         private IUserRepository userRepository;
-        private IRSManager rsManager;
+        private IRSBusiness rsBusiness;
 
-        public RoomSchedulerController(IRSManager rsManager)
+        public RoomSchedulerController(IRSBusiness rsBusiness)
         {
             this.roomRepository = new RoomRepository(Context);
             this.availabilityRepository = new AvailabilityRepository(Context);
             this.eventRepository = new EventRepository(Context);
             this.userRepository = new UserRepository(Context);
             this.availabilityRepository = new AvailabilityRepository(Context);
-            this.rsManager = rsManager;
+            this.rsBusiness = rsBusiness;
         }
 
         [HttpPost("/event/create")]
@@ -125,7 +125,7 @@ namespace RSService.Controllers
 
             int?[] avRoomId = roomId;
          
-            var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
+            var availabilityEvents = rsBusiness.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
 
             results = results.Concat(availabilityEvents).ToList();
 
@@ -159,7 +159,7 @@ namespace RSService.Controllers
         {
             var results = eventRepository.GetEvents(startDate, endDate, roomId);
 
-            var availabilityEvents = rsManager.CreateAvailabilityEvents(startDate, endDate, roomId);
+            var availabilityEvents = rsBusiness.CreateAvailabilityEvents(startDate, endDate, roomId);
 
             results = results.Concat(availabilityEvents).ToList();
 
@@ -232,7 +232,7 @@ namespace RSService.Controllers
             Context.SaveChanges();
 
             if (_event.EventStatus == (int)EventStatusEnum.absent)
-                rsManager.AddPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);    // works only if host updates the events daily
+                rsBusiness.AddPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);    // works only if host updates the events daily
 
             return Ok(new
             {

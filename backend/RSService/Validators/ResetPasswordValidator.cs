@@ -11,7 +11,7 @@ namespace RSService.Validators
     public class ResetPasswordValidator : AbstractValidator<ResetPasswordDto>
     {
         
-        public ResetPasswordValidator(IRSManager rSManager)
+        public ResetPasswordValidator()
         {
             RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyPassword);
             RuleFor(m => m.Password).MinimumLength(6).WithMessage(x => Validation.UserMessages.WeakPassword);
