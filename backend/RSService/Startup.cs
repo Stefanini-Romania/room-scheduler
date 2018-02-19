@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using AutoMapper;
 using RSService.BusinessLogic;
-using RSService.Filters;
+using RSService.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;

@@ -1,5 +1,5 @@
 using RSService.BusinessLogic;
-using RSService.Filters;
+using RSService.Validators;
 using RSService.Validation;
 using System;
 using Xunit;

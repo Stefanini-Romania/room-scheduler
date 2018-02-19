@@ -1,5 +1,5 @@
 ﻿using FluentValidation.Attributes;
-using RSService.Filters;
+using RSService.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;

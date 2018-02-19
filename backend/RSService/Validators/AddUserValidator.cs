@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace RSService.Filters
+namespace RSService.Validators
 {
     public class AddUserValidator : AbstractValidator<AddUserDto>
     {

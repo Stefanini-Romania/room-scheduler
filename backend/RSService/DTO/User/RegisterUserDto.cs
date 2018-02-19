@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Attributes;
 using Microsoft.AspNetCore.Identity;
-using RSService.Filters;
+using RSService.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RSService.Filters
+namespace RSService.Validators
 {
     public class ResetPasswordValidator : AbstractValidator<ResetPasswordDto>
     {
