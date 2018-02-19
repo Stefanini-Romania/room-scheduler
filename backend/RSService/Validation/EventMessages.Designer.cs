@@ -22,7 +22,7 @@ namespace RSService.Validation {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class EventMessages {
+     public class EventMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -90,7 +90,7 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to Event.EndDate.Empty.
         /// </summary>
-        internal static string EmptyEndDate {
+        public static string EmptyEndDate {
             get {
                 return ResourceManager.GetString("EmptyEndDate", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to Event.StartDate.Empty.
         /// </summary>
-        internal static string EmptyStartDate {
+        public static string EmptyStartDate {
             get {
                 return ResourceManager.GetString("EmptyStartDate", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to Event.StartDate.GreaterThanTwoMonths.
         /// </summary>
-        internal static string StartDateFuture {
+        public static string StartDateFuture {
             get {
                 return ResourceManager.GetString("StartDateFuture", resourceCulture);
             }
