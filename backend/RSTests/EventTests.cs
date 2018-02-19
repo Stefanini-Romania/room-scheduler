@@ -29,6 +29,7 @@ namespace RSTests
 
         [Theory]
         [InlineData(2018, 02, 19, 09, 0, 0, true)]
+        [InlineData(2018, 02, 19, 08, 30, 0, false)]
         [InlineData(2018, 02, 19, 18, 0, 0, false)]
         [InlineData(2018, 02, 19, 13, 15, 0, false)]
         [InlineData(2018, 02, 19, 13, 0, 30, false)]
