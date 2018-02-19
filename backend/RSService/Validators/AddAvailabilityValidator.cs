@@ -45,7 +45,7 @@ namespace RSService.Validators
         private bool GoodEndTime(AddAvailabilityDto av, DateTime d)
         {
             return d.Hour >= 9 && d.Hour <= 17 && d.Second == 0 && (d.Minute == 0 || d.Minute == 30) ||
-                   d.Hour >=9 && d.Hour == 18 && d.Second == 0 && d.Minute == 0;
+                   d.Hour == 18 && d.Second == 0 && d.Minute == 0;
         }
 
         private bool ActiveRoom(AddAvailabilityDto av, int roomId)
