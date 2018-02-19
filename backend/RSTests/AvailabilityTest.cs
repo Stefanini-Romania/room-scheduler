@@ -52,7 +52,7 @@ namespace RSTests
                 Occurrence = occurence,
             };
 
-            
+
             var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
             // Facem setup-ul pt a face validarea de active room sa treaca, intrucat testam doar occurrence-ul
             //rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
@@ -138,7 +138,7 @@ namespace RSTests
             {
                 DaysOfWeek = d.Days
             };
-           
+
             var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
@@ -147,7 +147,7 @@ namespace RSTests
             Assert.Equal(d.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
         }
 
-        
+
 
 
     }
