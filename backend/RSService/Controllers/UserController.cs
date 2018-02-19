@@ -64,50 +64,50 @@ namespace RSService.Controllers
             return Ok(final_result);
         }
 
-        //[HttpPost("users/reminder")]
-        //public IActionResult EventReminder()
-        //{         
+        [HttpPost("users/reminder")]
+        public IActionResult EventReminder()
+        {
 
-        //    //this will olways will have just one value, so it doesn't matter it's for in for;
-        //    var emailremindervalue = settingsRepository.GetValueOfEmailReminderSettings();
-        //    foreach (Settings set in emailremindervalue)
-        //    {
-        //        var events = eventRepository.GetEventsByDateTimeNow(Int32.Parse(set.Value));
-        //        foreach (Event evnt in events)
-        //        {
-        //            evnt.EventStatus = (int)EventStatusEnum.waitingRemindet;
-        //            Context.SaveChanges();
-        //            var usr = userRepository.GetUserById(evnt.AttendeeId);
-        //            var room = roomRepository.GetRoomById(evnt.RoomId);
+            //this will olways will have just one value, so it doesn't matter it's for in for;
+            var emailremindervalue = settingsRepository.GetValueOfEmailReminderSettings();
+            foreach (Settings set in emailremindervalue)
+            {
+                var events = eventRepository.GetEventsByDateTimeNow(Int32.Parse(set.Value));
+                foreach (Event evnt in events)
+                {
+                    evnt.EventStatus = (int)EventStatusEnum.waitingRemindet;
+                    Context.SaveChanges();
+                    var usr = userRepository.GetUserById(evnt.AttendeeId);
+                    var room = roomRepository.GetRoomById(evnt.RoomId);
 
-        //            var message = new MimeMessage();
-        //            message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
-        //            message.To.Add(new MailboxAddress("User", usr.Email));
-        //            message.Subject = "Remainder";
-        //            message.Body = new TextPart("html")
-        //            {
-        //                Text = " You have a massage programmed for today! <br>" 
-        //                + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>" 
-        //                + " Room Name: "+ room.Name +"<br>"
-        //                + " Room Location: "+ room.Location + "<br>"
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
+                    message.To.Add(new MailboxAddress("User", usr.Email));
+                    message.Subject = "Remainder";
+                    message.Body = new TextPart("html")
+                    {
+                        Text = " You have a massage programmed for today! <br>"
+                        + " DateStart: " + evnt.StartDate.TimeOfDay + "<br>"
+                        + " Room Name: " + room.Name + "<br>"
+                        + " Room Location: " + room.Location + "<br>"
 
-                        
 
-        //            };
-        //            using (var client = new SmtpClient())
-        //            {
-        //                client.Connect("smtp.gmail.com", 587, false);
-        //                client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
 
-        //                client.Send(message);
+                    };
+                    using (var client = new SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, false);
+                        client.Authenticate("roomchedulerStefanini@gmail.com", "admin123456");
 
-        //                client.Disconnect(true);
-        //            }
+                        client.Send(message);
 
-        //        }
-        //    }
-        //    return Ok();
-        //}      
+                        client.Disconnect(true);
+                    }
+
+                }
+            }
+            return Ok();
+        }
 
         [HttpPost("/user/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]
