@@ -108,6 +108,53 @@ namespace RSTests
 
             Assert.Equal(isValidEndDate, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectEndTime) == null);
         }
+        [Theory]
+        [InlineData(2018, 02, 20, 10, 0, 0, true)]
+        [InlineData(2018, 02, 19, 17, 0, 0, true)]
+        [InlineData(2018, 02, 19, 08, 00, 0, false)]
+        [InlineData(2018, 02, 19, 10, 25, 0, false)]
+        [InlineData(2018, 02, 19, 09, 30, 0, true)]
+        public void WhenExceptionStartTime_InBusinessHours_AllowAdding(int year , int month, int day, int hour, int minute, int second, bool IsValidStartDate)
+        {
+            AvailabilityExceptionDto exception = new AvailabilityExceptionDto()
+            {
+                StartDate = new DateTime(year, month, day, hour, minute, second)
+            };
+
+            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+
+            var validator = new AddExceptionValidator(rsMoq.Object);
+
+            var validationResult = validator.Validate(exception);
+
+            Assert.Equal(IsValidStartDate, validationResult.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectStartTime) == null);
+
+
+        }
+
+        [Theory]
+        [InlineData(2018, 02, 20, 10, 30, 0, true)]
+        [InlineData(2018, 02, 20, 08, 30, 0, false)]
+        [InlineData(2018, 02, 20, 09, 25, 0, false)]
+        [InlineData(2018, 02, 20, 18, 30, 0, false)]
+        [InlineData(2018, 02, 20, 13, 30, 0, true)]
+        [InlineData(2018, 02, 20, 09, 0, 0, true)]
+        public void WhenExceptionEndTime_InBusinessHours_Allowadding(int year, int month, int day, int hour, int minute, int second, bool IsValidEndDate)
+        {
+            AvailabilityExceptionDto exception = new AvailabilityExceptionDto()
+            {
+                EndDate = new DateTime(year, month, day, hour, minute, second)
+
+            };
+
+            var rsmoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+
+            var validator = new AddExceptionValidator(rsmoq.Object);
+
+            var validationResult = validator.Validate(exception);
+
+            Assert.Equal(IsValidEndDate, validationResult.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectEndTime) == null);
+        }
 
         public class DaysOfWeek
         {

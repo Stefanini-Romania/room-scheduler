@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using RSService.BusinessLogic;
 using RSService.DTO;
 using RSService.Validation;
 using System;
@@ -10,9 +11,12 @@ namespace RSService.Validators
 {
     public class AddExceptionValidator : AbstractValidator<AvailabilityExceptionDto>
     {
+        private IRSBusiness _rsBusiness;
 
-        public AddExceptionValidator()
+        public AddExceptionValidator(IRSBusiness rsBusiness)
         {
+            _rsBusiness = rsBusiness;
+
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
             RuleFor(a => a.StartDate).Must(GoodStartTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
             RuleFor(a => a.StartDate).Must(GoodStartDate).WithMessage(AvailabilityMessages.InvalidTimeSpan);
