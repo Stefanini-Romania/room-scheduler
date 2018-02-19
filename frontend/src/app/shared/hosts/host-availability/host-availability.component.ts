@@ -1,7 +1,7 @@
 import {Component, NgModule, Input, EventEmitter} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
-import {NgbModal, NgbModalRef,NgbPaginationConfig, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef,NgbPaginationConfig, ModalDismissReasons, NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 import {User} from '../../../shared/models/user.model';
 import {HostService} from './../../services/host.service';
@@ -13,7 +13,7 @@ import {HostAvailabilityForm} from './../host-availability-form/host-availabilit
 @Component({
     selector: 'host-availability',
     templateUrl: './host-availability.component.html',
-    providers: []
+    providers: [NgbDatepickerConfig]
 })
 
 export class HostAvailability{
@@ -38,7 +38,11 @@ export class HostAvailability{
     public exception: boolean;
     public displayDate = new Date();
     
-    constructor(public hostService: HostService, translate: TranslateService, private modalService: NgbModal) {
+    constructor(public hostService: HostService, translate: TranslateService, private modalService: NgbModal, private datePickerConfig: NgbDatepickerConfig) {
+        datePickerConfig.markDisabled = (date: NgbDateStruct) => {
+            const day = new Date(date.year, date.month - 1, date.day);
+            return day.getDay() === 0 || day.getDay() === 6;
+          };
     }
 
     onHostChanged(selectedHost: User) {
