@@ -4,7 +4,7 @@
 </div>
     
 <div class="modal-body">
-    <div class="container h-100">
+    <div class="container h-100" id="exceptions">
         <div class="align-self-center mx-auto">    
             <ngb-alert [dismissible]="false" type="danger" *ngIf="addExcept==false">{{'Error.Exception.Add' | translate}}</ngb-alert>          
             <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['generic']" [dismissible]="false">
@@ -29,9 +29,9 @@
         <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['StartDate']" [dismissible]="false">
             <div *ngFor="let errorMessage of errorMessages['StartDate']">{{ errorMessage | translate }}</div>
         </ngb-alert>
-        <!-- <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
+        <ngb-alert type="danger" *ngIf="errorMessages && errorMessages['EndDate']" [dismissible]="false">
             <div *ngFor="let errorMessage of errorMessages['EndDate']">{{ errorMessage | translate }}</div>
-        </ngb-alert> -->
+        </ngb-alert>
 
         <!-- VALIDATION FOR HOURS BETWEEN 9 AND 18 -->
         <div class="marginLeftRight text-center">

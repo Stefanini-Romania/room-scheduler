@@ -13,7 +13,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using MimeKit;
 using MailKit.Net.Smtp;
-using Hangfire;
+
 
 namespace RSService.Controllers
 {
@@ -66,7 +66,7 @@ namespace RSService.Controllers
 
         [HttpPost("users/reminder")]
         public IActionResult EventReminder()
-        {         
+        {
 
             //this will olways will have just one value, so it doesn't matter it's for in for;
             var emailremindervalue = settingsRepository.GetValueOfEmailReminderSettings();
@@ -86,12 +86,12 @@ namespace RSService.Controllers
                     message.Subject = "Remainder";
                     message.Body = new TextPart("html")
                     {
-                        Text = " You have a massage programmed for today! <br>" 
-                        + " DateStart: " + evnt.StartDate.TimeOfDay +"<br>" 
-                        + " Room Name: "+ room.Name +"<br>"
-                        + " Room Location: "+ room.Location + "<br>"
+                        Text = " You have a massage programmed for today! <br>"
+                        + " DateStart: " + evnt.StartDate.TimeOfDay + "<br>"
+                        + " Room Name: " + room.Name + "<br>"
+                        + " Room Location: " + room.Location + "<br>"
 
-                        
+
 
                     };
                     using (var client = new SmtpClient())
@@ -107,7 +107,7 @@ namespace RSService.Controllers
                 }
             }
             return Ok();
-        }      
+        }
 
         [HttpPost("/user/add")]
         [Authorize(Roles = nameof(UserRoleEnum.admin))]

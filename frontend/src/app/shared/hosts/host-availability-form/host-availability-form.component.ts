@@ -33,17 +33,20 @@ export class HostAvailabilityForm{
     public addAvail: boolean;
     public minuteStep = 30;
     public title: string;
-    public displayDate = new Date();
+    public displayDate= new Date();
     public errorMessages: any = {}; 
-    
+    public availabilityStartDate; 
+    public availabilityEndDate;
+    public dayOfWeek;
+
     constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService, private datePickerConfig: NgbDatepickerConfig){
         datePickerConfig.markDisabled = (date: NgbDateStruct) => {
             const day = new Date(date.year, date.month - 1, date.day);
             return day.getDay() === 0 || day.getDay() === 6;
-          };
-
-        
+          };   
+   
     }
+
     //validation for hours between 9 and 18 availability
     ctrl = new FormControl('', (control: FormControl) => {
         const value = control.value;
@@ -78,47 +81,66 @@ export class HostAvailabilityForm{
 
     ngOnInit() {
         this.title = this.model.id ? 'Availability.edit': 'Availability.add';
+        // if (this.model.id) {
+        //     this.model.startDate = new Date();
+        //     this.displayDate = new Date(this.model.startDate.getDate())
+        // }
+        // else {
+        //     this.displayDate = new Date();
+        // }
     }
 
     onRoomChanged(selectedRoom: Room) {
         this.selectedRoom = selectedRoom;
     }
 
-    addAvailability(){
-        if(this.model.startDate && this.startHour && this.endHour){
-            JSON.stringify(this.model.startDate);
-            let availabilityStartDate = new Date(this.model.startDate["year"], this.model.startDate["month"]-1, this.model.startDate["day"], this.startHour["hour"], this.startHour["minute"], 0);
-            JSON.stringify(availabilityStartDate);
-    
-            
-    
-            let dayOfWeek = availabilityStartDate.getDay();
-    
-            let currentDate = availabilityStartDate.getDate();
-            while(dayOfWeek!==1){
-                dayOfWeek--;
+    dateFormat(Availability) {
+
+        if (this.model.id) {   
+            this.availabilityStartDate = new Date(this.model.startDate);
+            this.availabilityStartDate.setHours(this.startHour.hour);
+            JSON.stringify(this.availabilityStartDate);    
+
+            this.model.endDate = new Date(this.availabilityStartDate.getFullYear(), this.availabilityStartDate.getMonth(),this.availabilityStartDate.getDate(), this.endHour["hour"], this.endHour["minute"]) ;
+            this.availabilityEndDate = this.model.endDate;
+            JSON.stringify(this.availabilityEndDate);
+        }
+        else {
+            this.availabilityStartDate = new Date(this.model.startDate["year"], this.model.startDate["month"]-1, this.model.startDate["day"], this.startHour["hour"], this.startHour["minute"], 0);
+            JSON.stringify(this.availabilityStartDate);
+
+            this.dayOfWeek = this.availabilityStartDate.getDay();
+
+            let currentDate = this.availabilityStartDate.getDate();
+            debugger;
+            while(this.dayOfWeek!==1){
+                this.dayOfWeek--;
                 currentDate=currentDate-1;
             }
-            availabilityStartDate.setDate(currentDate);
-    
-            this.model.endDate = new Date(availabilityStartDate.getFullYear(), availabilityStartDate.getMonth(),availabilityStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]) ;
-        
-            JSON.stringify(this.model.endDate);
+            this.availabilityStartDate.setDate(currentDate);
+            debugger;
             
+
+            this.model.endDate = new Date(this.availabilityStartDate.getFullYear(), this.availabilityStartDate.getMonth(),this.availabilityStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]) ;
+            this.availabilityEndDate = this.model.endDate;
+        }    
+    
+    }
+
+    addAvailability(){
+        if(this.model.startDate && this.startHour && this.endHour){
+            this.dateFormat(Availability);
             this.model.daysOfWeek = this.selectedDaysOfWeek;
             this.model.occurrence=this.selectedOccurrence.value;
-            this.hostService.AddHostAvailability(
-    
-                availabilityStartDate,
-                this.model.endDate, 
+            this.hostService.AddHostAvailability( 
+                this.availabilityStartDate,
+                this.availabilityEndDate, 
                 this.model.availabilityType = 0, 
                 this.model.daysOfWeek, 
                 this.model.occurrence, 
                 this.selectedRoom.id,
-                this.host.id).subscribe(() => {
-                   
-                                                                             
-                },
+                this.host.id).subscribe(() => 
+                {},
                 error => {
                     if(error.status==200){
                         this.successfullAddAvailability.emit();
@@ -152,40 +174,45 @@ export class HostAvailabilityForm{
     }
 
     editAvailability() {   
+        this.dateFormat(Availability);
         this.model.occurrence = this.selectedOccurrence.value;
         this.model.roomId = this.selectedRoom.id;
-       // this.model.startDate = this.availabilityStartDate;
 
- 
-        this.hostService.EditHostAvailability(this.model.id, this.model.startDate, this.model.endDate, this.model.status, this.model.occurrence, this.model.roomId).subscribe(
-            () => {},
-            error => {
-                if (error.status == 200 && this.model.status !== 1){
-                    this.successfullEditAvailability.emit();
-                    this.toastr.success(
-                        this.translate.instant('Availability.successfully.edit'), '',
-                        {positionClass: 'toast-bottom-right'}
-                    );
-                }
-                else if (this.model.status !== 1){
-                    this.errorMessages = {'generic': [error.error.message]};
-                    for (let e of error.error.errors) {
-                        let field = 'generic';
-                        
-                        if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
-                            field = e.field;
-                        }  
-                        if (!this.errorMessages[field]) {
-                            this.errorMessages[field] = [];
-                        }      
-                        this.errorMessages[field].push(e.errorCode);
-                    }     
-                    this.toastr.warning(
-                        this.translate.instant('Availability.notSuccessfull.edit'), '',
-                        {positionClass: 'toast-bottom-right'}
-                    );
-                }
-            });           
+        this.hostService.EditHostAvailability(
+            this.model.id, 
+            this.availabilityStartDate,
+            this.availabilityEndDate,
+            this.model.status, 
+            this.model.occurrence, 
+            this.model.roomId).subscribe(
+                () => {},
+                error => {
+                    if (error.status == 200 && this.model.status !== 1){
+                        this.successfullEditAvailability.emit();
+                        this.toastr.success(
+                            this.translate.instant('Availability.successfully.edit'), '',
+                            {positionClass: 'toast-bottom-right'}
+                        );
+                    }
+                    else if (this.model.status !== 1){
+                        this.errorMessages = {'generic': [error.error.message]};
+                        for (let e of error.error.errors) {
+                            let field = 'generic';
+                            
+                            if (['StartDate', 'EndDate'].indexOf(e.field) >= 0) {
+                                field = e.field;
+                            }  
+                            if (!this.errorMessages[field]) {
+                                this.errorMessages[field] = [];
+                            }      
+                            this.errorMessages[field].push(e.errorCode);
+                        }     
+                        this.toastr.warning(
+                            this.translate.instant('Availability.notSuccessfull.edit'), '',
+                            {positionClass: 'toast-bottom-right'}
+                        );
+                    }
+                });           
     }
 
     removeAvailability() {
