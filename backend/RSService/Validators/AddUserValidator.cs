@@ -12,7 +12,9 @@ namespace RSService.Validators
 {
     public class AddUserValidator : AbstractValidator<AddUserDto>
     {
-        private IRSBusiness _rsBusiness;
+
+        IRSBusiness _rsBusiness;
+
         public AddUserValidator(IRSBusiness rsBusiness)
         {
             _rsBusiness = rsBusiness;

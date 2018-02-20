@@ -19,12 +19,14 @@ namespace RSTests
         {
             var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
 
+
             var validator = new CreateEventValidator(rsMoq.Object);
 
             var validationResults = validator.Validate(new AddEventDto());
 
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == EventMessages.EmptyStartDate));
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == EventMessages.EmptyEndDate));
+          
         }
 
         [Theory]
@@ -51,7 +53,26 @@ namespace RSTests
 
         }
 
+        [Theory]
+        [InlineData(2018, 02, 21, 09, 30, 0, true)]
+        [InlineData(2018, 02, 24, 09, 30, 0, false)]
+        [InlineData(2018, 02, 25, 17, 30, 0, false)]
+        public void WhenStartDate_IsInWeekendDays_AllowAdding(int year, int month, int day, int hour, int minute, int second, bool isValidStartDate)
+        {
+            AddEventDto appotment = new AddEventDto()
+            {
+                StartDate = new DateTime(year, month, day, hour, minute,second)
+            };
 
+            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+
+            var validator = new CreateEventValidator(rsMoq.Object);
+
+            var validationResult = validator.Validate(appotment);
+
+            Assert.Equal(isValidStartDate, validationResult.Errors.SingleOrDefault(li => li.ErrorMessage == EventMessages.DayOfWeekWeekend) == null);
+
+        }
 
 
     }
