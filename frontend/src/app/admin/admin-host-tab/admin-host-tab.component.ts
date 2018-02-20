@@ -37,22 +37,6 @@ export class AdminHostComponent {
         return this.today;
     }
 
-    onAddAvailability() {
-        const modalRef:NgbModalRef = this.modalService.open(HostAvailabilityForm, {});
-        modalRef.componentInstance.host = this.selectedHost;
-        modalRef.componentInstance.successfullAddAvailability.subscribe(() => {
-            modalRef.close();
-    })}
-
-    onAddException() {
-        const modalRef:NgbModalRef = this.modalService.open(HostExceptionForm, {});
-        modalRef.componentInstance.host = this.selectedHost;
-        modalRef.componentInstance.successfullAddException.subscribe(() => {
-            modalRef.close();
-            this.hostAvailability.listAvailabilities();
-        })
-    }
-
     onHostChanged(selectedHost: User) {
         this.selectedHost = selectedHost; 
     }

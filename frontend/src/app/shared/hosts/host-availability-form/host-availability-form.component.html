@@ -50,8 +50,8 @@
             </div>
 
             <div class="row justify-content-center align-self-center mx-auto">
-                <ngb-timepicker class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
-                <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
+                <ngb-timepicker id="startTime" class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep"></ngb-timepicker>
+                <ngb-timepicker id="endTime" [(ngModel)]="endHour" [minuteStep]="minuteStep"></ngb-timepicker>
             </div>
         </div>
         <!--DAY OF WEEK CHECKBOX-->
@@ -84,6 +84,6 @@
     
 <div class="modal-footer">
     <button type="button" class="btn btn-primary" *ngIf="model.id" (click)="removeAvailability()">{{ 'Availability.remove' | translate }}</button>   
-    <button type="button" class="btn btn-primary float-right" *ngIf="!model.id" (click)="addAvailability()">{{'button.save'|translate}}</button> 
-    <button type="button" class="btn btn-primary float-right" *ngIf="model.id" (click)="editAvailability()">{{'button.edit'|translate}}</button> 
+    <button type="button" class="btn btn-primary float-right" *ngIf="!model.id" (click)="addAvailability()">{{'Availability.add'|translate}}</button> 
+    <button type="button" class="btn btn-primary float-right" *ngIf="model.id" (click)="editAvailability()">{{'button.save'|translate}}</button> 
 </div>
