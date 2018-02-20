@@ -22,21 +22,21 @@ namespace RSService.Validation {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UserMessages {
+    public class UserMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UserMessages() {
+       public UserMessages() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RSService.Validation.UserMessages", typeof(UserMessages).Assembly);
@@ -51,7 +51,7 @@ namespace RSService.Validation {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -59,11 +59,11 @@ namespace RSService.Validation {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to User.Email.IsNotValidMail.
         /// </summary>
-        internal static string EmailTypeWrong {
+        public static string EmailTypeWrong {
             get {
                 return ResourceManager.GetString("EmailTypeWrong", resourceCulture);
             }
@@ -72,70 +72,70 @@ namespace RSService.Validation {
         /// <summary>
         ///   Looks up a localized string similar to User.Email.IsEmpty.
         /// </summary>
-        internal static string EmptyEmail {
+        public static string EmptyEmail {
             get {
                 return ResourceManager.GetString("EmptyEmail", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to User.FirstName.IsEmpty.
         /// </summary>
-        internal static string EmptyFirstName {
+        public static string EmptyFirstName {
             get {
                 return ResourceManager.GetString("EmptyFirstName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to User.LastName.IsEmpty.
         /// </summary>
-        internal static string EmptyLastName {
+        public static string EmptyLastName {
             get {
                 return ResourceManager.GetString("EmptyLastName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to User.Password.IsEmpty.
         /// </summary>
-        internal static string EmptyPassword {
+        public static string EmptyPassword {
             get {
                 return ResourceManager.GetString("EmptyPassword", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to User.UserRole.IsEmpty.
         /// </summary>
-        internal static string EmptyUserRole {
+        public static string EmptyUserRole {
             get {
                 return ResourceManager.GetString("EmptyUserRole", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to User.Email.IsNotUnique.
         /// </summary>
-        internal static string UniqueEmail {
+        public static string UniqueEmail {
             get {
                 return ResourceManager.GetString("UniqueEmail", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to User.UserRole.NotFound.
         /// </summary>
-        internal static string UserRoleNotFound {
+        public static string UserRoleNotFound {
             get {
                 return ResourceManager.GetString("UserRoleNotFound", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to User.Password.IsTooShort.
         /// </summary>
-        internal static string WeakPassword {
+        public static string WeakPassword {
             get {
                 return ResourceManager.GetString("WeakPassword", resourceCulture);
             }
