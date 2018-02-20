@@ -295,22 +295,48 @@ namespace RSService.Controllers
 
             if (availability.AvailabilityType == (int)AvailabilityEnum.Exception)
             {
-                availability.Status = model.Status;
+                return NotFound();
             }
-            else
-            {
-                availability.StartDate = model.StartDate;
-                availability.EndDate = model.EndDate;
-                availability.RoomId = model.RoomId;
-                availability.Occurrence = model.Occurrence;
-                availability.Status = model.Status;
-            }
+
+            availability.StartDate = model.StartDate;
+            availability.EndDate = model.EndDate;
+            availability.RoomId = model.RoomId;
+            availability.Occurrence = model.Occurrence;
+            availability.Status = model.Status;
 
             Context.SaveChanges();
 
             return Ok();
         }
 
+        [HttpPut("/availability/exception/edit/{id}")]
+        [Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
+        public IActionResult UpdateException(int id, [FromBody] EditExceptionDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return ValidationError(GeneralMessages.Availability);
+            }
+            var exception = availabilityRepository.GetAvailabilityById(id);
+
+            if (exception == null)
+            {
+                return NotFound();
+            }
+
+            if (exception.AvailabilityType != (int)AvailabilityEnum.Exception)
+            {
+                return NotFound();
+            }
+
+            exception.StartDate = model.StartDate;
+            exception.EndDate = model.EndDate;
+            exception.Status = model.Status;
+
+            Context.SaveChanges();
+
+            return Ok();
+        }
 
     }
 }

@@ -32,6 +32,9 @@ export class HostAvailability{
     availabilityHostGroupName: string;
     day: any[] = [];
     public availPage;
+    public execPage;
+    public x=true;
+  
   
     public startDate: Date;
     public endDate: Date;  
