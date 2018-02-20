@@ -310,7 +310,7 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/availability/exception/edit/{id}")]
-        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        [Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
         public IActionResult UpdateException(int id, [FromBody] EditExceptionDto model)
         {
             if (!ModelState.IsValid)
