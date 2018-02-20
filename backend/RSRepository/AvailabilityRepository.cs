@@ -84,6 +84,7 @@ namespace RSRepository
         {
             return availabilities.Where(a => a.HostId == hostId)
                                  .Where(a => a.AvailabilityType == 0)
+                                 .Where(a => a.Status == 0)
                                  .Where(a => a.StartDate.DayOfWeek == startDate.DayOfWeek)
                                  .Where(a => a.StartDate.TimeOfDay <= startDate.TimeOfDay && a.EndDate.TimeOfDay > startDate.TimeOfDay ||
                                         a.StartDate.TimeOfDay < endDate.TimeOfDay && a.EndDate.TimeOfDay >= endDate.TimeOfDay ||

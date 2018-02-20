@@ -27,7 +27,7 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/availability/list")]
-        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        [Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
         public IActionResult GetAvailabilities(int? hostId, DateTime startDate)
         {
             if (startDate == DateTime.MinValue)
@@ -35,7 +35,14 @@ namespace RSService.Controllers
                 return BadRequest();
             }
 
-            if (!hostId.HasValue)
+            var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
+            var currentUser = userRepository.GetUserById(schedulerIdentity.UserId);
+            if (currentUser.IsActive != true)
+            {
+                return ValidationError(EventMessages.InactiveUser);
+            }
+
+            if (!hostId.HasValue && currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.admin))
             {
                 var exceptions = availabilityRepository.GetAvailabilitiesByType((int)AvailabilityEnum.Exception, startDate, startDate.AddDays(5));
 
@@ -47,8 +54,17 @@ namespace RSService.Controllers
                 return Ok(finalResults);
             }
 
-            var availabilities = availabilityRepository.GetAvailabilitiesByHost((int)hostId);
-            if (availabilities == null) return NotFound();
+            var availabilities = new List<Availability>();
+            if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.host))
+            {
+                availabilities = availabilityRepository.GetAvailabilitiesByHost(currentUser.Id);
+            }
+            if (currentUser.UserRole.Select(li => li.RoleId).Contains((int)UserRoleEnum.admin))
+            {
+                availabilities = availabilityRepository.GetAvailabilitiesByHost((int)hostId);
+            }
+            
+            if (!availabilities.Any()) return NotFound();
 
             List<AvailabilityDto> results = new List<AvailabilityDto>();
 
