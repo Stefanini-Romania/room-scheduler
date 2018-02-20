@@ -11,6 +11,8 @@
     </div>
 </form>
 <host-selector (hostChange)="onHostChanged($event)"></host-selector>
+<button class="btn btn-primary" (click)="onAddAvailability()">{{'Availability.add' | translate}}</button>&nbsp;
+<button class="btn btn-primary" (click)="onAddException()">{{'Exception.add' | translate}}</button> 
 <div class="row">
     <table class="table table-hover table-striped table-responsive table table-bordered text-center col col-md-3" >
         <thead>

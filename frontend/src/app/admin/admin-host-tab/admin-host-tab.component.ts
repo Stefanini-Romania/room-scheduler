@@ -49,6 +49,7 @@ export class AdminHostComponent {
         modalRef.componentInstance.host = this.selectedHost;
         modalRef.componentInstance.successfullAddException.subscribe(() => {
             modalRef.close();
+            this.hostAvailability.listAvailabilities();
         })
     }
 

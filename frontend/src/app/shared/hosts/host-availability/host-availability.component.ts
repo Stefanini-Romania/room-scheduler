@@ -8,6 +8,7 @@ import {HostService} from './../../services/host.service';
 import {Availability} from './../../models/availability.model';
 import {HostSelector} from './../host-selector/host-selector.component';
 import {HostAvailabilityForm} from './../host-availability-form/host-availability-form.component';
+import {HostExceptionForm} from './../host-exception-form/host-exception-form.component';
 
 
 @Component({
@@ -103,5 +104,22 @@ export class HostAvailability{
             modalRef.close();     
             this.listAvailabilities();
         });   
+    }
+
+    onAddAvailability() {
+        const modalRef:NgbModalRef = this.modalService.open(HostAvailabilityForm, {});
+        modalRef.componentInstance.host = this.selectedHost;
+        modalRef.componentInstance.successfullAddAvailability.subscribe(() => {
+            this.listAvailabilities();
+            modalRef.close();
+    })}
+
+    onAddException() {
+        const modalRef:NgbModalRef = this.modalService.open(HostExceptionForm, {});
+        modalRef.componentInstance.host = this.selectedHost;
+        modalRef.componentInstance.successfullAddException.subscribe(() => {
+            modalRef.close();
+            this.listAvailabilities();
+        })
     }
 }
