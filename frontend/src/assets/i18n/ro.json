@@ -321,18 +321,27 @@
         "DayOfWeek.Empty": "Selectați ziua săptămânii",
         "Occurrence.Empty": "Selectați recurența",
         "RoomId.Inactive": "Camera selectată nu este activă",
+        "RoomId.Empty": "Camera selectată nu are id",
         "DayOfWeek.IncorrectValue": "Ziua selectată are valoarea incorectă",
         "Occurrence.IncorrectValue": "Recurența selectată are valoarea incorectă",
         "Status.IncorrectValue": "Statusul are valoarea incorectă",
-        "Hours": "Vă rugăm să țineți cont că intervalul orar trebuie să fie între 9 si 18."
+        "Hours": "Vă rugăm să țineți cont că intervalul orar trebuie să fie între 9 și 18."
     },
 
     "AvailabilityException.StartDate.EndDate.TimeSpanLimit": "Durata introdusă este incorectă",
 
     "Exception": {
+        "edit": "Editare excepție",
         "add": "Adaugă excepție",
+        "startHour": "De la ora",
+        "endHour": "Până la ora",
+        "removed": "Excepția a fost eliminată",
+        "remove" : "Elimină",
+        "Hours": "Vă rugăm să țineți cont că intervalul orar trebuie să fie între 9 și 18.",
         "successfully.added": "Excepția a fost adăugată!",
-        "notSuccessfull": "Atenție! Excepția nu a putut fi salvată!"
+        "notSuccessfull": "Atenție! Excepția nu a putut fi salvată!",
+        "successfully.edit": "Excepția a fost editată cu succes!",
+        "notSuccessfull.edit": "Atenție! Excepția nu a putut fi editată!"
     },
     
     "Availabilities": "Disponibilități",

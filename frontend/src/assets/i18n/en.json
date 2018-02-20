@@ -306,6 +306,7 @@
         "DayOfWeek.Empty": "Please select the day of week",
         "Occurrence.Empty": "Please select the occurrence",
         "RoomId.Inactive": "The selected room is not active",
+        "RoomId.Empty": "The selected room does not have an id",
         "DayOfWeek.IncorrectValue": "The selected day has an incorrect value",
         "Occurrence.IncorrectValue": "The selected occurrence has an incorrect value",
         "Status.IncorrectValue": "The status has an incorrect value",
@@ -314,9 +315,17 @@
     "AvailabilityException.StartDate.EndDate.TimeSpanLimit": "Timespan inserted is incorrect",
 
     "Exception": {
+        "edit" : "Edit exception",
         "add": "Add exception",
+        "startHour": "Start hour",
+        "endHour": "End hour",
+        "removed": "The exception has been removed",
+        "remove": "Remove",
+        "Hours": "Please be aware that selected hours must be between 9 and 18.",
         "successfully.added": "The exception has been added!",
-        "notSuccessfull": "Error! The exception has not been saved!"
+        "notSuccessfull": "Error! The exception has not been saved!",
+        "successfully.edit": "The exception has been successfully edited!",
+        "notSuccessfull.edit": "Error! The exception has not been edited!"
     },
      
     "Availabilities": "Availabilities",

@@ -46,6 +46,7 @@
             <thead>
                 <tr>
                     <th colspan="3">{{ 'Exceptions' | translate }}</th>    
+                <th>{{'col.edit' | translate}}</th> 
                 </tr>
             </thead>
             
@@ -54,6 +55,11 @@
                 <td>{{day.startDate | localizedDate:'EE' | titlecase }} </td>
                 <td>{{day.startDate | localizedDate:'HH:mm' }} </td> 
                 <td>{{day.endDate | localizedDate:'HH:mm'}} </td>
+                <td>
+                    <button class = "btn btn-primary" (click)="onSelectException(day)" title="{{'Exception.edit' | translate}}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </td>
                 </tr>
             </tbody>
         </table>

@@ -97,21 +97,22 @@ export class HostAvailabilityForm{
 
     ngOnInit() {
         this.title = this.model.id ? 'Availability.edit': 'Availability.add';
-        // if (this.model.id) {
-        //     this.model.startDate = new Date();
-        //     this.displayDate = new Date(this.model.startDate.getDate())
+        // if (this.model.id) {  
+        //     this.model.startDate = new Date();    
+        //     JSON.stringify(this.model.startDate);
+        //     this.displayDate = new Date(this.model.startDate);
         // }
         // else {
         //     this.displayDate = new Date();
-        //     console.log(this.displayDate);
         // }
+
         if (this.model.id) {
             let startH = (new Date(this.model.startDate)).getHours();
             let startM = (new Date(this.model.startDate)).getMinutes();
             let endH = (new Date(this.model.endDate)).getHours();
             let endM = (new Date(this.model.endDate)).getMinutes();
             this.startHour = {hour: startH, minute: startM, second: 0};
-            this.endHour = {hour: endH, minute: endM, second: 0};
+            this.endHour = {hour: endH, minute: endM, second: 0}; 
         } 
     }
 
@@ -193,7 +194,6 @@ export class HostAvailabilityForm{
     }
 
     editAvailability() {   
-
         this.dateFormat(Availability);  
         this.model.occurrence = this.selectedOccurrence.value;
         this.model.roomId = this.selectedRoom.id;
@@ -212,7 +212,10 @@ export class HostAvailabilityForm{
                         this.toastr.success(
                             this.translate.instant('Availability.successfully.edit'), '',
                             {positionClass: 'toast-bottom-right'}
-                        );
+                        );                      
+                    }
+                    if (this.model.status == 1){
+                        this.successfullEditAvailability.emit();
                     }
                     else if (this.model.status !== 1){
                         this.errorMessages = {'generic': [error.error.message]};
