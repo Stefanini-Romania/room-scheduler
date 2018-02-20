@@ -26,6 +26,7 @@ namespace RSTests
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == UserMessages.EmptyFirstName));
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == UserMessages.EmptyLastName));
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == UserMessages.EmptyPassword));
+            Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == UserMessages.EmptyUserRole));
 
         }
 
