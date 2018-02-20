@@ -22,21 +22,21 @@ namespace RSService.Validation {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class RoomMessages {
+    public class RoomMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal RoomMessages() {
+        public RoomMessages() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RSService.Validation.RoomMessages", typeof(RoomMessages).Assembly);
@@ -51,7 +51,7 @@ namespace RSService.Validation {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -59,47 +59,47 @@ namespace RSService.Validation {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Room.Location.IsEmpty.
         /// </summary>
-        internal static string EmptyRoomLocation {
+        public static string EmptyRoomLocation {
             get {
                 return ResourceManager.GetString("EmptyRoomLocation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Room.Name.IsEmpty.
         /// </summary>
-        internal static string EmptyRoomName {
+        public static string EmptyRoomName {
             get {
                 return ResourceManager.GetString("EmptyRoomName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Room.Location.TooLong.
         /// </summary>
-        internal static string LocationNameLong {
+        public static string LocationNameLong {
             get {
                 return ResourceManager.GetString("LocationNameLong", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Room.Name.TooLong.
         /// </summary>
-        internal static string RoomNameLong {
+        public static string RoomNameLong {
             get {
                 return ResourceManager.GetString("RoomNameLong", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Room.SameNameAndLocation.
         /// </summary>
-        internal static string UniqueRoom {
+        public static string UniqueRoom {
             get {
                 return ResourceManager.GetString("UniqueRoom", resourceCulture);
             }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace RSService.DTO
 {
+    // we use this as AddRoomDto as well
     public class EditRoomDto
     {
         public int Id { get; set; }
