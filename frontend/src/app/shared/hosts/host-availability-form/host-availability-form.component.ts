@@ -3,8 +3,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {NgbActiveModal, NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
 import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
-import { SelectControlValueAccessor } from '@angular/forms';
-import {NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {SelectControlValueAccessor} from '@angular/forms';
+import {NgbDatepickerConfig, NgbDateStruct, NgbTimepickerConfig, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 
 import {User} from '../../models/user.model';
 import {Availability} from '../../models/availability.model';
@@ -19,36 +19,52 @@ import {Room} from '../../models/room.model';
 })
 
 export class HostAvailabilityForm{
-    @Input() host: User;
+    @Input() 
+    host: User;
 
     @Output()
     successfullAddAvailability = new EventEmitter;
     successfullEditAvailability = new EventEmitter;
 
     public model: Availability = <Availability>{};
-    public startHour;
-    public endHour;
     public selectedRoom: Room;
     public selectedHost: User;
     public addAvail: boolean;
     public minuteStep = 30;
     public title: string;
-    public displayDate= new Date();
+    public displayDate = new Date();
     public errorMessages: any = {}; 
     public availabilityStartDate; 
     public availabilityEndDate;
     public dayOfWeek;
+    public startHour: NgbTimeStruct;
+    public endHour: NgbTimeStruct;
+    public seconds = false;
 
     constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService, private datePickerConfig: NgbDatepickerConfig){
         datePickerConfig.markDisabled = (date: NgbDateStruct) => {
             const day = new Date(date.year, date.month - 1, date.day);
             return day.getDay() === 0 || day.getDay() === 6;
-          };   
-   
+        }; 
     }
 
     //validation for hours between 9 and 18 availability
     ctrl = new FormControl('', (control: FormControl) => {
+        const value = control.value;
+    
+        if (!value) {
+          return null;
+        }
+    
+        if (value.hour < 9 || value.hour > 17) {
+          return {tooEarly: true};
+        }
+    
+        return null;
+    });
+   
+
+    end = new FormControl('', (control: FormControl) => {
         const value = control.value;
     
         if (!value) {
@@ -87,7 +103,16 @@ export class HostAvailabilityForm{
         // }
         // else {
         //     this.displayDate = new Date();
+        //     console.log(this.displayDate);
         // }
+        if (this.model.id) {
+            let startH = (new Date(this.model.startDate)).getHours();
+            let startM = (new Date(this.model.startDate)).getMinutes();
+            let endH = (new Date(this.model.endDate)).getHours();
+            let endM = (new Date(this.model.endDate)).getMinutes();
+            this.startHour = {hour: startH, minute: startM, second: 0};
+            this.endHour = {hour: endH, minute: endM, second: 0};
+        } 
     }
 
     onRoomChanged(selectedRoom: Room) {
@@ -95,7 +120,6 @@ export class HostAvailabilityForm{
     }
 
     dateFormat(Availability) {
-
         if (this.model.id) {   
             this.availabilityStartDate = new Date(this.model.startDate);
             this.availabilityStartDate.setHours(this.startHour.hour);
@@ -108,19 +132,14 @@ export class HostAvailabilityForm{
         else {
             this.availabilityStartDate = new Date(this.model.startDate["year"], this.model.startDate["month"]-1, this.model.startDate["day"], this.startHour["hour"], this.startHour["minute"], 0);
             JSON.stringify(this.availabilityStartDate);
-
             this.dayOfWeek = this.availabilityStartDate.getDay();
-
             let currentDate = this.availabilityStartDate.getDate();
-            debugger;
             while(this.dayOfWeek!==1){
                 this.dayOfWeek--;
                 currentDate=currentDate-1;
             }
             this.availabilityStartDate.setDate(currentDate);
-            debugger;
-            
-
+        
             this.model.endDate = new Date(this.availabilityStartDate.getFullYear(), this.availabilityStartDate.getMonth(),this.availabilityStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]) ;
             this.availabilityEndDate = this.model.endDate;
         }    
@@ -174,7 +193,8 @@ export class HostAvailabilityForm{
     }
 
     editAvailability() {   
-        this.dateFormat(Availability);
+
+        this.dateFormat(Availability);  
         this.model.occurrence = this.selectedOccurrence.value;
         this.model.roomId = this.selectedRoom.id;
 

@@ -97,8 +97,8 @@ export class HostService {
             params = params.append("hostId", hostId.toString());
         }
         const body = JSON.stringify({
-            startDate: startDate,
-            endDate: endDate,             
+            startDate: startDate.toLocaleString(),
+            endDate: endDate.toLocaleString()             
         });
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
