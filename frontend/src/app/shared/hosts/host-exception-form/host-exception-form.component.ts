@@ -61,14 +61,6 @@ export class HostExceptionForm {
 
     ngOnInit() {
         this.title = this.model.id ? 'Exception.edit': 'Exception.add';
-        // if (this.model.id) {  
-        //     this.model.startDate = new Date();    
-        //     JSON.stringify(this.model.startDate);
-        //     this.displayDate = new Date(this.model.startDate);
-        // }
-        // else {
-        //     this.displayDate = new Date();
-        // }
 
         if (this.model.id) {
             let startH = (new Date(this.model.startDate)).getHours();
@@ -77,9 +69,9 @@ export class HostExceptionForm {
             let endM = (new Date(this.model.endDate)).getMinutes();
             this.startHour = {hour: startH, minute: startM, second: 0};
             this.endHour = {hour: endH, minute: endM, second: 0};
-
-
+            this.displayDate = new Date(this.model.startDate);
         } 
+        else this.displayDate = new Date();
     }
 
     dateFormat(Availability) {
@@ -88,7 +80,7 @@ export class HostExceptionForm {
             this.exceptionStartDate.setHours(this.startHour.hour);
             JSON.stringify(this.exceptionStartDate);    
 
-            this.model.endDate = new Date(this.exceptionStartDate.getFullYear(), this.exceptionStartDate.getMonth(),this.exceptionStartDate.getDate(), this.endHour["hour"], this.endHour["minute"]) ;
+            this.model.endDate = new Date(this.exceptionStartDate.getFullYear(), this.exceptionStartDate.getMonth(),this.exceptionStartDate.getDate(), this.endHour["hour"], this.endHour["minute"]);
             this.exceptionEndDate = this.model.endDate;
             JSON.stringify(this.exceptionEndDate);
         }
@@ -96,7 +88,7 @@ export class HostExceptionForm {
             this.exceptionStartDate = new Date(this.model.startDate["year"], this.model.startDate["month"]-1, this.model.startDate["day"], this.startHour["hour"], this.startHour["minute"], 0);
             JSON.stringify(this.exceptionStartDate);
         
-            this.model.endDate = new Date(this.exceptionStartDate.getFullYear(), this.exceptionStartDate.getMonth(),this.exceptionStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]) ;
+            this.model.endDate = new Date(this.exceptionStartDate.getFullYear(), this.exceptionStartDate.getMonth(),this.exceptionStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]);
             this.exceptionEndDate = this.model.endDate;
         } 
     }      

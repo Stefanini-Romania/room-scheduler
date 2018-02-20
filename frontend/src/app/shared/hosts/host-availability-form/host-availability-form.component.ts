@@ -97,14 +97,6 @@ export class HostAvailabilityForm{
 
     ngOnInit() {
         this.title = this.model.id ? 'Availability.edit': 'Availability.add';
-        // if (this.model.id) {  
-        //     this.model.startDate = new Date();    
-        //     JSON.stringify(this.model.startDate);
-        //     this.displayDate = new Date(this.model.startDate);
-        // }
-        // else {
-        //     this.displayDate = new Date();
-        // }
 
         if (this.model.id) {
             let startH = (new Date(this.model.startDate)).getHours();
@@ -113,7 +105,9 @@ export class HostAvailabilityForm{
             let endM = (new Date(this.model.endDate)).getMinutes();
             this.startHour = {hour: startH, minute: startM, second: 0};
             this.endHour = {hour: endH, minute: endM, second: 0}; 
+            this.displayDate = new Date(this.model.startDate);
         } 
+        else this.displayDate = new Date();
     }
 
     onRoomChanged(selectedRoom: Room) {
