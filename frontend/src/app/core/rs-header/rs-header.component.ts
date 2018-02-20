@@ -55,6 +55,10 @@ export class RsHeaderComponent {
         return (currentUser && currentUser.userRole.length != 0 && currentUser.userRole.indexOf(RoleEnum.admin) !== -1);
     }
 
+    isHost(currentUser: User): boolean {
+        return (currentUser && currentUser.userRole.length != 0 && currentUser.userRole.indexOf(RoleEnum.host) !== -1);
+    }
+
     logout() {
         this.authService.logout();  
         if(this.route.root.firstChild.snapshot.data['name']=="calendar") {

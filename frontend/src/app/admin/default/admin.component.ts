@@ -19,13 +19,22 @@ import {AdminSystemParameters} from '../admin-system-parameters/admin-system-par
 
 
 export class AdminComponent implements AfterViewInit{
+    public isHost: boolean;
 
     constructor(private translate: TranslateService, private router: Router, private authService: AuthService) {
+        
     }
  
     ngAfterViewInit(): void {
-        if (!this.authService.isLoggedIn() || !this.authService.getLoggedUser().hasRole(RoleEnum.admin)) {
-            this.router.navigate(['calendar']);
+        if (!this.authService.isLoggedIn() || !this.authService.getLoggedUser().hasRole(RoleEnum.admin) || !this.authService.getLoggedUser().hasRole(RoleEnum.host)) {
+            // this.router.navigate(['calendar']);
+        }
+    
+        if(this.authService.getLoggedUser().hasRole(RoleEnum.admin)){
+             this.isHost=false;
+        }
+        else if(this.authService.getLoggedUser().hasRole(RoleEnum.host)){
+            this.isHost=true;
         }
     }
 

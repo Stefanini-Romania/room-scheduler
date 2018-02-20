@@ -1,4 +1,4 @@
-import {Component, NgModule, Input, EventEmitter} from '@angular/core'
+import {Component, NgModule, Input, EventEmitter, AfterViewInit} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 import {TranslateService, LangChangeEvent} from "@ngx-translate/core";
 import {NgbModal, NgbModalRef,NgbPaginationConfig, ModalDismissReasons, NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +9,8 @@ import {Availability} from './../../models/availability.model';
 import {HostSelector} from './../host-selector/host-selector.component';
 import {HostAvailabilityForm} from './../host-availability-form/host-availability-form.component';
 import {HostExceptionForm} from './../host-exception-form/host-exception-form.component';
+import { AuthService } from '../../../auth/shared/auth.service';
+import {RoleEnum} from '../../models/role.model';
 
 
 @Component({
@@ -33,7 +35,7 @@ export class HostAvailability{
     day: any[] = [];
     public availPage;
     public execPage;
-    public x=true;
+    public isHost: boolean;
   
   
     public startDate: Date;
@@ -42,16 +44,27 @@ export class HostAvailability{
     public exception: boolean;
     public displayDate = new Date();
     
-    constructor(public hostService: HostService, translate: TranslateService, private modalService: NgbModal, private datePickerConfig: NgbDatepickerConfig) {
+    constructor(public hostService: HostService, translate: TranslateService, private modalService: NgbModal, private datePickerConfig: NgbDatepickerConfig, private authService: AuthService) {
         datePickerConfig.markDisabled = (date: NgbDateStruct) => {
             const day = new Date(date.year, date.month - 1, date.day);
             return day.getDay() === 0 || day.getDay() === 6;
           };
+
+          if(this.authService.getLoggedUser().hasRole(RoleEnum.host)){
+              this.isHost=true;
+          }
+
+          if(this.isHost==true){
+              this.selectedHost = this.authService.getLoggedUser();
+              this.listAvailabilities();
+          }
+          
     }
 
     onHostChanged(selectedHost: User) {
         this.selectedHost = selectedHost;
         this.listAvailabilities();
+        
     }
 
     listAvailabilities() {

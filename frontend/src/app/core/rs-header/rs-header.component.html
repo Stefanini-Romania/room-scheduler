@@ -9,7 +9,7 @@
               <a class="nav-link" href="register">{{'button.register' | translate}}</a>
             </li>
             <li class="nav-item" >
-              <a class="nav-link" href="admin" *ngIf="isAdmin(currentUser)">{{'button.admin' | translate}}</a>
+              <a class="nav-link" href="admin" *ngIf="isAdmin(currentUser)||isHost(currentUser)">{{'button.admin' | translate}}</a>
             </li>
           </ul>
     </div>
