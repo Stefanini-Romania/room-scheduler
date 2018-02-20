@@ -7,6 +7,7 @@ import {User} from '../../shared/models/user.model';
 import {UserService} from '../../users/shared/users.service';
 import {RoleEnum} from '../../shared/models/role.model';
 import {RegisterFormComponent} from '../../users/register-form/register-form.component';
+import {AuthService} from '../../auth/shared/auth.service';
 
 @Component({
     selector: 'admin-users-tab',
@@ -29,12 +30,14 @@ export class AdminUsersTab implements AfterViewInit{
     currentUser: User;
     public page;
 
-    constructor(private userService: UserService, private modalService: NgbModal, private translate: TranslateService, private toastr: ToastrService) {
+    constructor(private userService: UserService, private modalService: NgbModal, private translate: TranslateService, private toastr: ToastrService, private authService: AuthService) {
         
     }
 
     ngAfterViewInit(): void {
-        this.refreshUsers();
+        if(this.authService.getLoggedUser().hasRole(RoleEnum.admin)){
+            this.refreshUsers();
+        }
     }
 
     refreshUsers() {

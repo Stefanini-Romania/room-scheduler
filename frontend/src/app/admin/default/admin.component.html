@@ -1,20 +1,20 @@
 <div class="mx-5">
   <ngb-tabset class="admintabs">
-    <ngb-tab>
+    <ngb-tab *ngIf="!isHost">
       <ng-template ngbTabTitle><b>{{'AdminTabs.Users' | translate}}</b></ng-template>
       <ng-template ngbTabContent>
         <admin-users-tab></admin-users-tab>
       </ng-template>
     </ngb-tab>
 
-    <ngb-tab>
+    <ngb-tab *ngIf="!isHost">
       <ng-template ngbTabTitle><b>{{'AdminTabs.Rooms' | translate}}</b></ng-template>
       <ng-template ngbTabContent>       
         <admin-rooms-tab></admin-rooms-tab>
       </ng-template>
     </ngb-tab>
 
-    <ngb-tab>
+    <ngb-tab *ngIf="!isHost">
         <ng-template ngbTabTitle><b>{{'AdminTabs.SystemParameters' | translate}}</b></ng-template>
         <ng-template ngbTabContent>       
           <admin-system-parameters></admin-system-parameters>

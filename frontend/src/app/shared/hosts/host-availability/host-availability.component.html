@@ -1,5 +1,5 @@
 <div class="row" style="margin-left: 0px">
-    <host-selector (hostChange)="onHostChanged($event)"></host-selector>
+    <host-selector (hostChange)="onHostChanged($event)" *ngIf="!isHost"></host-selector>
     <form class="form-inline datePickerForm">
         <div class="form-group">
             <div class="input-group">
@@ -40,7 +40,6 @@
             </tbody>
         </table>
         <pagination-controls (pageChange)="availPage = $event" id="first"></pagination-controls>
-      
     </div>
     <div>
         <table class="table table-hover table-striped table-responsive table table-bordered text-center col col-md-2" >
