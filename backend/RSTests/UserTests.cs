@@ -50,5 +50,31 @@ namespace RSTests
             Assert.Equal(IsValidPassowrd, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == UserMessages.WeakPassword) == null);
         
         }
+
+        [Theory]
+        [InlineData("alibaba@jaja.com",true)]
+        [InlineData("alibaba@.com", false)]
+        [InlineData("alibaba@com", false)]
+        [InlineData("alib@comaba@com", false)]
+        [InlineData("johnjohn.com@", false)]
+        [InlineData("@.com", false)]
+        [InlineData("alibaba@yahoo.gmail.com", true)]
+        [InlineData("alina.com@johnny.com", true)]
+        [InlineData("havier@com", false)]
+        public void WhenEmail_HasWrongFormat_DenyAdd(string email, bool isValidEmail)
+        {
+            AddUserDto mail = new AddUserDto()
+            {
+                Email=email
+            };
+
+            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Loose);
+
+            var validator = new AddUserValidator(rsMoq.Object);
+
+            var validationResults = validator.Validate(mail);
+
+            Assert.Equal(isValidEmail, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == UserMessages.EmailTypeWrong) == null);
+        }
     }
 }
