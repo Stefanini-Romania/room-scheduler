@@ -29,7 +29,7 @@ namespace RSService.Controllers
         }
 
         [HttpGet("/availability/list")]
-        //[Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
+        [Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
         public IActionResult GetAvailabilities(int? hostId, DateTime startDate)
         {
             if (startDate == DateTime.MinValue)
