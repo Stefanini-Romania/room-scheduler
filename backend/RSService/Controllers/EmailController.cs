@@ -14,20 +14,22 @@ using System.Threading.Tasks;
 
 namespace RSService.Controllers
 {
-    public class EmailController : BaseController
+    public class EmailController : ValidationController
     {
-        private IUserRepository userRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly RoomPlannerDevContext context;
 
-        public EmailController()
+        public EmailController(RoomPlannerDevContext context)
         {
-            this.userRepository = new UserRepository(Context);
+            this.context = context;
+            _userRepository = new UserRepository(context);
         }
 
 
         [HttpPost("email/resetpass/{email}")]
         public IActionResult MailPassReset(string email)
         {
-            var user = userRepository.GetUserByEmail(email);
+            var user = _userRepository.GetUserByEmail(email);
             string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$";
             bool a = Regex.IsMatch(email, MatchEmailPattern);
             if (a == false)
@@ -38,7 +40,7 @@ namespace RSService.Controllers
             user.DateExpire = DateTime.UtcNow;
             user.ResetPassCode = System.Guid.NewGuid().ToString();
 
-            Context.SaveChanges();
+            context.SaveChanges();
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini-noreply", "roomchedulerStefanini@gmail.com"));
             message.To.Add(new MailboxAddress("User", email));
@@ -70,7 +72,7 @@ namespace RSService.Controllers
         [HttpPost("/user/resetpass/{ResetPassCode}")]
         public IActionResult CheckCodeResetPass(string resetpasscode, [FromForm]ResetPasswordDto userView)
         {
-            var user = userRepository.GetUserByResetPassCode(resetpasscode);
+            var user = _userRepository.GetUserByResetPassCode(resetpasscode);
 
             if (user == null)
                 return NotFound();
@@ -88,7 +90,7 @@ namespace RSService.Controllers
                 return ValidationError(GeneralMessages.User);
             }
 
-            var user = userRepository.GetUserByResetPassCode(ResetPassCode);
+            var user = _userRepository.GetUserByResetPassCode(ResetPassCode);
             
 
             if (user == null)
@@ -120,7 +122,7 @@ namespace RSService.Controllers
                 user.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
             }
 
-            Context.SaveChanges();
+            context.SaveChanges();
 
             var updatedUser = new ResetPassDTO()
             {

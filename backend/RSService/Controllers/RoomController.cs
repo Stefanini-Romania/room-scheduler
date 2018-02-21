@@ -13,15 +13,17 @@ using System.Threading.Tasks;
 
 namespace RSService.Controllers
 {
-    public class RoomController : BaseController
+    public class RoomController : ValidationController
     {
-        private IRoomRepository roomRepository;
-        private IUserRepository userRepository;
+        private readonly IRoomRepository roomRepository;
+        private readonly IUserRepository userRepository;
+        private readonly RoomPlannerDevContext context;
 
-        public RoomController()
+        public RoomController(RoomPlannerDevContext context)
         {
-            this.roomRepository = new RoomRepository(Context);
-            this.userRepository = new UserRepository(Context);
+            this.context = context;
+            roomRepository = new RoomRepository(context);
+            userRepository = new UserRepository(context);
         }
 
         [HttpGet("/room/list")]
@@ -90,7 +92,7 @@ namespace RSService.Controllers
 
             roomRepository.AddRoom(newRoom);
 
-            Context.SaveChanges();
+            context.SaveChanges();
             return Ok(model);
         }
 
@@ -115,7 +117,7 @@ namespace RSService.Controllers
                 room.Location = model.Location;
                 room.IsActive = model.IsActive;
 
-                Context.SaveChanges();
+                context.SaveChanges();
 
                 return Ok(model);
             }
