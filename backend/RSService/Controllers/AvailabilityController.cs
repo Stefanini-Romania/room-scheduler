@@ -294,12 +294,19 @@ namespace RSService.Controllers
         }
 
         [HttpPut("/availability/edit/{id}")]
-        [Authorize(Roles = nameof(UserRoleEnum.admin))]
+        [Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
         public IActionResult UpdateAvailability(int id, [FromBody] EditAvailabilityDto model)
         {
             if (!ModelState.IsValid)
             {
                 return ValidationError(GeneralMessages.Availability);
+            }
+
+            var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
+            var currentUser = userRepository.GetUserById(schedulerIdentity.UserId);
+            if (currentUser.IsActive != true)
+            {
+                return ValidationError(EventMessages.InactiveUser);
             }
 
             var availability = availabilityRepository.GetAvailabilityById(id);
