@@ -17,24 +17,26 @@ using MailKit.Net.Smtp;
 
 namespace RSService.Controllers
 {
-    public class UserController : BaseController
+    public class UserController : ValidationController
     {
         
-        private IUserRepository userRepository;
-        private IUserRoleRepository userRoleRepository;
-        private IRoleRepository roleRepository;
-        private IEventRepository eventRepository;
-        private ISettingsRepository settingsRepository;
-        private IRoomRepository roomRepository;
+        private readonly IUserRepository userRepository;
+        private readonly IUserRoleRepository userRoleRepository;
+        private readonly IRoleRepository roleRepository;
+        private readonly IEventRepository eventRepository;
+        private readonly ISettingsRepository settingsRepository;
+        private readonly IRoomRepository roomRepository;
+        private readonly RoomPlannerDevContext context;
 
-        public UserController()
+        public UserController(RoomPlannerDevContext context)
         {
-            this.userRepository = new UserRepository(Context);
-            this.userRoleRepository = new UserRoleRepository(Context);
-            this.roleRepository = new RoleRepository(Context);
-            this.eventRepository = new EventRepository(Context);
-            this.settingsRepository = new SettingsRepository(Context);
-            this.roomRepository = new RoomRepository(Context);
+            this.context = context;
+            this.userRepository = new UserRepository(context);
+            this.userRoleRepository = new UserRoleRepository(context);
+            this.roleRepository = new RoleRepository(context);
+            this.eventRepository = new EventRepository(context);
+            this.settingsRepository = new SettingsRepository(context);
+            this.roomRepository = new RoomRepository(context);   
         }
 
         [HttpGet("/user/list")]
@@ -76,7 +78,7 @@ namespace RSService.Controllers
                 foreach (Event evnt in events)
                 {
                     evnt.EventStatus = (int)EventStatusEnum.waitingRemindet;
-                    Context.SaveChanges();
+                    context.SaveChanges();
                     var usr = userRepository.GetUserById(evnt.AttendeeId);
                     var room = roomRepository.GetRoomById(evnt.RoomId);
 
@@ -150,7 +152,7 @@ namespace RSService.Controllers
                 });
             }
 
-            Context.SaveChanges();
+            context.SaveChanges();
 
             var addedUser = new UserDto()
             {
@@ -218,7 +220,7 @@ namespace RSService.Controllers
                 RoleId = (int)UserRoleEnum.attendee
             });
 
-            Context.SaveChanges();
+            context.SaveChanges();
 
 
             var addedUser = new UserDto()
@@ -342,7 +344,7 @@ namespace RSService.Controllers
                 user.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
             }
 
-            Context.SaveChanges();
+            context.SaveChanges();
 
             var updatedUser = new UserDto()
             {

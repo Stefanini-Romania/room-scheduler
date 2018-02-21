@@ -18,21 +18,23 @@ using MailKit.Net.Smtp;
 
 namespace RSService.Controllers
 {
-    public class RoomSchedulerController : BaseController
+    public class RoomSchedulerController : ValidationController
     {
         private IEventRepository eventRepository;
         private IRoomRepository roomRepository;
         private IAvailabilityRepository availabilityRepository;
         private IUserRepository userRepository;
         private IRSBusiness rsBusiness;
+        private readonly RoomPlannerDevContext context;
 
-        public RoomSchedulerController(IRSBusiness rsBusiness)
+        public RoomSchedulerController(RoomPlannerDevContext context, IRSBusiness rsBusiness)
         {
-            this.roomRepository = new RoomRepository(Context);
-            this.availabilityRepository = new AvailabilityRepository(Context);
-            this.eventRepository = new EventRepository(Context);
-            this.userRepository = new UserRepository(Context);
-            this.availabilityRepository = new AvailabilityRepository(Context);
+            this.context = context;
+            this.roomRepository = new RoomRepository(context);
+            this.availabilityRepository = new AvailabilityRepository(context);
+            this.eventRepository = new EventRepository(context);
+            this.userRepository = new UserRepository(context);
+            this.availabilityRepository = new AvailabilityRepository(context);
             this.rsBusiness = rsBusiness;
         }
 
@@ -73,7 +75,7 @@ namespace RSService.Controllers
             }
 
             eventRepository.AddEvent(newEvent);
-            Context.SaveChanges();
+            context.SaveChanges();
 
             var room = roomRepository.GetRoomById(newEvent.RoomId);
             var message = new MimeMessage();
@@ -229,7 +231,7 @@ namespace RSService.Controllers
             _event.EventStatus = _model.EventStatus;
             _event.DateCreated = DateTime.UtcNow;
 
-            Context.SaveChanges();
+            context.SaveChanges();
 
             if (_event.EventStatus == (int)EventStatusEnum.absent)
                 rsBusiness.AddPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);    // works only if host updates the events daily

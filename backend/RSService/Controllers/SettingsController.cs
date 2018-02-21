@@ -12,14 +12,16 @@ using System.Threading.Tasks;
 
 namespace RSService.Controllers
 {
-    public class SettingsController : BaseController
+    public class SettingsController : ValidationController
     {
         private ISettingsRepository _settingsRepository;
         private ILogger<SettingsController> _logger;
+        private readonly RoomPlannerDevContext context;
 
-        public SettingsController(ILogger<SettingsController> logger)
+        public SettingsController(RoomPlannerDevContext context, ILogger<SettingsController> logger)
         {
-            _settingsRepository = new SettingsRepository(Context);
+            this.context = context;
+            _settingsRepository = new SettingsRepository(context);
             _logger = logger;
         }
 
@@ -60,7 +62,7 @@ namespace RSService.Controllers
 
             setting.Value = model.Value;
 
-            Context.SaveChanges();
+            context.SaveChanges();
 
             return Ok();
         }

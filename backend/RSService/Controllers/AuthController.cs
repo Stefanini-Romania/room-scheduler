@@ -90,8 +90,9 @@ namespace RSService.Controllers
         private readonly ILogger<AuthController> _logger;
         private readonly RoomPlannerDevContext context;
 
-        public AuthController(ILogger<AuthController> logger)
+        public AuthController(RoomPlannerDevContext context, ILogger<AuthController> logger)
         {
+            this.context = context;
             _userRepository = new UserRepository(context);
             _settingsRepository = new SettingsRepository(context);
             _logger = logger;
