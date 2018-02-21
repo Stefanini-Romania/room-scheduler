@@ -13,7 +13,7 @@ import {SharedModule} from '../shared/shared.module';
 
 
 const routes: Routes = [
-    {path: 'admin', component: AdminComponent, data:{name: 'admin'}}
+    {path: 'settings', component: AdminComponent, data:{name: 'admin'}}
 ];
 
 @NgModule({
