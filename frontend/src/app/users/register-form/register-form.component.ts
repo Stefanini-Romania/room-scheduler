@@ -37,7 +37,7 @@ export class RegisterFormComponent {
     };
     public modelForm: User = <User> {
         departmentId: DepartmentIdEnum.ADC,
-        userRole: [RoleEnum.attendee]
+        // userRole: [RoleEnum.attendee]
     }
     public selectedRole = RoleEnum;
     public errorMessages: any = {};
@@ -47,7 +47,10 @@ export class RegisterFormComponent {
     currentUser: User = undefined;
     DepartmentIdEnum: DepartmentIdEnum[] = [];
     RoleIdEnums = RoleEnum;
-    displayRole = "Role";
+    displayRole;
+    isActive;
+    isDept;
+
 
     constructor(private authService: AuthService, 
                 private router: Router, 
@@ -61,7 +64,6 @@ export class RegisterFormComponent {
 
     ngOnInit() {
         this.title = this.model.id ? 'user.edit': 'user.add'; 
-        //TODO: find a more optimal solution
         this.modelForm.id = this.model.id;
         this.modelForm.firstName = this.model.firstName;
         this.modelForm.lastName = this.model.lastName;
@@ -69,9 +71,21 @@ export class RegisterFormComponent {
         this.modelForm.departmentId = this.model.departmentId;
         //this.modelForm.userRole = this.model.userRole; //Fix
         this.modelForm.isActive = this.model.isActive;
-    }
 
-    
+        if (this.modelForm.isActive == true) {
+            this.isActive = 1;
+        } 
+        else this.isActive = 2; 
+           
+        if (this.modelForm.id) {
+            if (this.modelForm.departmentId == 1) {
+                this.isDept = 1;
+            } 
+            else this.isDept = 2;        
+        }    
+        this.onRoleSelect(this.displayRole);
+    }
+ 
     get isLoggedIn():boolean {
         this.currentUser = this.authService.getLoggedUser();
         return this.currentUser && this.authService.isLoggedIn();
@@ -94,7 +108,10 @@ export class RegisterFormComponent {
     }
 
     onRoleSelect (selectedRole: string){
-        this.displayRole = " " + selectedRole;
+        if (this.model.id) {
+            this.displayRole = this.model.userRole[0];
+        }
+        else this.displayRole = this.RoleEnum[1];
     }
 
     register() {

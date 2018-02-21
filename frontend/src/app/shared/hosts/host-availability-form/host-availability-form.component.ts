@@ -12,6 +12,7 @@ import {HostService} from './../../services/host.service';
 import {Room} from '../../models/room.model';
 
 
+
 @Component({
     selector: 'host-availability-form',
     templateUrl: './host-availability-form.component.html',
@@ -97,7 +98,6 @@ export class HostAvailabilityForm{
 
     ngOnInit() {
         this.title = this.model.id ? 'Availability.edit': 'Availability.add';
-
         if (this.model.id) {
             let startH = (new Date(this.model.startDate)).getHours();
             let startM = (new Date(this.model.startDate)).getMinutes();
@@ -105,7 +105,13 @@ export class HostAvailabilityForm{
             let endM = (new Date(this.model.endDate)).getMinutes();
             this.startHour = {hour: startH, minute: startM, second: 0};
             this.endHour = {hour: endH, minute: endM, second: 0}; 
+
             this.displayDate = new Date(this.model.startDate);
+            this.selectedOccurrence = this.occurrence[this.model.occurrence-1];
+            // this.selectedRoom.id = this.model.roomId;
+            // this.onRoomChanged(this.selectedRoom[this.model.roomId]);
+            
+            
         } 
         else this.displayDate = new Date();
     }
@@ -138,7 +144,6 @@ export class HostAvailabilityForm{
             this.model.endDate = new Date(this.availabilityStartDate.getFullYear(), this.availabilityStartDate.getMonth(),this.availabilityStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]) ;
             this.availabilityEndDate = this.model.endDate;
         }    
-    
     }
 
     addAvailability(){
