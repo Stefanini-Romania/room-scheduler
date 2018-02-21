@@ -8,7 +8,6 @@ import {AuthService} from '../../auth/shared/auth.service';
 import {AdminUsersTab} from '../admin-users-tab/admin-users-tab.component';
 import {AdminRoomsTab} from '../admin-rooms-tab/admin-rooms-tab.component';
 import {AdminSystemParameters} from '../admin-system-parameters/admin-system-parameters.component';
-//import {HostAvailability} from './../../shared/hosts/host-availability.component';
 
 @Component({
     selector: 'admin-component',
@@ -26,8 +25,8 @@ export class AdminComponent implements AfterViewInit{
     }
  
     ngAfterViewInit(): void {
-        if (!this.authService.isLoggedIn() || !this.authService.getLoggedUser().hasRole(RoleEnum.admin) || !this.authService.getLoggedUser().hasRole(RoleEnum.host)) {
-            // this.router.navigate(['calendar']);
+        if (!this.authService.isLoggedIn() || !this.authService.getLoggedUser().hasRole(RoleEnum.admin) && !this.authService.getLoggedUser().hasRole(RoleEnum.host)) {
+             this.router.navigate(['calendar']);
         }
     
         if(this.authService.getLoggedUser().hasRole(RoleEnum.admin)){

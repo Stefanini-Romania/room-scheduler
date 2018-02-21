@@ -90,6 +90,24 @@ export class HostService {
             });
     }
 
+    public EditHostException(id: number, startDate: Date, endDate: Date, status: number){
+        const url = environment.apiUrl + '/availability/exception/edit/' + id;
+        const body = JSON.stringify({
+            startDate: startDate.toLocaleString(),
+            endDate: endDate.toLocaleString(),
+            status: status   
+        });
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+
+        return this.http.put(url, body, {headers: headers, withCredentials: true})
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+            .map((response: Response) => {
+                return response;
+            });
+    }
+
     public AddHostException(startDate: Date, endDate: Date, hostId?: number){
         const url = environment.apiUrl + '/availability/exception/add';
         let params = new HttpParams();

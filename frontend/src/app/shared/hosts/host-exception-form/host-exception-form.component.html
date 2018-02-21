@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h6 class="modal-title">{{'Exception.add' | translate}}</h6>
+    <h6 class="modal-title">{{title | translate}}</h6>
     <button type="button" (click)="activeModal.close()"><i class="fa fa-times" aria-hidden="true"></i></button> 
 </div>
     
@@ -36,24 +36,26 @@
         <!-- VALIDATION FOR HOURS BETWEEN 9 AND 18 -->
         <div class="marginLeftRight text-center">
             <ngb-alert type="danger" [dismissible]="false" *ngIf="!ctrl.valid">
-                <div *ngIf="ctrl.errors['tooEarly']">{{'Availability.Hours' | translate}}</div>
+                <div *ngIf="ctrl.errors['tooEarly']">{{'Exception.Hours' | translate}}</div>
             </ngb-alert>
         </div>
 
         <!--START AND END HOUR-->
         <div class="align-self-center mx-auto">
             <div class="row">
-                <label class="label col-5 labelHour"><b>{{'Availability.startHour' | translate}}</b></label>
-                <label class="label col-5 labelHour"><b>{{'Availability.endHour' | translate}}</b></label>
+                <label class="label col-5 labelHour"><b>{{'Exception.startHour' | translate}}</b></label>
+                <label class="label col-5 labelHour"><b>{{'Exception.endHour' | translate}}</b></label>
             </div>
             <div class="row align-self-center mx-auto">
-                <ngb-timepicker class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
-                <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep" [formControl]="ctrl"></ngb-timepicker>
+                <ngb-timepicker class="timePicker" [(ngModel)]="startHour" [minuteStep]="minuteStep"></ngb-timepicker>
+                <ngb-timepicker [(ngModel)]="endHour" [minuteStep]="minuteStep"></ngb-timepicker>
             </div>
         </div>
     </div>
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary float-right" (click)="addException()">{{'button.save'|translate}}</button> 
+    <button type="button" class="btn btn-primary float-right" *ngIf="!model.id" (click)="addException()">{{'Exception.add'|translate}}</button> 
+    <button type="button" class="btn btn-primary" *ngIf="model.id" (click)="removeException()">{{ 'Exception.remove' | translate }}</button>    
+    <button type="button" class="btn btn-primary float-right" *ngIf="model.id" (click)="editException()">{{'button.save'|translate}}</button> 
 </div>

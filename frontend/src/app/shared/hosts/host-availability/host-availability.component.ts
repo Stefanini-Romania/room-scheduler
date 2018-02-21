@@ -122,6 +122,16 @@ export class HostAvailability{
         });   
     }
 
+    onSelectException(model: Availability) {
+        const modalRef: NgbModalRef = this.modalService.open(HostExceptionForm); 
+        modalRef.componentInstance.model = model; 
+        modalRef.componentInstance.host = this.selectedHost;
+        modalRef.componentInstance.successfullEditException.subscribe(() => {
+            modalRef.close();     
+            this.listAvailabilities();
+        });   
+    }
+
     onAddAvailability() {
         const modalRef:NgbModalRef = this.modalService.open(HostAvailabilityForm, {});
         modalRef.componentInstance.host = this.selectedHost;
