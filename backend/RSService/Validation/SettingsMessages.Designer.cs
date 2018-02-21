@@ -22,21 +22,21 @@ namespace RSService.Validation {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class SettingsMessages {
+    public class SettingsMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal SettingsMessages() {
+        public SettingsMessages() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RSService.Validation.SettingsMessages", typeof(SettingsMessages).Assembly);
@@ -51,7 +51,7 @@ namespace RSService.Validation {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -59,29 +59,29 @@ namespace RSService.Validation {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Settings.Value.EmailTooSmallOrTooBig.
         /// </summary>
-        internal static string EmailValueTooSmallOrTooBig {
+        public static string EmailValueTooSmallOrTooBig {
             get {
                 return ResourceManager.GetString("EmailValueTooSmallOrTooBig", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Settings.Value.SessionTooSmallOrTooBig.
         /// </summary>
-        internal static string SessionValueTooSmallOrTooBig {
+        public static string SessionValueTooSmallOrTooBig {
             get {
                 return ResourceManager.GetString("SessionValueTooSmallOrTooBig", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Settings.Value.WrongType.
         /// </summary>
-        internal static string WrongValue {
+        public static string WrongValue {
             get {
                 return ResourceManager.GetString("WrongValue", resourceCulture);
             }
