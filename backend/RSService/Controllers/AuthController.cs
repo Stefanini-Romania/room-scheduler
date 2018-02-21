@@ -83,16 +83,17 @@ namespace RSService.Controllers
         }
     }
 
-    public class AuthController : BaseController
+    public class AuthController : ValidationController
     {
-        private IUserRepository _userRepository;
-        private ISettingsRepository _settingsRepository;
-        private ILogger<AuthController> _logger;
+        private readonly IUserRepository _userRepository;
+        private readonly ISettingsRepository _settingsRepository;
+        private readonly ILogger<AuthController> _logger;
+        private readonly RoomPlannerDevContext context;
 
         public AuthController(ILogger<AuthController> logger)
         {
-            _userRepository = new UserRepository(Context);
-            _settingsRepository = new SettingsRepository(Context);
+            _userRepository = new UserRepository(context);
+            _settingsRepository = new SettingsRepository(context);
             _logger = logger;
         }
 

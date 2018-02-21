@@ -13,21 +13,23 @@ using System.Threading.Tasks;
 
 namespace RSService.Controllers
 {
-    public class AvailabilityController : BaseController
+    public class AvailabilityController : ValidationController
     {
-        private IRSBusiness rsBusiness;
-        private IUserRepository userRepository;
-        private IAvailabilityRepository availabilityRepository;
+        private readonly IRSBusiness rsBusiness;
+        private readonly IUserRepository userRepository;
+        private readonly IAvailabilityRepository availabilityRepository;
+        private readonly RoomPlannerDevContext context;
 
-        public AvailabilityController(IRSBusiness rsBusiness)
+        public AvailabilityController(RoomPlannerDevContext context, IRSBusiness rsBusiness)
         {
+            this.context = context;
             this.rsBusiness = rsBusiness;
-            userRepository = new UserRepository(Context);
-            availabilityRepository = new AvailabilityRepository(Context);
+            userRepository = new UserRepository(context);
+            availabilityRepository = new AvailabilityRepository(context);
         }
 
         [HttpGet("/availability/list")]
-        [Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
+        //[Authorize(Roles = nameof(UserRoleEnum.admin) + "," + nameof(UserRoleEnum.host))]
         public IActionResult GetAvailabilities(int? hostId, DateTime startDate)
         {
             if (startDate == DateTime.MinValue)
@@ -177,7 +179,7 @@ namespace RSService.Controllers
                 }
             }
 
-            Context.SaveChanges();
+            context.SaveChanges();
 
             return Ok();
         }
@@ -288,7 +290,7 @@ namespace RSService.Controllers
                     availabilityRepository.AddAvailability(availability);
                 }
             }
-            Context.SaveChanges();
+            context.SaveChanges();
 
             return Ok();
         }
@@ -327,7 +329,7 @@ namespace RSService.Controllers
             availability.Occurrence = model.Occurrence;
             availability.Status = model.Status;
 
-            Context.SaveChanges();
+            context.SaveChanges();
 
             return Ok();
         }
@@ -356,7 +358,7 @@ namespace RSService.Controllers
             exception.EndDate = model.EndDate;
             exception.Status = model.Status;
 
-            Context.SaveChanges();
+            context.SaveChanges();
 
             return Ok();
         }
