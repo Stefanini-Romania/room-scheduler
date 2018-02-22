@@ -11,8 +11,6 @@ namespace RSRepository
         List<Penalty> GetPenalties();
         Penalty GetPenaltyById(int id);
         void AddPenalty(Penalty penalty);
-        void UpdatePenalty(Penalty penalty);
-        void DeletePenalty(Penalty penalty);
         void SaveChanges();
     }
 }

@@ -61,6 +61,8 @@ namespace RSService
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoomService, RoomService>();
             services.AddTransient<IAvailabilityService, AvailabilityService>();
+            services.AddTransient<IEventService, EventService>();
+            services.AddTransient<IPenaltyService, PenaltyService>();
 
             services.AddDbContext<RoomPlannerDevContext>(options => options.UseSqlServer(connection), optionsLifetime: ServiceLifetime.Scoped);
 

@@ -14,17 +14,15 @@ namespace RSService.BusinessLogic
         private IEventRepository eventRepository;
         private IUserRoleRepository userRoleRepository;
         private IUserRepository userRepository;
-        private IDbOperation dbOperation;
         private IRoleRepository roleRepository;
         private IRoomRepository roomRepository;
 
-        public RSBusiness(IAvailabilityRepository availabiltyRepository, IRoomRepository roomRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IDbOperation dbOperation, IUserRoleRepository userRoleRepository, IUserRepository userRepository, IRoleRepository roleRepository)
+        public RSBusiness(IAvailabilityRepository availabiltyRepository, IRoomRepository roomRepository, IEventRepository eventRepository, IPenaltyRepository penaltyRepository, IUserRoleRepository userRoleRepository, IUserRepository userRepository, IRoleRepository roleRepository)
         {
             this.availabilityRepository = availabiltyRepository;
             this.eventRepository = eventRepository;
             this.penaltyRepository = penaltyRepository;
             this.userRoleRepository = userRoleRepository;
-            this.dbOperation = dbOperation;
             this.userRepository = userRepository;
             this.roleRepository = roleRepository;
             this.roomRepository = roomRepository;
@@ -107,66 +105,66 @@ namespace RSService.BusinessLogic
 
 //-------------------------------------------- METHODS FOR VALIDATION ----------------------------------------------------------------------
 
-        public double GetTimeSpan(DateTime start, DateTime end)
-        {
-            return (end - start).TotalMinutes;
-        }
+        //public double GetTimeSpan(DateTime start, DateTime end)
+        //{
+        //    return (end - start).TotalMinutes;
+        //}
 
-        public int GetAvailableTime(int userId, DateTime startDate)
-        {
-            var result = eventRepository.GetEventsByDay(startDate, userId);
+        //public int GetAvailableTime(int userId, DateTime startDate)
+        //{
+        //    var result = eventRepository.GetEventsByDay(startDate, userId);
 
-            if (result.Count() >= 2)
-            {
-                return 0;
-            }
-            else if (result.Count() == 1)
-            {
-                if (GetTimeSpan(result.First().StartDate, result.First().EndDate) == 30)
-                {
-                    return 30;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            else return 60;
-        }
+        //    if (result.Count() >= 2)
+        //    {
+        //        return 0;
+        //    }
+        //    else if (result.Count() == 1)
+        //    {
+        //        if (GetTimeSpan(result.First().StartDate, result.First().EndDate) == 30)
+        //        {
+        //            return 30;
+        //        }
+        //        else
+        //        {
+        //            return 0;
+        //        }
+        //    }
+        //    else return 60;
+        //}
 
 
-        public bool CheckAvailability(DateTime startDate, DateTime endDate, int roomId)
-        {
-            var events = eventRepository.GetEventsByRoom(startDate.AddMinutes(-30), startDate.AddMinutes(30), roomId);
+        //public bool CheckAvailability(DateTime startDate, DateTime endDate, int roomId)
+        //{
+        //    var events = eventRepository.GetEventsByRoom(startDate.AddMinutes(-30), startDate.AddMinutes(30), roomId);
 
-            foreach (Event ev in events)
-            {
-                if (ev.EventStatus != (int)EventStatusEnum.cancelled)
-                {
-                    if (startDate == ev.StartDate || endDate == ev.EndDate)
-                    {
-                        return false;
-                    }
+        //    foreach (Event ev in events)
+        //    {
+        //        if (ev.EventStatus != (int)EventStatusEnum.cancelled)
+        //        {
+        //            if (startDate == ev.StartDate || endDate == ev.EndDate)
+        //            {
+        //                return false;
+        //            }
 
-                    if (startDate > ev.StartDate)
-                    {
-                        if (startDate < ev.EndDate)
-                        {
-                            return false;
-                        }
-                    }
+        //            if (startDate > ev.StartDate)
+        //            {
+        //                if (startDate < ev.EndDate)
+        //                {
+        //                    return false;
+        //                }
+        //            }
 
-                    if (startDate < ev.StartDate)
-                    {
-                        if (endDate > ev.StartDate)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true; 
-        }
+        //            if (startDate < ev.StartDate)
+        //            {
+        //                if (endDate > ev.StartDate)
+        //                {
+        //                    return false;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return true; 
+        //}
 
         public bool IsUniqueEmail(String email)
         {
@@ -193,70 +191,69 @@ namespace RSService.BusinessLogic
             return true;
         }
 
-        public bool HourCheck(DateTime startDate, DateTime endDate, int roomId)
-        {
-            var availabilities = availabilityRepository.GetAvailabilitiesByType(startDate,endDate ,roomId);
+        //public bool HourCheck(DateTime startDate, DateTime endDate, int roomId)
+        //{
+        //    var availabilities = availabilityRepository.GetAvailabilitiesByType(startDate,endDate ,roomId);
 
-            foreach (Availability ev in availabilities)
+        //    foreach (Availability ev in availabilities)
                                 
-                        if (startDate.TimeOfDay >= ev.StartDate.TimeOfDay && startDate.TimeOfDay < ev.EndDate.TimeOfDay)
-                            return false;                   
-            return true;
-        }
+        //                if (startDate.TimeOfDay >= ev.StartDate.TimeOfDay && startDate.TimeOfDay < ev.EndDate.TimeOfDay)
+        //                    return false;                   
+        //    return true;
+        //}
 
 
         //Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
 
-        public void AddPenalty(DateTime startDate, int eventId, int attendeeId, int roomId)
-        {
-            var pastEvents = eventRepository.GetPastEventsByUser(startDate.AddDays(-30), attendeeId, roomId);  //Last 30 days
+        //public void AddPenalty(DateTime startDate, int eventId, int attendeeId, int roomId)
+        //{
+        //    var pastEvents = eventRepository.GetPastEventsByUser(startDate, attendeeId, roomId);  //Last 30 days
 
-            var eventsCount = pastEvents.Count();
+        //    var eventsCount = pastEvents.Count();
 
-            if (eventsCount == 3)
-            {
-                penaltyRepository.AddPenalty(new Penalty()
-                {
-                    AttendeeId = attendeeId,
-                    EventId = eventId,
-                    Date = startDate,
-                    RoomId = roomId
-                });
+        //    if (eventsCount == 3)
+        //    {
+        //        penaltyRepository.AddPenalty(new Penalty()
+        //        {
+        //            AttendeeId = attendeeId,
+        //            EventId = eventId,
+        //            Date = startDate,
+        //            RoomId = roomId
+        //        });
 
-                // Mark these 3 events as being part of a penalty to prevent future counting:
+        //        // Mark these 3 events as being part of a penalty to prevent future counting:
 
-                foreach(Event pastEvent in pastEvents)
-                {
-                    pastEvent.EventStatus = (int)EventStatusEnum.absentChecked;
-                }
+        //        foreach(Event pastEvent in pastEvents)
+        //        {
+        //            pastEvent.EventStatus = (int)EventStatusEnum.absentChecked;
+        //        }
 
-                // Edit attendee's events for next 15 days for this room (Cancelled):
+        //        // Edit attendee's events for next 15 days for this room (Cancelled):
 
-                var futureEvents = eventRepository.GetFutureEvents(startDate.AddDays(15), attendeeId, roomId);
+        //        var futureEvents = eventRepository.GetFutureEvents(startDate.AddDays(15), attendeeId, roomId);
 
-                if (futureEvents.Count() > 0)
-                {
-                    foreach (Event xEvent in futureEvents)
-                    {
-                        xEvent.EventStatus = (int)EventStatusEnum.cancelled;
-                    }
-                }
-                dbOperation.Commit();
-            }
-        }
+        //        if (futureEvents.Count() > 0)
+        //        {
+        //            foreach (Event xEvent in futureEvents)
+        //            {
+        //                xEvent.EventStatus = (int)EventStatusEnum.cancelled;
+        //            }
+        //        }
+        //    }
+        //}
 
-        public bool HasPenalty(int attendeeId, DateTime newDate, int roomId)
-        {
-            Penalty penalty = penaltyRepository.GetPenaltiesByUser(attendeeId)
-                                    .FirstOrDefault(p => p.Date.AddDays(15) >= newDate);
+        //public bool HasPenalty(int attendeeId, DateTime newDate, int roomId)
+        //{
+        //    Penalty penalty = penaltyRepository.GetPenaltiesByUser(attendeeId)
+        //                            .FirstOrDefault(p => p.Date.AddDays(15) >= newDate);
 
-            if (penalty != null)
-            {
-                return true;
-            }
+        //    if (penalty != null)
+        //    {
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         //public bool IsValidRole(List<int> userRole)
         //{
