@@ -15,15 +15,13 @@ namespace RSService.Controllers
 {
     public class AvailabilityController : ValidationController
     {
-        private readonly IRSBusiness rsBusiness;
         private readonly IUserRepository userRepository;
         private readonly IAvailabilityRepository availabilityRepository;
         private readonly RoomPlannerDevContext context;
 
-        public AvailabilityController(RoomPlannerDevContext context, IRSBusiness rsBusiness)
+        public AvailabilityController(RoomPlannerDevContext context)
         {
             this.context = context;
-            this.rsBusiness = rsBusiness;
             userRepository = new UserRepository(context);
             availabilityRepository = new AvailabilityRepository(context);
         }

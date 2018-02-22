@@ -57,7 +57,6 @@ namespace RSService
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<IDbOperation, DbOperation>();
-            services.AddTransient<IRSBusiness, RSBusiness>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoomService, RoomService>();
             services.AddTransient<IAvailabilityService, AvailabilityService>();

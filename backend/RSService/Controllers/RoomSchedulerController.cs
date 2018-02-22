@@ -24,12 +24,11 @@ namespace RSService.Controllers
         private IRoomRepository roomRepository;
         private IAvailabilityRepository availabilityRepository;
         private IUserRepository userRepository;
-        private IRSBusiness rsBusiness;
         private IPenaltyService penaltyService;
         private readonly RoomPlannerDevContext context;
         private IAvailabilityService _availabilityService;
 
-        public RoomSchedulerController(RoomPlannerDevContext context, IRSBusiness rsBusiness, IAvailabilityService availabilityService,IPenaltyService penaltyService)
+        public RoomSchedulerController(RoomPlannerDevContext context,IAvailabilityService availabilityService,IPenaltyService penaltyService)
 
         {
             this.context = context;
@@ -38,7 +37,6 @@ namespace RSService.Controllers
             this.eventRepository = new EventRepository(context);
             this.userRepository = new UserRepository(context);
             this.availabilityRepository = new AvailabilityRepository(context);
-            this.rsBusiness = rsBusiness;
             _availabilityService = availabilityService;
             this.penaltyService = penaltyService;
         }
