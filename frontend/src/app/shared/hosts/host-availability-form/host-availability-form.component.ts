@@ -214,10 +214,7 @@ export class HostAvailabilityForm{
                             this.translate.instant('Availability.successfully.edit'), '',
                             {positionClass: 'toast-bottom-right'}
                         );                      
-                    }
-                    if (this.model.status == 1){
-                        this.successfullEditAvailability.emit();
-                    }
+                    } 
                     else if (this.model.status !== 1){
                         this.errorMessages = {'generic': [error.error.message]};
                         for (let e of error.error.errors) {
