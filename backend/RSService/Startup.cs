@@ -110,32 +110,7 @@ namespace RSService
             app.UseHangfireDashboard();
             app.UseHangfireServer();
             RecurringJob.AddOrUpdate<UserController>(x => x.EventReminder(),Cron.Minutely);
-
-
-
-
-            /* var trackPackageRouteHandler = new Microsoft.AspNetCore.Routing.RouteHandler(context =>
-             {
-                 return Task.CompletedTask;
-             });
-
-            /* var builder = new Microsoft.AspNetCore.Routing.RouteBuilder(app, trackPackageRouteHandler);
-             builder.MapRoute(
-                 name: "default",
-                 template: "{controller=Home}/{action=Index}/{id:int}");
-
-             builder.MapRoute("EventListByHosts", "event/list/{hostId}", new
-             {
-                 controller = "RoomScheduler", action = nameof(Controllers.RoomSchedulerController.GetEventsByHosts),
-             });
-
-             builder.MapRoute("EventList", "event/list/{hostId?}", new
-             {
-                 controller = "RoomScheduler",
-                 action = nameof(Controllers.RoomSchedulerController.GetEvents),
-             });
-
-             app.UseRouter(builder.Build());*/
+         
 
             Mapper.Initialize(Configuration =>
             {
