@@ -40,6 +40,7 @@ export class HostAvailabilityForm{
     public startHour: NgbTimeStruct;
     public endHour: NgbTimeStruct;
     public seconds = false;
+    public disabled: boolean;
 
     constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService, private datePickerConfig: NgbDatepickerConfig){
         datePickerConfig.markDisabled = (date: NgbDateStruct) => {
@@ -107,6 +108,7 @@ export class HostAvailabilityForm{
 
             this.displayDate = new Date(this.model.startDate);
             this.selectedOccurrence = this.occurrence[this.model.occurrence-1];
+            this.disabled = true;
         } 
         else this.displayDate = new Date();
     }

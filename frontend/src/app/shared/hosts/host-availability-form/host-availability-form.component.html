@@ -19,9 +19,9 @@
                     <form class="form-inline datePickerForm">
                         <div class="form-group">
                             <div class="input-group">
-                            <input class="form-control" placeholder="{{displayDate | date: 'yyyy-MM-dd'}}"  name="startDate" ngbDatepicker #d="ngbDatepicker"  id="datePicker" [ngModel]="model.startDate" (ngModelChange)="model.startDate=$event" #startDate="ngModel" (focus)="d.open()"> 
+                            <input class="form-control" placeholder="{{displayDate | date: 'yyyy-MM-dd'}}"  name="startDate" ngbDatepicker #d="ngbDatepicker"  id="datePicker" [ngModel]="model.startDate" (ngModelChange)="model.startDate=$event" #startDate="ngModel" (focus)="d.open()" [disabled]="disabled"> 
                             <div class="input-group-append" >
-                                <button class="btn btn-primary" (click)="d.toggle()" type="button" id="dropdownHosts">
+                                <button class="btn btn-primary" (click)="d.toggle()" type="button" id="dropdownHosts" [disabled]="disabled">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -77,7 +77,7 @@
         </div> -->
 
         <select [(ngModel)]="selectedOccurrence" class="btn btn-primary" style="margin-left: 5px;">
-            <option id = "occurrence" *ngFor="let week of occurrence" [ngValue]="week" id = "occurrence" > {{week.value}} {{'week' | translate}} </option>
+            <option id="occurrence" *ngFor="let week of occurrence" [ngValue]="week" id="occurrence" > {{week.value}} {{'week' | translate}} </option>
         </select>       
     </div>
 </div>

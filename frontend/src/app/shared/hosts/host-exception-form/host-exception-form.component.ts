@@ -36,6 +36,7 @@ export class HostExceptionForm {
     public startHour: NgbTimeStruct;
     public endHour: NgbTimeStruct;
     public seconds = false;
+    public disabled : boolean;
 
     constructor(public hostService: HostService, private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private toastr: ToastrService, private datePickerConfig: NgbDatepickerConfig){
         datePickerConfig.markDisabled = (date: NgbDateStruct) => {
@@ -70,6 +71,7 @@ export class HostExceptionForm {
             this.startHour = {hour: startH, minute: startM, second: 0};
             this.endHour = {hour: endH, minute: endM, second: 0};
             this.displayDate = new Date(this.model.startDate);
+            this.disabled = true;
         } 
         else this.displayDate = new Date();
     }
