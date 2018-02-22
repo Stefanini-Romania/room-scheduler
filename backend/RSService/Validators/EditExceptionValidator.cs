@@ -11,12 +11,9 @@ namespace RSService.Validators
 {
     public class EditExceptionValidator : AbstractValidator<EditExceptionDto>
     {
-        private IRSBusiness _rsBusiness;
 
-        public EditExceptionValidator(IRSBusiness rsBusiness)
+        public EditExceptionValidator()
         {
-            _rsBusiness = rsBusiness;
-
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
             RuleFor(m => m.StartDate).Must(GoodStartTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
 
