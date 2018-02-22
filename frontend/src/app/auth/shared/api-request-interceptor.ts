@@ -22,8 +22,8 @@ export class APIRequestInterceptor implements HttpInterceptor {
         return next.handle(req).do(event => {}, err => {
             if (err instanceof HttpErrorResponse && err.status == 401) {           
                 sessionStorage.removeItem('currentUser');
-                // this.router.navigate(['/login']);
-                window.location.reload(); //FIX  
+                 this.router.navigate(['/login']);
+                //window.location.reload(); //FIX  
                 this.removeUser$.emit(null);
                 // this.toastr.warning(
                 //     translateService.instant('Session.Logout'), '',

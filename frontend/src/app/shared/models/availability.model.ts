@@ -5,6 +5,7 @@ export class Availability{
     daysOfWeek: any;
     availabilityType: number;
     roomId?: number;
+    roomName?: string;
     hostId: number;
     occurrence: number;
     status: number;

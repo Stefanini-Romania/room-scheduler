@@ -40,6 +40,7 @@ export class HostAvailabilityForm{
     public startHour: NgbTimeStruct;
     public endHour: NgbTimeStruct;
     public seconds = false;
+    public disabled: boolean;
 
     constructor( private formBuilder: FormBuilder, private translate: TranslateService, public activeModal: NgbActiveModal, private hostService: HostService, private toastr: ToastrService, private datePickerConfig: NgbDatepickerConfig){
         datePickerConfig.markDisabled = (date: NgbDateStruct) => {
@@ -97,7 +98,6 @@ export class HostAvailabilityForm{
 
     ngOnInit() {
         this.title = this.model.id ? 'Availability.edit': 'Availability.add';
-
         if (this.model.id) {
             let startH = (new Date(this.model.startDate)).getHours();
             let startM = (new Date(this.model.startDate)).getMinutes();
@@ -105,13 +105,21 @@ export class HostAvailabilityForm{
             let endM = (new Date(this.model.endDate)).getMinutes();
             this.startHour = {hour: startH, minute: startM, second: 0};
             this.endHour = {hour: endH, minute: endM, second: 0}; 
+
             this.displayDate = new Date(this.model.startDate);
+            this.selectedOccurrence = this.occurrence[this.model.occurrence-1];
+            this.disabled = true;
         } 
         else this.displayDate = new Date();
     }
 
     onRoomChanged(selectedRoom: Room) {
-        this.selectedRoom = selectedRoom;
+        if (this.model.id) {
+            selectedRoom.name = this.model.roomName;
+            selectedRoom.id = this.model.roomId;
+            this.selectedRoom = selectedRoom;
+        } 
+        else this.selectedRoom = selectedRoom;    
     }
 
     dateFormat(Availability) {
@@ -138,7 +146,6 @@ export class HostAvailabilityForm{
             this.model.endDate = new Date(this.availabilityStartDate.getFullYear(), this.availabilityStartDate.getMonth(),this.availabilityStartDate.getDate(),  this.endHour["hour"], this.endHour["minute"]) ;
             this.availabilityEndDate = this.model.endDate;
         }    
-    
     }
 
     addAvailability(){
@@ -207,10 +214,7 @@ export class HostAvailabilityForm{
                             this.translate.instant('Availability.successfully.edit'), '',
                             {positionClass: 'toast-bottom-right'}
                         );                      
-                    }
-                    if (this.model.status == 1){
-                        this.successfullEditAvailability.emit();
-                    }
+                    } 
                     else if (this.model.status !== 1){
                         this.errorMessages = {'generic': [error.error.message]};
                         for (let e of error.error.errors) {
