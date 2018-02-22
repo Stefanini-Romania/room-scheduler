@@ -49,7 +49,7 @@ namespace RSService.Controllers
             {
                 Text = "You have requested a new password for the following account: " + email + "<br>"                              
                 + "If you want to reset you passowrd , visit the following address: <br>" +
-                "http://fctestweb1:888/resetpass/" + user.ResetPassCode + "<br>" +
+                "http://localhost:4200/resetpass/" + user.ResetPassCode + "<br>" +
                 "For security reasons, this link will expire in 2 hours.To request another password reset, visit http://fctestweb1:888/resetpass <br>"
 
 
@@ -73,9 +73,22 @@ namespace RSService.Controllers
         public IActionResult CheckCodeResetPass(string resetpasscode, [FromForm]ResetPasswordDto userView)
         {
             var user = _userRepository.GetUserByResetPassCode(resetpasscode);
-
+        
             if (user == null)
                 return NotFound();
+
+            if (user.ResetPassCode == null)
+                return NotFound();
+
+            if (user.DateExpire.Date != DateTime.UtcNow.Date)
+                return NotFound();
+
+            if (user.DateExpire.Date == DateTime.UtcNow.Date)
+            {
+                if ((DateTime.UtcNow.AddHours(0) > user.DateExpire.AddHours(1)))
+                    return NotFound();
+            }
+
             return Ok();
         }
        
@@ -101,12 +114,12 @@ namespace RSService.Controllers
             if (user.ResetPassCode == null)
                 return NotFound();
 
-            if ((user.DateExpire.Day != DateTime.UtcNow.Day) || (user.DateExpire.Month != DateTime.UtcNow.Month) || (user.DateExpire.Year != DateTime.UtcNow.Year))
+            if (user.DateExpire.Date != DateTime.UtcNow.Date)
                 return NotFound();
 
-            if((user.DateExpire.Day == DateTime.UtcNow.Day) && (user.DateExpire.Month == DateTime.UtcNow.Month) && (user.DateExpire.Year == DateTime.UtcNow.Year))
+            if(user.DateExpire.Date == DateTime.UtcNow.Date)
             {
-                if ((DateTime.UtcNow.AddHours(0) > user.DateExpire.AddHours(1)))
+                if ((DateTime.UtcNow.AddHours(0) > user.DateExpire.AddMinutes(1)))
                     return NotFound();
             }
 
