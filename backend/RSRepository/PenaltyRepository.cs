@@ -41,11 +41,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Add a null penalty");
             }
             penalties.Add(penalty);
-        }   
-
-        public void SaveChanges()
-        {
-            context.SaveChanges();
         }
 
         

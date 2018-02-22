@@ -26,7 +26,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Add a null UserRole");
             }
             userroles.Add(_userrole);
-            context.SaveChanges();
         }
 
         public void DeleteUserRole(UserRole _userrole)
@@ -66,19 +65,12 @@ namespace RSRepository
             userroles.Remove(userRole);
         }
 
-
-        public void SaveChanges()
-        {
-            context.SaveChanges();
-        }
-
         public void UpdateUserRole(UserRole _userrole)
         {
             if (_userrole == null)
             {
                 throw new ArgumentNullException("Update a null UserRole");
             }
-            context.SaveChanges();
         }
 
 

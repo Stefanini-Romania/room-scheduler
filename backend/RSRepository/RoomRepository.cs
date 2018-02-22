@@ -56,7 +56,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Add a null room");
             }
             rooms.Add(room);
-            context.SaveChanges();
         }
 
         public void UpdateRoom(Room room)
@@ -65,7 +64,6 @@ namespace RSRepository
             {
                 throw new ArgumentNullException("Update a null room");
             }
-            context.SaveChanges();
         }
 
         public void DeleteRoom(Room room)
@@ -75,14 +73,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Cannot delete a null room");
             }
             rooms.Remove(room);
-            context.SaveChanges();
-        }
-
-       
-
-        public void SaveChanges()
-        {
-            context.SaveChanges();
         }
 
         

@@ -12,6 +12,5 @@ namespace RSRepository
         void AddRole(Role role);
         void UpdateRole(Role role);
         void DeleteRole(Role role);
-        void SaveChanges();
     }
 }

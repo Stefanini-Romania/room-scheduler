@@ -15,6 +15,5 @@ namespace RSRepository
         void AddRoom(Room room);
         void UpdateRoom(Room room);
         void DeleteRoom(Room room);
-        void SaveChanges();
     }
 }
