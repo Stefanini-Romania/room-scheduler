@@ -23,10 +23,7 @@ namespace RSTests
                 VarName = name,
                 Value = value
             };
-
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
-
-            var validator = new EditParameterValidator(rsMoq.Object);
+            var validator = new EditParameterValidator();
 
             var validationResults = validator.Validate(parameters);
 
@@ -46,10 +43,7 @@ namespace RSTests
                 VarName=name,
                 Value = value
             };
-
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
-
-            var validator = new EditParameterValidator(rsMoq.Object);
+            var validator = new EditParameterValidator();
 
             var validationResults = validator.Validate(valaore);
 

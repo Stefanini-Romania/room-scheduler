@@ -16,7 +16,7 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IUserService>(Moq.MockBehavior.Loose);
 
             var validator = new AddUserValidator(rsMoq.Object);
 
@@ -42,7 +42,7 @@ namespace RSTests
                 Password = pass
             };
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IUserService>(Moq.MockBehavior.Loose);
 
             var validator = new AddUserValidator(rsMoq.Object);
 
@@ -69,7 +69,7 @@ namespace RSTests
                 Email=email
             };
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IUserService>(Moq.MockBehavior.Loose);
 
             var validator = new AddUserValidator(rsMoq.Object);
 

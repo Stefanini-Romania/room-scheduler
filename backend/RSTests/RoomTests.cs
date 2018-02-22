@@ -16,7 +16,7 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Loose);
 
             var validator = new EditRoomValidator(rsMoq.Object);
 
@@ -41,7 +41,7 @@ namespace RSTests
               Location=locationname
             };
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Loose);
 
             var validator = new EditRoomValidator(rsMoq.Object);
 
@@ -62,7 +62,7 @@ namespace RSTests
                 Name = roomname               
             };
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Loose);
 
             var validator = new EditRoomValidator(rsMoq.Object);
 

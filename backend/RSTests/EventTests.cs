@@ -17,10 +17,11 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+            var eventMoq = new Moq.Mock<IEventService>(Moq.MockBehavior.Strict);
 
+            var penaltyMoq = new Moq.Mock<IPenaltyService>(Moq.MockBehavior.Strict);           
 
-            var validator = new CreateEventValidator(rsMoq.Object);
+            var validator = new CreateEventValidator(eventMoq.Object, penaltyMoq.Object);
 
             var validationResults = validator.Validate(new AddEventDto());
 
@@ -43,9 +44,11 @@ namespace RSTests
                 StartDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+            var eventMoq = new Moq.Mock<IEventService>(Moq.MockBehavior.Strict);
 
-            var validator = new CreateEventValidator(rsMoq.Object);
+            var penaltyMoq = new Moq.Mock<IPenaltyService>(Moq.MockBehavior.Strict);
+
+            var validator = new CreateEventValidator(eventMoq.Object, penaltyMoq.Object);
 
             var validationResults = validator.Validate(appointment);
 
@@ -64,9 +67,11 @@ namespace RSTests
                 StartDate = new DateTime(year, month, day, hour, minute,second)
             };
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+            var eventMoq = new Moq.Mock<IEventService>(Moq.MockBehavior.Strict);
 
-            var validator = new CreateEventValidator(rsMoq.Object);
+            var penaltyMoq = new Moq.Mock<IPenaltyService>(Moq.MockBehavior.Strict);
+
+            var validator = new CreateEventValidator(eventMoq.Object, penaltyMoq.Object);
 
             var validationResult = validator.Validate(appotment);
 
