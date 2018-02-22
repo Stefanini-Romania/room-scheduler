@@ -26,8 +26,9 @@ namespace RSService.Controllers
         private IUserRepository userRepository;
         private IRSBusiness rsBusiness;
         private readonly RoomPlannerDevContext context;
+        private IAvailabilityService _availabilityService;
 
-        public RoomSchedulerController(RoomPlannerDevContext context, IRSBusiness rsBusiness)
+        public RoomSchedulerController(RoomPlannerDevContext context, IRSBusiness rsBusiness, IAvailabilityService availabilityService)
         {
             this.context = context;
             this.roomRepository = new RoomRepository(context);
@@ -36,6 +37,7 @@ namespace RSService.Controllers
             this.userRepository = new UserRepository(context);
             this.availabilityRepository = new AvailabilityRepository(context);
             this.rsBusiness = rsBusiness;
+            _availabilityService = availabilityService;
         }
 
         [HttpPost("/event/create")]
@@ -127,7 +129,7 @@ namespace RSService.Controllers
 
             int?[] avRoomId = roomId;
          
-            var availabilityEvents = rsBusiness.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
+            var availabilityEvents = _availabilityService.CreateAvailabilityEvents(startDate, endDate, roomId, hostId);
 
             results = results.Concat(availabilityEvents).ToList();
 
@@ -161,7 +163,7 @@ namespace RSService.Controllers
         {
             var results = eventRepository.GetEvents(startDate, endDate, roomId);
 
-            var availabilityEvents = rsBusiness.CreateAvailabilityEvents(startDate, endDate, roomId);
+            var availabilityEvents = _availabilityService.CreateAvailabilityEvents(startDate, endDate, roomId);
 
             results = results.Concat(availabilityEvents).ToList();
 

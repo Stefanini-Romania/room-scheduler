@@ -12,11 +12,11 @@ namespace RSService.Validators
 {
     public class AuthenticationValidator : AbstractValidator<CredentialsDto>
     {
-        private IRSBusiness rsBusiness;
+        private IUserService _userService;
 
-        public AuthenticationValidator(IRSBusiness rsBusiness)
+        public AuthenticationValidator(IUserService userService)
         {
-            this.rsBusiness = rsBusiness;
+            _userService = userService;
 
             RuleFor(m => m.LoginName).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyEmail);
             RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.AuthMessages.EmptyPassword);
@@ -26,7 +26,7 @@ namespace RSService.Validators
 
         private bool IsActive(CredentialsDto cModel, String email)
         {
-            return rsBusiness.IsActiveUser(email);
+            return _userService.IsActiveUser(email);
         }
 
     }

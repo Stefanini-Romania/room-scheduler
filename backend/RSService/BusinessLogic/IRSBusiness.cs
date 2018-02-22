@@ -8,9 +8,9 @@ namespace RSService.BusinessLogic
 {
     public interface IRSBusiness
     {
-        List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int?[] roomId, int?[] hostId);
+        //List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int?[] roomId, int?[] hostId);
 
-        List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int?[] roomId);
+        //List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int?[] roomId);
 
         double GetTimeSpan(DateTime start, DateTime end);
 
@@ -24,17 +24,17 @@ namespace RSService.BusinessLogic
 
         bool HourCheck(DateTime startDate, DateTime endDate, int roomId);
 
-        bool IsUniqueEmail(String email);
+        //bool IsUniqueEmail(String email);
 
-        bool IsUniqueEmailEdit(String email, int userId);
+        //bool IsUniqueEmailEdit(String email, int userId);
 
-        bool IsValidRole(List<int> userRole);
+        //bool IsValidRole(List<int> userRole);
 
-        bool IsUniqueRoom(String name, String location, int roomid);
+        //bool IsUniqueRoom(String name, String location, int roomid);
 
-        bool IsActiveUser(String email);
+        //bool IsActiveUser(String email);
 
-        bool IsActiveRoom(int roomId);
+        //bool IsActiveRoom(int roomId);
 
     }
 }

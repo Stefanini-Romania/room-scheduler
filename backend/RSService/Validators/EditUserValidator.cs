@@ -12,10 +12,10 @@ namespace RSService.Validators
 {
     public class EditUserValidator : AbstractValidator<EditUserDto>
     {
-        private IRSBusiness _rsBusiness;
-        public EditUserValidator(IRSBusiness rsBusiness)
+        private IUserService _userService;
+        public EditUserValidator( IUserService userService)
         {
-            _rsBusiness = rsBusiness;
+            _userService = userService;
            
             RuleFor(m => m.Email).Must(EmailFormat).WithMessage(x => Validation.UserMessages.EmailTypeWrong);
           
@@ -29,15 +29,13 @@ namespace RSService.Validators
 
             //RuleFor(m => m.UserRole).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyUserRole);
             //RuleFor(m => m.UserRole).Must(IsValidRole).WithMessage(x => Validation.UserMessages.UserRoleNotFound);
-
-             
-
+           
         }
       
 
         private bool IsUniqueEmail(EditUserDto m, String email)
         {
-            return _rsBusiness.IsUniqueEmailEdit(email, m.Id);
+            return _userService.IsUniqueEmailEdit(email, m.Id);
         }
 
         private bool EmailFormat(EditUserDto m, String email)
@@ -52,7 +50,7 @@ namespace RSService.Validators
 
         private bool IsValidRole(EditUserDto usm, List<int> userRole)
         {
-            return _rsBusiness.IsValidRole(userRole);
+            return _userService.IsValidRole(userRole);
         }
     }
 }

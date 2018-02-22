@@ -10,10 +10,10 @@ namespace RSService.Validators
 {
     public class EditRoomValidator: AbstractValidator<EditRoomDto>
     {
-        private IRSBusiness rsBusiness;
-        public EditRoomValidator(IRSBusiness _rsBusiness)
+        private IRoomService _roomService;
+        public EditRoomValidator(IRoomService roomService)
         {
-            rsBusiness = _rsBusiness;
+            _roomService = roomService;
 
             RuleFor(m => m.Name).NotEmpty().WithMessage(x => Validation.RoomMessages.EmptyRoomName);
             RuleFor(m => m.Name).MaximumLength(30).WithMessage(x => Validation.RoomMessages.RoomNameLong);
@@ -26,7 +26,7 @@ namespace RSService.Validators
 
         private bool IsUniqueRoom(EditRoomDto m, String roomName)
         {
-            return rsBusiness.IsUniqueRoom(roomName, m.Location,m.Id);
+            return _roomService.IsUniqueRoom(roomName, m.Location,m.Id);
         }
     }
 }
