@@ -11,11 +11,14 @@ namespace RSService.Validators
 {
     public class CreateEventValidator : AbstractValidator<AddEventDto>
     {
-        IRSBusiness rsBusiness;
 
-        public CreateEventValidator(IRSBusiness _rsBusiness)
+        IEventService eventService;
+        IPenaltyService penaltyService;
+
+        public CreateEventValidator(IEventService eventService, IPenaltyService penaltyService)
         {
-            rsBusiness = _rsBusiness;
+            this.eventService = eventService;
+            this.penaltyService = penaltyService;
 
             // ---------------------------StartDate---------------------------
 
@@ -62,16 +65,16 @@ namespace RSService.Validators
 
         private bool CanBook(AddEventDto ev, DateTime? d)
         {
-            double eventTimeSpan = rsBusiness.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
+            double eventTimeSpan = eventService.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
 
-            int availableTimeSpan = rsBusiness.GetAvailableTime(ev.AttendeeId, (DateTime)ev.StartDate);
+            int availableTimeSpan = eventService.GetAvailableTime(ev.AttendeeId, (DateTime)ev.StartDate);
 
             return eventTimeSpan <= availableTimeSpan;
         }
 
         private bool TimeSpanOfEvent(AddEventDto ev, DateTime? d)
         {
-            double eventTimeSpan = rsBusiness.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
+            double eventTimeSpan = eventService.GetTimeSpan((DateTime)ev.StartDate, (DateTime)ev.EndDate);
 
             if (eventTimeSpan != 30 && eventTimeSpan != 60)
             {
@@ -100,17 +103,17 @@ namespace RSService.Validators
 
         private bool IsAvailable(AddEventDto ev, DateTime? d)
         {
-            return rsBusiness.CheckAvailability((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
+            return eventService.CheckAvailability((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
         }
 
         private bool HourAvailable(AddEventDto ev, DateTime? d)
         {
-            return rsBusiness.HourCheck((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
+            return eventService.HourCheck((DateTime)ev.StartDate, (DateTime)ev.EndDate, ev.RoomId);
         }
 
         private bool IsNotPenalized(AddEventDto ev, int roomId)
         {
-            if (rsBusiness.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate, roomId))
+            if (penaltyService.HasPenalty(ev.AttendeeId, (DateTime)ev.StartDate, roomId))
             {
                 return false;
             }

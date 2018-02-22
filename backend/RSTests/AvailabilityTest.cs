@@ -6,6 +6,7 @@ using Xunit;
 using System.Linq;
 using RSService.DTO;
 using System.Collections.Generic;
+using RSRepository;
 
 namespace RSTests
 {
@@ -194,8 +195,20 @@ namespace RSTests
             Assert.Equal(d.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
         }
 
+        [Fact]
+        public void GetAvailabilities_ReturnsAViewResult_WithAListOfAvailabilities()
+        {
+            //Arrange
+            var mockRepo = new Moq.Mock<RoomPlannerDevContext>();
+            
 
+            //mockRepo.Setup(repo => repo.ListAsync()).Returns(Task.FromResult(GetTestSessions()));
+            //var controller = new HomeController(mockRepo.Object);
 
+            //Act
+
+            //Assert
+        }
 
 
     }

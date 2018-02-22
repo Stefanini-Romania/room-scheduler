@@ -25,9 +25,10 @@ namespace RSService.Controllers
         private IAvailabilityRepository availabilityRepository;
         private IUserRepository userRepository;
         private IRSBusiness rsBusiness;
+        private IPenaltyService penaltyService;
         private readonly RoomPlannerDevContext context;
 
-        public RoomSchedulerController(RoomPlannerDevContext context, IRSBusiness rsBusiness)
+        public RoomSchedulerController(RoomPlannerDevContext context, IRSBusiness rsBusiness, IPenaltyService penaltyService)
         {
             this.context = context;
             this.roomRepository = new RoomRepository(context);
@@ -36,6 +37,7 @@ namespace RSService.Controllers
             this.userRepository = new UserRepository(context);
             this.availabilityRepository = new AvailabilityRepository(context);
             this.rsBusiness = rsBusiness;
+            this.penaltyService = penaltyService;
         }
 
         [HttpPost("/event/create")]
@@ -234,7 +236,8 @@ namespace RSService.Controllers
             context.SaveChanges();
 
             if (_event.EventStatus == (int)EventStatusEnum.absent)
-                rsBusiness.AddPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);    // works only if host updates the events daily
+                penaltyService.AddPenalty(_event.StartDate, _event.Id, _event.AttendeeId, _event.RoomId);
+            context.SaveChanges();
 
             return Ok(new
             {

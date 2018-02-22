@@ -53,7 +53,7 @@ namespace RSRepository
 
         public List<Event> GetPastEventsByUser(DateTime date, int attendeeId, int roomId)
         {
-            return events.Where(e => e.StartDate > date)
+            return events.Where(e => e.StartDate > date.AddDays(-30) && e.StartDate <= date)
                          .Where(e => e.AttendeeId == attendeeId)
                          .Where(e => e.RoomId == roomId)
                          .Where(ev => ev.EventStatus == (int)EventStatusEnum.absent)
