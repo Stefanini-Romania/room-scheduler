@@ -14,7 +14,7 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyLogIn()
         {
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IUserService>(Moq.MockBehavior.Loose);
 
             var validator = new AuthenticationValidator(rsMoq.Object);
 
