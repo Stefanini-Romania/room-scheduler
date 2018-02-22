@@ -32,12 +32,10 @@ export class RegisterFormComponent {
     public confirmPassword;
     public submitted;
     public model: User = <User>{
-        departmentId: DepartmentIdEnum.ADC,
         userRole: [RoleEnum.attendee]
     };
     public modelForm: User = <User> {
-        departmentId: DepartmentIdEnum.ADC,
-        // userRole: [RoleEnum.attendee]
+        userRole: [RoleEnum.attendee]
     }
     public selectedRole = RoleEnum;
     public errorMessages: any = {};
