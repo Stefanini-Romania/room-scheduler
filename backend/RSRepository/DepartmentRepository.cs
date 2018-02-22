@@ -25,7 +25,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Add a null department");
             }
             _departments.Add(department);
-            _context.SaveChanges();
         }
 
         public void DeleteDepartment(Department department)
@@ -35,7 +34,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Cannot delete a null department");
             }
             _departments.Remove(department);
-            _context.SaveChanges();
         }
 
         public Department GetDepartmentById(int id)

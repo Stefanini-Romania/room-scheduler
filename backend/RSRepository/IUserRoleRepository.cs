@@ -15,6 +15,5 @@ namespace RSRepository
         void AddUserRole(UserRole _userrole);
         void UpdateUserRole(UserRole _userrole);
         void DeleteUserRole(UserRole _userrole);
-        void SaveChanges();
     }
 }

@@ -25,7 +25,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Add a null role");
             }
             _roles.Add(role);
-            _context.SaveChanges();
         }
 
         public void DeleteRole(Role role)
@@ -35,7 +34,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Delete null role");
             }
             _roles.Remove(role);
-            _context.SaveChanges();
         }
 
         public Role GetRoleById(int id)
@@ -48,18 +46,12 @@ namespace RSRepository
             return _roles.ToList();
         }
 
-        public void SaveChanges()
-        {
-            _context.SaveChanges();
-        }
-
         public void UpdateRole(Role role)
         {
             if (role == null)
             {
                 throw new ArgumentNullException("Update a null role");
             }
-            _context.SaveChanges();
         }
     }
 }

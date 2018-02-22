@@ -25,12 +25,6 @@ namespace RSRepository
             role = context.Role;
         }
 
-        public void SaveChanges()
-        {
-            context.SaveChanges();
-        }
-
-
         public List<User> GetUsers()
         {
             var result = users.Include(u => u.UserRole).Include(u => u.Penalty)
@@ -107,7 +101,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Add a null user");
             }
             users.Add(user);
-            context.SaveChanges();
         }
 
         public void UpdateUser(User user)
@@ -116,7 +109,6 @@ namespace RSRepository
             {
                 throw new ArgumentNullException("Update a null user");
             }
-            context.SaveChanges();
         }
 
         public void DeleteUser(User user)
@@ -126,7 +118,6 @@ namespace RSRepository
                 throw new ArgumentNullException("Delete null user");
             }
             users.Remove(user);
-            context.SaveChanges();
         }
 
     }
