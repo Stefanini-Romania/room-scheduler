@@ -31,6 +31,7 @@ export class RoomEditorComponent {
     public selectedRoom: Room;
     rooms: Room[]= [];
     public errorMessages: any = {};
+    public isActive;
 
     constructor(private http: HttpClient, public activeModal: NgbActiveModal, private translate: TranslateService, private roomService: RoomService, private toastr: ToastrService, private modalService: NgbModal) {
     }
@@ -41,6 +42,10 @@ export class RoomEditorComponent {
         this.modelForm.name = this.model.name;
         this.modelForm.location = this.model.location;
         this.modelForm.isActive = this.model.isActive;
+        if (this.modelForm.isActive == true) {
+            this.isActive = 1;
+        } 
+        else this.isActive = 2; 
     }
 
     addRooms() {

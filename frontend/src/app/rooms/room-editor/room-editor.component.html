@@ -37,12 +37,12 @@
                         <div *ngFor="let errorMessage of errorMessages['Location']">{{ errorMessage | translate }}</div>
                     </ngb-alert>  
 
-                    <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" mx-auto >
+                    <div class="btn-group button-block" ngbRadioGroup *ngIf="model.id" mx-auto name="radioActive" [(ngModel)]="isActive">
                         <label ngbButtonLabel class="btn btn-primary" (click)="activateRoom(room)">
-                            <input ngbButton type="radio" value="1">{{'rooms.isActive' | translate}}
+                            <input ngbButton type="radio" [value]="1">{{'rooms.isActive' | translate}}
                         </label>
                         <label ngbButtonLabel class="btn btn-primary" (click)="deactivateRoom(room)">
-                            <input ngbButton type="radio" value="2" >{{'rooms.isNotActive' | translate}}
+                            <input ngbButton type="radio" [value]="2" >{{'rooms.isNotActive' | translate}}
                         </label>                      
                     </div>               
                 </div>
