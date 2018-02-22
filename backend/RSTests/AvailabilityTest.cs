@@ -16,7 +16,7 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
@@ -30,7 +30,7 @@ namespace RSTests
         [Fact]
         public void WhenRoomId_IsEmpty_NoDatabaseCallIsMade()
         {
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
             rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Throws(new Exception("IsActiveRoom is called"));
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
@@ -54,7 +54,7 @@ namespace RSTests
             };
 
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
             // Facem setup-ul pt a face validarea de active room sa treaca, intrucat testam doar occurrence-ul
             //rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
 
@@ -79,7 +79,7 @@ namespace RSTests
                 StartDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
@@ -101,7 +101,7 @@ namespace RSTests
                 EndDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
@@ -122,9 +122,7 @@ namespace RSTests
                 StartDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
-
-            var validator = new AddExceptionValidator(rsMoq.Object);
+            var validator = new AddExceptionValidator();
 
             var validationResult = validator.Validate(exception);
 
@@ -148,9 +146,7 @@ namespace RSTests
 
             };
 
-            var rsmoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
-
-            var validator = new AddExceptionValidator(rsmoq.Object);
+            var validator = new AddExceptionValidator();
 
             var validationResult = validator.Validate(exception);
 
@@ -187,7 +183,7 @@ namespace RSTests
                 DaysOfWeek = d.Days
             };
 
-            var rsMoq = new Moq.Mock<IRSBusiness>(Moq.MockBehavior.Strict);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
 
             var validator = new AddAvailabilityValidator(rsMoq.Object);
 
