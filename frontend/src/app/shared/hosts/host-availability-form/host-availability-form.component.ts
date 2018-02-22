@@ -12,7 +12,6 @@ import {HostService} from './../../services/host.service';
 import {Room} from '../../models/room.model';
 
 
-
 @Component({
     selector: 'host-availability-form',
     templateUrl: './host-availability-form.component.html',
@@ -108,16 +107,17 @@ export class HostAvailabilityForm{
 
             this.displayDate = new Date(this.model.startDate);
             this.selectedOccurrence = this.occurrence[this.model.occurrence-1];
-            // this.selectedRoom.id = this.model.roomId;
-            // this.onRoomChanged(this.selectedRoom[this.model.roomId]);
-            
-            
         } 
         else this.displayDate = new Date();
     }
 
     onRoomChanged(selectedRoom: Room) {
-        this.selectedRoom = selectedRoom;
+        if (this.model.id) {
+            selectedRoom.name = this.model.roomName;
+            selectedRoom.id = this.model.roomId;
+            this.selectedRoom = selectedRoom;
+        } 
+        else this.selectedRoom = selectedRoom;    
     }
 
     dateFormat(Availability) {
