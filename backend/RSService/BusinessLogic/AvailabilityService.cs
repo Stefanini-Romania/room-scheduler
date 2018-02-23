@@ -9,11 +9,11 @@ namespace RSService.BusinessLogic
 {
     public class AvailabilityService : IAvailabilityService
     {
-        private IAvailabilityRepository _availabilityService;
+        private IAvailabilityRepository _availabilityRepository;
 
         public AvailabilityService(IAvailabilityRepository availabilityService)
         {
-            _availabilityService = availabilityService;
+            _availabilityRepository = availabilityService;
         }
 
 
@@ -22,7 +22,7 @@ namespace RSService.BusinessLogic
         {
             List<Event> availabilityEvents = new List<Event>();
 
-            var availabilities = _availabilityService.GetAvailabilities(roomId, hostId);
+            var availabilities = _availabilityRepository.GetAvailabilities(roomId, hostId);
 
             DateTime currentDay = startDate.Date;
 
@@ -59,7 +59,7 @@ namespace RSService.BusinessLogic
         {
             List<Event> availabilityEvents = new List<Event>();
 
-            var availabilities = _availabilityService.GetAvailabilities(roomId);
+            var availabilities = _availabilityRepository.GetAvailabilities(roomId);
 
             DateTime currentDay = startDate.Date;
 
@@ -89,7 +89,9 @@ namespace RSService.BusinessLogic
             }
 
             return availabilityEvents;
-
         }
+
+
+
     }
 }

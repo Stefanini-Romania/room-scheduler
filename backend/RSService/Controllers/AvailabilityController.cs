@@ -24,8 +24,6 @@ namespace RSService.Controllers
             this.context = context;
             this.userRepository = userRepository;
             this.availabilityRepository = availabilityRepository;
-            //userRepository = new UserRepository(context);
-            //availabilityRepository = new AvailabilityRepository(context);
         }
 
         [HttpGet("/availability/list")]
@@ -155,6 +153,10 @@ namespace RSService.Controllers
                                         currentUser.Id,
                                         newAvailability.Occurrence
                                         );
+                    //if (availabilityRepository.GetOverlapedAvailabilities(availability.StartDate, availability.EndDate, availability.RoomId) != null)
+                    //{
+                    //    return ValidationError(AvailabilityMessages.OverlapedTimeSpan);
+                    //}
                     availabilityRepository.AddAvailability(availability);
                 }
             }

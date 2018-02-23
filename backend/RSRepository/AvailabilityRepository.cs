@@ -94,6 +94,14 @@ namespace RSRepository
                                  .ToList();
         }
 
+        public List<Availability> GetOverlapedAvailabilities(DateTime startDate, DateTime endDate, int roomId)
+        {
+            return availabilities.Where(a => a.StartDate < endDate)
+                                 .Where(a => a.EndDate > startDate)
+                                 .Where(a => a.RoomId == roomId)
+                                 .ToList();
+        }
+
 
         public void AddAvailability(Availability availability)
         {

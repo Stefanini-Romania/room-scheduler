@@ -162,4 +162,7 @@
   <data name="LessThanStartDate" xml:space="preserve">
     <value>Availability.EndDate.LessOrEqualThanStartDate</value>
   </data>
+  <data name="OverlapedTimeSpan" xml:space="preserve">
+    <value>Availability.StartDate.EndDate.OverlapedTimeSpan</value>
+  </data>
 </root>

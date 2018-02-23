@@ -17,6 +17,7 @@ namespace RSRepository
         List<Availability> GetAvailabilitiesByType(int availabilityType, DateTime startDate, DateTime endDate);
         List<Availability> GetAvailabilitiesByType(DateTime startDate, DateTime endDate, int roomId);
         List<Availability> GetAvailabilitiesByHostAndDate(int hostId, DateTime startDate, DateTime endDate);
+        List<Availability> GetOverlapedAvailabilities(DateTime startDate, DateTime endDate, int roomId);
         void AddAvailability(Availability availability);
     }
    

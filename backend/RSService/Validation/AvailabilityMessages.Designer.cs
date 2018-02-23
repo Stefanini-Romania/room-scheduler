@@ -194,5 +194,14 @@ namespace RSService.Validation {
                 return ResourceManager.GetString("LessThanStartDate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Availability.StartDate.EndDate.OverlapedTimeSpan.
+        /// </summary>
+        public static string OverlapedTimeSpan {
+            get {
+                return ResourceManager.GetString("OverlapedTimeSpan", resourceCulture);
+            }
+        }
     }
 }
