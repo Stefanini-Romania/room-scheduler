@@ -15,11 +15,13 @@ namespace RSService.DTO
         public int RoomId { get; set; }
         public string Notes { get; set; }
         public int? HostId { get; set; }
+        public string HostName { get; set; }
         public int AttendeeId { get; set; }
+        public string AttendeeName { get; set; }
         public int EventStatus { get; set; }
         public DateTime DateCreated { get; set; }
 
-        public string Host { get; set; }
+        
         //public User Attendee { get; set; }
         //public Room Room { get; set; }
         //public ICollection<Penalty> Penalty { get; set; }

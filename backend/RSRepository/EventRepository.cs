@@ -32,6 +32,7 @@ namespace RSRepository
                          .Where(e => hostId.Contains(e.HostId))
                          .Where(e => e.EventStatus != (int)EventStatusEnum.cancelled)
                          .Include(e => e.Host)
+                         .Include(e => e.Attendee)
                          .ToList();
         }
 
@@ -42,6 +43,7 @@ namespace RSRepository
                          .Where(e => roomId.Contains(e.RoomId))
                          .Where(e => e.EventStatus != (int)EventStatusEnum.cancelled)
                          .Include(e => e.Host)
+                         .Include(e => e.Attendee)
                          .ToList();
         }
 

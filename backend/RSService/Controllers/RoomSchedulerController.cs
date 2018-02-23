@@ -84,10 +84,10 @@ namespace RSService.Controllers
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
             message.To.Add(new MailboxAddress("User", currentAttendeeEmail));
-            message.Subject = "You have an appoitment";
+            message.Subject = "You have an appointment";
             message.Body = new TextPart("html")
             {
-                Text = " You have a new appoitment. <br> " + "Date: " + newEvent.StartDate.Day + "/" + newEvent.StartDate.Month + "/" + newEvent.StartDate.Year + "<br>"
+                Text = " You have a new appointment. <br> " + "Date: " + newEvent.StartDate.Day + "/" + newEvent.StartDate.Month + "/" + newEvent.StartDate.Year + "<br>"
                 + " Hour: " + newEvent.StartDate.TimeOfDay + " to " + newEvent.EndDate.TimeOfDay + "<br>"
                 + " Room Name: " + room.Name + "<br>"
                 + " Room Location: " + room.Location
@@ -150,9 +150,10 @@ namespace RSService.Controllers
                     RoomId = ev.RoomId,
                     Notes = ev.Notes,
                     HostId = ev.HostId,
+                    HostName = (ev.Host != null) ? ev.Host.FirstName + " " + ev.Host.LastName : null,
                     AttendeeId = ev.AttendeeId,
+                    AttendeeName = (ev.Attendee != null) ? ev.Attendee.FirstName + " " + ev.Attendee.LastName : null,
                     EventStatus = ev.EventStatus,
-                    Host = ev.Host.FirstName + " " + ev.Host.LastName,
                     DateCreated = ev.DateCreated
                 });
             }
@@ -184,9 +185,10 @@ namespace RSService.Controllers
                     RoomId = ev.RoomId,
                     Notes = ev.Notes,
                     HostId = ev.HostId,
+                    HostName = (ev.Host != null) ? ev.Host.FirstName + " " + ev.Host.LastName : null,
                     AttendeeId = ev.AttendeeId,
+                    AttendeeName = (ev.Attendee != null) ? ev.Attendee.FirstName + " " + ev.Attendee.LastName : null,
                     EventStatus = ev.EventStatus,
-                    Host = (ev.Host !=null) ?  ev.Host.FirstName +" "+ ev.Host.LastName : null,
                     DateCreated = ev.DateCreated
                 });
             }

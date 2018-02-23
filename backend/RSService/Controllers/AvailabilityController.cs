@@ -19,11 +19,13 @@ namespace RSService.Controllers
         private readonly IAvailabilityRepository availabilityRepository;
         private readonly RoomPlannerDevContext context;
 
-        public AvailabilityController(RoomPlannerDevContext context)
+        public AvailabilityController(RoomPlannerDevContext context, IUserRepository userRepository, IAvailabilityRepository availabilityRepository)
         {
             this.context = context;
-            userRepository = new UserRepository(context);
-            availabilityRepository = new AvailabilityRepository(context);
+            this.userRepository = userRepository;
+            this.availabilityRepository = availabilityRepository;
+            //userRepository = new UserRepository(context);
+            //availabilityRepository = new AvailabilityRepository(context);
         }
 
         [HttpGet("/availability/list")]

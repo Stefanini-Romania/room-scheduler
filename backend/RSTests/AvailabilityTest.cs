@@ -7,6 +7,11 @@ using System.Linq;
 using RSService.DTO;
 using System.Collections.Generic;
 using RSRepository;
+using System.Threading.Tasks;
+using RSData.Models;
+using RSService.Controllers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace RSTests
 {
@@ -191,20 +196,39 @@ namespace RSTests
             Assert.Equal(d.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
         }
 
-        [Fact]
-        public void GetAvailabilities_ReturnsAViewResult_WithAListOfAvailabilities()
-        {
-            //Arrange
-            var mockRepo = new Moq.Mock<RoomPlannerDevContext>();
-            
 
-            //mockRepo.Setup(repo => repo.ListAsync()).Returns(Task.FromResult(GetTestSessions()));
-            //var controller = new HomeController(mockRepo.Object);
 
-            //Act
+        //[Fact]
+        //public void GetAvailabilities_ReturnsAViewResult_WithAListOfAvailabilities()
+        //{
+        //    //Arrange
+        //    var contextMoq = new Moq.Mock<RoomPlannerDevContext>();
 
-            //Assert
-        }
+        //    var userMoq = new Moq.Mock<IUserRepository>(Moq.MockBehavior.Strict);
+
+        //    var availabilityMoq = new Moq.Mock<IAvailabilityRepository>(Moq.MockBehavior.Strict);
+        //    availabilityMoq.Setup(li => li.GetAvailabilitiesByHost(Moq.It.IsAny<int>())).Returns(GetAvailabilities());
+        //    var controller = new AvailabilityController(null, null, availabilityMoq.Object);
+
+        //    //Act
+        //    var result = controller.GetAvailabilities(4, new DateTime(2018, 02, 19, 09, 0, 0));
+
+        //    //Assert
+        //    var viewResult = Assert.IsType<ViewResult>(result);
+        //    var model = Assert.IsAssignableFrom<IEnumerable<AvailabilityDto>>(viewResult.ViewData.Model);
+        //    Assert.Equal(2, model.Count());
+        //}
+
+        //private List<Availability> GetAvailabilities()
+        //{
+        //    var avaialbilities = new List<Availability>()
+        //    {
+        //        new Availability(new DateTime(2018, 02, 20, 09, 0, 0), new DateTime(2018, 02, 20, 13, 0, 0), 0, 2, 4, 0),
+        //        new Availability(new DateTime(2018, 02, 21, 09, 0, 0), new DateTime(2018, 02, 21, 13, 0, 0), 0, 2, 4, 0)
+        //    };
+
+        //    return avaialbilities;
+        //}
 
 
     }
