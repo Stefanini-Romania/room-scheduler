@@ -5,6 +5,7 @@ import {NgModule} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+
 import {RsHeaderComponent} from './rs-header/rs-header.component';
 import {RsFooterComponent} from './rs-footer/rs-footer.component';
 import {SharedModule} from '../shared/shared.module';
