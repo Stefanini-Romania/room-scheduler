@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output, AfterViewInit} from '@angular/core';
 import {NgbModal, NgbModalRef, NgbPaginationConfig, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 
 import {TranslateService} from "@ngx-translate/core";
 import {User} from '../../shared/models/user.model';
@@ -8,6 +9,7 @@ import {UserService} from '../../users/shared/users.service';
 import {RoleEnum} from '../../shared/models/role.model';
 import {RegisterFormComponent} from '../../users/register-form/register-form.component';
 import {AuthService} from '../../auth/shared/auth.service';
+
 
 @Component({
     selector: 'admin-users-tab',
@@ -30,11 +32,14 @@ export class AdminUsersTab implements AfterViewInit{
     currentUser: User;
     public page;
 
-    constructor(private userService: UserService, private modalService: NgbModal, private translate: TranslateService, private toastr: ToastrService, private authService: AuthService) {
+    constructor(private userService: UserService, private modalService: NgbModal, private translate: TranslateService, private toastr: ToastrService, private authService: AuthService, private router: Router) {
         
     }
 
     ngAfterViewInit(): void {
+        if (!this.authService.isLoggedIn()) {
+            this.router.navigate(['login']);
+        }
         if(this.authService.getLoggedUser().hasRole(RoleEnum.admin)){
             this.refreshUsers();
         }

@@ -37,8 +37,9 @@ namespace RSService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //hangfire --
             services.AddHangfire(x => x.UseSqlServerStorage("Server=BUSWGVMINDEV3\\MSSQLSERVER12;Database=RoomPlannerDev;User Id=roomplanner;Password=roomplanner123"));
-
+            //----
             services.AddMvc(opt =>
             {
                 opt.Filters.Add(typeof(ValidatorActionFilter));
@@ -106,11 +107,12 @@ namespace RSService
            
 
             app.UseMvc();
+            // hangfire--
             app.UseHangfireDashboard();
             app.UseHangfireServer();
             RecurringJob.AddOrUpdate<UserController>(x => x.EventReminder(),Cron.Minutely);
+            //----
          
-
             Mapper.Initialize(Configuration =>
             {
                 Configuration.CreateMap<AddEventDto, Event>().ReverseMap();

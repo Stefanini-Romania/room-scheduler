@@ -20,7 +20,7 @@ export class APIRequestInterceptor implements HttpInterceptor {
         const authService = this.injector.get(AuthService);
         let translateService = this.injector.get(TranslateService);
         return next.handle(req).do(event => {}, err => {
-            if (err instanceof HttpErrorResponse && err.status == 401) {           
+            if (err instanceof HttpErrorResponse && err.status == 401 || err.status == 0) {           
                 sessionStorage.removeItem('currentUser');
                  this.router.navigate(['/login']);
                 //window.location.reload(); //FIX  
