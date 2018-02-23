@@ -16,6 +16,7 @@ import {EventStatusEnum} from '../../shared/models/event.model';
 import {DialogService} from '../../shared/services/dialog.service';
 import {EventEditorComponent} from '../event-editor/event-editor.component';
 import * as CalendarSettings from './calendar-settings.json';
+import {RoleEnum} from './../../shared/models/role.model';
 
 @Component({
     selector: 'rs-calendar-component',
@@ -38,6 +39,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     public selectedRoom: Room;
     public hostId: number;
     private previousValues: any;
+    public RoleEnum: User;
 
     calendarSettings = <any>CalendarSettings;
     dataAdapter = new jqx.dataAdapter(this.calendarSettings["source"]);
@@ -77,13 +79,19 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                         readOnly = true;
                     }
                     else {
-                        eventType = event.host;
+                        eventType = event.hostName;
                         readOnly = false;
                     }
                     
                     break;
                 case EventTypeEnum.massage: 
-                    eventType = this.translate.instant("calendar.eventType.massage");
+                    if (this.authService.isLoggedIn()) {
+                        if (this.authService.getLoggedUser().hasRole(RoleEnum.admin) || this.authService.getLoggedUser().hasRole(RoleEnum.host)) {                  
+                            eventType = this.translate.instant("calendar.eventType.massage") + ": " + event.attendeeName;
+                        }
+                        else eventType = this.translate.instant("calendar.eventType.massage");  
+                    }
+                    else eventType = this.translate.instant("calendar.eventType.massage");
                     break;
             }
 
@@ -279,14 +287,14 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             for (let event of events) {
                 if (event.eventType == EventTypeEnum.availability && event.eventStatus == 0) {
                     // compute host availabilities
-                    if (!hosts[event.host]) {
-                        hosts[event.host] = {};
+                    if (!hosts[event.hostName]) {
+                        hosts[event.hostName] = {};
                     }
 
                     const startDate = new Date(event.startDate);
                     const day = this.calendarSettings["localization"].days.namesAbbr[startDate.getDay()];
-                    if (!hosts[event.host][day]) {
-                        hosts[event.host][day] = [];
+                    if (!hosts[event.hostName][day]) {
+                        hosts[event.hostName][day] = [];
                     }
                     /*const endDate = new Date(event.endDate);
 
@@ -294,7 +302,7 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     const endHour = endDate.getHours() + ":" + endDate.getMinutes();
 
                     hosts[event.host][day].push(startHour + " - " + endHour);*/
-                    hosts[event.host][day].push(event);
+                    hosts[event.hostName][day].push(event);
 
                 } else if(event.eventType == EventTypeEnum.massage || (event.eventType == EventTypeEnum.availability && event.eventStatus == 1))
                     this.events.push(<Event>event); {
