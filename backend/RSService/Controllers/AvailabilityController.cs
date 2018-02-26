@@ -160,11 +160,6 @@ namespace RSService.Controllers
                     {
                         return ValidationError(AvailabilityMessages.OverlapedTimeSpan);
                     }
-
-                    //if (availabilityRepository.GetOverlapedAvailabilities(availability.StartDate, availability.EndDate, availability.RoomId) != null)
-                    //{
-                    //    return ValidationError(AvailabilityMessages.OverlapedTimeSpan);
-                    //}
                     availabilityRepository.AddAvailability(availability);
                 }
             }
