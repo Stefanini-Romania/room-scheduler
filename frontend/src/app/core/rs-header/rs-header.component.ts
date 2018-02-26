@@ -70,6 +70,6 @@ export class RsHeaderComponent {
     }
 
     redirectToLogin() {
-        return this.router.navigate(['/login']);
+        this.router.navigate(['/login']);
     }
 }
