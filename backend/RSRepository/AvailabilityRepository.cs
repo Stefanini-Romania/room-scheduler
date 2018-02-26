@@ -100,6 +100,8 @@ namespace RSRepository
                                  .Where(a => a.StartDate.TimeOfDay < endDate.TimeOfDay)
                                  .Where(a => a.EndDate.TimeOfDay > startDate.TimeOfDay)
                                  .Where(a => a.RoomId == roomId)
+                                 .Where(a => a.AvailabilityType == 0)
+                                 .Where(a => a.Status == 0)
                                  .ToList();
         }
 
