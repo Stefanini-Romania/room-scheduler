@@ -91,7 +91,43 @@ namespace RSService.BusinessLogic
             return availabilityEvents;
         }
 
+        public bool IsOverlapedAvailability(Availability newAvailability)
+        {
+            var availabilities = _availabilityRepository.GetOverlapedAvailabilities(newAvailability.StartDate, newAvailability.EndDate, newAvailability.RoomId);
 
+            if (availabilities == null)
+            {
+                return false;
+            }
+
+            if (newAvailability.Occurrence == 1)
+            {
+                return true;
+            }
+
+            foreach(var av in availabilities)
+            {
+                if (av.Occurrence == 1)
+                {
+                    return true;
+                }
+
+                DateTimeOffset startDate = av.StartDate;
+                DateTimeOffset auxStartDate = newAvailability.StartDate.Date.Add(av.StartDate.TimeOfDay);
+
+                if (((auxStartDate.ToUnixTimeSeconds() - startDate.ToUnixTimeSeconds()) / 7 * av.Occurrence * 24 * 60 * 60) % 1 == 0)
+                {
+                    return true;
+                }
+
+                if (av.Occurrence % newAvailability.Occurrence != 0 && newAvailability.Occurrence % av.Occurrence != 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
     }
 }

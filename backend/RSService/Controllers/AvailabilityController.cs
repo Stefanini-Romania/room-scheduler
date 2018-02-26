@@ -15,15 +15,17 @@ namespace RSService.Controllers
 {
     public class AvailabilityController : ValidationController
     {
+        private readonly RoomPlannerDevContext context;
         private readonly IUserRepository userRepository;
         private readonly IAvailabilityRepository availabilityRepository;
-        private readonly RoomPlannerDevContext context;
+        private readonly IAvailabilityService availabilityService;
 
-        public AvailabilityController(RoomPlannerDevContext context, IUserRepository userRepository, IAvailabilityRepository availabilityRepository)
+        public AvailabilityController(RoomPlannerDevContext context, IUserRepository userRepository, IAvailabilityRepository availabilityRepository, IAvailabilityService availabilityService)
         {
             this.context = context;
             this.userRepository = userRepository;
             this.availabilityRepository = availabilityRepository;
+            this.availabilityService = availabilityService;
         }
 
         [HttpGet("/availability/list")]
@@ -153,6 +155,12 @@ namespace RSService.Controllers
                                         currentUser.Id,
                                         newAvailability.Occurrence
                                         );
+
+                    if (availabilityService.IsOverlapedAvailability(availability))
+                    {
+                        return ValidationError(AvailabilityMessages.OverlapedTimeSpan);
+                    }
+
                     //if (availabilityRepository.GetOverlapedAvailabilities(availability.StartDate, availability.EndDate, availability.RoomId) != null)
                     //{
                     //    return ValidationError(AvailabilityMessages.OverlapedTimeSpan);
@@ -177,6 +185,11 @@ namespace RSService.Controllers
                         (int)hostId,
                         newAvailability.Occurrence
                         );
+
+                    if (availabilityService.IsOverlapedAvailability(availability))
+                    {
+                        return ValidationError(AvailabilityMessages.OverlapedTimeSpan);
+                    }
                     availabilityRepository.AddAvailability(availability);
                 }
             }

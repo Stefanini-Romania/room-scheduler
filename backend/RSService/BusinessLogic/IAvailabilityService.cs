@@ -12,5 +12,7 @@ namespace RSService.BusinessLogic
 
         List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int?[] roomId);
 
+        bool IsOverlapedAvailability(Availability availability);
+
     }
 }
