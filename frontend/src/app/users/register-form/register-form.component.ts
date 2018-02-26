@@ -81,7 +81,7 @@ export class RegisterFormComponent {
             } 
             else this.isDept = 2;        
         }    
-        this.onRoleSelect(this.displayRole);
+       this.onRoleSelect(this.displayRole);
     }
  
     get isLoggedIn():boolean {
@@ -105,11 +105,30 @@ export class RegisterFormComponent {
         this.modelForm.userRole = roles;
     }
 
-    onRoleSelect (selectedRole: string){
+    onRoleSelect (selectedRole: string) {
         if (this.model.id) {
-            this.displayRole = this.model.userRole[0];
-        }
-        else this.displayRole = this.RoleEnum[1];
+            this.displayRole = this.model.userRole[0];         
+            switch(selectedRole) {
+                case "attendee":                     
+                case "host":                        
+                case "admin":
+                    this.displayRole = selectedRole;
+                    break;
+                default:
+                    //this.displayRole = selectedRole;
+            } 
+        } 
+        else {     
+            switch(selectedRole) {
+                case "attendee":
+                case "host":          
+                case "admin":
+                    this.displayRole = selectedRole;
+                    break;
+                default:
+                    this.displayRole = this.RoleEnum[1];
+            }        
+        }    
     }
 
     register() {
