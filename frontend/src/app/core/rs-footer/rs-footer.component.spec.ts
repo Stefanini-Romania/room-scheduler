@@ -24,7 +24,7 @@ describe('RsFooterComponent (templateUrl)', ()=>{
     beforeEach(() => {
         fixture = TestBed.createComponent(RsFooterComponent);
 
-        component = fixture.componentInstance; // RsHeaderComponent test instance
+        component = fixture.componentInstance; // RsFooterComponent test instance
 
         // query for the title <button>, a or div by CSS element selector
         de = fixture.debugElement.query(By.css('p'));
