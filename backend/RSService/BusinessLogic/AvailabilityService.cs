@@ -119,6 +119,8 @@ namespace RSService.BusinessLogic
 
                 double occurrenceRaport = (double)diff / (7 * av.Occurrence * 24 * 60 * 60);
 
+                // just a comment
+
                 if (occurrenceRaport % 1 == 0)
                 {
                     return true;
