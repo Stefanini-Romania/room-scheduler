@@ -165,6 +165,8 @@ namespace RSService.Controllers
 
                
             };
+            //sss
+
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RoomSchedulerStefanini", "roomchedulerStefanini@gmail.com"));
@@ -289,9 +291,9 @@ namespace RSService.Controllers
 
                 foreach (var e in events)
                 {
-                    if (e.EventStatus == 3)
+                    if (e.EventStatus == (int)EventStatusEnum.waiting)
                     {
-                        e.EventStatus = 2;
+                        e.EventStatus = (int)EventStatusEnum.cancelled;
                     }
                 }
             }
