@@ -118,7 +118,7 @@ namespace RSService.BusinessLogic
                 long diff = auxStartDate.ToUnixTimeSeconds() - startDate.ToUnixTimeSeconds();
                 
                 double occurrenceRaport = (double)diff / (7 * av.Occurrence * 24 * 60 * 60);
-
+                //test
                 if (occurrenceRaport % 1 == 0)
                 {
                     return true;
