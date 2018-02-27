@@ -16,6 +16,7 @@ import {AuthModule} from '../../auth/auth.module';
 import {SharedModule} from '../../shared/shared.module';
 import {UsersModule} from '../users.module';
 
+
 describe('LoginPageComponent (templateUrl)', ()=>{
     let component: LoginPageComponent;
     let fixture: ComponentFixture<LoginPageComponent>;
@@ -34,7 +35,8 @@ describe('LoginPageComponent (templateUrl)', ()=>{
                     SharedModule,
                     HttpClientModule,
                     HttpModule,
-                    RouterTestingModule.withRoutes([{ path: 'login', component: LoginPageComponent}]),
+                    RouterTestingModule.withRoutes([{ path: 'login', component: LoginPageComponent},
+                                                    ]),
                     ToastrModule.forRoot(),
                     ToastContainerModule,
                     CoreModule,
@@ -62,12 +64,11 @@ describe('LoginPageComponent (templateUrl)', ()=>{
         expect(component).toBeTruthy();
     });
 
-    // it('should redirect to login', () => {
-
-    //     fixture.whenStable().then(()=>{
-    //         fixture.detectChanges();
-    //         component.onSuccessfullLogin();
-    //         expect(router.navigate).toHaveBeenCalledWith('/login');
-    //     })
-    // });
+    it('should redirect to login', async() => {
+                    
+            component.onSuccessfullLogin();
+            fixture.detectChanges();
+            expect(router.navigate.toHaveBeenCalled);
+        
+    });
 });
