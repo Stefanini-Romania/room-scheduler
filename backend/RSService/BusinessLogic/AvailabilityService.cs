@@ -95,7 +95,7 @@ namespace RSService.BusinessLogic
         {
             var availabilities = _availabilityRepository.GetOverlapedAvailabilities(newAvailability.StartDate, newAvailability.EndDate, newAvailability.RoomId);
 
-            if (availabilities == null)
+            if (!availabilities.Any())
             {
                 return false;
             }
