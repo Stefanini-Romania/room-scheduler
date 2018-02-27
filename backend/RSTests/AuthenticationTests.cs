@@ -23,7 +23,7 @@ namespace RSTests
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AuthMessages.EmptyEmail));
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AuthMessages.EmptyPassword));
             
-            //testtasfadfsss
+            //testtasfadfssss
         }
 
     }
