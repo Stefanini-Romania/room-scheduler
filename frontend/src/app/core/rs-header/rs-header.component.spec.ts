@@ -9,10 +9,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
 import {CoreModule} from '../core.module';
 import { Router, ActivatedRoute } from '@angular/Router';
+import { APP_BASE_HREF } from '@angular/common';
 
 import {RsHeaderComponent} from './rs-header.component';
 import {AuthModule} from '../../auth/auth.module';
 import {SharedModule} from '../../shared/shared.module';
+import {LoginPageComponent} from '../../users/login-form/login-page.component';
+import {UsersModule} from '../../users/users.module';
+import {CalendarsModule} from '../../calendars/calendars.module';
+import {RSCalendarComponent} from '../../calendars/default/rs-calendar.component';
 
 describe('RsHeaderComponent (templateUrl)', ()=>{
     let component: RsHeaderComponent;
@@ -24,6 +29,7 @@ describe('RsHeaderComponent (templateUrl)', ()=>{
 
     //async BeforeEach
     beforeEach(async(() => {
+        
          routerStub = {navigate: jasmine.createSpy('navigate')}
         TestBed.configureTestingModule({
             imports: [TranslateModule.forRoot(),
@@ -35,10 +41,13 @@ describe('RsHeaderComponent (templateUrl)', ()=>{
                     RouterTestingModule,
                     ToastrModule.forRoot(),
                     ToastContainerModule,
-                    CoreModule
+                    CoreModule,
+                    UsersModule,
+                    CalendarsModule
                      ],
             declarations: [], // declare the test component
-            providers: [{ provide: Router, useClass: routerStub }]
+            providers: [{ provide: Router, useClass: routerStub },
+                { provide: APP_BASE_HREF, useValue : '/' }]
         })
         .compileComponents();  // compile template and css
     }));
@@ -55,9 +64,10 @@ describe('RsHeaderComponent (templateUrl)', ()=>{
         el = de.nativeElement;
     });
 
-    // it('should redirect to login', () => {
-    //     fixture.detectChanges();
-    //     component.redirectToLogin();
-    //     expect(el).toHaveBeenCalledWith(['/login']);
-    // });
+ 
+    it('should redirect to login', async() => {
+        component.redirectToLogin();
+        fixture.detectChanges();
+        expect(routerStub.navigate.toHaveBeenCalledWith(['/login']));
+    });
 });
