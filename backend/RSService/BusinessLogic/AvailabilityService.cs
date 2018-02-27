@@ -116,7 +116,7 @@ namespace RSService.BusinessLogic
                 DateTimeOffset auxStartDate = newAvailability.StartDate.Date.Add(av.StartDate.TimeOfDay);
 
                 long diff = auxStartDate.ToUnixTimeSeconds() - startDate.ToUnixTimeSeconds();
-
+                //test
                 double occurrenceRaport = (double)diff / (7 * av.Occurrence * 24 * 60 * 60);
 
                 if (occurrenceRaport % 1 == 0)
