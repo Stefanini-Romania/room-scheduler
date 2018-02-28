@@ -316,6 +316,7 @@
         "EndDate.LessOrEqualThanStartDate": "Data de început nu poate fi mai mare decât data de sfârșit",
         "EndDate.IncorrectTime": "Data de sfârșit inserată nu este corectă",
         "StartDate.EndDate.InvalidTime": "Durata inserată este invalidă",
+        "StartDate.EndDate.OverlapedTimeSpan": "Durata inserată se suprapune cu o altă disponibilitate",
         "StartDate.Empty": "Introduceți data de început",
         "EndDate.Empty": "Introduceți data de sfârșit",
         "DayOfWeek.Empty": "Selectați ziua săptămânii",

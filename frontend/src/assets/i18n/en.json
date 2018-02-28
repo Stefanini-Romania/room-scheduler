@@ -301,6 +301,7 @@
         "EndDate.LessOrEqualThanStartDate": "The start date cannot be greater than the end date",
         "EndDate.IncorrectTime": "The end date inserted is incorrect",
         "StartDate.EndDate.InvalidTime": "The duration inserted is invalid",
+        "StartDate.EndDate.OverlapedTimeSpan": "The time inserted overlaps another availability",
         "StartDate.Empty": "Please insert the start date",
         "EndDate.Empty": "Please insert the end date",
         "DayOfWeek.Empty": "Please select the day of week",
