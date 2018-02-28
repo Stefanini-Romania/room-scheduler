@@ -1,4 +1,5 @@
 ﻿using RSData.Models;
+using RSService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,10 @@ namespace RSService.BusinessLogic
         List<Event> CreateAvailabilityEvents(DateTime startDate, DateTime endDate, int?[] roomId);
 
         bool IsOverlapedAvailability(Availability availability);
+
+        bool IsGoodStartTime(AddAvailabilityDto availabilityDto);
+
+        bool IsGoodEndTime(AddAvailabilityDto availabilityDto);
 
     }
 }

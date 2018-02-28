@@ -11,11 +11,13 @@ namespace RSService.Validators
 {
     public class AddAvailabilityValidator : AbstractValidator<AddAvailabilityDto>
     {
-        private IRoomService _roomService;
+        private IRoomService roomService;
+        private IAvailabilityService availabilityService;
 
-        public AddAvailabilityValidator(IRoomService roomService)
+        public AddAvailabilityValidator(IRoomService roomService, IAvailabilityService availabilityService)
         {
-           _roomService = roomService;
+            this.roomService = roomService;
+            this.availabilityService = availabilityService;
 
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
             RuleFor(a => a.StartDate).Must(GoodStartTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
@@ -38,19 +40,17 @@ namespace RSService.Validators
 
         private bool GoodStartTime(AddAvailabilityDto av, DateTime d)
         {
-
-            return d.Hour >= 9 && d.Hour <= 17 && d.Second == 0 && (d.Minute == 0 || d.Minute == 30);
+            return availabilityService.IsGoodStartTime(av);
         }
 
         private bool GoodEndTime(AddAvailabilityDto av, DateTime d)
         {
-            return d.Hour >= 9 && d.Hour <= 17 && d.Second == 0 && (d.Minute == 0 || d.Minute == 30) ||
-                   d.Hour == 18 && d.Second == 0 && d.Minute == 0;
+            return availabilityService.IsGoodEndTime(av);
         }
 
         private bool ActiveRoom(AddAvailabilityDto av, int roomId)
         {
-            return _roomService.IsActiveRoom(roomId);
+            return roomService.IsActiveRoom(roomId);
         }
 
         private bool ValidDays(AddAvailabilityDto av, int[] daysOfWeek)
