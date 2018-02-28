@@ -58,9 +58,12 @@ namespace RSService.Controllers
                 return ValidationError(EventMessages.InactiveUser);
             }
 
-            var newEvent = Mapper.Map<Event>(model);
-            newEvent.DateCreated = DateTime.UtcNow;
-            newEvent.AttendeeId = currentAttendeeId;
+            //var newEvent = Mapper.Map<Event>(model);
+
+            //newEvent.DateCreated = DateTime.UtcNow;
+            //newEvent.AttendeeId = currentAttendeeId;
+
+            var newEvent = new Event((DateTime)model.StartDate, (DateTime)model.EndDate, model.EventType, model.RoomId, model.Notes, model.HostId, currentAttendeeId, model.EventStatus, DateTime.UtcNow);
 
             var startDateText = model.StartDate.ToString();
             DateTime startDate = new DateTime();

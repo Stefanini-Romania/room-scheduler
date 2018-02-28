@@ -24,6 +24,20 @@ namespace RSData.Models
         public User Host { get; set; }
         public Room Room { get; set; }
         public ICollection<Penalty> Penalty { get; set; }
+
+        public Event(DateTime _StartDate, DateTime _EndDate, int _EventType, int _RoomId, string _Notes, int? _HostID, int _AttendeeId, int _EventStatus, DateTime _DateCreated)
+        {
+            StartDate = _StartDate;
+            EndDate = _EndDate;
+            EventType = _EventType;
+            RoomId = _RoomId;
+            Notes = _Notes;
+            HostId = _HostID;
+            AttendeeId = _AttendeeId;
+            EventStatus = -_EventStatus;
+            DateCreated = _DateCreated;
+        }
+
     }
 
 
