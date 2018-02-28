@@ -83,13 +83,7 @@ namespace RSService.Controllers
                 return BadRequest();
             }
 
-            Room newRoom = new Room()
-            {
-                Name = model.Name,
-                Location = model.Location,
-                IsActive = true
-            };
-
+            Room newRoom = new Room(model.Name, model.Location, true);  
             roomRepository.AddRoom(newRoom);
 
             context.SaveChanges();

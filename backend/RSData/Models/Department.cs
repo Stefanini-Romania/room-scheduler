@@ -13,5 +13,14 @@ namespace RSData.Models
         public string Name { get; set; }
 
         public ICollection<User> User { get; set; }
+
+
+
+        public Department(string _name)
+        {
+            Name = _name;
+        }
     }
 }
+
+ 

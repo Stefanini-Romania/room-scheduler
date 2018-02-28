@@ -29,13 +29,8 @@ namespace RSService.BusinessLogic
 
             if (eventsCount == 3)
             {
-                penaltyRepository.AddPenalty(new Penalty()
-                {
-                    AttendeeId = attendeeId,
-                    EventId = eventId,
-                    Date = startDate,
-                    RoomId = roomId
-                });
+                penaltyRepository.AddPenalty(new Penalty(attendeeId,eventId,startDate,roomId)
+            );
 
                 // Mark these 3 events as being part of a penalty to prevent future counting:
 
