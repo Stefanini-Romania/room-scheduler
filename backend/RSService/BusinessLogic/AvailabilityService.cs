@@ -1,5 +1,6 @@
 ﻿using RSData.Models;
 using RSRepository;
+using RSService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -131,6 +132,19 @@ namespace RSService.BusinessLogic
             }
 
             return false;
+        }
+
+        public bool IsGoodStartTime(AddAvailabilityDto availabilityDto)
+        {
+            return availabilityDto.StartDate.Hour >= 9 && availabilityDto.StartDate.Hour <= 17 && availabilityDto.StartDate.Second == 0 && 
+                   (availabilityDto.StartDate.Minute == 0 || availabilityDto.StartDate.Minute == 30);
+        }
+
+        public bool IsGoodEndTime(AddAvailabilityDto availabilityDto)
+        {
+            return availabilityDto.EndDate.Hour >= 9 && availabilityDto.EndDate.Hour <= 17 && availabilityDto.EndDate.Second == 0 && 
+                   (availabilityDto.EndDate.Minute == 0 || availabilityDto.EndDate.Minute == 30) ||
+                   availabilityDto.EndDate.Hour == 18 && availabilityDto.EndDate.Second == 0 && availabilityDto.EndDate.Minute == 0;
         }
 
     }
