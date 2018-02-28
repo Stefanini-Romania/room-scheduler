@@ -134,17 +134,58 @@ namespace RSService.BusinessLogic
             return false;
         }
 
-        public bool IsGoodStartTime(AddAvailabilityDto availabilityDto)
+        public bool IsGoodStartTime(AvailabilityDto availabilityDto)
         {
             return availabilityDto.StartDate.Hour >= 9 && availabilityDto.StartDate.Hour <= 17 && availabilityDto.StartDate.Second == 0 && 
                    (availabilityDto.StartDate.Minute == 0 || availabilityDto.StartDate.Minute == 30);
         }
 
-        public bool IsGoodEndTime(AddAvailabilityDto availabilityDto)
+        public bool IsGoodEndTime(AvailabilityDto availabilityDto)
         {
             return availabilityDto.EndDate.Hour >= 9 && availabilityDto.EndDate.Hour <= 17 && availabilityDto.EndDate.Second == 0 && 
                    (availabilityDto.EndDate.Minute == 0 || availabilityDto.EndDate.Minute == 30) ||
                    availabilityDto.EndDate.Hour == 18 && availabilityDto.EndDate.Second == 0 && availabilityDto.EndDate.Minute == 0;
+        }
+
+        public bool ValidDays(AddAvailabilityDto availabilityDto)
+        {
+            if (availabilityDto.DaysOfWeek == null)
+            {
+                return false;
+            }
+            if (availabilityDto.DaysOfWeek.Length > 5)
+            {
+                return false;
+            }
+
+            foreach (var day in availabilityDto.DaysOfWeek)
+            {
+                if (day != 1 && day != 2 && day != 3 && day != 4 && day != 5)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool ValidOccurrence(AvailabilityDto availabilityDto)
+        {
+            if (availabilityDto.Occurrence != 1 && availabilityDto.Occurrence != 2 && availabilityDto.Occurrence != 3 && availabilityDto.Occurrence != 4)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool ValidStatus(EditAvailabilityDto availabilityDto)
+        {
+            if (availabilityDto.Status != 0 && availabilityDto.Status != 1)
+            {
+                return false;
+            }
+            return true;
         }
 
     }

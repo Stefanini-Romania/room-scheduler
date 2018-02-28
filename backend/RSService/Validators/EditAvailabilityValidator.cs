@@ -11,11 +11,13 @@ namespace RSService.Validators
 {
     public class EditAvailabilityValidator : AbstractValidator<EditAvailabilityDto>
     {
-        private IRoomService _roomService;
+        private IRoomService roomService;
+        private IAvailabilityService availabilityService;
 
-        public EditAvailabilityValidator(IRoomService roomService)
+        public EditAvailabilityValidator(IRoomService roomService, IAvailabilityService availabilityService)
         {
-            _roomService = roomService;
+            this.roomService = roomService;
+            this.availabilityService = availabilityService;
 
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
             RuleFor(m => m.StartDate).Must(GoodStartTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
@@ -39,37 +41,27 @@ namespace RSService.Validators
 
         private bool GoodStartTime(EditAvailabilityDto av, DateTime d)
         {
-
-            return d.Hour >= 9 && d.Hour <= 17 && d.Second == 0 && (d.Minute == 0 || d.Minute == 30);
+            return availabilityService.IsGoodStartTime(av);
         }
 
         private bool GoodEndTime(EditAvailabilityDto av, DateTime d)
         {
-            return d.Hour >= 9 && d.Hour <= 17 && d.Second == 0 && (d.Minute == 0 || d.Minute == 30) ||
-                   d.Hour >= 9 && d.Hour == 18 && d.Second == 0 && d.Minute == 0;
+            return availabilityService.IsGoodEndTime(av);
         }
 
         private bool ActiveRoom(EditAvailabilityDto av, int roomId)
         {
-            return _roomService.IsActiveRoom(roomId);
+            return roomService.IsActiveRoom(roomId);
         }
 
         private bool ValidOccurrence(EditAvailabilityDto av, int occurrence)
         {
-            if (occurrence !=1 && occurrence !=2 && occurrence !=3 && occurrence !=4)
-            {
-                return false;
-            }
-            return true;
+            return availabilityService.ValidOccurrence(av);
         }
 
         private bool ValidStatus(EditAvailabilityDto av, int status)
         {
-            if (status != 0 && status != 1)
-            {
-                return false;
-            }
-            return true;
+            return availabilityService.ValidStatus(av);
         }
 
 

@@ -15,9 +15,15 @@ namespace RSService.BusinessLogic
 
         bool IsOverlapedAvailability(Availability availability);
 
-        bool IsGoodStartTime(AddAvailabilityDto availabilityDto);
+        bool IsGoodStartTime(AvailabilityDto availabilityDto);
 
-        bool IsGoodEndTime(AddAvailabilityDto availabilityDto);
+        bool IsGoodEndTime(AvailabilityDto availabilityDto);
+
+        bool ValidDays(AddAvailabilityDto availabilityDto);
+
+        bool ValidOccurrence(AvailabilityDto availabilityDto);
+
+        bool ValidStatus(EditAvailabilityDto availabilityDto);
 
     }
 }

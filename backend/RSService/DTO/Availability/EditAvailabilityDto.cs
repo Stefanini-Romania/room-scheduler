@@ -5,12 +5,8 @@ using System.Threading.Tasks;
 
 namespace RSService.DTO
 {
-    public class EditAvailabilityDto
+    public class EditAvailabilityDto :AvailabilityDto
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public int RoomId { get; set; }
-        public int Occurrence { get; set; }
         public int Status { get; set; }
     }
 }

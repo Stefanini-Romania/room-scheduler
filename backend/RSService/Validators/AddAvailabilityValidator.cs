@@ -55,34 +55,12 @@ namespace RSService.Validators
 
         private bool ValidDays(AddAvailabilityDto av, int[] daysOfWeek)
         {
-            if (daysOfWeek == null)
-            {
-                return false;
-            }
-            if (daysOfWeek.Length > 5)
-            {
-                return false;
-            }
-
-            foreach (var day in daysOfWeek)
-            {
-                if (day != 1 && day != 2 && day != 3 && day != 4 && day != 5)
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return availabilityService.ValidDays(av);
         }
 
         private bool ValidOccurrence(AddAvailabilityDto av, int occurrence)
         {
-            if (occurrence != 1 && occurrence != 2 && occurrence != 3 && occurrence != 4)
-            {
-                return false;
-            }
-
-            return true;
+            return availabilityService.ValidOccurrence(av);
         }
 
 

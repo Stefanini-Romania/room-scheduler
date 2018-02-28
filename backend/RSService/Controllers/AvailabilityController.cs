@@ -48,10 +48,10 @@ namespace RSService.Controllers
             {
                 var exceptions = availabilityRepository.GetAvailabilitiesByType((int)AvailabilityEnum.Exception, startDate, startDate.AddDays(5));
 
-                List<AvailabilityDto> finalResults = new List<AvailabilityDto>();
+                List<AvailabilityOutDto> finalResults = new List<AvailabilityOutDto>();
                 foreach(var ex in exceptions)
                 {
-                    finalResults.Add(new AvailabilityDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType, ex.Room.Id, ex.Room.Name, ex.Occurrence));
+                    finalResults.Add(new AvailabilityOutDto(ex.Id, ex.StartDate, ex.EndDate, ex.AvailabilityType, ex.Room.Id, ex.Room.Name, ex.Occurrence));
                 }
                 return Ok(finalResults);
             }
@@ -68,7 +68,7 @@ namespace RSService.Controllers
             
             if (!availabilities.Any()) return NotFound();
 
-            List<AvailabilityDto> results = new List<AvailabilityDto>();
+            List<AvailabilityOutDto> results = new List<AvailabilityOutDto>();
 
             foreach(var av in availabilities)
             {
@@ -76,7 +76,7 @@ namespace RSService.Controllers
                 {
                     if (av.StartDate.Date >= startDate && av.StartDate.Date <= startDate.AddDays(4).Date)
                     {
-                        results.Add(new AvailabilityDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType, av.Room.Id, av.Room.Name, av.Occurrence));
+                        results.Add(new AvailabilityOutDto(av.Id, av.StartDate, av.EndDate, av.AvailabilityType, av.Room.Id, av.Room.Name, av.Occurrence));
                     }
                 }
                 else
@@ -86,7 +86,7 @@ namespace RSService.Controllers
                     {
                         if (date.Date == startDate.Date)
                         {
-                            results.Add(new AvailabilityDto(
+                            results.Add(new AvailabilityOutDto(
                                             av.Id,
                                             date.Date.Add(av.StartDate.TimeOfDay).AddDays((int)av.StartDate.DayOfWeek - 1),
                                             date.Date.Add(av.EndDate.TimeOfDay).AddDays((int)av.StartDate.DayOfWeek - 1),

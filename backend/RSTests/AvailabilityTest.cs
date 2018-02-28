@@ -21,9 +21,10 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
 
-            var validator = new AddAvailabilityValidator(rsMoq.Object);
+            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
             var validationResults = validator.Validate(new AddAvailabilityDto());
 
@@ -35,10 +36,11 @@ namespace RSTests
         [Fact]
         public void WhenRoomId_IsEmpty_NoDatabaseCallIsMade()
         {
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
-            rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Throws(new Exception("IsActiveRoom is called"));
+            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
+            roomMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Throws(new Exception("IsActiveRoom is called"));
 
-            var validator = new AddAvailabilityValidator(rsMoq.Object);
+            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
             var validationResults = validator.Validate(new AddAvailabilityDto());
         }
@@ -59,11 +61,12 @@ namespace RSTests
             };
 
 
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
             // Facem setup-ul pt a face validarea de active room sa treaca, intrucat testam doar occurrence-ul
             //rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
 
-            var validator = new AddAvailabilityValidator(rsMoq.Object);
+            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
             var validationResults = validator.Validate(availability);
 
@@ -84,9 +87,10 @@ namespace RSTests
                 StartDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
 
-            var validator = new AddAvailabilityValidator(rsMoq.Object);
+            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
             var validationResults = validator.Validate(availability);
 
@@ -106,9 +110,10 @@ namespace RSTests
                 EndDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
 
-            var validator = new AddAvailabilityValidator(rsMoq.Object);
+            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
             var validationResults = validator.Validate(availability);
 
@@ -188,9 +193,10 @@ namespace RSTests
                 DaysOfWeek = d.Days
             };
 
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
 
-            var validator = new AddAvailabilityValidator(rsMoq.Object);
+            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
             var validationResults = validator.Validate(availability);
             Assert.Equal(d.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
