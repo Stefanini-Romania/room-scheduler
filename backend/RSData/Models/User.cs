@@ -24,6 +24,20 @@ namespace RSData.Models
         public string ResetPassCode { get; set; }
         public DateTime DateExpire { get; set; }
 
+
+
+        public User(string _email, string _pass, int? _department, string _firstname, string _lastname, bool? _isactive, DateTime _dateTime)
+        {
+            Email = _email;
+            Password = _pass;
+            DepartmentId = _department;
+            FirstName = _firstname;
+            LastName = _lastname;
+            IsActive = _isactive;
+            DateExpire = _dateTime;
+
+        }
+
         public Department Department { get; set; }
         public ICollection<Availability> Availability { get; set; }
         public ICollection<Event> EventAttendee { get; set; }

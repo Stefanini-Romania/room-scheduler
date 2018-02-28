@@ -128,19 +128,9 @@ namespace RSService.Controllers
 
             var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(newUser.Password));
             newUser.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
-           
-            User user = new User()
-            {
-                FirstName = newUser.FirstName,
-                LastName = newUser.LastName,
-                Password = newUser.Password,
-                Email = newUser.Email,
-                DepartmentId = newUser.DepartmentId,
-                IsActive = true,
-                DateExpire=DateTime.UtcNow
+            //string _email, string _pass, int? _department, string _firstname, string _lastname, bool? _isactive, DateTime _dateTime
+            User user = new User(newUser.Email, newUser.Password, newUser.DepartmentId, newUser.FirstName, newUser.LastName, true, DateTime.UtcNow);
             
-            };
-
             userRepository.AddUser(user);
    
             foreach(var roleId in newUser.UserRole)
@@ -204,15 +194,7 @@ namespace RSService.Controllers
             newUser.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
 
 
-            User user = new User()
-            {
-                FirstName = newUser.FirstName,
-                LastName = newUser.LastName,
-                Password = newUser.Password,
-                Email = newUser.Email,
-                DepartmentId = newUser.DepartmentId,
-                IsActive = true   
-            };
+            User user = new User(newUser.Email, newUser.Password, newUser.DepartmentId, newUser.FirstName, newUser.LastName, true, DateTime.UtcNow);
 
             userRepository.AddUser(user);
 
