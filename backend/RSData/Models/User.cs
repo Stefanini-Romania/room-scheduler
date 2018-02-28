@@ -11,7 +11,6 @@ namespace RSData.Models
             EventAttendee = new HashSet<Event>();
             EventHost = new HashSet<Event>();
             Penalty = new HashSet<Penalty>();
-            TimeSlot = new HashSet<TimeSlot>();
             UserRole = new HashSet<UserRole>();
         }
 
@@ -30,7 +29,6 @@ namespace RSData.Models
         public ICollection<Event> EventAttendee { get; set; }
         public ICollection<Event> EventHost { get; set; }
         public ICollection<Penalty> Penalty { get; set; }
-        public ICollection<TimeSlot> TimeSlot { get; set; }
         public ICollection<UserRole> UserRole { get; set; }
     }
 }

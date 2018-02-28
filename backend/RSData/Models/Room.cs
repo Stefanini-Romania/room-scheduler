@@ -11,7 +11,6 @@ namespace RSData.Models
             Availability = new HashSet<Availability>();
             Event = new HashSet<Event>();
             Penalty = new HashSet<Penalty>();
-            TimeSlot = new HashSet<TimeSlot>();
         }
 
         //public int RoomId { get; set; }
@@ -31,7 +30,6 @@ namespace RSData.Models
         public ICollection<Availability> Availability { get; set; }
         public ICollection<Event> Event { get; set; }
         public ICollection<Penalty> Penalty { get; set; }
-        public ICollection<TimeSlot> TimeSlot { get; set; }
     }
 
 

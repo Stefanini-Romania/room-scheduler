@@ -17,7 +17,6 @@ namespace RSRepository
         public virtual DbSet<Penalty> Penalty { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Room> Room { get; set; }
-        public virtual DbSet<TimeSlot> TimeSlot { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
 
@@ -166,31 +165,6 @@ namespace RSRepository
                 entity.Property(e => e.Name).HasMaxLength(150);
 
                 entity.Property(e => e.IsActive).HasColumnName("IsActive");
-            });
-
-            modelBuilder.Entity<TimeSlot>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("TimeSlotID");
-
-                entity.Property(e => e.EndDate).HasColumnType("datetime");
-
-                entity.Property(e => e.HostId).HasColumnName("HostID");
-
-                entity.Property(e => e.RoomId).HasColumnName("RoomID");
-
-                entity.Property(e => e.StartDate).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Host)
-                    .WithMany(p => p.TimeSlot)
-                    .HasForeignKey(d => d.HostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TimeSlot_User");
-
-                entity.HasOne(d => d.Room)
-                    .WithMany(p => p.TimeSlot)
-                    .HasForeignKey(d => d.RoomId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TimeSlot_Room");
             });
 
             modelBuilder.Entity<User>(entity =>
