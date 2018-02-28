@@ -58,11 +58,6 @@ namespace RSService.Controllers
                 return ValidationError(EventMessages.InactiveUser);
             }
 
-            //var newEvent = Mapper.Map<Event>(model);
-
-            //newEvent.DateCreated = DateTime.UtcNow;
-            //newEvent.AttendeeId = currentAttendeeId;
-
             var newEvent = new Event((DateTime)model.StartDate, (DateTime)model.EndDate, model.EventType, model.RoomId, model.Notes, model.HostId, currentAttendeeId, model.EventStatus, DateTime.UtcNow);
 
             var startDateText = model.StartDate.ToString();
@@ -211,9 +206,6 @@ namespace RSService.Controllers
             var schedulerIdentity = SchedulerIdentity.Current(HttpContext);
             var currentUserId = schedulerIdentity.UserId;
 
-
-            var _model = Mapper.Map<Event>(model);
-
             var _event = eventRepository.GetEventById(id);
 
             if (_event == null)
@@ -235,8 +227,8 @@ namespace RSService.Controllers
                 }
             }
 
-            _event.Notes = _model.Notes;
-            _event.EventStatus = _model.EventStatus;
+            _event.Notes = model.Notes;
+            _event.EventStatus = model.EventStatus;
             _event.DateCreated = DateTime.UtcNow;
 
             context.SaveChanges();

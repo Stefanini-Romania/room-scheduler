@@ -34,7 +34,7 @@ namespace RSData.Models
             Notes = _Notes;
             HostId = _HostID;
             AttendeeId = _AttendeeId;
-            EventStatus = -_EventStatus;
+            EventStatus = _EventStatus;
             DateCreated = _DateCreated;
         }
 
