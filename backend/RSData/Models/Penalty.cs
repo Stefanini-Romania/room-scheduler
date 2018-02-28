@@ -21,6 +21,11 @@ namespace RSData.Models
             RoomId = _roomid;
         }
 
+        public Penalty()
+        {
+
+        }
+
         public User Attendee { get; set; }
         public Event Event { get; set; }
         public Room Room { get; set; }
