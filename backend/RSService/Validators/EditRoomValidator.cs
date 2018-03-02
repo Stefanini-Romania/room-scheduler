@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RSService.Validators
 {
-    public class EditRoomValidator: AbstractValidator<EditRoomDto>
+    public class EditRoomValidator: AbstractValidator<RoomDto>
     {
         private IRoomService _roomService;
         public EditRoomValidator(IRoomService roomService)
@@ -24,7 +24,7 @@ namespace RSService.Validators
 
         }
 
-        private bool IsUniqueRoom(EditRoomDto m, String roomName)
+        private bool IsUniqueRoom(RoomDto m, String roomName)
         {
             return _roomService.IsUniqueRoom(roomName, m.Location,m.Id);
         }

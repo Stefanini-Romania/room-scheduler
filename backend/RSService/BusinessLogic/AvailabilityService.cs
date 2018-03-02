@@ -10,11 +10,11 @@ namespace RSService.BusinessLogic
 {
     public class AvailabilityService : IAvailabilityService
     {
-        private IAvailabilityRepository _availabilityRepository;
+        private IAvailabilityRepository availabilityRepository;
 
-        public AvailabilityService(IAvailabilityRepository availabilityService)
+        public AvailabilityService(IAvailabilityRepository availabilityRepository)
         {
-            _availabilityRepository = availabilityService;
+            this.availabilityRepository = availabilityRepository;
         }
 
 
@@ -23,7 +23,7 @@ namespace RSService.BusinessLogic
         {
             List<Event> availabilityEvents = new List<Event>();
 
-            var availabilities = _availabilityRepository.GetAvailabilities(roomId, hostId);
+            var availabilities = availabilityRepository.GetAvailabilities(roomId, hostId);
 
             DateTime currentDay = startDate.Date;
 
@@ -60,7 +60,7 @@ namespace RSService.BusinessLogic
         {
             List<Event> availabilityEvents = new List<Event>();
 
-            var availabilities = _availabilityRepository.GetAvailabilities(roomId);
+            var availabilities = availabilityRepository.GetAvailabilities(roomId);
 
             DateTime currentDay = startDate.Date;
 
@@ -94,7 +94,7 @@ namespace RSService.BusinessLogic
 
         public bool IsOverlapedAvailability(Availability newAvailability)
         {
-            var availabilities = _availabilityRepository.GetOverlapedAvailabilities(newAvailability.StartDate, newAvailability.EndDate, newAvailability.RoomId);
+            var availabilities = availabilityRepository.GetOverlapedAvailabilities(newAvailability.StartDate, newAvailability.EndDate, newAvailability.RoomId);
 
             if (!availabilities.Any())
             {
@@ -140,9 +140,22 @@ namespace RSService.BusinessLogic
                    (availabilityDto.StartDate.Minute == 0 || availabilityDto.StartDate.Minute == 30);
         }
 
+        public bool IsGoodStartTime(AvailabilityExceptionDto availabilityDto)
+        {
+            return availabilityDto.StartDate.Hour >= 9 && availabilityDto.StartDate.Hour <= 17 && availabilityDto.StartDate.Second == 0 &&
+                   (availabilityDto.StartDate.Minute == 0 || availabilityDto.StartDate.Minute == 30);
+        }
+
         public bool IsGoodEndTime(AvailabilityDto availabilityDto)
         {
             return availabilityDto.EndDate.Hour >= 9 && availabilityDto.EndDate.Hour <= 17 && availabilityDto.EndDate.Second == 0 && 
+                   (availabilityDto.EndDate.Minute == 0 || availabilityDto.EndDate.Minute == 30) ||
+                   availabilityDto.EndDate.Hour == 18 && availabilityDto.EndDate.Second == 0 && availabilityDto.EndDate.Minute == 0;
+        }
+
+        public bool IsGoodEndTime(AvailabilityExceptionDto availabilityDto)
+        {
+            return availabilityDto.EndDate.Hour >= 9 && availabilityDto.EndDate.Hour <= 17 && availabilityDto.EndDate.Second == 0 &&
                    (availabilityDto.EndDate.Minute == 0 || availabilityDto.EndDate.Minute == 30) ||
                    availabilityDto.EndDate.Hour == 18 && availabilityDto.EndDate.Second == 0 && availabilityDto.EndDate.Minute == 0;
         }

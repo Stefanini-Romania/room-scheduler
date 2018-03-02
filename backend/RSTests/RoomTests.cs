@@ -20,7 +20,7 @@ namespace RSTests
 
             var validator = new EditRoomValidator(rsMoq.Object);
 
-            var validationResults = validator.Validate(new EditRoomDto());
+            var validationResults = validator.Validate(new RoomDto());
 
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == RoomMessages.EmptyRoomLocation));
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == RoomMessages.EmptyRoomName));
@@ -36,7 +36,7 @@ namespace RSTests
         [InlineData("tower towers ", true)]
         public void WhenLocationName_IsTooLong_DenyAdd(string locationname, bool IsValidName)
         {
-            EditRoomDto room = new EditRoomDto()
+            RoomDto room = new RoomDto()
             {
               Location=locationname
             };
@@ -57,7 +57,7 @@ namespace RSTests
         [InlineData("tower room ", true)]
         public void WhenRoomName_IsTooLong_DenyAdd(string roomname, bool IsValidName)
         {
-            EditRoomDto room = new EditRoomDto()
+            RoomDto room = new RoomDto()
             {
                 Name = roomname               
             };

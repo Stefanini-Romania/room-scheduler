@@ -17,7 +17,11 @@ namespace RSService.BusinessLogic
 
         bool IsGoodStartTime(AvailabilityDto availabilityDto);
 
+        bool IsGoodStartTime(AvailabilityExceptionDto availabilityDto);
+
         bool IsGoodEndTime(AvailabilityDto availabilityDto);
+
+        bool IsGoodEndTime(AvailabilityExceptionDto availabilityDto);
 
         bool ValidDays(AddAvailabilityDto availabilityDto);
 

@@ -11,9 +11,11 @@ namespace RSService.Validators
 {
     public class AddExceptionValidator : AbstractValidator<AvailabilityExceptionDto>
     {
+        private IAvailabilityService availabilityService;
 
-        public AddExceptionValidator()
+        public AddExceptionValidator(IAvailabilityService availabilityService)
         {
+            this.availabilityService = availabilityService;
 
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
             RuleFor(a => a.StartDate).Must(GoodStartTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
@@ -28,14 +30,12 @@ namespace RSService.Validators
 
         private bool GoodStartTime(AvailabilityExceptionDto ex, DateTime d)
         {
-
-            return d.Hour >= 9 && d.Hour <= 17 && d.Second == 0 && (d.Minute == 0 || d.Minute == 30);
+            return availabilityService.IsGoodStartTime(ex);
         }
 
         private bool GoodEndTime(AvailabilityExceptionDto ex, DateTime d)
         {
-            return d.Hour >= 9 && d.Hour <= 17 && d.Second == 0 && (d.Minute == 0 || d.Minute == 30) ||
-                   d.Hour >= 9 && d.Hour == 18 && d.Second == 0 && d.Minute == 0;
+            return availabilityService.IsGoodEndTime(ex);
         }
 
         private bool GoodStartDate(AvailabilityExceptionDto ex, DateTime d)

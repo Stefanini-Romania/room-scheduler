@@ -8,16 +8,16 @@ namespace RSService.BusinessLogic
 {
     public class RoomService : IRoomService
     {
-        private IRoomRepository _roomRepository;
+        private IRoomRepository roomRepository;
 
         public RoomService(IRoomRepository roomRepository)
         {
-            _roomRepository = roomRepository;
+            this.roomRepository = roomRepository;
         }
 
         public bool IsUniqueRoom(String name, String location, int roomid)
         {
-            var rooms = _roomRepository.GetRoomByNameAndLocation(name, location, roomid);
+            var rooms = roomRepository.GetRoomByNameAndLocation(name, location, roomid);
 
             if (rooms == null)
             {
@@ -31,7 +31,7 @@ namespace RSService.BusinessLogic
 
         public bool IsActiveRoom(int roomId)
         {
-            var room = _roomRepository.GetRoomByIdAndStatus(roomId, true);
+            var room = roomRepository.GetRoomByIdAndStatus(roomId, true);
 
             if (room == null)
             {

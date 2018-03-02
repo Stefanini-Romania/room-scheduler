@@ -60,11 +60,14 @@ namespace RSTests
                 Occurrence = occurence,
             };
 
-
             var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
             var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
+            availabilityMoq.Setup(li => li.IsGoodStartTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.IsGoodEndTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.ValidDays(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+
             // Facem setup-ul pt a face validarea de active room sa treaca, intrucat testam doar occurrence-ul
-            //rsMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
+            //roomMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
@@ -89,6 +92,9 @@ namespace RSTests
 
             var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
             var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
+            availabilityMoq.Setup(li => li.IsGoodEndTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.ValidDays(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.ValidOccurrence(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
@@ -112,6 +118,9 @@ namespace RSTests
 
             var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
             var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
+            availabilityMoq.Setup(li => li.IsGoodStartTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.ValidDays(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.ValidOccurrence(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
@@ -132,7 +141,10 @@ namespace RSTests
                 StartDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var validator = new AddExceptionValidator();
+            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
+            availabilityMoq.Setup(li => li.IsGoodEndTime(Moq.It.IsAny<AvailabilityExceptionDto>())).Returns(true);
+
+            var validator = new AddExceptionValidator(availabilityMoq.Object);
 
             var validationResult = validator.Validate(exception);
 
@@ -156,7 +168,10 @@ namespace RSTests
 
             };
 
-            var validator = new AddExceptionValidator();
+            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
+            availabilityMoq.Setup(li => li.IsGoodStartTime(Moq.It.IsAny<AvailabilityExceptionDto>())).Returns(true);
+
+            var validator = new AddExceptionValidator(availabilityMoq.Object);
 
             var validationResult = validator.Validate(exception);
 
@@ -195,6 +210,9 @@ namespace RSTests
 
             var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
             var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
+            availabilityMoq.Setup(li => li.IsGoodStartTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.IsGoodEndTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.ValidOccurrence(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
