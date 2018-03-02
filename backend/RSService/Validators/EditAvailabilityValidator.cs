@@ -35,9 +35,8 @@ namespace RSService.Validators
             RuleFor(a => a.Occurrence).Must(ValidOccurrence).WithMessage(AvailabilityMessages.IncorrectOccurrence);
 
             RuleFor(a => a.Status).Must(ValidStatus).WithMessage(AvailabilityMessages.IncorrectStatus);
-
-
         }
+
 
         private bool GoodStartTime(EditAvailabilityDto av, DateTime d)
         {

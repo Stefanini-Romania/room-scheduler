@@ -18,7 +18,7 @@ namespace RSTests
         {
             var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Loose);
 
-            var validator = new EditRoomValidator(rsMoq.Object);
+            var validator = new RoomValidator(rsMoq.Object);
 
             var validationResults = validator.Validate(new RoomDto());
 
@@ -43,7 +43,7 @@ namespace RSTests
 
             var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Loose);
 
-            var validator = new EditRoomValidator(rsMoq.Object);
+            var validator = new RoomValidator(rsMoq.Object);
 
             var validationResults = validator.Validate(room);
 
@@ -64,7 +64,7 @@ namespace RSTests
 
             var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Loose);
 
-            var validator = new EditRoomValidator(rsMoq.Object);
+            var validator = new RoomValidator(rsMoq.Object);
 
             var validationResults = validator.Validate(room);
 
