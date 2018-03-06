@@ -4,6 +4,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
 import { AuthService} from './../../auth/shared/auth.service';
+import { DialogService } from './../../shared/services/dialog.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 //import { environment } from '../../../environments/environment';
 
 describe(`AuthService`, () => {
@@ -12,9 +14,9 @@ describe(`AuthService`, () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
-        HttpClientTestingModule
-      ],
-      providers: [AuthService]
+        HttpClientTestingModule, 
+        ],
+      providers: [AuthService, DialogService, NgbModal]
     });
   });
 
