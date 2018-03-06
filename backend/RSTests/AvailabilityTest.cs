@@ -60,20 +60,10 @@ namespace RSTests
                 Occurrence = occurence,
             };
 
-            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
-            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
-            availabilityMoq.Setup(li => li.IsGoodStartTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
-            availabilityMoq.Setup(li => li.IsGoodEndTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
-            availabilityMoq.Setup(li => li.ValidDays(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            var repoMoq = new Moq.Mock<IAvailabilityRepository>(Moq.MockBehavior.Strict);
+            var availabilityService = new AvailabilityService(repoMoq.Object);
 
-            // Facem setup-ul pt a face validarea de active room sa treaca, intrucat testam doar occurrence-ul
-            //roomMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Returns(true);
-
-            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
-
-            var validationResults = validator.Validate(availability);
-
-            Assert.Equal(isValidOccurrence, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectOccurrence) == null);
+            Assert.Equal(isValidOccurrence, availabilityService.ValidOccurrence(availability));
         }
 
         [Theory]
@@ -90,17 +80,10 @@ namespace RSTests
                 StartDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
-            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
-            availabilityMoq.Setup(li => li.IsGoodEndTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
-            availabilityMoq.Setup(li => li.ValidDays(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
-            availabilityMoq.Setup(li => li.ValidOccurrence(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            var repoMoq = new Moq.Mock<IAvailabilityRepository>(Moq.MockBehavior.Strict);
+            var availabilityService = new AvailabilityService(repoMoq.Object);
 
-            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
-
-            var validationResults = validator.Validate(availability);
-
-            Assert.Equal(isValidStartDate, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectStartTime) == null);
+            Assert.Equal(isValidStartDate, availabilityService.IsGoodStartTime(availability));
         }
 
         [Theory]
