@@ -114,12 +114,13 @@ export class HostAvailabilityForm{
     }
 
     onRoomChanged(selectedRoom: Room) {
-        if (this.model.id) {
-            selectedRoom.name = this.model.roomName;
-            selectedRoom.id = this.model.roomId;
-            this.selectedRoom = selectedRoom;
-        } 
-        else this.selectedRoom = selectedRoom;    
+        // if (this.model.id) {
+        //     selectedRoom.name = this.model.roomName;
+        //     selectedRoom.id = this.model.roomId;
+        //     this.selectedRoom = selectedRoom;
+        // } 
+        
+        this.selectedRoom = selectedRoom;    
     }
 
     dateFormat(Availability) {
