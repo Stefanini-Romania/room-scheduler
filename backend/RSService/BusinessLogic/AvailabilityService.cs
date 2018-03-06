@@ -160,6 +160,16 @@ namespace RSService.BusinessLogic
                    availabilityDto.EndDate.Hour == 18 && availabilityDto.EndDate.Second == 0 && availabilityDto.EndDate.Minute == 0;
         }
 
+        public bool IsGoodStartDate(AvailabilityExceptionDto availabilityDto)
+        {
+            return availabilityDto.StartDate.Date == availabilityDto.EndDate.Date;
+        }
+
+        public bool IsGoodEndDate(AvailabilityExceptionDto availabilityDto)
+        {
+            return availabilityDto.EndDate.Date == availabilityDto.StartDate.Date;
+        }
+
         public bool ValidDays(AddAvailabilityDto availabilityDto)
         {
             if (availabilityDto.DaysOfWeek == null)

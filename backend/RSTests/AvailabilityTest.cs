@@ -23,6 +23,10 @@ namespace RSTests
         {
             var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
             var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
+            availabilityMoq.Setup(li => li.IsGoodStartTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.IsGoodEndTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.ValidDays(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            availabilityMoq.Setup(li => li.ValidOccurrence(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
 
             var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
 
@@ -31,18 +35,6 @@ namespace RSTests
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AvailabilityMessages.EmptyStartDate));
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AvailabilityMessages.EmptyEndDate));
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AvailabilityMessages.EmptyDayOfWeek));
-        }
-
-        [Fact]
-        public void WhenRoomId_IsEmpty_NoDatabaseCallIsMade()
-        {
-            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
-            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
-            roomMoq.Setup(li => li.IsActiveRoom(Moq.It.IsAny<int>())).Throws(new Exception("IsActiveRoom is called"));
-
-            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
-
-            var validationResults = validator.Validate(new AddAvailabilityDto());
         }
 
         [Theory]
@@ -99,17 +91,10 @@ namespace RSTests
                 EndDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
-            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
-            availabilityMoq.Setup(li => li.IsGoodStartTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
-            availabilityMoq.Setup(li => li.ValidDays(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
-            availabilityMoq.Setup(li => li.ValidOccurrence(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            var repoMoq = new Moq.Mock<IAvailabilityRepository>(Moq.MockBehavior.Strict);
+            var availabilityService = new AvailabilityService(repoMoq.Object);
 
-            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
-
-            var validationResults = validator.Validate(availability);
-
-            Assert.Equal(isValidEndDate, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectEndTime) == null);
+            Assert.Equal(isValidEndDate, availabilityService.IsGoodEndTime(availability));
         }
         [Theory]
         [InlineData(2018, 02, 20, 10, 0, 0, true)]
@@ -124,16 +109,10 @@ namespace RSTests
                 StartDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
-            availabilityMoq.Setup(li => li.IsGoodEndTime(Moq.It.IsAny<AvailabilityExceptionDto>())).Returns(true);
+            var repoMoq = new Moq.Mock<IAvailabilityRepository>(Moq.MockBehavior.Strict);
+            var availabilityService = new AvailabilityService(repoMoq.Object);
 
-            var validator = new AddExceptionValidator(availabilityMoq.Object);
-
-            var validationResult = validator.Validate(exception);
-
-            Assert.Equal(IsValidStartDate, validationResult.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectStartTime) == null);
-
-
+            Assert.Equal(IsValidStartDate, availabilityService.IsGoodStartTime(exception));
         }
 
         [Theory]
@@ -151,14 +130,10 @@ namespace RSTests
 
             };
 
-            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
-            availabilityMoq.Setup(li => li.IsGoodStartTime(Moq.It.IsAny<AvailabilityExceptionDto>())).Returns(true);
+            var repoMoq = new Moq.Mock<IAvailabilityRepository>(Moq.MockBehavior.Strict);
+            var availabilityService = new AvailabilityService(repoMoq.Object);
 
-            var validator = new AddExceptionValidator(availabilityMoq.Object);
-
-            var validationResult = validator.Validate(exception);
-
-            Assert.Equal(IsValidEndDate, validationResult.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectEndTime) == null);
+            Assert.Equal(IsValidEndDate, availabilityService.IsGoodEndTime(exception));
         }
 
         public class DaysOfWeek
@@ -191,16 +166,10 @@ namespace RSTests
                 DaysOfWeek = d.Days
             };
 
-            var roomMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
-            var availabilityMoq = new Moq.Mock<IAvailabilityService>(Moq.MockBehavior.Strict);
-            availabilityMoq.Setup(li => li.IsGoodStartTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
-            availabilityMoq.Setup(li => li.IsGoodEndTime(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
-            availabilityMoq.Setup(li => li.ValidOccurrence(Moq.It.IsAny<AddAvailabilityDto>())).Returns(true);
+            var repoMoq = new Moq.Mock<IAvailabilityRepository>(Moq.MockBehavior.Strict);
+            var availabilityService = new AvailabilityService(repoMoq.Object);
 
-            var validator = new AddAvailabilityValidator(roomMoq.Object, availabilityMoq.Object);
-
-            var validationResults = validator.Validate(availability);
-            Assert.Equal(d.IsValid, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == AvailabilityMessages.IncorrectDayOfWeek) == null);
+            Assert.Equal(d.IsValid, availabilityService.ValidDays(availability));
         }
 
 
