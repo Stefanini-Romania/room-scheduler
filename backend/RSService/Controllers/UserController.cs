@@ -128,7 +128,6 @@ namespace RSService.Controllers
 
             var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(newUser.Password));
             newUser.Password = BitConverter.ToString(hash).Replace("-", "").ToLower();
-            //string _email, string _pass, int? _department, string _firstname, string _lastname, bool? _isactive, DateTime _dateTime
             User user = new User(newUser.Email, newUser.Password, newUser.DepartmentId, newUser.FirstName, newUser.LastName, true, DateTime.UtcNow);
             
             userRepository.AddUser(user);
