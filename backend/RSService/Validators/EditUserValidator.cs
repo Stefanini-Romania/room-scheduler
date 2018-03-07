@@ -33,17 +33,17 @@ namespace RSService.Validators
         }
       
 
-        private bool IsUniqueEmail(EditUserDto m, String email)
+        private bool IsUniqueEmail(EditUserDto m,String email)
         {
             return _userService.IsUniqueEmailEdit(email, m.Id);
         }
 
-        private bool EmailFormat(EditUserDto m, String email)
+        private bool EmailFormat(String email)
         {
             return _userService.GoodEmailFormat(email);
         }
 
-        private bool IsValidRole(EditUserDto usm, List<int> userRole)
+        private bool IsValidRole(List<int> userRole)
         {
             return _userService.IsValidRole(userRole);
         }
