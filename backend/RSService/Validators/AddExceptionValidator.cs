@@ -40,12 +40,12 @@ namespace RSService.Validators
 
         private bool GoodStartDate(AvailabilityExceptionDto ex, DateTime d)
         {
-            return (d.Date == ex.EndDate.Date);
+            return availabilityService.IsGoodStartDate(ex);
         }
 
         private bool GoodEndDate(AvailabilityExceptionDto ex, DateTime d)
         {
-            return (d.Date == ex.StartDate.Date);
+            return availabilityService.IsGoodEndDate(ex);
         }
 
     }
