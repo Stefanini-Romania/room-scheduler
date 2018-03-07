@@ -202,9 +202,18 @@ namespace RSService.BusinessLogic
             return true;
         }
 
-        public bool ValidStatus(EditAvailabilityDto availabilityDto)
+        public bool IsValidStatus(EditAvailabilityDto availabilityDto)
         {
             if (availabilityDto.Status != 0 && availabilityDto.Status != 1)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool IsValidStatus(EditExceptionDto exceptionDto)
+        {
+            if (exceptionDto.Status != 0 && exceptionDto.Status != 1)
             {
                 return false;
             }

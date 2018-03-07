@@ -60,7 +60,7 @@ namespace RSService.Validators
 
         private bool ValidStatus(EditAvailabilityDto av, int status)
         {
-            return availabilityService.ValidStatus(av);
+            return availabilityService.IsValidStatus(av);
         }
 
 
