@@ -53,6 +53,7 @@
 </div>
 
 <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="absentEvent()"  *ngIf="model.id">{{ 'calendar.buttons.absent.event' | translate }}</button>
     <button type="button" class="btn btn-primary" (click)="cancelEvent()"  *ngIf="model.id">{{ 'calendar.buttons.cancel.event' | translate }}</button>
     <button type="button" class="btn btn-primary" (click)="saveEvent()">{{ 'button.save' | translate }}</button>
 </div>

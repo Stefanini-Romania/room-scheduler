@@ -118,6 +118,7 @@
       "event.edit": "Edit appointment",
       "event.saved": "Appointment saved",
       "event.canceled":"Appointment deleted",
+      "event.absent":"Appointment marked absent",
       "timeStamp": "Created at",
 
       "eventType": {
@@ -126,7 +127,8 @@
       },
 
       "buttons": {
-        "cancel.event": "Cancel Appointment"
+        "cancel.event": "Cancel Appointment",
+        "absent.event": "Mark Absent"
       },
 
       "days": {

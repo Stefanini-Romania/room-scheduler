@@ -103,10 +103,16 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                         // @TODO allow admins and hosts to edit anyway
                         readOnly = true;
                     }   
+                    if (this.authService.getLoggedUser().hasRole(RoleEnum.admin) || this.authService.getLoggedUser().hasRole(RoleEnum.host)){
+                        readOnly = false;
+                    }
                 }
 
                 if ((new Date(event.startDate) <= new Date())&&(this.authService.getLoggedUser().departmentId != null)){
-                    readOnly = true;
+                    if (this.authService.getLoggedUser().hasRole(RoleEnum.admin) || this.authService.getLoggedUser().hasRole(RoleEnum.host)){
+                        readOnly = false;
+                    }
+                    else readOnly = true;
                 }
             }
 
@@ -436,6 +442,10 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         else {
             data.style = '#004e9e'; //blue
+        }
+
+        if (event.eventType == EventTypeEnum.massage && event.eventStatus == EventStatusEnum.absent){
+            data.style = '#C00000'; //red
         }
 
         if ((this.authService.isLoggedIn())) {

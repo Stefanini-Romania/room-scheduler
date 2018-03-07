@@ -119,10 +119,12 @@
       "event.edit": "Editare eveniment",
       "event.saved": "Evenimentul a fost salvat",
       "event.canceled":"Evenimentul a fost anulat",
+      "event.absent":"Evenimentul a fost marcat ca absent",
       "timeStamp": "Data creării",
 
       "buttons": {
-          "cancel.event": "Anulează rezervarea"
+          "cancel.event": "Anulează rezervarea",
+          "absent.event": "Marchează ca absent"
       },
 
       "eventType": {

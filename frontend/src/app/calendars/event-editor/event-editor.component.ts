@@ -47,6 +47,18 @@ export class EventEditorComponent implements OnInit{
             }
         });
     }
+
+    absentEvent() {
+        this.model.eventStatus = EventStatusEnum.absent;
+        this.eventService.save(this.model).subscribe(()=>{
+            this.toastr.success(
+                this.translate.instant('calendar.event.absent'), '',
+                {positionClass: 'toast-bottom-right'}
+            );
+            this.activeModal.close();
+        },
+        error => {});
+    }
     
 
     saveEvent() {
@@ -88,4 +100,5 @@ export class EventEditorComponent implements OnInit{
                 }
             });
     }
+
 }
