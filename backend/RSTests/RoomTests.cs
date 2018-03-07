@@ -7,6 +7,7 @@ using System.Text;
 using Xunit;
 using System.Linq;
 using RSService.Validation;
+using RSRepository;
 
 namespace RSTests
 {
@@ -17,7 +18,9 @@ namespace RSTests
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
             var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
-            rsMoq.Setup(li => li.IsUniqueRoom(Moq.It.IsAny<RoomDto>())).Returns(true);
+           rsMoq.Setup(li => li.IsUniqueRoom(Moq.It.IsAny<RoomDto>())).Returns(true);
+           rsMoq.Setup(li => li.LocationNameMaxLength(Moq.It.IsAny<String>())).Returns(true);
+           rsMoq.Setup(li => li.RoomNameMaxLength(Moq.It.IsAny<String>())).Returns(true);
 
             var validator = new RoomValidator(rsMoq.Object);
 
@@ -41,14 +44,11 @@ namespace RSTests
               Location=locationname
             };
 
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
-            rsMoq.Setup(li => li.IsUniqueRoom(Moq.It.IsAny<RoomDto>())).Returns(true);
+            var rsMoq = new Moq.Mock<IRoomRepository>(Moq.MockBehavior.Strict);
 
-            var validator = new RoomValidator(rsMoq.Object);
+            var roomService = new RoomService(rsMoq.Object);
 
-            var validationResults = validator.Validate(room);
-
-            Assert.Equal(IsValidName, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == RoomMessages.LocationNameLong) == null);
+            Assert.Equal(IsValidName, roomService.LocationNameMaxLength(room.Location));
         }
 
         [Theory]
@@ -62,15 +62,11 @@ namespace RSTests
             {
                 Name = roomname               
             };
+            var rsMoq = new Moq.Mock<IRoomRepository>(Moq.MockBehavior.Strict);
 
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
-            rsMoq.Setup(li => li.IsUniqueRoom(Moq.It.IsAny<RoomDto>())).Returns(true);
+            var roomService = new RoomService(rsMoq.Object);
 
-            var validator = new RoomValidator(rsMoq.Object);
-
-            var validationResults = validator.Validate(room);
-
-            Assert.Equal(IsValidName, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == RoomMessages.RoomNameLong) == null);
+            Assert.Equal(IsValidName, roomService.RoomNameMaxLength(room.Name));
         }
 
     }

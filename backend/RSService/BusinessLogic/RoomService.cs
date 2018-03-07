@@ -40,5 +40,20 @@ namespace RSService.BusinessLogic
             }
             return true;
         }
+
+
+        public bool RoomNameMaxLength(String roomName)
+        {
+            if (roomName.Length > 30)
+                return false;
+            return true;
+        }
+
+        public bool LocationNameMaxLength(String locationName)
+        {
+            if (locationName.Length > 30)
+                return false;
+            return true;
+        }
     }
 }
