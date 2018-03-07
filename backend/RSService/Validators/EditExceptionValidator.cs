@@ -11,9 +11,12 @@ namespace RSService.Validators
 {
     public class EditExceptionValidator : AbstractValidator<EditExceptionDto>
     {
+        IAvailabilityService _availabilityService;
 
-        public EditExceptionValidator()
+        public EditExceptionValidator(IAvailabilityService availabilityService)
         {
+            _availabilityService = availabilityService;
+
             RuleFor(a => a.StartDate).NotEmpty().WithMessage(AvailabilityMessages.EmptyStartDate);
             RuleFor(m => m.StartDate).Must(GoodStartTime).WithMessage(AvailabilityMessages.IncorrectStartTime);
 

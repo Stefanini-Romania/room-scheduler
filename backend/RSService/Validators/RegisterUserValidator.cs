@@ -31,7 +31,7 @@ namespace RSService.Validators
             RuleFor(m => m.FirstName).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyFirstName);
             RuleFor(m => m.LastName).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyLastName);
             RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyPassword);
-            RuleFor(m => m.Password).MinimumLength(6).WithMessage(x => Validation.UserMessages.WeakPassword);
+            RuleFor(m => m.Password).Must(IsGoodPassword).WithMessage(x => Validation.UserMessages.WeakPassword);
 
             //RuleFor(m => m.UserRole).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyUserRole);
             //RuleFor(m => m.UserRole).Must(IsValidRole).WithMessage(x => Validation.UserMessages.UserRoleNotFound);
@@ -42,23 +42,22 @@ namespace RSService.Validators
 
         }
 
-        private bool IsUniqueEmail(RegisterUserDto m, String email)
+        private bool IsUniqueEmail(String email)
         {
             return _userService.IsUniqueEmail(email);
         }
 
-        private bool EmailFormat(RegisterUserDto m , String email)
+        private bool IsGoodPassword(String password)
         {
-           string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"+ "@"+ @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$"; ;
-            if (email!=null)
-            {
-           
-                return Regex.IsMatch(email, MatchEmailPattern);
-            }
-            return false;
+            return _userService.WeakPassword(password);
         }
 
-        private bool IsValidRole(RegisterUserDto usm, List<int> userRole)
+        private bool EmailFormat(String email)
+        {
+            return _userService.GoodEmailFormat(email);
+        }
+
+        private bool IsValidRole(List<int> userRole)
         {
             return _userService.IsValidRole(userRole);  
         }
