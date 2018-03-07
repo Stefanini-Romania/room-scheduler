@@ -17,9 +17,19 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
-            var eventMoq = new Moq.Mock<IEventService>(Moq.MockBehavior.Strict);       
+            var eventMoq = new Moq.Mock<IEventService>(Moq.MockBehavior.Strict);
+            
+            var penaltyMoq = new Moq.Mock<IPenaltyService>(Moq.MockBehavior.Strict);
+            
+            var validator = new CreateEventValidator(eventMoq.Object, penaltyMoq.Object);
 
-          
+            var validationResults = validator.Validate(new AddEventDto());
+            
+            Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == EventMessages.EmptyStartDate));
+
+            Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == EventMessages.EmptyEndDate));
+
+
         }
 
         [Theory]
