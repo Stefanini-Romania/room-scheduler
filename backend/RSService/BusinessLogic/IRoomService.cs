@@ -12,5 +12,9 @@ namespace RSService.BusinessLogic
         bool IsActiveRoom(int roomId);
 
         bool IsUniqueRoom(RoomDto room);
+
+        bool LocationNameMaxLength(String locationName);
+
+        bool RoomNameMaxLength(String roomName);
     }
 }
