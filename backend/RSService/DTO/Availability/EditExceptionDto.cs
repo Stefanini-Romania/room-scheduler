@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace RSService.DTO
 {
-    public class EditExceptionDto
+    public class EditExceptionDto : AvailabilityExceptionDto
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
         public int Status { get; set; }
     }
 }

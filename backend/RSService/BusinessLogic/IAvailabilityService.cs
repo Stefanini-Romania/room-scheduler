@@ -31,7 +31,9 @@ namespace RSService.BusinessLogic
 
         bool ValidOccurrence(AvailabilityDto availabilityDto);
 
-        bool ValidStatus(EditAvailabilityDto availabilityDto);
+        bool IsValidStatus(EditAvailabilityDto availabilityDto);
+
+        bool IsValidStatus(EditExceptionDto exceptionDto);
 
     }
 }
