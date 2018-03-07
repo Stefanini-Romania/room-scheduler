@@ -16,7 +16,8 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            rsMoq.Setup(li => li.IsUniqueRoom(Moq.It.IsAny<RoomDto>())).Returns(true);
 
             var validator = new RoomValidator(rsMoq.Object);
 
@@ -25,7 +26,6 @@ namespace RSTests
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == RoomMessages.EmptyRoomLocation));
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == RoomMessages.EmptyRoomName));
         }
-
 
         // the maximum lenght right now is 30 for both RoomName and locationName
 
@@ -41,7 +41,8 @@ namespace RSTests
               Location=locationname
             };
 
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            rsMoq.Setup(li => li.IsUniqueRoom(Moq.It.IsAny<RoomDto>())).Returns(true);
 
             var validator = new RoomValidator(rsMoq.Object);
 
@@ -62,7 +63,8 @@ namespace RSTests
                 Name = roomname               
             };
 
-            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IRoomService>(Moq.MockBehavior.Strict);
+            rsMoq.Setup(li => li.IsUniqueRoom(Moq.It.IsAny<RoomDto>())).Returns(true);
 
             var validator = new RoomValidator(rsMoq.Object);
 

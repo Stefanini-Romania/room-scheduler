@@ -10,20 +10,22 @@ namespace RSService.Validators
 {
     public class EditParameterValidator : AbstractValidator<SettingsDto>
     {
+        private ISettingsParameterService settingsParameterService;
 
-        public EditParameterValidator()
+        public EditParameterValidator(ISettingsParameterService settingsParameterService)
         {
+            this.settingsParameterService = settingsParameterService;
 
             When(p => p.VarName == "SessionTimeSpan", () =>
             {
                 RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
-                RuleFor(p => p.Value).Must(SessionMaxMinValue).WithMessage(p => Validation.SettingsMessages.SessionValueTooSmallOrTooBig);
+                RuleFor(p => p.Value).Must(IsGoodSessionTime).WithMessage(p => Validation.SettingsMessages.SessionValueTooSmallOrTooBig);
             });
 
             When(p => p.VarName == "EmailReminderTime", () =>
             {
                 RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
-                RuleFor(p => p.Value).Must(EmailMaxMinValue).WithMessage(p => Validation.SettingsMessages.EmailValueTooSmallOrTooBig);
+                RuleFor(p => p.Value).Must(IsGoodReminderTime).WithMessage(p => Validation.SettingsMessages.EmailValueTooSmallOrTooBig);
             });
         
     }
@@ -31,28 +33,17 @@ namespace RSService.Validators
 
         private bool IsNumber(SettingsDto settings, string value)
         {
-            double number;
-
-            if (Double.TryParse(value, out number))
-            {
-                return true;
-            }
-            return false;
+            return settingsParameterService.IsNumber(value);
         }
 
-        private bool EmailMaxMinValue(SettingsDto settings, string value)
+        private bool IsGoodReminderTime(SettingsDto settings, string value)
         {
-            int valoare = Int32.Parse(value);
-            if (valoare >= 10 && valoare <= 60)
-                return true;
-            return false;
+            return settingsParameterService.IsGoodReminderTime(value);
         }
-        private bool SessionMaxMinValue(SettingsDto settings, string value)
+
+        private bool IsGoodSessionTime(SettingsDto settings, string value)
         {
-            int valoare = Int32.Parse(value);
-            if (valoare >= 1 && valoare <= 60)
-                return true;
-            return false;
+            return settingsParameterService.IsGoodSessionTime(value);
         }
 
     }

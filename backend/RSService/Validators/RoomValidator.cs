@@ -24,9 +24,9 @@ namespace RSService.Validators
 
         }
 
-        private bool IsUniqueRoom(RoomDto m, String roomName)
+        private bool IsUniqueRoom(RoomDto room, String roomName)
         {
-            return _roomService.IsUniqueRoom(roomName, m.Location,m.Id);
+            return _roomService.IsUniqueRoom(room);
         }
     }
 }

@@ -14,7 +14,8 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyLogIn()
         {
-            var rsMoq = new Moq.Mock<IUserService>(Moq.MockBehavior.Loose);
+            var rsMoq = new Moq.Mock<IUserService>(Moq.MockBehavior.Strict);
+            rsMoq.Setup(li => li.IsActiveUser(Moq.It.IsAny<string>())).Returns(true);
 
             var validator = new AuthenticationValidator(rsMoq.Object);
 
@@ -22,8 +23,6 @@ namespace RSTests
 
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AuthMessages.EmptyEmail));
             Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == AuthMessages.EmptyPassword));
-            
-            //testtasfadfssss
         }
 
     }

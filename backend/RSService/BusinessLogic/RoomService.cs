@@ -1,4 +1,5 @@
 ﻿using RSRepository;
+using RSService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace RSService.BusinessLogic
             this.roomRepository = roomRepository;
         }
 
-        public bool IsUniqueRoom(String name, String location, int roomid)
+        public bool IsUniqueRoom(RoomDto room)
         {
-            var rooms = roomRepository.GetRoomByNameAndLocation(name, location, roomid);
+            var rooms = roomRepository.GetRoomByNameAndLocation(room.Name, room.Location, room.Id);
 
             if (rooms == null)
             {
