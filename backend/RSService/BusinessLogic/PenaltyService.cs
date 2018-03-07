@@ -18,6 +18,11 @@ namespace RSService.BusinessLogic
             this.penaltyRepository = penaltyRepository;
         }
 
+        public PenaltyService(IPenaltyRepository penaltyRepository)
+        {
+            this.penaltyRepository = penaltyRepository;
+        }
+
 
         //Checks if the attendee has been marked as 'absent' three times in the current month and creates a new penalty entry in database.
 

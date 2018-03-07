@@ -61,6 +61,7 @@ namespace RSTests
             };
 
             var repoMoq = new Moq.Mock<IAvailabilityRepository>(Moq.MockBehavior.Strict);
+
             var availabilityService = new AvailabilityService(repoMoq.Object);
 
             Assert.Equal(isValidOccurrence, availabilityService.ValidOccurrence(availability));

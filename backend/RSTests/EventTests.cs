@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using System.Linq;
-
+using RSRepository;
 
 namespace RSTests
 {
@@ -17,16 +17,8 @@ namespace RSTests
         [Fact]
         public void WhenFields_AreNotFullfield_DenyAdd()
         {
-            var eventMoq = new Moq.Mock<IEventService>(Moq.MockBehavior.Strict);
+            var eventMoq = new Moq.Mock<IEventService>(Moq.MockBehavior.Strict);       
 
-            var penaltyMoq = new Moq.Mock<IPenaltyService>(Moq.MockBehavior.Strict);           
-
-            var validator = new CreateEventValidator(eventMoq.Object, penaltyMoq.Object);
-
-            var validationResults = validator.Validate(new AddEventDto());
-
-            Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == EventMessages.EmptyStartDate));
-            Assert.Equal(1, validationResults.Errors.Count(li => li.ErrorMessage == EventMessages.EmptyEndDate));
           
         }
 
@@ -44,15 +36,12 @@ namespace RSTests
                 StartDate = new DateTime(year, month, day, hour, minute, second)
             };
 
-            var eventMoq = new Moq.Mock<IEventService>(Moq.MockBehavior.Strict);
+            var eventMoq = new Moq.Mock<IEventRepository>(Moq.MockBehavior.Strict);
 
-            var penaltyMoq = new Moq.Mock<IPenaltyService>(Moq.MockBehavior.Strict);
+            var eventService = new EventService(eventMoq.Object);
 
-            var validator = new CreateEventValidator(eventMoq.Object, penaltyMoq.Object);
+            Assert.Equal(isValidStartDate, eventService.IsGoodStartTime(appointment.StartDate));
 
-            var validationResults = validator.Validate(appointment);
-
-            Assert.Equal(isValidStartDate, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == EventMessages.StartDateSpecific) == null);
 
         }
 
@@ -62,20 +51,19 @@ namespace RSTests
         [InlineData(2018, 02, 25, 17, 30, 0, false)]
         public void WhenStartDate_IsInWeekendDays_AllowAdding(int year, int month, int day, int hour, int minute, int second, bool isValidStartDate)
         {
-            AddEventDto appotment = new AddEventDto()
+            AddEventDto appoitment = new AddEventDto()
             {
                 StartDate = new DateTime(year, month, day, hour, minute,second)
             };
 
-            var eventMoq = new Moq.Mock<IEventService>(Moq.MockBehavior.Strict);
+            var eventMoq = new Moq.Mock<IEventRepository>(Moq.MockBehavior.Strict);
 
-            var penaltyMoq = new Moq.Mock<IPenaltyService>(Moq.MockBehavior.Strict);
+            var eventService = new EventService(eventMoq.Object);
 
-            var validator = new CreateEventValidator(eventMoq.Object, penaltyMoq.Object);
 
-            var validationResult = validator.Validate(appotment);
+            Assert.Equal(isValidStartDate, eventService.IsGoodStartTime(appoitment.StartDate));
 
-            Assert.Equal(isValidStartDate, validationResult.Errors.SingleOrDefault(li => li.ErrorMessage == EventMessages.DayOfWeekWeekend) == null);
+
 
         }
 

@@ -19,6 +19,11 @@ namespace RSService.BusinessLogic
             this.availabilityRepository = availabilityRepository;
         }
 
+        public EventService(IEventRepository eventRepository)
+        {
+            this.eventRepository = eventRepository;
+        }
+
         public double GetTimeSpan(DateTime start, DateTime end)
         {
             return (end - start).TotalMinutes;
