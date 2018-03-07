@@ -6,6 +6,7 @@ import {EventStatusEnum} from '../../shared/models/event.model';
 import {EventService} from '../shared/event.service';
 import {Event} from '../../shared/models/event.model';
 import {AuthService} from './../../auth/shared/auth.service';
+import {RoleEnum} from '../../shared/models/role.model';
 
 @Component({
     selector: 'event-editor',
@@ -18,13 +19,17 @@ export class EventEditorComponent implements OnInit{
     public model: Event;
     public title: string;
     public errorMessages: any = {};
+    
 
     constructor(public activeModal: NgbActiveModal, private toastr: ToastrService, private translate: TranslateService, private eventService: EventService, private authService: AuthService) {
     }
 
     ngOnInit() {
-        this.title = this.model.id ? 'calendar.event.edit': 'calendar.event.create';
-        
+        this.title = this.model.id ? 'calendar.event.edit': 'calendar.event.create';  
+    }
+
+    isAttendee(): boolean {
+        return (this.authService.getLoggedUser().hasRole(RoleEnum.attendee));
     }
 
     cancelEvent() {
