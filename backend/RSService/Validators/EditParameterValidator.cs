@@ -31,17 +31,17 @@ namespace RSService.Validators
     }
 
 
-        private bool IsNumber(SettingsDto settings, string value)
+        private bool IsNumber(string value)
         {
             return settingsParameterService.IsNumber(value);
         }
 
-        private bool IsGoodReminderTime(SettingsDto settings, string value)
+        private bool IsGoodReminderTime(string value)
         {
             return settingsParameterService.IsGoodReminderTime(value);
         }
 
-        private bool IsGoodSessionTime(SettingsDto settings, string value)
+        private bool IsGoodSessionTime(string value)
         {
             return settingsParameterService.IsGoodSessionTime(value);
         }

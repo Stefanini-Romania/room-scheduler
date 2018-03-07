@@ -49,7 +49,7 @@ namespace RSTests
 
             var settingsParameterService = new SettingsParameterService();
 
-            Assert.Equal(IsValidData, settingsParameterService.IsGoodSessionTime(value));
+            Assert.Equal(IsValidData, settingsParameterService.IsGoodSessionTime(valaore.Value));
         }
     }
 }
