@@ -71,7 +71,7 @@ namespace RSTests
             var eventService = new EventService(eventMoq.Object);
 
 
-            Assert.Equal(isValidStartDate, eventService.IsGoodStartTime(appoitment.StartDate));
+            Assert.Equal(isValidStartDate, eventService.IsGoodDayOfWeek(appoitment.StartDate));
 
 
 

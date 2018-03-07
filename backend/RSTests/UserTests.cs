@@ -7,6 +7,7 @@ using System.Text;
 using Xunit;
 using System.Linq;
 using RSService.Validation;
+using RSRepository;
 
 namespace RSTests
 {
@@ -35,21 +36,20 @@ namespace RSTests
         [InlineData("asdfg", false)]
         [InlineData("123456", true)]
         [InlineData("1234567890568464", true)]
-        public void WhenPassword_IsWeak_DenyAdd(string pass, bool IsValidPassowrd)
+        public void WhenPassword_IsWeak_DenyAdd(string pass, bool IsValidPassword)
         {
             AddUserDto user = new AddUserDto()
             {
                 Password = pass
             };
 
-            var rsMoq = new Moq.Mock<IUserService>(Moq.MockBehavior.Loose);
+            var userMoq = new Moq.Mock<IUserRepository>(Moq.MockBehavior.Strict);
 
-            var validator = new AddUserValidator(rsMoq.Object);
+            var userService = new UserService(userMoq.Object);
 
-            var validationResults = validator.Validate(user);
+            Assert.Equal(IsValidPassword, userService.WeakPassword(user.Password));
 
-            Assert.Equal(IsValidPassowrd, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == UserMessages.WeakPassword) == null);
-        
+
         }
 
         [Theory]
@@ -62,6 +62,7 @@ namespace RSTests
         [InlineData("alibaba@yahoo.gmail.com", true)]
         [InlineData("alina.com@johnny.com", true)]
         [InlineData("havier@com", false)]
+        [InlineData("haviercom", false)]
         public void WhenEmail_HasWrongFormat_DenyAdd(string email, bool isValidEmail)
         {
             AddUserDto mail = new AddUserDto()
@@ -69,13 +70,11 @@ namespace RSTests
                 Email=email
             };
 
-            var rsMoq = new Moq.Mock<IUserService>(Moq.MockBehavior.Loose);
+            var userMoq = new Moq.Mock<IUserRepository>(Moq.MockBehavior.Strict);
 
-            var validator = new AddUserValidator(rsMoq.Object);
+            var userService = new UserService(userMoq.Object);
 
-            var validationResults = validator.Validate(mail);
-
-            Assert.Equal(isValidEmail, validationResults.Errors.SingleOrDefault(li => li.ErrorMessage == UserMessages.EmailTypeWrong) == null);
+            Assert.Equal(isValidEmail, userService.GoodEmailFormat(mail.Email));
         }
     }
 }

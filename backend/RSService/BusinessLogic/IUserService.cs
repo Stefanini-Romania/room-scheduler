@@ -14,5 +14,9 @@ namespace RSService.BusinessLogic
         bool IsValidRole(List<int> userRole);
 
         bool IsActiveUser(String email);
+
+        bool GoodEmailFormat(string email);
+
+        bool WeakPassword(string pass);
     }
 }
