@@ -10,11 +10,11 @@ namespace RSService.Validators
 {
     public class EditParameterValidator : AbstractValidator<SettingsDto>
     {
-        private ISettingsParameterService settingsParameterService;
+        ISettingsParameterService _settingsParameterService;
 
         public EditParameterValidator(ISettingsParameterService settingsParameterService)
         {
-            this.settingsParameterService = settingsParameterService;
+            _settingsParameterService = settingsParameterService;
 
             When(p => p.VarName == "SessionTimeSpan", () =>
             {
@@ -33,17 +33,17 @@ namespace RSService.Validators
 
         private bool IsNumber(string value)
         {
-            return settingsParameterService.IsNumber(value);
+            return _settingsParameterService.IsNumber(value);
         }
 
         private bool IsGoodReminderTime(string value)
         {
-            return settingsParameterService.IsGoodReminderTime(value);
+            return _settingsParameterService.IsGoodReminderTime(value);
         }
 
         private bool IsGoodSessionTime(string value)
         {
-            return settingsParameterService.IsGoodSessionTime(value);
+            return _settingsParameterService.IsGoodSessionTime(value);
         }
 
     }
