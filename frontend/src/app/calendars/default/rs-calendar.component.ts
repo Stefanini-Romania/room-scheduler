@@ -444,13 +444,12 @@ export class RSCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             data.style = '#004e9e'; //blue
         }
 
-        if (event.eventType == EventTypeEnum.massage && event.eventStatus == EventStatusEnum.absent){
-            data.style = '#C00000'; //red
-        }
-
         if ((this.authService.isLoggedIn())) {
             if (event.attendeeId == this.authService.getLoggedUser().id) {
                 data.style = "#d7dd3b"; //green?
+            }
+            if (event.eventType == EventTypeEnum.massage && event.eventStatus == EventStatusEnum.absent){
+                data.style = '#C00000'; //red
             }
         }
         
