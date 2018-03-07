@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RSService.BusinessLogic
@@ -18,6 +19,12 @@ namespace RSService.BusinessLogic
             _userRepository = userRepository;
             _roleRepository = roleRepository;
         }
+
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
 
         public bool IsUniqueEmail(String email)
         {
@@ -44,6 +51,17 @@ namespace RSService.BusinessLogic
             return true;
         }
 
+        public bool GoodEmailFormat(string email)
+        {
+            string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$"; ;
+            if (email != null)
+            {
+
+                return Regex.IsMatch(email, MatchEmailPattern);
+            }
+            return false;
+        }
+
         public bool IsValidRole(List<int> userRole)
         {
             foreach (var roleId in userRole)
@@ -56,6 +74,14 @@ namespace RSService.BusinessLogic
                 }
             }
             return true;
+        }
+
+        public bool WeakPassword( string pass)
+        {
+            if (pass.Length < 6)
+                return false;
+            return true;
+
         }
 
         public bool IsActiveUser(String email)

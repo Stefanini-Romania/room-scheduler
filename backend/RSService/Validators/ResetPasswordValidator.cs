@@ -10,11 +10,20 @@ namespace RSService.Validators
 {
     public class ResetPasswordValidator : AbstractValidator<ResetPasswordDto>
     {
-        
-        public ResetPasswordValidator()
+        IUserService _userService;
+
+        public ResetPasswordValidator(IUserService userService)
         {
+            _userService = userService;
+
             RuleFor(m => m.Password).NotEmpty().WithMessage(x => Validation.UserMessages.EmptyPassword);
-            RuleFor(m => m.Password).MinimumLength(6).WithMessage(x => Validation.UserMessages.WeakPassword);
+            RuleFor(m => m.Password).Must(IsGoodPassword).WithMessage(x => Validation.UserMessages.WeakPassword);
+        }
+
+
+        private bool IsGoodPassword(String password)
+        {
+            return _userService.WeakPassword(password);
         }
     }
 }

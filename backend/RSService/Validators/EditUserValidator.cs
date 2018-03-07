@@ -40,12 +40,7 @@ namespace RSService.Validators
 
         private bool EmailFormat(EditUserDto m, String email)
         {
-            string MatchEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"+ "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$"; ;
-            if (email != null)
-            {             
-                return Regex.IsMatch(email, MatchEmailPattern);
-            }
-            return false;
+            return _userService.GoodEmailFormat(email);
         }
 
         private bool IsValidRole(EditUserDto usm, List<int> userRole)
