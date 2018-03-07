@@ -136,7 +136,7 @@
     <value>Error.Room.Edit</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Error.Settings.Empty</value>
+    <value>Error.Settings.Edit</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>Error.User.Creation</value>

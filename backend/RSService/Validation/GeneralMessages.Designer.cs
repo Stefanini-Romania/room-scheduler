@@ -115,7 +115,7 @@ namespace RSService.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.Settings.Empty.
+        ///   Looks up a localized string similar to Error.Settings.Edit.
         /// </summary>
         internal static string Settings {
             get {

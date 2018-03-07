@@ -20,17 +20,23 @@ namespace RSService.BusinessLogic
 
         public bool IsGoodReminderTime(string value)
         {
-            int nr = Int32.Parse(value);
-            if (nr >= 10 && nr <= 60)
-                return true;
+
+            if (Int32.TryParse(value, out int nr))
+            {
+                if (nr >= 10 && nr <= 60)
+                    return true;
+            }
             return false;
         }
 
         public bool IsGoodSessionTime(string value)
         {
-            int nr = Int32.Parse(value);
-            if (nr >= 1 && nr <= 60)
-                return true;
+
+            if (Int32.TryParse(value, out int nr))
+            {
+                if (nr >= 1 && nr <= 60)
+                    return true;
+            }
             return false;
         }
 

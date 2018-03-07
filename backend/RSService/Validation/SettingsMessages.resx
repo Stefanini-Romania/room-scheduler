@@ -120,6 +120,12 @@
   <data name="EmailValueTooSmallOrTooBig" xml:space="preserve">
     <value>Settings.Value.EmailTooSmallOrTooBig</value>
   </data>
+  <data name="EmptyValue" xml:space="preserve">
+    <value>Settings.Value.Empty</value>
+  </data>
+  <data name="EmptyVarName" xml:space="preserve">
+    <value>Settings.VarName.Empty</value>
+  </data>
   <data name="SessionValueTooSmallOrTooBig" xml:space="preserve">
     <value>Settings.Value.SessionTooSmallOrTooBig</value>
   </data>

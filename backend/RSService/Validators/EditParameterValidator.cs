@@ -16,16 +16,19 @@ namespace RSService.Validators
         {
             this.settingsParameterService = settingsParameterService;
 
+            RuleFor(p => p.VarName).NotEmpty().WithMessage(Validation.SettingsMessages.EmptyVarName);
+            RuleFor(p => p.Value).NotEmpty().WithMessage(Validation.SettingsMessages.EmptyValue);
+
             When(p => p.VarName == "SessionTimeSpan", () =>
             {
-                RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
-                RuleFor(p => p.Value).Must(IsGoodSessionTime).WithMessage(p => Validation.SettingsMessages.SessionValueTooSmallOrTooBig);
+                RuleFor(p => p.Value).Must(IsNumber).WithMessage(Validation.SettingsMessages.WrongValue);
+                RuleFor(p => p.Value).Must(IsGoodSessionTime).WithMessage(Validation.SettingsMessages.SessionValueTooSmallOrTooBig);
             });
 
             When(p => p.VarName == "EmailReminderTime", () =>
             {
-                RuleFor(p => p.Value).Must(IsNumber).WithMessage(p => Validation.SettingsMessages.WrongValue);
-                RuleFor(p => p.Value).Must(IsGoodReminderTime).WithMessage(p => Validation.SettingsMessages.EmailValueTooSmallOrTooBig);
+                RuleFor(p => p.Value).Must(IsNumber).WithMessage(Validation.SettingsMessages.WrongValue);
+                RuleFor(p => p.Value).Must(IsGoodReminderTime).WithMessage(Validation.SettingsMessages.EmailValueTooSmallOrTooBig);
             });
         
     }
