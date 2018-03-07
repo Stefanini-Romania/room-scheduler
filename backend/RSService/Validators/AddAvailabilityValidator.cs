@@ -61,12 +61,6 @@ namespace RSService.Validators
         private bool ValidOccurrence(AddAvailabilityDto av, int occurrence)
         {
             return availabilityService.ValidOccurrence(av);
-            //if (av.Occurrence != 1 && av.Occurrence != 2 && av.Occurrence != 3 && av.Occurrence != 4)
-            //{
-            //    return false;
-            //}
-
-            //return true;
         }
 
 
