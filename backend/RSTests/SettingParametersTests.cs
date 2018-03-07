@@ -16,6 +16,8 @@ namespace RSTests
         [Theory]
         [InlineData("SessionTimeSpan", "23", true)]
         [InlineData("SessionTimeSpan", "abc", false)]
+        [InlineData("EmailReminderTime", "abc", false)]
+        [InlineData("EmailReminderTime", "33", true)]      
         public void WhenData_IsNumber_AllowEdit(string name,string value, bool IsValidData)
         {
             SettingsDto parameters = new SettingsDto()
@@ -29,10 +31,14 @@ namespace RSTests
             Assert.Equal(IsValidData, settingsParameterService.IsNumber(parameters.Value));
         }
 
+      
+
 
         [Theory]
         [InlineData("SessionTimeSpan","100",false)]
         [InlineData("SessionTimeSpan","30",true)]
+        [InlineData("EmailReminderTime", "100", false)]
+        [InlineData("EmailReminderTime", "30", true)]
         public void WhenValue_IsInGoodRange_AllowEdit(string name ,string value, bool IsValidData)
         {
             SettingsDto valaore = new SettingsDto()
