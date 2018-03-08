@@ -111,9 +111,10 @@ namespace RSService
             // hangfire--
             app.UseHangfireDashboard();
             app.UseHangfireServer();
-            RecurringJob.AddOrUpdate<UserController>(x => x.EventReminder(),Cron.Minutely);
+            RecurringJob.AddOrUpdate<HangFireJobService>(x => x.EventReminder(),Cron.Minutely);
+            RecurringJob.AddOrUpdate<HangFireJobService>(x => x.ChangeEventStatus(), Cron.MinuteInterval(30));
             //----
-         
+
             Mapper.Initialize(Configuration =>
             {
                 Configuration.CreateMap<AddEventDto, Event>().ReverseMap();
