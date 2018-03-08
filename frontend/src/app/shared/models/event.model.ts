@@ -20,7 +20,7 @@ export enum EventStatusEnum {
     cancelled,
     waiting,
     absentChecked,
-    waitingRemindet
+    waitingReminder
 }
 
 export enum EventTypeEnum {
