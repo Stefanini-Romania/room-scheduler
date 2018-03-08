@@ -32,6 +32,10 @@ export class EventEditorComponent implements OnInit{
         return (this.authService.getLoggedUser().hasRole(RoleEnum.attendee));
     }
 
+    hostEvent() {
+        return (this.model.hostId == this.authService.getLoggedUser().id);    
+    }
+
     cancelEvent() {
    
         this.model.eventStatus = EventStatusEnum.cancelled;
