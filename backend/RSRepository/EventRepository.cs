@@ -88,6 +88,15 @@ namespace RSRepository
                           .ToList();              
         } 
 
+        public List<Event> GetEventsByCurrentDate()
+        {
+            return events.Where(e => e.EventStatus == (int)EventStatusEnum.waiting  || e.EventStatus == (int)EventStatusEnum.waitingReminder)
+                         .Where(e => e.StartDate.Date == DateTime.Now.Date)
+                         .Where(e => e.EndDate.Hour == DateTime.Now.Hour)
+                         .Where(e => e.EndDate.Minute == DateTime.Now.Minute)
+                         .ToList();
+        }
+
         public List<Event> GetEventsByDay(DateTime date, int userId)
         {
             return events.Where(e => e.EventStatus != (int)EventStatusEnum.cancelled)

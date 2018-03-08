@@ -6,6 +6,9 @@ import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } fr
 import { AuthService} from './../../auth/shared/auth.service';
 import { DialogService } from './../../shared/services/dialog.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateModule} from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
 //import { environment } from '../../../environments/environment';
 
 describe(`AuthService`, () => {
@@ -15,6 +18,9 @@ describe(`AuthService`, () => {
       imports: [
         HttpClientModule,
         HttpClientTestingModule, 
+        NgbModule.forRoot(),
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([])
         ],
       providers: [AuthService, DialogService, NgbModal]
     });
