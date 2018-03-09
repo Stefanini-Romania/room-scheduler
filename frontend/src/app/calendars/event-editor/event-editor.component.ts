@@ -32,12 +32,12 @@ export class EventEditorComponent implements OnInit{
         return (this.authService.getLoggedUser().hasRole(RoleEnum.attendee));
     }
 
-    hostEvent() {
+    hostEvent(): boolean {
         return (this.model.hostId == this.authService.getLoggedUser().id);    
+        // && this.model.startDate > new Date()
     }
 
     cancelEvent() {
-   
         this.model.eventStatus = EventStatusEnum.cancelled;
         this.eventService.save(this.model).subscribe(()=>{
             this.toastr.success(
@@ -46,8 +46,7 @@ export class EventEditorComponent implements OnInit{
             );
             this.activeModal.close();
         },
-        error => {
-                      
+        error => {           
               if(error.status!=200){
                 this.toastr.warning(
                     this.translate.instant('Event.StartDate.LessThan15Minutes'), '',
@@ -67,6 +66,11 @@ export class EventEditorComponent implements OnInit{
             this.activeModal.close();
         },
         error => {});
+    }
+
+    presentEvent() {
+        this.model.eventStatus = EventStatusEnum.present;
+        this.saveEvent();
     }
     
 

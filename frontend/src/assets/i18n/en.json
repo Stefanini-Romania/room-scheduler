@@ -179,7 +179,8 @@
     "attendee": "Attendee",
     "isActive": "Active",
     "isNotActive": "Inactive",
-    "activated": "The user has been activated"
+    "activated": "The user has been activated",
+    "mark": "Mark as"
   },
 
   "Auth": {

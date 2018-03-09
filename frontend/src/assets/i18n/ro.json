@@ -195,7 +195,8 @@
     "attendee": "Utilizator",
     "isActive": "Activ",
     "isNotActive": "Inactiv",
-    "activated": "Contul de utilizator a fost activat"
+    "activated": "Contul de utilizator a fost activat",
+    "mark": "Marchează ca"
   },
 
   "Auth": {
