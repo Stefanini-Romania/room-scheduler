@@ -12,6 +12,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 //import { environment } from '../../../environments/environment';
 
 describe(`AuthService`, () => {
+  let subject: AuthService = null;
+  let backend: MockBackend = null;
+
+ 
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,10 +26,36 @@ describe(`AuthService`, () => {
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([])
         ],
-      providers: [AuthService, DialogService, NgbModal]
+      providers: [AuthService, DialogService, NgbModal, MockBackend]
     });
   });
 
+  beforeEach(inject([AuthService, MockBackend], (authService: AuthService, mockBackend: MockBackend) => {
+    subject = authService;
+    backend = mockBackend;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
+    
+  }));
+
+  it('login should call endpoint and return it\'s result', () => {
+    backend.connections.subscribe((connection: MockConnection) => {
+      expect(connection.request.method).toEqual(RequestMethod.Post);
+      expect(connection.request.url).toEqual('/login');
+      expect(connection.request.text()).toEqual(JSON.stringify({ username: 'admin@stefanini.com', password: 'admin123456' }));
+      expect(connection.request.headers.get('Content-Type')).toEqual('application/json');
+      let options = new ResponseOptions({
+        body: JSON.stringify({ success: true })
+      });
+      connection.mockRespond(new Response(options));
+    });
+
+    // subject
+    //   .authenticate( 'admin@stefanini.com', 'admin123456' )
+    //   .subscribe((response) => {
+    //     expect(response.json()).toEqual({ success: true });
+    //     ;
+    //   });
+  })
   it('isLoggedIn should return false after creation', inject([AuthService], (service: AuthService) => {
     expect(service.isLoggedIn()).toBeFalsy();
   }));
@@ -36,22 +66,22 @@ describe(`AuthService`, () => {
 
 
 
-//   it(`should send an expected login request`, async(inject([AuthService, HttpTestingController],
-//     (auth: AuthService, backend: HttpTestingController) => {
-//       auth.authenticate('admin@stefanini.com', 'admin123456').subscribe();
+  // it(`should send an expected login request`, async(inject([AuthService, HttpTestingController],
+  //   (auth: AuthService, backend: HttpTestingController) => {
+  //     auth.authenticate('admin@stefanini.com', 'admin123456').subscribe();
 
-//       backend.expectOne((req: HttpRequest<any>) => {
-//           //const url = environment.apiUrl + '/api/auth/login';
-//           const body = JSON.stringify({loginName: 'admin@stefanini.com', password: 'admin123456'});
-//           // const body = new HttpParams({fromString: req.body});
+  //     backend.expectOne((req: HttpRequest<any>) => {
+  //         //const url = environment.apiUrl + '/api/auth/login';
+  //         const body = JSON.stringify({success: true});
+  //         // const body = new HttpParams({fromString: req.body});
 
-//         return req.url === 'auth/login'        
-//           && req.method === 'POST'
-//           && req.headers.get('Content-Type') === 'application/json'
-//           && req.body.get('loginName') === 'admin@stefanini.com'
-//           && req.body.get('password') === 'admin123456';
-//       }, `POST to 'auth/login' with loginName and password`);
-//   })));
+  //       return req.url === 'auth/login'        
+  //         && req.method === 'POST'
+  //         && req.headers.get('Content-Type') === 'application/json'
+  //         && req.body.get('loginName') === 'admin@stefanini.com'
+  //         && req.body.get('password') === 'admin123456';
+  //     }, `POST to 'auth/login' with loginName and password`);
+  // })));
 
 //   it(`should emit 'false' for 400 Bad Request`, async(inject([AuthService, HttpTestingController],
 //     (auth: AuthService, backend: HttpTestingController) => {
