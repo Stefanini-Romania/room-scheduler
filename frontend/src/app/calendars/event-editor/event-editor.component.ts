@@ -19,6 +19,7 @@ export class EventEditorComponent implements OnInit{
     public model: Event;
     public title: string;
     public errorMessages: any = {};
+    public markAs: boolean;
     
 
     constructor(public activeModal: NgbActiveModal, private toastr: ToastrService, private translate: TranslateService, private eventService: EventService, private authService: AuthService) {
@@ -26,6 +27,11 @@ export class EventEditorComponent implements OnInit{
 
     ngOnInit() {
         this.title = this.model.id ? 'calendar.event.edit': 'calendar.event.create';  
+        let now = new Date
+        if (new Date(this.model.startDate) > new Date()){
+            this.markAs = false;
+        }
+        else this.markAs = true;
     }
 
     isAttendee(): boolean {
@@ -33,8 +39,7 @@ export class EventEditorComponent implements OnInit{
     }
 
     hostEvent(): boolean {
-        return (this.model.hostId == this.authService.getLoggedUser().id);    
-        // && this.model.startDate > new Date()
+        return (this.model.hostId == this.authService.getLoggedUser().id);
     }
 
     cancelEvent() {
